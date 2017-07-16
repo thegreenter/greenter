@@ -22,12 +22,12 @@
     },
 	"autoload": {
         "psr-4": {
-            "Imm\\Greenter\\": "src/Greenter/"
+            "Greenter\\": "src/Greenter/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Imm\\Greenter\\Tests\\": "tests/"
+            "Tests\\": "tests/"
         }
     }
 }
