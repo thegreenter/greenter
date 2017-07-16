@@ -1,6 +1,6 @@
 {
     "name": "giansalex/greenter",
-    "description": "Implementación de la Facturacion Electrónica SUNAT - Perú.",
+    "description": "Implementación de la Facturacion Electrónica SUNAT - Perú",
     "keywords": ["sunat", "xml", "facturacion electronica"],
     "license": "DBAD",
     "authors": [
@@ -12,12 +12,13 @@
     "homepage": "https://github.com/giansalex/greenter",
     "type": "project",
     "require": {
-		"php": ">=5.4",
+		"php": ">=5.5.9",
         "giansalex/xmldsig": "^2.1",
-        "twig/twig": "~1.0"
+        "twig/twig": "~1.0",
+        "symfony/validator": "^3.3"
     },
 	"require-dev": {
-		"phpunit/phpunit": "5.2.*"
+        "phpunit/phpunit": "4.8.36"
     },
 	"autoload": {
         "psr-4": {
