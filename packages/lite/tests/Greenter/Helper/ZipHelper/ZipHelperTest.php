@@ -9,13 +9,12 @@
 namespace Tests\Greenter\Helper\ZipHelper;
 
 use Greenter\Helper\ZipHelper;
-use PHPUnit_Framework_TestCase;
 
 /**
  * Class ZipHelperTest
  * @package Tests\Greenter\Helper\ZipHelper
  */
-class ZipHelperTest extends PHPUnit_Framework_TestCase
+class ZipHelperTest extends \PHPUnit_Framework_TestCase
 {
     public function testCompressFile()
     {

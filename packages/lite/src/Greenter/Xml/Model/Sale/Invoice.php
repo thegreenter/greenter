@@ -83,55 +83,55 @@ class Invoice
     private $tipoMoneda;
 
     /**
-     * @var double
+     * @var float
      */
     private $sumDsctoGlobal;
 
     /**
-     * @var double
+     * @var float
      */
     private $sumOtrosCargos;
 
     /**
-     * @var double
+     * @var float
      */
     private $mtoDescuentos;
 
     /**
      * @Assert\NotBlank()
-     * @var double
+     * @var float
      */
     private $mtoOperGravadas;
 
     /**
      * @Assert\NotBlank()
-     * @var double
+     * @var float
      */
     private $mtoOperInafectas;
 
     /**
      * @Assert\NotBlank()
-     * @var double
+     * @var float
      */
     private $mtoOperExoneradas;
 
     /**
-     * @var double
+     * @var float
      */
     private $mtoOperGratuitas;
 
     /**
-     * @var double
+     * @var float
      */
     private $mtoIGV;
 
     /**
-     * @var double
+     * @var float
      */
     private $mtoISC;
 
     /**
-     * @var double
+     * @var float
      */
     private $mtoOtrosTributos;
 
@@ -139,7 +139,7 @@ class Invoice
      * Importe total de la venta, cesión en uso o del servicio prestado.
      *
      * @Assert\NotBlank()
-     * @var double
+     * @var float
      */
     private $mtoImpVenta;
 
@@ -149,17 +149,17 @@ class Invoice
     private $codRegPercepcion;
 
     /**
-     * @var double
+     * @var float
      */
     private $mtoBaseImponiblePercepcion;
 
     /**
-     * @var double
+     * @var float
      */
     private $mtoPercepcion;
 
     /**
-     * @var double
+     * @var float
      */
     private $mtoTotalIncPercepcion;
 
