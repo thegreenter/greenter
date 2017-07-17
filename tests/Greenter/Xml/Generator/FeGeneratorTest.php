@@ -56,7 +56,7 @@ class FeGeneratorTest extends \PHPUnit_Framework_TestCase
 
     private function assertInvoiceXml($xml)
     {
-        $sXml = new \SimpleXMLElement($xml);
+        @$sXml = new \SimpleXMLElement($xml);
         $sXml->registerXPathNamespace('xs', 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2');
         $id = $sXml->xpath('/xs:Invoice/cbc:ID');
         $lines = $sXml->xpath('//cac:InvoiceLine');
