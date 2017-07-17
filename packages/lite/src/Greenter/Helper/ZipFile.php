@@ -17,35 +17,35 @@ class ZipFile
     /**
      * Whether to echo zip as it's built or return as string from -> file
      *
-     * @var  boolean  $doWrite
+     * @private  boolean  $doWrite
      */
-    var $doWrite      = false;
+    private $doWrite      = false;
     /**
      * Array to store compressed data
      *
-     * @var  array    $datasec
+     * @private  array    $datasec
      */
-    var $datasec      = array();
+    private $datasec      = array();
     /**
      * Central directory
      *
-     * @var  array    $ctrl_dir
+     * @private  array    $ctrl_dir
      */
-    var $ctrl_dir     = array();
+    private $ctrl_dir     = array();
     /**
      * End of central directory record
      *
-     * @var  string   $eof_ctrl_dir
+     * @private  string   $eof_ctrl_dir
      */
-    var $eof_ctrl_dir = "\x50\x4b\x05\x06\x00\x00\x00\x00";
+    private $eof_ctrl_dir = "\x50\x4b\x05\x06\x00\x00\x00\x00";
     /**
      * Last offset position
      *
-     * @var  integer  $old_offset
+     * @private  integer  $old_offset
      */
-    var $old_offset   = 0;
+    private $old_offset   = 0;
     /**
-     * Sets member variable this -> doWrite to true
+     * Sets member privateiable this -> doWrite to true
      * - Should be called immediately after class instantiantion
      * - If set to true, then ZIP archive are echo'ed to STDOUT as each
      *   file is added via this -> addfile(), and central directories are
@@ -57,7 +57,7 @@ class ZipFile
      *
      * @return void
      */
-    function setDoWrite()
+    public function setDoWrite()
     {
         $this -> doWrite = true;
     } // end of the 'setDoWrite()' method
@@ -71,7 +71,7 @@ class ZipFile
      *
      * @access private
      */
-    function unix2DosTime($unixtime = 0)
+    public function unix2DosTime($unixtime = 0)
     {
         $timearray = ($unixtime == 0) ? getdate() : getdate($unixtime);
         if ($timearray['year'] < 1980) {
@@ -100,7 +100,7 @@ class ZipFile
      *
      * @return void
      */
-    function addFile($data, $name, $time = 0)
+    public function addFile($data, $name, $time = 0)
     {
         $name     = str_replace('\\', '/', $name);
         $hexdtime = pack('V', $this->unix2DosTime($time));
@@ -160,7 +160,7 @@ class ZipFile
      *
      * @access public
      */
-    function file()
+    public function file()
     {
         $ctrldir = implode('', $this -> ctrl_dir);
         $header = $ctrldir .

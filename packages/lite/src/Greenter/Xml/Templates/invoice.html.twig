@@ -50,11 +50,14 @@
                         <cbc:ID>1000</cbc:ID>
                         <cbc:Value>CIENT Y 00/100</cbc:Value>
                     </sac:AdditionalProperty>
+                    {% if doc.tipoOperacion %}
                     <sac:SUNATTransaction>
-                        <cbc:ID>${tipoOperacion}</cbc:ID>
+                        <cbc:ID>{{ doc.tipoOperacion }}</cbc:ID>
                     </sac:SUNATTransaction>
+                    {% endif %}
                 </sac:AdditionalInformation>
             </ext:ExtensionContent>
+            <ext:ExtensionContent></ext:ExtensionContent>
         </ext:UBLExtension>
     </ext:UBLExtensions>
     <cbc:UBLVersionID>2.0</cbc:UBLVersionID>

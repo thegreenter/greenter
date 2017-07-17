@@ -52,6 +52,7 @@ class FeGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotEmpty($xml);
         $this->assertInvoiceXml($xml);
+        // file_put_contents('invoice.xml', $xml);
     }
 
     private function assertInvoiceXml($xml)
@@ -63,6 +64,7 @@ class FeGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($id));
         $this->assertEquals('F001-123', $id[0]);
         $this->assertEquals(2, count($lines));
+        $this->assertXmlStringEqualsXmlFile(__DIR__.'/../../Resources/invoice.xml', $xml);
     }
 
     private function getInvoice()

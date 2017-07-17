@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+         xmlns:ccts="urn:un:unece:uncefact:documentation:2"
+         xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+         xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+         xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2"
+         xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1"
+         xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2">
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionContent>
+                <sac:AdditionalInformation>
+                    <sac:AdditionalMonetaryTotal>
+                        <cbc:ID>2005</cbc:ID>
+                        <cbc:PayableAmount currencyID="PEN"></cbc:PayableAmount>
+                    </sac:AdditionalMonetaryTotal>
+                    <sac:AdditionalMonetaryTotal>
+                        <cbc:ID>01</cbc:ID>
+                        <cbc:PayableAmount currencyID="PEN">200</cbc:PayableAmount>
+                    </sac:AdditionalMonetaryTotal>
+                    <sac:AdditionalMonetaryTotal>
+                        <cbc:ID>02</cbc:ID>
+                        <cbc:PayableAmount currencyID="PEN">0</cbc:PayableAmount>
+                    </sac:AdditionalMonetaryTotal>
+                    <sac:AdditionalMonetaryTotal>
+                        <cbc:ID>03</cbc:ID>
+                        <cbc:PayableAmount currencyID="PEN">0</cbc:PayableAmount>
+                    </sac:AdditionalMonetaryTotal>
+                                                            <sac:AdditionalProperty>
+                        <cbc:ID>1000</cbc:ID>
+                        <cbc:Value>CIENT Y 00/100</cbc:Value>
+                    </sac:AdditionalProperty>
+                                    </sac:AdditionalInformation>
+            </ext:ExtensionContent>
+            <ext:ExtensionContent></ext:ExtensionContent>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+    <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+    <cbc:CustomizationID>1.0</cbc:CustomizationID>
+    <cbc:ID>F001-123</cbc:ID>
+    <cbc:IssueDate></cbc:IssueDate>
+    <cbc:InvoiceTypeCode>01</cbc:InvoiceTypeCode>
+    <cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
+                                                                                                                                                                                                                                    <cac:Signature>
+        <cbc:ID>20000000001</cbc:ID>
+        <cbc:Note>GREENTER Builder</cbc:Note>
+        <cac:SignatoryParty>
+            <cac:PartyIdentification>
+                <cbc:ID>20000000001</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name>EMPRESA</cbc:Name>
+            </cac:PartyName>
+            <cac:AgentParty>
+                <cac:PartyIdentification>
+                    <cbc:ID>20000000001</cbc:ID>
+                </cac:PartyIdentification>
+                <cac:PartyName>
+                    <cbc:Name>EMPRESA SAC</cbc:Name>
+                </cac:PartyName>
+                <cac:PartyLegalEntity>
+                    <cbc:RegistrationName>EMPRESA SAC</cbc:RegistrationName>
+                </cac:PartyLegalEntity>
+            </cac:AgentParty>
+        </cac:SignatoryParty>
+        <cac:DigitalSignatureAttachment>
+            <cac:ExternalReference>
+                <cbc:URI>SIGN-GREEN</cbc:URI>
+            </cac:ExternalReference>
+        </cac:DigitalSignatureAttachment>
+    </cac:Signature>
+    <cac:AccountingSupplierParty>
+        <cbc:CustomerAssignedAccountID>20000000001</cbc:CustomerAssignedAccountID>
+        <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+        <cac:Party>
+            <cac:PartyName>
+                <cbc:Name>EMPRESA</cbc:Name>
+            </cac:PartyName>
+            <cac:PostalAddress>
+                <cbc:ID>150101</cbc:ID>
+                <cbc:StreetName>AV LS</cbc:StreetName>
+                <cac:Country>
+                    <cbc:IdentificationCode>PE</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>EMPRESA SAC</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+    <cac:AccountingCustomerParty>
+        <cbc:CustomerAssignedAccountID>20000000001</cbc:CustomerAssignedAccountID>
+        <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+        <cac:Party>
+                        <cac:PartyLegalEntity>
+                <cbc:RegistrationName>EMPRESA 1</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingCustomerParty>
+                                                                                                                                                                                                                <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="PEN">36</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxAmount currencyID="PEN">36</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>1000</cbc:ID>
+                        <cbc:Name>IGV</cbc:Name>
+                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+            <cac:LegalMonetaryTotal>
+        <cbc:AllowanceTotalAmount currencyID="PEN"></cbc:AllowanceTotalAmount>
+        <cbc:ChargeTotalAmount currencyID="PEN"></cbc:ChargeTotalAmount>
+        <cbc:PayableAmount currencyID="PEN">236</cbc:PayableAmount>
+    </cac:LegalMonetaryTotal>
+            <cac:InvoiceLine>
+            <cbc:ID>1</cbc:ID>
+            <cbc:InvoicedQuantity unitCode="NIU">2</cbc:InvoicedQuantity>
+            <cbc:LineExtensionAmount currencyID="PEN">100</cbc:LineExtensionAmount>
+                            <cac:PricingReference>
+                    <cac:AlternativeConditionPrice>
+                        <cbc:PriceAmount currencyID="PEN">50</cbc:PriceAmount>
+                        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+                    </cac:AlternativeConditionPrice>
+                </cac:PricingReference>
+                                                <cac:AllowanceCharge>
+                <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+                <cbc:Amount currencyID="PEN">0</cbc:Amount>
+            </cac:AllowanceCharge>
+                                        <cac:TaxTotal>
+                    <cbc:TaxAmount currencyID="PEN">18</cbc:TaxAmount>
+                    <cac:TaxSubtotal>
+                        <cbc:TaxAmount currencyID="PEN">18</cbc:TaxAmount>
+                        <cac:TaxCategory>
+                            <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+                            <cac:TaxScheme>
+                                <cbc:ID>1000</cbc:ID>
+                                <cbc:Name>IGV</cbc:Name>
+                                <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                            </cac:TaxScheme>
+                        </cac:TaxCategory>
+                    </cac:TaxSubtotal>
+                </cac:TaxTotal>
+                        <cac:Item>
+                <cbc:Description>PROD 1</cbc:Description>
+                <cac:SellersItemIdentification>
+                    <cbc:ID>C02</cbc:ID>
+                </cac:SellersItemIdentification>
+            </cac:Item>
+            <cac:Price>
+                <cbc:PriceAmount currencyID="PEN">50</cbc:PriceAmount>
+            </cac:Price>
+        </cac:InvoiceLine>
+            <cac:InvoiceLine>
+            <cbc:ID>2</cbc:ID>
+            <cbc:InvoicedQuantity unitCode="NIU">2</cbc:InvoicedQuantity>
+            <cbc:LineExtensionAmount currencyID="PEN">100</cbc:LineExtensionAmount>
+                            <cac:PricingReference>
+                    <cac:AlternativeConditionPrice>
+                        <cbc:PriceAmount currencyID="PEN">50</cbc:PriceAmount>
+                        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+                    </cac:AlternativeConditionPrice>
+                </cac:PricingReference>
+                                                <cac:AllowanceCharge>
+                <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+                <cbc:Amount currencyID="PEN">0</cbc:Amount>
+            </cac:AllowanceCharge>
+                                        <cac:TaxTotal>
+                    <cbc:TaxAmount currencyID="PEN">18</cbc:TaxAmount>
+                    <cac:TaxSubtotal>
+                        <cbc:TaxAmount currencyID="PEN">18</cbc:TaxAmount>
+                        <cac:TaxCategory>
+                            <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+                            <cac:TaxScheme>
+                                <cbc:ID>1000</cbc:ID>
+                                <cbc:Name>IGV</cbc:Name>
+                                <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                            </cac:TaxScheme>
+                        </cac:TaxCategory>
+                    </cac:TaxSubtotal>
+                </cac:TaxTotal>
+                        <cac:Item>
+                <cbc:Description>PROD 2</cbc:Description>
+                <cac:SellersItemIdentification>
+                    <cbc:ID>C02</cbc:ID>
+                </cac:SellersItemIdentification>
+            </cac:Item>
+            <cac:Price>
+                <cbc:PriceAmount currencyID="PEN">50</cbc:PriceAmount>
+            </cac:Price>
+        </cac:InvoiceLine>
+    </Invoice>
