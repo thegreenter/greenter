@@ -37,16 +37,22 @@ final class FeGenerator
      */
     private $company;
 
+    /**
+     * Genera una invoice.
+     *
+     * @param Invoice $invoice
+     * @return string
+     */
     public function buildFact(Invoice $invoice)
     {
         $validator = Validation::createValidatorBuilder()
-        ->enableAnnotationMapping()
-        ->getValidator();
+            ->addMethodMapping('loadValidatorMetadata')
+            ->getValidator();
 
         $errors = $validator->validate($invoice);
 
         if ($errors->count() > 0) {
-            return;
+            return '';
         }
 
         $loader = new Twig_Loader_Filesystem(__DIR__ . '/../Templates');
@@ -54,7 +60,7 @@ final class FeGenerator
             'cache' => $this->dirCache,
         ));
 
-        echo $twig->render('invoice.html.twig', [
+        return $twig->render('invoice.html.twig', [
             'doc' => $invoice,
             'emp' => $this->company,
         ]);

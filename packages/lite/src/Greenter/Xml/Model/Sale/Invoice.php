@@ -8,6 +8,7 @@
 
 namespace Greenter\Xml\Model\Sale;
 
+use Greenter\Xml\Validator\InvoiceValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -16,6 +17,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Invoice
 {
+    use InvoiceValidator;
+
     /**
      * Tipo operacion (Catálogo 17).
      * @var string
@@ -168,9 +171,7 @@ class Invoice
     private $NumDocGuia;
 
     /**
-     * @Assert\All({
-     *     @Assert\Valid()
-     * })
+     * @Assert\Valid()
      * @var SaleDetail[]
      */
     private $details;
