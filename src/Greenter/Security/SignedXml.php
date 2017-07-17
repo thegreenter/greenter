@@ -17,9 +17,18 @@ use FR3D\XmlDSig\Adapter\XmlseclibsAdapter;
 class SignedXml
 {
     /**
-     * @var string
+     * @var XmlseclibsAdapter
      */
-    private $key;
+    private $adapter;
+
+    /**
+     * SignedXml constructor.
+     */
+    public function __construct()
+    {
+        $this->adapter = new XmlseclibsAdapter();
+        $this->adapter->addTransform(XmlseclibsAdapter::ENVELOPED);
+    }
 
     /**
      * Firma el contenido del xml y retorna el contenido firmado.
@@ -32,8 +41,7 @@ class SignedXml
         $doc = new \DOMDocument();
         $doc->loadXML($content);
 
-        $adapter = $this->createXmlAdapter();
-        $adapter->sign($doc);
+        $this->adapter->sign($doc);
         return $doc->saveXML();
     }
 
@@ -48,26 +56,22 @@ class SignedXml
         $doc = new \DOMDocument();
         $doc->loadXML($content);
 
-        $adapter = $this->createXmlAdapter();
-        return $adapter->verify($doc);
+        return $this->adapter->verify($doc);
     }
 
     /**
-     * @param string $certify
+     * @param string $key
      */
-    public function setCertificate($certify)
+    public function setPrivateKey($key)
     {
-        $this->key = $certify;
+        $this->adapter->setPrivateKey($key);
     }
 
     /**
-     * @return XmlseclibsAdapter
+     * @param string $key
      */
-    protected function createXmlAdapter()
+    public function setPublicKey($key)
     {
-        $adapter = new XmlseclibsAdapter();
-        $adapter->setPrivateKey($this->key);
-        $adapter->addTransform(XmlseclibsAdapter::ENVELOPED);
-        return $adapter;
+        $this->adapter->setPublicKey($key);
     }
 }
