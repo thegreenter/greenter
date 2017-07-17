@@ -8,6 +8,7 @@
  */
 namespace Greenter\Xml\Generator;
 
+use Greenter\Xml\Model\Company\Company;
 use Greenter\Xml\Model\Sale\Invoice;
 use Greenter\Xml\Model\Sale\Note;
 use Greenter\Xml\Model\Summary\Summary;
@@ -21,8 +22,21 @@ use Twig_Loader_Filesystem;
  * Class FeGenerator
  * @package Greenter\Xml\Generator
  */
-class FeGenerator
+final class FeGenerator
 {
+    /**
+     * Directorio de Cache para las template de Documentos.
+     * @var string
+     */
+    private $dirCache;
+
+    /**
+     * Datos de la Compañia.
+     *
+     * @var Company
+     */
+    private $company;
+
     public function buildFact(Invoice $invoice)
     {
         $validator = Validation::createValidatorBuilder()
@@ -37,10 +51,13 @@ class FeGenerator
 
         $loader = new Twig_Loader_Filesystem(__DIR__ . '/../Templates');
         $twig = new Twig_Environment($loader, array(
-            'cache' => '/cache',
+            'cache' => $this->dirCache,
         ));
 
-        echo $twig->render('invoice.twig', ['doc' => $invoice]);
+        echo $twig->render('invoice.html.twig', [
+            'doc' => $invoice,
+            'emp' => $this->company,
+        ]);
     }
 
     public function buildNote(Note $note)
@@ -57,4 +74,25 @@ class FeGenerator
     {
 
     }
+
+    /**
+     * @param string $dirCache
+     * @return FeGenerator
+     */
+    public function setDirCache($dirCache)
+    {
+        $this->dirCache = $dirCache;
+        return $this;
+    }
+
+    /**
+     * @param Company $company
+     * @return FeGenerator
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+        return $this;
+    }
+
 }

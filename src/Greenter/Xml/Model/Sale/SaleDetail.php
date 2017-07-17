@@ -28,7 +28,7 @@ class SaleDetail
      * Cantidad de unidades por ítem.
      *
      * @Assert\NotBlank()
-     * @var double
+     * @var float
      */
     private $ctdUnidadItem;
 
@@ -58,18 +58,18 @@ class SaleDetail
      * Monto del valor unitario (PrecioUnitario SIN IGV).
      *
      * @Assert\NotBlank()
-     * @var double
+     * @var float
      */
     private $mtoValorUnitario;
 
     /**
-     * @var double
+     * @var float
      */
     private $mtoDsctoItem;
 
     /**
      * @Assert\NotBlank()
-     * @var double
+     * @var float
      */
     private $mtoIgvItem;
 
@@ -81,7 +81,7 @@ class SaleDetail
     private $tipAfeIgv;
 
     /**
-     * @var double
+     * @var float
      */
     private $mtoIscItem;
 
@@ -94,7 +94,7 @@ class SaleDetail
      * Precio de venta unitario por item.
      *
      * @Assert\NotBlank()
-     * @var double
+     * @var float
      */
     private $mtoPrecioVentaItem;
 
@@ -102,19 +102,19 @@ class SaleDetail
      * Valor de venta por ítem. (Total).
      *
      * @Assert\NotBlank()
-     * @var double
+     * @var float
      */
     private $mtoValorVentaItem;
 
     /**
      * Valor referencial unitario por ítem en operaciones no onerosas (gratuita).
      *
-     * @var double
+     * @var float
      */
     private $mtoValorUnitarioGratuito;
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCodUnidadMedida()
     {
@@ -122,7 +122,7 @@ class SaleDetail
     }
 
     /**
-     * @param mixed $codUnidadMedida
+     * @param string $codUnidadMedida
      * @return SaleDetail
      */
     public function setCodUnidadMedida($codUnidadMedida)
@@ -132,7 +132,7 @@ class SaleDetail
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getCtdUnidadItem()
     {
@@ -140,7 +140,7 @@ class SaleDetail
     }
 
     /**
-     * @param mixed $ctdUnidadItem
+     * @param float $ctdUnidadItem
      * @return SaleDetail
      */
     public function setCtdUnidadItem($ctdUnidadItem)
