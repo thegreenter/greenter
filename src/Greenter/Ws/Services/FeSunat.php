@@ -22,7 +22,7 @@ class FeSunat extends BaseSunat
     public function __construct($user, $password)
     {
         parent::__construct($user, $password);
-        parent::setUrlWsdl(FeSunat::WSDL_ENDPOINT);
+        $this->setUrlWsdl(FeSunat::WSDL_ENDPOINT);
     }
 
     public function send($filename, $content)
@@ -30,10 +30,11 @@ class FeSunat extends BaseSunat
         $client = parent::getClient();
 
         try {
-            $response = $client->__soapCall('sendBill', [
+            $params = [
                 'fileName' => $filename,
                 'contentFile' => $content,
-            ]);
+            ];
+            $response = $client->__soapCall('sendBill', [ 'parameters' => $params ]);
             return $response->applicationResponse;
 //            $entry = readXml( $response->applicationResponse, 'R-20600055519-01-F001-00000001.xml');
 //            if (!empty($entry)) {
@@ -44,8 +45,6 @@ class FeSunat extends BaseSunat
         }
         catch (\Exception $e) {
             return $client->__getLastResponse();
-//    echo "<h2>Exception Error!</h2>";
-//    echo $e->getMessage();
         }
     }
 }

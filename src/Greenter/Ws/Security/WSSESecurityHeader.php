@@ -34,6 +34,6 @@ class WSSESecurityHeader extends SoapHeader {
             )),
             SOAP_ENC_OBJECT
         );
-        parent::__construct($wsseNamespace, 'Security', $security, false);
+        $this->SoapHeader($wsseNamespace, 'Security', $security, false);
     }
 }

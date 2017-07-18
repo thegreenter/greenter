@@ -43,7 +43,6 @@ trait InvoiceValidator
             new Assert\NotBlank(),
             new Assert\Length(['max' => 100]),
         ]);
-        $metadata->addPropertyConstraint('direccionUsuario', new Assert\Length(['max' => 100]));
         $metadata->addPropertyConstraints('tipoMoneda', [
             new Assert\NotBlank(),
             new Assert\Length(['max' => 3]),
@@ -53,5 +52,7 @@ trait InvoiceValidator
         $metadata->addPropertyConstraint('mtoOperExoneradas', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoImpVenta', new Assert\NotBlank());
         $metadata->addPropertyConstraint('details', new Assert\Valid());
+        $metadata->addPropertyConstraint('legends', new Assert\Valid());
+        $metadata->addPropertyConstraint('relDocs', new Assert\Valid());
     }
 }

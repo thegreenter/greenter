@@ -8,7 +8,6 @@
 
 namespace Tests\Greenter\Xml\Generator;
 
-use Doctrine\Common\Annotations\AnnotationRegistry;
 use Greenter\Xml\Generator\FeGenerator;
 use Greenter\Xml\Model\Company\Address;
 use Greenter\Xml\Model\Company\Company;
