@@ -140,18 +140,6 @@
         <cbc:CustomerAssignedAccountID>{{ doc.numDocUsuario }}</cbc:CustomerAssignedAccountID>
         <cbc:AdditionalAccountID>{{ doc.tipoDocUsuario }}</cbc:AdditionalAccountID>
         <cac:Party>
-            {% if doc.direccionUsuario %}
-                <cac:PostalAddress>
-                    <cbc:ID />
-                    <cbc:StreetName>{{ doc.direccionUsuario }}</cbc:StreetName>
-                    <cac:Country>
-                        <cbc:IdentificationCode/>
-                    </cac:Country>
-                </cac:PostalAddress>
-                <cac:PhysicalLocation>
-                    <cbc:Description>{{ doc.direccionUsuario }}</cbc:Description>
-                </cac:PhysicalLocation>
-            {% endif %}
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName>{{ doc.rznSocialUsuario }}</cbc:RegistrationName>
             </cac:PartyLegalEntity>

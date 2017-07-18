@@ -15,9 +15,7 @@
 		"php": ">=5.5.9",
         "giansalex/xmldsig": "^2.1",
         "twig/twig": "~1.0",
-        "symfony/validator": "^3.3",
-        "doctrine/annotations": "^1.4",
-        "doctrine/cache": "^1.6"
+        "symfony/validator": "^3.3"
     },
 	"require-dev": {
         "phpunit/phpunit": "4.8.36"
