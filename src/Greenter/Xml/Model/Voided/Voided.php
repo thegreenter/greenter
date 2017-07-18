@@ -7,6 +7,8 @@
  */
 
 namespace Greenter\Xml\Model\Voided;
+
+use Greenter\Xml\Validator\VoidedValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -15,6 +17,14 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Voided
 {
+    use VoidedValidator;
+
+    /**
+     * @Assert\Length(max="3")
+     * @var string
+     */
+    private $correlativo;
+
     /**
      * @Assert\Date()
      * @var \DateTime
@@ -39,6 +49,24 @@ class Voided
     public function __construct()
     {
         $this->fecGeneracion = new \DateTime();
+    }
+
+    /**
+     * @return string
+     */
+    public function getCorrelativo()
+    {
+        return $this->correlativo;
+    }
+
+    /**
+     * @param string $correlativo
+     * @return Voided
+     */
+    public function setCorrelativo($correlativo)
+    {
+        $this->correlativo = $correlativo;
+        return $this;
     }
 
     /**

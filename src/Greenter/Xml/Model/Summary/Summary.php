@@ -8,7 +8,10 @@
 
 namespace Greenter\Xml\Model\Summary;
 
-
+/**
+ * Class Summary
+ * @package Greenter\Xml\Model\Summary
+ */
 class Summary
 {
 

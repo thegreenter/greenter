@@ -8,6 +8,7 @@
 
 namespace Greenter\Xml\Model\Voided;
 
+use Greenter\Xml\Validator\VoidedDetailValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -16,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class VoidedDetail
 {
+    use VoidedDetailValidator;
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max="2")
