@@ -11,10 +11,15 @@ namespace Greenter\Xml\Validator;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
+/**
+ * Trait InvoiceValidator
+ * @package Greenter\Xml\Validator
+ */
 trait InvoiceValidator
 {
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
+        $metadata->addPropertyConstraint('correlativo', new Assert\Length(['max' => 3]));
         $metadata->addPropertyConstraints('tipoDoc', [
             new Assert\NotBlank(),
             new Assert\Length([
