@@ -8,48 +8,37 @@
 
 namespace Tests\Greenter\Xml\Generator;
 
-use Greenter\Xml\Generator\FeGenerator;
-use Greenter\Xml\Model\Company\Address;
-use Greenter\Xml\Model\Company\Company;
 use Greenter\Xml\Model\Sale\Invoice;
 use Greenter\Xml\Model\Sale\Legend;
 use Greenter\Xml\Model\Sale\SaleDetail;
-use Symfony\Component\Validator\Validation;
+
 /**
- * Class FeGeneratorTest
+ * Class FeInvoiceGeneratorTest
  * @package Tests\Greenter\Xml\Generator
  */
-class FeGeneratorTest extends \PHPUnit_Framework_TestCase
+class FeInvoiceGeneratorTest extends \PHPUnit_Framework_TestCase
 {
+    use FeGeneratorTrait;
+
     public function testValidateInvoice()
     {
-//        $loader = require __DIR__ . '/../../../../vendor/autoload.php';
-//
-//        AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
         $invoice = $this->getInvoice();
-
-        $validator = Validation::createValidatorBuilder()
-            ->addMethodMapping('loadValidatorMetadata')
-            ->getValidator();
-
+        $validator = $this->getValidator();
         $errors = $validator->validate($invoice);
 
-        $this->assertTrue($errors->count() == 0);
+        $this->assertEquals(0,$errors->count());
     }
 
     public function testCreateXmlInvoice()
     {
         $invoice = $this->getInvoice();
 
-        $generator = new FeGenerator();
-        $generator
-            ->setCompany($this->getCompany())
-            ->setDirCache(sys_get_temp_dir());
-        $xml = $generator->buildFact($invoice);
+        $generator = $this->getGenerator();
+        $xml = $generator->buildInvoice($invoice);
 
         $this->assertNotEmpty($xml);
         $this->assertInvoiceXml($xml);
-        // file_put_contents('invoice.xml', $xml);
+        file_put_contents('invoice.xml', $xml);
     }
 
     private function assertInvoiceXml($xml)
@@ -109,29 +98,12 @@ class FeGeneratorTest extends \PHPUnit_Framework_TestCase
             ->setMtoPrecioUnitario(56);
 
         $legend = new Legend();
-        $legend->setCode('10002')
+        $legend->setCode('1000')
             ->setValue('SON N SOLES');
 
         $invoice->setDetails([$detail1, $detail2])
             ->setLegends([$legend]);
 
         return $invoice;
-    }
-
-    private function getCompany()
-    {
-        $company = new Company();
-        $address = new Address();
-        $address->setUbigueo('150101')
-            ->setDepartamento('LIMA')
-            ->setProvincia('LIMA')
-            ->setDistrito('LIMA')
-            ->setDireccion('AV LS');
-        $company->setRuc('20000000001')
-            ->setRazonSocial('EMPRESA SAC')
-            ->setNombreComercial('EMPRESA')
-            ->setAddress($address);
-
-        return $company;
     }
 }

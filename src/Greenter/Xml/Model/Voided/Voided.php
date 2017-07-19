@@ -78,10 +78,12 @@ class Voided
 
     /**
      * @param \DateTime $fecGeneracion
+     * @return Voided
      */
     public function setFecGeneracion($fecGeneracion)
     {
         $this->fecGeneracion = $fecGeneracion;
+        return $this;
     }
 
     /**
@@ -94,10 +96,12 @@ class Voided
 
     /**
      * @param \DateTime $fecComunicacion
+     * @return Voided
      */
     public function setFecComunicacion($fecComunicacion)
     {
         $this->fecComunicacion = $fecComunicacion;
+        return $this;
     }
 
     /**
@@ -110,9 +114,11 @@ class Voided
 
     /**
      * @param VoidedDetail[] $details
+     * @return Voided
      */
     public function setDetails($details)
     {
         $this->details = $details;
+        return $this;
     }
 }

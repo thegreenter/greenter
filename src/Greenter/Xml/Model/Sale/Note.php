@@ -109,7 +109,7 @@ class Note extends BaseSale
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTipDocAfectado()
     {
@@ -117,7 +117,7 @@ class Note extends BaseSale
     }
 
     /**
-     * @param mixed $tipDocAfectado
+     * @param string $tipDocAfectado
      * @return Note
      */
     public function setTipDocAfectado($tipDocAfectado)

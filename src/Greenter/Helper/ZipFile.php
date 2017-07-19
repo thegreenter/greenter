@@ -104,28 +104,28 @@ class ZipFile
     {
         $name     = str_replace('\\', '/', $name);
         $hexdtime = pack('V', $this->unix2DosTime($time));
-        $fr   = "\x50\x4b\x03\x04";
-        $fr   .= "\x14\x00";            // ver needed to extract
-        $fr   .= "\x00\x00";            // gen purpose bit flag
-        $fr   .= "\x08\x00";            // compression method
-        $fr   .= $hexdtime;             // last mod time and date
+        $frd   = "\x50\x4b\x03\x04";
+        $frd   .= "\x14\x00";            // ver needed to extract
+        $frd   .= "\x00\x00";            // gen purpose bit flag
+        $frd   .= "\x08\x00";            // compression method
+        $frd   .= $hexdtime;             // last mod time and date
         // "local file header" segment
         $unc_len = strlen($data);
         $crc     = crc32($data);
         $zdata   = gzcompress($data);
         $zdata   = substr(substr($zdata, 0, strlen($zdata) - 4), 2); // fix crc bug
         $c_len   = strlen($zdata);
-        $fr      .= pack('V', $crc);             // crc32
-        $fr      .= pack('V', $c_len);           // compressed filesize
-        $fr      .= pack('V', $unc_len);         // uncompressed filesize
-        $fr      .= pack('v', strlen($name));    // length of filename
-        $fr      .= pack('v', 0);                // extra field length
-        $fr      .= $name;
+        $frd      .= pack('V', $crc);             // crc32
+        $frd      .= pack('V', $c_len);           // compressed filesize
+        $frd      .= pack('V', $unc_len);         // uncompressed filesize
+        $frd      .= pack('v', strlen($name));    // length of filename
+        $frd      .= pack('v', 0);                // extra field length
+        $frd      .= $name;
         // "file data" segment
-        $fr .= $zdata;
+        $frd .= $zdata;
         // echo this entry on the fly, ...
         if ( !$this -> doWrite) {
-            $this -> datasec[] = $fr;
+            $this -> datasec[] = $frd;
         }
         // now add to central directory record
         $cdrec = "\x50\x4b\x01\x02";
@@ -145,7 +145,7 @@ class ZipFile
         $cdrec .= pack('V', 32);            // external file attributes
         // - 'archive' bit set
         $cdrec .= pack('V', $this -> old_offset); // relative offset of local header
-        $this -> old_offset += strlen($fr);
+        $this -> old_offset += strlen($frd);
         $cdrec .= $name;
         // optional extra field, file comment goes here
         // save to central directory

@@ -28,15 +28,24 @@ trait SummaryDetailValidator
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
-            new Assert\Length([ 'max' => 4]),
+            new Assert\Length([
+                'min' => 4,
+                'max' => 4,
+            ]),
         ]);
-        $metadata->addPropertyConstraints('correlativo', [
+        $metadata->addPropertyConstraints('docInicio', [
             new Assert\NotBlank(),
             new Assert\Length(['max' => 8]),
         ]);
-        $metadata->addPropertyConstraints('desMotivoBaja', [
+        $metadata->addPropertyConstraints('docFin', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 100]),
+            new Assert\Length(['max' => 8]),
         ]);
+        $metadata->addPropertyConstraint('total', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('mtoOperGravadas', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('mtoOperInafectas', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('mtoOperExoneradas', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('mtoIGV', new Assert\NotBlank());
+
     }
 }

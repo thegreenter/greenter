@@ -12,9 +12,9 @@
     </ext:UBLExtensions>
     <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
     <cbc:CustomizationID>1.0</cbc:CustomizationID>
-    <cbc:ID>RA-{{ doc.fecComunicacion|date('YMD') }}-{{ doc.correlativo }}</cbc:ID>
-    <cbc:ReferenceDate>{{ doc.fecGeneracion|date('YMD') }}</cbc:ReferenceDate>
-    <cbc:IssueDate>{{ doc.fecComunicacion|date('YMD') }}</cbc:IssueDate>
+    <cbc:ID>RA-{{ doc.fecComunicacion|date('Ymd') }}-{{ doc.correlativo }}</cbc:ID>
+    <cbc:ReferenceDate>{{ doc.fecGeneracion|date('Ymd') }}</cbc:ReferenceDate>
+    <cbc:IssueDate>{{ doc.fecComunicacion|date('Ymd') }}</cbc:IssueDate>
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
         <cbc:Note>GREENTER Builder</cbc:Note>
