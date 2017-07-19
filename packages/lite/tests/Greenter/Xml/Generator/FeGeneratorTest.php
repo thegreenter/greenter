@@ -12,6 +12,7 @@ use Greenter\Xml\Generator\FeGenerator;
 use Greenter\Xml\Model\Company\Address;
 use Greenter\Xml\Model\Company\Company;
 use Greenter\Xml\Model\Sale\Invoice;
+use Greenter\Xml\Model\Sale\Legend;
 use Greenter\Xml\Model\Sale\SaleDetail;
 use Symfony\Component\Validator\Validation;
 /**
@@ -86,15 +87,15 @@ class FeGeneratorTest extends \PHPUnit_Framework_TestCase
             ->setMtoImpVenta(236);
 
         $detail1 = new SaleDetail();
-        $detail1->setCodProducto('C02')
+        $detail1->setCodProducto('C023')
             ->setCodUnidadMedida('NIU')
             ->setCtdUnidadItem(2)
             ->setDesItem('PROD 1')
             ->setMtoIgvItem(18)
             ->setTipAfeIgv('10')
-            ->setMtoValorVentaItem(100)
+            ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
-            ->setMtoPrecioVentaItem(56);
+            ->setMtoPrecioUnitario(56);
 
         $detail2 = new SaleDetail();
         $detail2->setCodProducto('C02')
@@ -103,11 +104,16 @@ class FeGeneratorTest extends \PHPUnit_Framework_TestCase
             ->setDesItem('PROD 2')
             ->setMtoIgvItem(18)
             ->setTipAfeIgv('10')
-            ->setMtoValorVentaItem(100)
+            ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
-            ->setMtoPrecioVentaItem(56);
+            ->setMtoPrecioUnitario(56);
 
-        $invoice->setDetails([$detail1, $detail2]);
+        $legend = new Legend();
+        $legend->setCode('10002')
+            ->setValue('SON N SOLES');
+
+        $invoice->setDetails([$detail1, $detail2])
+            ->setLegends([$legend]);
 
         return $invoice;
     }

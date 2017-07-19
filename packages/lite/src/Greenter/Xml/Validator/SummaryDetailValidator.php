@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Administrador
+ * User: Giansalex
  * Date: 18/07/2017
- * Time: 01:21 PM
+ * Time: 21:22
  */
 
 namespace Greenter\Xml\Validator;
@@ -12,10 +12,10 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Trait VoidedDetailValidator
+ * Trait SummaryDetailValidator
  * @package Greenter\Xml\Validator
  */
-trait VoidedDetailValidator
+trait SummaryDetailValidator
 {
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
@@ -28,10 +28,7 @@ trait VoidedDetailValidator
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
-            new Assert\Length([
-                'min' => 4,
-                'max' => 4,
-            ]),
+            new Assert\Length([ 'max' => 4]),
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),

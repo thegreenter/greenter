@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
-         xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
-         xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
-         xmlns:ccts="urn:un:unece:uncefact:documentation:2"
-         xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
-         xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
-         xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2"
-         xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1"
-         xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2">
+<CreditNote xmlns="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2"
+            xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+            xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+            xmlns:ccts="urn:un:unece:uncefact:documentation:2"
+            xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+            xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+            xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2"
+            xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1"
+            xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2">
     <ext:UBLExtensions>
         <ext:UBLExtension>
             <ext:ExtensionContent>
                 <sac:AdditionalInformation>
-                    <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>2005</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoDescuentos|default(0) }}</cbc:PayableAmount>
-                    </sac:AdditionalMonetaryTotal>
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>01</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas }}</cbc:PayableAmount>
@@ -52,11 +48,6 @@
                             <cbc:Value>{{ leg.value }}</cbc:Value>
                         </sac:AdditionalProperty>
                     {% endfor %}
-                    {% if doc.tipoOperacion %}
-                    <sac:SUNATTransaction>
-                        <cbc:ID>{{ doc.tipoOperacion }}</cbc:ID>
-                    </sac:SUNATTransaction>
-                    {% endif %}
                 </sac:AdditionalInformation>
             </ext:ExtensionContent>
             <ext:ExtensionContent></ext:ExtensionContent>
@@ -66,8 +57,12 @@
     <cbc:CustomizationID>1.0</cbc:CustomizationID>
     <cbc:ID>{{ doc.serie }}-{{ doc.correlativo }}</cbc:ID>
     <cbc:IssueDate>{{ doc.fechaEmision|date('Y-M-D') }}</cbc:IssueDate>
-    <cbc:InvoiceTypeCode>{{ doc.tipoDoc }}</cbc:InvoiceTypeCode>
     <cbc:DocumentCurrencyCode>{{ doc.tipoMoneda }}</cbc:DocumentCurrencyCode>
+    <cac:DiscrepancyResponse>
+        <cbc:ReferenceID>{{ doc.numDocfectado }}</cbc:ReferenceID>
+        <cbc:ResponseCode>{{ doc.codMotivo }}</cbc:ResponseCode>
+        <cbc:Description>{{ doc.desMotivo }}</cbc:Description>
+    </cac:DiscrepancyResponse>
     {#<#list listaRelacionado as relacion>#}
         {#<#if relacion.indDocuRelacionado = "3">#}
             {#<cac:OrderReference>#}
@@ -75,6 +70,12 @@
             {#</cac:OrderReference>#}
         {#</#if>#}
     {#</#list>#}
+    {#<cac:BillingReference>#}
+        {#<cac:InvoiceDocumentReference>#}
+            {#<cbc:ID>{{ doc.numDocfectado }}</cbc:ID>#}
+            {#<cbc:DocumentTypeCode>{{ doc.tipDocAfectado }}</cbc:DocumentTypeCode>#}
+        {#</cac:InvoiceDocumentReference>#}
+    {#</cac:BillingReference>#}
     {#<#list listaRelacionado as relacion>#}
         {#<#if relacion.indDocuRelacionado = "1">#}
             {#<cac:DespatchDocumentReference>#}
@@ -147,24 +148,6 @@
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
-    {#<#list listaRelacionado as relacion>#}
-        {#<#if relacion.indDocuRelacionado = "1">#}
-            {#<cac:PrepaidPayment>#}
-                {#<cbc:ID>${relacion.nroDocuRelacionado}</cbc:ID>#}
-                {#<cbc:PaidAmount currencyID="{{ doc.tipoMoneda }}">${relacion.mtoDocuRelacionado}</cbc:PaidAmount>#}
-                {#<cbc:InstructionID>${relacion.nroDocuEmisor}</cbc:InstructionID>#}
-            {#</cac:PrepaidPayment>#}
-        {#</#if>#}
-    {#</#list>#}
-    {#<#list listaRelacionado as relacion>#}
-        {#<#if relacion.indDocuRelacionado = "3">#}
-            {#<cac:PrepaidPayment>#}
-                {#<cbc:ID>${relacion.nroDocuRelacionado}</cbc:ID>#}
-                {#<cbc:PaidAmount currencyID="{{ doc.tipoMoneda }}">${relacion.mtoDocuRelacionado}</cbc:PaidAmount>#}
-                {#<cbc:InstructionID>${relacion.nroDocuEmisor}</cbc:InstructionID>#}
-            {#</cac:PrepaidPayment>#}
-        {#</#if>#}
-    {#</#list>#}
     {% if doc.mtoISC %}
         {% set iscT = doc.mtoISC|round(2) %}
         <cac:TaxTotal>
@@ -213,12 +196,11 @@
         </cac:TaxTotal>
     {% endif %}
     <cac:LegalMonetaryTotal>
-        <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumDsctoGlobal|default(0) }}</cbc:AllowanceTotalAmount>
         <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0) }}</cbc:ChargeTotalAmount>
         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta }}</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
     {% for detail in doc.details %}
-        <cac:InvoiceLine>
+        <cac:CreditNoteLine>
             <cbc:ID>{{ loop.index }}</cbc:ID>
             <cbc:InvoicedQuantity unitCode="{{ detail.codUnidadMedida }}">{{ detail.ctdUnidadItem }}</cbc:InvoicedQuantity>
             <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta }}</cbc:LineExtensionAmount>
@@ -282,6 +264,6 @@
             <cac:Price>
                 <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario }}</cbc:PriceAmount>
             </cac:Price>
-        </cac:InvoiceLine>
+        </cac:CreditNoteLine>
     {% endfor %}
-</Invoice>
+</CreditNote>

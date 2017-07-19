@@ -41,11 +41,6 @@ class SaleDetail
     private $codProducto;
 
     /**
-     * @var string
-     */
-    private $codProductoSUNAT;
-
-    /**
      * Descripcion del Producto.
      *
      * @Assert\NotBlank()
@@ -99,7 +94,7 @@ class SaleDetail
      * @Assert\NotBlank()
      * @var float
      */
-    private $mtoPrecioVentaItem;
+    private $mtoPrecioUnitario;
 
     /**
      * Valor de venta por ítem. (Total).
@@ -107,14 +102,14 @@ class SaleDetail
      * @Assert\NotBlank()
      * @var float
      */
-    private $mtoValorVentaItem;
+    private $mtoValorVenta;
 
     /**
      * Valor referencial unitario por ítem en operaciones no onerosas (gratuita).
      *
      * @var float
      */
-    private $mtoValorUnitarioGratuito;
+    private $mtoValorGratuito;
 
     /**
      * @return string
@@ -167,24 +162,6 @@ class SaleDetail
     public function setCodProducto($codProducto)
     {
         $this->codProducto = $codProducto;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCodProductoSUNAT()
-    {
-        return $this->codProductoSUNAT;
-    }
-
-    /**
-     * @param string $codProductoSUNAT
-     * @return SaleDetail
-     */
-    public function setCodProductoSUNAT($codProductoSUNAT)
-    {
-        $this->codProductoSUNAT = $codProductoSUNAT;
         return $this;
     }
 
@@ -317,54 +294,54 @@ class SaleDetail
     /**
      * @return float
      */
-    public function getMtoPrecioVentaItem()
+    public function getMtoPrecioUnitario()
     {
-        return $this->mtoPrecioVentaItem;
+        return $this->mtoPrecioUnitario;
     }
 
     /**
-     * @param float $mtoPrecioVentaItem
+     * @param float $mtoPrecioUnitario
      * @return SaleDetail
      */
-    public function setMtoPrecioVentaItem($mtoPrecioVentaItem)
+    public function setMtoPrecioUnitario($mtoPrecioUnitario)
     {
-        $this->mtoPrecioVentaItem = $mtoPrecioVentaItem;
+        $this->mtoPrecioUnitario = $mtoPrecioUnitario;
         return $this;
     }
 
     /**
      * @return float
      */
-    public function getMtoValorVentaItem()
+    public function getMtoValorVenta()
     {
-        return $this->mtoValorVentaItem;
+        return $this->mtoValorVenta;
     }
 
     /**
-     * @param float $mtoValorVentaItem
+     * @param float $mtoValorVenta
      * @return SaleDetail
      */
-    public function setMtoValorVentaItem($mtoValorVentaItem)
+    public function setMtoValorVenta($mtoValorVenta)
     {
-        $this->mtoValorVentaItem = $mtoValorVentaItem;
+        $this->mtoValorVenta = $mtoValorVenta;
         return $this;
     }
 
     /**
      * @return float
      */
-    public function getMtoValorUnitarioGratuito()
+    public function getMtoValorGratuito()
     {
-        return $this->mtoValorUnitarioGratuito;
+        return $this->mtoValorGratuito;
     }
 
     /**
-     * @param float $mtoValorUnitarioGratuito
+     * @param float $mtoValorGratuito
      * @return SaleDetail
      */
-    public function setMtoValorUnitarioGratuito($mtoValorUnitarioGratuito)
+    public function setMtoValorGratuito($mtoValorGratuito)
     {
-        $this->mtoValorUnitarioGratuito = $mtoValorUnitarioGratuito;
+        $this->mtoValorGratuito = $mtoValorGratuito;
         return $this;
     }
 }

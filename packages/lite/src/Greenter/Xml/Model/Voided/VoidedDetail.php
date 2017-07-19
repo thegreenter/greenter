@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class VoidedDetail
 {
     use VoidedDetailValidator;
+
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max="2")

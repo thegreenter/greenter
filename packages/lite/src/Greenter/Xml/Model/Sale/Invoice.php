@@ -27,6 +27,11 @@ class Invoice extends BaseSale
     /**
      * @var float
      */
+    private $mtoOperGratuitas;
+
+    /**
+     * @var float
+     */
     private $sumDsctoGlobal;
 
     /**
@@ -42,7 +47,7 @@ class Invoice extends BaseSale
     /**
      * @var float
      */
-    private $mtoBaseImponiblePercepcion;
+    private $mtoBasePercepcion;
 
     /**
      * @var float
@@ -52,11 +57,7 @@ class Invoice extends BaseSale
     /**
      * @var float
      */
-    private $mtoTotalIncPercepcion;
-
-    private $TipoDocGuia;
-
-    private $NumDocGuia;
+    private $mtoTotalPercepcion;
 
     /**
      * @return string
@@ -113,6 +114,24 @@ class Invoice extends BaseSale
     }
 
     /**
+     * @return float
+     */
+    public function getMtoOperGratuitas()
+    {
+        return $this->mtoOperGratuitas;
+    }
+
+    /**
+     * @param float $mtoOperGratuitas
+     * @return Invoice
+     */
+    public function setMtoOperGratuitas($mtoOperGratuitas)
+    {
+        $this->mtoOperGratuitas = $mtoOperGratuitas;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getCodRegPercepcion()
@@ -133,18 +152,18 @@ class Invoice extends BaseSale
     /**
      * @return float
      */
-    public function getMtoBaseImponiblePercepcion()
+    public function getMtoBasePercepcion()
     {
-        return $this->mtoBaseImponiblePercepcion;
+        return $this->mtoBasePercepcion;
     }
 
     /**
-     * @param float $mtoBaseImponiblePercepcion
+     * @param float $mtoBasePercepcion
      * @return Invoice
      */
-    public function setMtoBaseImponiblePercepcion($mtoBaseImponiblePercepcion)
+    public function setMtoBasePercepcion($mtoBasePercepcion)
     {
-        $this->mtoBaseImponiblePercepcion = $mtoBaseImponiblePercepcion;
+        $this->mtoBasePercepcion = $mtoBasePercepcion;
         return $this;
     }
 
@@ -169,55 +188,18 @@ class Invoice extends BaseSale
     /**
      * @return float
      */
-    public function getMtoTotalIncPercepcion()
+    public function getMtoTotalPercepcion()
     {
-        return $this->mtoTotalIncPercepcion;
+        return $this->mtoTotalPercepcion;
     }
 
     /**
-     * @param float $mtoTotalIncPercepcion
+     * @param float $mtoTotalPercepcion
      * @return Invoice
      */
-    public function setMtoTotalIncPercepcion($mtoTotalIncPercepcion)
+    public function setMtoTotalPercepcion($mtoTotalPercepcion)
     {
-        $this->mtoTotalIncPercepcion = $mtoTotalIncPercepcion;
+        $this->mtoTotalPercepcion = $mtoTotalPercepcion;
         return $this;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getTipoDocGuia()
-    {
-        return $this->TipoDocGuia;
-    }
-
-    /**
-     * @param mixed $TipoDocGuia
-     * @return Invoice
-     */
-    public function setTipoDocGuia($TipoDocGuia)
-    {
-        $this->TipoDocGuia = $TipoDocGuia;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNumDocGuia()
-    {
-        return $this->NumDocGuia;
-    }
-
-    /**
-     * @param mixed $NumDocGuia
-     * @return Invoice
-     */
-    public function setNumDocGuia($NumDocGuia)
-    {
-        $this->NumDocGuia = $NumDocGuia;
-        return $this;
-    }
-
 }

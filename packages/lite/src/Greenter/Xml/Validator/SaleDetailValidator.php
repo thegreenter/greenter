@@ -30,7 +30,7 @@ trait SaleDetailValidator
         $metadata->addPropertyConstraint('mtoValorUnitario', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoIgvItem', new Assert\NotBlank());
         $metadata->addPropertyConstraint('tipAfeIgv', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoPrecioVentaItem', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoValorVentaItem', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('mtoPrecioUnitario', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('mtoValorVenta', new Assert\NotBlank());
     }
 }
