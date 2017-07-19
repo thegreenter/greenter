@@ -14,22 +14,22 @@
                 <sac:AdditionalInformation>
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>01</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas }}</cbc:PayableAmount>
+                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|number_format(2) }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>02</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas }}</cbc:PayableAmount>
+                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|number_format(2) }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>03</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas }}</cbc:PayableAmount>
+                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|number_format(2) }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     {% if doc.mtoBasePercepcion %}
                         <sac:AdditionalMonetaryTotal>
                             <cbc:ID schemeID="{{ doc.codRegPercepcion }}">2001</cbc:ID>
-                            <sac:ReferenceAmount currencyID="PEN">{{ doc.mtoBasePercepcion }}</sac:ReferenceAmount>
-                            <cbc:PayableAmount currencyID="PEN">{{ doc.mtoPercepcion }}</cbc:PayableAmount>
-                            <sac:TotalAmount currencyID="PEN">{{ doc.mtoTotalPercepcion }}</sac:TotalAmount>
+                            <sac:ReferenceAmount currencyID="PEN">{{ doc.mtoBasePercepcion|number_format(2) }}</sac:ReferenceAmount>
+                            <cbc:PayableAmount currencyID="PEN">{{ doc.mtoPercepcion|number_format(2) }}</cbc:PayableAmount>
+                            <sac:TotalAmount currencyID="PEN">{{ doc.mtoTotalPercepcion|number_format(2) }}</sac:TotalAmount>
                         </sac:AdditionalMonetaryTotal>
                         <sac:AdditionalProperty>
                             <cbc:ID>2000</cbc:ID>
@@ -39,7 +39,7 @@
                     {% if doc.mtoOperGratuitas %}
                         <sac:AdditionalMonetaryTotal>
                             <cbc:ID>1004</cbc:ID>
-                            <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGratuitas }}</cbc:PayableAmount>
+                            <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGratuitas|number_format(2) }}</cbc:PayableAmount>
                         </sac:AdditionalMonetaryTotal>
                     {% endif %}
                     {% for leg in doc.legends %}
@@ -56,7 +56,7 @@
     <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
     <cbc:CustomizationID>1.0</cbc:CustomizationID>
     <cbc:ID>{{ doc.serie }}-{{ doc.correlativo }}</cbc:ID>
-    <cbc:IssueDate>{{ doc.fechaEmision|date('Y-M-D') }}</cbc:IssueDate>
+    <cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
     <cbc:DocumentCurrencyCode>{{ doc.tipoMoneda }}</cbc:DocumentCurrencyCode>
     <cac:DiscrepancyResponse>
         <cbc:ReferenceID>{{ doc.numDocfectado }}</cbc:ReferenceID>
@@ -149,7 +149,7 @@
         </cac:Party>
     </cac:AccountingCustomerParty>
     {% if doc.mtoISC %}
-        {% set iscT = doc.mtoISC|round(2) %}
+        {% set iscT = doc.mtoISC|number_format(2) %}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ iscT }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
@@ -165,7 +165,7 @@
         </cac:TaxTotal>
     {% endif %}
     {% if doc.mtoIGV %}
-        {% set igvT = doc.mtoIGV|round(2) %}
+        {% set igvT = doc.mtoIGV|number_format(2) %}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igvT }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
@@ -181,14 +181,15 @@
         </cac:TaxTotal>
     {% endif %}
     {% if doc.sumOtrosCargos %}
+        {% set othT = doc.sumOtrosCargos|number_format(2) %}
         <cac:TaxTotal>
-            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumOtrosCargos }}</cbc:TaxAmount>
+            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ othT }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
-                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumOtrosCargos }}</cbc:TaxAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ othT }}</cbc:TaxAmount>
                 <cac:TaxCategory>
                     <cac:TaxScheme>
                         <cbc:ID>9999</cbc:ID>
-                        <cbc:Name>$OTROS</cbc:Name>
+                        <cbc:Name>OTROS</cbc:Name>
                         <cbc:TaxTypeCode>>OTH</cbc:TaxTypeCode>
                     </cac:TaxScheme>
                 </cac:TaxCategory>
@@ -196,8 +197,8 @@
         </cac:TaxTotal>
     {% endif %}
     <cac:LegalMonetaryTotal>
-        <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0) }}</cbc:ChargeTotalAmount>
-        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta }}</cbc:PayableAmount>
+        <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0)|number_format(2) }}</cbc:ChargeTotalAmount>
+        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|number_format(2) }}</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
     {% for detail in doc.details %}
         <cac:CreditNoteLine>
@@ -207,14 +208,14 @@
             {% if detail.mtoPrecioUnitario > 0 %}
                 <cac:PricingReference>
                     <cac:AlternativeConditionPrice>
-                        <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario }}</cbc:PriceAmount>
+                        <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|number_format(2) }}</cbc:PriceAmount>
                         <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
                     </cac:AlternativeConditionPrice>
                 </cac:PricingReference>
             {% else %}
                 <cac:PricingReference>
                     <cac:AlternativeConditionPrice>
-                        <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito }}</cbc:PriceAmount>
+                        <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito|number_format(2) }}</cbc:PriceAmount>
                         <cbc:PriceTypeCode>02</cbc:PriceTypeCode>
                     </cac:AlternativeConditionPrice>
                 </cac:PricingReference>
@@ -224,10 +225,11 @@
                 <cbc:Amount currencyID="{{ doc.tipoMoneda }}">0</cbc:Amount>
             </cac:AllowanceCharge>
             {% if detail.mtoIscItem %}
+                {% set isc = detail.mtoIscItem|number_format(2) %}
                 <cac:TaxTotal>
-                    <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoIscItem }}</cbc:TaxAmount>
+                    <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ isc }}</cbc:TaxAmount>
                     <cac:TaxSubtotal>
-                        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoIscItem }}</cbc:TaxAmount>
+                        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ isc }}</cbc:TaxAmount>
                         <cac:TaxCategory>
                             <cbc:TierRange>{{ detail.tipSisIsc }}</cbc:TierRange>
                             <cac:TaxScheme>
@@ -240,10 +242,11 @@
                 </cac:TaxTotal>
             {% endif %}
             {% if detail.mtoIgvItem %}
+                {% set igv = detail.mtoIgvItem|number_format(2) %}
                 <cac:TaxTotal>
-                    <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoIgvItem }}</cbc:TaxAmount>
+                    <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igv }}</cbc:TaxAmount>
                     <cac:TaxSubtotal>
-                        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoIgvItem }}</cbc:TaxAmount>
+                        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igv }}</cbc:TaxAmount>
                         <cac:TaxCategory>
                             <cbc:TaxExemptionReasonCode>{{ detail.tipAfeIgv }}</cbc:TaxExemptionReasonCode>
                             <cac:TaxScheme>
@@ -262,7 +265,7 @@
                 </cac:SellersItemIdentification>
             </cac:Item>
             <cac:Price>
-                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario }}</cbc:PriceAmount>
+                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario|number_format(2) }}</cbc:PriceAmount>
             </cac:Price>
         </cac:CreditNoteLine>
     {% endfor %}

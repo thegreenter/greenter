@@ -14,9 +14,9 @@
     </ext:UBLExtensions>
     <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
     <cbc:CustomizationID>1.0</cbc:CustomizationID>
-    <cbc:ID>RC-{{ doc.fecResumen|date('YMD') }}-{{ doc.correlativo }}</cbc:ID>
-    <cbc:ReferenceDate>{{ doc.fecGeneracion|date('YMD') }}</cbc:ReferenceDate>
-    <cbc:IssueDate>{{ doc.fecResumen|date('YMD') }}</cbc:IssueDate>
+    <cbc:ID>RC-{{ doc.fecResumen|date('Ymd') }}-{{ doc.correlativo }}</cbc:ID>
+    <cbc:ReferenceDate>{{ doc.fecGeneracion|date('Ymd') }}</cbc:ReferenceDate>
+    <cbc:IssueDate>{{ doc.fecResumen|date('Ymd') }}</cbc:IssueDate>
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
         <cbc:Note>GREENTER Builder</cbc:Note>
@@ -50,24 +50,24 @@
             <sac:DocumentSerialID>{{ det.serie }}</sac:DocumentSerialID>
             <sac:StartDocumentNumberID>{{ det.docInicio }}</sac:StartDocumentNumberID>
             <sac:EndDocumentNumberID>{{ det.docFin }}</sac:EndDocumentNumberID>
-            <sac:TotalAmount currencyID="PEN">{{ det.total|round(2) }}</sac:TotalAmount>
+            <sac:TotalAmount currencyID="PEN">{{ det.total|number_format(2) }}</sac:TotalAmount>
             <sac:BillingPayment>
-                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperGravadas|round(2) }}</cbc:PaidAmount>
+                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperGravadas|number_format(2) }}</cbc:PaidAmount>
                 <cbc:InstructionID>01</cbc:InstructionID>
             </sac:BillingPayment>
             <sac:BillingPayment>
-                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperExoneradas|round(2) }}</cbc:PaidAmount>
+                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperExoneradas|number_format(2) }}</cbc:PaidAmount>
                 <cbc:InstructionID>02</cbc:InstructionID>
             </sac:BillingPayment>
             <sac:BillingPayment>
-                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperInafectas|round(2) }}</cbc:PaidAmount>
+                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperInafectas|number_format(2) }}</cbc:PaidAmount>
                 <cbc:InstructionID>03</cbc:InstructionID>
             </sac:BillingPayment>
             <cac:AllowanceCharge>
                 <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
-                <cbc:Amount currencyID="PEN">{{ det.mtoDescuentos|default(0)|round(2) }}</cbc:Amount>
+                <cbc:Amount currencyID="PEN">{{ det.mtoDescuentos|default(0)|number_format(2) }}</cbc:Amount>
             </cac:AllowanceCharge>
-            {% set igv = det.mtoIGV|round(2) %}
+            {% set igv = det.mtoIGV|number_format(2) %}
             <cac:TaxTotal>
                 <cbc:TaxAmount currencyID="PEN">{{ igv }}</cbc:TaxAmount>
                 <cac:TaxSubtotal>
@@ -81,7 +81,7 @@
                     </cac:TaxCategory>
                 </cac:TaxSubtotal>
             </cac:TaxTotal>
-            {% set isc = det.mtoISC|default(0)|round(2) %}
+            {% set isc = det.mtoISC|default(0)|number_format(2) %}
             <cac:TaxTotal>
                 <cbc:TaxAmount currencyID="PEN">{{ isc }}</cbc:TaxAmount>
                 <cac:TaxSubtotal>
@@ -90,13 +90,13 @@
                         <cac:TaxScheme>
                             <cbc:ID>2000</cbc:ID>
                             <cbc:Name>ISC</cbc:Name>
-                            <cbc:TaxTypeCode><![CDATA[EXC]]></cbc:TaxTypeCode>
+                            <cbc:TaxTypeCode>EXC</cbc:TaxTypeCode>
                         </cac:TaxScheme>
                     </cac:TaxCategory>
                 </cac:TaxSubtotal>
             </cac:TaxTotal>
             {% if det.mtoOtrosTributos %}
-            {% set oth = det.mtoOtrosTributos|round(2) %}
+            {% set oth = det.mtoOtrosTributos|number_format(2) %}
             <cac:TaxTotal>
                 <cbc:TaxAmount currencyID="PEN">{{ oth }}</cbc:TaxAmount>
                 <cac:TaxSubtotal>
