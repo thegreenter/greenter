@@ -20,6 +20,7 @@ class Voided
     use VoidedValidator;
 
     /**
+     * @Assert\NotBlank()
      * @Assert\Length(max="3")
      * @var string
      */
@@ -39,12 +40,10 @@ class Voided
     private $fecComunicacion;
 
     /**
-     * @Assert\All({
-     *     @Assert\Valid()
-     * })
+     * @Assert\Valid()
      * @var VoidedDetail[]
      */
-    private $documents;
+    private $details;
 
     public function __construct()
     {
@@ -104,16 +103,16 @@ class Voided
     /**
      * @return VoidedDetail[]
      */
-    public function getDocuments()
+    public function getDetails()
     {
-        return $this->documents;
+        return $this->details;
     }
 
     /**
-     * @param VoidedDetail[] $documents
+     * @param VoidedDetail[] $details
      */
-    public function setDocuments($documents)
+    public function setDetails($details)
     {
-        $this->documents = $documents;
+        $this->details = $details;
     }
 }

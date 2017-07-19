@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Administrador
- * Date: 17/07/2017
- * Time: 10:27 AM
+ * User: Giansalex
+ * Date: 18/07/2017
+ * Time: 22:27
  */
 
 namespace Greenter\Xml\Validator;
@@ -12,10 +12,10 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Trait InvoiceValidator
+ * Trait NoteValidator
  * @package Greenter\Xml\Validator
  */
-trait InvoiceValidator
+trait NoteValidator
 {
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
@@ -58,5 +58,27 @@ trait InvoiceValidator
         $metadata->addPropertyConstraint('details', new Assert\Valid());
         $metadata->addPropertyConstraint('legends', new Assert\Valid());
         $metadata->addPropertyConstraint('relDocs', new Assert\Valid());
+        $metadata->addPropertyConstraints('codMotivo', [
+            new Assert\NotBlank(),
+            new Assert\Length([
+                'min' => 2,
+                'max' => 2,
+            ]),
+        ]);
+        $metadata->addPropertyConstraints('desMotivo', [
+            new Assert\NotBlank(),
+            new Assert\Length([ 'max' => 250]),
+        ]);
+        $metadata->addPropertyConstraints('tipDocAfectado', [
+            new Assert\NotBlank(),
+            new Assert\Length([
+                'min' => 2,
+                'max' => 2,
+            ]),
+        ]);
+        $metadata->addPropertyConstraints('numDocfectado', [
+            new Assert\NotBlank(),
+            new Assert\Length([ 'max' => 13]),
+        ]);
     }
 }
