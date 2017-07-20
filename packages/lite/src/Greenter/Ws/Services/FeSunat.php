@@ -90,9 +90,10 @@ class FeSunat extends BaseSunat
 //            }
 
         }
-        catch (\Exception $e) {
+        catch (\SoapFault $fault) {
             // $client->__getLastResponse()
-            return $e->getMessage();
+            // $fault->faultstring;
+            return $fault->faultcode;
         }
     }
 }

@@ -45,8 +45,9 @@ class FeSunatTest  extends \PHPUnit_Framework_TestCase
     {
         $wss = $this->getSender();
         $wss->setService(FeSunat::HOMOLOGACION);
-        $statusResp = $wss->getStatus('1500523236696');
+        $code = $wss->getStatus('1500523236696');
 
-        $this->assertEquals('-', $statusResp);
+        $this->assertNotEmpty($code);
+        $this->assertTrue(is_numeric($code));
     }
 }

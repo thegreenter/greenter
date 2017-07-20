@@ -12,7 +12,7 @@ Implementación de la Facturación Electrónica Sunat - Perú
 Caracteristicas
 ---------------
 
-* Facturac Electrónica
+* Factura Electrónica
 * Boleta Electrónica
 * Nota de Crédito Electrónica
 * Nota de Débito Electrónica
