@@ -6,7 +6,7 @@
  * Time: 13:48
  */
 
-namespace Tests\Greenter\Helper\ZipHelper;
+namespace Tests\Greenter\Helper;
 
 use Greenter\Helper\ZipHelper;
 

@@ -6,9 +6,8 @@
  * Time: 05:18 PM
  */
 
-namespace tests\Greenter\Ws\Services;
+namespace Tests\Greenter\Ws\Services;
 
-use Greenter\Helper\ZipHelper;
 use Greenter\Ws\Services\FeSunat;
 
 /**
@@ -17,23 +16,37 @@ use Greenter\Ws\Services\FeSunat;
  */
 class FeSunatTest  extends \PHPUnit_Framework_TestCase
 {
-    public function testSend()
+    use FeSunatTrait;
+
+    public function testSendInvoice()
     {
         $nameZip = '20600055519-01-F001-00000001.zip';
         $zip = file_get_contents(__DIR__."/../../Resources/$nameZip");
 
-        $ws = new FeSunat('20600055519MODDATOS', 'moddatos');
-        $ws->setService(FeSunat::BETA);
-        $response = $ws->send($nameZip, $zip);
-        $this->assertNotEmpty($response);
+        $wss = $this->getSender();
+        $response = $wss->send($nameZip, $zip);
+
+        $this->assertFalse(strlen($response) < 200);
         $this->assertXmlResponse($response, 'R-20600055519-01-F001-00000001.xml');
     }
 
-    private function assertXmlResponse($zipContent, $filename)
+    public function testSendVoided()
     {
-        $helper = new ZipHelper();
-        $content = $helper->decompress($zipContent, $filename);
+        $nameZip = '20600995805-RA-20170719-01.zip';
+        $zip = file_get_contents(__DIR__."/../../Resources/$nameZip");
 
-        $this->assertContains('La Factura numero F001-00000001, ha sido aceptada', $content);
+        $wss = $this->getSender();
+        $ticket = $wss->sendSummary($nameZip, $zip);
+
+        $this->assertEquals(13, strlen($ticket));
+    }
+
+    public function testGetStatus()
+    {
+        $wss = $this->getSender();
+        $wss->setService(FeSunat::HOMOLOGACION);
+        $statusResp = $wss->getStatus('1500523236696');
+
+        $this->assertEquals('-', $statusResp);
     }
 }

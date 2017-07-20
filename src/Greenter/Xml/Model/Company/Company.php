@@ -37,12 +37,6 @@ class Company
     private $nombreComercial;
 
     /**
-     * @Assert\NotBlank()
-     * @var string
-     */
-    private $certificate;
-
-    /**
      * @Assert\Valid()
      * @var Address
      */
@@ -99,24 +93,6 @@ class Company
     public function setNombreComercial($nombreComercial)
     {
         $this->nombreComercial = $nombreComercial;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCertificate()
-    {
-        return $this->certificate;
-    }
-
-    /**
-     * @param string $certificate
-     * @return Company
-     */
-    public function setCertificate($certificate)
-    {
-        $this->certificate = $certificate;
         return $this;
     }
 
