@@ -29,6 +29,18 @@ class FeInvoiceGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0,$errors->count());
     }
 
+    public function testNotValidInvoice()
+    {
+        $invoice = $this->getInvoice();
+        $invoice->setTipoDoc('123')
+            ->setSerie('FF000');
+
+        $validator = $this->getValidator();
+        $errors = $validator->validate($invoice);
+
+        $this->assertEquals(2,$errors->count());
+    }
+
     public function testCreateXmlInvoice()
     {
         $invoice = $this->getInvoice();

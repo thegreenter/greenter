@@ -44,7 +44,55 @@ class FeSunat extends BaseSunat
 
         }
         catch (\Exception $e) {
-            return $client->__getLastResponse();
+            // $client->__getLastResponse()
+            return $e->getMessage();
+        }
+    }
+
+    public function sendSummary($filename, $content)
+    {
+        $client = parent::getClient();
+
+        try {
+            $params = [
+                'fileName' => $filename,
+                'contentFile' => $content,
+            ];
+            $response = $client->__soapCall('sendSummary', [ 'parameters' => $params ]);
+            return $response->ticket;
+//            $entry = readXml( $response->applicationResponse, 'R-20600055519-01-F001-00000001.xml');
+//            if (!empty($entry)) {
+//                header('Content-Type: text/xml');
+//                echo $entry;
+//            }
+
+        }
+        catch (\Exception $e) {
+            // $client->__getLastResponse()
+            return $e->getMessage();
+        }
+    }
+
+    public function getStatus($ticket)
+    {
+        $client = parent::getClient();
+
+        try {
+            $params = [
+                'ticket' => $ticket,
+            ];
+            $response = $client->__soapCall('getStatus', [ 'parameters' => $params ]);
+            return $response->statusResponse;
+//            $entry = readXml( $response->applicationResponse, 'R-20600055519-01-F001-00000001.xml');
+//            if (!empty($entry)) {
+//                header('Content-Type: text/xml');
+//                echo $entry;
+//            }
+
+        }
+        catch (\Exception $e) {
+            // $client->__getLastResponse()
+            return $e->getMessage();
         }
     }
 }

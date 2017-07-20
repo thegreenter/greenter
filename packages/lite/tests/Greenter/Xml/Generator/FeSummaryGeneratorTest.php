@@ -28,6 +28,17 @@ class FeSummaryGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($errors));
     }
 
+    public function testNotValidateSummary()
+    {
+        $summary = $this->getSummary();
+        $summary->setFecResumen(null);
+
+        $validator = $this->getValidator();
+        $errors = $validator->validate($summary);
+
+        $this->assertEquals(1, count($errors));
+    }
+
     public function testCreateXmlSummary()
     {
         $summary = $this->getSummary();

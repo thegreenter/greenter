@@ -22,7 +22,7 @@ use Twig_Loader_Filesystem;
  * Class FeGenerator
  * @package Greenter\Xml\Generator
  */
-final class FeGenerator
+final class FeGenerator implements XmlGenerator
 {
     /**
      * Directorio de Cache para las template de Documentos.
@@ -51,11 +51,7 @@ final class FeGenerator
             return '';
         }
 
-        $twig = $this->getRender();
-        return $twig->render('invoice.html.twig', [
-            'doc' => $invoice,
-            'emp' => $this->company,
-        ]);
+        return $this->render('invoice.html.twig', $invoice);
     }
 
     /**
@@ -72,13 +68,10 @@ final class FeGenerator
             return '';
         }
 
-        $template = $note->getTipoDoc() === '07' ? 'notacr.html.twig' : 'notadb.html.twig';
+        $template = $note->getTipoDoc() === '07'
+            ? 'notacr.html.twig' : 'notadb.html.twig';
 
-        $twig = $this->getRender();
-        return $twig->render($template, [
-            'doc' => $note,
-            'emp' => $this->company,
-        ]);
+        return $this->render($template, $note);
     }
 
     /**
@@ -95,11 +88,7 @@ final class FeGenerator
             return '';
         }
 
-        $twig = $this->getRender();
-        return $twig->render('summary.html.twig', [
-            'doc' => $summary,
-            'emp' => $this->company,
-        ]);
+        return $this->render('summary.html.twig', $summary);
     }
 
     /**
@@ -137,10 +126,26 @@ final class FeGenerator
      * @param Company $company
      * @return FeGenerator
      */
-    public function setCompany($company)
+    public function setCompany(Company $company)
     {
         $this->company = $company;
         return $this;
+    }
+
+    /**
+     * Get Content XML from template.
+     *
+     * @param string $template
+     * @param object $doc
+     * @return string
+     */
+    private function render($template, $doc)
+    {
+        $twig = $this->getRender();
+        return $twig->render($template, [
+            'doc' => $doc,
+            'emp' => $this->company,
+        ]);
     }
 
     private function getRender()

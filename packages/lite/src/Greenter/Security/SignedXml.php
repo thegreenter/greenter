@@ -38,8 +38,7 @@ class SignedXml
      */
     public function sign($content)
     {
-        $doc = new \DOMDocument();
-        $doc->loadXML($content);
+        $doc = $this->getDocXml($content);
 
         $this->adapter->sign($doc);
         return $doc->saveXML();
@@ -53,8 +52,7 @@ class SignedXml
      */
     public function verify($content)
     {
-        $doc = new \DOMDocument();
-        $doc->loadXML($content);
+        $doc = $this->getDocXml($content);
 
         return $this->adapter->verify($doc);
     }
@@ -73,5 +71,17 @@ class SignedXml
     public function setPublicKey($key)
     {
         $this->adapter->setPublicKey($key);
+    }
+
+    /**
+     * @param string $content
+     * @return \DOMDocument
+     */
+    private function getDocXml($content)
+    {
+        $doc = new \DOMDocument();
+        $doc->loadXML($content);
+
+        return $doc;
     }
 }
