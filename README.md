@@ -7,7 +7,9 @@ Greenter - Facturacion Electronica
 [![Build Status](https://scrutinizer-ci.com/g/giansalex/greenter/badges/build.png?b=master)](https://scrutinizer-ci.com/g/giansalex/greenter/build-status/master)   
 Implementación de la Facturación Electrónica Sunat - Perú
 
-![Sunat](http://www.sunat.gob.pe/p/imagenes/icons/favicon.ico)
+<p align="center">
+  <img alt="Sunat Facturacion Electronica" src="http://www.sunat.gob.pe/p/imagenes/icons/favicon.ico">
+</p>
 
 Caracteristicas
 ---------------
