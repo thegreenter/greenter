@@ -7,6 +7,11 @@
  */
 
 namespace Greenter\Ws\Services;
+use Greenter\Helper\SunatErrorHelper;
+use Greenter\Helper\ZipHelper;
+use Greenter\Model\Response\BillResult;
+use Greenter\Model\Response\CdrResponse;
+use Greenter\Model\Response\Error;
 
 /**
  * Class FeSunat
@@ -25,9 +30,15 @@ class FeSunat extends BaseSunat
         $this->setUrlWsdl(FeSunat::WSDL_ENDPOINT);
     }
 
+    /**
+     * @param $filename
+     * @param $content
+     * @return BillResult
+     */
     public function send($filename, $content)
     {
-        $client = parent::getClient();
+        $client = $this->getClient();
+        $result = new BillResult();
 
         try {
             $params = [
@@ -35,23 +46,23 @@ class FeSunat extends BaseSunat
                 'contentFile' => $content,
             ];
             $response = $client->__soapCall('sendBill', [ 'parameters' => $params ]);
-            return $response->applicationResponse;
-//            $entry = readXml( $response->applicationResponse, 'R-20600055519-01-F001-00000001.xml');
-//            if (!empty($entry)) {
-//                header('Content-Type: text/xml');
-//                echo $entry;
-//            }
 
+            $cdrZip = $response->applicationResponse;
+            $result
+                ->setCdrResponse($this->extractResponse($cdrZip))
+                ->setCdrZip($cdrZip)
+                ->setSuccess(true);
         }
-        catch (\Exception $e) {
-            // $client->__getLastResponse()
-            return $e->getMessage();
+        catch (\SoapFault $e) {
+            $result->setError($this->getErrorFromFault($e));
         }
+
+        return $result;
     }
 
     public function sendSummary($filename, $content)
     {
-        $client = parent::getClient();
+        $client = $this->getClient();
 
         try {
             $params = [
@@ -60,12 +71,6 @@ class FeSunat extends BaseSunat
             ];
             $response = $client->__soapCall('sendSummary', [ 'parameters' => $params ]);
             return $response->ticket;
-//            $entry = readXml( $response->applicationResponse, 'R-20600055519-01-F001-00000001.xml');
-//            if (!empty($entry)) {
-//                header('Content-Type: text/xml');
-//                echo $entry;
-//            }
-
         }
         catch (\Exception $e) {
             // $client->__getLastResponse()
@@ -75,7 +80,7 @@ class FeSunat extends BaseSunat
 
     public function getStatus($ticket)
     {
-        $client = parent::getClient();
+        $client = $this->getClient();
 
         try {
             $params = [
@@ -83,17 +88,55 @@ class FeSunat extends BaseSunat
             ];
             $response = $client->__soapCall('getStatus', [ 'parameters' => $params ]);
             return $response->statusResponse;
-//            $entry = readXml( $response->applicationResponse, 'R-20600055519-01-F001-00000001.xml');
-//            if (!empty($entry)) {
-//                header('Content-Type: text/xml');
-//                echo $entry;
-//            }
-
         }
         catch (\SoapFault $fault) {
             // $client->__getLastResponse()
             // $fault->faultstring;
             return $fault->faultcode;
         }
+    }
+
+    /**
+     * Get error from Fault Exception.
+     *
+     * @param \SoapFault $fault
+     * @return Error
+     */
+    private function getErrorFromFault(\SoapFault $fault)
+    {
+        $err = new Error();
+        $code = $fault->faultcode;
+        if ($code) {
+            $err->setCode($code);
+            $err->setMessage($fault->faultstring);
+            return $err;
+        }
+        $code = preg_replace('/[^0-9]+/', '', $code);
+        $search = new SunatErrorHelper();
+        $msg = $search->getMessageByCode($code);
+        $err->setCode($code);
+        $err->setMessage($msg);
+        return $err;
+    }
+
+
+    private function extractResponse($zipContent)
+    {
+        $zip = new ZipHelper();
+        $xml = $zip->decompressLastFile($zipContent);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $xp = new \DOMXPath($doc);
+        $xp->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $xp->registerNamespace('xr', 'urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2');
+        $resp = $xp->query('/xr:ApplicationResponse/cac:DocumentResponse/cac:Response');
+
+        $obj = $resp[0]->childNodes;
+        $cdr = new CdrResponse();
+        $cdr->setId($obj[0]->nodeValue)
+            ->setCode($obj[1]->nodeValue)
+            ->setDescription($obj[2]->nodeValue);
+
+        return $cdr;
     }
 }

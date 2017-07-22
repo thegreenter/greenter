@@ -26,8 +26,10 @@ class FeSunatTest  extends \PHPUnit_Framework_TestCase
         $wss = $this->getSender();
         $response = $wss->send($nameZip, $zip);
 
-        $this->assertFalse(strlen($response) < 200);
-        $this->assertXmlResponse($response, 'R-20600055519-01-F001-00000001.xml');
+        $this->assertTrue($response->isSuccess());
+        $this->assertNotNull($response->getCdrResponse());
+        $this->assertContains('La Factura numero F001-00000001, ha sido aceptada',
+            $response->getCdrResponse()->getDescription());
     }
 
     public function testSendVoided()
@@ -44,10 +46,11 @@ class FeSunatTest  extends \PHPUnit_Framework_TestCase
     public function testGetStatus()
     {
         $wss = $this->getSender();
-        $wss->setService(FeSunat::HOMOLOGACION);
+        $wss->setService(FeSunat::BETA);
         $code = $wss->getStatus('1500523236696');
 
         $this->assertNotEmpty($code);
-        $this->assertTrue(is_numeric($code));
+        $code =  preg_replace('/[^0-9]+/', '', $code);
+        $this->assertEquals(200, $code);
     }
 }
