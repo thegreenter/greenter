@@ -8,7 +8,6 @@
 
 namespace Tests\Greenter\Ws\Services;
 
-use Greenter\Helper\ZipHelper;
 use Greenter\Ws\Services\FeSunat;
 
 /**
@@ -22,14 +21,5 @@ trait FeSunatTrait
         $sunat = new FeSunat('20600055519MODDATOS', 'moddatos');
         $sunat->setService(FeSunat::BETA);
         return $sunat;
-    }
-
-    private function assertXmlResponse($zipContent, $filename)
-    {
-        $helper = new ZipHelper();
-        $content = $helper->decompress($zipContent, $filename);
-
-        /**@var $this \PHPUnit_Framework_TestCase*/
-        $this->assertContains('La Factura numero F001-00000001, ha sido aceptada', $content);
     }
 }

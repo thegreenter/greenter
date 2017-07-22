@@ -32,7 +32,7 @@ final class ZipHelper
     }
 
     /**
-     * Retorna el contenido del archivo dentro del zip.
+     * Retorna el contenido del archivo especificado dentro del zip.
      *
      * @param string $zipContent
      * @param string $fileToExtract
@@ -46,6 +46,27 @@ final class ZipHelper
         $output = "";
         if ($zip->open($temp) === true) {
             $output = $zip->getFromName($fileToExtract);
+        }
+        $zip->close();
+        unlink($temp);
+
+        return $output;
+    }
+
+    /**
+     * Retorna el contenido del ultimo archivo dentro del zip.
+     *
+     * @param string $zipContent
+     * @return string
+     */
+    public function decompressLastFile($zipContent)
+    {
+        $temp = tempnam(sys_get_temp_dir(),time() . '.zip');
+        file_put_contents($temp, $zipContent);
+        $zip = new ZipArchive;
+        $output = "";
+        if ($zip->open($temp) === true && $zip->numFiles > 0) {
+            $output = $zip->getFromIndex($zip->numFiles - 1);
         }
         $zip->close();
         unlink($temp);

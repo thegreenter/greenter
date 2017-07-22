@@ -8,7 +8,10 @@
 
 namespace Greenter\Xml\Model\Sale;
 
-
+/**
+ * Class BaseSale
+ * @package Greenter\Xml\Model\Sale
+ */
 class BaseSale
 {
     /**

@@ -33,6 +33,15 @@ class ZipHelperTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('TEST TEXT 1', $content);
     }
 
+    public function testDecompressLastFile()
+    {
+        $zipContent = $this->createZip();
+        $helper = new ZipHelper();
+        $content = $helper->decompressLastFile($zipContent);
+
+        $this->assertEquals('TEST TEXT 1', $content);
+    }
+
     private function createZip()
     {
         $helper = new ZipHelper();
