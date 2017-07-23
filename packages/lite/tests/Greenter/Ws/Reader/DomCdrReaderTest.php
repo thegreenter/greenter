@@ -1,0 +1,52 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Giansalex
+ * Date: 22/07/2017
+ * Time: 16:29
+ */
+
+namespace Tests\Greenter\Ws\Reader;
+use Greenter\Ws\Reader\DomCdrReader;
+
+/**
+ * Class DomCdrReaderTest
+ * @package Tests\Greenter\Ws\Reader
+ */
+class DomCdrReaderTest extends \PHPUnit_Framework_TestCase
+{
+    public function testGetResponse()
+    {
+        $path = __DIR__ . '/../../Resources/R-20600995805-01-F001-1.xml';
+        $xml = file_get_contents($path);
+        $reader = new DomCdrReader();
+        $cdr = $reader->getCdrResponse($xml);
+
+        $this->assertNotEmpty($cdr);
+        $this->assertEquals(0, count($cdr->getNotes()));
+        $this->assertEquals('F001-1', $cdr->getId());
+        $this->assertEquals('0', $cdr->getCode());
+        $this->assertEquals('La Factura numero F001-00000001, ha sido aceptada', $cdr->getDescription());
+    }
+
+    public function testGetResponseWithNotes()
+    {
+        $path = __DIR__ . '/../../Resources/R-20600995805-01-F001-3.xml';
+        $xml = file_get_contents($path);
+        $reader = new DomCdrReader();
+        $cdr = $reader->getCdrResponse($xml);
+
+        $this->assertNotEmpty($cdr);
+        $this->assertEquals(2, count($cdr->getNotes()));
+    }
+
+    /**
+     * @expectedException \Exception
+     */
+    public function testNotFoundResponse()
+    {
+        $xml = '<AppRespnse><item>Empty</item></AppRespnse>';
+        $reader = new DomCdrReader();
+        $reader->getCdrResponse($xml);
+    }
+}

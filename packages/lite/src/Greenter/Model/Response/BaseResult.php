@@ -25,6 +25,15 @@ class BaseResult
     protected $error;
 
     /**
+     * BaseResult constructor.
+     */
+    public function __construct()
+    {
+        $this->success = false;
+    }
+
+
+    /**
      * @return bool
      */
     public function isSuccess()
