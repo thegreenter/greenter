@@ -32,7 +32,7 @@ class CdrResponse
     /**
      * @var string[]
      */
-    protected $note;
+    protected $notes;
 
     /**
      * @return string
@@ -91,18 +91,18 @@ class CdrResponse
     /**
      * @return string[]
      */
-    public function getNote()
+    public function getNotes()
     {
-        return $this->note;
+        return $this->notes;
     }
 
     /**
-     * @param string[] $note
+     * @param string[] $notes
      * @return CdrResponse
      */
-    public function setNote($note)
+    public function setNotes($notes)
     {
-        $this->note = $note;
+        $this->notes = $notes;
         return $this;
     }
 }

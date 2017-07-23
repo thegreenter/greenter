@@ -16,15 +16,14 @@ class StatusResult extends BaseResult
 {
     /**
      * StatusCode enviado por Sunat.
+     *
+     * 0 = Procesó correctamente
+     * 98 = En proceso
+     * 99 = Proceso con errores
+     *
      * @var string
      */
     protected $code;
-
-    /**
-     * Indica si CDR existe o se encuentra en proceso.
-     * @var string
-     */
-    protected $message;
 
     /**
      * @var string
@@ -59,24 +58,6 @@ class StatusResult extends BaseResult
     public function getCdrZip()
     {
         return $this->cdrZip;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
-
-    /**
-     * @param string $message
-     * @return StatusResult
-     */
-    public function setMessage($message)
-    {
-        $this->message = $message;
-        return $this;
     }
 
     /**

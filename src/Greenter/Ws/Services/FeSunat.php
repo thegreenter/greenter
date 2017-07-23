@@ -7,10 +7,12 @@
  */
 
 namespace Greenter\Ws\Services;
-use Greenter\Helper\SunatErrorHelper;
-use Greenter\Helper\ZipHelper;
+use Greenter\Model\Response\StatusResult;
+use Greenter\Model\Response\SummaryResult;
+use Greenter\Ws\Reader\DomCdrReader;
+use Greenter\Ws\Reader\XmlErrorReader;
+use Greenter\Zip\ZipFactory;
 use Greenter\Model\Response\BillResult;
-use Greenter\Model\Response\CdrResponse;
 use Greenter\Model\Response\Error;
 
 /**
@@ -60,9 +62,15 @@ class FeSunat extends BaseSunat
         return $result;
     }
 
+    /**
+     * @param string $filename
+     * @param string $content
+     * @return SummaryResult
+     */
     public function sendSummary($filename, $content)
     {
         $client = $this->getClient();
+        $result = new SummaryResult();
 
         try {
             $params = [
@@ -70,30 +78,44 @@ class FeSunat extends BaseSunat
                 'contentFile' => $content,
             ];
             $response = $client->__soapCall('sendSummary', [ 'parameters' => $params ]);
-            return $response->ticket;
+            $result
+                ->setTicket($response->ticket)
+                ->setSuccess(true);
         }
-        catch (\Exception $e) {
-            // $client->__getLastResponse()
-            return $e->getMessage();
+        catch (\SoapFault $e) {
+            $result->setError($this->getErrorFromFault($e));
         }
+        return $result;
     }
 
+    /**
+     * @param string $ticket
+     * @return StatusResult
+     */
     public function getStatus($ticket)
     {
         $client = $this->getClient();
+        $result = new StatusResult();
 
         try {
             $params = [
                 'ticket' => $ticket,
             ];
             $response = $client->__soapCall('getStatus', [ 'parameters' => $params ]);
-            return $response->statusResponse;
+            $status = $response->statusResponse;
+            $cdrZip = $status->content;
+
+            $result
+                ->setCode($status->statusCode)
+                ->setCdrResponse($this->extractResponse($cdrZip))
+                ->setCdrZip($cdrZip)
+                ->setSuccess(true);
         }
-        catch (\SoapFault $fault) {
-            // $client->__getLastResponse()
-            // $fault->faultstring;
-            return $fault->faultcode;
+        catch (\SoapFault $e) {
+            $result->setError($this->getErrorFromFault($e));
         }
+
+        return $result;
     }
 
     /**
@@ -105,15 +127,17 @@ class FeSunat extends BaseSunat
     private function getErrorFromFault(\SoapFault $fault)
     {
         $err = new Error();
-        $code = $fault->faultcode;
-        if ($code) {
-            $err->setCode($code);
+        $fcode = $fault->faultcode;
+        $code = preg_replace('/[^0-9]+/', '', $fcode);
+
+        if (!$code) {
+            $err->setCode($fcode);
             $err->setMessage($fault->faultstring);
             return $err;
         }
-        $code = preg_replace('/[^0-9]+/', '', $code);
-        $search = new SunatErrorHelper();
-        $msg = $search->getMessageByCode($code);
+
+        $search = new XmlErrorReader();
+        $msg = $search->getMessageByCode(intval($code));
         $err->setCode($code);
         $err->setMessage($msg);
         return $err;
@@ -122,21 +146,10 @@ class FeSunat extends BaseSunat
 
     private function extractResponse($zipContent)
     {
-        $zip = new ZipHelper();
+        $zip = new ZipFactory();
         $xml = $zip->decompressLastFile($zipContent);
-        $doc = new \DOMDocument();
-        $doc->loadXML($xml);
-        $xp = new \DOMXPath($doc);
-        $xp->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
-        $xp->registerNamespace('xr', 'urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2');
-        $resp = $xp->query('/xr:ApplicationResponse/cac:DocumentResponse/cac:Response');
+        $reader = new DomCdrReader();
 
-        $obj = $resp[0]->childNodes;
-        $cdr = new CdrResponse();
-        $cdr->setId($obj[0]->nodeValue)
-            ->setCode($obj[1]->nodeValue)
-            ->setDescription($obj[2]->nodeValue);
-
-        return $cdr;
+        return $reader->getCdrResponse($xml);
     }
 }

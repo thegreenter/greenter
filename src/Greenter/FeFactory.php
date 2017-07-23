@@ -8,16 +8,16 @@
 
 namespace Greenter;
 
-use Greenter\Helper\ZipHelper;
+use Greenter\Zip\ZipFactory;
 use Greenter\Security\SignedXml;
 use Greenter\Ws\Services\FeSunat;
-use Greenter\Xml\Generator\FeGenerator;
-use Greenter\Xml\Model\Sale\Invoice;
+use Greenter\Xml\Builder\FeBuilder;
+use Greenter\Model\Sale\Invoice;
 
 class FeFactory
 {
     /**
-     * @var FeGenerator
+     * @var FeBuilder
      */
     private $generator;
 
@@ -27,7 +27,7 @@ class FeFactory
     private $signer;
 
     /**
-     * @var ZipHelper
+     * @var ZipFactory
      */
     private $zip;
 
@@ -41,7 +41,7 @@ class FeFactory
      */
     public function __construct()
     {
-        $this->generator = new FeGenerator();
+        $this->generator = new FeBuilder();
         $this->signer = new SignedXml();
         $this->sender = new FeSunat('20000000001MODDATOS', 'moddatos');
         $this->signer->setPrivateKey('');
@@ -51,9 +51,21 @@ class FeFactory
     {
         $xml = $this->generator->buildInvoice($invoice);
         $xmlS = $this->signer->sign($xml);
-        $filename = '';
+        $filename = sprintf('200000000-%s-%s-%s',
+            $invoice->getTipoDoc(), $invoice->getSerie(), $invoice->getCorrelativo());
+
         $zip = $this->zip->compress("$filename.xml", $xmlS);
-        $zipR = $this->sender->send("$filename.zip", $zip);
-        $xml = $this->zip->decompress($zipR, "R-$filename.xml");
+        $res = $this->sender->send("$filename.zip", $zip);
+        $res->isSuccess();
+    }
+
+    /**
+     * @param $company
+     * @return $this
+     */
+    public function setCompany($company)
+    {
+        $this->generator->setCompany($company);
+        return $this;
     }
 }

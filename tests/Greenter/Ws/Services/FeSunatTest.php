@@ -38,19 +38,23 @@ class FeSunatTest  extends \PHPUnit_Framework_TestCase
         $zip = file_get_contents(__DIR__."/../../Resources/$nameZip");
 
         $wss = $this->getSender();
-        $ticket = $wss->sendSummary($nameZip, $zip);
+        $result = $wss->sendSummary($nameZip, $zip);
 
-        $this->assertEquals(13, strlen($ticket));
+        $this->assertNotNull($result);
+        $this->assertTrue($result->isSuccess());
+        $this->assertEquals(13, strlen($result->getTicket()));
     }
 
-    public function testGetStatus()
+    public function testGetInvalidStatus()
     {
         $wss = $this->getSender();
         $wss->setService(FeSunat::BETA);
-        $code = $wss->getStatus('1500523236696');
+        $result = $wss->getStatus('1500523236696');
 
-        $this->assertNotEmpty($code);
-        $code =  preg_replace('/[^0-9]+/', '', $code);
-        $this->assertEquals(200, $code);
+        $this->assertNotNull($result);
+        $this->assertFalse($result->isSuccess());
+        $error = $result->getError();
+        $this->assertNotNull($error);
+        $this->assertEquals(200, $error->getCode());
     }
 }

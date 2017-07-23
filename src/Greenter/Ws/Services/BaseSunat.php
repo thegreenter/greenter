@@ -8,8 +8,7 @@
 
 namespace Greenter\Ws\Services;
 
-
-use Greenter\Ws\Security\WSSESecurityHeader;
+use Greenter\Ws\Header\WSSESecurityHeader;
 use SoapClient;
 
 class BaseSunat
