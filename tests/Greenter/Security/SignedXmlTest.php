@@ -51,7 +51,7 @@ class SignedXmlTest extends \PHPUnit_Framework_TestCase
         $signer->setPrivateKey($key);
         $xmlSigned = $signer->sign($xml);
 
-        file_put_contents('signed.xml', $xmlSigned);
+        //file_put_contents('signed.xml', $xmlSigned);
         return $xmlSigned;
     }
 }

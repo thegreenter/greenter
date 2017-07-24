@@ -48,7 +48,6 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $generator->buildNote($note);
 
         $this->assertNotEmpty($xml);
-        file_put_contents('notecr.xml', $xml);
     }
 
     public function testCreateXmlDebitNote()
@@ -60,7 +59,7 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $generator->buildNote($note);
 
         $this->assertNotEmpty($xml);
-        file_put_contents('notedb.xml', $xml);
+        // file_put_contents('notedb.xml', $xml);
     }
 
     private function getCreditNote()
