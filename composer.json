@@ -13,9 +13,9 @@
     "type": "project",
     "require": {
 		"php": ">=5.5.9",
-        "giansalex/xmldsig": "^2.1",
         "twig/twig": "~1.0",
-        "symfony/validator": "^3.3"
+        "symfony/validator": "^3.3",
+        "giansalex/xmldsig": "^3.0"
     },
 	"require-dev": {
         "phpunit/phpunit": "4.8.36"
