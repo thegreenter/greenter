@@ -47,8 +47,10 @@ class SignedXmlTest extends \PHPUnit_Framework_TestCase
     {
         $xml = file_get_contents(__DIR__ . '/../Resources/invoice.xml');
         $key = file_get_contents(__DIR__ . '/../Resources/certificado.key');
+        $cer = file_get_contents(__DIR__ . '/../Resources/certificado.cer');
         $signer = new SignedXml();
         $signer->setPrivateKey($key);
+        $signer->setPublicKey($cer);
         $xmlSigned = $signer->sign($xml);
 
         //file_put_contents('signed.xml', $xmlSigned);

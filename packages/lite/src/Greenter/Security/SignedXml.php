@@ -8,7 +8,7 @@
 
 namespace Greenter\Security;
 
-use FR3D\XmlDSig\Adapter\XmlseclibsAdapter;
+use RobRichards\XMLSecLibs\Sunat\Adapter\SunatXmlSecAdapter;
 
 /**
  * Class SignedXml
@@ -26,8 +26,9 @@ class SignedXml
      */
     public function __construct()
     {
-        $this->adapter = new XmlseclibsAdapter();
-        $this->adapter->addTransform(XmlseclibsAdapter::ENVELOPED);
+        $this->adapter = new SunatXmlSecAdapter();
+        $this->adapter->addTransform(SunatXmlSecAdapter::ENVELOPED);
+        $this->adapter->setCanonicalMethod(SunatXmlSecAdapter::XML_C14N);
     }
 
     /**
