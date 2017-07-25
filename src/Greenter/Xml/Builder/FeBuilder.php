@@ -22,7 +22,7 @@ use Twig_Loader_Filesystem;
  * Class FeBuilder
  * @package Greenter\Xml\Builder
  */
-final class FeBuilder implements XmlBuilder
+final class FeBuilder implements FeBuilderInteface
 {
     /**
      * Directorio de Cache para las template de Documentos.

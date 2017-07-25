@@ -8,8 +8,6 @@
 
 namespace Tests\Greenter\Ws\Services;
 
-use Greenter\Ws\Services\FeSunat;
-
 /**
  * Class FeSunatTest
  * @package tests\Greenter\Ws\Services
@@ -48,13 +46,9 @@ class FeSunatTest  extends \PHPUnit_Framework_TestCase
     public function testGetInvalidStatus()
     {
         $wss = $this->getSender();
-        $wss->setService(FeSunat::BETA);
         $result = $wss->getStatus('1500523236696');
 
         $this->assertNotNull($result);
-//        $this->assertFalse($result->isSuccess());
-//        $error = $result->getError();
-//        $this->assertNotNull($error);
-//        $this->assertEquals(200, $error->getCode());
+        $this->assertTrue($result->isSuccess());
     }
 }

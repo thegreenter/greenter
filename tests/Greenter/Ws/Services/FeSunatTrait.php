@@ -8,7 +8,8 @@
 
 namespace Tests\Greenter\Ws\Services;
 
-use Greenter\Ws\Services\FeSunat;
+use Greenter\Ws\Services\FeSunat as SunatWs;
+use Greenter\Ws\Services\WsSunatInterface;
 
 /**
  * Trait FeSunatTrait
@@ -16,10 +17,14 @@ use Greenter\Ws\Services\FeSunat;
  */
 trait FeSunatTrait
 {
+    /**
+     * @return WsSunatInterface
+     */
     private function getSender()
     {
-        $sunat = new FeSunat('20600055519MODDATOS', 'moddatos');
-        $sunat->setService(FeSunat::BETA);
+        $sunat = new FeSunatFake();
+        $sunat->setCrentials('20600055519MODDATOS', 'moddatos');
+        $sunat->setService(SunatWs::BETA);
         return $sunat;
     }
 }

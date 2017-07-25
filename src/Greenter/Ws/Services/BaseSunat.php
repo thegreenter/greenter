@@ -44,11 +44,12 @@ class BaseSunat
     protected $urlWsdl;
 
     /**
-     * BaseSunat constructor.
+     * Set Credentiasl WebService.
+     *
      * @param string $user
      * @param string $password
      */
-    public function __construct($user, $password)
+    public function setCrentials($user, $password)
     {
         $this->user = $user;
         $this->password = $password;
