@@ -19,16 +19,18 @@ use Greenter\Model\Response\Error;
  * Class FeSunat
  * @package Greenter\Ws\Services
  */
-class FeSunat extends BaseSunat
+class FeSunat extends BaseSunat implements WsSunatInterface
 {
     const BETA = 'https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService';
     const HOMOLOGACION  = 'https://www.sunat.gob.pe/ol-ti-itcpgem-sqa/billService';
     const PRODUCCION = 'https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService';
     const WSDL_ENDPOINT = 'https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl';
 
-    public function __construct($user, $password)
+    /**
+     * FeSunat constructor.
+     */
+    public function __construct()
     {
-        parent::__construct($user, $password);
         $this->setUrlWsdl(FeSunat::WSDL_ENDPOINT);
     }
 
@@ -142,7 +144,6 @@ class FeSunat extends BaseSunat
         $err->setMessage($msg);
         return $err;
     }
-
 
     private function extractResponse($zipContent)
     {

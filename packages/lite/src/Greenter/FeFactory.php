@@ -43,7 +43,8 @@ class FeFactory
     {
         $this->generator = new FeBuilder();
         $this->signer = new SignedXml();
-        $this->sender = new FeSunat('20000000001MODDATOS', 'moddatos');
+        $this->sender = new FeSunat();
+        $this->sender->setCrentials('20000000001MODDATOS', 'moddatos');
         $this->signer->setPrivateKey('');
     }
 

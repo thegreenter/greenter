@@ -18,7 +18,7 @@ use Greenter\Model\Voided\Voided;
  * Interface XmlBuilder
  * @package Greenter\Xml\Builder
  */
-interface XmlBuilder
+interface FeBuilderInteface
 {
     /**
      * Genera un invoice (Factura o Boleta).
