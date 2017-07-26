@@ -49,7 +49,7 @@ class BaseSunat
      * @param string $user
      * @param string $password
      */
-    public function setCrentials($user, $password)
+    public function setCredentials($user, $password)
     {
         $this->user = $user;
         $this->password = $password;
@@ -64,6 +64,7 @@ class BaseSunat
         $client = new SoapClient($this->urlWsdl, $this->parameters);
         $client->__setLocation($this->service);
         $client->__setSoapHeaders(new WSSESecurityHeader($this->user, $this->password));
+
         return $client;
     }
 

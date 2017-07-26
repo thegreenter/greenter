@@ -19,6 +19,16 @@ use Greenter\Model\Response\SummaryResult;
 interface WsSunatInterface
 {
     /**
+     * Set Credentials for WebService Authentication.
+     *
+     * @param string $user
+     * @param string $password
+     */
+    public function setCredentials($user, $password);
+
+    /**
+     * Send document.
+     *
      * @param string $filename
      * @param string $content
      * @return BillResult
@@ -26,6 +36,8 @@ interface WsSunatInterface
     public function send($filename, $content);
 
     /**
+     * Send Summary.
+     *
      * @param string $filename
      * @param string $content
      * @return SummaryResult
@@ -33,6 +45,8 @@ interface WsSunatInterface
     public function sendSummary($filename, $content);
 
     /**
+     * Get Status by Ticket.
+     *
      * @param string $ticket
      * @return StatusResult
      */

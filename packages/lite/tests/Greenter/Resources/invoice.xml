@@ -17,15 +17,15 @@
                         <cbc:PayableAmount currencyID="PEN"></cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>01</cbc:ID>
+                        <cbc:ID>1001</cbc:ID>
                         <cbc:PayableAmount currencyID="PEN">200</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>02</cbc:ID>
+                        <cbc:ID>1002</cbc:ID>
                         <cbc:PayableAmount currencyID="PEN">0</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>03</cbc:ID>
+                        <cbc:ID>1003</cbc:ID>
                         <cbc:PayableAmount currencyID="PEN">0</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                                                             <sac:AdditionalProperty>

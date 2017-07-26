@@ -13,15 +13,15 @@
             <ext:ExtensionContent>
                 <sac:AdditionalInformation>
                     <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>01</cbc:ID>
+                        <cbc:ID>1001</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|number_format(2) }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>02</cbc:ID>
+                        <cbc:ID>1002</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|number_format(2) }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>03</cbc:ID>
+                        <cbc:ID>1003</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|number_format(2) }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     {% if doc.mtoBasePercepcion %}
