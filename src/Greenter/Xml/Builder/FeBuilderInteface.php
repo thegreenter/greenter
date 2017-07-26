@@ -57,4 +57,11 @@ interface FeBuilderInteface
      * @return FeBuilder
      */
     public function setCompany(Company $company);
+
+    /**
+     * Set argumentos.
+     *
+     * @param array $params
+     */
+    public function setParameters($params);
 }

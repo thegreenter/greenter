@@ -27,7 +27,7 @@ trait FeBuilderTrait
         $generator = new FeBuilder();
         $generator
             ->setCompany($this->getCompany())
-            ->setDirCache(sys_get_temp_dir());
+            ->setParameters(['cache' => sys_get_temp_dir()]);
 
         return $generator;
     }
