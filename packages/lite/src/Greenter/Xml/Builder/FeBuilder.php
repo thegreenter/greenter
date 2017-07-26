@@ -17,7 +17,6 @@ use Symfony\Component\Validator\Validation;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
-
 /**
  * Class FeBuilder
  * @package Greenter\Xml\Builder
@@ -36,6 +35,14 @@ final class FeBuilder implements FeBuilderInteface
      * @var \Greenter\Model\Company\Company
      */
     private $company;
+
+    /**
+     * FeBuilder constructor.
+     */
+    public function __construct()
+    {
+        $this->dirCache = sys_get_temp_dir();
+    }
 
     /**
      * Genera un invoice (Factura o Boleta).
@@ -113,16 +120,6 @@ final class FeBuilder implements FeBuilderInteface
     }
 
     /**
-     * @param string $dirCache
-     * @return FeBuilder
-     */
-    public function setDirCache($dirCache)
-    {
-        $this->dirCache = $dirCache;
-        return $this;
-    }
-
-    /**
      * @param \Greenter\Model\Company\Company $company
      * @return FeBuilder
      */
@@ -130,6 +127,25 @@ final class FeBuilder implements FeBuilderInteface
     {
         $this->company = $company;
         return $this;
+    }
+
+    /**
+     * Set argumentos.
+     *
+     * @param array $params
+     * @throws \Exception
+     */
+    public function setParameters($params)
+    {
+        if (!$params['cache']) {
+            return;
+        }
+
+        if (!is_dir($params['cache'])) {
+            throw new \Exception('No is a directory valid');
+        }
+
+        $this->dirCache = $params['cache'];
     }
 
     /**

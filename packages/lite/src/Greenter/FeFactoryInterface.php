@@ -8,7 +8,6 @@
 
 namespace Greenter;
 
-
 use Greenter\Model\Company\Company;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\StatusResult;
@@ -31,7 +30,6 @@ interface FeFactoryInterface
      * @return BillResult
      */
     public function sendInvoice(Invoice $invoice);
-
 
     /**
      * Envia una Nota de Credito o Debito.
@@ -64,6 +62,7 @@ interface FeFactoryInterface
      * @return StatusResult
      */
     public function getStatus($ticket);
+
     /**
      * Set Company
      *
@@ -71,4 +70,9 @@ interface FeFactoryInterface
      * @return $this
      */
     public function setCompany(Company $company);
+
+    /**
+     * @param array $params
+     */
+    public function setParameters($params);
 }
