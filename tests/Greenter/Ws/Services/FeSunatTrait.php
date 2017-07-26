@@ -23,7 +23,7 @@ trait FeSunatTrait
     private function getSender()
     {
         $sunat = new FeSunatFake();
-        $sunat->setCrentials('20600055519MODDATOS', 'moddatos');
+        $sunat->setCredentials('20600055519MODDATOS', 'moddatos');
         $sunat->setService(SunatWs::BETA);
         return $sunat;
     }

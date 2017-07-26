@@ -121,6 +121,17 @@ class FeSunat extends BaseSunat implements WsSunatInterface
     }
 
     /**
+     * Set Credentials for WebService Authentication.
+     *
+     * @param string $user
+     * @param string $password
+     */
+    public function setCredentials($user, $password)
+    {
+       parent::setCredentials($user, $password);
+    }
+
+    /**
      * Get error from Fault Exception.
      *
      * @param \SoapFault $fault

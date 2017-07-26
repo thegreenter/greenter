@@ -71,15 +71,27 @@ class FeSunatFake implements WsSunatInterface
 
     public function setCrentials($user, $password)
     {
-        if (empty($user) || empty($password)) {
-            throw new \Exception('Not valid credentials');
-        }
+
     }
 
     public function setService($service)
     {
         if (empty($service)) {
             throw new \Exception('Not valid url service');
+        }
+    }
+
+    /**
+     * Set Credentials for WebService Authentication.
+     *
+     * @param string $user
+     * @param string $password
+     * @throws \Exception
+     */
+    public function setCredentials($user, $password)
+    {
+        if (empty($user) || empty($password)) {
+            throw new \Exception('Not valid credentials');
         }
     }
 }

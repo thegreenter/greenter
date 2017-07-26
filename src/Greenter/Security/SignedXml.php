@@ -17,7 +17,7 @@ use RobRichards\XMLSecLibs\Sunat\Adapter\SunatXmlSecAdapter;
 class SignedXml
 {
     /**
-     * @var XmlseclibsAdapter
+     * @var SunatXmlSecAdapter
      */
     private $adapter;
 
