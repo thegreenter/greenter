@@ -79,7 +79,7 @@ trait FeFactoryTrait
         $note
             ->setTipDocAfectado('01')
             ->setNumDocfectado('F001-111')
-            ->setCodMotivo('01')
+            ->setCodMotivo('07')
             ->setDesMotivo('ANULACION DE LA OPERACION')
             ->setTipoDoc('07')
             ->setSerie('FF01')
@@ -124,6 +124,16 @@ trait FeFactoryTrait
             ->setLegends([$legend]);
 
         return $note;
+    }
+
+    private function getDebitNote()
+    {
+        $debit = $this->getCreditNote();
+        $debit->setCodMotivo('01')
+            ->setDesMotivo(' XXXXXXX ')
+            ->setTipoDoc('08');
+
+        return $debit;
     }
 
     private function getSummary()

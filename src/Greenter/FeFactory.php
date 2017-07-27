@@ -173,7 +173,7 @@ class FeFactory implements FeFactoryInterface
     private function getBillResult($xml, $filename)
     {
         $xmlS = $this->getXmmlSigned($xml);
-        file_put_contents('notecrss.xml', $xmlS);
+
         $zip = $this->zipper->compress("$filename.xml", $xmlS);
         return $this->sender->send("$filename.zip", $zip);
     }

@@ -48,7 +48,7 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $generator->buildNote($note);
 
         $this->assertNotEmpty($xml);
-         file_put_contents('notecr.xml', $xml);
+//         file_put_contents('notecr.xml', $xml);
     }
 
     /**
