@@ -47,7 +47,7 @@ interface FeBuilderInteface
     /**
      * Genera una comunicacion de Baja.
      *
-     * @param \Greenter\Model\Voided\Voided $voided
+     * @param Voided $voided
      * @return string
      */
     public function buildVoided(Voided $voided);

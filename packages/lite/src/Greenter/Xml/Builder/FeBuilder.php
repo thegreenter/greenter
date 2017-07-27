@@ -13,6 +13,7 @@ use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Voided;
+use Greenter\Xml\Exception\ValidationException;
 use Symfony\Component\Validator\Validation;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
@@ -32,7 +33,7 @@ final class FeBuilder implements FeBuilderInteface
     /**
      * Datos de la Compañia.
      *
-     * @var \Greenter\Model\Company\Company
+     * @var Company
      */
     private $company;
 
@@ -47,16 +48,13 @@ final class FeBuilder implements FeBuilderInteface
     /**
      * Genera un invoice (Factura o Boleta).
      *
-     * @param \Greenter\Model\Sale\Invoice $invoice
+     * @param Invoice $invoice
+     * @throws ValidationException
      * @return string
      */
     public function buildInvoice(Invoice $invoice)
     {
-        $errors = $this->validate($invoice);
-
-        if ($errors->count() > 0) {
-            return '';
-        }
+        $this->validate($invoice);
 
         return $this->render('invoice.html.twig', $invoice);
     }
@@ -65,15 +63,12 @@ final class FeBuilder implements FeBuilderInteface
      * Genera una Nota Electrónica(Credito o Debito).
      *
      * @param Note $note
+     * @throws ValidationException
      * @return string
      */
     public function buildNote(Note $note)
     {
-        $errors = $this->validate($note);
-
-        if ($errors->count() > 0) {
-            return '';
-        }
+        $this->validate($note);
 
         $template = $note->getTipoDoc() === '07'
             ? 'notacr.html.twig' : 'notadb.html.twig';
@@ -85,15 +80,12 @@ final class FeBuilder implements FeBuilderInteface
      * Genera una Resumen Diario de Boletas.
      *
      * @param Summary $summary
+     * @throws ValidationException
      * @return string
      */
     public function buildSummary(Summary $summary)
     {
-        $errors = $this->validate($summary);
-
-        if ($errors->count() > 0) {
-            return '';
-        }
+        $this->validate($summary);
 
         return $this->render('summary.html.twig', $summary);
     }
@@ -101,16 +93,13 @@ final class FeBuilder implements FeBuilderInteface
     /**
      * Genera una comunicacion de Baja.
      *
-     * @param \Greenter\Model\Voided\Voided $voided
+     * @param Voided $voided
+     * @throws ValidationException
      * @return string
      */
     public function buildVoided(Voided $voided)
     {
-        $errors = $this->validate($voided);
-
-        if ($errors->count() > 0) {
-            return '';
-        }
+        $this->validate($voided);
 
         $twig = $this->getRender();
         return $twig->render('voided.html.twig', [
@@ -120,7 +109,7 @@ final class FeBuilder implements FeBuilderInteface
     }
 
     /**
-     * @param \Greenter\Model\Company\Company $company
+     * @param Company $company
      * @return FeBuilder
      */
     public function setCompany(Company $company)
@@ -174,12 +163,21 @@ final class FeBuilder implements FeBuilderInteface
         return $twig;
     }
 
+    /**
+     * Validate Entity.
+     *
+     * @param object $entity
+     * @throws ValidationException
+     */
     private function validate($entity)
     {
         $validator = Validation::createValidatorBuilder()
             ->addMethodMapping('loadValidatorMetadata')
             ->getValidator();
 
-        return $validator->validate($entity);
+        $errs = $validator->validate($entity);
+        if ($errs->count() > 0) {
+            throw new ValidationException($errs);
+        }
     }
 }

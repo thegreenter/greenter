@@ -7,6 +7,7 @@
  */
 
 namespace Tests\Greenter\Ws\Reader;
+
 use Greenter\Ws\Reader\DomCdrReader;
 
 /**

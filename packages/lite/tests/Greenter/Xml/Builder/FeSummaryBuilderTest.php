@@ -49,6 +49,19 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($xml);
     }
 
+
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testXmlSummaryException()
+    {
+        $summary = $this->getSummary();
+        $summary->setFecResumen(null);
+
+        $generator = $this->getGenerator();
+        $generator->buildSummary($summary);
+    }
+
     private function getSummary()
     {
         $detiail1 = new SummaryDetail();
