@@ -28,13 +28,13 @@ class DomCdrReader implements CdrReader
      */
     public function getCdrResponse($xml)
     {
-        $xp = $this->getXpath($xml);
+        $xpt = $this->getXpath($xml);
 
-        $cdr = $this->getResponseByXpath($xp);
+        $cdr = $this->getResponseByXpath($xpt);
         if (!$cdr) {
             throw new \Exception('Not found cdr response in xml');
         }
-        $cdr->setNotes($this->getNotes($xp));
+        $cdr->setNotes($this->getNotes($xpt));
 
         return $cdr;
     }
@@ -49,10 +49,10 @@ class DomCdrReader implements CdrReader
     {
         $doc = new \DOMDocument();
         $doc->loadXML($xmlContent);
-        $xp = new \DOMXPath($doc);
-        $xp->registerNamespace('x', $this->appResponseNamespace);
-        $xp->registerNamespace('cac', $this->cacNamespace);
-        return $xp;
+        $xpt = new \DOMXPath($doc);
+        $xpt->registerNamespace('x', $this->appResponseNamespace);
+        $xpt->registerNamespace('cac', $this->cacNamespace);
+        return $xpt;
     }
 
     /**

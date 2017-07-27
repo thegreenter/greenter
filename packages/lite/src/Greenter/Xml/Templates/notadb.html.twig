@@ -101,17 +101,6 @@
             <cac:PartyName>
                 <cbc:Name>{{ emp.nombreComercial }}</cbc:Name>
             </cac:PartyName>
-            <cac:AgentParty>
-                <cac:PartyIdentification>
-                    <cbc:ID>{{ emp.ruc }}</cbc:ID>
-                </cac:PartyIdentification>
-                <cac:PartyName>
-                    <cbc:Name>{{ emp.razonSocial }}</cbc:Name>
-                </cac:PartyName>
-                <cac:PartyLegalEntity>
-                    <cbc:RegistrationName>{{ emp.razonSocial }}</cbc:RegistrationName>
-                </cac:PartyLegalEntity>
-            </cac:AgentParty>
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
             <cac:ExternalReference>
@@ -202,7 +191,7 @@
     {% for detail in doc.details %}
         <cac:DebitNoteLine>
             <cbc:ID>{{ loop.index }}</cbc:ID>
-            <cbc:InvoicedQuantity unitCode="{{ detail.codUnidadMedida }}">{{ detail.ctdUnidadItem }}</cbc:InvoicedQuantity>
+            <cbc:DebitedQuantity unitCode="{{ detail.codUnidadMedida }}">{{ detail.ctdUnidadItem }}</cbc:DebitedQuantity>
             <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|number_format(2) }}</cbc:LineExtensionAmount>
             {% if detail.mtoPrecioUnitario > 0 %}
                 <cac:PricingReference>
@@ -219,10 +208,6 @@
                     </cac:AlternativeConditionPrice>
                 </cac:PricingReference>
             {% endif %}
-            <cac:AllowanceCharge>
-                <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
-                <cbc:Amount currencyID="{{ doc.tipoMoneda }}">0</cbc:Amount>
-            </cac:AllowanceCharge>
             {% if detail.mtoIscItem %}
                 {% set isc = detail.mtoIscItem|number_format(2) %}
                 <cac:TaxTotal>

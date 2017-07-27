@@ -58,18 +58,32 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testNota()
+    public function testNotaCredito()
     {
         $creditNote = $this->getCreditNote();
         $result = $this->factory->sendNote($creditNote);
 
-        $this->assertFalse($result->isSuccess());
-//        $this->assertNotNull($result->getCdrResponse());
-//        $this->assertEquals(
-//            'La Factura numero F001-123, ha sido aceptada',
-//            $result->getCdrResponse()->getDescription()
-//        );
+        $this->assertTrue($result->isSuccess());
+        $this->assertNotNull($result->getCdrResponse());
+        $this->assertEquals(
+            'La Nota de Credito numero FF01-123, ha sido aceptada',
+            $result->getCdrResponse()->getDescription()
+        );
     }
+
+    public function testNotaDebito()
+    {
+        $debitNote = $this->getDebitNote();
+        $result = $this->factory->sendNote($debitNote);
+
+        $this->assertTrue($result->isSuccess());
+        $this->assertNotNull($result->getCdrResponse());
+        $this->assertEquals(
+            'La Nota de Debito numero FF01-123, ha sido aceptada',
+            $result->getCdrResponse()->getDescription()
+        );
+    }
+
 
     public function testResumen()
     {
