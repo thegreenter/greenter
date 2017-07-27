@@ -144,15 +144,7 @@ class FeFactory implements FeFactoryInterface
      */
     public function setParameters($params)
     {
-        $ws = $params['ws'];
-        $this->sender->setCredentials($ws['user'], $ws['pass']);
-        if (isset($ws['service'])) {
-            $this->sender->setService($ws['service']);
-        }
-
-        if (isset($ws['wsdl'])) {
-            $this->sender->setUrlWsdl($ws['wsdl']);
-        }
+        $this->setWsParams($params['ws']);
 
         if (isset($params['xml'])) {
             $this->builder->setParameters($params['xml']);
@@ -162,6 +154,20 @@ class FeFactory implements FeFactoryInterface
             $cert = $params['cert'];
             $this->signer->setPrivateKey($cert['private']);
             $this->signer->setPublicKey($cert['public']);
+        }
+    }
+
+    /**
+     * @param array $ws
+     */
+    private function setWsParams($ws)
+    {
+        $this->sender->setCredentials($ws['user'], $ws['pass']);
+        if (isset($ws['service'])) {
+            $this->sender->setService($ws['service']);
+        }
+        if (isset($ws['wsdl'])) {
+            $this->sender->setUrlWsdl($ws['wsdl']);
         }
     }
 

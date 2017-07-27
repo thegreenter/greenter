@@ -56,17 +56,6 @@
             <cac:PartyName>
                 <cbc:Name>EMPRESA</cbc:Name>
             </cac:PartyName>
-            <cac:AgentParty>
-                <cac:PartyIdentification>
-                    <cbc:ID>20000000001</cbc:ID>
-                </cac:PartyIdentification>
-                <cac:PartyName>
-                    <cbc:Name>EMPRESA SAC</cbc:Name>
-                </cac:PartyName>
-                <cac:PartyLegalEntity>
-                    <cbc:RegistrationName>EMPRESA SAC</cbc:RegistrationName>
-                </cac:PartyLegalEntity>
-            </cac:AgentParty>
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
             <cac:ExternalReference>
