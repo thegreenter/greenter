@@ -7,6 +7,7 @@
  */
 
 namespace Tests\Greenter\Xml\Builder;
+
 use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
 
@@ -46,6 +47,18 @@ class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $generator->buildVoided($voided);
 
         $this->assertNotEmpty($xml);
+    }
+
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testXmlVoidedException()
+    {
+        $voided = $this->getVoided();
+        $voided->setCorrelativo('1232');
+
+        $generator = $this->getGenerator();
+        $generator->buildVoided($voided);
     }
 
     private function getVoided()
