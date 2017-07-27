@@ -144,19 +144,22 @@ class FeFactory implements FeFactoryInterface
      */
     public function setParameters($params)
     {
-        $auth = $params['auth'];
-        if ($auth) {
-            $this->sender->setCredentials($auth['user'], $auth['pass']);
+        $ws = $params['ws'];
+        $this->sender->setCredentials($ws['user'], $ws['pass']);
+        if (isset($ws['service'])) {
+            $this->sender->setService($ws['service']);
         }
 
-        $xml = $params['xml'];
-        if ($xml) {
-            $this->builder->setParameters($xml);
+        if (isset($ws['wsdl'])) {
+            $this->sender->setUrlWsdl($ws['wsdl']);
         }
 
-        $cert = $params['cert'];
+        if (isset($params['xml'])) {
+            $this->builder->setParameters($params['xml']);
+        }
 
-        if ($cert) {
+        if (isset($params['cert'])) {
+            $cert = $params['cert'];
             $this->signer->setPrivateKey($cert['private']);
             $this->signer->setPublicKey($cert['public']);
         }
@@ -169,8 +172,8 @@ class FeFactory implements FeFactoryInterface
      */
     private function getBillResult($xml, $filename)
     {
-        $xmlS = $this->signer->sign($xml);
-
+        $xmlS = $this->getXmmlSigned($xml);
+        file_put_contents('notecrss.xml', $xmlS);
         $zip = $this->zipper->compress("$filename.xml", $xmlS);
         return $this->sender->send("$filename.zip", $zip);
     }
@@ -182,10 +185,19 @@ class FeFactory implements FeFactoryInterface
      */
     private function getSummaryResult($xml, $filename)
     {
-        $xmlS = $this->signer->sign($xml);
+        $xmlS = $this->getXmmlSigned($xml);
 
         $zip = $this->zipper->compress("$filename.xml", $xmlS);
         return $this->sender->sendSummary("$filename.zip", $zip);
+    }
+
+    /**
+     * @param string $xml
+     * @return string
+     */
+    private function getXmmlSigned($xml)
+    {
+        return $this->signer->sign($xml);
     }
 
     /**

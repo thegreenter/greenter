@@ -2,12 +2,9 @@
 <CreditNote xmlns="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2"
             xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
             xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
-            xmlns:ccts="urn:un:unece:uncefact:documentation:2"
             xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
             xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
-            xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2"
-            xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1"
-            xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2">
+            xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1">
     <ext:UBLExtensions>
         <ext:UBLExtension>
             <ext:ExtensionContent>
@@ -72,12 +69,12 @@
             {#</cac:OrderReference>#}
         {#</#if>#}
     {#</#list>#}
-    {#<cac:BillingReference>#}
-        {#<cac:InvoiceDocumentReference>#}
-            {#<cbc:ID>{{ doc.numDocfectado }}</cbc:ID>#}
-            {#<cbc:DocumentTypeCode>{{ doc.tipDocAfectado }}</cbc:DocumentTypeCode>#}
-        {#</cac:InvoiceDocumentReference>#}
-    {#</cac:BillingReference>#}
+    <cac:BillingReference>
+        <cac:InvoiceDocumentReference>
+            <cbc:ID>{{ doc.numDocfectado }}</cbc:ID>
+            <cbc:DocumentTypeCode>{{ doc.tipDocAfectado }}</cbc:DocumentTypeCode>
+        </cac:InvoiceDocumentReference>
+    </cac:BillingReference>
     {#<#list listaRelacionado as relacion>#}
         {#<#if relacion.indDocuRelacionado = "1">#}
             {#<cac:DespatchDocumentReference>#}

@@ -9,6 +9,7 @@
 namespace Tests\Greenter;
 use Greenter\FeFactory;
 use Greenter\FeFactoryInterface;
+use Greenter\Ws\Services\FeSunat;
 
 /**
  * Class FeFactoryTest
@@ -27,9 +28,10 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = new FeFactory();
         $factory->setParameters([
-            'auth' => [
-              'user' => '20000000001MODDATOS',
-              'pass' => 'moddatos',
+            'ws' => [
+                'user' => '20000000001MODDATOS',
+                'pass' => 'moddatos',
+                'service' => FeSunat::BETA,
             ],
             'xml' => [
                 'cache' => sys_get_temp_dir(),
@@ -75,6 +77,8 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $result = $this->factory->sendResumen($resumen);
 
         $this->assertFalse($result->isSuccess());
+        $this->assertNotNull($result->getError());
+        $this->assertEquals('2072', $result->getError()->getCode());
     }
 
     public function testBaja()
@@ -82,16 +86,17 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $baja = $this->getVoided();
         $result = $this->factory->sendBaja($baja);
 
-        $this->assertNotNull($result);
-//        $this->assertTrue($result->isSuccess());
-//        $this->assertNotEmpty($result->getTicket());
-//        $this->assertEquals(11, strlen($result->getTicket()));
+        $this->assertTrue($result->isSuccess());
+        $this->assertNotEmpty($result->getTicket());
+        $this->assertEquals(13, strlen($result->getTicket()));
     }
 
     public function testStatus()
     {
         $result = $this->factory->getStatus('1500523236696');
 
-        $this->assertNotNull($result);
+        $this->assertFalse($result->isSuccess());
+        $this->assertNotNull($result->getError());
+        $this->assertEquals('200', $result->getError()->getCode());
     }
 }
