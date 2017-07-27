@@ -15,8 +15,8 @@
     <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
     <cbc:CustomizationID>1.0</cbc:CustomizationID>
     <cbc:ID>RC-{{ doc.fecResumen|date('Ymd') }}-{{ doc.correlativo }}</cbc:ID>
-    <cbc:ReferenceDate>{{ doc.fecGeneracion|date('Ymd') }}</cbc:ReferenceDate>
-    <cbc:IssueDate>{{ doc.fecResumen|date('Ymd') }}</cbc:IssueDate>
+    <cbc:ReferenceDate>{{ doc.fecGeneracion|date('Y-m-d') }}</cbc:ReferenceDate>
+    <cbc:IssueDate>{{ doc.fecResumen|date('Y-m-d') }}</cbc:IssueDate>
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
         <cbc:Note>GREENTER Builder</cbc:Note>
