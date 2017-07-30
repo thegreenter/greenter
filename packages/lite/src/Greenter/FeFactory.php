@@ -12,7 +12,6 @@ use Greenter\Model\Company\Company;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\StatusResult;
 use Greenter\Model\Response\SummaryResult;
-use Greenter\Model\Sale\BaseSale;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Voided;
@@ -47,6 +46,12 @@ class FeFactory implements FeFactoryInterface
     private $sender;
 
     /**
+     * Ultimo xml generado.
+     *
+     * @var string
+     */
+    private $lastXml;
+    /**
      * @var Company
      */
     private $company;
@@ -69,7 +74,7 @@ class FeFactory implements FeFactoryInterface
     public function sendInvoice(Invoice $invoice)
     {
         $xml = $this->builder->buildInvoice($invoice);
-        $filename = $this->getFilename($invoice);
+        $filename = $invoice->getFilename($this->company->getRuc());
 
         return $this->getBillResult($xml, $filename);
     }
@@ -83,7 +88,7 @@ class FeFactory implements FeFactoryInterface
     public function sendNote(Note $note)
     {
         $xml = $this->builder->buildNote($note);
-        $filename = $this->getFilename($note);
+        $filename = $note->getFilename($this->company->getRuc());
 
         return $this->getBillResult($xml, $filename);
     }
@@ -97,7 +102,7 @@ class FeFactory implements FeFactoryInterface
     public function sendResumen(Summary $summary)
     {
         $xml = $this->builder->buildSummary($summary);
-        $filename = $this->getFilenameSummary($summary);
+        $filename = $summary->getFileName($this->company->getRuc());
 
         return $this->getSummaryResult($xml, $filename);
     }
@@ -111,7 +116,7 @@ class FeFactory implements FeFactoryInterface
     public function sendBaja(Voided $voided)
     {
         $xml = $this->builder->buildVoided($voided);
-        $filename = $this->getFilenameSummary($voided);
+        $filename = $voided->getFileName($this->company->getRuc());
 
         return $this->getSummaryResult($xml, $filename);
     }
@@ -158,6 +163,16 @@ class FeFactory implements FeFactoryInterface
     }
 
     /**
+     * Get Last XML Signed.
+     *
+     * @return string
+     */
+    public function getLastXml()
+    {
+        return $this->lastXml;
+    }
+
+    /**
      * @param array $ws
      */
     private function setWsParams($ws)
@@ -178,9 +193,9 @@ class FeFactory implements FeFactoryInterface
      */
     private function getBillResult($xml, $filename)
     {
-        $xmlS = $this->getXmmlSigned($xml);
+        $this->lastXml = $this->getXmmlSigned($xml);
 
-        $zip = $this->zipper->compress("$filename.xml", $xmlS);
+        $zip = $this->zipper->compress("$filename.xml", $this->lastXml);
         return $this->sender->send("$filename.zip", $zip);
     }
 
@@ -191,9 +206,9 @@ class FeFactory implements FeFactoryInterface
      */
     private function getSummaryResult($xml, $filename)
     {
-        $xmlS = $this->getXmmlSigned($xml);
+        $this->lastXml = $this->getXmmlSigned($xml);
 
-        $zip = $this->zipper->compress("$filename.xml", $xmlS);
+        $zip = $this->zipper->compress("$filename.xml", $this->lastXml);
         return $this->sender->sendSummary("$filename.zip", $zip);
     }
 
@@ -204,42 +219,5 @@ class FeFactory implements FeFactoryInterface
     private function getXmmlSigned($xml)
     {
         return $this->signer->sign($xml);
-    }
-
-    /**
-     * @param BaseSale $sale
-     * @return string
-     */
-    private function getFilename(BaseSale $sale)
-    {
-        $parts = [
-            $this->company->getRuc(),
-            $sale->getTipoDoc(),
-            $sale->getSerie(),
-            $sale->getCorrelativo(),
-        ];
-
-        return join('-', $parts);
-    }
-
-
-    /**
-     * @param Summary|Voided $object
-     * @return string
-     */
-    private function getFilenameSummary($object)
-    {
-        $parts = [$this->company->getRuc()];
-
-        if ($object instanceof Summary) {
-            $parts[] = 'RC';
-            $parts[] = $object->getFecResumen()->format('Ymd');
-        } elseif ($object instanceof Voided) {
-            $parts[] = 'RA';
-            $parts[] = $object->getFecComunicacion()->format('Ymd');
-        }
-        $parts[] = $object->getCorrelativo();
-
-        return join('-', $parts);
     }
 }

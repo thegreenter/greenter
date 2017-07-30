@@ -114,4 +114,22 @@ class Summary
         $this->details = $details;
         return $this;
     }
+
+    /**
+     * Get FileName without extension.
+     *
+     * @param string $ruc Ruc de la Empresa.
+     * @return string
+     */
+    public function getFileName($ruc)
+    {
+        $parts = [
+            $ruc,
+            'RC',
+            $this->getFecResumen()->format('Ymd'),
+            $this->getCorrelativo(),
+        ];
+
+        return join('-', $parts);
+    }
 }

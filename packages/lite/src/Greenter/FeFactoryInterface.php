@@ -64,6 +64,13 @@ interface FeFactoryInterface
     public function getStatus($ticket);
 
     /**
+     * Get Last XML Signed.
+     *
+     * @return string
+     */
+    public function getLastXml();
+
+    /**
      * Set Company
      *
      * @param $company
