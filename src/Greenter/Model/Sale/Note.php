@@ -53,24 +53,11 @@ class Note extends BaseSale
     private $mtoOperGratuitas;
 
     /**
-     * @var string
+     * @Assert\Valid()
+     *
+     * @var SalePerception
      */
-    private $codRegPercepcion;
-
-    /**
-     * @var float
-     */
-    private $mtoBasePercepcion;
-
-    /**
-     * @var float
-     */
-    private $mtoPercepcion;
-
-    /**
-     * @var float
-     */
-    private $mtoTotalPercepcion;
+    private $perception;
 
     /**
      * @return string
@@ -163,74 +150,20 @@ class Note extends BaseSale
     }
 
     /**
-     * @return string
+     * @return SalePerception
      */
-    public function getCodRegPercepcion()
+    public function getPerception()
     {
-        return $this->codRegPercepcion;
+        return $this->perception;
     }
 
     /**
-     * @param string $codRegPercepcion
+     * @param SalePerception $perception
      * @return Note
      */
-    public function setCodRegPercepcion($codRegPercepcion)
+    public function setPerception($perception)
     {
-        $this->codRegPercepcion = $codRegPercepcion;
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoBasePercepcion()
-    {
-        return $this->mtoBasePercepcion;
-    }
-
-    /**
-     * @param float $mtoBasePercepcion
-     * @return Note
-     */
-    public function setMtoBasePercepcion($mtoBasePercepcion)
-    {
-        $this->mtoBasePercepcion = $mtoBasePercepcion;
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoPercepcion()
-    {
-        return $this->mtoPercepcion;
-    }
-
-    /**
-     * @param float $mtoPercepcion
-     * @return Note
-     */
-    public function setMtoPercepcion($mtoPercepcion)
-    {
-        $this->mtoPercepcion = $mtoPercepcion;
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoTotalPercepcion()
-    {
-        return $this->mtoTotalPercepcion;
-    }
-
-    /**
-     * @param float $mtoTotalPercepcion
-     * @return Note
-     */
-    public function setMtoTotalPercepcion($mtoTotalPercepcion)
-    {
-        $this->mtoTotalPercepcion = $mtoTotalPercepcion;
+        $this->perception = $perception;
         return $this;
     }
 }

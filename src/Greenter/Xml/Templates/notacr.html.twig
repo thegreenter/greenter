@@ -21,12 +21,13 @@
                         <cbc:ID>1003</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|number_format(2) }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
-                    {% if doc.mtoBasePercepcion %}
+                    {% if doc.perception %}
+                        {% set perc = doc.perception %}
                         <sac:AdditionalMonetaryTotal>
-                            <cbc:ID schemeID="{{ doc.codRegPercepcion }}">2001</cbc:ID>
-                            <sac:ReferenceAmount currencyID="PEN">{{ doc.mtoBasePercepcion|number_format(2) }}</sac:ReferenceAmount>
-                            <cbc:PayableAmount currencyID="PEN">{{ doc.mtoPercepcion|number_format(2) }}</cbc:PayableAmount>
-                            <sac:TotalAmount currencyID="PEN">{{ doc.mtoTotalPercepcion|number_format(2) }}</sac:TotalAmount>
+                            <cbc:ID schemeID="{{ perc.codReg }}">2001</cbc:ID>
+                            <sac:ReferenceAmount currencyID="PEN">{{ perc.mtoBase|number_format(2) }}</sac:ReferenceAmount>
+                            <cbc:PayableAmount currencyID="PEN">{{ perc.mto|number_format(2) }}</cbc:PayableAmount>
+                            <sac:TotalAmount currencyID="PEN">{{ perc.mtoTotal|number_format(2) }}</sac:TotalAmount>
                         </sac:AdditionalMonetaryTotal>
                         <sac:AdditionalProperty>
                             <cbc:ID>2000</cbc:ID>
@@ -62,35 +63,18 @@
         <cbc:ResponseCode>{{ doc.codMotivo }}</cbc:ResponseCode>
         <cbc:Description>{{ doc.desMotivo }}</cbc:Description>
     </cac:DiscrepancyResponse>
-    {#<#list listaRelacionado as relacion>#}
-        {#<#if relacion.indDocuRelacionado = "3">#}
-            {#<cac:OrderReference>#}
-                {#<cbc:ID>${relacion.nroDocuRelacionado}</cbc:ID>#}
-            {#</cac:OrderReference>#}
-        {#</#if>#}
-    {#</#list>#}
     <cac:BillingReference>
         <cac:InvoiceDocumentReference>
             <cbc:ID>{{ doc.numDocfectado }}</cbc:ID>
             <cbc:DocumentTypeCode>{{ doc.tipDocAfectado }}</cbc:DocumentTypeCode>
         </cac:InvoiceDocumentReference>
     </cac:BillingReference>
-    {#<#list listaRelacionado as relacion>#}
-        {#<#if relacion.indDocuRelacionado = "1">#}
-            {#<cac:DespatchDocumentReference>#}
-                {#<cbc:ID>${relacion.nroDocuRelacionado}</cbc:ID>#}
-                {#<cbc:DocumentTypeCode>${relacion.tipDocuRelacionado}</cbc:DocumentTypeCode>#}
-            {#</cac:DespatchDocumentReference>#}
-        {#</#if>#}
-    {#</#list>#}
-    {#<#list listaRelacionado as relacion>#}
-        {#<#if relacion.indDocuRelacionado = "99">#}
-            {#<cac:AdditionalDocumentReference>#}
-                {#<cbc:ID>${relacion.nroDocuRelacionado}</cbc:ID>#}
-                {#<cbc:DocumentTypeCode>${relacion.tipDocuRelacionado}</cbc:DocumentTypeCode>#}
-            {#</cac:AdditionalDocumentReference>#}
-        {#</#if>#}
-    {#</#list>#}
+    {% for rel in doc.relDocs %}
+        <cac:AdditionalDocumentReference>
+            <cbc:ID>{{ rel.nroDoc }}</cbc:ID>
+            <cbc:DocumentTypeCode>{{ rel.tipoDoc }}</cbc:DocumentTypeCode>
+        </cac:AdditionalDocumentReference>
+    {% endfor %}
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
         <cbc:Note>GREENTER Builder</cbc:Note>
