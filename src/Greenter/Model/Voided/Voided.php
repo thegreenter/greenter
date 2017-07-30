@@ -121,4 +121,22 @@ class Voided
         $this->details = $details;
         return $this;
     }
+
+    /**
+     * Get FileName without extension.
+     *
+     * @param string $ruc Ruc de la Empresa.
+     * @return string
+     */
+    public function getFileName($ruc)
+    {
+        $parts = [
+            $ruc,
+            'RA',
+            $this->getFecComunicacion()->format('Ymd'),
+            $this->getCorrelativo(),
+        ];
+
+        return join('-', $parts);
+    }
 }

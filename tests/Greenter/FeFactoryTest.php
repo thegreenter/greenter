@@ -7,9 +7,6 @@
  */
 
 namespace Tests\Greenter;
-use Greenter\FeFactory;
-use Greenter\FeFactoryInterface;
-use Greenter\Ws\Services\FeSunat;
 
 /**
  * Class FeFactoryTest
@@ -17,33 +14,7 @@ use Greenter\Ws\Services\FeSunat;
  */
 class FeFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    use FeFactoryTrait;
-
-    /**
-     * @var FeFactoryInterface
-     */
-    private $factory;
-
-    public function setUp()
-    {
-        $factory = new FeFactory();
-        $factory->setParameters([
-            'ws' => [
-                'user' => '20000000001MODDATOS',
-                'pass' => 'moddatos',
-                'service' => FeSunat::BETA,
-            ],
-            'xml' => [
-                'cache' => sys_get_temp_dir(),
-            ],
-            'cert' => [
-                'public' => file_get_contents(__DIR__.'/Resources/certificado.cer'),
-                'private' => file_get_contents(__DIR__.'/Resources/certificado.key'),
-            ]
-        ]);
-        $factory->setCompany($this->getCompany());
-        $this->factory = $factory;
-    }
+    use FeFactoryTraitTest;
 
     public function testInvoice()
     {
@@ -56,6 +27,16 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
             'La Factura numero F001-123, ha sido aceptada',
             $result->getCdrResponse()->getDescription()
         );
+    }
+
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testInvoiceInvalid()
+    {
+        $invoice = $this->getInvoice();
+        $invoice->setTipoDoc('000');
+        $this->factory->sendInvoice($invoice);
     }
 
     public function testNotaCredito()
@@ -71,6 +52,16 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testCreditNoteException()
+    {
+        $creditNote = $this->getCreditNote();
+        $creditNote->setCodMotivo('C00');
+        $this->factory->sendNote($creditNote);
+    }
+
     public function testNotaDebito()
     {
         $debitNote = $this->getDebitNote();
@@ -84,6 +75,16 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testDebitNoteException()
+    {
+        $debitNote = $this->getDebitNote();
+        $debitNote->setCodMotivo('C00');
+        $this->factory->sendNote($debitNote);
+    }
+
 
     public function testResumen()
     {
@@ -95,6 +96,16 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2072', $result->getError()->getCode());
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testResumenException()
+    {
+        $resumen = $this->getSummary();
+        $resumen->setCorrelativo('1234');
+        $this->factory->sendResumen($resumen);
+    }
+
     public function testBaja()
     {
         $baja = $this->getVoided();
@@ -103,6 +114,16 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
         $this->assertEquals(13, strlen($result->getTicket()));
+    }
+
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testBajaException()
+    {
+        $baja = $this->getVoided();
+        $baja->getDetails()[0]->setTipoDoc('100');
+        $this->factory->sendBaja($baja);
     }
 
     public function testStatus()

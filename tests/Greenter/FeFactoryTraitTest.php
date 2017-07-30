@@ -8,6 +8,8 @@
 
 namespace Tests\Greenter;
 
+use Greenter\FeFactory;
+use Greenter\FeFactoryInterface;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\SaleDetail;
@@ -18,13 +20,40 @@ use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
+use Greenter\Ws\Services\FeSunat;
 
 /**
  * Trait FeFactoryTrait
  * @package Tests\Greenter
  */
-trait FeFactoryTrait
+trait FeFactoryTraitTest
 {
+    /**
+     * @var FeFactoryInterface
+     */
+    private $factory;
+
+    public function setUp()
+    {
+        $factory = new FeFactory();
+        $factory->setParameters([
+            'ws' => [
+                'user' => '20000000001MODDATOS',
+                'pass' => 'moddatos',
+                'service' => FeSunat::BETA,
+            ],
+            'xml' => [
+                'cache' => sys_get_temp_dir(),
+            ],
+            'cert' => [
+                'public' => file_get_contents(__DIR__.'/Resources/certificado.cer'),
+                'private' => file_get_contents(__DIR__.'/Resources/certificado.key'),
+            ]
+        ]);
+        $factory->setCompany($this->getCompany());
+        $this->factory = $factory;
+    }
+
     private function getInvoice()
     {
         $invoice = new Invoice();

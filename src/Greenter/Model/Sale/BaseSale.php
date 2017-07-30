@@ -474,4 +474,22 @@ class BaseSale
         $this->relDocs = $relDocs;
         return $this;
     }
+
+    /**
+     * Get FileName without extension.
+     *
+     * @param string $ruc Ruc de la Empresa.
+     * @return string
+     */
+    public function getFileName($ruc)
+    {
+        $parts = [
+            $ruc,
+            $this->getTipoDoc(),
+            $this->getSerie(),
+            $this->getCorrelativo(),
+        ];
+
+        return join('-', $parts);
+    }
 }
