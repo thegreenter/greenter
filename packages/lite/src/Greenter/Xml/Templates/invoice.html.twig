@@ -25,12 +25,13 @@
                         <cbc:ID>1003</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|number_format(2) }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
-                    {% if doc.mtoBasePercepcion %}
+                    {% if doc.perception %}
+                        {% set perc = doc.perception %}
                         <sac:AdditionalMonetaryTotal>
-                            <cbc:ID schemeID="{{ doc.codRegPercepcion }}">2001</cbc:ID>
-                            <sac:ReferenceAmount currencyID="PEN">{{ doc.mtoBasePercepcion|number_format(2) }}</sac:ReferenceAmount>
-                            <cbc:PayableAmount currencyID="PEN">{{ doc.mtoPercepcion|number_format(2) }}</cbc:PayableAmount>
-                            <sac:TotalAmount currencyID="PEN">{{ doc.mtoTotalPercepcion|number_format(2) }}</sac:TotalAmount>
+                            <cbc:ID schemeID="{{ perc.codReg }}">2001</cbc:ID>
+                            <sac:ReferenceAmount currencyID="PEN">{{ perc.mtoBase|number_format(2) }}</sac:ReferenceAmount>
+                            <cbc:PayableAmount currencyID="PEN">{{ perc.mto|number_format(2) }}</cbc:PayableAmount>
+                            <sac:TotalAmount currencyID="PEN">{{ perc.mtoTotal|number_format(2) }}</sac:TotalAmount>
                         </sac:AdditionalMonetaryTotal>
                         <sac:AdditionalProperty>
                             <cbc:ID>2000</cbc:ID>
@@ -67,29 +68,12 @@
     <cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
     <cbc:InvoiceTypeCode>{{ doc.tipoDoc }}</cbc:InvoiceTypeCode>
     <cbc:DocumentCurrencyCode>{{ doc.tipoMoneda }}</cbc:DocumentCurrencyCode>
-    {#<#list listaRelacionado as relacion>#}
-        {#<#if relacion.indDocuRelacionado = "3">#}
-            {#<cac:OrderReference>#}
-                {#<cbc:ID>${relacion.nroDocuRelacionado}</cbc:ID>#}
-            {#</cac:OrderReference>#}
-        {#</#if>#}
-    {#</#list>#}
-    {#<#list listaRelacionado as relacion>#}
-        {#<#if relacion.indDocuRelacionado = "1">#}
-            {#<cac:DespatchDocumentReference>#}
-                {#<cbc:ID>${relacion.nroDocuRelacionado}</cbc:ID>#}
-                {#<cbc:DocumentTypeCode>${relacion.tipDocuRelacionado}</cbc:DocumentTypeCode>#}
-            {#</cac:DespatchDocumentReference>#}
-        {#</#if>#}
-    {#</#list>#}
-    {#<#list listaRelacionado as relacion>#}
-        {#<#if relacion.indDocuRelacionado = "99">#}
-            {#<cac:AdditionalDocumentReference>#}
-                {#<cbc:ID>${relacion.nroDocuRelacionado}</cbc:ID>#}
-                {#<cbc:DocumentTypeCode>${relacion.tipDocuRelacionado}</cbc:DocumentTypeCode>#}
-            {#</cac:AdditionalDocumentReference>#}
-        {#</#if>#}
-    {#</#list>#}
+    {% for rel in doc.relDocs %}
+        <cac:AdditionalDocumentReference>
+            <cbc:ID>{{ rel.nroDoc }}</cbc:ID>
+            <cbc:DocumentTypeCode>{{ rel.tipoDoc }}</cbc:DocumentTypeCode>
+        </cac:AdditionalDocumentReference>
+    {% endfor %}
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
         <cbc:Note>GREENTER Builder</cbc:Note>
@@ -135,24 +119,6 @@
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
-    {#<#list listaRelacionado as relacion>#}
-        {#<#if relacion.indDocuRelacionado = "1">#}
-            {#<cac:PrepaidPayment>#}
-                {#<cbc:ID>${relacion.nroDocuRelacionado}</cbc:ID>#}
-                {#<cbc:PaidAmount currencyID="{{ doc.tipoMoneda }}">${relacion.mtoDocuRelacionado}</cbc:PaidAmount>#}
-                {#<cbc:InstructionID>${relacion.nroDocuEmisor}</cbc:InstructionID>#}
-            {#</cac:PrepaidPayment>#}
-        {#</#if>#}
-    {#</#list>#}
-    {#<#list listaRelacionado as relacion>#}
-        {#<#if relacion.indDocuRelacionado = "3">#}
-            {#<cac:PrepaidPayment>#}
-                {#<cbc:ID>${relacion.nroDocuRelacionado}</cbc:ID>#}
-                {#<cbc:PaidAmount currencyID="{{ doc.tipoMoneda }}">${relacion.mtoDocuRelacionado}</cbc:PaidAmount>#}
-                {#<cbc:InstructionID>${relacion.nroDocuEmisor}</cbc:InstructionID>#}
-            {#</cac:PrepaidPayment>#}
-        {#</#if>#}
-    {#</#list>#}
     {% if doc.mtoISC %}
         {% set iscT = doc.mtoISC|number_format(2) %}
         <cac:TaxTotal>

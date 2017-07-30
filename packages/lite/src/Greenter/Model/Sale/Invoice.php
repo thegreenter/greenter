@@ -9,6 +9,7 @@
 namespace Greenter\Model\Sale;
 
 use Greenter\Xml\Validator\InvoiceValidator;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Invoice
@@ -40,24 +41,11 @@ class Invoice extends BaseSale
     private $mtoDescuentos;
 
     /**
-     * @var string
+     * @Assert\Valid()
+     *
+     * @var SalePerception
      */
-    private $codRegPercepcion;
-
-    /**
-     * @var float
-     */
-    private $mtoBasePercepcion;
-
-    /**
-     * @var float
-     */
-    private $mtoPercepcion;
-
-    /**
-     * @var float
-     */
-    private $mtoTotalPercepcion;
+    private $perception;
 
     /**
      * @return string
@@ -132,74 +120,20 @@ class Invoice extends BaseSale
     }
 
     /**
-     * @return string
+     * @return SalePerception
      */
-    public function getCodRegPercepcion()
+    public function getPerception()
     {
-        return $this->codRegPercepcion;
+        return $this->perception;
     }
 
     /**
-     * @param string $codRegPercepcion
+     * @param SalePerception $perception
      * @return Invoice
      */
-    public function setCodRegPercepcion($codRegPercepcion)
+    public function setPerception($perception)
     {
-        $this->codRegPercepcion = $codRegPercepcion;
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoBasePercepcion()
-    {
-        return $this->mtoBasePercepcion;
-    }
-
-    /**
-     * @param float $mtoBasePercepcion
-     * @return Invoice
-     */
-    public function setMtoBasePercepcion($mtoBasePercepcion)
-    {
-        $this->mtoBasePercepcion = $mtoBasePercepcion;
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoPercepcion()
-    {
-        return $this->mtoPercepcion;
-    }
-
-    /**
-     * @param float $mtoPercepcion
-     * @return Invoice
-     */
-    public function setMtoPercepcion($mtoPercepcion)
-    {
-        $this->mtoPercepcion = $mtoPercepcion;
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoTotalPercepcion()
-    {
-        return $this->mtoTotalPercepcion;
-    }
-
-    /**
-     * @param float $mtoTotalPercepcion
-     * @return Invoice
-     */
-    public function setMtoTotalPercepcion($mtoTotalPercepcion)
-    {
-        $this->mtoTotalPercepcion = $mtoTotalPercepcion;
+        $this->perception = $perception;
         return $this;
     }
 }
