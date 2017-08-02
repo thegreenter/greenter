@@ -45,10 +45,7 @@ trait FeFactoryTraitTest
             'xml' => [
                 'cache' => sys_get_temp_dir(),
             ],
-            'cert' => [
-                'public' => file_get_contents(__DIR__.'/Resources/certificado.cer'),
-                'private' => file_get_contents(__DIR__.'/Resources/certificado.key'),
-            ]
+            'cert' => file_get_contents(__DIR__.'/Resources/SFSCert.pem'),
         ]);
         $factory->setCompany($this->getCompany());
         $this->factory = $factory;

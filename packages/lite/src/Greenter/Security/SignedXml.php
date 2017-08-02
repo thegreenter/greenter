@@ -27,8 +27,6 @@ class SignedXml
     public function __construct()
     {
         $this->adapter = new SunatXmlSecAdapter();
-        $this->adapter->addTransform(SunatXmlSecAdapter::ENVELOPED);
-        $this->adapter->setCanonicalMethod(SunatXmlSecAdapter::XML_C14N);
     }
 
     /**
@@ -54,24 +52,18 @@ class SignedXml
     public function verify($content)
     {
         $doc = $this->getDocXml($content);
+        $this->adapter->getPublicKey($doc);
 
         return $this->adapter->verify($doc);
     }
 
     /**
-     * @param string $key
+     * @param string $cert
      */
-    public function setPrivateKey($key)
+    public function setCertificate($cert)
     {
-        $this->adapter->setPrivateKey($key);
-    }
-
-    /**
-     * @param string $key
-     */
-    public function setPublicKey($key)
-    {
-        $this->adapter->setPublicKey($key);
+        $this->adapter->setPrivateKey($cert);
+        $this->adapter->setPublicKey($cert);
     }
 
     /**

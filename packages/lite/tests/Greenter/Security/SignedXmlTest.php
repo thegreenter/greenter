@@ -26,11 +26,9 @@ class SignedXmlTest extends \PHPUnit_Framework_TestCase
 
     public function testVerifyXml()
     {
-        $key = file_get_contents(__DIR__ . '/../Resources/certificado.cer');
         $xmlSigned = $this->createXmlSigned();
 
         $signer = new SignedXml();
-        $signer->setPublicKey($key);
         $result = $signer->verify($xmlSigned);
 
         $this->assertTrue($result);
@@ -46,11 +44,9 @@ class SignedXmlTest extends \PHPUnit_Framework_TestCase
     private function createXmlSigned()
     {
         $xml = file_get_contents(__DIR__ . '/../Resources/invoice.xml');
-        $key = file_get_contents(__DIR__ . '/../Resources/certificado.key');
-        $cer = file_get_contents(__DIR__ . '/../Resources/certificado.cer');
+        $cert = file_get_contents(__DIR__ . '/../Resources/SFSCert.pem');
         $signer = new SignedXml();
-        $signer->setPrivateKey($key);
-        $signer->setPublicKey($cer);
+        $signer->setCertificate($cert);
         $xmlSigned = $signer->sign($xml);
 
         //file_put_contents('signed.xml', $xmlSigned);
