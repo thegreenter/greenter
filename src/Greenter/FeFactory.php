@@ -156,9 +156,7 @@ class FeFactory implements FeFactoryInterface
         }
 
         if (isset($params['cert'])) {
-            $cert = $params['cert'];
-            $this->signer->setPrivateKey($cert['private']);
-            $this->signer->setPublicKey($cert['public']);
+            $this->signer->setCertificate($params['cert']);
         }
     }
 

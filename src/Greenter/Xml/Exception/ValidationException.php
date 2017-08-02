@@ -29,6 +29,4 @@ class ValidationException extends \Exception
     {
         $this->validations = $validations;
     }
-
-
 }
