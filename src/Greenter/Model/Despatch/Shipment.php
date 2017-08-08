@@ -7,6 +7,7 @@
  */
 
 namespace Greenter\Model\Despatch;
+use Greenter\Xml\Validator\ShipmentValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -15,6 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Shipment
 {
+    use ShipmentValidator;
+
     /**
      * Motivo del traslado
      *
@@ -59,6 +62,7 @@ class Shipment
      * @var int
      */
     private $numBultos;
+
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min="2", max="2")

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DespatchAdvice xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2" 
+	xmlns:ds="http://www.w3.org/2000/09/xmldsig#" 
+	xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" 
+	xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" 
+	xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+<ext:UBLExtensions>
+<ext:UBLExtension>
+	<ext:ExtensionContent>
+	</ext:ExtensionContent>
+	</ext:UBLExtension>
+</ext:UBLExtensions>
+<cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+<cbc:CustomizationID>1.0</cbc:CustomizationID>
+<cbc:ID>T001-1</cbc:ID>
+<cbc:IssueDate>2016-07-01</cbc:IssueDate>
+<cbc:IssueTime>07:36:21</cbc:IssueTime>
+<cbc:DespatchAdviceTypeCode>09</cbc:DespatchAdviceTypeCode>
+<cbc:Note>OC001 00000289</cbc:Note>
+<cac:DespatchSupplierParty>
+	<cbc:CustomerAssignedAccountID schemeID="6">20131312955</cbc:CustomerAssignedAccountID>
+	<cac:Party>
+		<cac:PartyLegalEntity>
+			<cbc:RegistrationName>RIO BLANCO S.A.C.</cbc:RegistrationName>
+		</cac:PartyLegalEntity>
+	</cac:Party>
+</cac:DespatchSupplierParty>
+<cac:DeliveryCustomerParty>
+	<cbc:CustomerAssignedAccountID schemeID="6">20131312955</cbc:CustomerAssignedAccountID>
+	<cac:Party>
+		<cac:PartyLegalEntity>
+			<cbc:RegistrationName>RIO BLANCO S.A.C.</cbc:RegistrationName>
+		</cac:PartyLegalEntity>
+	</cac:Party>
+</cac:DeliveryCustomerParty>
+<cac:SellerSupplierParty>
+	<cbc:CustomerAssignedAccountID schemeID="6">20100369509</cbc:CustomerAssignedAccountID>
+	<cac:Party>
+		<cac:PartyLegalEntity>
+			<cbc:RegistrationName>ESTRUCTURAS INDUSTRIALES EGA S A</cbc:RegistrationName>
+		</cac:PartyLegalEntity>
+	</cac:Party>
+</cac:SellerSupplierParty>
+<cac:Shipment>
+	<cbc:ID>1</cbc:ID>
+	<cbc:HandlingCode>02</cbc:HandlingCode>
+	<cbc:Information/>
+	<cac:ShipmentStage>
+		<cbc:TransportModeCode>2</cbc:TransportModeCode>
+		<cac:TransitPeriod>
+			<cbc:StartDate>2016-07-02</cbc:StartDate>
+		</cac:TransitPeriod>
+		<cac:TransportMeans>
+			<cac:RoadTransport>
+				<cbc:LicensePlateID>ALQ-780</cbc:LicensePlateID>
+			</cac:RoadTransport>
+		</cac:TransportMeans>
+		<cac:DriverPerson>
+			<cbc:ID schemeID="1">42201330</cbc:ID>
+		</cac:DriverPerson>
+	</cac:ShipmentStage>
+	<cac:Delivery>
+		<cac:DeliveryAddress>
+			<cbc:ID>100301</cbc:ID>
+			<cbc:StreetName>CALLE LOS OLIVOS SN</cbc:StreetName>
+		</cac:DeliveryAddress>
+	</cac:Delivery>
+	<cac:TransportHandlingUnit>
+		<cbc:ID>ALQ-780</cbc:ID>
+	</cac:TransportHandlingUnit>
+	<cac:OriginAddress>
+		<cbc:ID>150132</cbc:ID>
+		<cbc:StreetName>AV. LURIGANCHO NRO. 1245 URB. ZARATE</cbc:StreetName>
+	</cac:OriginAddress>
+</cac:Shipment>
+<cac:DespatchLine>
+	<cbc:ID>1</cbc:ID>
+	<cbc:DeliveredQuantity unitCode="NIU">13</cbc:DeliveredQuantity>
+	<cac:OrderLineReference>
+		<cbc:LineID>1</cbc:LineID>
+	</cac:OrderLineReference>
+	<cac:Item>
+		<cbc:Name>CANAL U 0.5 MM ALUZINC POL RMP PRI   AZ200 BLANCO BHP BLANCO DES.200MM X 2.60M</cbc:Name>
+		<cac:SellersItemIdentification>
+			<cbc:ID/>
+		</cac:SellersItemIdentification>
+	</cac:Item>
+</cac:DespatchLine>
+<cac:DespatchLine>
+	<cbc:ID>2</cbc:ID>
+	<cbc:DeliveredQuantity unitCode="NIU">16</cbc:DeliveredQuantity>
+	<cac:OrderLineReference>
+		<cbc:LineID>1</cbc:LineID>
+	</cac:OrderLineReference>
+	<cac:Item>
+		<cbc:Name>ESQUINERO 0.5 MM ALUZINC POL RMP PRI AZ200 BLANCO BHP BLANCO DES.200MM X 2.50M</cbc:Name>
+		<cac:SellersItemIdentification>
+			<cbc:ID/>
+		</cac:SellersItemIdentification>
+	</cac:Item>
+</cac:DespatchLine>
+</DespatchAdvice>
