@@ -6,7 +6,7 @@
  * Time: 04:06 PM
  */
 
-namespace Greenter;
+namespace Greenter\Factory;
 
 use Greenter\Model\Company\Company;
 use Greenter\Model\Response\BillResult;
@@ -23,6 +23,10 @@ use Greenter\Ws\Services\FeSunat;
 use Greenter\Xml\Builder\FeBuilder;
 use Greenter\Model\Sale\Invoice;
 
+/**
+ * Class FeFactory
+ * @package Greenter\Factory
+ */
 class FeFactory implements FeFactoryInterface
 {
     /**
