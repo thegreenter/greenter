@@ -10,6 +10,7 @@ namespace Greenter\Model\Despatch;
 
 use Greenter\Model\Client\Client;
 use Greenter\Model\Sale\Document;
+use Greenter\Xml\Validator\DespatchValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -18,6 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Despatch
 {
+    use DespatchValidator;
+
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max="2")
@@ -63,14 +66,14 @@ class Despatch
      * @Assert\Valid()
      * @var Client
      */
-    private $datoTercero;
+    private $tercero;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Valid()
      * @var Shipment
      */
-    private $datoEnvio;
+    private $envio;
 
     /**
      * @Assert\Valid()
@@ -202,36 +205,36 @@ class Despatch
     /**
      * @return Client
      */
-    public function getDatoTercero()
+    public function getTercero()
     {
-        return $this->datoTercero;
+        return $this->tercero;
     }
 
     /**
-     * @param Client $datoTercero
+     * @param Client $tercero
      * @return Despatch
      */
-    public function setDatoTercero($datoTercero)
+    public function setTercero($tercero)
     {
-        $this->datoTercero = $datoTercero;
+        $this->tercero = $tercero;
         return $this;
     }
 
     /**
      * @return Shipment
      */
-    public function getDatoEnvio()
+    public function getEnvio()
     {
-        return $this->datoEnvio;
+        return $this->envio;
     }
 
     /**
-     * @param Shipment $datoEnvio
+     * @param Shipment $envio
      * @return Despatch
      */
-    public function setDatoEnvio($datoEnvio)
+    public function setEnvio($envio)
     {
-        $this->datoEnvio = $datoEnvio;
+        $this->envio = $envio;
         return $this;
     }
 
