@@ -6,7 +6,7 @@
  * Time: 19:24
  */
 
-namespace Greenter;
+namespace Greenter\Factory;
 
 use Greenter\Model\Company\Company;
 use Greenter\Model\Response\BillResult;

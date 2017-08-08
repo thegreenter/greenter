@@ -12,7 +12,7 @@
     </ext:UBLExtensions>
     <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
     <cbc:CustomizationID>1.0</cbc:CustomizationID>
-    <cbc:ID>RA-{{ doc.fecComunicacion|date('Ymd') }}-{{ doc.correlativo }}</cbc:ID>
+    <cbc:ID>{{ doc.xmlId }}</cbc:ID>
     <cbc:ReferenceDate>{{ doc.fecGeneracion|date('Y-m-d') }}</cbc:ReferenceDate>
     <cbc:IssueDate>{{ doc.fecComunicacion|date('Y-m-d') }}</cbc:IssueDate>
     <cac:Signature>

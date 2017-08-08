@@ -6,10 +6,10 @@
  * Time: 23:52
  */
 
-namespace Tests\Greenter;
+namespace Tests\Greenter\Factory;
 
-use Greenter\FeFactory;
-use Greenter\FeFactoryInterface;
+use Greenter\Factory\FeFactory;
+use Greenter\Factory\FeFactoryInterface;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
@@ -46,7 +46,7 @@ trait FeFactoryTraitTest
             'xml' => [
                 'cache' => sys_get_temp_dir(),
             ],
-            'cert' => file_get_contents(__DIR__.'/Resources/SFSCert.pem'),
+            'cert' => file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'),
         ]);
         $factory->setCompany($this->getCompany());
         $this->factory = $factory;

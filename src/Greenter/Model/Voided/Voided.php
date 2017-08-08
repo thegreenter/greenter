@@ -130,8 +130,17 @@ class Voided
      */
     public function getFileName($ruc)
     {
+        return $ruc . '-' . $this->getXmlId();
+    }
+
+    /**
+     * Get Id XML.
+     *
+     * @return string
+     */
+    public function getXmlId()
+    {
         $parts = [
-            $ruc,
             'RA',
             $this->getFecComunicacion()->format('Ymd'),
             $this->getCorrelativo(),

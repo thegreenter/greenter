@@ -6,7 +6,7 @@
  * Time: 23:50
  */
 
-namespace Tests\Greenter;
+namespace Tests\Greenter\Factory;
 
 /**
  * Class FeFactoryTest
