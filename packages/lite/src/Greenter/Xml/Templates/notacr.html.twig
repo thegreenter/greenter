@@ -111,12 +111,13 @@
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
+    {% set client = doc.client %}
     <cac:AccountingCustomerParty>
-        <cbc:CustomerAssignedAccountID>{{ doc.numDocUsuario }}</cbc:CustomerAssignedAccountID>
-        <cbc:AdditionalAccountID>{{ doc.tipoDocUsuario }}</cbc:AdditionalAccountID>
+        <cbc:CustomerAssignedAccountID>{{ client.numDoc }}</cbc:CustomerAssignedAccountID>
+        <cbc:AdditionalAccountID>{{ client.tipoDoc }}</cbc:AdditionalAccountID>
         <cac:Party>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName>{{ doc.rznSocialUsuario }}</cbc:RegistrationName>
+                <cbc:RegistrationName>{{ client.rznSocial }}</cbc:RegistrationName>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>

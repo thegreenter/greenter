@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Model\Client\Client;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Sale\SaleDetail;
@@ -77,6 +78,11 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
 
     private function getCreditNote()
     {
+        $client = new Client();
+        $client->setTipoDoc('6')
+            ->setNumDoc('20000000001')
+            ->setRznSocial('EMPRESA 1');
+
         $note = new Note();
         $note
             ->setTipDocAfectado('01')
@@ -87,9 +93,7 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
             ->setSerie('FF01')
             ->setCorrelativo('123')
             ->setTipoMoneda('PEN')
-            ->setTipoDocUsuario('6')
-            ->setNumDocUsuario('20000000001')
-            ->setRznSocialUsuario('EMPRESA 1')
+            ->setClient($client)
             ->setMtoOperGravadas(200)
             ->setMtoOperExoneradas(0)
             ->setMtoOperInafectas(0)

@@ -35,18 +35,6 @@ trait InvoiceValidator
             new Assert\Length(['max' => 8]),
         ]);
         $metadata->addPropertyConstraint('fechaEmision', new Assert\Date());
-        $metadata->addPropertyConstraints('tipoDocUsuario', [
-            new Assert\NotBlank(),
-            new Assert\Length(['max' => 1]),
-        ]);
-        $metadata->addPropertyConstraints('numDocUsuario', [
-            new Assert\NotBlank(),
-            new Assert\Length(['max' => 15]),
-        ]);
-        $metadata->addPropertyConstraints('rznSocialUsuario', [
-            new Assert\NotBlank(),
-            new Assert\Length(['max' => 100]),
-        ]);
         $metadata->addPropertyConstraints('tipoMoneda', [
             new Assert\NotBlank(),
             new Assert\Length(['max' => 3]),
@@ -55,6 +43,8 @@ trait InvoiceValidator
         $metadata->addPropertyConstraint('mtoOperInafectas', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoOperExoneradas', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoImpVenta', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('client', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('client', new Assert\Valid());
         $metadata->addPropertyConstraint('details', new Assert\Valid());
         $metadata->addPropertyConstraint('legends', new Assert\Valid());
         $metadata->addPropertyConstraint('relDocs', new Assert\Valid());
