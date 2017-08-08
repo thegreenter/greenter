@@ -7,6 +7,8 @@
  */
 
 namespace Greenter\Model\Sale;
+use Greenter\Model\Client\Client;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class BaseSale
@@ -43,24 +45,10 @@ class BaseSale
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max="1")
-     * @var string
+     * @Assert\Valid()
+     * @var Client
      */
-    protected $tipoDocUsuario;
-
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="15")
-     * @var string
-     */
-    protected $numDocUsuario;
-
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="100")
-     * @var string
-     */
-    protected $rznSocialUsuario;
+    protected $client;
 
     /**
      * @Assert\NotBlank()
@@ -206,56 +194,20 @@ class BaseSale
     }
 
     /**
-     * @return string
+     * @return Client
      */
-    public function getTipoDocUsuario()
+    public function getClient()
     {
-        return $this->tipoDocUsuario;
+        return $this->client;
     }
 
     /**
-     * @param string $tipoDocUsuario
+     * @param Client $client
      * @return BaseSale
      */
-    public function setTipoDocUsuario($tipoDocUsuario)
+    public function setClient($client)
     {
-        $this->tipoDocUsuario = $tipoDocUsuario;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNumDocUsuario()
-    {
-        return $this->numDocUsuario;
-    }
-
-    /**
-     * @param string $numDocUsuario
-     * @return BaseSale
-     */
-    public function setNumDocUsuario($numDocUsuario)
-    {
-        $this->numDocUsuario = $numDocUsuario;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRznSocialUsuario()
-    {
-        return $this->rznSocialUsuario;
-    }
-
-    /**
-     * @param string $rznSocialUsuario
-     * @return BaseSale
-     */
-    public function setRznSocialUsuario($rznSocialUsuario)
-    {
-        $this->rznSocialUsuario = $rznSocialUsuario;
+        $this->client = $client;
         return $this;
     }
 

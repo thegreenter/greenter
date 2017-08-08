@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Model\Client\Client;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\SaleDetail;
@@ -85,14 +86,17 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
 
     private function getInvoice()
     {
+        $client = new Client();
+        $client->setTipoDoc('6')
+            ->setNumDoc('20000000001')
+            ->setRznSocial('EMPRESA 1');
+
         $invoice = new Invoice();
         $invoice->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
             ->setTipoMoneda('PEN')
-            ->setTipoDocUsuario('6')
-            ->setNumDocUsuario('20000000001')
-            ->setRznSocialUsuario('EMPRESA 1')
+            ->setClient($client)
             ->setMtoOperGravadas(200)
             ->setMtoOperExoneradas(0)
             ->setMtoOperInafectas(0)
