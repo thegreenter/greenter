@@ -21,6 +21,8 @@ class Retention
     use RetentionValidator;
 
     /**
+     * Serie del Documento (ejem: R001)
+     *
      * @Assert\NotBlank()
      * @Assert\Length(max="4")
      * @var string
@@ -75,15 +77,6 @@ class Retention
      * @var float
      */
     private $impPagado;
-
-    /**
-     * Moneda del Importe total Retenido.
-     *
-     * @Assert\NotBlank()
-     * @Assert\Length(min="3", max="3")
-     * @var string
-     */
-    private $moneda;
 
     /**
      * @Assert\Length(max="250")
@@ -247,24 +240,6 @@ class Retention
     /**
      * @return string
      */
-    public function getMoneda()
-    {
-        return $this->moneda;
-    }
-
-    /**
-     * @param string $moneda
-     * @return Retention
-     */
-    public function setMoneda($moneda)
-    {
-        $this->moneda = $moneda;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getObservacion()
     {
         return $this->observacion;
@@ -281,7 +256,7 @@ class Retention
     }
 
     /**
-     * @return mixed
+     * @return RetentionDetail[]
      */
     public function getDetails()
     {
@@ -289,12 +264,30 @@ class Retention
     }
 
     /**
-     * @param mixed $details
+     * @param RetentionDetail[] $details
      * @return Retention
      */
     public function setDetails($details)
     {
         $this->details = $details;
         return $this;
+    }
+
+    /**
+     * Get FileName without extension.
+     *
+     * @param string $ruc Ruc de la Empresa.
+     * @return string
+     */
+    public function getFileName($ruc)
+    {
+        $parts = [
+            $ruc,
+            '20',
+            $this->getSerie(),
+            $this->getCorrelativo(),
+        ];
+
+        return join('-', $parts);
     }
 }

@@ -91,7 +91,7 @@ class Exchange
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getFactor()
     {
@@ -99,7 +99,7 @@ class Exchange
     }
 
     /**
-     * @param mixed $factor
+     * @param float $factor
      * @return Exchange
      */
     public function setFactor($factor)
@@ -109,7 +109,7 @@ class Exchange
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -117,7 +117,7 @@ class Exchange
     }
 
     /**
-     * @param mixed $fecha
+     * @param \DateTime $fecha
      * @return Exchange
      */
     public function setFecha($fecha)

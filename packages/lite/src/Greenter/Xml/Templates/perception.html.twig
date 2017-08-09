@@ -13,112 +13,78 @@
 	<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
 	<cbc:CustomizationID>1.0</cbc:CustomizationID>
 	<cac:Signature>
-		<cbc:ID>IDSignKG</cbc:ID>
+		<cbc:ID>{{ emp.ruc }}</cbc:ID>
+		<cbc:Note>GREENTER Builder</cbc:Note>
 		<cac:SignatoryParty>
 			<cac:PartyIdentification>
-			<cbc:ID>20600995805</cbc:ID>
+				<cbc:ID>{{ emp.ruc }}</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyName>
-				<cbc:Name><![CDATA[K&G Laboratorios]]></cbc:Name>
+				<cbc:Name>{{ emp.nombreComercial }}</cbc:Name>
 			</cac:PartyName>
 		</cac:SignatoryParty>
 		<cac:DigitalSignatureAttachment>
 			<cac:ExternalReference>
-				<cbc:URI>#signatureKG</cbc:URI>
+				<cbc:URI>#SIGN-GREEN</cbc:URI>
 			</cac:ExternalReference>
 		</cac:DigitalSignatureAttachment>
 	</cac:Signature>
-	<cbc:ID>P001-123</cbc:ID>
-	<cbc:IssueDate>2015-12-23</cbc:IssueDate>
+	<cbc:ID>{{ doc.serie }}-{{ doc.correlativo }}</cbc:ID>
+	<cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
 	<cac:AgentParty>
 		<cac:PartyIdentification>
-		<cbc:ID schemeID="6">20600995805</cbc:ID>
+			<cbc:ID schemeID="6">{{ emp.ruc }}</cbc:ID>
 		</cac:PartyIdentification>
 		<cac:PartyName>
-			<cbc:Name><![CDATA[K&G Laboratorios]]></cbc:Name>
+			<cbc:Name>{{ emp.nombreComercial }}</cbc:Name>
 		</cac:PartyName>
 		<cac:PostalAddress>
-			<cbc:ID>150114</cbc:ID>
-			<cbc:StreetName>AV. LOS OLIVOS 767</cbc:StreetName>
-			<cbc:CitySubdivisionName>URB. SANTA FELICIA</cbc:CitySubdivisionName>
-			<cbc:CityName>LIMA</cbc:CityName>
-			<cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
-			<cbc:District>MOLINA</cbc:District>
+			<cbc:ID>{{ emp.address.ubigueo }}</cbc:ID>
+			<cbc:StreetName>{{ emp.address.direccion }}</cbc:StreetName>
 			<cac:Country>
-			<cbc:IdentificationCode>PE</cbc:IdentificationCode>
+				<cbc:IdentificationCode>{{ emp.address.codigoPais }}</cbc:IdentificationCode>
 			</cac:Country>
 		</cac:PostalAddress>
 		<cac:PartyLegalEntity>
-			<cbc:RegistrationName><![CDATA[K&G Asociados S. A.]]></cbc:RegistrationName>
+			<cbc:RegistrationName>{{ emp.razonSocial }}</cbc:RegistrationName>
 		</cac:PartyLegalEntity>
 	</cac:AgentParty>
 	<cac:ReceiverParty>
 		<cac:PartyIdentification>
-			<cbc:ID schemeID="6">20546772439</cbc:ID>
+			<cbc:ID schemeID="{{ doc.proveedor.tipoDoc }}">{{ doc.proveedor.numDoc }}</cbc:ID>
 		</cac:PartyIdentification>
-		<cac:PartyName>
-			<cbc:Name><![CDATA[CIA. DE CONSULTORIA Y PLANEAMIENTO S.A.C.]]></cbc:Name>
-		</cac:PartyName>
-		<cac:PostalAddress>
-		<cbc:ID>150130</cbc:ID>
-			<cbc:StreetName>CAL. CALLE MORELLI 181 INT. P-2 </cbc:StreetName>
-			<cbc:CitySubdivisionName></cbc:CitySubdivisionName>
-			<cbc:CityName>LIMA</cbc:CityName>
-			<cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
-			<cbc:District>SAN BORJA</cbc:District>
-			<cac:Country>
-			<cbc:IdentificationCode>PE</cbc:IdentificationCode>
-			</cac:Country>
-		</cac:PostalAddress>
 		<cac:PartyLegalEntity>
-			<cbc:RegistrationName><![CDATA[CIA. DE CONSULTORIA Y PLANEAMIENTO S.A.C.]]></cbc:RegistrationName>
+			<cbc:RegistrationName><![CDATA[{{ doc.proveedor.rznSocial }}]]></cbc:RegistrationName>
 		</cac:PartyLegalEntity>
 	</cac:ReceiverParty>
-	<sac:SUNATPerceptionSystemCode>01</sac:SUNATPerceptionSystemCode>
-	<sac:SUNATPerceptionPercent>2</sac:SUNATPerceptionPercent>
-	<cbc:Note>Se emite con facturas del periodo 12/2015</cbc:Note>
-	<cbc:TotalInvoiceAmount currencyID="PEN">344.00</cbc:TotalInvoiceAmount>
-	<sac:SUNATTotalCashed currencyID="PEN">17544.00</sac:SUNATTotalCashed>
+	<sac:SUNATPerceptionSystemCode>{{ doc.regimen }}</sac:SUNATPerceptionSystemCode>
+	<sac:SUNATPerceptionPercent>{{ doc.tasa|number_format(2) }}</sac:SUNATPerceptionPercent>
+    {% if doc.observacion %}<cbc:Note>{{ doc.observacion }}</cbc:Note>{% endif %}
+	<cbc:TotalInvoiceAmount currencyID="PEN">{{ doc.impPercibido|number_format(2) }}</cbc:TotalInvoiceAmount>
+	<sac:SUNATTotalCashed currencyID="PEN">{{ doc.impCobrado|number_format(2) }}</sac:SUNATTotalCashed>
+	{% for det in doc.details %}
 	<sac:SUNATPerceptionDocumentReference>
-		<cbc:ID schemeID="01">0001-14</cbc:ID>
-		<cbc:IssueDate>2015-12-23</cbc:IssueDate>
-		<cbc:TotalInvoiceAmount currencyID="USD">14000.00</cbc:TotalInvoiceAmount>
+		<cbc:ID schemeID="{{ det.tipoDoc }}">{{ det.numDoc }}</cbc:ID>
+		<cbc:IssueDate>{{ det.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
+		<cbc:TotalInvoiceAmount currencyID="{{ det.moneda }}">{{ det.impTotal|number_format(2) }}</cbc:TotalInvoiceAmount>
+        {% for pay in det.pagos %}
 		<cac:Payment>
-			<cbc:ID>1</cbc:ID>
-			<cbc:PaidAmount currencyID="USD">5000.00</cbc:PaidAmount>
-			<cbc:PaidDate>2015-12-23</cbc:PaidDate>
+			<cbc:ID>{{ loop.index }}</cbc:ID>
+			<cbc:PaidAmount currencyID="PEN">{{ pay.importe|number_format(2) }}</cbc:PaidAmount>
+			<cbc:PaidDate>{{ pay.fecha|date('Y-m-d') }}</cbc:PaidDate>
 		</cac:Payment>
+        {% endfor %}
 		<sac:SUNATPerceptionInformation>
-			<sac:SUNATPerceptionAmount currencyID="PEN">324.00</sac:SUNATPerceptionAmount>
-			<sac:SUNATPerceptionDate>2015-12-23</sac:SUNATPerceptionDate>
-			<sac:SUNATNetTotalCashed currencyID="PEN">16524.00</sac:SUNATNetTotalCashed>
+			<sac:SUNATPerceptionAmount currencyID="PEN">{{ doc.impPercibido|number_format(2) }}</sac:SUNATPerceptionAmount>
+			<sac:SUNATPerceptionDate>{{ doc.fechaEmision|date('Y-m-d') }}</sac:SUNATPerceptionDate>
+			<sac:SUNATNetTotalCashed currencyID="PEN">{{ doc.impCobrado|number_format(2) }}</sac:SUNATNetTotalCashed>
 			<cac:ExchangeRate>
-				<cbc:SourceCurrencyCode>USD</cbc:SourceCurrencyCode>
-				<cbc:TargetCurrencyCode>PEN</cbc:TargetCurrencyCode>
-				<cbc:CalculationRate>3.24</cbc:CalculationRate>
-				<cbc:Date>2015-12-23</cbc:Date>
+				<cbc:SourceCurrencyCode>{{ det.tipoCambio.monedaRef }}</cbc:SourceCurrencyCode>
+				<cbc:TargetCurrencyCode>{{ det.tipoCambio.monedaObj }}</cbc:TargetCurrencyCode>
+				<cbc:CalculationRate>{{ det.tipoCambio.factor }}</cbc:CalculationRate>
+				<cbc:Date>{{ det.tipoCambio.fecha|date('Y-m-d') }}</cbc:Date>
 			</cac:ExchangeRate>
 		</sac:SUNATPerceptionInformation>
 	</sac:SUNATPerceptionDocumentReference>
-	<sac:SUNATPerceptionDocumentReference>
-		<cbc:ID schemeID="01">E001-540</cbc:ID>
-		<cbc:IssueDate>2015-12-15</cbc:IssueDate>
-		<cbc:TotalInvoiceAmount currencyID="PEN">1000.00</cbc:TotalInvoiceAmount>
-		<cac:Payment>
-			<cbc:ID>1</cbc:ID>
-			<cbc:PaidAmount currencyID="PEN">1000.00</cbc:PaidAmount>
-			<cbc:PaidDate>2015-12-23</cbc:PaidDate>
-		</cac:Payment>
-		<sac:SUNATPerceptionInformation>
-			<sac:SUNATPerceptionAmount currencyID="PEN">20.00</sac:SUNATPerceptionAmount>
-			<sac:SUNATPerceptionDate>2015-12-23</sac:SUNATPerceptionDate>
-			<sac:SUNATNetTotalCashed currencyID="PEN">1020.00</sac:SUNATNetTotalCashed>
-			<cac:ExchangeRate>
-				<cbc:SourceCurrencyCode>PEN</cbc:SourceCurrencyCode>
-				<cbc:TargetCurrencyCode>PEN</cbc:TargetCurrencyCode>
-				<cbc:CalculationRate>1.00</cbc:CalculationRate>
-				<cbc:Date>2015-12-23</cbc:Date>
-			</cac:ExchangeRate>
-		</sac:SUNATPerceptionInformation>
-	</sac:SUNATPerceptionDocumentReference>
+	{% endfor %}
 </Perception>

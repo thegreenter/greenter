@@ -106,7 +106,7 @@ class PerceptionDetail
     private $tipoCambio;
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTipoDoc()
     {
@@ -114,7 +114,7 @@ class PerceptionDetail
     }
 
     /**
-     * @param mixed $tipoDoc
+     * @param string $tipoDoc
      * @return PerceptionDetail
      */
     public function setTipoDoc($tipoDoc)
@@ -124,7 +124,7 @@ class PerceptionDetail
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getNumDoc()
     {
@@ -132,7 +132,7 @@ class PerceptionDetail
     }
 
     /**
-     * @param mixed $numDoc
+     * @param string $numDoc
      * @return PerceptionDetail
      */
     public function setNumDoc($numDoc)
@@ -142,7 +142,7 @@ class PerceptionDetail
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getFechaEmision()
     {
@@ -150,7 +150,7 @@ class PerceptionDetail
     }
 
     /**
-     * @param mixed $fechaEmision
+     * @param \DateTime $fechaEmision
      * @return PerceptionDetail
      */
     public function setFechaEmision($fechaEmision)
@@ -178,7 +178,7 @@ class PerceptionDetail
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getMoneda()
     {
@@ -186,7 +186,7 @@ class PerceptionDetail
     }
 
     /**
-     * @param mixed $moneda
+     * @param string $moneda
      * @return PerceptionDetail
      */
     public function setMoneda($moneda)
@@ -196,7 +196,7 @@ class PerceptionDetail
     }
 
     /**
-     * @return mixed
+     * @return Payment[]
      */
     public function getCobros()
     {
@@ -204,7 +204,7 @@ class PerceptionDetail
     }
 
     /**
-     * @param mixed $cobros
+     * @param Payment[] $cobros
      * @return PerceptionDetail
      */
     public function setCobros($cobros)

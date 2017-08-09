@@ -8,95 +8,109 @@
 <ext:UBLExtension>
 	<ext:ExtensionContent>
 	</ext:ExtensionContent>
-	</ext:UBLExtension>
+</ext:UBLExtension>
 </ext:UBLExtensions>
 <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
 <cbc:CustomizationID>1.0</cbc:CustomizationID>
-<cbc:ID>T001-1</cbc:ID>
-<cbc:IssueDate>2016-07-01</cbc:IssueDate>
-<cbc:IssueTime>07:36:21</cbc:IssueTime>
-<cbc:DespatchAdviceTypeCode>09</cbc:DespatchAdviceTypeCode>
-<cbc:Note>OC001 00000289</cbc:Note>
+<cbc:ID>{{ doc.serie }}-{{ doc.correlativo }}</cbc:ID>
+<cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
+<cbc:DespatchAdviceTypeCode>{{ doc.tipoDoc }}</cbc:DespatchAdviceTypeCode>
+{% if doc.observacion %}
+<cbc:Note>{{ doc.observacion }}</cbc:Note>
+{% endif %}
 <cac:DespatchSupplierParty>
-	<cbc:CustomerAssignedAccountID schemeID="6">20131312955</cbc:CustomerAssignedAccountID>
+	<cbc:CustomerAssignedAccountID schemeID="6">{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
 	<cac:Party>
 		<cac:PartyLegalEntity>
-			<cbc:RegistrationName>RIO BLANCO S.A.C.</cbc:RegistrationName>
+			<cbc:RegistrationName>{{ emp.razonSocial }}</cbc:RegistrationName>
 		</cac:PartyLegalEntity>
 	</cac:Party>
 </cac:DespatchSupplierParty>
 <cac:DeliveryCustomerParty>
-	<cbc:CustomerAssignedAccountID schemeID="6">20131312955</cbc:CustomerAssignedAccountID>
+	<cbc:CustomerAssignedAccountID schemeID="{{ doc.destinatario.tipoDoc }}">{{ doc.destinatario.numDoc }}</cbc:CustomerAssignedAccountID>
 	<cac:Party>
 		<cac:PartyLegalEntity>
-			<cbc:RegistrationName>RIO BLANCO S.A.C.</cbc:RegistrationName>
+			<cbc:RegistrationName>{{ doc.destinatario.rznSocial }}</cbc:RegistrationName>
 		</cac:PartyLegalEntity>
 	</cac:Party>
 </cac:DeliveryCustomerParty>
+{% if doc.tercero %}
 <cac:SellerSupplierParty>
-	<cbc:CustomerAssignedAccountID schemeID="6">20100369509</cbc:CustomerAssignedAccountID>
+	<cbc:CustomerAssignedAccountID schemeID="{{ doc.tercero.tipoDoc }}">{{ doc.tercero.numDoc }}</cbc:CustomerAssignedAccountID>
 	<cac:Party>
 		<cac:PartyLegalEntity>
-			<cbc:RegistrationName>ESTRUCTURAS INDUSTRIALES EGA S A</cbc:RegistrationName>
+			<cbc:RegistrationName>{{ doc.tercero.rznSocial }}</cbc:RegistrationName>
 		</cac:PartyLegalEntity>
 	</cac:Party>
 </cac:SellerSupplierParty>
+{% endif %}
+{# @var envio \Greenter\Model\Despatch\Shipment#}
+{% set envio = doc.envio %}
 <cac:Shipment>
 	<cbc:ID>1</cbc:ID>
-	<cbc:HandlingCode>02</cbc:HandlingCode>
-	<cbc:Information/>
+	<cbc:HandlingCode>{{ envio.codTraslado }}</cbc:HandlingCode>
+	{% if envio.desTraslado %}<cbc:Information>{{ envio.desTraslado }}</cbc:Information>{% endif %}
+	{% if envio.numBultos %}<cbc:TotalTransportHandlingUnitQuantity>{{ envio.numBultos }}</cbc:TotalTransportHandlingUnitQuantity>{% endif %}
+	<cbc:SplitConsignmentIndicator>{{ envio.indTransbordo }}</cbc:SplitConsignmentIndicator>
+	<cbc:GrossWeightMeasure unitCode="{{ envio.undPesoTotal }}">{{ envio.pesoTotal|number_format(3) }}</cbc:GrossWeightMeasure>
 	<cac:ShipmentStage>
-		<cbc:TransportModeCode>2</cbc:TransportModeCode>
+		<cbc:TransportModeCode>{{ envio.modTraslado }}</cbc:TransportModeCode>
 		<cac:TransitPeriod>
-			<cbc:StartDate>2016-07-02</cbc:StartDate>
+			<cbc:StartDate>{{ envio.fecTraslado|date('Y-m-d') }}</cbc:StartDate>
 		</cac:TransitPeriod>
+		{% if envio.transportista %}
+		<cac:CarrierParty>
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="{{ envio.transportista.tipoDoc }}">{{ envio.transportista.numDoc }}</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyName>
+				<cbc:Name>{{ envio.transportista.rznSocial }}</cbc:Name>
+			</cac:PartyName>
+		</cac:CarrierParty>
 		<cac:TransportMeans>
 			<cac:RoadTransport>
-				<cbc:LicensePlateID>ALQ-780</cbc:LicensePlateID>
+				<cbc:LicensePlateID>{{ envio.transportista.placa }}</cbc:LicensePlateID>
 			</cac:RoadTransport>
 		</cac:TransportMeans>
 		<cac:DriverPerson>
-			<cbc:ID schemeID="1">42201330</cbc:ID>
+			<cbc:ID schemeID="{{ envio.transportista.choferTipoDoc }}">{{ envio.transportista.choferDoc }}</cbc:ID>
 		</cac:DriverPerson>
+		{% endif %}
 	</cac:ShipmentStage>
 	<cac:Delivery>
 		<cac:DeliveryAddress>
-			<cbc:ID>100301</cbc:ID>
-			<cbc:StreetName>CALLE LOS OLIVOS SN</cbc:StreetName>
+			<cbc:ID>{{ envio.llegada.ubigueo }}</cbc:ID>
+			<cbc:StreetName>{{ envio.llegada.direccion }}</cbc:StreetName>
 		</cac:DeliveryAddress>
 	</cac:Delivery>
-	<cac:TransportHandlingUnit>
-		<cbc:ID>ALQ-780</cbc:ID>
-	</cac:TransportHandlingUnit>
 	<cac:OriginAddress>
-		<cbc:ID>150132</cbc:ID>
-		<cbc:StreetName>AV. LURIGANCHO NRO. 1245 URB. ZARATE</cbc:StreetName>
+		<cbc:ID>{{ envio.partida.ubigueo }}</cbc:ID>
+		<cbc:StreetName>{{ envio.partida.direccion }}</cbc:StreetName>
 	</cac:OriginAddress>
+	{% if envio.numContenedor %}
+	<cac:TransportHandlingUnit>
+		<cbc:ID>{{ envio.numContenedor }}</cbc:ID>
+	</cac:TransportHandlingUnit>
+	{% endif %}
+	{% if envio.codPuerto %}
+	<cac:FirstArrivalPortLocation>
+		<cbc:ID>{{ envio.codPuerto }}</cbc:ID>
+	</cac:FirstArrivalPortLocation>
+	{% endif %}
 </cac:Shipment>
-<cac:DespatchLine>
-	<cbc:ID>1</cbc:ID>
-	<cbc:DeliveredQuantity unitCode="NIU">13</cbc:DeliveredQuantity>
-	<cac:OrderLineReference>
-		<cbc:LineID>1</cbc:LineID>
-	</cac:OrderLineReference>
-	<cac:Item>
-		<cbc:Name>CANAL U 0.5 MM ALUZINC POL RMP PRI   AZ200 BLANCO BHP BLANCO DES.200MM X 2.60M</cbc:Name>
-		<cac:SellersItemIdentification>
-			<cbc:ID/>
-		</cac:SellersItemIdentification>
-	</cac:Item>
-</cac:DespatchLine>
-<cac:DespatchLine>
-	<cbc:ID>2</cbc:ID>
-	<cbc:DeliveredQuantity unitCode="NIU">16</cbc:DeliveredQuantity>
-	<cac:OrderLineReference>
-		<cbc:LineID>1</cbc:LineID>
-	</cac:OrderLineReference>
-	<cac:Item>
-		<cbc:Name>ESQUINERO 0.5 MM ALUZINC POL RMP PRI AZ200 BLANCO BHP BLANCO DES.200MM X 2.50M</cbc:Name>
-		<cac:SellersItemIdentification>
-			<cbc:ID/>
-		</cac:SellersItemIdentification>
-	</cac:Item>
-</cac:DespatchLine>
+{% for det in doc.details %}
+	<cac:DespatchLine>
+		<cbc:ID>1</cbc:ID>
+		<cbc:DeliveredQuantity unitCode="{{ det.unidad }}">{{ det.cantidad }}</cbc:DeliveredQuantity>
+		<cac:OrderLineReference>
+			<cbc:LineID>{{ loop.index }}</cbc:LineID>
+		</cac:OrderLineReference>
+		<cac:Item>
+			<cbc:Name>{{ det.descripcion }}</cbc:Name>
+			<cac:SellersItemIdentification>
+				<cbc:ID>{{ det.codigo }}</cbc:ID>
+			</cac:SellersItemIdentification>
+		</cac:Item>
+	</cac:DespatchLine>
+{% endfor %}
 </DespatchAdvice>

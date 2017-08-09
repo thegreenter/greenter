@@ -54,7 +54,7 @@ class Direction
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getDireccion()
     {
@@ -62,7 +62,7 @@ class Direction
     }
 
     /**
-     * @param mixed $direccion
+     * @param string $direccion
      * @return Direction
      */
     public function setDireccion($direccion)

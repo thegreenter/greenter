@@ -20,6 +20,8 @@ class Perception
     use PerceptionValidator;
 
     /**
+     * Serie del Documento (ejem: P001)
+     *
      * @Assert\NotBlank()
      * @Assert\Length(max="4")
      * @var string
@@ -172,7 +174,7 @@ class Perception
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getRegimen()
     {
@@ -180,7 +182,7 @@ class Perception
     }
 
     /**
-     * @param mixed $regimen
+     * @param string $regimen
      * @return Perception
      */
     public function setRegimen($regimen)
@@ -190,7 +192,7 @@ class Perception
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getTasa()
     {
@@ -198,7 +200,7 @@ class Perception
     }
 
     /**
-     * @param mixed $tasa
+     * @param float $tasa
      * @return Perception
      */
     public function setTasa($tasa)
@@ -244,7 +246,7 @@ class Perception
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getMoneda()
     {
@@ -252,7 +254,7 @@ class Perception
     }
 
     /**
-     * @param mixed $moneda
+     * @param string $moneda
      * @return Perception
      */
     public function setMoneda($moneda)
@@ -295,5 +297,23 @@ class Perception
     {
         $this->details = $details;
         return $this;
+    }
+
+    /**
+     * Get FileName without extension.
+     *
+     * @param string $ruc Ruc de la Empresa.
+     * @return string
+     */
+    public function getFileName($ruc)
+    {
+        $parts = [
+            $ruc,
+            '40',
+            $this->getSerie(),
+            $this->getCorrelativo(),
+        ];
+
+        return join('-', $parts);
     }
 }
