@@ -40,12 +40,8 @@ trait PerceptionValidator
             new Assert\Length(['min' => 2, 'max' => 2]),
         ]);
         $metadata->addPropertyConstraint('tasa', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('impRetenido', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('impPagado', new Assert\NotBlank());
-        $metadata->addPropertyConstraints('moneda', [
-            new Assert\NotBlank(),
-            new Assert\Length(['min' => 3, 'max' => 3]),
-        ]);
+        $metadata->addPropertyConstraint('impPercibido', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('impCobrado', new Assert\NotBlank());
         $metadata->addPropertyConstraint('observacion', new Assert\Length(['max' => 250]));
         $metadata->addPropertyConstraints('details', [
             new Assert\NotBlank(),

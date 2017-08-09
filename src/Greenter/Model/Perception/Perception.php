@@ -78,15 +78,6 @@ class Perception
     private $impCobrado;
 
     /**
-     * Moneda del Importe total Cobrado.
-     *
-     * @Assert\NotBlank()
-     * @Assert\Length(min="3", max="3")
-     * @var string
-     */
-    private $moneda;
-
-    /**
      * @Assert\Length(max="250")
      * @var string
      */
@@ -242,24 +233,6 @@ class Perception
     public function setImpCobrado($impCobrado)
     {
         $this->impCobrado = $impCobrado;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMoneda()
-    {
-        return $this->moneda;
-    }
-
-    /**
-     * @param string $moneda
-     * @return Perception
-     */
-    public function setMoneda($moneda)
-    {
-        $this->moneda = $moneda;
         return $this;
     }
 

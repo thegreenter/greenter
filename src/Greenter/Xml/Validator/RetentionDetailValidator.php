@@ -40,12 +40,13 @@ trait RetentionDetailValidator
             new Assert\NotBlank(),
             new Assert\Valid(),
         ]);
-        $metadata->addPropertyConstraints('fechaPercepcion', [
+        $metadata->addPropertyConstraint('impPagar', new Assert\NotBlank());
+        $metadata->addPropertyConstraints('fechaRetencion', [
             new Assert\NotBlank(),
             new Assert\Date(),
         ]);
-        $metadata->addPropertyConstraint('impPercibido', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('impCobrar', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('impRetenido', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('impPagar', new Assert\NotBlank());
         $metadata->addPropertyConstraint('tipoCambio', new Assert\Valid());
     }
 }

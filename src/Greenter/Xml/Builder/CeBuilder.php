@@ -1,29 +1,30 @@
 <?php
-
 /**
  * Created by PhpStorm.
- * User: Giansalex
- * Date: 15/07/2017
- * Time: 22:15
+ * User: Administrador
+ * Date: 09/08/2017
+ * Time: 01:30 PM
  */
+
 namespace Greenter\Xml\Builder;
 
 use Greenter\Model\Company\Company;
-use Greenter\Model\Sale\Invoice;
-use Greenter\Model\Sale\Note;
-use Greenter\Model\Summary\Summary;
-use Greenter\Model\Voided\Voided;
+use Greenter\Model\Despatch\Despatch;
+use Greenter\Model\Perception\Perception;
+use Greenter\Model\Retention\Retention;
+use Greenter\Model\Voided\Reversion;
 use Greenter\Xml\Exception\ValidationException;
 use Symfony\Component\Validator\Validation;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
 /**
- * Class FeBuilder
+ * Class CeBuilder
  * @package Greenter\Xml\Builder
  */
-final class FeBuilder implements FeBuilderInteface
+class CeBuilder implements CeBuilderInterface
 {
+
     /**
      * Directorio de Cache para las template de Documentos.
      * @var string
@@ -37,8 +38,9 @@ final class FeBuilder implements FeBuilderInteface
      */
     private $company;
 
+
     /**
-     * FeBuilder constructor.
+     * CeBuilder constructor.
      */
     public function __construct()
     {
@@ -46,67 +48,64 @@ final class FeBuilder implements FeBuilderInteface
     }
 
     /**
-     * Genera un invoice (Factura o Boleta).
+     * Genera un comprobante de retencion.
      *
-     * @param Invoice $invoice
+     * @param Retention $retention
      * @throws ValidationException
      * @return string
      */
-    public function buildInvoice(Invoice $invoice)
+    public function buildRetention(Retention $retention)
     {
-        $this->validate($invoice);
+        $this->validate($retention);
 
-        return $this->render('invoice.html.twig', $invoice);
+        return $this->render('retention.html.twig', $retention);
     }
 
     /**
-     * Genera una Nota Electrónica(Credito o Debito).
+     * Genera un comprobante de percepcion.
      *
-     * @param Note $note
+     * @param Perception $perception
      * @throws ValidationException
      * @return string
      */
-    public function buildNote(Note $note)
+    public function buildPerception(Perception $perception)
     {
-        $this->validate($note);
+        $this->validate($perception);
 
-        $template = $note->getTipoDoc() === '07'
-            ? 'notacr.html.twig' : 'notadb.html.twig';
-
-        return $this->render($template, $note);
+        return $this->render('perception.html.twig', $perception);
     }
 
     /**
-     * Genera una Resumen Diario de Boletas.
+     * Genera una guia de remision.
      *
-     * @param Summary $summary
+     * @param Despatch $despatch
      * @throws ValidationException
      * @return string
      */
-    public function buildSummary(Summary $summary)
+    public function buildDespatch(Despatch $despatch)
     {
-        $this->validate($summary);
+        $this->validate($despatch);
 
-        return $this->render('summary.html.twig', $summary);
+        return $this->render('despatch.html.twig', $despatch);
     }
 
     /**
-     * Genera una comunicacion de Baja.
+     * Genera una resumen de reversiones.
      *
-     * @param Voided $voided
+     * @param Reversion $reversion
      * @throws ValidationException
      * @return string
      */
-    public function buildVoided(Voided $voided)
+    public function buildReversion(Reversion $reversion)
     {
-        $this->validate($voided);
+        $this->validate($reversion);
 
-        return $this->render('voided.html.twig', $voided);
+        return $this->render('voided.html.twig', $reversion);
     }
 
     /**
      * @param Company $company
-     * @return FeBuilder
+     * @return CeBuilder
      */
     public function setCompany(Company $company)
     {
