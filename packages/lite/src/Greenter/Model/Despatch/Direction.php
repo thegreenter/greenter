@@ -36,6 +36,18 @@ class Direction
     private $direccion;
 
     /**
+     * Direction constructor.
+     * @param string $ubigueo
+     * @param string $direccion
+     */
+    public function __construct($ubigueo, $direccion)
+    {
+        $this->ubigueo = $ubigueo;
+        $this->direccion = $direccion;
+    }
+
+
+    /**
      * @return string
      */
     public function getUbigueo()

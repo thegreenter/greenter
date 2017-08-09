@@ -40,12 +40,12 @@ trait PerceptionDetailValidator
             new Assert\NotBlank(),
             new Assert\Valid(),
         ]);
-        $metadata->addPropertyConstraints('fechaRetencion', [
+        $metadata->addPropertyConstraint('impCobrar', new Assert\NotBlank());
+        $metadata->addPropertyConstraints('fechaPercepcion', [
             new Assert\NotBlank(),
             new Assert\Date(),
         ]);
-        $metadata->addPropertyConstraint('impRetenido', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('impPagar', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('impPercibido', new Assert\NotBlank());
         $metadata->addPropertyConstraint('tipoCambio', new Assert\Valid());
     }
 }

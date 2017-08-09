@@ -20,7 +20,7 @@
                 <cbc:ID>{{ emp.ruc }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name>{{ emp.nombreComercial }}</cbc:Name>
+                <cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
             </cac:PartyName>
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
@@ -36,7 +36,7 @@
             <cbc:ID schemeID="6">{{ emp.ruc }}</cbc:ID>
         </cac:PartyIdentification>
         <cac:PartyName>
-            <cbc:Name>{{ emp.nombreComercial }}</cbc:Name>
+            <cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
         </cac:PartyName>
         <cac:PostalAddress>
             <cbc:ID>{{ emp.address.ubigueo }}</cbc:ID>
@@ -46,7 +46,7 @@
             </cac:Country>
         </cac:PostalAddress>
         <cac:PartyLegalEntity>
-            <cbc:RegistrationName>{{ emp.razonSocial }}</cbc:RegistrationName>
+            <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
         </cac:PartyLegalEntity>
     </cac:AgentParty>
     <cac:ReceiverParty>
@@ -59,7 +59,7 @@
     </cac:ReceiverParty>
     <sac:SUNATRetentionSystemCode>{{ doc.regimen }}</sac:SUNATRetentionSystemCode>
     <sac:SUNATRetentionPercent>{{ doc.tasa|number_format(2) }}</sac:SUNATRetentionPercent>
-    {% if doc.observacion %}<cbc:Note>{{ doc.observacion }}</cbc:Note>{% endif %}
+    {% if doc.observacion %}<cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>{% endif %}
     <cbc:TotalInvoiceAmount currencyID="PEN">{{ doc.impRetenido|number_format(2) }}</cbc:TotalInvoiceAmount>
     <sac:SUNATTotalPaid currencyID="PEN">{{ doc.impPagado|number_format(2) }}</sac:SUNATTotalPaid>
     {% for det in doc.details %}
