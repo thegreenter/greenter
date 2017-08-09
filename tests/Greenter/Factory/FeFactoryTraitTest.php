@@ -63,6 +63,7 @@ trait FeFactoryTraitTest
         $invoice->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
+            ->setFechaEmision(new \DateTime())
             ->setTipoMoneda('PEN')
             ->setClient($client)
             ->setMtoOperGravadas(200)
@@ -118,6 +119,7 @@ trait FeFactoryTraitTest
             ->setDesMotivo('ANULACION DE LA OPERACION')
             ->setTipoDoc('07')
             ->setSerie('FF01')
+            ->setFechaEmision(new \DateTime())
             ->setCorrelativo('123')
             ->setTipoMoneda('PEN')
             ->setClient($client)
@@ -161,10 +163,12 @@ trait FeFactoryTraitTest
 
     private function getDebitNote()
     {
+        $date = new \DateTime(date('Y-m-') . '1');
         $debit = $this->getCreditNote();
         $debit->setCodMotivo('01')
             ->setDesMotivo(' XXXXXXX ')
-            ->setTipoDoc('08');
+            ->setTipoDoc('08')
+            ->setFechaEmision($date);
 
         return $debit;
     }

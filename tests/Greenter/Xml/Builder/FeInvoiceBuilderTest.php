@@ -95,6 +95,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         $invoice->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
+            ->setFechaEmision(new \DateTime())
             ->setTipoMoneda('PEN')
             ->setClient($client)
             ->setMtoOperGravadas(200)

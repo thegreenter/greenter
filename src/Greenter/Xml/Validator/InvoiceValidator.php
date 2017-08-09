@@ -34,7 +34,10 @@ trait InvoiceValidator
             new Assert\NotBlank(),
             new Assert\Length(['max' => 8]),
         ]);
-        $metadata->addPropertyConstraint('fechaEmision', new Assert\Date());
+        $metadata->addPropertyConstraints('fechaEmision', [
+            new Assert\NotBlank(),
+            new Assert\Date(),
+        ]);
         $metadata->addPropertyConstraints('tipoMoneda', [
             new Assert\NotBlank(),
             new Assert\Length(['max' => 3]),
