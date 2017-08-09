@@ -38,6 +38,7 @@ class BaseSale
     protected $correlativo;
 
     /**
+     * @Assert\NotBlank()
      * @Assert\Date()
      * @var \DateTime
      */

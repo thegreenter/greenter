@@ -92,6 +92,7 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
             ->setTipoDoc('07')
             ->setSerie('FF01')
             ->setCorrelativo('123')
+            ->setFechaEmision(new \DateTime())
             ->setTipoMoneda('PEN')
             ->setClient($client)
             ->setMtoOperGravadas(200)
