@@ -13,112 +13,78 @@
     <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
     <cbc:CustomizationID>1.0</cbc:CustomizationID>
     <cac:Signature>
-        <cbc:ID>IDSignKG</cbc:ID>
+        <cbc:ID>{{ emp.ruc }}</cbc:ID>
+        <cbc:Note>GREENTER Builder</cbc:Note>
         <cac:SignatoryParty>
             <cac:PartyIdentification>
-                <cbc:ID>20600995805</cbc:ID>
+                <cbc:ID>{{ emp.ruc }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name><![CDATA[K&G Laboratorios]]></cbc:Name>
+                <cbc:Name>{{ emp.nombreComercial }}</cbc:Name>
             </cac:PartyName>
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
             <cac:ExternalReference>
-                <cbc:URI>#signatureKG</cbc:URI>
+                <cbc:URI>#SIGN-GREEN</cbc:URI>
             </cac:ExternalReference>
         </cac:DigitalSignatureAttachment>
     </cac:Signature>
-    <cbc:ID>R001-123</cbc:ID>
-    <cbc:IssueDate>2015-12-24</cbc:IssueDate>
+    <cbc:ID>{{ doc.serie }}-{{ doc.correlativo }}</cbc:ID>
+    <cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
     <cac:AgentParty>
         <cac:PartyIdentification>
-            <cbc:ID schemeID="6">20600995805</cbc:ID>
+            <cbc:ID schemeID="6">{{ emp.ruc }}</cbc:ID>
         </cac:PartyIdentification>
         <cac:PartyName>
-            <cbc:Name><![CDATA[K&G Laboratorios]]></cbc:Name>
+            <cbc:Name>{{ emp.nombreComercial }}</cbc:Name>
         </cac:PartyName>
         <cac:PostalAddress>
-            <cbc:ID>150114</cbc:ID>
-            <cbc:StreetName>AV. LOS OLIVOS 767</cbc:StreetName>
-            <cbc:CitySubdivisionName>URB. SANTA FELICIA</cbc:CitySubdivisionName>
-            <cbc:CityName>LIMA</cbc:CityName>
-            <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
-            <cbc:District>MOLINA</cbc:District>
+            <cbc:ID>{{ emp.address.ubigueo }}</cbc:ID>
+            <cbc:StreetName>{{ emp.address.direccion }}</cbc:StreetName>
             <cac:Country>
-                <cbc:IdentificationCode>PE</cbc:IdentificationCode>
+                <cbc:IdentificationCode>{{ emp.address.codigoPais }}</cbc:IdentificationCode>
             </cac:Country>
         </cac:PostalAddress>
         <cac:PartyLegalEntity>
-            <cbc:RegistrationName><![CDATA[K&G Asociados S. A.]]></cbc:RegistrationName>
+            <cbc:RegistrationName>{{ emp.razonSocial }}</cbc:RegistrationName>
         </cac:PartyLegalEntity>
     </cac:AgentParty>
     <cac:ReceiverParty>
         <cac:PartyIdentification>
-            <cbc:ID schemeID="6">20100070970</cbc:ID>
+            <cbc:ID schemeID="{{ doc.proveedor.tipoDoc }}">{{ doc.proveedor.numDoc }}</cbc:ID>
         </cac:PartyIdentification>
-        <cac:PartyName>
-            <cbc:Name><![CDATA[SUPERMERCADOS PERUANOS SOCIEDAD ANONIMA O S.P.S.A.]]></cbc:Name>
-        </cac:PartyName>
-        <cac:PostalAddress>
-            <cbc:ID>150130</cbc:ID>
-            <cbc:StreetName>CAL. CALLE MORELLI 181 INT. P-2 </cbc:StreetName>
-            <cbc:CitySubdivisionName>- </cbc:CitySubdivisionName>
-            <cbc:CityName>LIMA</cbc:CityName>
-            <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
-            <cbc:District>SAN BORJA</cbc:District>
-            <cac:Country>
-                <cbc:IdentificationCode>PE</cbc:IdentificationCode>
-            </cac:Country>
-        </cac:PostalAddress>
         <cac:PartyLegalEntity>
-            <cbc:RegistrationName><![CDATA[SUPERMERCADOS PERUANOS SOCIEDAD ANONIMA O S.P.S.A.]]></cbc:RegistrationName>
+            <cbc:RegistrationName><![CDATA[{{ doc.proveedor.rznSocial }}]]></cbc:RegistrationName>
         </cac:PartyLegalEntity>
     </cac:ReceiverParty>
-    <sac:SUNATRetentionSystemCode>01</sac:SUNATRetentionSystemCode>
-    <sac:SUNATRetentionPercent>3</sac:SUNATRetentionPercent>
-    <cbc:Note>Se emite con facturas del periodo 12/2015</cbc:Note>
-    <cbc:TotalInvoiceAmount currencyID="PEN">517.50</cbc:TotalInvoiceAmount>
-    <sac:SUNATTotalPaid currencyID="PEN">16732.50</sac:SUNATTotalPaid>
+    <sac:SUNATRetentionSystemCode>{{ doc.regimen }}</sac:SUNATRetentionSystemCode>
+    <sac:SUNATRetentionPercent>{{ doc.tasa|number_format(2) }}</sac:SUNATRetentionPercent>
+    {% if doc.observacion %}<cbc:Note>{{ doc.observacion }}</cbc:Note>{% endif %}
+    <cbc:TotalInvoiceAmount currencyID="PEN">{{ doc.impRetenido|number_format(2) }}</cbc:TotalInvoiceAmount>
+    <sac:SUNATTotalPaid currencyID="PEN">{{ doc.impPagado|number_format(2) }}</sac:SUNATTotalPaid>
+    {% for det in doc.details %}
     <sac:SUNATRetentionDocumentReference>
-        <cbc:ID schemeID="01">0001-14</cbc:ID>
-        <cbc:IssueDate>2015-12-22</cbc:IssueDate>
-        <cbc:TotalInvoiceAmount currencyID="PEN">23000.00</cbc:TotalInvoiceAmount>
+        <cbc:ID schemeID="{{ det.tipoDoc }}">{{ det.numDoc }}</cbc:ID>
+        <cbc:IssueDate>{{ det.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
+        <cbc:TotalInvoiceAmount currencyID="{{ det.moneda }}">{{ det.impTotal|number_format(2) }}</cbc:TotalInvoiceAmount>
+        {% for pay in det.pagos %}
         <cac:Payment>
-            <cbc:ID>1</cbc:ID>
-            <cbc:PaidAmount currencyID="PEN">14000.00</cbc:PaidAmount>
-            <cbc:PaidDate>2015-12-24</cbc:PaidDate>
+            <cbc:ID>{{ loop.index }}</cbc:ID>
+            <cbc:PaidAmount currencyID="PEN">{{ pay.importe|number_format(2) }}</cbc:PaidAmount>
+            <cbc:PaidDate>{{ pay.fecha|date('Y-m-d') }}</cbc:PaidDate>
         </cac:Payment>
+        {% endfor %}
         <sac:SUNATRetentionInformation>
-            <sac:SUNATRetentionAmount currencyID="PEN">420.00</sac:SUNATRetentionAmount>
-            <sac:SUNATRetentionDate>2015-12-24</sac:SUNATRetentionDate>
-            <sac:SUNATNetTotalPaid currencyID="PEN">13580.00</sac:SUNATNetTotalPaid>
+            <sac:SUNATRetentionAmount currencyID="PEN">{{ det.impRetenido|number_format(2) }}</sac:SUNATRetentionAmount>
+            <sac:SUNATRetentionDate>{{ det.fechaRetencion|date('Y-m-d') }}</sac:SUNATRetentionDate>
+            <sac:SUNATNetTotalPaid currencyID="PEN">{{ det.impPagar|number_format(2) }}</sac:SUNATNetTotalPaid>
             <cac:ExchangeRate>
-                <cbc:SourceCurrencyCode>PEN</cbc:SourceCurrencyCode>
-                <cbc:TargetCurrencyCode>PEN</cbc:TargetCurrencyCode>
-                <cbc:CalculationRate>1.00</cbc:CalculationRate>
-                <cbc:Date>2015-12-24</cbc:Date>
+                <cbc:SourceCurrencyCode>{{ det.tipoCambio.monedaRef }}</cbc:SourceCurrencyCode>
+                <cbc:TargetCurrencyCode>{{ det.tipoCambio.monedaObj }}</cbc:TargetCurrencyCode>
+                <cbc:CalculationRate>{{ det.tipoCambio.factor }}</cbc:CalculationRate>
+                <cbc:Date>{{ det.tipoCambio.fecha|date('Y-m-d') }}</cbc:Date>
             </cac:ExchangeRate>
         </sac:SUNATRetentionInformation>
     </sac:SUNATRetentionDocumentReference>
-    <sac:SUNATRetentionDocumentReference>
-        <cbc:ID schemeID="01">E001-457</cbc:ID>
-        <cbc:IssueDate>2015-12-10</cbc:IssueDate>
-        <cbc:TotalInvoiceAmount currencyID="USD">1000.00</cbc:TotalInvoiceAmount>
-        <cac:Payment>
-            <cbc:ID>1</cbc:ID>
-            <cbc:PaidAmount currencyID="USD">1000.00</cbc:PaidAmount>
-            <cbc:PaidDate>2015-12-24</cbc:PaidDate>
-        </cac:Payment>
-        <sac:SUNATRetentionInformation>
-            <sac:SUNATRetentionAmount currencyID="PEN">97.50</sac:SUNATRetentionAmount>
-            <sac:SUNATRetentionDate>2015-12-24</sac:SUNATRetentionDate>
-            <sac:SUNATNetTotalPaid currencyID="PEN">3152.50</sac:SUNATNetTotalPaid>
-            <cac:ExchangeRate>
-                <cbc:SourceCurrencyCode>USD</cbc:SourceCurrencyCode>
-                <cbc:TargetCurrencyCode>PEN</cbc:TargetCurrencyCode>
-                <cbc:CalculationRate>3.25</cbc:CalculationRate>
-                <cbc:Date>2015-12-24</cbc:Date>
-            </cac:ExchangeRate>
-        </sac:SUNATRetentionInformation>
-    </sac:SUNATRetentionDocumentReference>
+    {% endfor %}
 </Retention>

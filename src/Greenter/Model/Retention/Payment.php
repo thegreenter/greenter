@@ -46,7 +46,7 @@ class Payment
     private $fecha;
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getMoneda()
     {
@@ -54,7 +54,7 @@ class Payment
     }
 
     /**
-     * @param mixed $moneda
+     * @param string $moneda
      * @return Payment
      */
     public function setMoneda($moneda)
@@ -64,7 +64,7 @@ class Payment
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getImporte()
     {
@@ -72,7 +72,7 @@ class Payment
     }
 
     /**
-     * @param mixed $importe
+     * @param float $importe
      * @return Payment
      */
     public function setImporte($importe)
@@ -82,7 +82,7 @@ class Payment
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -90,7 +90,7 @@ class Payment
     }
 
     /**
-     * @param mixed $fecha
+     * @param \DateTime $fecha
      * @return Payment
      */
     public function setFecha($fecha)

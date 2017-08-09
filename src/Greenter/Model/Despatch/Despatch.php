@@ -29,6 +29,8 @@ class Despatch
     private $tipoDoc;
 
     /**
+     * Serie del Documento (ejem: T001)
+     *
      * @Assert\NotBlank()
      * @Assert\Length(max="4")
      * @var string
@@ -290,5 +292,23 @@ class Despatch
     {
         $this->details = $details;
         return $this;
+    }
+
+    /**
+     * Get FileName without extension.
+     *
+     * @param string $ruc Ruc de la Empresa.
+     * @return string
+     */
+    public function getFileName($ruc)
+    {
+        $parts = [
+            $ruc,
+            $this->getTipoDoc(), // 09
+            $this->getSerie(),
+            $this->getCorrelativo(),
+        ];
+
+        return join('-', $parts);
     }
 }

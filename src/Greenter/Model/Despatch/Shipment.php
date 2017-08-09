@@ -132,7 +132,7 @@ class Shipment
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getDesTraslado()
     {
@@ -140,7 +140,7 @@ class Shipment
     }
 
     /**
-     * @param mixed $desTraslado
+     * @param string $desTraslado
      * @return Shipment
      */
     public function setDesTraslado($desTraslado)
@@ -258,7 +258,7 @@ class Shipment
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getNumContenedor()
     {
@@ -266,7 +266,7 @@ class Shipment
     }
 
     /**
-     * @param mixed $numContenedor
+     * @param string $numContenedor
      * @return Shipment
      */
     public function setNumContenedor($numContenedor)
@@ -276,7 +276,7 @@ class Shipment
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCodPuerto()
     {
@@ -284,7 +284,7 @@ class Shipment
     }
 
     /**
-     * @param mixed $codPuerto
+     * @param string $codPuerto
      * @return Shipment
      */
     public function setCodPuerto($codPuerto)
