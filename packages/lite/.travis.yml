@@ -7,5 +7,8 @@ php:
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
-  
-script: phpunit --configuration phpunit.xml
+
+install:
+  - composer require satooshi/php-coveralls
+
+script: phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
