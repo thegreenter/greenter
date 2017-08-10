@@ -55,6 +55,27 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
         $generator->buildPerception($perception);
     }
 
+    public function testPerceptionFilename()
+    {
+        $ruc = $this->getCompany()->getRuc();
+        $perception = $this->getPerception();
+        $filename = $perception->getFileName($ruc);
+
+        $this->assertEquals($this->getFilename($perception, $ruc), $filename);
+    }
+
+    private function getFileName(Perception $perception, $ruc)
+    {
+        $parts = [
+            $ruc,
+            '40',
+            $perception->getSerie(),
+            $perception->getCorrelativo(),
+        ];
+
+        return join('-', $parts);
+    }
+
     /**
      * @return Perception
      */

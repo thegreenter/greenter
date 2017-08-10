@@ -67,7 +67,7 @@
 		<cbc:ID schemeID="{{ det.tipoDoc }}">{{ det.numDoc }}</cbc:ID>
 		<cbc:IssueDate>{{ det.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
 		<cbc:TotalInvoiceAmount currencyID="{{ det.moneda }}">{{ det.impTotal|number_format(2) }}</cbc:TotalInvoiceAmount>
-        {% for pay in det.pagos %}
+        {% for pay in det.cobros %}
 		<cac:Payment>
 			<cbc:ID>{{ loop.index }}</cbc:ID>
 			<cbc:PaidAmount currencyID="PEN">{{ pay.importe|number_format(2) }}</cbc:PaidAmount>

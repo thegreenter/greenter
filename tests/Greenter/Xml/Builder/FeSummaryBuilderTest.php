@@ -62,6 +62,26 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
         $generator->buildSummary($summary);
     }
 
+    public function testSummaryFilename()
+    {
+        $ruc = $this->getCompany()->getRuc();
+        $summary = $this->getSummary();
+        $filename = $summary->getFileName($ruc);
+
+        $this->assertEquals($this->getFilename($summary, $ruc), $filename);
+    }
+
+    private function getFileName(Summary $summary, $ruc)
+    {
+        $parts = [
+            $ruc,
+            'RC',
+            $summary->getFecResumen()->format('Ymd'),
+            $summary->getCorrelativo(),
+        ];
+
+        return join('-', $parts);
+    }
     private function getSummary()
     {
         $detiail1 = new SummaryDetail();

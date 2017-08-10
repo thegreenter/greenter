@@ -14,37 +14,13 @@ use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Voided;
 use Greenter\Xml\Exception\ValidationException;
-use Symfony\Component\Validator\Validation;
-use Twig_Environment;
-use Twig_Loader_Filesystem;
 
 /**
  * Class FeBuilder
  * @package Greenter\Xml\Builder
  */
-final class FeBuilder implements FeBuilderInteface
+final class FeBuilder extends BaseBuilder implements FeBuilderInteface
 {
-    /**
-     * Directorio de Cache para las template de Documentos.
-     * @var string
-     */
-    private $dirCache;
-
-    /**
-     * Datos de la Compañia.
-     *
-     * @var Company
-     */
-    private $company;
-
-    /**
-     * FeBuilder constructor.
-     */
-    public function __construct()
-    {
-        $this->dirCache = sys_get_temp_dir();
-    }
-
     /**
      * Genera un invoice (Factura o Boleta).
      *
@@ -122,58 +98,6 @@ final class FeBuilder implements FeBuilderInteface
      */
     public function setParameters($params)
     {
-        if (!$params['cache']) {
-            return;
-        }
-
-        if (!is_dir($params['cache'])) {
-            throw new \Exception('No is a directory valid');
-        }
-
-        $this->dirCache = $params['cache'];
-    }
-
-    /**
-     * Get Content XML from template.
-     *
-     * @param string $template
-     * @param object $doc
-     * @return string
-     */
-    private function render($template, $doc)
-    {
-        $twig = $this->getRender();
-        return $twig->render($template, [
-            'doc' => $doc,
-            'emp' => $this->company,
-        ]);
-    }
-
-    private function getRender()
-    {
-        $loader = new Twig_Loader_Filesystem(__DIR__ . '/../Templates');
-        $twig = new Twig_Environment($loader, array(
-            'cache' => $this->dirCache,
-        ));
-
-        return $twig;
-    }
-
-    /**
-     * Validate Entity.
-     *
-     * @param object $entity
-     * @throws ValidationException
-     */
-    private function validate($entity)
-    {
-        $validator = Validation::createValidatorBuilder()
-            ->addMethodMapping('loadValidatorMetadata')
-            ->getValidator();
-
-        $errs = $validator->validate($entity);
-        if ($errs->count() > 0) {
-            throw new ValidationException($errs);
-        }
+        $this->addParameters($params);
     }
 }

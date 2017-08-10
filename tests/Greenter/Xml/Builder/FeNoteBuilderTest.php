@@ -76,6 +76,27 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
         // file_put_contents('notedb.xml', $xml);
     }
 
+    public function testNoteFilename()
+    {
+        $ruc = $this->getCompany()->getRuc();
+        $note = $this->getCreditNote();
+        $filename = $note->getFileName($ruc);
+
+        $this->assertEquals($this->getFilename($note, $ruc), $filename);
+    }
+
+    private function getFileName(Note $note, $ruc)
+    {
+        $parts = [
+            $ruc,
+            $note->getTipoDoc(),
+            $note->getSerie(),
+            $note->getCorrelativo(),
+        ];
+
+        return join('-', $parts);
+    }
+
     private function getCreditNote()
     {
         $client = new Client();
