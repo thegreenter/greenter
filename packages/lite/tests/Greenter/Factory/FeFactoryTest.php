@@ -29,6 +29,17 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testInvoiceNotValidZipFileName()
+    {
+        $invoice = $this->getInvoice();
+        $invoice->setSerie('X001');
+        $result = $this->factory->sendInvoice($invoice);
+
+        $this->assertFalse($result->isSuccess());
+        $this->assertNotNull($result->getError());
+        $this->assertEquals('0151', $result->getError()->getCode());
+    }
+
     /**
      * @expectedException \Greenter\Xml\Exception\ValidationException
      */

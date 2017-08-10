@@ -142,19 +142,38 @@ class FeSunat extends BaseSunat implements WsSunatInterface
         $err = new Error();
         $fcode = $fault->faultcode;
         $code = preg_replace('/[^0-9]+/', '', $fcode);
+        $msg = '';
 
-        if (!$code) {
-            $err->setCode($fcode);
-            // $fault->detail->message
-            $err->setMessage($fault->faultstring);
-            return $err;
+        if ($code) {
+            $msg = $this->getMessageError($code);
+        } else {
+            $code = preg_replace('/[^0-9]+/', '', $fault->faultstring);
+
+            if ($code) {
+                $msg = $this->getMessageError($code);
+            }
         }
 
+        if (!$msg) {
+            $msg = isset($fault->detail) ? $fault->detail->message : $fault->faultstring;
+        }
+
+        if ($code) {
+            $fcode = $code;
+        }
+
+        $err->setCode($fcode);
+        $err->setMessage($msg);
+
+        return $err;
+    }
+
+    private function getMessageError($code)
+    {
         $search = new XmlErrorReader();
         $msg = $search->getMessageByCode(intval($code));
-        $err->setCode($code);
-        $err->setMessage($msg);
-        return $err;
+
+        return $msg;
     }
 
     private function extractResponse($zipContent)

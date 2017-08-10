@@ -73,6 +73,17 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testPerceptionNotValidTasa()
+    {
+        $perception = $this->getPerception();
+        $perception->setTasa(3);
+        $result = $this->factory->sendPerception($perception);
+
+        $this->assertFalse($result->isSuccess());
+        $this->assertNotNull($result->getError());
+        $this->assertEquals('2603', $result->getError()->getCode());
+    }
+
     /**
      * @expectedException \Greenter\Xml\Exception\ValidationException
      */
@@ -109,6 +120,6 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
-        $this->assertEquals('200', $result->getError()->getCode());
+        $this->assertEquals('0127', $result->getError()->getCode());
     }
 }
