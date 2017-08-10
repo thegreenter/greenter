@@ -1,6 +1,7 @@
 Greenter - Facturacion Electronica
 =========================
 [![Travis-CI](https://travis-ci.org/giansalex/greenter.svg?branch=master)](https://travis-ci.org/giansalex/greenter)
+[![Coverage Status](https://coveralls.io/repos/github/giansalex/greenter/badge.svg)](https://coveralls.io/github/giansalex/greenter)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/eccd5a16d035464cbe40b1cf9d0f9f43)](https://www.codacy.com/app/giansalex/greenter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=giansalex/greenter&amp;utm_campaign=Badge_Grade)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/giansalex/greenter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/giansalex/greenter/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/giansalex/greenter/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/giansalex/greenter/?branch=master)
