@@ -7,7 +7,7 @@ Greenter - Facturacion Electronica
 [![Build Status](https://scrutinizer-ci.com/g/giansalex/greenter/badges/build.png?b=master)](https://scrutinizer-ci.com/g/giansalex/greenter/build-status/master)
 [![Release](https://img.shields.io/github/release/giansalex/greenter/all.svg?style=flat-square)](https://github.com/giansalex/greenter/releases)
 [![Contrib](https://img.shields.io/github/contributors/giansalex/greenter.svg?style=flat-square)](https://github.com/giansalex/greenter/graphs/contributors)   
-Implementación de la Facturación Electrónica Sunat - Perú
+PHP Implementación de la Facturación Electrónica Sunat - Perú
 
 <p align="center">
   <img alt="Sunat Facturacion Electronica" src="http://www.sunat.gob.pe/p/imagenes/icons/favicon.ico">
@@ -22,5 +22,7 @@ Caracteristicas
 * Nota de Débito Electrónica
 * Resumen Diario de Boletas
 * Comunicación de Bajas
-
-
+* Guia Remisión Electrónica
+* Retención Electrónica
+* Percepción Electrónica
+* Resumen de Reversiones
