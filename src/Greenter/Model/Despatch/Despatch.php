@@ -85,9 +85,9 @@ class Despatch
 
     /**
      * @Assert\Valid()
-     * @var Document[]
+     * @var Document
      */
-    private $relDocs;
+    private $relDoc;
 
     /**
      * @Assert\NotBlank()
@@ -259,20 +259,20 @@ class Despatch
     }
 
     /**
-     * @return Document[]
+     * @return Document
      */
-    public function getRelDocs()
+    public function getRelDoc()
     {
-        return $this->relDocs;
+        return $this->relDoc;
     }
 
     /**
-     * @param Document[] $relDocs
+     * @param Document $relDoc
      * @return Despatch
      */
-    public function setRelDocs($relDocs)
+    public function setRelDoc($relDoc)
     {
-        $this->relDocs = $relDocs;
+        $this->relDoc = $relDoc;
         return $this;
     }
 

@@ -38,7 +38,7 @@ class Shipment
     /**
      * Indicador de Transbordo Programado.
      *
-     * @Assert\NotBlank()
+     * @Assert\Type("bool")
      * @var bool
      */
     private $indTransbordo;
