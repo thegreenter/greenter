@@ -1,36 +1,33 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Administrador
- * Date: 20/07/2017
- * Time: 04:06 PM
+ * User: Giansalex
+ * Date: 09/08/2017
+ * Time: 20:00
  */
 
 namespace Greenter\Factory;
 
 use Greenter\Model\Company\Company;
+use Greenter\Model\Despatch\Despatch;
+use Greenter\Model\Perception\Perception;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\StatusResult;
 use Greenter\Model\Response\SummaryResult;
-use Greenter\Model\Sale\Note;
-use Greenter\Model\Summary\Summary;
-use Greenter\Model\Voided\Voided;
-use Greenter\Ws\Services\WsSunatInterface;
-use Greenter\Xml\Builder\FeBuilderInteface;
-use Greenter\Zip\ZipFactory;
+use Greenter\Model\Retention\Retention;
+use Greenter\Model\Voided\Reversion;
 use Greenter\Security\SignedXml;
+use Greenter\Ws\Services\CeSunat;
 use Greenter\Ws\Services\FeSunat;
-use Greenter\Xml\Builder\FeBuilder;
-use Greenter\Model\Sale\Invoice;
+use Greenter\Ws\Services\WsSunatInterface;
+use Greenter\Xml\Builder\CeBuilder;
+use Greenter\Xml\Builder\CeBuilderInterface;
+use Greenter\Zip\ZipFactory;
 
-/**
- * Class FeFactory
- * @package Greenter\Factory
- */
-class FeFactory implements FeFactoryInterface
+class CeFactory implements CeFactoryInterface
 {
     /**
-     * @var FeBuilderInteface
+     * @var CeBuilderInterface
      */
     private $builder;
 
@@ -62,67 +59,78 @@ class FeFactory implements FeFactoryInterface
     private $company;
 
     /**
-     * FeFactory constructor.
+     * @var bool
+     */
+    private $isProd;
+
+    /**
+     * CeFactory constructor.
      */
     public function __construct()
     {
-        $this->builder = new FeBuilder();
+        $this->builder = new CeBuilder();
         $this->signer = new SignedXml();
         $this->sender = new FeSunat();
         $this->zipper = new ZipFactory();
     }
 
     /**
-     * @param Invoice $invoice
+     * Envia una Guia de Remision.
+     *
+     * @param Despatch $despatch
      * @return BillResult
      */
-    public function sendInvoice(Invoice $invoice)
+    public function sendDispatch(Despatch $despatch)
     {
-        $xml = $this->builder->buildInvoice($invoice);
-        $filename = $invoice->getFilename($this->company->getRuc());
+        $xml = $this->builder->buildDespatch($despatch);
+        $filename = $despatch->getFilename($this->company->getRuc());
 
+        $this->setService(true);
         return $this->getBillResult($xml, $filename);
     }
 
     /**
-     * Envia una Nota de Credito o Debito.
+     * Envia una Retencion.
      *
-     * @param Note $note
+     * @param Retention $retention
      * @return BillResult
      */
-    public function sendNote(Note $note)
+    public function sendRetention(Retention $retention)
     {
-        $xml = $this->builder->buildNote($note);
-        $filename = $note->getFilename($this->company->getRuc());
+        $xml = $this->builder->buildRetention($retention);
+        $filename = $retention->getFilename($this->company->getRuc());
 
+        $this->setService();
         return $this->getBillResult($xml, $filename);
     }
 
     /**
-     * Envia un resumen diario de Boletas.
+     * Envia una Percepcion.
      *
-     * @param Summary $summary
-     * @return SummaryResult
+     * @param Perception $perception
+     * @return BillResult
      */
-    public function sendResumen(Summary $summary)
+    public function sendPerception(Perception $perception)
     {
-        $xml = $this->builder->buildSummary($summary);
-        $filename = $summary->getFileName($this->company->getRuc());
+        $xml = $this->builder->buildPerception($perception);
+        $filename = $perception->getFilename($this->company->getRuc());
 
-        return $this->getSummaryResult($xml, $filename);
+        $this->setService();
+        return $this->getBillResult($xml, $filename);
     }
 
     /**
-     * Envia una comunicacion de Baja.
+     * Envia una Resumen de Reversiones.
      *
-     * @param Voided $voided
+     * @param Reversion $reversion
      * @return SummaryResult
      */
-    public function sendBaja(Voided $voided)
+    public function sendReversion(Reversion $reversion)
     {
-        $xml = $this->builder->buildVoided($voided);
-        $filename = $voided->getFileName($this->company->getRuc());
+        $xml = $this->builder->buildReversion($reversion);
+        $filename = $reversion->getFileName($this->company->getRuc());
 
+        $this->setService();
         return $this->getSummaryResult($xml, $filename);
     }
 
@@ -134,10 +142,23 @@ class FeFactory implements FeFactoryInterface
      */
     public function getStatus($ticket)
     {
+        $this->setService();
         return $this->sender->getStatus($ticket);
     }
 
     /**
+     * Get Last XML Signed.
+     *
+     * @return string
+     */
+    public function getLastXml()
+    {
+        return $this->lastXml;
+    }
+
+    /**
+     * Set Company
+     *
      * @param $company
      * @return $this
      */
@@ -166,23 +187,13 @@ class FeFactory implements FeFactoryInterface
     }
 
     /**
-     * Get Last XML Signed.
-     *
-     * @return string
-     */
-    public function getLastXml()
-    {
-        return $this->lastXml;
-    }
-
-    /**
      * @param array $ws
      */
     private function setWsParams($ws)
     {
         $this->sender->setCredentials($ws['user'], $ws['pass']);
         if (isset($ws['service'])) {
-            $this->sender->setService($ws['service']);
+            $this->isProd = $ws['service'] == FeSunat::PRODUCCION;
         }
         if (isset($ws['wsdl'])) {
             $this->sender->setUrlWsdl($ws['wsdl']);
@@ -213,6 +224,16 @@ class FeFactory implements FeFactoryInterface
 
         $zip = $this->zipper->compress("$filename.xml", $this->lastXml);
         return $this->sender->sendSummary("$filename.zip", $zip);
+    }
+
+    private function setService($isGuia = false)
+    {
+        if ($isGuia === true) {
+            $this->sender->setService($this->isProd ? CeSunat::GUIA_PRODUCCION : CeSunat::GUIA_BETA);
+            return;
+        }
+
+        $this->sender->setService($this->isProd ? CeSunat::RETENCION_PRODUCCION : CeSunat::RETENCION_BETA);
     }
 
     /**

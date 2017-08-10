@@ -84,6 +84,27 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         //$this->assertXmlStringEqualsXmlFile(__DIR__.'/../../Resources/invoice.xml', $xml);
     }
 
+    public function testInvoiceFilename()
+    {
+        $ruc = $this->getCompany()->getRuc();
+        $invoice = $this->getInvoice();
+        $filename = $invoice->getFileName($ruc);
+
+        $this->assertEquals($this->getFilename($invoice, $ruc), $filename);
+    }
+
+    private function getFileName(Invoice $invoice, $ruc)
+    {
+        $parts = [
+            $ruc,
+            $invoice->getTipoDoc(),
+            $invoice->getSerie(),
+            $invoice->getCorrelativo(),
+        ];
+
+        return join('-', $parts);
+    }
+
     private function getInvoice()
     {
         $client = new Client();

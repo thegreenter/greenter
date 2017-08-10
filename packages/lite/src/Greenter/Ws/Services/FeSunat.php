@@ -145,6 +145,7 @@ class FeSunat extends BaseSunat implements WsSunatInterface
 
         if (!$code) {
             $err->setCode($fcode);
+            // $fault->detail->message
             $err->setMessage($fault->faultstring);
             return $err;
         }

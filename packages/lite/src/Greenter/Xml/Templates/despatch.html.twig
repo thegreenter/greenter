@@ -51,8 +51,8 @@
 	<cbc:HandlingCode>{{ envio.codTraslado }}</cbc:HandlingCode>
 	{% if envio.desTraslado %}<cbc:Information>{{ envio.desTraslado }}</cbc:Information>{% endif %}
 	{% if envio.numBultos %}<cbc:TotalTransportHandlingUnitQuantity>{{ envio.numBultos }}</cbc:TotalTransportHandlingUnitQuantity>{% endif %}
-	<cbc:SplitConsignmentIndicator>{{ envio.indTransbordo }}</cbc:SplitConsignmentIndicator>
-	<cbc:GrossWeightMeasure unitCode="{{ envio.undPesoTotal }}">{{ envio.pesoTotal|number_format(3) }}</cbc:GrossWeightMeasure>
+	<cbc:SplitConsignmentIndicator>{{ envio.indTransbordo ? "true" : "false" }}</cbc:SplitConsignmentIndicator>
+	{#<cbc:GrossWeightMeasure unitCode="{{ envio.undPesoTotal }}">{{ envio.pesoTotal|number_format(3) }}</cbc:GrossWeightMeasure>#}
 	<cac:ShipmentStage>
 		<cbc:TransportModeCode>{{ envio.modTraslado }}</cbc:TransportModeCode>
 		<cac:TransitPeriod>
@@ -100,7 +100,7 @@
 </cac:Shipment>
 {% for det in doc.details %}
 	<cac:DespatchLine>
-		<cbc:ID>1</cbc:ID>
+		<cbc:ID>{{ loop.index }}</cbc:ID>
 		<cbc:DeliveredQuantity unitCode="{{ det.unidad }}">{{ det.cantidad }}</cbc:DeliveredQuantity>
 		<cac:OrderLineReference>
 			<cbc:LineID>{{ loop.index }}</cbc:LineID>

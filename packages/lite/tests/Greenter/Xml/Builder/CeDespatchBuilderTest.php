@@ -56,6 +56,27 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
         $generator->buildDespatch($despatch);
     }
 
+    public function testDespatchFilename()
+    {
+        $ruc = $this->getCompany()->getRuc();
+        $despatch = $this->getDespatch();
+        $filename = $despatch->getFileName($ruc);
+
+        $this->assertEquals($this->getFilename($despatch, $ruc), $filename);
+    }
+
+    private function getFileName(Despatch $despatch, $ruc)
+    {
+        $parts = [
+            $ruc,
+            '09',
+            $despatch->getSerie(),
+            $despatch->getCorrelativo(),
+        ];
+
+        return join('-', $parts);
+    }
+
     /**
      * @return Despatch
      */

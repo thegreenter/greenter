@@ -55,6 +55,27 @@ class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
         $generator->buildRetention($retention);
     }
 
+    public function testRetentionFilename()
+    {
+        $ruc = $this->getCompany()->getRuc();
+        $retention = $this->getRetention();
+        $filename = $retention->getFileName($ruc);
+
+        $this->assertEquals($this->getFilename($retention, $ruc), $filename);
+    }
+
+    private function getFileName(Retention $retention, $ruc)
+    {
+        $parts = [
+            $ruc,
+            '20',
+            $retention->getSerie(),
+            $retention->getCorrelativo(),
+        ];
+
+        return join('-', $parts);
+    }
+
     /**
      * @return Retention
      */
