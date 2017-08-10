@@ -18,6 +18,18 @@
 {% if doc.observacion %}
 <cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
 {% endif %}
+{% if doc.docBaja %}
+<cac:OrderReference>
+	<cbc:ID>{{ doc.docBaja.nroDoc }}</cbc:ID>
+	<cbc:OrderTypeCode>{{ doc.docBaja.tipoDoc }}</cbc:OrderTypeCode>
+</cac:OrderReference>
+{% endif %}
+{% if doc.relDoc %}
+<cac:AdditionalDocumentReference>
+	<cbc:ID>{{ doc.relDoc.nroDoc }}</cbc:ID>
+	<cbc:DocumentTypeCode>{{ doc.relDoc.tipoDoc }}</cbc:DocumentTypeCode>
+</cac:AdditionalDocumentReference>
+{% endif %}
 <cac:DespatchSupplierParty>
 	<cbc:CustomerAssignedAccountID schemeID="6">{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
 	<cac:Party>
@@ -50,9 +62,9 @@
 	<cbc:ID>1</cbc:ID>
 	<cbc:HandlingCode>{{ envio.codTraslado }}</cbc:HandlingCode>
 	{% if envio.desTraslado %}<cbc:Information>{{ envio.desTraslado }}</cbc:Information>{% endif %}
+	<cbc:GrossWeightMeasure unitCode="{{ envio.undPesoTotal }}">{{ envio.pesoTotal|number_format(3) }}</cbc:GrossWeightMeasure>
 	{% if envio.numBultos %}<cbc:TotalTransportHandlingUnitQuantity>{{ envio.numBultos }}</cbc:TotalTransportHandlingUnitQuantity>{% endif %}
 	<cbc:SplitConsignmentIndicator>{{ envio.indTransbordo ? "true" : "false" }}</cbc:SplitConsignmentIndicator>
-	{#<cbc:GrossWeightMeasure unitCode="{{ envio.undPesoTotal }}">{{ envio.pesoTotal|number_format(3) }}</cbc:GrossWeightMeasure>#}
 	<cac:ShipmentStage>
 		<cbc:TransportModeCode>{{ envio.modTraslado }}</cbc:TransportModeCode>
 		<cac:TransitPeriod>
@@ -83,15 +95,15 @@
 			<cbc:StreetName>{{ envio.llegada.direccion }}</cbc:StreetName>
 		</cac:DeliveryAddress>
 	</cac:Delivery>
+    {% if envio.numContenedor %}
+	<cac:TransportHandlingUnit>
+		<cbc:ID>{{ envio.numContenedor }}</cbc:ID>
+	</cac:TransportHandlingUnit>
+    {% endif %}
 	<cac:OriginAddress>
 		<cbc:ID>{{ envio.partida.ubigueo }}</cbc:ID>
 		<cbc:StreetName>{{ envio.partida.direccion }}</cbc:StreetName>
 	</cac:OriginAddress>
-	{% if envio.numContenedor %}
-	<cac:TransportHandlingUnit>
-		<cbc:ID>{{ envio.numContenedor }}</cbc:ID>
-	</cac:TransportHandlingUnit>
-	{% endif %}
 	{% if envio.codPuerto %}
 	<cac:FirstArrivalPortLocation>
 		<cbc:ID>{{ envio.codPuerto }}</cbc:ID>

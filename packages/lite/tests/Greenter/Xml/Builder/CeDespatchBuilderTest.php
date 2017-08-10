@@ -97,7 +97,7 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
             ->setTercero($client)
             ->setObservacion('NOTA GUIA')
             ->setDocBaja($baja)
-            ->setRelDocs($rels)
+            ->setRelDoc($rels)
             ->setEnvio($envio);
 
         $detail = new DespatchDetail();

@@ -24,7 +24,7 @@ trait ShipmentValidator
             new Assert\Length(['min' => 2, 'max' => 2]),
         ]);
         $metadata->addPropertyConstraint('desTraslado', new Assert\Length(['max' => 100]));
-        $metadata->addPropertyConstraint('indTransbordo', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('indTransbordo', new Assert\Type(['type' => 'bool']));
         $metadata->addPropertyConstraint('pesoTotal', new Assert\NotBlank());
         $metadata->addPropertyConstraints('undPesoTotal', [
             new Assert\NotBlank(),

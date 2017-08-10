@@ -43,7 +43,7 @@ trait DespatchValidator
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraint('docBaja', new Assert\Valid());
-        $metadata->addPropertyConstraint('relDocs', new Assert\Valid());
+        $metadata->addPropertyConstraint('relDoc', new Assert\Valid());
         $metadata->addPropertyConstraints('details', [
             new Assert\NotBlank(),
             new Assert\Valid(),

@@ -124,7 +124,7 @@ trait CeFactoryTraitTest
             ->setImpPercibido(10)
             ->setImpCobrado(210)
             ->setRegimen('01')
-            ->setTasa(3);
+            ->setTasa(2);
 
         $detail = new PerceptionDetail();
         $detail->setTipoDoc('01')
@@ -198,7 +198,7 @@ trait CeFactoryTraitTest
             ->setNumDoc('20000000002')
             ->setRznSocial('EMPRESA (<!-- --> />) 1');
 
-        list($baja, $rels, $envio) = $this->getExtrasDespatch();
+        list($baja, $rel, $envio) = $this->getExtrasDespatch();
         $despatch = new Despatch();
         $despatch->setTipoDoc('09')
             ->setSerie('T001')
@@ -208,7 +208,7 @@ trait CeFactoryTraitTest
             ->setTercero($client)
             ->setObservacion('NOTA GUIA')
             ->setDocBaja($baja)
-            ->setRelDocs($rels)
+            ->setRelDoc($rel)
             ->setEnvio($envio);
 
         $detail = new DespatchDetail();
@@ -232,12 +232,8 @@ trait CeFactoryTraitTest
             ->setNroDoc('T001-00001');
 
         $rel = new Document();
-        $rel->setTipoDoc('09')
-            ->setNroDoc('T001-00001');
-
-        $rel2 = new Document();
-        $rel2->setTipoDoc('09')
-            ->setNroDoc('T001-00002');
+        $rel->setTipoDoc('02') // Tipo: Numero de Orden de Entrega
+            ->setNroDoc('213123');
 
         $envio = new Shipment();
         $envio->setModTraslado('01')
@@ -245,16 +241,16 @@ trait CeFactoryTraitTest
             ->setDesTraslado('VENTA')
             ->setFecTraslado(new \DateTime())
             ->setCodPuerto('123')
-            ->setIndTransbordo(true)
+            ->setIndTransbordo(false)
             ->setPesoTotal(12.5)
             ->setUndPesoTotal('KGM')
             ->setNumBultos(2)
-            //->setNumContenedor('XD-2232')
+            ->setNumContenedor('XD-2232')
             ->setLlegada(new Direction('150101', 'AV LIMA'))
             ->setPartida(new Direction('150203', 'AV ITALIA'))
             ->setTransportista($this->getTransportist());
 
-        return [$baja, [$rel, $rel2], $envio];
+        return [$baja, $rel, $envio];
     }
 
     private function getTransportist()
