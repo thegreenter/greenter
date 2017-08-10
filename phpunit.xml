@@ -13,8 +13,8 @@
 		</testsuite>
 	</testsuites>
 	<filter>
-		<whitelist>
-			<directory>src</directory>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">src</directory>
 			<exclude>
 				<directory>./tests</directory>
 				<directory>./vendor</directory>
