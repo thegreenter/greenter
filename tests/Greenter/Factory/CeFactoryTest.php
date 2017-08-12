@@ -8,7 +8,10 @@
 
 namespace Tests\Greenter\Factory;
 
-
+/**
+ * Class CeFactoryTest
+ * @package Tests\Greenter\Factory
+ */
 class CeFactoryTest extends \PHPUnit_Framework_TestCase
 {
     use CeFactoryTraitTest;
@@ -102,6 +105,8 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
         $this->assertEquals(13, strlen($result->getTicket()));
+
+        return $result->getTicket();
     }
 
     /**
@@ -114,12 +119,18 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->factory->sendReversion($reversion);
     }
 
-    public function testStatus()
+    /**
+     * @depends testReversion
+     * @param string $ticket
+     */
+    public function testStatus($ticket)
     {
-        $result = $this->factory->getStatus('1500523236696');
+        $result = $this->factory->getStatus($ticket);
 
-        $this->assertFalse($result->isSuccess());
-        $this->assertNotNull($result->getError());
-        $this->assertEquals('0127', $result->getError()->getCode());
+        $this->assertTrue($result->isSuccess());
+        $this->assertNotNull($result->getCdrResponse());
+        $this->assertRegExp(
+            '/El Comprobante numero RR-\d{8}-001 ha sido aceptado$/',
+            $result->getCdrResponse()->getDescription());
     }
 }
