@@ -125,6 +125,8 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
         $this->assertEquals(13, strlen($result->getTicket()));
+
+        return $result->getTicket();
     }
 
     /**
@@ -137,9 +139,13 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->factory->sendBaja($baja);
     }
 
-    public function testStatus()
+    /**
+     * @depends testBaja
+     * @param string $ticket
+     */
+    public function testStatus($ticket)
     {
-        $result = $this->factory->getStatus('1500523236696');
+        $result = $this->factory->getStatus($ticket);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());

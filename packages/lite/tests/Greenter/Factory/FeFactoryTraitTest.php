@@ -34,6 +34,9 @@ trait FeFactoryTraitTest
      */
     private $factory;
 
+    /**
+     * @var \DateTime
+     */
     private $dateEmision;
 
     public function setUp()

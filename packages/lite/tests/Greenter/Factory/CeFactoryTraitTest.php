@@ -40,6 +40,9 @@ trait CeFactoryTraitTest
      */
     private $factory;
 
+    /**
+     * @var \DateTime
+     */
     private $dateEmision;
 
     public function setUp()
@@ -118,7 +121,7 @@ trait CeFactoryTraitTest
         $perception
             ->setSerie('P001')
             ->setCorrelativo('123')
-            ->setFechaEmision(new \DateTime())
+            ->setFechaEmision($this->dateEmision)
             ->setObservacion('NOTA PRUEBA />')
             ->setProveedor($client)
             ->setImpPercibido(10)
@@ -179,10 +182,12 @@ trait CeFactoryTraitTest
             ->setCorrelativo('123')
             ->setDesMotivoBaja('ERROR DE RUC');
 
+        $fecGeneracion = clone $this->dateEmision;
+        $fecGeneracion->sub(new \DateInterval('P2D'));
         $reversion = new Reversion();
         $reversion->setCorrelativo('001')
-            ->setFecComunicacion(new \DateTime())
-            ->setFecGeneracion(new \DateTime())
+            ->setFecComunicacion($this->dateEmision)
+            ->setFecGeneracion($fecGeneracion)
             ->setDetails([$detial1, $detial2]);
 
         return $reversion;
