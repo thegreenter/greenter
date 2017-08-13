@@ -165,11 +165,13 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
             ->setCodUnidadMedida('NIU')
             ->setCtdUnidadItem(2)
             ->setDesItem('PROD 2')
+            ->setMtoDsctoItem(1)
             ->setMtoIgvItem(18)
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
-            ->setMtoValorUnitario(50)
-            ->setMtoPrecioUnitario(56);
+            ->setMtoValorUnitario(10)
+            ->setMtoValorGratuito(2)
+            ->setMtoPrecioUnitario(0);
 
         $legend = new Legend();
         $legend->setCode('1000')

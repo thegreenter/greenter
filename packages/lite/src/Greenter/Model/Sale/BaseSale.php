@@ -65,18 +65,21 @@ class BaseSale
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Type("numeric")
      * @var float
      */
     protected $mtoOperGravadas;
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Type("numeric")
      * @var float
      */
     protected $mtoOperInafectas;
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Type("numeric")
      * @var float
      */
     protected $mtoOperExoneradas;
@@ -100,6 +103,7 @@ class BaseSale
      * Importe total de la venta, cesión en uso o del servicio prestado.
      *
      * @Assert\NotBlank()
+     * @Assert\Type("numeric")
      * @var float
      */
     protected $mtoImpVenta;
