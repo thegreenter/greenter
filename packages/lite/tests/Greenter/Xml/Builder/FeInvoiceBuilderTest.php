@@ -9,6 +9,7 @@
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Model\Client\Client;
+use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\SaleDetail;
@@ -119,6 +120,9 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
             ->setMtoBase(3)
             ->setMtoTotal(4);
 
+        $rel = new Document();
+        $rel->setTipoDoc('01')->setNroDoc('F001-123');
+
         $invoice = new Invoice();
         $invoice
             ->setMtoOperGratuitas(12)
@@ -126,6 +130,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
             ->setMtoDescuentos(23)
             ->setTipoOperacion('2')
             ->setPerception($perc)
+            ->setRelDocs([$rel])
             ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
@@ -138,6 +143,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
             ->setMtoIGV(36)
             ->setMtoISC(2)
             ->setSumOtrosCargos(12)
+            ->setMtoOtrosTributos(1)
             ->setMtoImpVenta(236);
 
         $detail1 = new SaleDetail();

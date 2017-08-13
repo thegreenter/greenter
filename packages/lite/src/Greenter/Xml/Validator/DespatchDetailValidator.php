@@ -30,6 +30,9 @@ trait DespatchDetailValidator
             new Assert\NotBlank(),
             new Assert\Length(['max' => 4]),
         ]);
-        $metadata->addPropertyConstraint('cantidad', new Assert\NotBlank());
+        $metadata->addPropertyConstraints('cantidad', [
+            new Assert\NotBlank(),
+            new Assert\Type(['type' => 'int'])
+        ]);
     }
 }
