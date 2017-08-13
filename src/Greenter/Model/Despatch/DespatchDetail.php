@@ -41,6 +41,7 @@ class DespatchDetail
 
     /**
      * @Assert\NotBlank()
+     * @Assert\Type("int")
      * @var int
      */
     private $cantidad;

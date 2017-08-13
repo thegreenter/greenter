@@ -56,9 +56,13 @@
     <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
     <cbc:CustomizationID>1.0</cbc:CustomizationID>
     <cbc:ID>F001-123</cbc:ID>
-    <cbc:IssueDate>2017-08-12</cbc:IssueDate>
+    <cbc:IssueDate>2017-08-13</cbc:IssueDate>
     <cbc:InvoiceTypeCode>01</cbc:InvoiceTypeCode>
     <cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>F001-123</cbc:ID>
+        <cbc:DocumentTypeCode>01</cbc:DocumentTypeCode>
+    </cac:AdditionalDocumentReference>
     <cac:Signature>
         <cbc:ID>20000000001</cbc:ID>
         <cbc:Note>GREENTER Builder</cbc:Note>
@@ -145,7 +149,7 @@
     </cac:TaxTotal>
     <cac:LegalMonetaryTotal>
         <cbc:AllowanceTotalAmount currencyID="PEN">12.00</cbc:AllowanceTotalAmount>
-        <cbc:ChargeTotalAmount currencyID="PEN">0.00</cbc:ChargeTotalAmount>
+        <cbc:ChargeTotalAmount currencyID="PEN">1.00</cbc:ChargeTotalAmount>
         <cbc:PayableAmount currencyID="PEN">236.00</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
     <cac:InvoiceLine>
