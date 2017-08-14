@@ -15,11 +15,7 @@ use Greenter\Model\Response\SummaryResult;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Voided;
-use Greenter\Ws\Services\WsSunatInterface;
 use Greenter\Xml\Builder\FeBuilderInteface;
-use Greenter\Zip\ZipFactory;
-use Greenter\Security\SignedXml;
-use Greenter\Ws\Services\FeSunat;
 use Greenter\Xml\Builder\FeBuilder;
 use Greenter\Model\Sale\Invoice;
 
@@ -27,7 +23,7 @@ use Greenter\Model\Sale\Invoice;
  * Class FeFactory
  * @package Greenter\Factory
  */
-class FeFactory implements FeFactoryInterface
+class FeFactory extends BaseFactory implements FeFactoryInterface
 {
     /**
      * @var FeBuilderInteface
@@ -35,41 +31,12 @@ class FeFactory implements FeFactoryInterface
     private $builder;
 
     /**
-     * @var SignedXml
-     */
-    private $signer;
-
-    /**
-     * @var ZipFactory
-     */
-    private $zipper;
-
-    /**
-     * @var WsSunatInterface
-     */
-    private $sender;
-
-    /**
-     * Ultimo xml generado.
-     *
-     * @var string
-     */
-    private $lastXml;
-
-    /**
-     * @var Company
-     */
-    private $company;
-
-    /**
      * FeFactory constructor.
      */
     public function __construct()
     {
+        parent::__construct();
         $this->builder = new FeBuilder();
-        $this->signer = new SignedXml();
-        $this->sender = new FeSunat();
-        $this->zipper = new ZipFactory();
     }
 
     /**
@@ -173,54 +140,5 @@ class FeFactory implements FeFactoryInterface
     public function getLastXml()
     {
         return $this->lastXml;
-    }
-
-    /**
-     * @param array $ws
-     */
-    private function setWsParams($ws)
-    {
-        $this->sender->setCredentials($ws['user'], $ws['pass']);
-        if (isset($ws['service'])) {
-            $this->sender->setService($ws['service']);
-        }
-        if (isset($ws['wsdl'])) {
-            $this->sender->setUrlWsdl($ws['wsdl']);
-        }
-    }
-
-    /**
-     * @param string $xml
-     * @param string $filename
-     * @return BillResult
-     */
-    private function getBillResult($xml, $filename)
-    {
-        $this->lastXml = $this->getXmmlSigned($xml);
-
-        $zip = $this->zipper->compress("$filename.xml", $this->lastXml);
-        return $this->sender->send("$filename.zip", $zip);
-    }
-
-    /**
-     * @param string $xml
-     * @param string $filename
-     * @return SummaryResult
-     */
-    private function getSummaryResult($xml, $filename)
-    {
-        $this->lastXml = $this->getXmmlSigned($xml);
-
-        $zip = $this->zipper->compress("$filename.xml", $this->lastXml);
-        return $this->sender->sendSummary("$filename.zip", $zip);
-    }
-
-    /**
-     * @param string $xml
-     * @return string
-     */
-    private function getXmmlSigned($xml)
-    {
-        return $this->signer->sign($xml);
     }
 }

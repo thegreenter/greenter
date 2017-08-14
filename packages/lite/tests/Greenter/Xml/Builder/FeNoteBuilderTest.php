@@ -12,6 +12,7 @@ use Greenter\Model\Client\Client;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Sale\SaleDetail;
+use Greenter\Model\Sale\SalePerception;
 
 /**
  * Class FeNoteBuilderTest
@@ -104,12 +105,20 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
             ->setNumDoc('20000000001')
             ->setRznSocial('EMPRESA 1');
 
+        $perc = new SalePerception();
+        $perc->setCodReg('01')
+            ->setMto(2)
+            ->setMtoBase(3)
+            ->setMtoTotal(4);
+
         $note = new Note();
         $note
             ->setTipDocAfectado('01')
             ->setNumDocfectado('F001-111')
             ->setCodMotivo('01')
             ->setDesMotivo('ANULACION DE LA OPERACION')
+            ->setMtoOperGratuitas(1)
+            ->setPerception($perc)
             ->setTipoDoc('07')
             ->setSerie('FF01')
             ->setCorrelativo('123')

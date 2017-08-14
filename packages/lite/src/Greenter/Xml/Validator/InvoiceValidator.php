@@ -42,12 +42,26 @@ trait InvoiceValidator
             new Assert\NotBlank(),
             new Assert\Length(['max' => 3]),
         ]);
-        $metadata->addPropertyConstraint('mtoOperGravadas', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoOperInafectas', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoOperExoneradas', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoImpVenta', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('client', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('client', new Assert\Valid());
+        $metadata->addPropertyConstraints('mtoOperGravadas',[
+            new Assert\NotBlank(),
+            new Assert\Type(['type' => 'numeric']),
+        ]);
+        $metadata->addPropertyConstraints('mtoOperInafectas',[
+            new Assert\NotBlank(),
+            new Assert\Type(['type' => 'numeric']),
+        ]);
+        $metadata->addPropertyConstraints('mtoOperExoneradas',[
+            new Assert\NotBlank(),
+            new Assert\Type(['type' => 'numeric']),
+        ]);
+        $metadata->addPropertyConstraints('mtoImpVenta',[
+            new Assert\NotBlank(),
+            new Assert\Type(['type' => 'numeric']),
+        ]);
+        $metadata->addPropertyConstraints('client', [
+            new Assert\NotBlank(),
+            new Assert\Valid(),
+        ]);
         $metadata->addPropertyConstraint('details', new Assert\Valid());
         $metadata->addPropertyConstraint('legends', new Assert\Valid());
         $metadata->addPropertyConstraint('relDocs', new Assert\Valid());

@@ -16,47 +16,16 @@ use Greenter\Model\Response\StatusResult;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Voided\Reversion;
-use Greenter\Security\SignedXml;
 use Greenter\Ws\Services\CeSunat;
-use Greenter\Ws\Services\FeSunat;
-use Greenter\Ws\Services\WsSunatInterface;
 use Greenter\Xml\Builder\CeBuilder;
 use Greenter\Xml\Builder\CeBuilderInterface;
-use Greenter\Zip\ZipFactory;
 
-class CeFactory implements CeFactoryInterface
+class CeFactory extends BaseFactory implements CeFactoryInterface
 {
     /**
      * @var CeBuilderInterface
      */
     private $builder;
-
-    /**
-     * @var SignedXml
-     */
-    private $signer;
-
-    /**
-     * @var ZipFactory
-     */
-    private $zipper;
-
-    /**
-     * @var WsSunatInterface
-     */
-    private $sender;
-
-    /**
-     * Ultimo xml generado.
-     *
-     * @var string
-     */
-    private $lastXml;
-
-    /**
-     * @var Company
-     */
-    private $company;
 
     /**
      * @var bool
@@ -68,10 +37,8 @@ class CeFactory implements CeFactoryInterface
      */
     public function __construct()
     {
+        parent::__construct();
         $this->builder = new CeBuilder();
-        $this->signer = new SignedXml();
-        $this->sender = new FeSunat();
-        $this->zipper = new ZipFactory();
     }
 
     /**
@@ -186,46 +153,6 @@ class CeFactory implements CeFactoryInterface
         }
     }
 
-    /**
-     * @param array $ws
-     */
-    private function setWsParams($ws)
-    {
-        $this->sender->setCredentials($ws['user'], $ws['pass']);
-        if (isset($ws['service'])) {
-            $this->isProd = $ws['service'] == FeSunat::PRODUCCION;
-        }
-        if (isset($ws['wsdl'])) {
-            $this->sender->setUrlWsdl($ws['wsdl']);
-        }
-    }
-
-    /**
-     * @param string $xml
-     * @param string $filename
-     * @return BillResult
-     */
-    private function getBillResult($xml, $filename)
-    {
-        $this->lastXml = $this->getXmmlSigned($xml);
-
-        $zip = $this->zipper->compress("$filename.xml", $this->lastXml);
-        return $this->sender->send("$filename.zip", $zip);
-    }
-
-    /**
-     * @param string $xml
-     * @param string $filename
-     * @return SummaryResult
-     */
-    private function getSummaryResult($xml, $filename)
-    {
-        $this->lastXml = $this->getXmmlSigned($xml);
-
-        $zip = $this->zipper->compress("$filename.xml", $this->lastXml);
-        return $this->sender->sendSummary("$filename.zip", $zip);
-    }
-
     private function setService($isGuia = false)
     {
         if ($isGuia === true) {
@@ -234,14 +161,5 @@ class CeFactory implements CeFactoryInterface
         }
 
         $this->sender->setService($this->isProd ? CeSunat::RETENCION_PRODUCCION : CeSunat::RETENCION_BETA);
-    }
-
-    /**
-     * @param string $xml
-     * @return string
-     */
-    private function getXmmlSigned($xml)
-    {
-        return $this->signer->sign($xml);
     }
 }
