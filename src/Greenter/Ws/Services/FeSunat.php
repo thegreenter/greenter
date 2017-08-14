@@ -104,7 +104,7 @@ class FeSunat extends BaseSunat implements WsSunatInterface
                 'ticket' => $ticket,
             ];
             $response = $client->__soapCall('getStatus', [ 'parameters' => $params ]);
-            $status = $response->statusResponse;
+            $status = $response->status;
             $cdrZip = $status->content;
 
             $result
