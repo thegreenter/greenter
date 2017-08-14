@@ -128,6 +128,10 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
         $rel2->setTipoDoc('09')
             ->setNroDoc('T001-00002');
 
+        $dir = new Direction('', '');
+        $dir->setDireccion('AV ITALIA');
+        $dir->setUbigueo('150203');
+
         $envio = new Shipment();
         $envio->setModTraslado('01')
             ->setCodTraslado('01')
@@ -140,7 +144,7 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
             ->setNumBultos(2)
             ->setNumContenedor('XD-2232')
             ->setLlegada(new Direction('150101', 'AV LIMA'))
-            ->setPartida(new Direction('150203', 'AV ITALIA'))
+            ->setPartida($dir)
             ->setTransportista($this->getTransportist());
 
         return [$baja, [$rel, $rel2], $envio];

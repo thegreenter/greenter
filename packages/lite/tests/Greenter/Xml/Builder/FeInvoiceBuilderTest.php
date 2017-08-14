@@ -21,6 +21,9 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use FeBuilderTrait;
 
+    /**
+     * @after testCompanyValidate
+     */
     public function testValidateInvoice()
     {
         $invoice = $this->getInvoice();
@@ -66,6 +69,30 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         $generator->buildInvoice($invoice);
     }
 
+    public function testCompanyValidate()
+    {
+        $company = $this->getCompany();
+        $adress = $company->getAddress();
+
+        $this->assertNotNull($company->getAddress());
+        $this->assertNotEmpty($company->getNombreComercial());
+        $this->assertNotEmpty($company->getRazonSocial());
+        $this->assertNotEmpty($company->getRuc());
+        $this->assertNotEmpty($adress->getDepartamento());
+        $this->assertNotEmpty($adress->getProvincia());
+        $this->assertNotEmpty($adress->getDistrito());
+        $this->assertNotEmpty($adress->getUrbanizacion());
+    }
+
+    public function testInvoiceFilename()
+    {
+        $ruc = $this->getCompany()->getRuc();
+        $invoice = $this->getInvoice();
+        $filename = $invoice->getFileName($ruc);
+
+        $this->assertEquals($this->getFilename($invoice, $ruc), $filename);
+    }
+
     private function assertInvoiceXml($xml)
     {
         $expec = new \DOMDocument();
@@ -82,15 +109,6 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, count($lines));
         $this->assertEqualXMLStructure($expec->documentElement, $actual->documentElement);
         //$this->assertXmlStringEqualsXmlFile(__DIR__.'/../../Resources/invoice.xml', $xml);
-    }
-
-    public function testInvoiceFilename()
-    {
-        $ruc = $this->getCompany()->getRuc();
-        $invoice = $this->getInvoice();
-        $filename = $invoice->getFileName($ruc);
-
-        $this->assertEquals($this->getFilename($invoice, $ruc), $filename);
     }
 
     private function getFileName(Invoice $invoice, $ruc)
