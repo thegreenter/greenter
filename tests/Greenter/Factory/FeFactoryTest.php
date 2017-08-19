@@ -29,6 +29,18 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testInvalidInvoice()
+    {
+        $invoice = $this->getInvoice();
+        $invoice->setTipoMoneda('UHT');
+        $result = $this->factory->sendInvoice($invoice);
+
+        $this->assertFalse($result->isSuccess());
+        $this->assertNotNull($result->getError());
+        $this->assertEquals('0306', $result->getError()->getCode());
+        $this->assertEquals('No se puede leer (parsear) el archivo XML', $result->getError()->getMessage());
+    }
+
     public function testInvoiceNotValidZipFileName()
     {
         $invoice = $this->getInvoice();
