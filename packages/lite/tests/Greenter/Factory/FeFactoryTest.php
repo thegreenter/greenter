@@ -55,12 +55,12 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     public function testInvoiceRechazado()
     {
         $invoice = $this->getInvoice();
-        $invoice->getClient()->setNumDoc('1212');
+        $invoice->getClient()->setTipoDoc('0');
         $result = $this->factory->sendInvoice($invoice);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
-        $this->assertEquals('2017', $result->getError()->getCode());
+        $this->assertEquals('2016', $result->getError()->getCode());
     }
 
     /**
