@@ -52,6 +52,17 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('0151', $result->getError()->getCode());
     }
 
+    public function testInvoiceRechazado()
+    {
+        $invoice = $this->getInvoice();
+        $invoice->getClient()->setNumDoc('1212');
+        $result = $this->factory->sendInvoice($invoice);
+
+        $this->assertFalse($result->isSuccess());
+        $this->assertNotNull($result->getError());
+        $this->assertEquals('2017', $result->getError()->getCode());
+    }
+
     /**
      * @expectedException \Greenter\Xml\Exception\ValidationException
      */
