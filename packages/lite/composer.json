@@ -1,5 +1,5 @@
 {
-    "name": "giansalex/greenter",
+    "name": "greenter/greenter",
     "description": "Implementación de la Facturacion Electrónica SUNAT - Perú",
     "keywords": ["sunat", "xml", "facturacion electronica"],
     "license": "DBAD",
