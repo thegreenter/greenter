@@ -12,7 +12,9 @@
     "homepage": "https://github.com/giansalex/greenter-report",
     "type": "project",
     "require": {
-		"php": ">=5.5.9"
+		"php": ">=5.5.9",
+        "twig/twig": "~1.0",
+        "mikehaertl/phpwkhtmltopdf": "^2.2"
     },
 	"require-dev": {
         "phpunit/phpunit": "4.8.36"
@@ -24,7 +26,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\Greenter\\": "tests/"
         }
     }
 }
