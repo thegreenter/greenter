@@ -54,8 +54,12 @@ class HtmlGenerator implements PdfGenerator
      */
     public function setParameters($parameters)
     {
-        $this->dirCache = $parameters['cache'];
-        $this->binWkhtml = $parameters['wkhtml_bin'];
+        if (isset($parameters['cache'])) {
+            $this->dirCache = $parameters['cache'];
+        }
+        if (isset($parameters['wkhtml_bin'])) {
+            $this->binWkhtml = $parameters['wkhtml_bin'];
+        }
     }
 
     /**

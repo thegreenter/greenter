@@ -26,11 +26,13 @@ trait HtmlGeneratorTrait
      */
     private function getGenerator()
     {
+        $parameters = ['cache' => sys_get_temp_dir()];
+        if (!getenv('CI')) {
+           $parameters['wkhtml_bin'] = "B:\\Archivos de Programa\\wkhtmltopdf\\bin\\wkhtmltopdf.exe";
+        }
+
         $gen = new HtmlGenerator();
-        $gen->setParameters([
-           'cache' => sys_get_temp_dir(),
-           'wkhtml_bin' => "B:\\Archivos de Programa\\wkhtmltopdf\\bin\\wkhtmltopdf.exe",
-        ]);
+        $gen->setParameters($parameters);
 
         return $gen;
     }
