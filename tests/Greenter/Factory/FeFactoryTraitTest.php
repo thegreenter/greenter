@@ -78,7 +78,8 @@ trait FeFactoryTraitTest
             ->setMtoOperExoneradas(0)
             ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
-            ->setMtoImpVenta(236);
+            ->setMtoImpVenta(236)
+            ->setCompany($this->getCompany());
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')
@@ -135,7 +136,8 @@ trait FeFactoryTraitTest
             ->setMtoOperExoneradas(0)
             ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
-            ->setMtoImpVenta(236);
+            ->setMtoImpVenta(236)
+            ->setCompany($this->getCompany());
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')
@@ -209,6 +211,7 @@ trait FeFactoryTraitTest
         $sum->setFecGeneracion($this->dateEmision)
             ->setFecResumen($this->dateEmision)
             ->setCorrelativo('001')
+            ->setCompany($this->getCompany())
             ->setDetails([$detiail1, $detiail2]);
 
         return $sum;
@@ -232,6 +235,7 @@ trait FeFactoryTraitTest
         $voided->setCorrelativo('001')
             ->setFecComunicacion($this->dateEmision)
             ->setFecGeneracion($this->dateEmision)
+            ->setCompany($this->getCompany())
             ->setDetails([$detial1, $detial2]);
 
         return $voided;

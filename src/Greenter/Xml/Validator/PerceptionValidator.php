@@ -31,6 +31,10 @@ trait PerceptionValidator
             new Assert\NotBlank(),
             new Assert\Date(),
         ]);
+        $metadata->addPropertyConstraints('company', [
+            new Assert\NotBlank(),
+            new Assert\Valid(),
+        ]);
         $metadata->addPropertyConstraints('proveedor', [
             new Assert\NotBlank(),
             new Assert\Valid(),

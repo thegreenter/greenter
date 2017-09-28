@@ -57,17 +57,16 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testPerceptionFilename()
     {
-        $ruc = $this->getCompany()->getRuc();
         $perception = $this->getPerception();
-        $filename = $perception->getFileName($ruc);
+        $filename = $perception->getFileName();
 
-        $this->assertEquals($this->getFilename($perception, $ruc), $filename);
+        $this->assertEquals($this->getFilename($perception), $filename);
     }
 
-    private function getFileName(Perception $perception, $ruc)
+    private function getFileName(Perception $perception)
     {
         $parts = [
-            $ruc,
+            $perception->getCompany()->getRuc(),
             '40',
             $perception->getSerie(),
             $perception->getCorrelativo(),
@@ -93,6 +92,7 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
             ->setCorrelativo('123')
             ->setFechaEmision(new \DateTime())
             ->setObservacion('NOTA PRUEBA />')
+            ->setCompany($this->getCompany())
             ->setProveedor($client)
             ->setImpPercibido(10)
             ->setImpCobrado(210)

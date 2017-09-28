@@ -9,6 +9,7 @@
 namespace Greenter\Model\Perception;
 
 use Greenter\Model\Client\Client;
+use Greenter\Model\Company\Company;
 use Greenter\Xml\Validator\PerceptionValidator;
 
 /**
@@ -40,6 +41,13 @@ class Perception
      * @var \DateTime
      */
     private $fechaEmision;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Valid()
+     * @var Company
+     */
+    private $company;
 
     /**
      * @Assert\NotBlank()
@@ -143,6 +151,24 @@ class Perception
     public function setFechaEmision($fechaEmision)
     {
         $this->fechaEmision = $fechaEmision;
+        return $this;
+    }
+
+    /**
+     * @return Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param Company $company
+     * @return Perception
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
         return $this;
     }
 
@@ -275,13 +301,12 @@ class Perception
     /**
      * Get FileName without extension.
      *
-     * @param string $ruc Ruc de la Empresa.
      * @return string
      */
-    public function getFileName($ruc)
+    public function getFileName()
     {
         $parts = [
-            $ruc,
+            $this->company->getRuc(),
             '40',
             $this->getSerie(),
             $this->getCorrelativo(),

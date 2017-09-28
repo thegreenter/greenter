@@ -8,6 +8,7 @@
 
 namespace Greenter\Model\Voided;
 
+use Greenter\Model\Company\Company;
 use Greenter\Xml\Validator\VoidedValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -38,6 +39,13 @@ class Voided
      * @var \DateTime
      */
     private $fecComunicacion;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Valid()
+     * @var Company
+     */
+    private $company;
 
     /**
      * @Assert\Valid()
@@ -105,6 +113,24 @@ class Voided
     }
 
     /**
+     * @return Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param Company $company
+     * @return Voided
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+        return $this;
+    }
+
+    /**
      * @return VoidedDetail[]
      */
     public function getDetails()
@@ -125,12 +151,11 @@ class Voided
     /**
      * Get FileName without extension.
      *
-     * @param string $ruc Ruc de la Empresa.
      * @return string
      */
-    public function getFileName($ruc)
+    public function getFileName()
     {
-        return $ruc . '-' . $this->getXmlId();
+        return $this->company->getRuc() . '-' . $this->getXmlId();
     }
 
     /**

@@ -28,6 +28,10 @@ trait SummaryValidator
             new Assert\NotBlank(),
             new Assert\Date(),
         ]);
+        $metadata->addPropertyConstraints('company', [
+            new Assert\NotBlank(),
+            new Assert\Valid(),
+        ]);
         $metadata->addPropertyConstraint('details', new Assert\Valid());
     }
 }
