@@ -51,24 +51,24 @@
             <sac:DocumentSerialID>{{ det.serie }}</sac:DocumentSerialID>
             <sac:StartDocumentNumberID>{{ det.docInicio }}</sac:StartDocumentNumberID>
             <sac:EndDocumentNumberID>{{ det.docFin }}</sac:EndDocumentNumberID>
-            <sac:TotalAmount currencyID="PEN">{{ det.total|number_format(2) }}</sac:TotalAmount>
+            <sac:TotalAmount currencyID="PEN">{{ det.total|n_format }}</sac:TotalAmount>
             <sac:BillingPayment>
-                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperGravadas|number_format(2) }}</cbc:PaidAmount>
+                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperGravadas|n_format }}</cbc:PaidAmount>
                 <cbc:InstructionID>01</cbc:InstructionID>
             </sac:BillingPayment>
             <sac:BillingPayment>
-                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperExoneradas|number_format(2) }}</cbc:PaidAmount>
+                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperExoneradas|n_format }}</cbc:PaidAmount>
                 <cbc:InstructionID>02</cbc:InstructionID>
             </sac:BillingPayment>
             <sac:BillingPayment>
-                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperInafectas|number_format(2) }}</cbc:PaidAmount>
+                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperInafectas|n_format }}</cbc:PaidAmount>
                 <cbc:InstructionID>03</cbc:InstructionID>
             </sac:BillingPayment>
             <cac:AllowanceCharge>
                 <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
-                <cbc:Amount currencyID="PEN">{{ det.mtoDescuentos|default(0)|number_format(2) }}</cbc:Amount>
+                <cbc:Amount currencyID="PEN">{{ det.mtoDescuentos|default(0)|n_format }}</cbc:Amount>
             </cac:AllowanceCharge>
-            {% set igv = det.mtoIGV|number_format(2) %}
+            {% set igv = det.mtoIGV|n_format %}
             <cac:TaxTotal>
                 <cbc:TaxAmount currencyID="PEN">{{ igv }}</cbc:TaxAmount>
                 <cac:TaxSubtotal>
@@ -82,7 +82,7 @@
                     </cac:TaxCategory>
                 </cac:TaxSubtotal>
             </cac:TaxTotal>
-            {% set isc = det.mtoISC|default(0)|number_format(2) %}
+            {% set isc = det.mtoISC|default(0)|n_format %}
             <cac:TaxTotal>
                 <cbc:TaxAmount currencyID="PEN">{{ isc }}</cbc:TaxAmount>
                 <cac:TaxSubtotal>
@@ -97,7 +97,7 @@
                 </cac:TaxSubtotal>
             </cac:TaxTotal>
             {% if det.mtoOtrosTributos %}
-            {% set oth = det.mtoOtrosTributos|number_format(2) %}
+            {% set oth = det.mtoOtrosTributos|n_format %}
             <cac:TaxTotal>
                 <cbc:TaxAmount currencyID="PEN">{{ oth }}</cbc:TaxAmount>
                 <cac:TaxSubtotal>

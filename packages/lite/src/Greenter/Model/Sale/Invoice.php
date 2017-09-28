@@ -48,6 +48,36 @@ class Invoice extends BaseSale
     private $perception;
 
     /**
+     * Orden de Compra relacionado.
+     *
+     * @var string
+     */
+    private $compra;
+
+    /**
+     * Guia de Remision relacionado (caso de uso en venta itinerante).
+     *
+     * @Assert\Valid()
+     *
+     * @var Document
+     */
+    private $guia;
+
+    /**
+     * @Assert\Valid()
+     *
+     * @var Prepayment
+     */
+    private $anticipo;
+
+    /**
+     * @Assert\Valid()
+     *
+     * @var Detraction
+     */
+    private $detraccion;
+
+    /**
      * @return string
      */
     public function getTipoOperacion()
@@ -134,6 +164,78 @@ class Invoice extends BaseSale
     public function setPerception($perception)
     {
         $this->perception = $perception;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompra()
+    {
+        return $this->compra;
+    }
+
+    /**
+     * @param string $compra
+     * @return Invoice
+     */
+    public function setCompra($compra)
+    {
+        $this->compra = $compra;
+        return $this;
+    }
+
+    /**
+     * @return Document
+     */
+    public function getGuia()
+    {
+        return $this->guia;
+    }
+
+    /**
+     * @param Document $guia
+     * @return Invoice
+     */
+    public function setGuia($guia)
+    {
+        $this->guia = $guia;
+        return $this;
+    }
+
+    /**
+     * @return Prepayment
+     */
+    public function getAnticipo()
+    {
+        return $this->anticipo;
+    }
+
+    /**
+     * @param Prepayment $anticipo
+     * @return Invoice
+     */
+    public function setAnticipo($anticipo)
+    {
+        $this->anticipo = $anticipo;
+        return $this;
+    }
+
+    /**
+     * @return Detraction
+     */
+    public function getDetraccion()
+    {
+        return $this->detraccion;
+    }
+
+    /**
+     * @param Detraction $detraccion
+     * @return Invoice
+     */
+    public function setDetraccion($detraccion)
+    {
+        $this->detraccion = $detraccion;
         return $this;
     }
 }

@@ -49,10 +49,15 @@ class BaseBuilder
 
     private function getRender()
     {
+        //TODO: load render one time.
         $loader = new \Twig_Loader_Filesystem(__DIR__ . '/../Templates');
+        $numFilter = new \Twig_SimpleFilter('n_format', function ($number, $decimals = 2) {
+            return number_format($number, $decimals, '.', '');
+        });
         $twig = new \Twig_Environment($loader, array(
             'cache' => $this->dirCache,
         ));
+        $twig->addFilter($numFilter);
 
         return $twig;
     }

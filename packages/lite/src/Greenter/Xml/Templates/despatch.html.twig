@@ -63,7 +63,7 @@
 	<cbc:ID>1</cbc:ID>
 	<cbc:HandlingCode>{{ envio.codTraslado }}</cbc:HandlingCode>
 	{% if envio.desTraslado %}<cbc:Information>{{ envio.desTraslado }}</cbc:Information>{% endif %}
-	<cbc:GrossWeightMeasure unitCode="{{ envio.undPesoTotal }}">{{ envio.pesoTotal|number_format(3) }}</cbc:GrossWeightMeasure>
+	<cbc:GrossWeightMeasure unitCode="{{ envio.undPesoTotal }}">{{ envio.pesoTotal|n_format(3) }}</cbc:GrossWeightMeasure>
 	{% if envio.numBultos %}<cbc:TotalTransportHandlingUnitQuantity>{{ envio.numBultos }}</cbc:TotalTransportHandlingUnitQuantity>{% endif %}
 	<cbc:SplitConsignmentIndicator>{{ envio.indTransbordo ? "true" : "false" }}</cbc:SplitConsignmentIndicator>
 	<cac:ShipmentStage>
