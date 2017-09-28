@@ -8,7 +8,6 @@
 
 namespace Greenter\Xml\Builder;
 
-use Greenter\Model\Company\Company;
 use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Retention\Retention;
@@ -75,16 +74,6 @@ class CeBuilder extends BaseBuilder implements CeBuilderInterface
         $this->validate($reversion);
 
         return $this->render('voided.html.twig', $reversion);
-    }
-
-    /**
-     * @param Company $company
-     * @return CeBuilder
-     */
-    public function setCompany(Company $company)
-    {
-        $this->company = $company;
-        return $this;
     }
 
     /**

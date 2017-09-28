@@ -8,7 +8,6 @@
 
 namespace Greenter\Xml\Builder;
 
-use Greenter\Model\Company\Company;
 use Greenter\Xml\Exception\ValidationException;
 use Symfony\Component\Validator\Validation;
 
@@ -24,13 +23,6 @@ class BaseBuilder
      * @var string
      */
     protected $dirCache;
-
-    /**
-     * Datos de la Compañia.
-     *
-     * @var Company
-     */
-    protected $company;
 
     /**
      * BaseBuilder constructor.
@@ -51,8 +43,7 @@ class BaseBuilder
     {
         $twig = $this->getRender();
         return $twig->render($template, [
-            'doc' => $doc,
-            'emp' => $this->company,
+            'doc' => $doc
         ]);
     }
 

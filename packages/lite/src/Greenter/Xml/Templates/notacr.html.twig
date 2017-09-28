@@ -75,6 +75,7 @@
             <cbc:DocumentTypeCode>{{ rel.tipoDoc }}</cbc:DocumentTypeCode>
         </cac:AdditionalDocumentReference>
     {% endfor %}
+    {% set emp = doc.company %}
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
         <cbc:Note>GREENTER Builder</cbc:Note>

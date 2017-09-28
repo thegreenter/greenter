@@ -25,7 +25,6 @@ trait CeBuilderTrait
     private function getGenerator()
     {
         $generator = new CeBuilder();
-        $generator->setCompany($this->getCompany());
 
         return $generator;
     }

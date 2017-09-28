@@ -8,7 +8,6 @@
 
 namespace Greenter\Factory;
 
-use Greenter\Model\Company\Company;
 use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Response\BillResult;
@@ -69,14 +68,6 @@ interface CeFactoryInterface
      * @return string
      */
     public function getLastXml();
-
-    /**
-     * Set Company
-     *
-     * @param $company
-     * @return $this
-     */
-    public function setCompany(Company $company);
 
     /**
      * @param array $params

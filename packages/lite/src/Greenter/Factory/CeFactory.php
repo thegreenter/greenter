@@ -8,7 +8,6 @@
 
 namespace Greenter\Factory;
 
-use Greenter\Model\Company\Company;
 use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Response\BillResult;
@@ -121,20 +120,6 @@ class CeFactory extends BaseFactory implements CeFactoryInterface
     public function getLastXml()
     {
         return $this->lastXml;
-    }
-
-    /**
-     * Set Company
-     *
-     * @param $company
-     * @return $this
-     */
-    public function setCompany(Company $company)
-    {
-        $this->company = $company;
-        $this->builder->setCompany($company);
-
-        return $this;
     }
 
     /**
