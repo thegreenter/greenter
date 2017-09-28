@@ -25,6 +25,7 @@ trait CeBuilderTrait
     private function getGenerator()
     {
         $generator = new CeBuilder();
+        $generator->setParameters(['cache_dir' => sys_get_temp_dir()]);
 
         return $generator;
     }

@@ -49,7 +49,7 @@ trait FeFactoryTraitTest
                 'service' => FeSunat::BETA,
             ],
             'xml' => [
-                'cache' => sys_get_temp_dir(),
+                'cache_dir' => sys_get_temp_dir(),
             ],
             'cert' => file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'),
         ]);
