@@ -48,6 +48,39 @@
                   <cbc:ID>1000</cbc:ID>
                   <cbc:Value>SON N SOLES</cbc:Value>
                </sac:AdditionalProperty>
+               <sac:SUNATEmbededDespatchAdvice>
+                  <cac:DeliveryAddress>
+                     <cbc:ID>070101</cbc:ID>
+                     <cbc:StreetName>AV. REPUBLICA DE ARGENTINA N? 2976 URB.</cbc:StreetName>
+                  </cac:DeliveryAddress>
+                  <cac:OriginAddress>
+                     <cbc:ID>070101</cbc:ID>
+                     <cbc:StreetName>AV OSCAR R BENAVIDES No 5915  PE</cbc:StreetName>
+                  </cac:OriginAddress>
+                  <sac:SUNATCarrierParty>
+                     <cbc:CustomerAssignedAccountID>20100006376</cbc:CustomerAssignedAccountID>
+                     <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+                     <cac:Party>
+                        <cac:PartyLegalEntity>
+                           <cbc:RegistrationName>TRANS SAC</cbc:RegistrationName>
+                        </cac:PartyLegalEntity>
+                     </cac:Party>
+                  </sac:SUNATCarrierParty>
+                  <sac:DriverParty>
+                     <cac:Party>
+                        <cac:PartyIdentification>
+                           <cbc:ID>1111111111</cbc:ID>
+                        </cac:PartyIdentification>
+                     </cac:Party>
+                  </sac:DriverParty>
+                  <sac:SUNATRoadTransport>
+                     <cbc:LicensePlateID>B9Y-778</cbc:LicensePlateID>
+                     <cbc:TransportAuthorizationCode>112121</cbc:TransportAuthorizationCode>
+                     <cbc:BrandName>Scania</cbc:BrandName>
+                  </sac:SUNATRoadTransport>
+                  <cbc:TransportModeCode>01</cbc:TransportModeCode>
+                  <cbc:GrossWeightMeasure unitCode="KGM">2020.23</cbc:GrossWeightMeasure>
+               </sac:SUNATEmbededDespatchAdvice>
                <sac:SUNATTransaction>
                   <cbc:ID>2</cbc:ID>
                </sac:SUNATTransaction>
@@ -61,7 +94,7 @@
    <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
    <cbc:CustomizationID>1.0</cbc:CustomizationID>
    <cbc:ID>F001-123</cbc:ID>
-   <cbc:IssueDate>2017-09-28</cbc:IssueDate>
+   <cbc:IssueDate>2017-09-29</cbc:IssueDate>
    <cbc:InvoiceTypeCode>01</cbc:InvoiceTypeCode>
    <cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
    <cac:OrderReference>
