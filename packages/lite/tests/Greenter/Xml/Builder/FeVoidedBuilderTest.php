@@ -63,17 +63,16 @@ class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testVoidedFilename()
     {
-        $ruc = $this->getCompany()->getRuc();
         $voided = $this->getVoided();
-        $filename = $voided->getFileName($ruc);
+        $filename = $voided->getFileName();
 
-        $this->assertEquals($this->getFilename($voided, $ruc), $filename);
+        $this->assertEquals($this->getFilename($voided), $filename);
     }
 
-    private function getFilename(Voided $voided, $ruc)
+    private function getFilename(Voided $voided)
     {
         $parts = [
-            $ruc,
+            $voided->getCompany()->getRuc(),
             'RA',
             $voided->getFecComunicacion()->format('Ymd'),
             $voided->getCorrelativo(),
@@ -100,6 +99,7 @@ class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
         $voided->setCorrelativo('001')
             ->setFecComunicacion(new \DateTime())
             ->setFecGeneracion(new \DateTime())
+            ->setCompany($this->getCompany())
             ->setDetails([$detial1, $detial2]);
 
         return $voided;

@@ -9,6 +9,7 @@
 namespace Greenter\Model\Despatch;
 
 use Greenter\Model\Client\Client;
+use Greenter\Model\Company\Company;
 use Greenter\Model\Sale\Document;
 use Greenter\Xml\Validator\DespatchValidator;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -54,6 +55,13 @@ class Despatch
      * @var \DateTime
      */
     private $fechaEmision;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Valid()
+     * @var Company
+     */
+    private $company;
 
     /**
      * @Assert\NotBlank()
@@ -187,6 +195,24 @@ class Despatch
     }
 
     /**
+     * @return Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param Company $company
+     * @return Despatch
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+        return $this;
+    }
+
+    /**
      * @return Client
      */
     public function getDestinatario()
@@ -297,13 +323,12 @@ class Despatch
     /**
      * Get FileName without extension.
      *
-     * @param string $ruc Ruc de la Empresa.
      * @return string
      */
-    public function getFileName($ruc)
+    public function getFileName()
     {
         $parts = [
-            $ruc,
+            $this->company->getRuc(),
             $this->getTipoDoc(), // 09
             $this->getSerie(),
             $this->getCorrelativo(),

@@ -62,6 +62,10 @@ trait NoteValidator
             new Assert\NotBlank(),
             new Assert\Valid(),
         ]);
+        $metadata->addPropertyConstraints('company', [
+            new Assert\NotBlank(),
+            new Assert\Valid(),
+        ]);
         $metadata->addPropertyConstraint('details', new Assert\Valid());
         $metadata->addPropertyConstraint('legends', new Assert\Valid());
         $metadata->addPropertyConstraint('relDocs', new Assert\Valid());

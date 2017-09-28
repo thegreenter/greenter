@@ -8,6 +8,7 @@
 
 namespace Greenter\Model\Summary;
 
+use Greenter\Model\Company\Company;
 use Greenter\Xml\Validator\SummaryValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -24,6 +25,7 @@ class Summary
      * @var string
      */
     private $correlativo;
+
     /**
      * @Assert\Date()
      * @var \DateTime
@@ -36,6 +38,13 @@ class Summary
      * @var \DateTime
      */
     private $fecResumen;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Valid()
+     * @var Company
+     */
+    private $company;
 
     /**
      * @Assert\Valid()
@@ -98,6 +107,24 @@ class Summary
     }
 
     /**
+     * @return mixed
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param mixed $company
+     * @return Summary
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+        return $this;
+    }
+
+    /**
      * @return SummaryDetail[]
      */
     public function getDetails()
@@ -118,13 +145,12 @@ class Summary
     /**
      * Get FileName without extension.
      *
-     * @param string $ruc Ruc de la Empresa.
      * @return string
      */
-    public function getFileName($ruc)
+    public function getFileName()
     {
         $parts = [
-            $ruc,
+            $this->company->getRuc(),
             'RC',
             $this->getFecResumen()->format('Ymd'),
             $this->getCorrelativo(),

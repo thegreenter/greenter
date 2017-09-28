@@ -62,17 +62,16 @@ class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testReversionFilename()
     {
-        $ruc = $this->getCompany()->getRuc();
         $reversion = $this->getReversion();
-        $filename = $reversion->getFileName($ruc);
+        $filename = $reversion->getFileName();
 
-        $this->assertEquals($this->getFilename($reversion, $ruc), $filename);
+        $this->assertEquals($this->getFilename($reversion), $filename);
     }
 
-    private function getFilename(Reversion $reversion, $ruc)
+    private function getFilename(Reversion $reversion)
     {
         $parts = [
-          $ruc,
+          $reversion->getCompany()->getRuc(),
           'RR',
           $reversion->getFecComunicacion()->format('Ymd'),
           $reversion->getCorrelativo(),
@@ -99,6 +98,7 @@ class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
         $reversion->setCorrelativo('001')
             ->setFecComunicacion(new \DateTime())
             ->setFecGeneracion(new \DateTime())
+            ->setCompany($this->getCompany())
             ->setDetails([$detial1, $detial2]);
 
         return $reversion;

@@ -58,17 +58,16 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testDespatchFilename()
     {
-        $ruc = $this->getCompany()->getRuc();
         $despatch = $this->getDespatch();
-        $filename = $despatch->getFileName($ruc);
+        $filename = $despatch->getFileName();
 
-        $this->assertEquals($this->getFilename($despatch, $ruc), $filename);
+        $this->assertEquals($this->getFilename($despatch), $filename);
     }
 
-    private function getFileName(Despatch $despatch, $ruc)
+    private function getFileName(Despatch $despatch)
     {
         $parts = [
-            $ruc,
+            $despatch->getCompany()->getRuc(),
             '09',
             $despatch->getSerie(),
             $despatch->getCorrelativo(),
@@ -98,7 +97,8 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
             ->setObservacion('NOTA GUIA')
             ->setDocBaja($baja)
             ->setRelDoc($rels)
-            ->setEnvio($envio);
+            ->setEnvio($envio)
+            ->setCompany($this->getCompany());
 
         $detail = new DespatchDetail();
         $detail->setCantidad(2)

@@ -82,6 +82,7 @@ trait CeFactoryTraitTest
             ->setSerie('R001')
             ->setCorrelativo('123')
             ->setFechaEmision(new \DateTime())
+            ->setCompany($this->getCompany())
             ->setProveedor($client)
             ->setObservacion('NOTA /><!-- HI -->')
             ->setImpRetenido(10)
@@ -123,6 +124,7 @@ trait CeFactoryTraitTest
             ->setCorrelativo('123')
             ->setFechaEmision($this->dateEmision)
             ->setObservacion('NOTA PRUEBA />')
+            ->setCompany($this->getCompany())
             ->setProveedor($client)
             ->setImpPercibido(10)
             ->setImpCobrado(210)
@@ -188,6 +190,7 @@ trait CeFactoryTraitTest
         $reversion->setCorrelativo('001')
             ->setFecComunicacion($this->dateEmision)
             ->setFecGeneracion($fecGeneracion)
+            ->setCompany($this->getCompany())
             ->setDetails([$detial1, $detial2]);
 
         return $reversion;
@@ -209,6 +212,7 @@ trait CeFactoryTraitTest
             ->setSerie('T001')
             ->setCorrelativo('123')
             ->setFechaEmision(new \DateTime())
+            ->setCompany($this->getCompany())
             ->setDestinatario($client)
             ->setTercero($client)
             ->setObservacion('NOTA GUIA')

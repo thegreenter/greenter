@@ -57,17 +57,16 @@ class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testRetentionFilename()
     {
-        $ruc = $this->getCompany()->getRuc();
         $retention = $this->getRetention();
-        $filename = $retention->getFileName($ruc);
+        $filename = $retention->getFileName();
 
-        $this->assertEquals($this->getFilename($retention, $ruc), $filename);
+        $this->assertEquals($this->getFilename($retention), $filename);
     }
 
-    private function getFileName(Retention $retention, $ruc)
+    private function getFileName(Retention $retention)
     {
         $parts = [
-            $ruc,
+            $retention->getCompany()->getRuc(),
             '20',
             $retention->getSerie(),
             $retention->getCorrelativo(),
@@ -92,6 +91,7 @@ class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
             ->setSerie('R001')
             ->setCorrelativo('123')
             ->setFechaEmision(new \DateTime())
+            ->setCompany($this->getCompany())
             ->setProveedor($client)
             ->setObservacion('NOTA /><!-- HI -->')
             ->setImpRetenido(10)

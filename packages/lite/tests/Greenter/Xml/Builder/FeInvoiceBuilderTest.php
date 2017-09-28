@@ -89,11 +89,10 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testInvoiceFilename()
     {
-        $ruc = $this->getCompany()->getRuc();
         $invoice = $this->getInvoice();
-        $filename = $invoice->getFileName($ruc);
+        $filename = $invoice->getFileName();
 
-        $this->assertEquals($this->getFilename($invoice, $ruc), $filename);
+        $this->assertEquals($this->getFilename($invoice), $filename);
     }
 
     private function assertInvoiceXml($xml)
@@ -114,10 +113,10 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         //$this->assertXmlStringEqualsXmlFile(__DIR__.'/../../Resources/invoice.xml', $xml);
     }
 
-    private function getFileName(Invoice $invoice, $ruc)
+    private function getFileName(Invoice $invoice)
     {
         $parts = [
-            $ruc,
+            $invoice->getCompany()->getRuc(),
             $invoice->getTipoDoc(),
             $invoice->getSerie(),
             $invoice->getCorrelativo(),
@@ -162,7 +161,8 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
             ->setMtoISC(2)
             ->setSumOtrosCargos(12)
             ->setMtoOtrosTributos(1)
-            ->setMtoImpVenta(236);
+            ->setMtoImpVenta(236)
+            ->setCompany($this->getCompany());
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')

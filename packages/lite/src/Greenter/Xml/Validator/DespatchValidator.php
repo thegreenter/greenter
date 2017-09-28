@@ -37,6 +37,10 @@ trait DespatchValidator
             new Assert\NotBlank(),
             new Assert\Valid(),
         ]);
+        $metadata->addPropertyConstraints('company', [
+            new Assert\NotBlank(),
+            new Assert\Valid(),
+        ]);
         $metadata->addPropertyConstraint('tercero', new Assert\Valid());
         $metadata->addPropertyConstraints('envio', [
             new Assert\NotBlank(),

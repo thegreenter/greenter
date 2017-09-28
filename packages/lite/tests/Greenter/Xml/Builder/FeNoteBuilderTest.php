@@ -79,17 +79,16 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testNoteFilename()
     {
-        $ruc = $this->getCompany()->getRuc();
         $note = $this->getCreditNote();
-        $filename = $note->getFileName($ruc);
+        $filename = $note->getFileName();
 
-        $this->assertEquals($this->getFilename($note, $ruc), $filename);
+        $this->assertEquals($this->getFilename($note), $filename);
     }
 
-    private function getFileName(Note $note, $ruc)
+    private function getFileName(Note $note)
     {
         $parts = [
-            $ruc,
+            $note->getCompany()->getRuc(),
             $note->getTipoDoc(),
             $note->getSerie(),
             $note->getCorrelativo(),
@@ -129,7 +128,8 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
             ->setMtoOperExoneradas(0)
             ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
-            ->setMtoImpVenta(236);
+            ->setMtoImpVenta(236)
+            ->setCompany($this->getCompany());
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')

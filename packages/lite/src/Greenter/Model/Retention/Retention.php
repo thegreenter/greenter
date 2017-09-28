@@ -9,6 +9,7 @@
 namespace Greenter\Model\Retention;
 
 use Greenter\Model\Client\Client;
+use Greenter\Model\Company\Company;
 use Greenter\Xml\Validator\RetentionValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -41,6 +42,13 @@ class Retention
      * @var \DateTime
      */
     private $fechaEmision;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Valid()
+     * @var Company
+     */
+    private $company;
 
     /**
      * @Assert\NotBlank()
@@ -166,6 +174,24 @@ class Retention
     }
 
     /**
+     * @return Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param Company $company
+     * @return Retention
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getRegimen()
@@ -276,13 +302,12 @@ class Retention
     /**
      * Get FileName without extension.
      *
-     * @param string $ruc Ruc de la Empresa.
      * @return string
      */
-    public function getFileName($ruc)
+    public function getFileName()
     {
         $parts = [
-            $ruc,
+            $this->company->getRuc(),
             '20',
             $this->getSerie(),
             $this->getCorrelativo(),

@@ -8,6 +8,7 @@
 
 namespace Greenter\Model\Sale;
 use Greenter\Model\Client\Client;
+use Greenter\Model\Company\Company;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -43,6 +44,13 @@ class BaseSale
      * @var \DateTime
      */
     protected $fechaEmision;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Valid()
+     * @var Company
+     */
+    protected $company;
 
     /**
      * @Assert\NotBlank()
@@ -213,6 +221,24 @@ class BaseSale
     public function setClient($client)
     {
         $this->client = $client;
+        return $this;
+    }
+
+    /**
+     * @return Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param Company $company
+     * @return BaseSale
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
         return $this;
     }
 
@@ -435,13 +461,12 @@ class BaseSale
     /**
      * Get FileName without extension.
      *
-     * @param string $ruc Ruc de la Empresa.
      * @return string
      */
-    public function getFileName($ruc)
+    public function getFileName()
     {
         $parts = [
-            $ruc,
+            $this->company->getRuc(),
             $this->getTipoDoc(),
             $this->getSerie(),
             $this->getCorrelativo(),
