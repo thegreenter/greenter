@@ -25,14 +25,6 @@ class BaseBuilder
     protected $dirCache;
 
     /**
-     * BaseBuilder constructor.
-     */
-    public function __construct()
-    {
-        $this->dirCache = sys_get_temp_dir();
-    }
-
-    /**
      * Get Content XML from template.
      *
      * @param string $template
@@ -88,14 +80,10 @@ class BaseBuilder
      */
     protected function addParameters($params)
     {
-        if (!$params['cache']) {
+        if (!$params['cache_dir']) {
             return;
         }
 
-        if (!is_dir($params['cache'])) {
-            throw new \Exception('No is a directory valid');
-        }
-
-        $this->dirCache = $params['cache'];
+        $this->dirCache = $params['cache_dir'];
     }
 }
