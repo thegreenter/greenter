@@ -8,7 +8,6 @@
 
 namespace Greenter\Xml\Builder;
 
-use Greenter\Model\Company\Company;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
@@ -51,12 +50,6 @@ interface FeBuilderInteface
      * @return string
      */
     public function buildVoided(Voided $voided);
-
-    /**
-     * @param Company $company
-     * @return FeBuilder
-     */
-    public function setCompany(Company $company);
 
     /**
      * Set argumentos.

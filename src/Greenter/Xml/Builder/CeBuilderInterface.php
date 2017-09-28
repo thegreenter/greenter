@@ -8,7 +8,6 @@
 
 namespace Greenter\Xml\Builder;
 
-use Greenter\Model\Company\Company;
 use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Retention\Retention;
@@ -51,12 +50,6 @@ interface CeBuilderInterface
      * @return string
      */
     public function buildReversion(Reversion $reversion);
-
-    /**
-     * @param Company $company
-     * @return CeBuilder
-     */
-    public function setCompany(Company $company);
 
     /**
      * Set argumentos.

@@ -8,7 +8,6 @@
  */
 namespace Greenter\Xml\Builder;
 
-use Greenter\Model\Company\Company;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
@@ -78,16 +77,6 @@ final class FeBuilder extends BaseBuilder implements FeBuilderInteface
         $this->validate($voided);
 
         return $this->render('voided.html.twig', $voided);
-    }
-
-    /**
-     * @param Company $company
-     * @return FeBuilder
-     */
-    public function setCompany(Company $company)
-    {
-        $this->company = $company;
-        return $this;
     }
 
     /**

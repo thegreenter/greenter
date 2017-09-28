@@ -8,7 +8,6 @@
 
 namespace Greenter\Factory;
 
-use Greenter\Model\Company\Company;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\Security\SignedXml;
@@ -36,11 +35,6 @@ class BaseFactory
      * @var WsSunatInterface
      */
     protected $sender;
-
-    /**
-     * @var Company
-     */
-    protected $company;
 
     /**
      * Ultimo xml generado.

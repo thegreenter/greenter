@@ -30,6 +30,7 @@
 	<cbc:DocumentTypeCode>{{ doc.relDoc.tipoDoc }}</cbc:DocumentTypeCode>
 </cac:AdditionalDocumentReference>
 {% endif %}
+{% set emp = doc.company %}
 <cac:DespatchSupplierParty>
 	<cbc:CustomerAssignedAccountID schemeID="6">{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
 	<cac:Party>

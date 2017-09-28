@@ -8,7 +8,6 @@
 
 namespace Greenter\Factory;
 
-use Greenter\Model\Company\Company;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\StatusResult;
 use Greenter\Model\Response\SummaryResult;
@@ -69,14 +68,6 @@ interface FeFactoryInterface
      * @return string
      */
     public function getLastXml();
-
-    /**
-     * Set Company
-     *
-     * @param $company
-     * @return $this
-     */
-    public function setCompany(Company $company);
 
     /**
      * @param array $params

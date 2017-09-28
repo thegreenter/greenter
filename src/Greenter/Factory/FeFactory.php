@@ -8,7 +8,6 @@
 
 namespace Greenter\Factory;
 
-use Greenter\Model\Company\Company;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\StatusResult;
 use Greenter\Model\Response\SummaryResult;
@@ -102,18 +101,6 @@ class FeFactory extends BaseFactory implements FeFactoryInterface
     public function getStatus($ticket)
     {
         return $this->sender->getStatus($ticket);
-    }
-
-    /**
-     * @param $company
-     * @return $this
-     */
-    public function setCompany(Company $company)
-    {
-        $this->company = $company;
-        $this->builder->setCompany($company);
-
-        return $this;
     }
 
     /**

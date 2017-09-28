@@ -15,6 +15,7 @@
     <cbc:ID>{{ doc.xmlId }}</cbc:ID>
     <cbc:ReferenceDate>{{ doc.fecGeneracion|date('Y-m-d') }}</cbc:ReferenceDate>
     <cbc:IssueDate>{{ doc.fecComunicacion|date('Y-m-d') }}</cbc:IssueDate>
+    {% set emp = doc.company %}
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
         <cbc:Note>GREENTER Builder</cbc:Note>
