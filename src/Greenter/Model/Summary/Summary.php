@@ -27,12 +27,16 @@ class Summary
     private $correlativo;
 
     /**
+     * Fecha de generación de los documentos a enviar en el resumen.
+     *
      * @Assert\Date()
      * @var \DateTime
      */
     private $fecGeneracion;
 
     /**
+     * Fecha de generación del resumen.
+     *
      * @Assert\NotBlank()
      * @Assert\Date()
      * @var \DateTime

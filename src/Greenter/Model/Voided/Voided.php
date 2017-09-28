@@ -28,12 +28,16 @@ class Voided
     private $correlativo;
 
     /**
+     * Fecha de generación del documento dado de baja.
+     *
      * @Assert\Date()
      * @var \DateTime
      */
     private $fecGeneracion;
 
     /**
+     * Fecha de generación de la comunicación.
+     *
      * @Assert\NotBlank()
      * @Assert\Date()
      * @var \DateTime
