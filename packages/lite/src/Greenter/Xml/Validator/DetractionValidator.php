@@ -19,7 +19,7 @@ trait DetractionValidator
 {
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraints('percent',[
+        $metadata->addPropertyConstraints('percent', [
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
         ]);

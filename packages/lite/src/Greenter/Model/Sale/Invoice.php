@@ -55,13 +55,13 @@ class Invoice extends BaseSale
     private $compra;
 
     /**
-     * Guia de Remision relacionado (caso de uso en venta itinerante).
+     * Guias de Remision relacionado (caso de uso en venta itinerante).
      *
      * @Assert\Valid()
      *
-     * @var Document
+     * @var Document[]
      */
-    private $guia;
+    private $guias;
 
     /**
      * @Assert\Valid()
@@ -186,20 +186,20 @@ class Invoice extends BaseSale
     }
 
     /**
-     * @return Document
+     * @return Document[]
      */
-    public function getGuia()
+    public function getGuias()
     {
-        return $this->guia;
+        return $this->guias;
     }
 
     /**
-     * @param Document $guia
+     * @param Document[] $guias
      * @return Invoice
      */
-    public function setGuia($guia)
+    public function setGuias($guias)
     {
-        $this->guia = $guia;
+        $this->guias = $guias;
         return $this;
     }
 

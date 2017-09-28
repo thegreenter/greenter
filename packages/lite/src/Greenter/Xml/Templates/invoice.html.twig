@@ -88,11 +88,13 @@
             <cbc:ID>{{ doc.compra }}</cbc:ID>
         </cac:OrderReference>
     {% endif %}
-    {% if doc.guia %}
+    {% if doc.guias %}
+        {% for guia in doc.guias %}
         <cac:DespatchDocumentReference>
-            <cbc:ID>{{ doc.guia.nroDoc }}</cbc:ID>
-            <cbc:DocumentTypeCode>{{ doc.guia.tipoDoc }}</cbc:DocumentTypeCode>
+            <cbc:ID>{{ guia.nroDoc }}</cbc:ID>
+            <cbc:DocumentTypeCode>{{ guia.tipoDoc }}</cbc:DocumentTypeCode>
         </cac:DespatchDocumentReference>
+        {% endfor %}
     {% endif %}
     {% for rel in doc.relDocs %}
         <cac:AdditionalDocumentReference>
