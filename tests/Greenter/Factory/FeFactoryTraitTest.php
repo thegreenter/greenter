@@ -77,7 +77,7 @@ trait FeFactoryTraitTest
             ->setMtoOperExoneradas(0)
             ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
-            ->setMtoImpVenta(236)
+            ->setMtoImpVenta(2236.43)
             ->setCompany($this->getCompany());
 
         $detail1 = new SaleDetail();

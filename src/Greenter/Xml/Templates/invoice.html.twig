@@ -11,38 +11,53 @@
                 <sac:AdditionalInformation>
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>2005</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoDescuentos|default(0)|number_format(2) }}</cbc:PayableAmount>
+                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoDescuentos|default(0)|n_format }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>1001</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|number_format(2) }}</cbc:PayableAmount>
+                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|n_format }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>1002</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|number_format(2) }}</cbc:PayableAmount>
+                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|n_format }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>1003</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|number_format(2) }}</cbc:PayableAmount>
+                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
+                    {% if doc.mtoOperGratuitas %}
+                        <sac:AdditionalMonetaryTotal>
+                            <cbc:ID>1004</cbc:ID>
+                            <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGratuitas|n_format }}</cbc:PayableAmount>
+                        </sac:AdditionalMonetaryTotal>
+                        <sac:AdditionalProperty>
+                            <cbc:ID>1002</cbc:ID>
+                            <cbc:Value>TRANSFERENCIA GRATUITA</cbc:Value>
+                        </sac:AdditionalProperty>
+                    {% endif %}
+                    {% if doc.detraccion %}
+                        {% set detr = doc.detraccion %}
+                        <sac:AdditionalMonetaryTotal>
+                            <cbc:ID>2003</cbc:ID>
+                            {% if detr.valueRef %}
+                                <cbc:ReferenceAmount currencyID="{{ doc.tipoMoneda }}">{{ detr.valueRef|n_format }}</cbc:ReferenceAmount>
+                            {% endif %}
+                            <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ detr.mount|n_format }}</cbc:PayableAmount>
+                            <cbc:Percent>{{ detr.percent|n_format }}</cbc:Percent>
+                        </sac:AdditionalMonetaryTotal>
+                    {% endif %}
                     {% if doc.perception %}
                         {% set perc = doc.perception %}
                         <sac:AdditionalMonetaryTotal>
                             <cbc:ID schemeID="{{ perc.codReg }}">2001</cbc:ID>
-                            <sac:ReferenceAmount currencyID="PEN">{{ perc.mtoBase|number_format(2) }}</sac:ReferenceAmount>
-                            <cbc:PayableAmount currencyID="PEN">{{ perc.mto|number_format(2) }}</cbc:PayableAmount>
-                            <sac:TotalAmount currencyID="PEN">{{ perc.mtoTotal|number_format(2) }}</sac:TotalAmount>
+                            <sac:ReferenceAmount currencyID="PEN">{{ perc.mtoBase|n_format }}</sac:ReferenceAmount>
+                            <cbc:PayableAmount currencyID="PEN">{{ perc.mto|n_format }}</cbc:PayableAmount>
+                            <sac:TotalAmount currencyID="PEN">{{ perc.mtoTotal|n_format }}</sac:TotalAmount>
                         </sac:AdditionalMonetaryTotal>
                         <sac:AdditionalProperty>
                             <cbc:ID>2000</cbc:ID>
                             <cbc:Value>COMPROBANTE DE PERCEPCION</cbc:Value>
                         </sac:AdditionalProperty>
-                    {% endif %}
-                    {% if doc.mtoOperGratuitas %}
-                        <sac:AdditionalMonetaryTotal>
-                            <cbc:ID>1004</cbc:ID>
-                            <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGratuitas|number_format(2) }}</cbc:PayableAmount>
-                        </sac:AdditionalMonetaryTotal>
                     {% endif %}
                     {% for leg in doc.legends %}
                         <sac:AdditionalProperty>
@@ -68,6 +83,17 @@
     <cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
     <cbc:InvoiceTypeCode>{{ doc.tipoDoc }}</cbc:InvoiceTypeCode>
     <cbc:DocumentCurrencyCode>{{ doc.tipoMoneda }}</cbc:DocumentCurrencyCode>
+    {% if doc.compra %}
+        <cac:OrderReference>
+            <cbc:ID>{{ doc.compra }}</cbc:ID>
+        </cac:OrderReference>
+    {% endif %}
+    {% if doc.guia %}
+        <cac:DespatchDocumentReference>
+            <cbc:ID>{{ doc.guia.nroDoc }}</cbc:ID>
+            <cbc:DocumentTypeCode>{{ doc.guia.tipoDoc }}</cbc:DocumentTypeCode>
+        </cac:DespatchDocumentReference>
+    {% endif %}
     {% for rel in doc.relDocs %}
         <cac:AdditionalDocumentReference>
             <cbc:ID>{{ rel.nroDoc }}</cbc:ID>
@@ -122,7 +148,7 @@
         </cac:Party>
     </cac:AccountingCustomerParty>
     {% if doc.mtoISC %}
-        {% set iscT = doc.mtoISC|number_format(2) %}
+        {% set iscT = doc.mtoISC|n_format %}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ iscT }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
@@ -138,7 +164,7 @@
         </cac:TaxTotal>
     {% endif %}
     {% if doc.mtoIGV %}
-        {% set igvT = doc.mtoIGV|number_format(2) %}
+        {% set igvT = doc.mtoIGV|n_format %}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igvT }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
@@ -154,7 +180,7 @@
         </cac:TaxTotal>
     {% endif %}
     {% if doc.sumOtrosCargos %}
-        {% set othT = doc.sumOtrosCargos|number_format(2) %}
+        {% set othT = doc.sumOtrosCargos|n_format %}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ othT }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
@@ -170,26 +196,26 @@
         </cac:TaxTotal>
     {% endif %}
     <cac:LegalMonetaryTotal>
-        <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumDsctoGlobal|default(0)|number_format(2) }}</cbc:AllowanceTotalAmount>
-        <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0)|number_format(2) }}</cbc:ChargeTotalAmount>
-        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|number_format(2) }}</cbc:PayableAmount>
+        <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumDsctoGlobal|default(0)|n_format }}</cbc:AllowanceTotalAmount>
+        <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0)|n_format }}</cbc:ChargeTotalAmount>
+        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
     {% for detail in doc.details %}
         <cac:InvoiceLine>
             <cbc:ID>{{ loop.index }}</cbc:ID>
             <cbc:InvoicedQuantity unitCode="{{ detail.codUnidadMedida }}">{{ detail.ctdUnidadItem }}</cbc:InvoicedQuantity>
-            <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|number_format(2) }}</cbc:LineExtensionAmount>
+            <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|n_format }}</cbc:LineExtensionAmount>
             {% if detail.mtoPrecioUnitario > 0 %}
                 <cac:PricingReference>
                     <cac:AlternativeConditionPrice>
-                        <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|number_format(2) }}</cbc:PriceAmount>
+                        <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|n_format }}</cbc:PriceAmount>
                         <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
                     </cac:AlternativeConditionPrice>
                 </cac:PricingReference>
             {% else %}
                 <cac:PricingReference>
                     <cac:AlternativeConditionPrice>
-                        <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito|number_format(2) }}</cbc:PriceAmount>
+                        <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito|n_format }}</cbc:PriceAmount>
                         <cbc:PriceTypeCode>02</cbc:PriceTypeCode>
                     </cac:AlternativeConditionPrice>
                 </cac:PricingReference>
@@ -199,7 +225,7 @@
                 <cbc:Amount currencyID="{{ doc.tipoMoneda }}">0</cbc:Amount>
             </cac:AllowanceCharge>
             {% if detail.mtoIscItem %}
-                {% set isc = detail.mtoIscItem|number_format(2) %}
+                {% set isc = detail.mtoIscItem|n_format %}
                 <cac:TaxTotal>
                     <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ isc }}</cbc:TaxAmount>
                     <cac:TaxSubtotal>
@@ -216,7 +242,7 @@
                 </cac:TaxTotal>
             {% endif %}
             {% if detail.mtoIgvItem %}
-                {% set igv = detail.mtoIgvItem|number_format(2) %}
+                {% set igv = detail.mtoIgvItem|n_format %}
                 <cac:TaxTotal>
                     <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igv }}</cbc:TaxAmount>
                     <cac:TaxSubtotal>
@@ -239,7 +265,7 @@
                 </cac:SellersItemIdentification>
             </cac:Item>
             <cac:Price>
-                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario|number_format(2) }}</cbc:PriceAmount>
+                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario|n_format }}</cbc:PriceAmount>
             </cac:Price>
         </cac:InvoiceLine>
     {% endfor %}

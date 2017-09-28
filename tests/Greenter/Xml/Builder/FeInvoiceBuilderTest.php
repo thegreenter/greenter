@@ -9,9 +9,11 @@
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Model\Client\Client;
+use Greenter\Model\Sale\Detraction;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
+use Greenter\Model\Sale\Prepayment;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
 
@@ -127,34 +129,45 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
 
     private function getInvoice()
     {
-        $client = new Client();
-        $client->setTipoDoc('6')
-            ->setNumDoc('20000000001')
-            ->setRznSocial('EMPRESA 1');
-        $perc = new SalePerception();
-        $perc->setCodReg('01')
-            ->setMto(2)
-            ->setMtoBase(3)
-            ->setMtoTotal(4);
-
-        $rel = new Document();
-        $rel->setTipoDoc('01')->setNroDoc('F001-123');
-
         $invoice = new Invoice();
         $invoice
             ->setMtoOperGratuitas(12)
             ->setSumDsctoGlobal(12)
             ->setMtoDescuentos(23)
             ->setTipoOperacion('2')
-            ->setPerception($perc)
-            ->setRelDocs([$rel])
+            ->setPerception((new SalePerception())
+                ->setCodReg('01')
+                ->setMto(2)
+                ->setMtoBase(3)
+                ->setMtoTotal(4)
+            )->setGuia((new Document())
+                ->setTipoDoc('09')
+                ->setNroDoc('T001-1')
+            )->setCompra('001-12112')
+            ->setDetraccion((new Detraction())
+                ->setMount(2228.3)
+                ->setPercent(9)
+                ->setValueRef(2000)
+            )->setAnticipo((new Prepayment())
+                    ->setTotal(100)
+                    ->setNroDocEmisor('20000000001')
+                    ->setTipoDocEmisor('6')
+                    ->setTipoDocRel('02')
+                    ->setNroDocRel('F001-21'))
+            ->setRelDocs([(new Document())
+                ->setTipoDoc('01')
+                ->setNroDoc('F001-123')
+            ])
             ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
             ->setFechaEmision(new \DateTime())
             ->setTipoMoneda('PEN')
-            ->setClient($client)
-            ->setMtoOperGravadas(200)
+            ->setClient((new Client())
+                ->setTipoDoc('6')
+                ->setNumDoc('20000000001')
+                ->setRznSocial('EMPRESA 1')
+            )->setMtoOperGravadas(200)
             ->setMtoOperExoneradas(0)
             ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
@@ -162,10 +175,9 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
             ->setSumOtrosCargos(12)
             ->setMtoOtrosTributos(1)
             ->setMtoImpVenta(236)
-            ->setCompany($this->getCompany());
-
-        $detail1 = new SaleDetail();
-        $detail1->setCodProducto('C023')
+            ->setCompany($this->getCompany())
+            ->setDetails([(new SaleDetail())
+            ->setCodProducto('C023')
             ->setCodUnidadMedida('NIU')
             ->setCtdUnidadItem(2)
             ->setDesItem('PROD 1')
@@ -176,10 +188,9 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
-            ->setMtoPrecioUnitario(56);
-
-        $detail2 = new SaleDetail();
-        $detail2->setCodProducto('C02')
+            ->setMtoPrecioUnitario(56)
+            , (new SaleDetail())
+            ->setCodProducto('C02')
             ->setCodUnidadMedida('NIU')
             ->setCtdUnidadItem(2)
             ->setDesItem('PROD 2')
@@ -189,14 +200,12 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(10)
             ->setMtoValorGratuito(2)
-            ->setMtoPrecioUnitario(0);
-
-        $legend = new Legend();
-        $legend->setCode('1000')
-            ->setValue('SON N SOLES');
-
-        $invoice->setDetails([$detail1, $detail2])
-            ->setLegends([$legend]);
+            ->setMtoPrecioUnitario(0)
+        ])->setLegends([
+            (new Legend())
+            ->setCode('1000')
+            ->setValue('SON N SOLES')
+        ]);
 
         return $invoice;
     }
