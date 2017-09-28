@@ -78,6 +78,13 @@ class Invoice extends BaseSale
     private $detraccion;
 
     /**
+     * Utilizado cuando se trata de una Factura Guia.
+     *
+     * @var EmbededDespatch
+     */
+    private $guiaEmbebida;
+
+    /**
      * @return string
      */
     public function getTipoOperacion()
@@ -236,6 +243,24 @@ class Invoice extends BaseSale
     public function setDetraccion($detraccion)
     {
         $this->detraccion = $detraccion;
+        return $this;
+    }
+
+    /**
+     * @return EmbededDespatch
+     */
+    public function getGuiaEmbebida()
+    {
+        return $this->guiaEmbebida;
+    }
+
+    /**
+     * @param EmbededDespatch $guiaEmbebida
+     * @return Invoice
+     */
+    public function setGuiaEmbebida($guiaEmbebida)
+    {
+        $this->guiaEmbebida = $guiaEmbebida;
         return $this;
     }
 }

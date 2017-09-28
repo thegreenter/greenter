@@ -9,8 +9,10 @@
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Model\Client\Client;
+use Greenter\Model\Despatch\Direction;
 use Greenter\Model\Sale\Detraction;
 use Greenter\Model\Sale\Document;
+use Greenter\Model\Sale\EmbededDespatch;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Prepayment;
@@ -148,6 +150,20 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
                 ->setMount(2228.3)
                 ->setPercent(9)
                 ->setValueRef(2000)
+            )->setGuiaEmbebida((new EmbededDespatch())
+                ->setLlegada(new Direction('070101', 'AV. REPUBLICA DE ARGENTINA N? 2976 URB.'))
+                ->setPartida(new Direction('070101', 'AV OSCAR R BENAVIDES No 5915  PE'))
+                ->setTransportista((new Client())
+                    ->setTipoDoc('6')
+                    ->setNumDoc('20100006376')
+                    ->setRznSocial('TRANS SAC')
+                )->setNroLicencia('1111111111')
+                ->setTranspPlaca('B9Y-778')
+                ->setTranspCodeAuth('112121')
+                ->setTranspMarca('Scania')
+                ->setModTraslado('01')
+                ->setUndPesoBruto('KGM')
+                ->setPesoBruto(2020.23)
             )->setAnticipo((new Prepayment())
                     ->setTotal(100)
                     ->setNroDocEmisor('20000000001')

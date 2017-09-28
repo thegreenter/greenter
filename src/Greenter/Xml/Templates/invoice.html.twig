@@ -65,6 +65,9 @@
                             <cbc:Value>{{ leg.value }}</cbc:Value>
                         </sac:AdditionalProperty>
                     {% endfor %}
+                    {% if doc.guiaEmbebida %}
+                        {% include 'embededDespatch.xml.twig' with {'desp': doc.guiaEmbebida} only %}
+                    {% endif %}
                     {% if doc.tipoOperacion %}
                     <sac:SUNATTransaction>
                         <cbc:ID>{{ doc.tipoOperacion }}</cbc:ID>
