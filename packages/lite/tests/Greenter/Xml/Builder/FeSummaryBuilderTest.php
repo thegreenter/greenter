@@ -110,6 +110,7 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
         $sum = new Summary();
         $sum->setFecGeneracion(new \DateTime())
             ->setFecResumen(new \DateTime())
+            ->setCompany($this->getCompany())
             ->setCorrelativo('001')
             ->setDetails([$detiail1, $detiail2]);
 
