@@ -59,7 +59,6 @@ trait CeFactoryTraitTest
             ],
             'cert' => file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'),
         ]);
-        $factory->setCompany($this->getCompany());
         $this->factory = $factory;
         $date = new \DateTime();
         $date->sub(new \DateInterval('P1D'));
