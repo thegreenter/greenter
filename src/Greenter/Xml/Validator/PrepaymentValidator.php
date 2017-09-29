@@ -34,13 +34,5 @@ trait PrepaymentValidator
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
         ]);
-        $metadata->addPropertyConstraints('tipoDocEmisor', [
-            new Assert\NotBlank(),
-            new Assert\Length(['max' => 1]),
-        ]);
-        $metadata->addPropertyConstraints('nroDocEmisor',[
-            new Assert\NotBlank(),
-            new Assert\Length(['max' => 15]),
-        ]);
     }
 }

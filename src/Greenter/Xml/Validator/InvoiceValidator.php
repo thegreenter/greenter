@@ -69,9 +69,10 @@ trait InvoiceValidator
         $metadata->addPropertyConstraint('details', new Assert\Valid());
         $metadata->addPropertyConstraint('legends', new Assert\Valid());
         $metadata->addPropertyConstraint('guias', new Assert\Valid());
-        $metadata->addPropertyConstraint('anticipo', new Assert\Valid());
+        $metadata->addPropertyConstraint('anticipos', new Assert\Valid());
         $metadata->addPropertyConstraint('detraccion', new Assert\Valid());
         $metadata->addPropertyConstraint('relDocs', new Assert\Valid());
         $metadata->addPropertyConstraint('perception', new Assert\Valid());
+        $metadata->addPropertyConstraint('guiaEmbebida', new Assert\Valid());
     }
 }

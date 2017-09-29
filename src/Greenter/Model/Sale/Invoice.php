@@ -41,6 +41,11 @@ class Invoice extends BaseSale
     private $mtoDescuentos;
 
     /**
+     * @var float
+     */
+    private $totalAnticipos;
+
+    /**
      * @Assert\Valid()
      *
      * @var SalePerception
@@ -66,9 +71,9 @@ class Invoice extends BaseSale
     /**
      * @Assert\Valid()
      *
-     * @var Prepayment
+     * @var Prepayment[]
      */
-    private $anticipo;
+    private $anticipos;
 
     /**
      * @Assert\Valid()
@@ -79,6 +84,8 @@ class Invoice extends BaseSale
 
     /**
      * Utilizado cuando se trata de una Factura Guia.
+     *
+     * @Assert\Valid()
      *
      * @var EmbededDespatch
      */
@@ -157,6 +164,24 @@ class Invoice extends BaseSale
     }
 
     /**
+     * @return mixed
+     */
+    public function getTotalAnticipos()
+    {
+        return $this->totalAnticipos;
+    }
+
+    /**
+     * @param mixed $totalAnticipos
+     * @return Invoice
+     */
+    public function setTotalAnticipos($totalAnticipos)
+    {
+        $this->totalAnticipos = $totalAnticipos;
+        return $this;
+    }
+
+    /**
      * @return SalePerception
      */
     public function getPerception()
@@ -211,20 +236,20 @@ class Invoice extends BaseSale
     }
 
     /**
-     * @return Prepayment
+     * @return Prepayment[]
      */
-    public function getAnticipo()
+    public function getAnticipos()
     {
-        return $this->anticipo;
+        return $this->anticipos;
     }
 
     /**
-     * @param Prepayment $anticipo
+     * @param Prepayment[] $anticipos
      * @return Invoice
      */
-    public function setAnticipo($anticipo)
+    public function setAnticipos($anticipos)
     {
-        $this->anticipo = $anticipo;
+        $this->anticipos = $anticipos;
         return $this;
     }
 

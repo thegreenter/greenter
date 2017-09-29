@@ -64,17 +64,16 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testSummaryFilename()
     {
-        $ruc = $this->getCompany()->getRuc();
         $summary = $this->getSummary();
-        $filename = $summary->getFileName($ruc);
+        $filename = $summary->getFileName();
 
-        $this->assertEquals($this->getFilename($summary, $ruc), $filename);
+        $this->assertEquals($this->getFilename($summary), $filename);
     }
 
-    private function getFileName(Summary $summary, $ruc)
+    private function getFileName(Summary $summary)
     {
         $parts = [
-            $ruc,
+            $summary->getCompany()->getRuc(),
             'RC',
             $summary->getFecResumen()->format('Ymd'),
             $summary->getCorrelativo(),
@@ -93,6 +92,8 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
             ->setMtoOperGravadas(20.555)
             ->setMtoOperInafectas(24.4)
             ->setMtoOperExoneradas(50)
+            ->setMtoOtrosTributos(12.32)
+            ->setMtoDescuentos(5)
             ->setMtoIGV(3.6);
 
         $detiail2 = new SummaryDetail();

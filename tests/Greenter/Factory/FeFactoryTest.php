@@ -27,6 +27,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
             'La Factura numero F001-123, ha sido aceptada',
             $result->getCdrResponse()->getDescription()
         );
+        $this->assertNotEmpty($result->getCdrZip());
     }
 
     public function testInvalidInvoice()

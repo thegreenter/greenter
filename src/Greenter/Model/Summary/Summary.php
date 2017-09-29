@@ -111,7 +111,7 @@ class Summary
     }
 
     /**
-     * @return mixed
+     * @return Company
      */
     public function getCompany()
     {
@@ -119,7 +119,7 @@ class Summary
     }
 
     /**
-     * @param mixed $company
+     * @param Company $company
      * @return Summary
      */
     public function setCompany($company)

@@ -99,12 +99,14 @@
         </cac:DespatchDocumentReference>
         {% endfor %}
     {% endif %}
-    {% for rel in doc.relDocs %}
+    {% if doc.relDocs %}
+        {% for rel in doc.relDocs %}
         <cac:AdditionalDocumentReference>
             <cbc:ID>{{ rel.nroDoc }}</cbc:ID>
             <cbc:DocumentTypeCode>{{ rel.tipoDoc }}</cbc:DocumentTypeCode>
         </cac:AdditionalDocumentReference>
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
     {% set emp = doc.company %}
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
@@ -152,6 +154,15 @@
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
+    {% if doc.anticipos %}
+        {% for ant in doc.anticipos %}
+        <cac:PrepaidPayment>
+            <cbc:ID schemeID="{{ ant.tipoDocRel }}">{{ ant.nroDocRel }}</cbc:ID>
+            <cbc:PaidAmount currencyID="{{ doc.tipoMoneda }}">{{ ant.total|n_format }}</cbc:PaidAmount>
+            <cbc:InstructionID schemeID="6">{{ emp.ruc }}</cbc:InstructionID>
+        </cac:PrepaidPayment>
+        {% endfor %}
+    {% endif %}
     {% if doc.mtoISC %}
         {% set iscT = doc.mtoISC|n_format %}
         <cac:TaxTotal>
@@ -201,6 +212,7 @@
         </cac:TaxTotal>
     {% endif %}
     <cac:LegalMonetaryTotal>
+        {% if doc.totalAnticipos %}<cbc:PrepaidAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.totalAnticipos|n_format }}</cbc:PrepaidAmount>{% endif %}
         <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumDsctoGlobal|default(0)|n_format }}</cbc:AllowanceTotalAmount>
         <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0)|n_format }}</cbc:ChargeTotalAmount>
         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>

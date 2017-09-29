@@ -71,7 +71,7 @@
         {% for pay in det.pagos %}
         <cac:Payment>
             <cbc:ID>{{ loop.index }}</cbc:ID>
-            <cbc:PaidAmount currencyID="PEN">{{ pay.importe|n_format }}</cbc:PaidAmount>
+            <cbc:PaidAmount currencyID="{{ pay.moneda }}">{{ pay.importe|n_format }}</cbc:PaidAmount>
             <cbc:PaidDate>{{ pay.fecha|date('Y-m-d') }}</cbc:PaidDate>
         </cac:Payment>
         {% endfor %}

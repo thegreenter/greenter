@@ -68,17 +68,17 @@
 		<cbc:ID schemeID="{{ det.tipoDoc }}">{{ det.numDoc }}</cbc:ID>
 		<cbc:IssueDate>{{ det.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
 		<cbc:TotalInvoiceAmount currencyID="{{ det.moneda }}">{{ det.impTotal|n_format }}</cbc:TotalInvoiceAmount>
-        {% for pay in det.cobros %}
+        {% for cob in det.cobros %}
 		<cac:Payment>
 			<cbc:ID>{{ loop.index }}</cbc:ID>
-			<cbc:PaidAmount currencyID="PEN">{{ pay.importe|n_format }}</cbc:PaidAmount>
-			<cbc:PaidDate>{{ pay.fecha|date('Y-m-d') }}</cbc:PaidDate>
+			<cbc:PaidAmount currencyID="{{ cob.moneda }}">{{ cob.importe|n_format }}</cbc:PaidAmount>
+			<cbc:PaidDate>{{ cob.fecha|date('Y-m-d') }}</cbc:PaidDate>
 		</cac:Payment>
         {% endfor %}
 		<sac:SUNATPerceptionInformation>
-			<sac:SUNATPerceptionAmount currencyID="PEN">{{ doc.impPercibido|n_format }}</sac:SUNATPerceptionAmount>
-			<sac:SUNATPerceptionDate>{{ doc.fechaEmision|date('Y-m-d') }}</sac:SUNATPerceptionDate>
-			<sac:SUNATNetTotalCashed currencyID="PEN">{{ doc.impCobrado|n_format }}</sac:SUNATNetTotalCashed>
+			<sac:SUNATPerceptionAmount currencyID="PEN">{{ det.impPercibido|n_format }}</sac:SUNATPerceptionAmount>
+			<sac:SUNATPerceptionDate>{{ det.fechaPercepcion|date('Y-m-d') }}</sac:SUNATPerceptionDate>
+			<sac:SUNATNetTotalCashed currencyID="PEN">{{ det.impCobrar|n_format }}</sac:SUNATNetTotalCashed>
 			<cac:ExchangeRate>
 				<cbc:SourceCurrencyCode>{{ det.tipoCambio.monedaRef }}</cbc:SourceCurrencyCode>
 				<cbc:TargetCurrencyCode>{{ det.tipoCambio.monedaObj }}</cbc:TargetCurrencyCode>
