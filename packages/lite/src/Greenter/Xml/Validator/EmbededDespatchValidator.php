@@ -24,7 +24,7 @@ trait EmbededDespatchValidator
         $metadata->addPropertyConstraint('transportista', new Assert\Valid());
         $metadata->addPropertyConstraint('nroLicencia', new Assert\Length(['max' => 30]));
         $metadata->addPropertyConstraint('transpPlaca', new Assert\Length(['max' => 10]));
-        $metadata->addPropertyConstraint('transpCodeAut', new Assert\Length(['max' => 50]));
+        $metadata->addPropertyConstraint('transpCodeAuth', new Assert\Length(['max' => 50]));
         $metadata->addPropertyConstraint('transpMarca', new Assert\Length(['max' => 50]));
         $metadata->addPropertyConstraint('modTraslado', new Assert\Length(['min' => 2, 'max' => 2]));
         $metadata->addPropertyConstraint('pesoBruto', new Assert\Type('numeric'));

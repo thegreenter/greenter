@@ -14,23 +14,17 @@ namespace Greenter\Zip;
 class ZipFile
 {
     /**
-     * Whether to echo zip as it's built or return as string from -> file.
-     *
-     * @private  boolean  $doWrite
-     */
-    private $doWrite = false;
-    /**
      * Array to store compressed data.
      *
      * @private  array    $datasec
      */
-    private $datasec = array();
+    private $datasec = [];
     /**
      * Central directory.
      *
      * @private  array    $ctrl_dir
      */
-    private $ctrl_dir = array();
+    private $ctrl_dir = [];
     /**
      * End of central directory record.
      *
@@ -43,22 +37,6 @@ class ZipFile
      * @private  integer  $old_offset
      */
     private $old_offset = 0;
-
-    /**
-     * Sets member privateiable this -> doWrite to true
-     * - Should be called immediately after class instantiantion
-     * - If set to true, then ZIP archive are echo'ed to STDOUT as each
-     *   file is added via this -> addfile(), and central directories are
-     *   echoed to STDOUT on final call to this -> file().  Also,
-     *   this -> file() returns an empty string so it is safe to issue a
-     *   "echo $zipfile;" command.
-     */
-    public function setDoWrite()
-    {
-        $this->doWrite = true;
-    }
-
- // end of the 'setDoWrite()' method
 
     /**
      * Converts an Unix timestamp to a four byte DOS date and time format (date
@@ -78,6 +56,7 @@ class ZipFile
             $timearray['hours'] = 0;
             $timearray['minutes'] = 0;
             $timearray['seconds'] = 0;
+            echo "Menor de 1980";
         } // end if
         return (($timearray['year'] - 1980) << 25)
             | ($timearray['mon'] << 21)
@@ -120,9 +99,7 @@ class ZipFile
         // "file data" segment
         $frd .= $zdata;
         // echo this entry on the fly, ...
-        if (!$this->doWrite) {
-            $this->datasec[] = $frd;
-        }
+        $this->datasec[] = $frd;
         // now add to central directory record
         $cdrec = "\x50\x4b\x01\x02";
         $cdrec .= "\x00\x00";                // version made by
@@ -165,9 +142,6 @@ class ZipFile
             pack('V', strlen($ctrldir)).          //size of central dir
             pack('V', $this->old_offset).       //offset to start of central dir
             "\x00\x00";                            //.zip file comment length
-        if ($this->doWrite) { // Send central directory & end ctrl dir to STDOUT
-            return '';            // Return empty string
-        }
 
         // Return entire ZIP archive as string
         $data = implode('', $this->datasec);

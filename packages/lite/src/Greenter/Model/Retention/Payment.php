@@ -20,7 +20,7 @@ class Payment
     use PaymentValidator;
 
     /**
-     * Moneda de pago.
+     * Moneda de pago (igual a la moneda del documento de referencia).
      *
      * @Assert\NotBlank()
      * @Assert\Length(min="3", max="3")

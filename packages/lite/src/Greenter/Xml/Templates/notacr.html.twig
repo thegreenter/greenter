@@ -69,12 +69,14 @@
             <cbc:DocumentTypeCode>{{ doc.tipDocAfectado }}</cbc:DocumentTypeCode>
         </cac:InvoiceDocumentReference>
     </cac:BillingReference>
-    {% for rel in doc.relDocs %}
+    {% if doc.relDocs %}
+        {% for rel in doc.relDocs %}
         <cac:AdditionalDocumentReference>
             <cbc:ID>{{ rel.nroDoc }}</cbc:ID>
             <cbc:DocumentTypeCode>{{ rel.tipoDoc }}</cbc:DocumentTypeCode>
         </cac:AdditionalDocumentReference>
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
     {% set emp = doc.company %}
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>

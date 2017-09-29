@@ -51,6 +51,18 @@ class XmlErrorReaderTest extends \PHPUnit_Framework_TestCase
         $reader->setXmlErrorFile('errors_invalid_file.xml');
     }
 
+    public function testSetErrorFile()
+    {
+        $xmlFile = $this->createXmlErrorFile();
+
+        $reader = new XmlErrorReader();
+        $reader->setXmlErrorFile($xmlFile);
+        $message = $reader->getMessageByCode('100');
+
+        $this->assertEquals('EMPTY', $message);
+        unlink($xmlFile);
+    }
+
     public function codesProvider()
     {
         return [['102'], ['200'], ['2404'], ['4112']];
@@ -61,5 +73,13 @@ class XmlErrorReaderTest extends \PHPUnit_Framework_TestCase
         $reader = new XmlErrorReader();
         $message = $reader->getMessageByCode($code);
         return $message;
+    }
+
+    private function createXmlErrorFile()
+    {
+        $tmp = tempnam("/tmp", "xml");
+        file_put_contents($tmp, '<errors><error code="100">EMPTY</error></errors>');
+
+        return $tmp;
     }
 }

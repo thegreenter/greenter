@@ -41,20 +41,6 @@ class Prepayment
     private $total;
 
     /**
-     * @var string
-     * @Assert\NotBlank()
-     * @Assert\Length(max="1")
-     */
-    private $tipoDocEmisor;
-
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="15")
-     * @var string
-     */
-    private $nroDocEmisor;
-
-    /**
      * @return string
      */
     public function getTipoDocRel()
@@ -105,42 +91,6 @@ class Prepayment
     public function setTotal($total)
     {
         $this->total = $total;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTipoDocEmisor()
-    {
-        return $this->tipoDocEmisor;
-    }
-
-    /**
-     * @param string $tipoDocEmisor
-     * @return Prepayment
-     */
-    public function setTipoDocEmisor($tipoDocEmisor)
-    {
-        $this->tipoDocEmisor = $tipoDocEmisor;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getNroDocEmisor()
-    {
-        return $this->nroDocEmisor;
-    }
-
-    /**
-     * @param string $nroDocEmisor
-     * @return Prepayment
-     */
-    public function setNroDocEmisor($nroDocEmisor)
-    {
-        $this->nroDocEmisor = $nroDocEmisor;
         return $this;
     }
 }

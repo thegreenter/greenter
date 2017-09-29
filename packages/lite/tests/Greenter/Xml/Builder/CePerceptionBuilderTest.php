@@ -99,8 +99,8 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
             ->setRegimen('01')
             ->setTasa(3);
 
-        $detail = new PerceptionDetail();
-        $detail->setTipoDoc('01')
+        $perception->setDetails([(new PerceptionDetail())
+            ->setTipoDoc('01')
             ->setNumDoc('F001-1')
             ->setFechaEmision(new \DateTime())
             ->setFechaPercepcion(new \DateTime())
@@ -109,9 +109,7 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
             ->setImpCobrar(200)
             ->setImpPercibido(5)
             ->setCobros($pays)
-            ->setTipoCambio($cambio);
-
-        $perception->setDetails([$detail]);
+            ->setTipoCambio($cambio)]);
 
         return $perception;
     }

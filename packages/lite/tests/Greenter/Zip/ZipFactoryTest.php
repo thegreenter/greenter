@@ -9,6 +9,7 @@
 namespace Tests\Greenter\Zip;
 
 use Greenter\Zip\ZipFactory;
+use Greenter\Zip\ZipFile;
 
 /**
  * Class ZipFactoryTest
@@ -40,6 +41,14 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
         $content = $helper->decompressLastFile($zipContent);
 
         $this->assertEquals('TEST TEXT 1', $content);
+    }
+
+    public function testUnixTime()
+    {
+        $zip = new ZipFile();
+        $result = $zip->unix2DosTime(181233012);
+
+        $this->assertEquals(2162688, $result);
     }
 
     private function createZip()
