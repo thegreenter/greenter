@@ -146,20 +146,18 @@ class FeSunat extends BaseSunat implements WsSunatInterface
 
         if ($code) {
             $msg = $this->getMessageError($code);
+            $fcode = $code;
         } else {
             $code = preg_replace('/[^0-9]+/', '', $fault->faultstring);
 
             if ($code) {
                 $msg = $this->getMessageError($code);
+                $fcode = $code;
             }
         }
 
         if (!$msg) {
             $msg = isset($fault->detail) ? $fault->detail->message : $fault->faultstring;
-        }
-
-        if ($code) {
-            $fcode = $code;
         }
 
         $err->setCode($fcode);
