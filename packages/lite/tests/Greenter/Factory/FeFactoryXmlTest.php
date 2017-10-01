@@ -19,7 +19,7 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
     public function testInvoiceXml()
     {
         $invoice = $this->getInvoice();
-        $this->factory->sendInvoice($invoice);
+        $this->getFactoryResult($invoice);
 
         $xml = $this->factory->getLastXml();
 
@@ -37,7 +37,7 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
     public function testCreditNoteXml()
     {
         $creditNote = $this->getCreditNote();
-        $this->factory->sendNote($creditNote);
+        $this->getFactoryResult($creditNote);
 
         $xml = $this->factory->getLastXml();
 
@@ -55,7 +55,7 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
     public function testDebitNoteXml()
     {
         $debitNote = $this->getDebitNote();
-        $this->factory->sendNote($debitNote);
+        $this->getFactoryResult($debitNote);
 
         $xml = $this->factory->getLastXml();
 
@@ -73,7 +73,7 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
     public function testResumenXml()
     {
         $resumen = $this->getSummary();
-        $this->factory->sendResumen($resumen);
+        $this->getFactoryResult($resumen);
 
         $xml = $this->factory->getLastXml();
 
@@ -90,7 +90,7 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
     public function testBajaXml()
     {
         $baja = $this->getVoided();
-        $this->factory->sendBaja($baja);
+        $this->getFactoryResult($baja);
 
         $xml = $this->factory->getLastXml();
 

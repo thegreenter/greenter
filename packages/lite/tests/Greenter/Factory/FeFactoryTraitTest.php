@@ -9,8 +9,8 @@
 namespace Tests\Greenter\Factory;
 
 use Greenter\Factory\FeFactory;
-use Greenter\Factory\FeFactoryInterface;
 use Greenter\Model\Client\Client;
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\SaleDetail;
@@ -21,7 +21,11 @@ use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
-use Greenter\Ws\Services\FeSunat;
+use Greenter\Ws\Services\SunatEndpoints;
+use Greenter\Xml\Builder\InvoiceBuilder;
+use Greenter\Xml\Builder\NoteBuilder;
+use Greenter\Xml\Builder\SummaryBuilder;
+use Greenter\Xml\Builder\VoidedBuilder;
 
 /**
  * Trait FeFactoryTrait
@@ -30,9 +34,14 @@ use Greenter\Ws\Services\FeSunat;
 trait FeFactoryTraitTest
 {
     /**
-     * @var FeFactoryInterface
+     * @var FeFactory
      */
     private $factory;
+
+    /**
+     * @var array
+     */
+    private $builders;
 
     /**
      * @var \DateTime
@@ -41,15 +50,19 @@ trait FeFactoryTraitTest
 
     public function setUp()
     {
+        $this->builders = [
+            Invoice::class => InvoiceBuilder::class,
+            Note::class => NoteBuilder::class,
+            Summary::class => SummaryBuilder::class,
+            Voided::class => VoidedBuilder::class,
+        ];
+
         $factory = new FeFactory();
         $factory->setParameters([
             'ws' => [
                 'user' => '20000000001MODDATOS',
                 'pass' => 'moddatos',
-                'service' => FeSunat::BETA,
-            ],
-            'xml' => [
-                'cache_dir' => sys_get_temp_dir(),
+                'service' => SunatEndpoints::FE_BETA,
             ],
             'cert' => file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'),
         ]);
@@ -57,6 +70,23 @@ trait FeFactoryTraitTest
         $date = new \DateTime();
         $date->sub(new \DateInterval('P1D'));
         $this->dateEmision = $date;
+    }
+
+    /**
+     * @param DocumentInterface $document
+     * @return \Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
+     */
+    private function getFactoryResult(DocumentInterface $document)
+    {
+        $builder = new $this->builders[get_class($document)]();
+        $factory = $this->factory->setBuilder($builder);
+
+        if ($document instanceof Summary ||
+            $document instanceof Voided) {
+            return $factory->sendSummary($document);
+        }
+
+        return $factory->sendDocument($document);
     }
 
     private function getInvoice()
@@ -174,7 +204,7 @@ trait FeFactoryTraitTest
     {
         $debit = $this->getCreditNote();
         $debit->setCodMotivo('01')
-            ->setDesMotivo(' XXXXXXX ')
+            ->setDesMotivo('XXXX ')
             ->setTipoDoc('08')
             ->setFechaEmision($this->dateEmision);
 

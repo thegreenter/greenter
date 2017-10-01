@@ -8,8 +8,7 @@
 
 namespace Tests\Greenter\Factory;
 
-use Greenter\Factory\CeFactory;
-use Greenter\Factory\CeFactoryInterface;
+use Greenter\Factory\FeFactory;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -18,6 +17,7 @@ use Greenter\Model\Despatch\DespatchDetail;
 use Greenter\Model\Despatch\Direction;
 use Greenter\Model\Despatch\Shipment;
 use Greenter\Model\Despatch\Transportist;
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Perception\PerceptionDetail;
 use Greenter\Model\Retention\Exchange;
@@ -28,6 +28,10 @@ use Greenter\Model\Sale\Document;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Ws\Services\SunatEndpoints;
+use Greenter\Xml\Builder\DespatchBuilder;
+use Greenter\Xml\Builder\PerceptionBuilder;
+use Greenter\Xml\Builder\RetentionBuilder;
+use Greenter\Xml\Builder\VoidedBuilder;
 
 /**
  * Trait CeFactoryTraitTest
@@ -36,7 +40,7 @@ use Greenter\Ws\Services\SunatEndpoints;
 trait CeFactoryTraitTest
 {
     /**
-     * @var CeFactoryInterface
+     * @var FeFactory
      */
     private $factory;
 
@@ -47,22 +51,47 @@ trait CeFactoryTraitTest
 
     public function setUp()
     {
-        $factory = new CeFactory();
+        $date = new \DateTime();
+        $date->sub(new \DateInterval('P1D'));
+        $this->dateEmision = $date;
+        $this->factory = new FeFactory();
+    }
+
+    /**
+     * @param DocumentInterface $document
+     * @return \Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
+     */
+    private function getFactoryResult(DocumentInterface $document)
+    {
+        $builders = [
+            Despatch::class => DespatchBuilder::class,
+            Perception::class => PerceptionBuilder::class,
+            Retention::class => RetentionBuilder::class,
+            Reversion::class => VoidedBuilder::class,
+        ];
+        $builder = new $builders[get_class($document)]();
+
+        $url = SunatEndpoints::RETENCION_BETA;
+        if ($document instanceof Despatch) {
+            $url = SunatEndpoints::GUIA_BETA;
+        }
+
+        $factory = new FeFactory();
         $factory->setParameters([
             'ws' => [
                 'user' => '20000000001MODDATOS',
                 'pass' => 'moddatos',
-                'service' => SunatEndpoints::FE_BETA,
-            ],
-            'xml' => [
-                'cache_dir' => sys_get_temp_dir(),
+                'service' => $url,
             ],
             'cert' => file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'),
         ]);
+        $factory->setBuilder($builder);
         $this->factory = $factory;
-        $date = new \DateTime();
-        $date->sub(new \DateInterval('P1D'));
-        $this->dateEmision = $date;
+
+        if ($document instanceof  Reversion) {
+            return $factory->sendSummary($document);
+        }
+        return $factory->sendDocument($document);
     }
 
     /**

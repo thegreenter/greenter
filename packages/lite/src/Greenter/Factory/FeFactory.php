@@ -8,88 +8,61 @@
 
 namespace Greenter\Factory;
 
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\StatusResult;
 use Greenter\Model\Response\SummaryResult;
-use Greenter\Model\Sale\Note;
-use Greenter\Model\Summary\Summary;
-use Greenter\Model\Voided\Voided;
-use Greenter\Xml\Builder\FeBuilderInteface;
-use Greenter\Xml\Builder\FeBuilder;
-use Greenter\Model\Sale\Invoice;
+use Greenter\Xml\Builder\BuilderInterface;
 
 /**
  * Class FeFactory
  * @package Greenter\Factory
  */
-class FeFactory extends BaseFactory implements FeFactoryInterface
+class FeFactory extends BaseFactory implements FactoryInterface
 {
     /**
-     * @var FeBuilderInteface
+     * @var BuilderInterface
      */
     private $builder;
 
     /**
-     * FeFactory constructor.
+     * @return BuilderInterface
      */
-    public function __construct()
+    public function getBuilder()
     {
-        parent::__construct();
-        $this->builder = new FeBuilder();
+        return $this->builder;
     }
 
     /**
-     * @param Invoice $invoice
+     * @param BuilderInterface $builder
+     * @return FeFactory
+     */
+    public function setBuilder($builder)
+    {
+        $this->builder = $builder;
+        return $this;
+    }
+
+    /**
+     * @param DocumentInterface $document
      * @return BillResult
      */
-    public function sendInvoice(Invoice $invoice)
+    public function sendDocument(DocumentInterface $document)
     {
-        $xml = $this->builder->buildInvoice($invoice);
-        $filename = $invoice->getName();
+        $xml = $this->builder->build($document);
 
-        return $this->getBillResult($xml, $filename);
+        return $this->getBillResult($xml,$document->getName());
     }
 
     /**
-     * Envia una Nota de Credito o Debito.
-     *
-     * @param Note $note
-     * @return BillResult
-     */
-    public function sendNote(Note $note)
-    {
-        $xml = $this->builder->buildNote($note);
-        $filename = $note->getName();
-
-        return $this->getBillResult($xml, $filename);
-    }
-
-    /**
-     * Envia un resumen diario de Boletas.
-     *
-     * @param Summary $summary
+     * @param DocumentInterface $document
      * @return SummaryResult
      */
-    public function sendResumen(Summary $summary)
+    public function sendSummary(DocumentInterface $document)
     {
-        $xml = $this->builder->buildSummary($summary);
-        $filename = $summary->getName();
+        $xml = $this->builder->build($document);
 
-        return $this->getSummaryResult($xml, $filename);
-    }
-
-    /**
-     * Envia una comunicacion de Baja.
-     *
-     * @param Voided $voided
-     * @return SummaryResult
-     */
-    public function sendBaja(Voided $voided)
-    {
-        $xml = $this->builder->buildVoided($voided);
-        $filename = $voided->getName();
-
-        return $this->getSummaryResult($xml, $filename);
+        return $this->getSummaryResult($xml,$document->getName());
     }
 
     /**
@@ -109,11 +82,6 @@ class FeFactory extends BaseFactory implements FeFactoryInterface
     public function setParameters($params)
     {
         $this->setWsParams($params['ws']);
-
-        if (isset($params['xml'])) {
-            $this->builder->setParameters($params['xml']);
-        }
-
         if (isset($params['cert'])) {
             $this->signer->setCertificate($params['cert']);
         }
