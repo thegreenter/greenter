@@ -21,19 +21,6 @@ use Greenter\Model\Response\Error;
  */
 class FeSunat extends BaseSunat implements WsSunatInterface
 {
-    const BETA = 'https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService';
-    const HOMOLOGACION  = 'https://www.sunat.gob.pe/ol-ti-itcpgem-sqa/billService';
-    const PRODUCCION = 'https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService';
-    const WSDL_ENDPOINT = 'https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl';
-
-    /**
-     * FeSunat constructor.
-     */
-    public function __construct()
-    {
-        $this->setUrlWsdl(FeSunat::WSDL_ENDPOINT);
-    }
-
     /**
      * @param $filename
      * @param $content

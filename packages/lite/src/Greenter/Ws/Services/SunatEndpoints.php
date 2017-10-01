@@ -2,18 +2,26 @@
 /**
  * Created by PhpStorm.
  * User: Giansalex
- * Date: 09/08/2017
- * Time: 19:39
+ * Date: 01/10/2017
+ * Time: 15:24
  */
 
 namespace Greenter\Ws\Services;
 
 /**
- * Class CeSunat
+ * Class SunatEndpoints
  * @package Greenter\Ws\Services
  */
-class CeSunat extends FeSunat
+final class SunatEndpoints
 {
+    /**
+     *  FACTURACION SERVICES.
+     */
+    const FE_BETA = 'https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService';
+    const FE_HOMOLOGACION  = 'https://www.sunat.gob.pe/ol-ti-itcpgem-sqa/billService';
+    const FE_PRODUCCION = 'https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService';
+    const WSDL_ENDPOINT = 'https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl';
+
     /**
      * GUIA REMISION SERVICES
      */

@@ -15,7 +15,6 @@ use Greenter\Model\Response\StatusResult;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Voided\Reversion;
-use Greenter\Ws\Services\CeSunat;
 use Greenter\Xml\Builder\CeBuilder;
 use Greenter\Xml\Builder\CeBuilderInterface;
 
@@ -140,11 +139,6 @@ class CeFactory extends BaseFactory implements CeFactoryInterface
 
     private function setService($isGuia = false)
     {
-        if ($isGuia === true) {
-            $this->sender->setService($this->isProd ? CeSunat::GUIA_PRODUCCION : CeSunat::GUIA_BETA);
-            return;
-        }
 
-        $this->sender->setService($this->isProd ? CeSunat::RETENCION_PRODUCCION : CeSunat::RETENCION_BETA);
     }
 }
