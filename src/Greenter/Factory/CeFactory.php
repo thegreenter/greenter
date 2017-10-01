@@ -49,7 +49,7 @@ class CeFactory extends BaseFactory implements CeFactoryInterface
     public function sendDispatch(Despatch $despatch)
     {
         $xml = $this->builder->buildDespatch($despatch);
-        $filename = $despatch->getFilename();
+        $filename = $despatch->getName();
 
         $this->setService(true);
         return $this->getBillResult($xml, $filename);
@@ -64,7 +64,7 @@ class CeFactory extends BaseFactory implements CeFactoryInterface
     public function sendRetention(Retention $retention)
     {
         $xml = $this->builder->buildRetention($retention);
-        $filename = $retention->getFilename();
+        $filename = $retention->getName();
 
         $this->setService();
         return $this->getBillResult($xml, $filename);
@@ -79,7 +79,7 @@ class CeFactory extends BaseFactory implements CeFactoryInterface
     public function sendPerception(Perception $perception)
     {
         $xml = $this->builder->buildPerception($perception);
-        $filename = $perception->getFilename();
+        $filename = $perception->getName();
 
         $this->setService();
         return $this->getBillResult($xml, $filename);
@@ -94,7 +94,7 @@ class CeFactory extends BaseFactory implements CeFactoryInterface
     public function sendReversion(Reversion $reversion)
     {
         $xml = $this->builder->buildReversion($reversion);
-        $filename = $reversion->getFileName();
+        $filename = $reversion->getName();
 
         $this->setService();
         return $this->getSummaryResult($xml, $filename);

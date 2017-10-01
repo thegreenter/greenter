@@ -9,6 +9,7 @@
 namespace Greenter\Model\Voided;
 
 use Greenter\Model\Company\Company;
+use Greenter\Model\DocumentInterface;
 use Greenter\Xml\Validator\VoidedValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -16,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Voided
  * @package Greenter\Model\Voided
  */
-class Voided
+class Voided implements DocumentInterface
 {
     use VoidedValidator;
 
@@ -157,7 +158,7 @@ class Voided
      *
      * @return string
      */
-    public function getFileName()
+    public function getName()
     {
         return $this->company->getRuc() . '-' . $this->getXmlId();
     }

@@ -43,8 +43,7 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $summary = $this->getSummary();
 
-        $generator = $this->getGenerator();
-        $xml = $generator->buildSummary($summary);
+        $xml = $this->build($summary);
 
         $this->assertNotEmpty($xml);
     }
@@ -58,14 +57,13 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
         $summary = $this->getSummary();
         $summary->setFecResumen(null);
 
-        $generator = $this->getGenerator();
-        $generator->buildSummary($summary);
+        $this->build($summary);
     }
 
     public function testSummaryFilename()
     {
         $summary = $this->getSummary();
-        $filename = $summary->getFileName();
+        $filename = $summary->getName();
 
         $this->assertEquals($this->getFilename($summary), $filename);
     }

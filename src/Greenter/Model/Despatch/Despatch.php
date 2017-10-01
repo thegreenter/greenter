@@ -10,6 +10,7 @@ namespace Greenter\Model\Despatch;
 
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Document;
 use Greenter\Xml\Validator\DespatchValidator;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -18,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Despatch
  * @package Greenter\Model\Despatch
  */
-class Despatch
+class Despatch implements DocumentInterface
 {
     use DespatchValidator;
 
@@ -325,7 +326,7 @@ class Despatch
      *
      * @return string
      */
-    public function getFileName()
+    public function getName()
     {
         $parts = [
             $this->company->getRuc(),

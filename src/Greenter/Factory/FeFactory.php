@@ -45,7 +45,7 @@ class FeFactory extends BaseFactory implements FeFactoryInterface
     public function sendInvoice(Invoice $invoice)
     {
         $xml = $this->builder->buildInvoice($invoice);
-        $filename = $invoice->getFilename();
+        $filename = $invoice->getName();
 
         return $this->getBillResult($xml, $filename);
     }
@@ -59,7 +59,7 @@ class FeFactory extends BaseFactory implements FeFactoryInterface
     public function sendNote(Note $note)
     {
         $xml = $this->builder->buildNote($note);
-        $filename = $note->getFilename();
+        $filename = $note->getName();
 
         return $this->getBillResult($xml, $filename);
     }
@@ -73,7 +73,7 @@ class FeFactory extends BaseFactory implements FeFactoryInterface
     public function sendResumen(Summary $summary)
     {
         $xml = $this->builder->buildSummary($summary);
-        $filename = $summary->getFileName();
+        $filename = $summary->getName();
 
         return $this->getSummaryResult($xml, $filename);
     }
@@ -87,7 +87,7 @@ class FeFactory extends BaseFactory implements FeFactoryInterface
     public function sendBaja(Voided $voided)
     {
         $xml = $this->builder->buildVoided($voided);
-        $filename = $voided->getFileName();
+        $filename = $voided->getName();
 
         return $this->getSummaryResult($xml, $filename);
     }

@@ -18,7 +18,7 @@ use Greenter\Xml\Exception\ValidationException;
  * Class CeBuilder
  * @package Greenter\Xml\Builder
  */
-class CeBuilder extends BaseBuilder implements CeBuilderInterface
+class CeBuilder extends TwigBuilder implements CeBuilderInterface
 {
     /**
      * Genera un comprobante de retencion.
