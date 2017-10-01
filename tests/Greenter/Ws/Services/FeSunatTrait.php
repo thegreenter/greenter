@@ -8,7 +8,7 @@
 
 namespace Tests\Greenter\Ws\Services;
 
-use Greenter\Ws\Services\FeSunat as SunatWs;
+use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Ws\Services\WsSunatInterface;
 
 /**
@@ -24,7 +24,7 @@ trait FeSunatTrait
     {
         $sunat = new FeSunatFake();
         $sunat->setCredentials('20600055519MODDATOS', 'moddatos');
-        $sunat->setService(SunatWs::BETA);
+        $sunat->setService(SunatEndpoints::FE_BETA);
         return $sunat;
     }
 }

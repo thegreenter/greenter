@@ -27,7 +27,7 @@ use Greenter\Model\Retention\RetentionDetail;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
-use Greenter\Ws\Services\FeSunat;
+use Greenter\Ws\Services\SunatEndpoints;
 
 /**
  * Trait CeFactoryTraitTest
@@ -52,7 +52,7 @@ trait CeFactoryTraitTest
             'ws' => [
                 'user' => '20000000001MODDATOS',
                 'pass' => 'moddatos',
-                'service' => FeSunat::BETA,
+                'service' => SunatEndpoints::FE_BETA,
             ],
             'xml' => [
                 'cache_dir' => sys_get_temp_dir(),
