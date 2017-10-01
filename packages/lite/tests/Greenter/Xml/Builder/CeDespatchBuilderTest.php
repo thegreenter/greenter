@@ -36,8 +36,7 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $despatch = $this->getDespatch();
 
-        $generator = $this->getGenerator();
-        $xml = $generator->buildDespatch($despatch);
+        $xml = $this->build($despatch);
 
         $this->assertNotEmpty($xml);
         // file_put_contents('guia.xml', $xml);
@@ -52,14 +51,13 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
         $despatch->setSerie('T3333')
             ->setCorrelativo('000000000');
 
-        $generator = $this->getGenerator();
-        $generator->buildDespatch($despatch);
+        $this->build($despatch);
     }
 
     public function testDespatchFilename()
     {
         $despatch = $this->getDespatch();
-        $filename = $despatch->getFileName();
+        $filename = $despatch->getName();
 
         $this->assertEquals($this->getFilename($despatch), $filename);
     }

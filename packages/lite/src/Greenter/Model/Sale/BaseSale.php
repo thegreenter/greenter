@@ -9,13 +9,14 @@
 namespace Greenter\Model\Sale;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
+use Greenter\Model\DocumentInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class BaseSale
  * @package Greenter\Model\Sale
  */
-class BaseSale
+class BaseSale implements DocumentInterface
 {
     /**
      * @Assert\NotBlank()
@@ -463,7 +464,7 @@ class BaseSale
      *
      * @return string
      */
-    public function getFileName()
+    public function getName()
     {
         $parts = [
             $this->company->getRuc(),

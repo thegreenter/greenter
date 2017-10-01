@@ -43,8 +43,7 @@ class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $voided = $this->getVoided();
 
-        $generator = $this->getGenerator();
-        $xml = $generator->buildVoided($voided);
+        $xml = $this->build($voided);
 
         $this->assertNotEmpty($xml);
     }
@@ -57,14 +56,13 @@ class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
         $voided = $this->getVoided();
         $voided->setCorrelativo('1232');
 
-        $generator = $this->getGenerator();
-        $generator->buildVoided($voided);
+        $this->build($voided);
     }
 
     public function testVoidedFilename()
     {
         $voided = $this->getVoided();
-        $filename = $voided->getFileName();
+        $filename = $voided->getName();
 
         $this->assertEquals($this->getFilename($voided), $filename);
     }

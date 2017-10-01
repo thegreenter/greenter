@@ -10,6 +10,7 @@ namespace Greenter\Model\Retention;
 
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
+use Greenter\Model\DocumentInterface;
 use Greenter\Xml\Validator\RetentionValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -17,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Retention
  * @package Greenter\Model\Retention
  */
-class Retention
+class Retention implements DocumentInterface
 {
     use RetentionValidator;
 
@@ -304,7 +305,7 @@ class Retention
      *
      * @return string
      */
-    public function getFileName()
+    public function getName()
     {
         $parts = [
             $this->company->getRuc(),

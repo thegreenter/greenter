@@ -42,8 +42,7 @@ class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $reversion = $this->getReversion();
 
-        $generator = $this->getGenerator();
-        $xml = $generator->buildReversion($reversion);
+        $xml = $this->build($reversion);
 
         $this->assertNotEmpty($xml);
     }
@@ -56,14 +55,13 @@ class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
         $reversion = $this->getReversion();
         $reversion->setCorrelativo('1232');
 
-        $generator = $this->getGenerator();
-        $generator->buildReversion($reversion);
+        $this->build($reversion);
     }
 
     public function testReversionFilename()
     {
         $reversion = $this->getReversion();
-        $filename = $reversion->getFileName();
+        $filename = $reversion->getName();
 
         $this->assertEquals($this->getFilename($reversion), $filename);
     }

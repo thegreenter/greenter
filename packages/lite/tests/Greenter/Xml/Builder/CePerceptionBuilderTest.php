@@ -35,8 +35,7 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $perception = $this->getPerception();
 
-        $generator = $this->getGenerator();
-        $xml = $generator->buildPerception($perception);
+        $xml = $this->build($perception);
 
         $this->assertNotEmpty($xml);
         // file_put_contents('percep.xml', $xml);
@@ -51,14 +50,13 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
         $perception->setSerie('F2333')
             ->setRegimen('023');
 
-        $generator = $this->getGenerator();
-        $generator->buildPerception($perception);
+        $this->build($perception);
     }
 
     public function testPerceptionFilename()
     {
         $perception = $this->getPerception();
-        $filename = $perception->getFileName();
+        $filename = $perception->getName();
 
         $this->assertEquals($this->getFilename($perception), $filename);
     }

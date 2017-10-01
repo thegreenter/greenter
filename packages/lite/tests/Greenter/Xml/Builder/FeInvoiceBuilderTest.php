@@ -55,8 +55,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $invoice = $this->getInvoice();
 
-        $generator = $this->getGenerator();
-        $xml = $generator->buildInvoice($invoice);
+        $xml = $this->build($invoice);
 
         // file_put_contents('x.xml', $xml);
         $this->assertNotEmpty($xml);
@@ -72,8 +71,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         $invoice->setTipoDoc('333')
             ->setSerie('FF000');
 
-        $generator = $this->getGenerator();
-        $generator->buildInvoice($invoice);
+        $this->build($invoice);
     }
 
     public function testCompanyValidate()
@@ -94,7 +92,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
     public function testInvoiceFilename()
     {
         $invoice = $this->getInvoice();
-        $filename = $invoice->getFileName();
+        $filename = $invoice->getName();
 
         $this->assertEquals($this->getFilename($invoice), $filename);
     }

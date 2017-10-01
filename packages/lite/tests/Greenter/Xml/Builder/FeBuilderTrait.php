@@ -8,9 +8,18 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
-use Greenter\Xml\Builder\FeBuilder;
+use Greenter\Model\DocumentInterface;
+use Greenter\Model\Sale\Invoice;
+use Greenter\Model\Sale\Note;
+use Greenter\Model\Summary\Summary;
+use Greenter\Model\Voided\Voided;
+use Greenter\Xml\Builder\BuilderInterface;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
+use Greenter\Xml\Builder\InvoiceBuilder;
+use Greenter\Xml\Builder\NoteBuilder;
+use Greenter\Xml\Builder\SummaryBuilder;
+use Greenter\Xml\Builder\VoidedBuilder;
 use Symfony\Component\Validator\Validation;
 
 /**
@@ -20,14 +29,32 @@ use Symfony\Component\Validator\Validation;
 trait FeBuilderTrait
 {
     /**
-     * @return FeBuilder
+     * @param $className
+     * @return BuilderInterface
      */
-    private function getGenerator()
+    private function getGenerator($className)
     {
-        $generator = new FeBuilder();
-        $generator->setParameters(['cache_dir' => sys_get_temp_dir()]);
+        $builders = [
+          Invoice::class => InvoiceBuilder::class,
+          Note::class => NoteBuilder::class,
+          Summary::class => SummaryBuilder::class,
+          Voided::class => VoidedBuilder::class,
+        ];
+        $builder = new $builders[$className]();
+        // $builder->addParameters(['cache_dir' => sys_get_temp_dir()]);
 
-        return $generator;
+        return $builder;
+    }
+
+    /**
+     * @param DocumentInterface $document
+     * @return string
+     */
+    private function build(DocumentInterface $document)
+    {
+        $generator = $this->getGenerator(get_class($document));
+
+        return $generator->build($document);
     }
 
     /**

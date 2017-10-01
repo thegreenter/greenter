@@ -9,6 +9,7 @@
 namespace Greenter\Model\Summary;
 
 use Greenter\Model\Company\Company;
+use Greenter\Model\DocumentInterface;
 use Greenter\Xml\Validator\SummaryValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -16,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Class Summary
  * @package Greenter\Model\Summary
  */
-class Summary
+class Summary implements DocumentInterface
 {
     use SummaryValidator;
 
@@ -151,7 +152,7 @@ class Summary
      *
      * @return string
      */
-    public function getFileName()
+    public function getName()
     {
         $parts = [
             $this->company->getRuc(),

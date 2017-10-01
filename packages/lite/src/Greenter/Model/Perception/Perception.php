@@ -10,13 +10,14 @@ namespace Greenter\Model\Perception;
 
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
+use Greenter\Model\DocumentInterface;
 use Greenter\Xml\Validator\PerceptionValidator;
 
 /**
  * Class Perception
  * @package Greenter\Model\Perception
  */
-class Perception
+class Perception implements DocumentInterface
 {
     use PerceptionValidator;
 
@@ -303,7 +304,7 @@ class Perception
      *
      * @return string
      */
-    public function getFileName()
+    public function getName()
     {
         $parts = [
             $this->company->getRuc(),

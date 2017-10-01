@@ -12,10 +12,10 @@ use Greenter\Xml\Exception\ValidationException;
 use Symfony\Component\Validator\Validation;
 
 /**
- * Class BaseBuilder
+ * Class TwigBuilder
  * @package Greenter\Xml\Builder
  */
-class BaseBuilder
+class TwigBuilder
 {
     /**
      * Directorio de Cache para las template de Documentos.
@@ -33,6 +33,8 @@ class BaseBuilder
      */
     public function render($template, $doc)
     {
+        $this->validate($doc);
+
         $twig = $this->getRender();
         return $twig->render($template, [
             'doc' => $doc
@@ -62,6 +64,7 @@ class BaseBuilder
      */
     public function validate($entity)
     {
+        // TODO: init validator one time.
         $validator = Validation::createValidatorBuilder()
             ->addMethodMapping('loadValidatorMetadata')
             ->getValidator();
@@ -78,7 +81,7 @@ class BaseBuilder
      * @param $params
      * @throws \Exception
      */
-    protected function addParameters($params)
+    public function addParameters($params)
     {
         if (!$params['cache_dir']) {
             return;

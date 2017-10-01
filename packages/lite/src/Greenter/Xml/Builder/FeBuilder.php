@@ -18,7 +18,7 @@ use Greenter\Xml\Exception\ValidationException;
  * Class FeBuilder
  * @package Greenter\Xml\Builder
  */
-final class FeBuilder extends BaseBuilder implements FeBuilderInteface
+final class FeBuilder extends TwigBuilder implements FeBuilderInteface
 {
     /**
      * Genera un invoice (Factura o Boleta).

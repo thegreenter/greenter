@@ -35,8 +35,7 @@ class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $retention = $this->getRetention();
 
-        $generator = $this->getGenerator();
-        $xml = $generator->buildRetention($retention);
+        $xml = $this->build($retention);
 
         $this->assertNotEmpty($xml);
         // file_put_contents('reten.xml', $xml);
@@ -51,14 +50,13 @@ class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
         $retention->setSerie('F2333')
         ->setRegimen('023');
 
-        $generator = $this->getGenerator();
-        $generator->buildRetention($retention);
+        $this->build($retention);
     }
 
     public function testRetentionFilename()
     {
         $retention = $this->getRetention();
-        $filename = $retention->getFileName();
+        $filename = $retention->getName();
 
         $this->assertEquals($this->getFilename($retention), $filename);
     }
