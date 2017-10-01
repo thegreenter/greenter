@@ -19,7 +19,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     public function testInvoice()
     {
         $invoice = $this->getInvoice();
-        $result = $this->factory->sendInvoice($invoice);
+        $result = $this->getFactoryResult($invoice);
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
@@ -34,7 +34,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $invoice = $this->getInvoice();
         $invoice->setTipoMoneda('UHT');
-        $result = $this->factory->sendInvoice($invoice);
+        $result = $this->getFactoryResult($invoice);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
@@ -46,7 +46,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $invoice = $this->getInvoice();
         $invoice->setSerie('X001');
-        $result = $this->factory->sendInvoice($invoice);
+        $result = $this->getFactoryResult($invoice);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
@@ -57,7 +57,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $invoice = $this->getInvoice();
         $invoice->getClient()->setTipoDoc('0');
-        $result = $this->factory->sendInvoice($invoice);
+        $result = $this->getFactoryResult($invoice);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
@@ -71,13 +71,13 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $invoice = $this->getInvoice();
         $invoice->setTipoDoc('000');
-        $this->factory->sendInvoice($invoice);
+        $this->getFactoryResult($invoice);
     }
 
     public function testNotaCredito()
     {
         $creditNote = $this->getCreditNote();
-        $result = $this->factory->sendNote($creditNote);
+        $result = $this->getFactoryResult($creditNote);
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
@@ -94,13 +94,13 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $creditNote = $this->getCreditNote();
         $creditNote->setCodMotivo('C00');
-        $this->factory->sendNote($creditNote);
+        $this->getFactoryResult($creditNote);
     }
 
     public function testNotaDebito()
     {
         $debitNote = $this->getDebitNote();
-        $result = $this->factory->sendNote($debitNote);
+        $result = $this->getFactoryResult($debitNote);
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
@@ -117,14 +117,14 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $debitNote = $this->getDebitNote();
         $debitNote->setCodMotivo('C00');
-        $this->factory->sendNote($debitNote);
+        $this->getFactoryResult($debitNote);
     }
 
 
     public function testResumen()
     {
         $resumen = $this->getSummary();
-        $result = $this->factory->sendResumen($resumen);
+        $result = $this->getFactoryResult($resumen);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
@@ -140,13 +140,13 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $resumen = $this->getSummary();
         $resumen->setCorrelativo('1234');
-        $this->factory->sendResumen($resumen);
+        $this->getFactoryResult($resumen);
     }
 
     public function testBaja()
     {
         $baja = $this->getVoided();
-        $result = $this->factory->sendBaja($baja);
+        $result = $this->getFactoryResult($baja);
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
@@ -162,7 +162,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $baja = $this->getVoided();
         $baja->getDetails()[0]->setTipoDoc('100');
-        $this->factory->sendBaja($baja);
+        $this->getFactoryResult($baja);
     }
 
     /**

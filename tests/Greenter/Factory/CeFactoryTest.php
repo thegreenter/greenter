@@ -7,6 +7,8 @@
  */
 
 namespace Tests\Greenter\Factory;
+use Greenter\Factory\FeFactory;
+use Greenter\Ws\Services\SunatEndpoints;
 
 /**
  * Class CeFactoryTest
@@ -19,7 +21,7 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     public function testDespatch()
     {
         $despatch = $this->getDespatch();
-        $result = $this->factory->sendDispatch($despatch);
+        $result = $this->getFactoryResult($despatch);
 
         // file_put_contents('guia.xml', $this->factory->getLastXml());
         $this->assertTrue($result->isSuccess());
@@ -37,13 +39,13 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $despatch = $this->getDespatch();
         $despatch->setTipoDoc('000');
-        $this->factory->sendDispatch($despatch);
+        $this->getFactoryResult($despatch);
     }
 
     public function testRetention()
     {
         $retention = $this->getRetention();
-        $result = $this->factory->sendRetention($retention);
+        $result = $this->getFactoryResult($retention);
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
@@ -60,13 +62,13 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $retention = $this->getRetention();
         $retention->setSerie('RR000');
-        $this->factory->sendRetention($retention);
+        $this->getFactoryResult($retention);
     }
 
     public function testPerception()
     {
         $perception = $this->getPerception();
-        $result = $this->factory->sendPerception($perception);
+        $result = $this->getFactoryResult($perception);
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
@@ -80,7 +82,7 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $perception = $this->getPerception();
         $perception->setTasa(3);
-        $result = $this->factory->sendPerception($perception);
+        $result = $this->getFactoryResult($perception);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
@@ -94,13 +96,13 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $perception = $this->getPerception();
         $perception->setSerie('FF000');
-        $this->factory->sendPerception($perception);
+        $this->getFactoryResult($perception);
     }
 
     public function testReversion()
     {
         $reversion = $this->getReversion();
-        $result = $this->factory->sendReversion($reversion);
+        $result = $this->getFactoryResult($reversion);
 
         $this->assertNotEmpty($this->factory->getLastXml());
         $this->assertTrue($result->isSuccess());
@@ -117,7 +119,7 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $reversion = $this->getReversion();
         $reversion->getDetails()[0]->setTipoDoc('100');
-        $this->factory->sendReversion($reversion);
+        $this->getFactoryResult($reversion);
     }
 
     /**
@@ -139,7 +141,15 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testStatusInvalidTicket()
     {
-        $result = $this->factory->getStatus('123456789456');
+        $myFact = new FeFactory();
+        $myFact->setParameters([
+            'ws' => [
+                'user' => '20000000001MODDATOS',
+                'pass' => 'moddatos',
+                'service' => SunatEndpoints::RETENCION_BETA,
+            ],
+        ]);
+        $result = $myFact->getStatus('123456789456');
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
