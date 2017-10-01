@@ -88,10 +88,24 @@ trait CeFactoryTraitTest
         $factory->setBuilder($builder);
         $this->factory = $factory;
 
-        if ($document instanceof  Reversion) {
+        if ($document instanceof Reversion) {
             return $factory->sendSummary($document);
         }
         return $factory->sendDocument($document);
+    }
+
+    private function getFactoryForTicket()
+    {
+        $myFact = new FeFactory();
+        $myFact->setParameters([
+            'ws' => [
+                'user' => '20000000001MODDATOS',
+                'pass' => 'moddatos',
+                'service' => SunatEndpoints::RETENCION_BETA,
+            ],
+        ]);
+
+        return $myFact;
     }
 
     /**
