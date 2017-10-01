@@ -7,8 +7,6 @@
  */
 
 namespace Tests\Greenter\Factory;
-use Greenter\Factory\FeFactory;
-use Greenter\Ws\Services\SunatEndpoints;
 
 /**
  * Class CeFactoryTest
@@ -132,7 +130,8 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testStatus($ticket)
     {
-        $result = $this->factory->getStatus($ticket);
+        $myFact = $this->getFactoryForTicket();
+        $result = $myFact->getStatus($ticket);
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
@@ -145,14 +144,7 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testStatusInvalidTicket()
     {
-        $myFact = new FeFactory();
-        $myFact->setParameters([
-            'ws' => [
-                'user' => '20000000001MODDATOS',
-                'pass' => 'moddatos',
-                'service' => SunatEndpoints::RETENCION_BETA,
-            ],
-        ]);
+        $myFact = $this->getFactoryForTicket();
         $result = $myFact->getStatus('123456789456');
 
         $this->assertFalse($result->isSuccess());
