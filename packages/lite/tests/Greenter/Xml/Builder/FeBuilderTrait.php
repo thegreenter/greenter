@@ -19,6 +19,7 @@ use Greenter\Model\Company\Company;
 use Greenter\Xml\Builder\InvoiceBuilder;
 use Greenter\Xml\Builder\NoteBuilder;
 use Greenter\Xml\Builder\SummaryBuilder;
+use Greenter\Xml\Builder\TwigBuilder;
 use Greenter\Xml\Builder\VoidedBuilder;
 use Symfony\Component\Validator\Validation;
 
@@ -41,8 +42,10 @@ trait FeBuilderTrait
           Voided::class => VoidedBuilder::class,
         ];
         $builder = new $builders[$className]();
-        // $builder->addParameters(['cache_dir' => sys_get_temp_dir()]);
+        /**@var $builder TwigBuilder */
+        $builder->setParameters(['cache_dir' => sys_get_temp_dir()]);
 
+        /**@var $builder BuilderInterface */
         return $builder;
     }
 

@@ -81,7 +81,7 @@ class TwigBuilder
      * @param $params
      * @throws \Exception
      */
-    public function addParameters($params)
+    public function setParameters($params)
     {
         if (!$params['cache_dir']) {
             return;

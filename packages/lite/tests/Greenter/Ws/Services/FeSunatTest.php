@@ -83,12 +83,14 @@ class FeSunatTest  extends \PHPUnit_Framework_TestCase
      */
     private function getSummarySender()
     {
-        $stub = $this->getMock(SenderInterface::class);
+        $stub = $this->getMockBuilder(SenderInterface::class)
+                        ->getMock();
         $stub->method('send')->will($this->returnValue((new SummaryResult())
             ->setTicket('1500523236696')
             ->setSuccess(true)
         ));
 
+        /**@var $stub SenderInterface*/
         return $stub;
     }
 }
