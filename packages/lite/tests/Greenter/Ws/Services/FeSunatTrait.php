@@ -8,8 +8,8 @@
 
 namespace Tests\Greenter\Ws\Services;
 
+use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SunatEndpoints;
-use Greenter\Ws\Services\WsSunatInterface;
 
 /**
  * Trait FeSunatTrait
@@ -18,11 +18,12 @@ use Greenter\Ws\Services\WsSunatInterface;
 trait FeSunatTrait
 {
     /**
-     * @return WsSunatInterface
+     * @return ExtService
      */
     private function getSender()
     {
-        $sunat = new FeSunatFake();
+        $sunat = new ExtService();
+        $sunat->setUrlWsdl(SunatEndpoints::WSDL_ENDPOINT);
         $sunat->setCredentials('20600055519MODDATOS', 'moddatos');
         $sunat->setService(SunatEndpoints::FE_BETA);
         return $sunat;

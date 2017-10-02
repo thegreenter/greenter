@@ -106,6 +106,9 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         $reversion = $this->getReversion();
         $result = $this->getFactoryResult($reversion);
 
+        if (!$result->isSuccess() && $result->getError()->getCode() == '200') {
+            return '';
+        }
         $this->assertNotEmpty($this->factory->getLastXml());
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
@@ -130,7 +133,11 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testStatus($ticket)
     {
-        $myFact = $this->getFactoryForTicket();
+        if (empty($ticket)) {
+            return;
+        }
+
+        $myFact = $this->getExtService();
         $result = $myFact->getStatus($ticket);
 
         $this->assertTrue($result->isSuccess());
@@ -144,7 +151,7 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testStatusInvalidTicket()
     {
-        $myFact = $this->getFactoryForTicket();
+        $myFact = $this->getExtService();
         $result = $myFact->getStatus('123456789456');
 
         $this->assertFalse($result->isSuccess());

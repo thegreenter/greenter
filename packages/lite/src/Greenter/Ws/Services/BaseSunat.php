@@ -8,9 +8,17 @@
 
 namespace Greenter\Ws\Services;
 
+use Greenter\Model\Response\Error;
 use Greenter\Ws\Header\WSSESecurityHeader;
+use Greenter\Ws\Reader\DomCdrReader;
+use Greenter\Ws\Reader\XmlErrorReader;
+use Greenter\Zip\ZipFactory;
 use SoapClient;
 
+/**
+ * Class BaseSunat
+ * @package Greenter\Ws\Services
+ */
 class BaseSunat
 {
     /**
@@ -42,6 +50,14 @@ class BaseSunat
      * @var string
      */
     protected $urlWsdl;
+
+    /**
+     * BaseSunat constructor.
+     */
+    public function __construct()
+    {
+        $this->urlWsdl = __DIR__.'/../../Resources/wsdl/billService.wsdl';
+    }
 
     /**
      * Set Credentiasl WebService.
@@ -90,5 +106,57 @@ class BaseSunat
     {
         $this->urlWsdl = $urlWsdl;
         return $this;
+    }
+
+    /**
+     * Get error from Fault Exception.
+     *
+     * @param \SoapFault $fault
+     * @return Error
+     */
+    protected function getErrorFromFault(\SoapFault $fault)
+    {
+        $err = new Error();
+        $fcode = $fault->faultcode;
+        $code = preg_replace('/[^0-9]+/', '', $fcode);
+        $msg = '';
+
+        if ($code) {
+            $msg = $this->getMessageError($code);
+            $fcode = $code;
+        } else {
+            $code = preg_replace('/[^0-9]+/', '', $fault->faultstring);
+
+            if ($code) {
+                $msg = $this->getMessageError($code);
+                $fcode = $code;
+            }
+        }
+
+        if (!$msg) {
+            $msg = isset($fault->detail) ? $fault->detail->message : $fault->faultstring;
+        }
+
+        $err->setCode($fcode);
+        $err->setMessage($msg);
+
+        return $err;
+    }
+
+    protected function extractResponse($zipContent)
+    {
+        $zip = new ZipFactory();
+        $xml = $zip->decompressLastFile($zipContent);
+        $reader = new DomCdrReader();
+
+        return $reader->getCdrResponse($xml);
+    }
+
+    private function getMessageError($code)
+    {
+        $search = new XmlErrorReader();
+        $msg = $search->getMessageByCode(intval($code));
+
+        return $msg;
     }
 }

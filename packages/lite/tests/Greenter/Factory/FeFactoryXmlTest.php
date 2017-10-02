@@ -7,6 +7,9 @@
  */
 
 namespace Tests\Greenter\Factory;
+use Greenter\Model\DocumentInterface;
+use Greenter\Model\Response\BaseResult;
+use Greenter\Ws\Services\SenderInterface;
 
 /**
  * Class FeFactoryXmlTest
@@ -19,11 +22,9 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
     public function testInvoiceXml()
     {
         $invoice = $this->getInvoice();
-        $this->getFactoryResult($invoice);
+        $this->getFactoryForXml($invoice);
 
         $xml = $this->factory->getLastXml();
-
-
         $xpt = $this->getXpath($xml);
 
         $nodes = $xpt->query('//ds:Signature');
@@ -37,7 +38,7 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
     public function testCreditNoteXml()
     {
         $creditNote = $this->getCreditNote();
-        $this->getFactoryResult($creditNote);
+        $this->getFactoryForXml($creditNote);
 
         $xml = $this->factory->getLastXml();
 
@@ -55,7 +56,7 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
     public function testDebitNoteXml()
     {
         $debitNote = $this->getDebitNote();
-        $this->getFactoryResult($debitNote);
+        $this->getFactoryForXml($debitNote);
 
         $xml = $this->factory->getLastXml();
 
@@ -73,7 +74,7 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
     public function testResumenXml()
     {
         $resumen = $this->getSummary();
-        $this->getFactoryResult($resumen);
+        $this->getFactoryForXml($resumen);
 
         $xml = $this->factory->getLastXml();
 
@@ -90,7 +91,7 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
     public function testBajaXml()
     {
         $baja = $this->getVoided();
-        $this->getFactoryResult($baja);
+        $this->getFactoryForXml($baja);
 
         $xml = $this->factory->getLastXml();
 
@@ -113,5 +114,20 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
         $doc->loadXML($xml);
 
         return new \DOMXPath($doc);
+    }
+
+    private function getFactoryForXml(DocumentInterface $document)
+    {
+        $sender = $this->getMock(SenderInterface::class);
+        $sender->method('send')
+                ->will($this->returnValue((new BaseResult())
+                    ->setSuccess(true)));
+
+        $builder = new $this->builders[get_class($document)]();
+        $factory = $this->factory
+            ->setBuilder($builder)
+            ->setSender($sender);
+
+        return $factory->send($document);
     }
 }

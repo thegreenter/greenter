@@ -8,6 +8,11 @@
 
 namespace Tests\Greenter\Ws\Services;
 
+use Greenter\Model\Response\BillResult;
+use Greenter\Model\Response\CdrResponse;
+use Greenter\Model\Response\SummaryResult;
+use Greenter\Ws\Services\SenderInterface;
+
 /**
  * Class FeSunatTest
  * @package tests\Greenter\Ws\Services
@@ -21,9 +26,10 @@ class FeSunatTest  extends \PHPUnit_Framework_TestCase
         $nameZip = '20600055519-01-F001-00000001.zip';
         $zip = file_get_contents(__DIR__."/../../Resources/$nameZip");
 
-        $wss = $this->getSender();
+        $wss = $this->getBillSender();
         $response = $wss->send($nameZip, $zip);
 
+        /**@var $response BillResult */
         $this->assertTrue($response->isSuccess());
         $this->assertNotNull($response->getCdrResponse());
         $this->assertContains('La Factura numero F001-00000001, ha sido aceptada',
@@ -35,9 +41,10 @@ class FeSunatTest  extends \PHPUnit_Framework_TestCase
         $nameZip = '20600995805-RA-20170719-01.zip';
         $zip = file_get_contents(__DIR__."/../../Resources/$nameZip");
 
-        $wss = $this->getSender();
-        $result = $wss->sendSummary($nameZip, $zip);
+        $wss = $this->getSummarySender();
+        $result = $wss->send($nameZip, $zip);
 
+        /**@var $result SummaryResult */
         $this->assertNotNull($result);
         $this->assertTrue($result->isSuccess());
         $this->assertEquals(13, strlen($result->getTicket()));
@@ -49,6 +56,37 @@ class FeSunatTest  extends \PHPUnit_Framework_TestCase
         $result = $wss->getStatus('1500523236696');
 
         $this->assertNotNull($result);
-        $this->assertTrue($result->isSuccess());
+        $this->assertFalse($result->isSuccess());
+    }
+
+    /**
+     * @return SenderInterface
+     */
+    private function getBillSender()
+    {
+        $stub = $this->getMock(SenderInterface::class);
+        $stub->method('send')->will($this->returnValue((new BillResult())
+            ->setCdrResponse((new CdrResponse())
+                ->setCode('0')
+                ->setDescription('La Factura numero F001-00000001, ha sido aceptada')
+                ->setId('F001-00000001'))
+            ->setSuccess(true)
+        ));
+
+        return $stub;
+    }
+
+    /**
+     * @return SenderInterface
+     */
+    private function getSummarySender()
+    {
+        $stub = $this->getMock(SenderInterface::class);
+        $stub->method('send')->will($this->returnValue((new SummaryResult())
+            ->setTicket('1500523236696')
+            ->setSuccess(true)
+        ));
+
+        return $stub;
     }
 }
