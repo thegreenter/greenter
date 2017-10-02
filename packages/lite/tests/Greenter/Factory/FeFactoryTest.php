@@ -7,6 +7,8 @@
  */
 
 namespace Tests\Greenter\Factory;
+use Greenter\Ws\Services\SummarySender;
+use Greenter\Xml\Builder\SummaryBuilder;
 
 /**
  * Class FeFactoryTest
@@ -125,6 +127,8 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $resumen = $this->getSummary();
         $result = $this->getFactoryResult($resumen);
+        $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
+        $this->assertInstanceOf(SummaryBuilder::class, $this->factory->getBuilder());
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
@@ -177,5 +181,8 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
         $this->assertEquals('200', $result->getError()->getCode());
+        $this->assertEmpty($result->getCode());
+        $this->assertEmpty($result->getCdrZip());
+        $this->assertEmpty($result->getCdrResponse());
     }
 }

@@ -7,6 +7,8 @@
  */
 
 namespace Tests\Greenter\Factory;
+use Greenter\Model\Response\CdrResponse;
+use Greenter\Model\Response\StatusResult;
 
 /**
  * Class CeFactoryTest
@@ -133,12 +135,21 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testStatus($ticket)
     {
-        if (empty($ticket)) {
-            return;
+        if ($ticket) {
+            $myFact = $this->getExtService();
+            $result = $myFact->getStatus($ticket);
+        } else {
+            $result = new StatusResult();
+            $result
+                ->setCode('0')
+                ->setCdrResponse((new CdrResponse())
+                ->setDescription('El Comprobante numero RR-20171001-001 ha sido aceptado')
+                ->setId('RR-20171001-001')
+                ->setCode('0')
+                ->setNotes([]))
+                ->setCdrZip('xx')
+                ->setSuccess(true);
         }
-
-        $myFact = $this->getExtService();
-        $result = $myFact->getStatus($ticket);
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());

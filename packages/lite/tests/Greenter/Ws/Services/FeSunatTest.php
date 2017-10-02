@@ -64,7 +64,8 @@ class FeSunatTest  extends \PHPUnit_Framework_TestCase
      */
     private function getBillSender()
     {
-        $stub = $this->getMock(SenderInterface::class);
+        $stub = $this->getMockBuilder(SenderInterface::class)
+                    ->getMock();
         $stub->method('send')->will($this->returnValue((new BillResult())
             ->setCdrResponse((new CdrResponse())
                 ->setCode('0')
@@ -73,6 +74,7 @@ class FeSunatTest  extends \PHPUnit_Framework_TestCase
             ->setSuccess(true)
         ));
 
+        /**@var $stub SenderInterface*/
         return $stub;
     }
 
