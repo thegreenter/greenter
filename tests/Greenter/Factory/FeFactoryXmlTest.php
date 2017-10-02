@@ -118,11 +118,13 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
 
     private function getFactoryForXml(DocumentInterface $document)
     {
-        $sender = $this->getMock(SenderInterface::class);
+        $sender = $this->getMockBuilder(SenderInterface::class)
+                    ->getMock();
         $sender->method('send')
                 ->will($this->returnValue((new BaseResult())
                     ->setSuccess(true)));
 
+        /**@var $sender SenderInterface */
         $builder = new $this->builders[get_class($document)]();
         $factory = $this->factory
             ->setBuilder($builder)
