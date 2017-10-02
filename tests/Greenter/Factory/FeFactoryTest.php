@@ -152,6 +152,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($result->getTicket());
         $this->assertEquals(13, strlen($result->getTicket()));
 
+        echo $result->getTicket();
         return $result->getTicket();
     }
 
@@ -171,7 +172,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testStatus($ticket)
     {
-        $result = $this->factory->getStatus($ticket);
+        $result = $this->getExtService()->getStatus($ticket);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());

@@ -9,9 +9,7 @@
 namespace Greenter\Factory;
 
 use Greenter\Model\DocumentInterface;
-use Greenter\Model\Response\BillResult;
-use Greenter\Model\Response\StatusResult;
-use Greenter\Model\Response\SummaryResult;
+use Greenter\Model\Response\BaseResult;
 
 /**
  * Interface FactoryInterface
@@ -21,19 +19,7 @@ interface FactoryInterface
 {
     /**
      * @param DocumentInterface $document
-     * @return BillResult
+     * @return BaseResult
      */
-    public function sendDocument(DocumentInterface $document);
-
-    /**
-     * @param DocumentInterface $document
-     * @return SummaryResult
-     */
-    public function sendSummary(DocumentInterface $document);
-
-    /**
-     * @param string $ticket
-     * @return StatusResult
-     */
-    public function getStatus($ticket);
+    public function send(DocumentInterface $document);
 }

@@ -20,13 +20,19 @@ use Greenter\Model\Despatch\Transportist;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Perception\PerceptionDetail;
+use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Retention\RetentionDetail;
 use Greenter\Model\Sale\Document;
+use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
+use Greenter\Ws\Services\BillSender;
+use Greenter\Ws\Services\ExtService;
+use Greenter\Ws\Services\SenderInterface;
+use Greenter\Ws\Services\SummarySender;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Xml\Builder\DespatchBuilder;
 use Greenter\Xml\Builder\PerceptionBuilder;
@@ -59,7 +65,7 @@ trait CeFactoryTraitTest
 
     /**
      * @param DocumentInterface $document
-     * @return \Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
+     * @return BaseResult|\Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
      */
     private function getFactoryResult(DocumentInterface $document)
     {
@@ -69,43 +75,48 @@ trait CeFactoryTraitTest
             Retention::class => RetentionBuilder::class,
             Reversion::class => VoidedBuilder::class,
         ];
-        $builder = new $builders[get_class($document)]();
-
         $url = SunatEndpoints::RETENCION_BETA;
         if ($document instanceof Despatch) {
             $url = SunatEndpoints::GUIA_BETA;
         }
 
+        $sender = $this->getSender(get_class($document), $url);
+        $builder = new $builders[get_class($document)]();
+
         $factory = new FeFactory();
-        $factory->setParameters([
-            'ws' => [
-                'user' => '20000000001MODDATOS',
-                'pass' => 'moddatos',
-                'service' => $url,
-            ],
-            'cert' => file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'),
-        ]);
+        $factory->setCertificate(file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'));
+        $factory->setSender($sender);
         $factory->setBuilder($builder);
         $this->factory = $factory;
 
-        if ($document instanceof Reversion) {
-            return $factory->sendSummary($document);
-        }
-        return $factory->sendDocument($document);
+        return $factory->send($document);
     }
 
-    private function getFactoryForTicket()
+    /**
+     * @param string $className
+     * @param string $endpoint
+     * @return SenderInterface
+     */
+    private function getSender($className, $endpoint)
     {
-        $myFact = new FeFactory();
-        $myFact->setParameters([
-            'ws' => [
-                'user' => '20000000001MODDATOS',
-                'pass' => 'moddatos',
-                'service' => SunatEndpoints::RETENCION_BETA,
-            ],
-        ]);
+        $summValids = [Summary::class, Reversion::class];
+        $sender = in_array($className, $summValids) ? new SummarySender(): new BillSender();
+        $sender->setCredentials('20000000001MODDATOS', 'moddatos');
+        $sender->setService($endpoint);
 
-        return $myFact;
+        return $sender;
+    }
+
+    /**
+     * @return ExtService
+     */
+    private function getExtService()
+    {
+        $service = new ExtService();
+        $service->setCredentials('20000000001MODDATOS', 'moddatos');
+        $service->setService(SunatEndpoints::RETENCION_BETA);
+
+        return $service;
     }
 
     /**

@@ -11,6 +11,7 @@ namespace Tests\Greenter\Factory;
 use Greenter\Factory\FeFactory;
 use Greenter\Model\Client\Client;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\SaleDetail;
@@ -21,6 +22,10 @@ use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
+use Greenter\Ws\Services\BillSender;
+use Greenter\Ws\Services\ExtService;
+use Greenter\Ws\Services\SenderInterface;
+use Greenter\Ws\Services\SummarySender;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Xml\Builder\InvoiceBuilder;
 use Greenter\Xml\Builder\NoteBuilder;
@@ -58,14 +63,7 @@ trait FeFactoryTraitTest
         ];
 
         $factory = new FeFactory();
-        $factory->setParameters([
-            'ws' => [
-                'user' => '20000000001MODDATOS',
-                'pass' => 'moddatos',
-                'service' => SunatEndpoints::FE_BETA,
-            ],
-            'cert' => file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'),
-        ]);
+        $factory->setCertificate(file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'));
         $this->factory = $factory;
         $date = new \DateTime();
         $date->sub(new \DateInterval('P1D'));
@@ -73,20 +71,45 @@ trait FeFactoryTraitTest
     }
 
     /**
+     * @param string $className
+     * @param string $endpoint
+     * @return SenderInterface
+     */
+    private function getSender($className, $endpoint)
+    {
+        $summValids = [Summary::class, Voided::class];
+        $sender = in_array($className, $summValids) ? new SummarySender(): new BillSender();
+        $sender->setCredentials('20000000001MODDATOS', 'moddatos');
+        $sender->setService($endpoint);
+
+        return $sender;
+    }
+
+    /**
      * @param DocumentInterface $document
-     * @return \Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
+     * @return BaseResult|\Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
      */
     private function getFactoryResult(DocumentInterface $document)
     {
+        $sender = $this->getSender(get_class($document), SunatEndpoints::FE_BETA);
         $builder = new $this->builders[get_class($document)]();
-        $factory = $this->factory->setBuilder($builder);
+        $factory = $this->factory
+            ->setBuilder($builder)
+            ->setSender($sender);
 
-        if ($document instanceof Summary ||
-            $document instanceof Voided) {
-            return $factory->sendSummary($document);
-        }
+        return $factory->send($document);
+    }
 
-        return $factory->sendDocument($document);
+    /**
+     * @return ExtService
+     */
+    private function getExtService()
+    {
+        $service = new ExtService();
+        $service->setCredentials('20000000001MODDATOS', 'moddatos');
+        $service->setService(SunatEndpoints::FE_BETA);
+
+        return $service;
     }
 
     private function getInvoice()
