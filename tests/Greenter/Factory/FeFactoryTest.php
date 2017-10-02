@@ -156,7 +156,6 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($result->getTicket());
         $this->assertEquals(13, strlen($result->getTicket()));
 
-        echo $result->getTicket();
         return $result->getTicket();
     }
 
