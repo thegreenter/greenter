@@ -32,7 +32,7 @@ class SummarySender extends BaseSunat implements SenderInterface
                 'fileName' => $filename,
                 'contentFile' => $content,
             ];
-            $response = $client->__soapCall('sendSummary', [ 'parameters' => $params ]);
+            $response = $client->call('sendSummary', [ 'parameters' => $params ]);
             $result
                 ->setTicket($response->ticket)
                 ->setSuccess(true);
