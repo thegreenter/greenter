@@ -101,7 +101,7 @@ trait CeFactoryTraitTest
     private function getSender($className, $endpoint)
     {
         $summValids = [Summary::class, Reversion::class];
-        $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
+        $client = new SoapClient();
         $client->setCredentials('20000000001MODDATOS', 'moddatos');
         $client->setService($endpoint);
         $sender = in_array($className, $summValids) ? new SummarySender(): new BillSender();
