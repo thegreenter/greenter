@@ -32,6 +32,7 @@ use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SenderInterface;
+use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SummarySender;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Xml\Builder\DespatchBuilder;
@@ -100,9 +101,11 @@ trait CeFactoryTraitTest
     private function getSender($className, $endpoint)
     {
         $summValids = [Summary::class, Reversion::class];
+        $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
+        $client->setCredentials('20000000001MODDATOS', 'moddatos');
+        $client->setService($endpoint);
         $sender = in_array($className, $summValids) ? new SummarySender(): new BillSender();
-        $sender->setCredentials('20000000001MODDATOS', 'moddatos');
-        $sender->setService($endpoint);
+        $sender->setClient($client);
 
         return $sender;
     }
@@ -112,9 +115,11 @@ trait CeFactoryTraitTest
      */
     private function getExtService()
     {
+        $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
+        $client->setCredentials('20000000001MODDATOS', 'moddatos');
+        $client->setService(SunatEndpoints::RETENCION_BETA);
         $service = new ExtService();
-        $service->setCredentials('20000000001MODDATOS', 'moddatos');
-        $service->setService(SunatEndpoints::RETENCION_BETA);
+        $service->setClient($client);
 
         return $service;
     }

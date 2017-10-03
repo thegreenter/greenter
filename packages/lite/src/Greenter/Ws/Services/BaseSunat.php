@@ -9,11 +9,9 @@
 namespace Greenter\Ws\Services;
 
 use Greenter\Model\Response\Error;
-use Greenter\Ws\Header\WSSESecurityHeader;
 use Greenter\Ws\Reader\DomCdrReader;
 use Greenter\Ws\Reader\XmlErrorReader;
 use Greenter\Zip\ZipFactory;
-use SoapClient;
 
 /**
  * Class BaseSunat
@@ -22,89 +20,33 @@ use SoapClient;
 class BaseSunat
 {
     /**
-     * Url del servicio.
-     * @var string
+     * @var WsClientInterface
      */
-    private $service;
-
-    /**
-     * Usuario (RUC + User SOL).
-     * @var string
-     */
-    private $user;
-    /**
-     * Clave SOL
-     *
-     * @var string
-     */
-    private $password;
-
-    /**
-     * Parametros del Soap.
-     * @var array
-     */
-    protected $parameters = [];
-
-    /**
-     * Url del WSDL.
-     * @var string
-     */
-    protected $urlWsdl;
+    private $client;
 
     /**
      * BaseSunat constructor.
      */
     public function __construct()
     {
-        $this->urlWsdl = __DIR__.'/../../Resources/wsdl/billService.wsdl';
+        //$this->urlWsdl =
     }
 
     /**
-     * Set Credentiasl WebService.
-     *
-     * @param string $user
-     * @param string $password
-     */
-    public function setCredentials($user, $password)
-    {
-        $this->user = $user;
-        $this->password = $password;
-    }
-
-    /**
-     * Create a new SoapClient.
-     * @return SoapClient
+     * @return WsClientInterface
      */
     public function getClient()
     {
-        $client = new SoapClient($this->urlWsdl, $this->parameters);
-        $client->__setLocation($this->service);
-        $client->__setSoapHeaders(new WSSESecurityHeader($this->user, $this->password));
-
-        return $client;
+        return $this->client;
     }
 
     /**
-     * Set Service of SUNAT.
-     *
-     * @param string $service
+     * @param WsClientInterface $client
      * @return BaseSunat
      */
-    public function setService($service)
+    public function setClient($client)
     {
-        $this->service = $service;
-        return $this;
-    }
-
-    /**
-     * Set Url del WSDL.
-     *
-     * @param string $urlWsdl
-     * @return BaseSunat
-     */
-    public function setUrlWsdl($urlWsdl)
-    {
-        $this->urlWsdl = $urlWsdl;
+        $this->client = $client;
         return $this;
     }
 
@@ -143,6 +85,10 @@ class BaseSunat
         return $err;
     }
 
+    /**
+     * @param $zipContent
+     * @return \Greenter\Model\Response\CdrResponse
+     */
     protected function extractResponse($zipContent)
     {
         $zip = new ZipFactory();
@@ -152,7 +98,11 @@ class BaseSunat
         return $reader->getCdrResponse($xml);
     }
 
-    private function getMessageError($code)
+    /**
+     * @param $code
+     * @return string
+     */
+    protected function getMessageError($code)
     {
         $search = new XmlErrorReader();
         $msg = $search->getMessageByCode(intval($code));

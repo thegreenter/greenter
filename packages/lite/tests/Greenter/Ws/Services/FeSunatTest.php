@@ -9,18 +9,14 @@
 namespace Tests\Greenter\Ws\Services;
 
 use Greenter\Model\Response\BillResult;
-use Greenter\Model\Response\CdrResponse;
 use Greenter\Model\Response\SummaryResult;
-use Greenter\Ws\Services\SenderInterface;
 
 /**
  * Class FeSunatTest
- * @package tests\Greenter\Ws\Services
+ * @package Tests\Greenter\Ws\Services
  */
-class FeSunatTest  extends \PHPUnit_Framework_TestCase
+class FeSunatTest extends FeSunatTestBase
 {
-    use FeSunatTrait;
-
     public function testSendInvoice()
     {
         $nameZip = '20600055519-01-F001-00000001.zip';
@@ -52,45 +48,12 @@ class FeSunatTest  extends \PHPUnit_Framework_TestCase
 
     public function testGetInvalidStatus()
     {
-        $wss = $this->getSender();
+        $wss = $this->getStatusSender();
         $result = $wss->getStatus('1500523236696');
 
-        $this->assertNotNull($result);
-        $this->assertFalse($result->isSuccess());
-    }
-
-    /**
-     * @return SenderInterface
-     */
-    private function getBillSender()
-    {
-        $stub = $this->getMockBuilder(SenderInterface::class)
-                    ->getMock();
-        $stub->method('send')->will($this->returnValue((new BillResult())
-            ->setCdrResponse((new CdrResponse())
-                ->setCode('0')
-                ->setDescription('La Factura numero F001-00000001, ha sido aceptada')
-                ->setId('F001-00000001'))
-            ->setSuccess(true)
-        ));
-
-        /**@var $stub SenderInterface*/
-        return $stub;
-    }
-
-    /**
-     * @return SenderInterface
-     */
-    private function getSummarySender()
-    {
-        $stub = $this->getMockBuilder(SenderInterface::class)
-                        ->getMock();
-        $stub->method('send')->will($this->returnValue((new SummaryResult())
-            ->setTicket('1500523236696')
-            ->setSuccess(true)
-        ));
-
-        /**@var $stub SenderInterface*/
-        return $stub;
+        $this->assertTrue($result->isSuccess());
+        $this->assertNotNull($result->getCdrResponse());
+        $this->assertEquals('0', $result->getCode());
+        $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
     }
 }
