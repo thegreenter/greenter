@@ -29,7 +29,7 @@ class ExtService extends BaseSunat
             $params = [
                 'ticket' => $ticket,
             ];
-            $response = $client->__soapCall('getStatus', [ 'parameters' => $params ]);
+            $response = $client->call('getStatus', [ 'parameters' => $params ]);
             $status = $response->status;
             $cdrZip = $status->content;
 

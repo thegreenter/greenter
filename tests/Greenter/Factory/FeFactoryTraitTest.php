@@ -25,6 +25,7 @@ use Greenter\Model\Company\Company;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SenderInterface;
+use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SummarySender;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Xml\Builder\InvoiceBuilder;
@@ -77,10 +78,12 @@ trait FeFactoryTraitTest
      */
     private function getSender($className, $endpoint)
     {
+        $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
+        $client->setCredentials('20000000001MODDATOS', 'moddatos');
+        $client->setService($endpoint);
         $summValids = [Summary::class, Voided::class];
         $sender = in_array($className, $summValids) ? new SummarySender(): new BillSender();
-        $sender->setCredentials('20000000001MODDATOS', 'moddatos');
-        $sender->setService($endpoint);
+        $sender->setClient($client);
 
         return $sender;
     }
@@ -105,9 +108,11 @@ trait FeFactoryTraitTest
      */
     private function getExtService()
     {
+        $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
+        $client->setCredentials('20000000001MODDATOS', 'moddatos');
+        $client->setService(SunatEndpoints::FE_BETA);
         $service = new ExtService();
-        $service->setCredentials('20000000001MODDATOS', 'moddatos');
-        $service->setService(SunatEndpoints::FE_BETA);
+        $service->setClient($client);
 
         return $service;
     }
