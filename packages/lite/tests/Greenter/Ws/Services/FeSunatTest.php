@@ -46,7 +46,7 @@ class FeSunatTest extends FeSunatTestBase
         $this->assertEquals(13, strlen($result->getTicket()));
     }
 
-    public function testGetInvalidStatus()
+    public function testGetStatus()
     {
         $wss = $this->getStatusSender();
         $result = $wss->getStatus('1500523236696');
@@ -54,6 +54,16 @@ class FeSunatTest extends FeSunatTestBase
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertEquals('0', $result->getCode());
+        $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
+    }
+
+    public function testGetCdrStatus()
+    {
+        $wss = $this->getStatusSender();
+        $result = $wss->getCdrStatus('20000000001', '01', 'F001', '1');
+
+        $this->assertTrue($result->isSuccess());
+        $this->assertNotNull($result->getCdrResponse());
         $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
     }
 }

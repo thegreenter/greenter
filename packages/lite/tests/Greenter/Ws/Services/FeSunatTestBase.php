@@ -31,14 +31,18 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
 
         $stub->method('call')
                 ->will($this->returnCallback(function ($func, $params) {
-                    if ($func !== 'getStatus') {
-                        throw new \Exception('Method Not Found');
-                    }
-
+                    $zipContent = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
                     $obj = new \stdClass();
-                    $obj->status = new \stdClass();
-                    $obj->status->statusCode = '0';
-                    $obj->status->content = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
+                    if ($func == 'getStatus') {
+                        $obj->status = new \stdClass();
+                        $obj->status->statusCode = '0';
+                        $obj->status->content = $zipContent;
+                    } elseif ($func == 'getStatusCdr') {
+                        $obj->statusCdr = new \stdClass();
+                        $obj->statusCdr->statusCode = '0';
+                        $obj->statusCdr->statusMessage = 'ACEPTADA';
+                        $obj->statusCdr->content = $zipContent;
+                    }
 
                     return $obj;
                 }));

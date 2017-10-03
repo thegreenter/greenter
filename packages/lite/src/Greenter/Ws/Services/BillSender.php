@@ -33,7 +33,6 @@ class BillSender extends BaseSunat implements SenderInterface
                 'contentFile' => $content,
             ];
             $response = $client->call('sendBill', [ 'parameters' => $params ]);
-
             $cdrZip = $response->applicationResponse;
             $result
                 ->setCdrResponse($this->extractResponse($cdrZip))

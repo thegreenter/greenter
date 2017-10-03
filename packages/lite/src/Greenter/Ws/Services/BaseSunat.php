@@ -25,14 +25,6 @@ class BaseSunat
     private $client;
 
     /**
-     * BaseSunat constructor.
-     */
-    public function __construct()
-    {
-        //$this->urlWsdl =
-    }
-
-    /**
      * @return WsClientInterface
      */
     public function getClient()
