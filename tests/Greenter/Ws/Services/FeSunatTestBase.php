@@ -13,6 +13,7 @@ use Greenter\Model\Response\CdrResponse;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SenderInterface;
+use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\WsClientInterface;
 
 /**
@@ -24,7 +25,7 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
     /**
      * @return ExtService
      */
-    protected function getStatusSender()
+    protected function getExtSender()
     {
         $stub = $this->getMockBuilder(WsClientInterface::class)
                     ->getMock();
@@ -50,6 +51,20 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
         /**@var $stub WsClientInterface */
         $sunat = new ExtService();
         $sunat->setClient($stub);
+
+        return $sunat;
+    }
+
+    /**
+     * @return ExtService
+     */
+    public function getExtSunat()
+    {
+        $client = new SoapClient('https://www.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?wsdl');
+        $client->setCredentials('20000000001MODDATOS', 'moddatos');
+        $client->setService('https://www.sunat.gob.pe/ol-it-wsconscpegem/billConsultService');
+        $sunat = new ExtService();
+        $sunat->setClient($client);
 
         return $sunat;
     }

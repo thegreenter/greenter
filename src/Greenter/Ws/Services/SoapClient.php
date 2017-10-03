@@ -57,6 +57,6 @@ class SoapClient implements WsClientInterface
      */
     public function call($function, $arguments)
     {
-        return $this->client->__soapCall('sendBill', $arguments);
+        return $this->client->__soapCall($function, $arguments);
     }
 }

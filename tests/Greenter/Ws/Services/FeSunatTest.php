@@ -48,7 +48,7 @@ class FeSunatTest extends FeSunatTestBase
 
     public function testGetStatus()
     {
-        $wss = $this->getStatusSender();
+        $wss = $this->getExtSender();
         $result = $wss->getStatus('1500523236696');
 
         $this->assertTrue($result->isSuccess());
@@ -59,12 +59,20 @@ class FeSunatTest extends FeSunatTestBase
 
     public function testGetCdrStatus()
     {
-        $wss = $this->getStatusSender();
+        $wss = $this->getExtSender();
         $result = $wss->getCdrStatus('20000000001', '01', 'F001', '1');
 
         $this->assertTrue($result->isSuccess());
         $this->assertEquals('0', $result->getCode());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
+    }
+
+    public function testInvalidCdrStatus()
+    {
+        $wss = $this->getExtSunat();
+        $result = $wss->getCdrStatus('20000000001', '01', 'F001', '1');
+
+        $this->assertFalse($result->isSuccess());
     }
 }
