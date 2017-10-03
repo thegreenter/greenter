@@ -63,6 +63,7 @@ class FeSunatTest extends FeSunatTestBase
         $result = $wss->getCdrStatus('20000000001', '01', 'F001', '1');
 
         $this->assertTrue($result->isSuccess());
+        $this->assertEquals('0', $result->getCode());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
     }

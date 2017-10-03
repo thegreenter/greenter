@@ -8,7 +8,7 @@
 
 namespace Greenter\Ws\Services;
 
-use Greenter\Model\Response\BillResult;
+use Greenter\Model\Response\StatusCdrResult;
 use Greenter\Model\Response\StatusResult;
 
 /**
@@ -52,12 +52,12 @@ class ExtService extends BaseSunat
      * @param string $tipo
      * @param string $serie
      * @param string $numero
-     * @return BillResult
+     * @return StatusCdrResult
      */
     public function getCdrStatus($ruc, $tipo, $serie, $numero)
     {
         $client = $this->getClient();
-        $result = new BillResult();
+        $result = new StatusCdrResult();
 
         try {
             $params = [
@@ -69,13 +69,14 @@ class ExtService extends BaseSunat
             $response = $client->call('getStatusCdr', [ 'parameters' => $params ]);
             $statusCdr =$response->statusCdr;
 
-//            $code = $statusCdr->statusCode;
-//            $msg = $statusCdr->statusMessage;
-            $cdrZip = $statusCdr->content;
-            $result
-                ->setCdrResponse($this->extractResponse($cdrZip))
-                ->setCdrZip($cdrZip)
+            $result->setCode($statusCdr->statusCode)
+                ->setMessage($statusCdr->statusMessage)
+                ->setCdrZip($statusCdr->content)
                 ->setSuccess(true);
+
+            if ($statusCdr->content) {
+                $result->setCdrResponse($this->extractResponse($statusCdr->content));
+            }
         }
         catch (\SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
