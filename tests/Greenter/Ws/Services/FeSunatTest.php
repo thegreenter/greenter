@@ -64,6 +64,7 @@ class FeSunatTest extends FeSunatTestBase
 
         $this->assertTrue($result->isSuccess());
         $this->assertEquals('0', $result->getCode());
+        $this->assertNotEmpty($result->getMessage());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
     }
