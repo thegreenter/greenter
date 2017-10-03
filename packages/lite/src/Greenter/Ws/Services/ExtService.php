@@ -8,6 +8,7 @@
 
 namespace Greenter\Ws\Services;
 
+use Greenter\Model\Response\StatusCdrResult;
 use Greenter\Model\Response\StatusResult;
 
 /**
@@ -29,7 +30,7 @@ class ExtService extends BaseSunat
             $params = [
                 'ticket' => $ticket,
             ];
-            $response = $client->__soapCall('getStatus', [ 'parameters' => $params ]);
+            $response = $client->call('getStatus', [ 'parameters' => $params ]);
             $status = $response->status;
             $cdrZip = $status->content;
 
@@ -45,4 +46,43 @@ class ExtService extends BaseSunat
 
         return $result;
     }
+
+    /**
+     * @param string $ruc
+     * @param string $tipo
+     * @param string $serie
+     * @param string $numero
+     * @return StatusCdrResult
+     */
+    public function getCdrStatus($ruc, $tipo, $serie, $numero)
+    {
+        $client = $this->getClient();
+        $result = new StatusCdrResult();
+
+        try {
+            $params = [
+                'rucComprobante' => $ruc,
+                'tipoComprobante' => $tipo,
+                'serieComprobante' => $serie,
+                'numeroComprobante' => $numero,
+            ];
+            $response = $client->call('getStatusCdr', [ 'parameters' => $params ]);
+            $statusCdr =$response->statusCdr;
+
+            $result->setCode($statusCdr->statusCode)
+                ->setMessage($statusCdr->statusMessage)
+                ->setCdrZip($statusCdr->content)
+                ->setSuccess(true);
+
+            if ($statusCdr->content) {
+                $result->setCdrResponse($this->extractResponse($statusCdr->content));
+            }
+        }
+        catch (\SoapFault $e) {
+            $result->setError($this->getErrorFromFault($e));
+        }
+
+        return $result;
+    }
+
 }
