@@ -16,9 +16,6 @@ use Greenter\Model\Response\CdrResponse;
  */
 class DomCdrReader implements CdrReader
 {
-    private $appResponseNamespace = 'urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2';
-    private $cacNamespace = 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2';
-
     /**
      * Get Cdr using DomDocument.
      *
@@ -50,8 +47,7 @@ class DomCdrReader implements CdrReader
         $doc = new \DOMDocument();
         $doc->loadXML($xmlContent);
         $xpt = new \DOMXPath($doc);
-        $xpt->registerNamespace('x', $this->appResponseNamespace);
-        $xpt->registerNamespace('cac', $this->cacNamespace);
+        $xpt->registerNamespace('x', $doc->documentElement->namespaceURI);
         return $xpt;
     }
 
