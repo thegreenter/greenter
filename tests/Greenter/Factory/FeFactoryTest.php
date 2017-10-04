@@ -9,6 +9,7 @@
 namespace Tests\Greenter\Factory;
 use Greenter\Ws\Services\SummarySender;
 use Greenter\Xml\Builder\SummaryBuilder;
+use Greenter\Xml\Builder\SummaryV2Builder;
 
 /**
  * Class FeFactoryTest
@@ -135,6 +136,18 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2072', $result->getError()->getCode());
         $this->assertEquals('CustomizationID - La versión del documento no es la correcta',
             $result->getError()->getMessage());
+    }
+
+    public function testResumenV2()
+    {
+        $resumen = $this->getSummaryV2();
+        $result = $this->getFactoryResult($resumen);
+        $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
+        $this->assertInstanceOf(SummaryV2Builder::class, $this->factory->getBuilder());
+
+        $this->assertTrue($result->isSuccess());
+        $this->assertNotEmpty($result->getTicket());
+        $this->assertEquals(13, strlen($result->getTicket()));
     }
 
     /**
