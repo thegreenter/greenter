@@ -84,7 +84,7 @@ class FeSummaryV2BuilderTest extends \PHPUnit_Framework_TestCase
     private function getSummary()
     {
         $detiail1 = new SummaryDetailV2();
-        $detiail1->setTipoDoc('03')
+        $detiail1->setTipoDoc('07')
             ->setSerieNro('B001-12')
             ->setClienteTipo('1')
             ->setClienteNro('44556677')

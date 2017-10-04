@@ -282,18 +282,18 @@ trait FeFactoryTraitTest
     private function getSummaryV2()
     {
         $detiail1 = new SummaryDetailV2();
-        $detiail1->setTipoDoc('03')
+        $detiail1->setTipoDoc('07')
             ->setSerieNro('B001-12')
             ->setClienteTipo('1')
             ->setClienteNro('44556677')
             ->setEstado('1')
-//            ->setDocReferencia((new Document()) /* Failed with code 2524 */
-//                ->setTipoDoc('03')
-//                ->setNroDoc('B001-1'))
+            ->setDocReferencia((new Document())
+                ->setTipoDoc('03')
+                ->setNroDoc('B001-1'))
             ->setTotal(100)
             ->setMtoOperGravadas(20.555)
-            ->setMtoOperInafectas(12) // value: 0, failed - code: 2517
-            ->setMtoOperExoneradas(23)
+            ->setMtoOperInafectas(12)
+            ->setMtoOperExoneradas(15)
             ->setMtoIGV(3.6);
 
         $detiail2 = new SummaryDetailV2();
@@ -303,9 +303,9 @@ trait FeFactoryTraitTest
             ->setClienteNro('55667733')
             ->setEstado('1')
             ->setTotal(200)
-            ->setMtoOperGravadas(40)
+            ->setMtoOperGravadas(3)
             ->setMtoOperExoneradas(30)
-            ->setMtoOperInafectas(120)
+            ->setMtoOperInafectas(2)
             ->setMtoDescuentos(1)
             ->setMtoIGV(7.2)
             ->setMtoISC(2.8);
