@@ -50,4 +50,21 @@ class DomCdrReaderTest extends \PHPUnit_Framework_TestCase
         $reader = new DomCdrReader();
         $reader->getCdrResponse($xml);
     }
+
+    public function testEmptyNodes()
+    {
+        $doc = new \DOMDocument();
+        $doc->load(__DIR__ . '/../../Resources/R-20600995805-01-F001-3.xml');
+        $referenceId = $doc->documentElement
+                        ->childNodes->item(27)
+                        ->childNodes->item(1)
+                        ->childNodes->item(1);
+
+        $referenceId->parentNode->removeChild($referenceId);
+        $xml = $doc->saveXML();
+        $reader = new DomCdrReader();
+        $cdr = $reader->getCdrResponse($xml);
+
+        $this->assertEmpty($cdr->getId());
+    }
 }
