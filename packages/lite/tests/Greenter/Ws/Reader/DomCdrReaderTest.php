@@ -46,7 +46,12 @@ class DomCdrReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotFoundResponse()
     {
-        $xml = '<AppRespnse><item>Empty</item></AppRespnse>';
+        $xml = <<<XML
+<AppRespnse xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"
+xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <cac:item>Empty</cac:item>
+</AppRespnse>
+XML;
         $reader = new DomCdrReader();
         $reader->getCdrResponse($xml);
     }
