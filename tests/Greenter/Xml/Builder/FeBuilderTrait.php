@@ -12,6 +12,7 @@ use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
+use Greenter\Model\Summary\SummaryV2;
 use Greenter\Model\Voided\Voided;
 use Greenter\Xml\Builder\BuilderInterface;
 use Greenter\Model\Company\Address;
@@ -19,6 +20,7 @@ use Greenter\Model\Company\Company;
 use Greenter\Xml\Builder\InvoiceBuilder;
 use Greenter\Xml\Builder\NoteBuilder;
 use Greenter\Xml\Builder\SummaryBuilder;
+use Greenter\Xml\Builder\SummaryV2Builder;
 use Greenter\Xml\Builder\TwigBuilder;
 use Greenter\Xml\Builder\VoidedBuilder;
 use Symfony\Component\Validator\Validation;
@@ -40,6 +42,7 @@ trait FeBuilderTrait
           Note::class => NoteBuilder::class,
           Summary::class => SummaryBuilder::class,
           Voided::class => VoidedBuilder::class,
+          SummaryV2::class => SummaryV2Builder::class,
         ];
         $builder = new $builders[$className]();
         /**@var $builder TwigBuilder */
