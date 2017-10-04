@@ -12,12 +12,15 @@ use Greenter\Factory\FeFactory;
 use Greenter\Model\Client\Client;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
+use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Summary\SummaryDetail;
+use Greenter\Model\Summary\SummaryDetailV2;
+use Greenter\Model\Summary\SummaryV2;
 use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Model\Company\Address;
@@ -31,6 +34,7 @@ use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Xml\Builder\InvoiceBuilder;
 use Greenter\Xml\Builder\NoteBuilder;
 use Greenter\Xml\Builder\SummaryBuilder;
+use Greenter\Xml\Builder\SummaryV2Builder;
 use Greenter\Xml\Builder\VoidedBuilder;
 
 /**
@@ -61,6 +65,7 @@ trait FeFactoryTraitTest
             Note::class => NoteBuilder::class,
             Summary::class => SummaryBuilder::class,
             Voided::class => VoidedBuilder::class,
+            SummaryV2::class => SummaryV2Builder::class,
         ];
 
         $factory = new FeFactory();
@@ -81,7 +86,7 @@ trait FeFactoryTraitTest
         $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
         $client->setCredentials('20000000001MODDATOS', 'moddatos');
         $client->setService($endpoint);
-        $summValids = [Summary::class, Voided::class];
+        $summValids = [Summary::class, SummaryV2::class, Voided::class];
         $sender = in_array($className, $summValids) ? new SummarySender(): new BillSender();
         $sender->setClient($client);
 
@@ -265,6 +270,47 @@ trait FeFactoryTraitTest
             ->setMtoISC(2.8);
 
         $sum = new Summary();
+        $sum->setFecGeneracion($this->dateEmision)
+            ->setFecResumen($this->dateEmision)
+            ->setCorrelativo('001')
+            ->setCompany($this->getCompany())
+            ->setDetails([$detiail1, $detiail2]);
+
+        return $sum;
+    }
+
+    private function getSummaryV2()
+    {
+        $detiail1 = new SummaryDetailV2();
+        $detiail1->setTipoDoc('03')
+            ->setSerieNro('B001-12')
+            ->setClienteTipo('1')
+            ->setClienteNro('44556677')
+            ->setEstado('1')
+//            ->setDocReferencia((new Document()) /* Failed with code 2524 */
+//                ->setTipoDoc('03')
+//                ->setNroDoc('B001-1'))
+            ->setTotal(100)
+            ->setMtoOperGravadas(20.555)
+            ->setMtoOperInafectas(12) // value: 0, failed - code: 2517
+            ->setMtoOperExoneradas(23)
+            ->setMtoIGV(3.6);
+
+        $detiail2 = new SummaryDetailV2();
+        $detiail2->setTipoDoc('07')
+            ->setSerieNro('B001-22')
+            ->setClienteTipo('1')
+            ->setClienteNro('55667733')
+            ->setEstado('1')
+            ->setTotal(200)
+            ->setMtoOperGravadas(40)
+            ->setMtoOperExoneradas(30)
+            ->setMtoOperInafectas(120)
+            ->setMtoDescuentos(1)
+            ->setMtoIGV(7.2)
+            ->setMtoISC(2.8);
+
+        $sum = new SummaryV2();
         $sum->setFecGeneracion($this->dateEmision)
             ->setFecResumen($this->dateEmision)
             ->setCorrelativo('001')
