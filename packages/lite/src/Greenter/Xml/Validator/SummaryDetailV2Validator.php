@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Giansalex
- * Date: 18/07/2017
- * Time: 21:22
+ * User: Administrador
+ * Date: 04/10/2017
+ * Time: 12:35 PM
  */
 
 namespace Greenter\Xml\Validator;
@@ -12,10 +12,10 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Trait SummaryDetailValidator
+ * Trait SummaryDetailV2Validator
  * @package Greenter\Xml\Validator
  */
-trait SummaryDetailValidator
+trait SummaryDetailV2Validator
 {
     public static function loadValidatorMetadata(ClassMetadata $metadata)
     {
@@ -26,21 +26,23 @@ trait SummaryDetailValidator
                 'max' => 2,
             ]),
         ]);
-        $metadata->addPropertyConstraints('serie', [
+        $metadata->addPropertyConstraints('serieNro', [
             new Assert\NotBlank(),
-            new Assert\Length([
-                'min' => 4,
-                'max' => 4,
-            ]),
+            new Assert\Length(['max' => 13]),
         ]);
-        $metadata->addPropertyConstraints('docInicio', [
+        $metadata->addPropertyConstraints('clienteTipo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 8]),
+            new Assert\Length(['max' => 1]),
         ]);
-        $metadata->addPropertyConstraints('docFin', [
+        $metadata->addPropertyConstraints('clienteNro', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 8]),
+            new Assert\Length(['max' => 20]),
         ]);
+        $metadata->addPropertyConstraints('estado', [
+            new Assert\NotBlank(),
+            new Assert\Length(['max' => 1]),
+        ]);
+        $metadata->addPropertyConstraint('docReferencia', new Assert\Valid());
         $metadata->addPropertyConstraint('total', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoOperGravadas', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoOperInafectas', new Assert\NotBlank());
