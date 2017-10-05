@@ -8,6 +8,7 @@
 
 namespace Greenter\Model\Client;
 
+use Greenter\Model\Company\Address;
 use Greenter\Xml\Validator\ClientValidator;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -39,6 +40,12 @@ class Client
      * @var string
      */
     private $rznSocial;
+
+    /**
+     * @Assert\Valid()
+     * @var Address
+     */
+    private $address;
 
     /**
      * @return mixed
@@ -91,6 +98,24 @@ class Client
     public function setRznSocial($rznSocial)
     {
         $this->rznSocial = $rznSocial;
+        return $this;
+    }
+
+    /**
+     * @return Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param Address $address
+     * @return Client
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
         return $this;
     }
 }
