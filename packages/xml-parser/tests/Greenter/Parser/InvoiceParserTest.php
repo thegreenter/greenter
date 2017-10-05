@@ -14,6 +14,26 @@ use Greenter\Xml\Parser\InvoiceParser;
 class InvoiceParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @dataProvider filenameSolProvider
+     * @param string $filename
+     */
+    public function testParseSunatSOL($filename)
+    {
+        $parser = new InvoiceParser();
+
+        $xml = file_get_contents($filename);
+        /**@var $obj Invoice */
+        $obj = $parser->parse($xml);
+
+        $this->assertRegExp('/^0\d{1}/', $obj->getTipoDoc());
+        $this->assertRegExp('/^E\w{3}/', $obj->getSerie());
+        $this->assertLessThanOrEqual(8, strlen($obj->getCorrelativo()));
+        $this->assertNotEmpty($obj->getFechaEmision());
+        $this->assertGreaterThanOrEqual(1, count($obj->getDetails()));
+        $this->assertGreaterThanOrEqual(1, count($obj->getLegends()));
+    }
+
+    /**
      * @dataProvider filenameProvider
      * @param string $filename
      */
@@ -46,6 +66,15 @@ class InvoiceParserTest extends \PHPUnit_Framework_TestCase
           [$dir.'exportacion.xml'],
           [$dir.'factura-guia.xml'],
           [$dir.'gravada.xml'],
+        ];
+    }
+
+    public function filenameSolProvider()
+    {
+        $dir = __DIR__.'/../../Resources/';
+        return [
+            [$dir.'FACTURAE001-17.XML'],
+            [$dir.'FACTURAE001-174.XML'],
         ];
     }
 }

@@ -49,4 +49,20 @@ class NoteParserTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($obj->getCodMotivo());
         $this->assertGreaterThan(0, count($obj->getDetails()));
     }
+
+    public function testCreditNoteSunatSolTest()
+    {
+        $parser = new NoteParser();
+        $xml = file_get_contents(__DIR__.'/../../Resources/NOTA_CREDITOE001-27.XML');
+        /**@var $obj Note */
+        $obj = $parser->parse($xml);
+
+        $this->assertEquals('07', $obj->getTipoDoc());
+        $this->assertEquals('E001', $obj->getSerie());
+        $this->assertLessThanOrEqual(8, strlen($obj->getCorrelativo()));
+        $this->assertNotEmpty($obj->getTipDocAfectado());
+        $this->assertNotEmpty($obj->getNumDocfectado());
+        $this->assertNotEmpty($obj->getCodMotivo());
+        $this->assertGreaterThan(0, count($obj->getDetails()));
+    }
 }

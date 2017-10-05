@@ -231,6 +231,7 @@ class InvoiceParser implements DocumentParserInterface
             foreach ($prices as $price) {
                 $code = $this->defValue($xpt->query('cac:AlternativeConditionPrice/cbc:PriceTypeCode', $price));
                 $value = floatval($this->defValue($xpt->query('cac:AlternativeConditionPrice/cbc:PriceAmount', $price)));
+                $code = trim($code);
 
                 switch ($code) {
                     case '01':
