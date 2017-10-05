@@ -16,7 +16,8 @@
         "greenter/core": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.8.36"
+        "phpunit/phpunit": "4.8.36",
+        "johnkary/phpunit-speedtrap": "^1.1"
     },
     "autoload": {
         "psr-4": {

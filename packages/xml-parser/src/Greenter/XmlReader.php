@@ -9,16 +9,11 @@
 namespace Greenter\Xml;
 
 /**
- * Class XmlParserReader
+ * Class XmlReader
  * @package Greenter\Xml
  */
-class XmlParserReader
+class XmlReader
 {
-    /**
-     * @var \DOMDocument
-     */
-    private $doc;
-
     /**
      * @var \DOMXPath
      */
@@ -29,9 +24,9 @@ class XmlParserReader
      */
     public function loadXml($xml)
     {
-        $this->doc = new \DOMDocument();
-        $this->doc->loadXML($xml);
-        $this->createXpath();
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $this->loadDom($doc);
     }
 
     /**
@@ -39,8 +34,15 @@ class XmlParserReader
      */
     public function loadDom(\DOMDocument $document)
     {
-        $this->doc = $document;
-        $this->createXpath();
+        $this->xpath = new \DOMXPath($document);
+    }
+
+    /**
+     * @return \DOMXPath
+     */
+    public function getXpath()
+    {
+        return $this->xpath;
     }
 
     /**
@@ -64,9 +66,9 @@ class XmlParserReader
      * @param \DOMNode|null $context
      * @return \DOMElement|null
      */
-    public function getNode($query, $context = null)
+    public function getNode($query, $context)
     {
-        $nodes = $this->getNodes($query, $context);
+        $nodes = $this->xpath->query($query, $context);
         if ($nodes->length == 0) {
             return null;
         }
@@ -79,13 +81,8 @@ class XmlParserReader
      * @param \DOMNode|null $context
      * @return \DOMNodeList
      */
-    public function getNodes($query, $context = null)
+    public function getNodes($query, $context)
     {
         return $this->xpath->query($query, $context);
-    }
-
-    private function createXpath()
-    {
-        $this->xpath = new \DOMXPath($this->doc);
     }
 }
