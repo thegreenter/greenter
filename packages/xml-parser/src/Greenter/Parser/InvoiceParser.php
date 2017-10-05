@@ -177,8 +177,9 @@ class InvoiceParser implements DocumentParserInterface
         $cl = new Client();
         $cl->setNumDoc($this->defValue($xp->query('cbc:CustomerAssignedAccountID', $node)))
             ->setTipoDoc($this->defValue($xp->query('cbc:AdditionalAccountID', $node)))
-            ->setRznSocial($this->defValue($xp->query('cac:Party/cac:PartyLegalEntity/cbc:RegistrationName', $node)));
-            //->setDireccion($this->defValue($xp->query('cac:Party/cac:PostalAddress/cbc:StreetName', $node)))
+            ->setRznSocial($this->defValue($xp->query('cac:Party/cac:PartyLegalEntity/cbc:RegistrationName', $node)))
+            ->setAddress((new Address())
+                ->setDireccion($this->defValue($xp->query('cac:Party/cac:PostalAddress/cbc:StreetName', $node))));
 
         return $cl;
     }
