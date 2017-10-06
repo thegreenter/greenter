@@ -9,6 +9,8 @@
 namespace Tests\Greenter\Report;
 
 use Greenter\Model\Client\Client;
+use Greenter\Model\Company\Address;
+use Greenter\Model\Company\Company;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\SaleDetail;
@@ -30,6 +32,7 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
 
         $html = $report->build($inv, $this->getParamters());
         $this->assertNotEmpty($html);
+
 
         // file_put_contents('file.html', $html);
     }
@@ -63,6 +66,12 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
             ->setSumDsctoGlobal(12)
             ->setMtoDescuentos(23)
             ->setPerception($perc)
+            ->setCompany((new Company())
+                ->setRuc('20123456789')
+                ->setNombreComercial('EMPRESA')
+                ->setRazonSocial('EMPRESA S.A.C')
+                ->setAddress((new Address())
+                    ->setDireccion('AV ITALIA 232 - LIMA - LIMA - PERU')))
             ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
