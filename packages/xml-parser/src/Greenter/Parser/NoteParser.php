@@ -44,7 +44,12 @@ class NoteParser implements DocumentParserInterface
         $this->reader = new XmlReader();
         $xml = $this->reader;
 
-        $this->reader->loadXml($value);
+        if ($value instanceof \DOMDocument) {
+            $this->reader->loadDom($value);
+        } else {
+            $this->reader->loadXml($value);
+        }
+
         $root = $xml->getXpath()->document->documentElement;
         $this->rootNode = $root;
         $isNcr = $root->nodeName == 'CreditNote';

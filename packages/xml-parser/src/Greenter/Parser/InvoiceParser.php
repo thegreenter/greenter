@@ -60,10 +60,14 @@ class InvoiceParser implements DocumentParserInterface
         return $inv;
     }
 
-    private function getXpath($xml)
+    private function getXpath($value)
     {
-        $doc = new \DOMDocument();
-        $doc->loadXML($xml);
+        if ($value instanceof \DOMDocument) {
+            $doc = $value;
+        } else {
+            $doc = new \DOMDocument();
+            $doc->loadXML($value);
+        }
         $rootNamespace = $doc->documentElement->namespaceURI;
         $xpt = new \DOMXPath($doc);
         $xpt->registerNamespace('xt', $rootNamespace);

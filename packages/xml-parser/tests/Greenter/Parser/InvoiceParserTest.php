@@ -53,6 +53,24 @@ class InvoiceParserTest extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThanOrEqual(1, count($obj->getLegends()));
     }
 
+    public function testFacParseFromDoc()
+    {
+        $parser = new InvoiceParser();
+
+        $xml = file_get_contents($this->filenameProvider()[0][0]);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        /**@var $obj Invoice */
+        $obj = $parser->parse($doc);
+
+        $this->assertRegExp('/^0\d{1}/', $obj->getTipoDoc());
+        $this->assertRegExp('/^[FB]\w{3}/', $obj->getSerie());
+        $this->assertLessThanOrEqual(8, strlen($obj->getCorrelativo()));
+        $this->assertNotEmpty($obj->getFechaEmision());
+        $this->assertGreaterThanOrEqual(1, count($obj->getDetails()));
+        $this->assertGreaterThanOrEqual(1, count($obj->getLegends()));
+    }
+
     public function filenameProvider()
     {
         $dir = __DIR__.'/../../Resources/';
