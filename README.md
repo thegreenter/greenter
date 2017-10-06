@@ -17,13 +17,25 @@ PHP Implementación de la Facturación Electrónica Sunat - Perú
 Caracteristicas
 ---------------
 
+### Documentos Soportados.
+
 * Factura Electrónica
 * Boleta Electrónica
 * Nota de Crédito Electrónica
 * Nota de Débito Electrónica
-* Resumen Diario de Boletas
+* Resumen Diario de Boletas (v1, v2)
 * Comunicación de Bajas
 * Guia Remisión Electrónica
 * Retención Electrónica
 * Percepción Electrónica
 * Resumen de Reversiones
+
+### Web Services
+- Envio y empaquetado de documentos electronicos
+- Consulta de tickets
+- Consulta de Cdr
+
+### XML
+- Estandar UBL v2
+- Signature xmldsig
+
