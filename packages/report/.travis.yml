@@ -10,4 +10,4 @@ before_script:
   - composer install --prefer-source --no-interaction --dev
 
 script:
-  - phpunit --configuration phpunit.xml
+  - vendor/bin/phpunit --configuration phpunit.xml

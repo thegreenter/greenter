@@ -98,14 +98,17 @@
         }
         table .no {
             color: #FFFFFF;
-            font-size: 1.6em;
+            font-size: 1.2em;
+            text-align: center;
             background: #57B223;
         }
         table .desc {
             text-align: left;
+            width: 50%;
         }
         table .unit {
             background: #DDDDDD;
+            text-align: center;
         }
         table .qty {
         }
@@ -169,8 +172,9 @@
         <img src="{{ params.logo }}">
     </div>
     <div id="company">
-        <h2 class="name">Company Name</h2>
-        <div>455 Foggy Heights, AZ 85004, US</div>
+        {% set cp = doc.company %}
+        <h2 class="name">{{ cp.razonSocial }}</h2>
+        <div>{{ cp.address.direccion }}</div>
         <div>(602) 519-0450</div>
         <div><a href="mailto:company@example.com">company@example.com</a></div>
     </div>
@@ -192,44 +196,27 @@
     <table border="0" cellspacing="0" cellpadding="0">
         <thead>
         <tr>
-            <th class="no">#</th>
-            <th class="desc">DESCRIPTION</th>
-            <th class="unit">UNIT PRICE</th>
-            <th class="qty">QUANTITY</th>
+            <th class="no">CANT.</th>
+            <th class="desc">DESCRIPCION</th>
+            <th class="unit">UNIDAD</th>
+            <th class="qty">P. UNIT</th>
             <th class="total">TOTAL</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td class="no">01</td>
-            <td class="desc">
-                <h3>Website Design</h3>
-                Creating a recognizable design solution based on the company's existing visual identity
-            </td>
-            <td class="unit">S/.40.00</td>
-            <td class="qty">30</td>
-            <td class="total">S/.1,200.00</td>
-        </tr>
-        <tr>
-            <td class="no">02</td>
-            <td class="desc">
-                <h3>Website Development</h3>
-                Developing a Content Management System-based Website
-            </td>
-            <td class="unit">S/.40.00</td>
-            <td class="qty">80</td>
-            <td class="total">S/.3,200.00</td>
-        </tr>
-        <tr>
-            <td class="no">03</td>
-            <td class="desc">
-                <h3>Search Engines Optimization</h3>
-                Optimize the site for search engines (SEO)
-            </td>
-            <td class="unit">S/.40.00</td>
-            <td class="qty">20</td>
-            <td class="total">S/.800.00</td>
-        </tr>
+        {% set moneda = doc.tipoMoneda == 'USD' ? '$' : 'S/.' %}
+        {% for det in doc.details %}
+            <tr>
+                <td class="no">{{ det.ctdUnidadItem }}</td>
+                <td class="desc">
+                    <h3>{{ det.codProducto }}</h3>
+                    {{ det.desItem }}
+                </td>
+                <td class="unit">{{ det.codUnidadMedida }}</td>
+                <td class="qty">{{ moneda }}{{ det.mtoValorUnitario }}</td>
+                <td class="total">{{ moneda }}{{ det.mtoValorVenta }}</td>
+            </tr>
+        {% endfor %}
         </tbody>
         <tfoot>
         <tr>
