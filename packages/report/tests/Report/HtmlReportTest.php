@@ -8,33 +8,41 @@
 
 namespace Tests\Greenter\Report;
 
-use Greenter\Report\HtmlGenerator;
-use Greenter\Report\Model\Client;
-use Greenter\Report\Model\Invoice;
-use Greenter\Report\Model\Legend;
-use Greenter\Report\Model\SaleDetail;
-use Greenter\Report\Model\SalePerception;
+use Greenter\Model\Client\Client;
+use Greenter\Model\Sale\Invoice;
+use Greenter\Model\Sale\Legend;
+use Greenter\Model\Sale\SaleDetail;
+use Greenter\Model\Sale\SalePerception;
+use Greenter\Report\HtmlReport;
 
 /**
- * Trait HtmlGeneratorTrait
+ * Trait HtmlReportTest
  * @package Tests\Greenter\Report
  */
-trait HtmlGeneratorTrait
+class HtmlReportTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @return HtmlGenerator
-     */
-    private function getGenerator()
+
+    public function testGenReport()
     {
-        $parameters = ['cache' => sys_get_temp_dir()];
-        if (!getenv('CI')) {
-           $parameters['wkhtml_bin'] = "B:\\Archivos de Programa\\wkhtmltopdf\\bin\\wkhtmltopdf.exe";
-        }
+        $inv = $this->getInvoice();
+        $report = new HtmlReport();
+        $report->setTemplate('invoice.html.twig');
 
-        $gen = new HtmlGenerator();
-        $gen->setParameters($parameters);
+        $html = $report->build($inv, $this->getParamters());
+        $this->assertNotEmpty($html);
 
-        return $gen;
+        // file_put_contents('file.html', $html);
+    }
+
+    private function getParamters()
+    {
+        $logo = 'data:image/png;base64,' . base64_encode(file_get_contents(__DIR__.'/../Resources/logo.png'));
+        $qrcode = 'data:image/png;base64,' . base64_encode(file_get_contents(__DIR__.'/../Resources/qrcode.png'));
+
+        return [
+            'logo' => $logo,
+            'qrcode' => $qrcode,
+        ];
     }
 
     private function getInvoice()

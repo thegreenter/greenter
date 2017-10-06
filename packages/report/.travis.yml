@@ -4,18 +4,10 @@ dist: trusty
 php:
   - 5.6
   - 7.0
-env:
-  global:
-    - CI=travis
-
-install:
-  - sudo apt-get update
-  - sudo apt-get install -y xvfb libfontconfig wkhtmltopdf
 
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
 
 script:
-  - wkhtmltopdf --version
   - phpunit --configuration phpunit.xml
