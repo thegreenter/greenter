@@ -69,7 +69,7 @@ class NoteParser implements DocumentParserInterface
         $this->loadTotals($inv, $additional);
         $this->loadTributos($inv);
         $monetaryTotal = $xml->getNode($isNcr ? 'cac:LegalMonetaryTotal': 'cac:RequestedMonetaryTotal', $root);
-        $inv->setMtoOtrosTributos($xml->getValue('cbc:ChargeTotalAmount','', $monetaryTotal))
+        $inv->setMtoOtrosTributos(floatval($xml->getValue('cbc:ChargeTotalAmount',0, $monetaryTotal)))
             ->setMtoImpVenta($xml->getValue('cbc:PayableAmount', 0,$monetaryTotal))
             ->setDetails(iterator_to_array($this->getDetails($isNcr)))
             ->setLegends(iterator_to_array($this->getLegends($additional)));
@@ -191,7 +191,7 @@ class NoteParser implements DocumentParserInterface
         foreach ($nodes as $node) {
             $quant = $xml->getNode('cbc:'.$nameQuant, $node);
             $det = new SaleDetail();
-            $det->setCtdUnidadItem(floatval($quant->nodeValue))
+            $det->setCtdUnidadItem($quant->nodeValue)
                 ->setCodUnidadMedida($quant->getAttribute('unitCode'))
                 ->setMtoValorVenta($xml->getValue('cbc:LineExtensionAmount','', $node))
                 ->setMtoValorUnitario($xml->getValue('cac:Price/cbc:PriceAmount', '', $node))
@@ -217,7 +217,8 @@ class NoteParser implements DocumentParserInterface
             $prices = $xml->getNodes('cac:PricingReference', $node);
             foreach ($prices as $price) {
                 $code = $xml->getValue('cac:AlternativeConditionPrice/cbc:PriceTypeCode','', $price);
-                $value = floatval($xml->getValue('cac:AlternativeConditionPrice/cbc:PriceAmount','', $price));
+                $code = trim($code);
+                $value = floatval($xml->getValue('cac:AlternativeConditionPrice/cbc:PriceAmount',0, $price));
 
                 switch ($code) {
                     case '01':
