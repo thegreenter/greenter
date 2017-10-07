@@ -7,6 +7,7 @@
  */
 
 namespace Tests\Greenter\Xml\Builder;
+
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
 

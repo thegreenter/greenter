@@ -18,11 +18,18 @@ use Symfony\Component\Validator\Validation;
 class TwigBuilder
 {
     /**
-     * Directorio de Cache para las template de Documentos.
-     *
-     * @var string
+     * @var \Twig_Environment
      */
-    protected $dirCache;
+    protected $twig;
+
+    /**
+     * TwigBuilder constructor.
+     * @param array $options [optional] Recommended: 'cache' => '/dir/cache'
+     */
+    public function __construct($options = [])
+    {
+        $this->initTwig($options);
+    }
 
     /**
      * Get Content XML from template.
@@ -35,25 +42,21 @@ class TwigBuilder
     {
         $this->validate($doc);
 
-        $twig = $this->getRender();
-        return $twig->render($template, [
+        return $this->twig->render($template, [
             'doc' => $doc
         ]);
     }
 
-    private function getRender()
+    private function initTwig($options)
     {
-        //TODO: load render one time.
         $loader = new \Twig_Loader_Filesystem(__DIR__ . '/../Templates');
         $numFilter = new \Twig_SimpleFilter('n_format', function ($number, $decimals = 2) {
             return number_format($number, $decimals, '.', '');
         });
-        $twig = new \Twig_Environment($loader, array(
-            'cache' => $this->dirCache,
-        ));
+        $twig = new \Twig_Environment($loader, $options);
         $twig->addFilter($numFilter);
 
-        return $twig;
+        $this->twig = $twig;
     }
 
     /**
@@ -73,20 +76,5 @@ class TwigBuilder
         if ($errs->count() > 0) {
             throw new ValidationException($errs);
         }
-    }
-
-    /**
-     * Set argumentos.
-     *
-     * @param $params
-     * @throws \Exception
-     */
-    public function setParameters($params)
-    {
-        if (!$params['cache_dir']) {
-            return;
-        }
-
-        $this->dirCache = $params['cache_dir'];
     }
 }
