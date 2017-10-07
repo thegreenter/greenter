@@ -76,4 +76,24 @@ class FeSunatTest extends FeSunatTestBase
 
         $this->assertFalse($result->isSuccess());
     }
+
+    /**
+     * @dataProvider codeProvider
+     * @param $code
+     */
+    public function testFaultError($code)
+    {
+        $sender = $this->getExtServiceForFault($code);
+        $res = $sender->getStatus('23');
+
+        $this->assertFalse($res->isSuccess());
+    }
+
+    public function codeProvider()
+    {
+        return [
+          ['NO CODE'],
+          ['111111111']
+        ];
+    }
 }
