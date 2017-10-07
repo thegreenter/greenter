@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 rel. 2 (http://www.altova.com) by mazuki (darksiderg) -->
 <!--
-  Autor:			       SUNAT
-  Document Type:     Comunicacion de Baja
-  Generated On:      01 Mayo 2012
+  Autor:			 Carlos Enrique Quispe Salazar
+  Document Type:     Invoice Peru
+  Generated On:      13 Dicimebre 2010
 -->
 <!-- ===== xsd:schema Element With Namespaces Declarations ===== -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:VoidedDocuments-1" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" targetNamespace="urn:sunat:names:specification:ubl:peru:schema:xsd:VoidedDocuments-1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0">

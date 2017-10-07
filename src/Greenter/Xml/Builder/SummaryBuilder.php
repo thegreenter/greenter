@@ -25,6 +25,6 @@ class SummaryBuilder extends TwigBuilder implements BuilderInterface
      */
     public function build(DocumentInterface $document)
     {
-        return $this->render('summary.html.twig', $document);
+        return $this->render('summary.xml.twig', $document);
     }
 }

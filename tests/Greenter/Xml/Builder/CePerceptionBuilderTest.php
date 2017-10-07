@@ -37,7 +37,10 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
 
         $xml = $this->build($perception);
 
-        $this->assertNotEmpty($xml);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $success = $doc->schemaValidate(__DIR__ . '/../../Resources/xsd/maindoc/UBLPE-Perception-1.0.xsd');
+        $this->assertTrue($success);
         // file_put_contents('percep.xml', $xml);
     }
 

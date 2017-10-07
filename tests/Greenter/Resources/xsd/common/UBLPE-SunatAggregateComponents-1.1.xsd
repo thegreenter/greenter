@@ -90,8 +90,63 @@
 	<xsd:element name="SUNATRetentionDate" type="SUNATRetentionDateType" />
 	<xsd:element name="SUNATNetTotalPaid" type="cbc:AmountType" />
 	<!-- Fin Retenciones -->
+	<!-- IMR 2016-08-26 Factura guía -->
+	<xsd:element name="OrderReference" type="OrderReferenceType" />
+	<xsd:element name="DriverPerson" type="DriverPersonType" />
+	<xsd:element name="DocumentReference" type="DocumentReferenceType" />
+	<xsd:element name="Shipment" type="ShipmentType" />
+	<xsd:element name="ShipmentStage" type="ShipmentStageType" />
+	<xsd:element name="OrderTypeCode" type="udt:CodeType" />
+	
+	<xsd:complexType name="OrderReferenceType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:ID" minOccurs="1"	maxOccurs="1" />
+			<xsd:element ref="OrderTypeCode" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="DocumentReference" minOccurs="0" maxOccurs="1" />										
+		</xsd:sequence>
+	</xsd:complexType>
+		
+	<xsd:complexType name="DriverPersonType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:ID" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>			
+	</xsd:complexType>
+		
+	<xsd:complexType name="DocumentReferenceType">
+		<xsd:complexContent>
+			<xsd:extension base="cac:DocumentReferenceType">
+				<xsd:sequence>
+					<xsd:element ref="cac:IssuerParty" minOccurs="0"/>					
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>				
+	</xsd:complexType>
+	
+	<xsd:complexType name="ShipmentType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:HandlingCode" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cbc:GrossWeightMeasure" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="ShipmentStage" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cac:Delivery" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cac:TransportHandlingUnit" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element ref="cac:OriginAddress" minOccurs="0" maxOccurs="1" />						
+		</xsd:sequence>		
+	</xsd:complexType>
+	
+	<xsd:complexType name="ShipmentStageType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:TransportModeCode" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cac:TransitPeriod" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cac:CarrierParty" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element ref="cac:TransportMeans" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="DriverPerson" minOccurs="0" maxOccurs="unbounded" />									
+		</xsd:sequence>		
+	</xsd:complexType>
+	
+	
 	<xsd:complexType name="SUNATEmbededDespatchAdviceType">
 		<xsd:sequence>
+			<!-- Js. 030117 definicion tags PASS PAS20165E210300249-->		
 			<xsd:element ref="cac:DeliveryAddress" minOccurs="0"
 				maxOccurs="1" />
 			<xsd:element ref="cac:OriginAddress" minOccurs="0"
@@ -107,8 +162,18 @@
 			<!--Peso Neto de la Factura -->
 			<xsd:element ref="cbc:GrossWeightMeasure" minOccurs="0"
 				maxOccurs="1" />
-		</xsd:sequence>
+			<!-- Fin Js. 030117-->				
+				
+			<xsd:element ref="OrderReference" minOccurs="0"	maxOccurs="1" />
+			<xsd:element ref="cac:DeliveryCustomerParty" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="Shipment" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cbc:MarkAttentionIndicator" minOccurs="0" maxOccurs="1" />					
+								
+		</xsd:sequence>		
 	</xsd:complexType>
+	
+	
+	<!-- Fin IMR 2016-08-26 -->
 	<xsd:complexType name="DriverPartyType">
 		<xsd:sequence>
 			<xsd:element ref="cbc:CustomerAssignedAccountID"
@@ -987,11 +1052,6 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	
-	
-	
-	
-	
-	
 	<!-- fin  Perception info in summary documents -->
 	
 	<xsd:complexType name="SUNATDeductionsType">
@@ -1063,13 +1123,14 @@
 		</xsd:sequence>
 	</xsd:complexType>
 	
-	<!-- Js. 120516 Ajuste multiplaca 1 a "unbounded" -->
+	<!-- Js. 030117 Ajuste multiplaca 1 a "unbounded" -->	
 	<xsd:complexType name="SUNATCostsType">
 		<xsd:sequence>
 			<xsd:element ref="cac:RoadTransport" minOccurs="0"
 				maxOccurs="unbounded" />
 		</xsd:sequence>
 	</xsd:complexType>
+	
 	<!-- Percepcion -->
 	<xsd:complexType name="SUNATPerceptionDocumentReferenceType">
 		<xsd:sequence>

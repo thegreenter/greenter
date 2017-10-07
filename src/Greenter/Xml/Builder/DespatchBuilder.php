@@ -24,6 +24,6 @@ class DespatchBuilder extends TwigBuilder implements BuilderInterface
      */
     public function build(DocumentInterface $document)
     {
-        return $this->render('despatch.html.twig', $document);
+        return $this->render('despatch.xml.twig', $document);
     }
 }
