@@ -14,8 +14,8 @@
     "require": {
 		"php": ">=5.5.9",
         "twig/twig": "~1.0",
-        "symfony/validator": "^3.3",
-        "giansalex/xmldsig": "3.0.*"
+        "giansalex/xmldsig": "3.0.*",
+        "greenter/core": "^1.0"
     },
 	"require-dev": {
         "phpunit/phpunit": "4.8.36"
