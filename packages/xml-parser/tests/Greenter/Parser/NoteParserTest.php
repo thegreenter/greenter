@@ -6,7 +6,7 @@
  * Time: 11:16 AM
  */
 
-namespace Tests\Greenter\Xml\Greenter\Parser;
+namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Sale\Note;
 use Greenter\Xml\Parser\NoteParser;

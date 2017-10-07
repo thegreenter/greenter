@@ -9,5 +9,4 @@ before_script:
   - composer install --prefer-source --no-interaction --dev
 
 script:
-  - mkdir -p build/logs
   - vendor/bin/phpunit --configuration phpunit.xml
