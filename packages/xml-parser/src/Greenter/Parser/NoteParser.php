@@ -65,7 +65,8 @@ class NoteParser implements DocumentParserInterface
             ->setCompany($this->getCompany())
             ->setClient($this->getClient());
 
-        $additional = $xml->getNode('ext:UBLExtensions/ext:UBLExtension[1]/ext:ExtensionContent/sac:AdditionalInformation', $root);
+        $extensions = $xml->getNode('ext:UBLExtensions', $root);
+        $additional = $xml->getNode('//sac:AdditionalInformation', $extensions);
         $this->loadTotals($inv, $additional);
         $this->loadTributos($inv);
         $monetaryTotal = $xml->getNode($isNcr ? 'cac:LegalMonetaryTotal': 'cac:RequestedMonetaryTotal', $root);

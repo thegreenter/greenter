@@ -43,8 +43,8 @@ class InvoiceParser implements DocumentParserInterface
             ->setCompany($this->getCompany($xpt))
             ->setClient($this->getClient($xpt));
 
-
-        $additional = $xpt->query('/xt:Invoice/ext:UBLExtensions/ext:UBLExtension[1]/ext:ExtensionContent/sac:AdditionalInformation')->item(0);
+        $extensions = $xpt->query('/xt:Invoice/ext:UBLExtensions')->item(0);
+        $additional = $xpt->query('//sac:AdditionalInformation', $extensions)->item(0);
         $this->loadTotals($inv, $xpt, $additional);
         $this->loadTributos($inv, $xpt);
         $monetaryTotal = $xpt->query('/xt:Invoice/cac:LegalMonetaryTotal')->item(0);
