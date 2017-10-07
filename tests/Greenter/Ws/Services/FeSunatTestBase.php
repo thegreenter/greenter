@@ -103,4 +103,21 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
         /**@var $stub SenderInterface*/
         return $stub;
     }
+
+
+    /**
+     * @param string $code FaultCode
+     * @return ExtService
+     */
+    protected function getExtServiceForFault($code)
+    {
+        $stub = $this->getMockBuilder(WsClientInterface::class)
+            ->getMock();
+        $stub->method('call')->will($this->throwException(new \SoapFault($code, 'ERROR TEST')));
+        /**@var $stub WsClientInterface */
+        $sunat = new ExtService();
+        $sunat->setClient($stub);
+
+        return $sunat;
+    }
 }
