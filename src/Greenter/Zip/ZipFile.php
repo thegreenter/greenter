@@ -56,7 +56,6 @@ class ZipFile
             $timearray['hours'] = 0;
             $timearray['minutes'] = 0;
             $timearray['seconds'] = 0;
-            echo "Menor de 1980";
         } // end if
         return (($timearray['year'] - 1980) << 25)
             | ($timearray['mon'] << 21)

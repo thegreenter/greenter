@@ -1,0 +1,951 @@
+<!-- edited with XMLSpy v2008 rel. 2 (http://www.altova.com) by mazuki (darksiderg) -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1"
+	xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+	xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+	xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2"
+	xmlns:ccts="urn:un:unece:uncefact:documentation:2"
+	xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2"
+	targetNamespace="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="1.0">
+	<!-- ===== Imports ===== -->
+	<xsd:import
+		namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
+		schemaLocation="UBL-CommonAggregateComponents-2.0.xsd" />
+	<xsd:import
+		namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+		schemaLocation="UBL-CommonBasicComponents-2.0.xsd" />
+	<xsd:import
+		namespace="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2"
+		schemaLocation="UnqualifiedDataTypeSchemaModule-2.0.xsd" />
+	<xsd:import
+		namespace="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2"
+		schemaLocation="UBL-QualifiedDatatypes-2.0.xsd" />
+	<!-- ===== Element Declarations ===== -->
+	<xsd:element name="SummaryDocumentsLine" type="SummaryDocumentsLineType" />
+	<xsd:element name="VoidedDocumentsLine" type="VoidedDocumentsLineType" />
+	<xsd:element name="DocumentSerialID" type="udt:IdentifierType" />
+	<xsd:element name="DocumentNumberID" type="udt:IdentifierType" />
+	<xsd:element name="VoidReasonDescription" type="udt:TextType" />
+	<xsd:element name="StartDocumentNumberID" type="udt:IdentifierType" />
+	<xsd:element name="EndDocumentNumberID" type="udt:IdentifierType" />
+	<xsd:element name="PeriodID" type="udt:IdentifierType" />
+	<xsd:element name="BillingPayment" type="cac:PaymentType" />
+	<xsd:element name="AdditionalInformation" type="AdditionalInformationType" />
+	<xsd:element name="AdditionalMonetaryTotal" type="AdditionalMonetaryTotalType" />
+	<xsd:element name="AdditionalProperty" type="AdditionalPropertyType" />
+	<xsd:element name="ReferenceAmount" type="cbc:AmountType" />
+	<xsd:element name="TotalAmount" type="cbc:AmountType" />
+	<!-- Agregar para TransactionConditions -->
+	<xsd:element name="SUNATTransaction" type="SUNATTransactionType" />
+
+	<xsd:element name="SUNATEmbededDespatchAdvice" type="SUNATEmbededDespatchAdviceType" />
+	<xsd:element name="SUNATShipment" type="SUNATShipmentType" />
+	<xsd:element name="SUNATShipmentStage" type="SUNATShipmentStageType" />
+	<xsd:element name="SUNATTransportMeans" type="SUNATTransportMeansType" />
+	<xsd:element name="SUNATRoadTransport" type="SUNATRoadTransportType" />
+	<xsd:element name="SUNATDespatchLine" type="SUNATDespatchLineType" />
+	<xsd:element name="DriverParty" type="DriverPartyType" />
+	<xsd:element name="SUNATCarrierParty" type="SUNATCarrierPartyType" />
+	<xsd:element name="TransportReasonCode" type="udt:CodeType" />
+	<xsd:element name="SemiTrailer" type="cac:RoadTransportType" />
+	<xsd:element name="DeliveryCarrierDate" type="DeliveryCarrierDateType" />
+	<xsd:element name="DeliveryCarrierTime" type="cbc:DeliveryTimeType" />
+	<xsd:element name="OriginalDespatchDocumentReference" type="cac:DocumentReferenceType" />
+	<xsd:element name="DespatchChangeReason" type="cbc:IDType" />
+	<xsd:element name="OldOriginAddress" type="cac:AddressType" />
+	<xsd:element name="OldDeliveryAddress" type="cac:AddressType" />
+	<xsd:element name="OutsourcedIndicator" type="cbc:IndicatorType" />
+	<xsd:element name="MultiStageIndicator" type="cbc:IndicatorType" />
+	<xsd:element name="ShipmentStageTypeCode" type="cbc:IDType" />
+	<xsd:element name="SUNATFiscalPath" type="SUNATFiscalPathType" />
+	<xsd:element name="SUNATVerificationCode" type="cbc:IDType" />
+	<!-- Detracciones -->
+	<xsd:element name="SUNATDeductions" type="SUNATDeductionsType" />
+	<xsd:element name="SUNATAquaticResources" type="SUNATAquaticResourcesType" />
+	<xsd:element name="SUNATGoldTrading" type="SUNATGoldTradingType" />
+	<xsd:element name="SUNATReferenceValue" type="SUNATReferenceValueType" />
+	<xsd:element name="SUNATValueTravel" type="SUNATValueTravelType" />
+	<xsd:element name="SUNATValueVehicle" type="SUNATValueVehicleType" />
+	<xsd:element name="SUNATTransport" type="SUNATTransportType" />
+	<xsd:element name="SUNATCosts" type="SUNATCostsType" />
+
+	<!-- Percepciones -->
+	<xsd:element name="SUNATPerceptionSystemCode" type="cbc:IDType" />
+	<xsd:element name="SUNATPerceptionPercent" type="cbc:PercentType" />
+	<xsd:element name="SUNATTotalCashed" type="cbc:AmountType" />
+	<xsd:element name="SUNATPerceptionDocumentReference" type="SUNATPerceptionDocumentReferenceType" />
+	<xsd:element name="SUNATPerceptionInformation" type="SUNATPerceptionInformationType" />
+	<xsd:element name="SUNATPerceptionAmount" type="cbc:AmountType" />
+	<xsd:element name="SUNATPerceptionDate" type="SUNATPerceptionDateType" />
+	<xsd:element name="SUNATNetTotalCashed" type="cbc:AmountType" />
+	<!-- Fin Percepciones -->
+	<!-- Retenciones -->
+	<xsd:element name="SUNATRetentionSystemCode" type="cbc:IDType" />
+	<xsd:element name="SUNATRetentionPercent" type="cbc:PercentType" />
+	<xsd:element name="SUNATTotalPaid" type="cbc:AmountType" />
+	<xsd:element name="SUNATRetentionDocumentReference" type="SUNATRetentionDocumentReferenceType" />
+	<xsd:element name="SUNATRetentionInformation" type="SUNATRetentionInformationType" />
+	<xsd:element name="SUNATRetentionAmount" type="cbc:AmountType" />
+	<xsd:element name="SUNATRetentionDate" type="SUNATRetentionDateType" />
+	<xsd:element name="SUNATNetTotalPaid" type="cbc:AmountType" />
+	<!-- Fin Retenciones -->
+
+
+	<xsd:complexType name="SUNATEmbededDespatchAdviceType">
+		<xsd:sequence>
+			<xsd:element ref="cac:DeliveryAddress" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cac:OriginAddress" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="SUNATCarrierParty" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="DriverParty" minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element ref="SUNATRoadTransport" minOccurs="0"
+				maxOccurs="unbounded" />
+			<!--Tipo de transporte -->
+			<xsd:element ref="cbc:TransportModeCode" minOccurs="0"
+				maxOccurs="1" />
+			<!--Peso Neto de la Factura -->
+			<xsd:element ref="cbc:GrossWeightMeasure" minOccurs="0"
+				maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DriverPartyType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:CustomerAssignedAccountID"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cbc:AdditionalAccountID" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xsd:element ref="cac:Party" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SUNATCarrierPartyType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:CustomerAssignedAccountID"
+				minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cbc:AdditionalAccountID" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xsd:element ref="cbc:TransportAuthorizationCode"
+				minOccurs="0" />
+			<xsd:element ref="OutsourcedIndicator" minOccurs="0" />
+			<xsd:element ref="cac:Party" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SUNATRoadTransportType">
+		<xsd:complexContent>
+			<xsd:extension base="cac:RoadTransportType">
+				<xsd:sequence>
+					<xsd:element ref="cbc:TransportMeansTypeCode"
+						minOccurs="0" />
+					<xsd:element ref="cbc:TransportAuthorizationCode"
+						minOccurs="0" />
+					<xsd:element ref="SemiTrailer" minOccurs="0" maxOccurs="5" />
+					<xsd:element ref="cbc:BrandName" minOccurs="0" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SUNATTransportMeansType">
+		<xsd:complexContent>
+			<xsd:extension base="cac:TransportMeansType">
+				<xsd:sequence>
+					<xsd:element ref="DriverParty" minOccurs="0" maxOccurs="unbounded" />
+					<xsd:element ref="SUNATRoadTransport" minOccurs="0"
+						maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="SUNATShipmentStageType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:ID" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="ShipmentStageTypeCode" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cbc:TransportModeCode" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cbc:TransportMeansTypeCode" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="SUNATCarrierParty" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="SUNATTransportMeans" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cac:OriginAddress" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cac:DeliveryAddress" minOccurs="0"
+				maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SUNATShipmentType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:GrossWeightMeasure" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cac:DeliveryAddress" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cac:OriginAddress" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="OldDeliveryAddress" minOccurs="0" />
+			<xsd:element ref="OldOriginAddress" minOccurs="0" />
+			<xsd:element ref="SUNATShipmentStage" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SUNATDespatchLineType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:ID" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="cbc:UUID" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cbc:Note" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cbc:LineStatusCode" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cbc:DeliveredQuantity" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cbc:BackorderQuantity" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cbc:BackorderReason" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cbc:OutstandingQuantity" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cbc:OutstandingReason" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cbc:OversupplyQuantity" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cac:OrderLineReference" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xsd:element ref="cac:DocumentReference" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xsd:element ref="cac:Item" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="cbc:GrossWeightMeasure" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cac:Shipment" minOccurs="0" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="DeliveryCarrierDateType">
+		<xsd:simpleContent>
+			<xsd:extension base="udt:DateType" />
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:complexType name="SUNATFiscalPathType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:ID" minOccurs="1" maxOccurs="1" />
+			<xsd:element ref="cbc:Name" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SUNATTransactionType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:ID" minOccurs="1" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<!-- ===== End Despatch advice elements ===== -->
+	<!-- ===== Aggregate Business Information Entity Type Definitions ===== -->
+	<xsd:complexType name="SummaryDocumentsLineType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<ccts:Component>
+					<ccts:ComponentType>ABIE</ccts:ComponentType>
+					<ccts:DictionaryEntryName>Consolidated Invoice Line Details
+					</ccts:DictionaryEntryName>
+					<ccts:Definition>Information about a Consolidated Invoice Line.
+					</ccts:Definition>
+					<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+				</ccts:Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="cbc:LineID">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>BBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line. Identifier
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>Identifies the Consolidated Invoice Line.
+							</ccts:Definition>
+							<ccts:Cardinality>1</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Identifier</ccts:PropertyTerm>
+							<ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+							<ccts:DataType>Identifier. Type</ccts:DataType>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="cbc:DocumentTypeCode">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>BBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Type Code.
+								Code
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>Code specifying the type of the Invoice.
+							</ccts:Definition>
+							<ccts:Cardinality>0..1</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Consolidated Invoice Line Type Code
+							</ccts:PropertyTerm>
+							<ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+							<ccts:DataType>Code. Type</ccts:DataType>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="DocumentSerialID">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Billing
+								Payment
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Billing Payment.
+							</ccts:Definition>
+							<ccts:Cardinality>1</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Billing Payment</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Consolidated Invoice Line
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="StartDocumentNumberID">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Billing
+								Payment
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Billing Payment.
+							</ccts:Definition>
+							<ccts:Cardinality>1</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Billing Payment</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Consolidated Invoice Line
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="EndDocumentNumberID">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line End Invoice
+								Number
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to End Invoice Number.
+							</ccts:Definition>
+							<ccts:Cardinality>1</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>End Invoice Number</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Consolidated Invoice Line
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="TotalAmount">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>BBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Type Code.
+								Code
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>Code specifying the type of the Invoice.
+							</ccts:Definition>
+							<ccts:Cardinality>0..1</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Consolidated Invoice Line Type Code
+							</ccts:PropertyTerm>
+							<ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+							<ccts:DataType>Code. Type</ccts:DataType>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="BillingPayment" minOccurs="0"
+				maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Billing
+								Payment
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Billing Payment.
+							</ccts:Definition>
+							<ccts:Cardinality>0..n</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Billing Payment</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Consolidated Invoice Line
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="cac:AllowanceCharge" minOccurs="0"
+				maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line. Allowance
+								Charge
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Allowance Charge.
+							</ccts:Definition>
+							<ccts:Cardinality>0..n</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Allowance Charge</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Allowance Charge
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="cac:TaxTotal" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line. Tax Total
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Tax Total.</ccts:Definition>
+							<ccts:Cardinality>0..n</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Tax Total</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Tax Total
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="VoidedDocumentsLineType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<ccts:Component>
+					<ccts:ComponentType>ABIE</ccts:ComponentType>
+					<ccts:DictionaryEntryName>Consolidated Invoice Line Details
+					</ccts:DictionaryEntryName>
+					<ccts:Definition>Information about a Consolidated Invoice Line.
+					</ccts:Definition>
+					<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+				</ccts:Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="cbc:LineID">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>BBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line. Identifier
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>Identifies the Consolidated Invoice Line.
+							</ccts:Definition>
+							<ccts:Cardinality>1</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Identifier</ccts:PropertyTerm>
+							<ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+							<ccts:DataType>Identifier. Type</ccts:DataType>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="cbc:DocumentTypeCode">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>BBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Type Code.
+								Code
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>Code specifying the type of the Invoice.
+							</ccts:Definition>
+							<ccts:Cardinality>0..1</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Consolidated Invoice Line Type Code
+							</ccts:PropertyTerm>
+							<ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+							<ccts:DataType>Code. Type</ccts:DataType>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="DocumentSerialID">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Billing
+								Payment
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Billing Payment.
+							</ccts:Definition>
+							<ccts:Cardinality>1</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Billing Payment</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Consolidated Invoice Line
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="DocumentNumberID">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Billing
+								Payment
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Billing Payment.
+							</ccts:Definition>
+							<ccts:Cardinality>1</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Billing Payment</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Consolidated Invoice Line
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="VoidReasonDescription">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Voided Document Line Void Reason
+								Description
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Void Reason.</ccts:Definition>
+							<ccts:Cardinality>1</ccts:Cardinality>
+							<ccts:ObjectClass>Voided Document Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Voided Document</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Voided Document Line
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AdditionalInformationType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<ccts:Component>
+					<ccts:ComponentType>ABIE</ccts:ComponentType>
+					<ccts:DictionaryEntryName>Consolidated Invoice Line Details
+					</ccts:DictionaryEntryName>
+					<ccts:Definition>Information about a Consolidated Invoice Line.
+					</ccts:Definition>
+					<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+				</ccts:Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="AdditionalMonetaryTotal" minOccurs="0"
+				maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>BBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line. Identifier
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>Identifies the Consolidated Invoice Line.
+							</ccts:Definition>
+							<ccts:Cardinality>1</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Identifier</ccts:PropertyTerm>
+							<ccts:RepresentationTerm>Identifier</ccts:RepresentationTerm>
+							<ccts:DataType>Identifier. Type</ccts:DataType>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="AdditionalProperty" minOccurs="0"
+				maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>BBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Type Code.
+								Code
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>Code specifying the type of the Invoice.
+							</ccts:Definition>
+							<ccts:Cardinality>0..1</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Consolidated Invoice Line Type Code
+							</ccts:PropertyTerm>
+							<ccts:RepresentationTerm>Code</ccts:RepresentationTerm>
+							<ccts:DataType>Code. Type</ccts:DataType>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="SUNATTransaction" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="SUNATEmbededDespatchAdvice" minOccurs="0"
+				maxOccurs="1" />
+			<!-- Agregar Detracciones -->
+			<xsd:element ref="SUNATDeductions" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="SUNATCosts" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AdditionalMonetaryTotalType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<ccts:Component>
+					<ccts:ComponentType>ABIE</ccts:ComponentType>
+					<ccts:DictionaryEntryName>Consolidated Invoice Line Details
+					</ccts:DictionaryEntryName>
+					<ccts:Definition>Information about a Consolidated Invoice Line.
+					</ccts:Definition>
+					<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+				</ccts:Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="cbc:ID">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Billing
+								Payment
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Billing Payment.
+							</ccts:Definition>
+							<ccts:Cardinality>0..n</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Billing Payment</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Consolidated Invoice Line
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="cbc:Name" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line. Allowance
+								Charge
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Allowance Charge.
+							</ccts:Definition>
+							<ccts:Cardinality>0..n</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Allowance Charge</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Allowance Charge
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="ReferenceAmount" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Billing
+								Payment
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Billing Payment.
+							</ccts:Definition>
+							<ccts:Cardinality>0..n</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Billing Payment</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Consolidated Invoice Line
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="cbc:PayableAmount">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Billing
+								Payment
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Billing Payment.
+							</ccts:Definition>
+							<ccts:Cardinality>0..n</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Billing Payment</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Consolidated Invoice Line
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="cbc:Percent" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line. Allowance
+								Charge
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Allowance Charge.
+							</ccts:Definition>
+							<ccts:Cardinality>0..n</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Allowance Charge</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Allowance Charge
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="TotalAmount" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line. Tax Total
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Tax Total.</ccts:Definition>
+							<ccts:Cardinality>0..n</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Tax Total</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Tax Total
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AdditionalPropertyType">
+		<xsd:annotation>
+			<xsd:documentation>
+				<ccts:Component>
+					<ccts:ComponentType>ABIE</ccts:ComponentType>
+					<ccts:DictionaryEntryName>Consolidated Invoice Line Details
+					</ccts:DictionaryEntryName>
+					<ccts:Definition>Information about a Consolidated Invoice Line.
+					</ccts:Definition>
+					<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+				</ccts:Component>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element ref="cbc:ID">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line Billing
+								Payment
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Billing Payment.
+							</ccts:Definition>
+							<ccts:Cardinality>0..n</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Billing Payment</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Consolidated Invoice Line
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="cbc:Name" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line. Allowance
+								Charge
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Allowance Charge.
+							</ccts:Definition>
+							<ccts:Cardinality>0..n</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Allowance Charge</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Allowance Charge
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="cbc:Value">
+				<xsd:annotation>
+					<xsd:documentation>
+						<ccts:Component>
+							<ccts:ComponentType>ASBIE</ccts:ComponentType>
+							<ccts:DictionaryEntryName>Consolidated Invoice Line. Tax Total
+							</ccts:DictionaryEntryName>
+							<ccts:Definition>An association to Tax Total.</ccts:Definition>
+							<ccts:Cardinality>0..n</ccts:Cardinality>
+							<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass>
+							<ccts:PropertyTerm>Tax Total</ccts:PropertyTerm>
+							<ccts:AssociatedObjectClass>Tax Total
+							</ccts:AssociatedObjectClass>
+						</ccts:Component>
+					</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Agregar TransactionConditions <xsd:complexType name="TransactionConditionsType"> 
+		<xsd:annotation> <xsd:documentation> <ccts:Component> <ccts:ComponentType>ABIE</ccts:ComponentType> 
+		<ccts:DictionaryEntryName>Consolidated Invoice Line Details</ccts:DictionaryEntryName> 
+		<ccts:Definition>Information about a Consolidated Invoice Line.</ccts:Definition> 
+		<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass> </ccts:Component> 
+		</xsd:documentation> </xsd:annotation> <xsd:sequence> <xsd:element ref="cbc:ID"> 
+		<xsd:annotation> <xsd:documentation> <ccts:Component> <ccts:ComponentType>ASBIE</ccts:ComponentType> 
+		<ccts:DictionaryEntryName>Consolidated Invoice Line Billing Payment</ccts:DictionaryEntryName> 
+		<ccts:Definition>An association to Billing Payment.</ccts:Definition> <ccts:Cardinality>0..n</ccts:Cardinality> 
+		<ccts:ObjectClass>Consolidated Invoice Line</ccts:ObjectClass> <ccts:PropertyTerm>Billing 
+		Payment</ccts:PropertyTerm> <ccts:AssociatedObjectClass>Consolidated Invoice 
+		Line</ccts:AssociatedObjectClass> </ccts:Component> </xsd:documentation> 
+		</xsd:annotation> </xsd:element> </xsd:sequence> </xsd:complexType> -->
+
+	<xsd:complexType name="SUNATDeductionsType">
+		<xsd:sequence>
+			<xsd:element ref="SUNATReferenceValue" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="SUNATAquaticResources" minOccurs="0"
+				maxOccurs="unbounded" />
+			<xsd:element ref="SUNATGoldTrading" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SUNATAquaticResourcesType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:Description" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cbc:StreetName" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cbc:DeliveryDate" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cac:MaritimeTransport" minOccurs="0"
+				maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SUNATGoldTradingType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:Indicator" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cbc:Percent" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cbc:DescriptionCode" minOccurs="0"
+				maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SUNATReferenceValueType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:Amount" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="SUNATValueTravel" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SUNATValueTravelType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:Amount" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cbc:ReturnabilityIndicator" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cac:OriginAddress" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="cac:DeliveryAddress" minOccurs="0"
+				maxOccurs="1" />
+			<xsd:element ref="SUNATValueVehicle" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SUNATValueVehicleType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:Quantity" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="cbc:Amount" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="SUNATTransport" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SUNATTransportType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:TransportMeansTypeCode" minOccurs="0"
+				maxOccurs="1" />
+			<!-- Detracciones: Carga util -->
+			<xsd:element ref="cbc:Quantity" minOccurs="0" maxOccurs="1" />
+			<!-- Detracciones: alor S/. x TM -->
+			<xsd:element ref="cbc:Amount" minOccurs="0" maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="SUNATCostsType">
+		<xsd:sequence>
+			<xsd:element ref="cac:RoadTransport" minOccurs="0"
+				maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Percepcion -->
+	<xsd:complexType name="SUNATPerceptionDocumentReferenceType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:ID" />
+			<xsd:element ref="cbc:IssueDate" />
+			<xsd:element ref="cbc:TotalInvoiceAmount" />
+			<xsd:element ref="cac:Payment" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="SUNATPerceptionInformation" minOccurs="0"
+				maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SUNATPerceptionInformationType">
+		<xsd:sequence>
+			<xsd:element ref="SUNATPerceptionAmount" />
+			<xsd:element ref="SUNATPerceptionDate" />
+			<xsd:element ref="SUNATNetTotalCashed" />
+			<xsd:element ref="cac:ExchangeRate" minOccurs="0"
+				maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SUNATPerceptionDateType">
+		<xsd:simpleContent>
+			<xsd:extension base="udt:DateType" />
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- Fin Percepcion -->
+	<!-- Retencion -->
+	<xsd:complexType name="SUNATRetentionDocumentReferenceType">
+		<xsd:sequence>
+			<xsd:element ref="cbc:ID" />
+			<xsd:element ref="cbc:IssueDate" />
+			<xsd:element ref="cbc:TotalInvoiceAmount" />
+			<xsd:element ref="cac:Payment" minOccurs="0" maxOccurs="1" />
+			<xsd:element ref="SUNATRetentionInformation" minOccurs="0"
+				maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SUNATRetentionInformationType">
+		<xsd:sequence>
+			<xsd:element ref="SUNATRetentionAmount" />
+			<xsd:element ref="SUNATRetentionDate" />
+			<xsd:element ref="SUNATNetTotalPaid" />
+			<xsd:element ref="cac:ExchangeRate" minOccurs="0"
+				maxOccurs="1" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SUNATRetentionDateType">
+		<xsd:simpleContent>
+			<xsd:extension base="udt:DateType" />
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!-- Fin Retencion -->
+
+</xsd:schema>
