@@ -45,7 +45,10 @@ class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
 
         $xml = $this->build($voided);
 
-        $this->assertNotEmpty($xml);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $success = $doc->schemaValidate(__DIR__ . '/../../Resources/xsd/maindoc/UBLPE-VoidedDocuments-1.0.xsd');
+        $this->assertTrue($success);
     }
 
     /**
