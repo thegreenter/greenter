@@ -25,6 +25,6 @@ class PerceptionBuilder extends TwigBuilder implements BuilderInterface
      */
     public function build(DocumentInterface $document)
     {
-        return $this->render('perception.html.twig', $document);
+        return $this->render('perception.xml.twig', $document);
     }
 }

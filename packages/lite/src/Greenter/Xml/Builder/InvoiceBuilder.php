@@ -25,6 +25,6 @@ class InvoiceBuilder extends TwigBuilder implements BuilderInterface
      */
     public function build(DocumentInterface $document)
     {
-        return $this->render('invoice.html.twig', $document);
+        return $this->render('invoice.xml.twig', $document);
     }
 }

@@ -25,6 +25,6 @@ class VoidedBuilder extends TwigBuilder implements BuilderInterface
      */
     public function build(DocumentInterface $document)
     {
-        return $this->render('voided.html.twig', $document);
+        return $this->render('voided.xml.twig', $document);
     }
 }

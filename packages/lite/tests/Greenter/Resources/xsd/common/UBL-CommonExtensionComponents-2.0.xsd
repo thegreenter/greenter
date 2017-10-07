@@ -8,12 +8,7 @@
   address schema locations.
 -->
 <!-- ===== xsd:schema Element With Namespaces Declarations ===== -->
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" 
-xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" 
-xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2"
-xmlns:ccts="urn:un:unece:uncefact:documentation:2" 
-targetNamespace="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" targetNamespace="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" elementFormDefault="qualified" attributeFormDefault="unqualified" version="2.0">
 <!-- ===== Imports ===== -->
   <xsd:import namespace="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" schemaLocation="UnqualifiedDataTypeSchemaModule-2.0.xsd"/>
   <xsd:import namespace="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" schemaLocation="UBL-CommonBasicComponents-2.0.xsd"/>

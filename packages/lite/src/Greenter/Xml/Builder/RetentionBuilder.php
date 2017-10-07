@@ -25,6 +25,6 @@ class RetentionBuilder extends TwigBuilder implements BuilderInterface
      */
     public function build(DocumentInterface $document)
     {
-        return $this->render('retention.html.twig', $document);
+        return $this->render('retention.xml.twig', $document);
     }
 }
