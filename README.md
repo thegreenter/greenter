@@ -7,7 +7,7 @@ Greenter - Facturacion Electronica
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/giansalex/greenter.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/giansalex/greenter/?branch=master)
 [![Build Status](https://img.shields.io/scrutinizer/build/g/giansalex/greenter.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/giansalex/greenter/build-status/master)
 [![Code Climate](https://img.shields.io/codeclimate/github/giansalex/greenter.svg?style=flat-square)](https://codeclimate.com/github/giansalex/greenter)
-[![Release](https://img.shields.io/github/release/giansalex/greenter/all.svg?style=flat-square)](https://github.com/giansalex/greenter/releases)     
+[![Packagist](https://img.shields.io/packagist/v/greenter/greenter.svg?style=flat-square)](https://packagist.org/packages/greenter/greenter)     
 PHP Implementación de la Facturación Electrónica Sunat - Perú
 
 <p align="center">
