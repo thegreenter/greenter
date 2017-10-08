@@ -23,7 +23,8 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         $despatch = $this->getDespatch();
         $result = $this->getFactoryResult($despatch);
 
-        if (!$result->isSuccess() && $result->getError()->getCode() == '200') {
+        if (!$result->isSuccess() &&
+            $result->getError()->getCode() == '200') {
             return;
         }
 
@@ -108,7 +109,8 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         $reversion = $this->getReversion();
         $result = $this->getFactoryResult($reversion);
 
-        if (!$result->isSuccess() && $result->getError()->getCode() == '200') {
+        if (!$result->isSuccess() &&
+            $result->getError()->getCode() == '200') {
             return '';
         }
         $this->assertNotEmpty($this->factory->getLastXml());
