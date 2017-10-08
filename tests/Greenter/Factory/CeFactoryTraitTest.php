@@ -259,11 +259,6 @@ trait CeFactoryTraitTest
      */
     private function getDespatch()
     {
-        $client = new Client();
-        $client->setTipoDoc('6')
-            ->setNumDoc('20000000002')
-            ->setRznSocial('EMPRESA (<!-- --> />) 1');
-
         list($baja, $rel, $envio) = $this->getExtrasDespatch();
         $despatch = new Despatch();
         $despatch->setTipoDoc('09')
@@ -271,8 +266,14 @@ trait CeFactoryTraitTest
             ->setCorrelativo('123')
             ->setFechaEmision(new \DateTime())
             ->setCompany($this->getCompany())
-            ->setDestinatario($client)
-            ->setTercero($client)
+            ->setDestinatario((new Client())
+                ->setTipoDoc('6')
+                ->setNumDoc('20000000002')
+                ->setRznSocial('EMPRESA (<!-- --> />) 1'))
+            ->setTercero((new Client())
+                ->setTipoDoc('6')
+                ->setNumDoc('20000000003')
+                ->setRznSocial('EMPRESA SA'))
             ->setObservacion('NOTA GUIA')
             ->setDocBaja($baja)
             ->setRelDoc($rel)
