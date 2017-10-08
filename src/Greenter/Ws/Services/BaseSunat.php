@@ -51,30 +51,24 @@ class BaseSunat
     protected function getErrorFromFault(\SoapFault $fault)
     {
         $err = new Error();
-        $fcode = $fault->faultcode;
-        $code = preg_replace('/[^0-9]+/', '', $fcode);
+        $err->setCode($fault->faultcode);
+        $code = preg_replace('/[^0-9]+/', '', $err->getCode());
         $msg = '';
+
+        if (empty($code)) {
+            $code = preg_replace('/[^0-9]+/', '', $fault->faultstring);
+        }
 
         if ($code) {
             $msg = $this->getMessageError($code);
-            $fcode = $code;
-        } else {
-            $code = preg_replace('/[^0-9]+/', '', $fault->faultstring);
-
-            if ($code) {
-                $msg = $this->getMessageError($code);
-                $fcode = $code;
-            }
+            $err->setCode($code);
         }
 
-        if (!$msg) {
+        if (empty($msg)) {
             $msg = isset($fault->detail) ? $fault->detail->message : $fault->faultstring;
         }
 
-        $err->setCode($fcode);
-        $err->setMessage($msg);
-
-        return $err;
+        return $err->setMessage($msg);
     }
 
     /**
