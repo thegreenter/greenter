@@ -48,7 +48,7 @@ class Client
     private $address;
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTipoDoc()
     {
@@ -56,7 +56,7 @@ class Client
     }
 
     /**
-     * @param mixed $tipoDoc
+     * @param string $tipoDoc
      * @return Client
      */
     public function setTipoDoc($tipoDoc)
@@ -66,7 +66,7 @@ class Client
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getNumDoc()
     {
@@ -74,7 +74,7 @@ class Client
     }
 
     /**
-     * @param mixed $numDoc
+     * @param string $numDoc
      * @return Client
      */
     public function setNumDoc($numDoc)
