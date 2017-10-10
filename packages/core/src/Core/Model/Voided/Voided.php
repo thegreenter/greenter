@@ -22,7 +22,7 @@ class Voided implements DocumentInterface
      * @Assert\Length(max="3")
      * @var string
      */
-    private $correlativo;
+    protected $correlativo;
 
     /**
      * Fecha de generación del documento dado de baja.
@@ -30,7 +30,7 @@ class Voided implements DocumentInterface
      * @Assert\Date()
      * @var \DateTime
      */
-    private $fecGeneracion;
+    protected $fecGeneracion;
 
     /**
      * Fecha de generación de la comunicación.
@@ -39,20 +39,20 @@ class Voided implements DocumentInterface
      * @Assert\Date()
      * @var \DateTime
      */
-    private $fecComunicacion;
+    protected $fecComunicacion;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Valid()
      * @var Company
      */
-    private $company;
+    protected $company;
 
     /**
      * @Assert\Valid()
      * @var VoidedDetail[]
      */
-    private $details;
+    protected $details;
 
     public function __construct()
     {

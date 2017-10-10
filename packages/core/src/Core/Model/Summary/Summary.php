@@ -21,7 +21,7 @@ class Summary implements DocumentInterface
      * @Assert\Length(max="3")
      * @var string
      */
-    private $correlativo;
+    protected $correlativo;
 
     /**
      * Fecha de generación de los documentos a enviar en el resumen.
@@ -29,7 +29,7 @@ class Summary implements DocumentInterface
      * @Assert\Date()
      * @var \DateTime
      */
-    private $fecGeneracion;
+    protected $fecGeneracion;
 
     /**
      * Fecha de generación del resumen.
@@ -38,20 +38,20 @@ class Summary implements DocumentInterface
      * @Assert\Date()
      * @var \DateTime
      */
-    private $fecResumen;
+    protected $fecResumen;
 
     /**
      * @Assert\NotBlank()
      * @Assert\Valid()
      * @var Company
      */
-    private $company;
+    protected $company;
 
     /**
      * @Assert\Valid()
      * @var SummaryDetail[]
      */
-    private $details;
+    protected $details;
 
     /**
      * @return string
