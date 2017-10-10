@@ -20,20 +20,6 @@ use Symfony\Component\Validator\Mapping\MetadataInterface;
 class CustomMetadataFactory implements MetadataFactoryInterface
 {
     /**
-     * @var LoaderMetadataInterface
-     */
-    private $loader;
-
-    /**
-     * CustomMetadataFactory constructor.
-     * @param LoaderMetadataInterface $loader
-     */
-    public function __construct(LoaderMetadataInterface $loader)
-    {
-        $this->loader = $loader;
-    }
-
-    /**
      * Returns the metadata for the given value.
      *
      * @param mixed $value Some value
@@ -45,7 +31,13 @@ class CustomMetadataFactory implements MetadataFactoryInterface
     public function getMetadataFor($value)
     {
         $metaData = new ClassMetadata(get_class($value));
-        $this->loader->load($metaData);
+        $fullClass = $this->getClassValidator($value);
+
+        if ($fullClass) {
+            /**@var $loader LoaderMetadataInterface */
+            $loader = new $fullClass;
+            $loader->load($metaData);
+        }
 
         return $metaData;
     }
@@ -59,6 +51,22 @@ class CustomMetadataFactory implements MetadataFactoryInterface
      */
     public function hasMetadataFor($value)
     {
-        return true;
+        return !empty($this->getClassValidator($value));
+    }
+
+    /**
+     * @param $value
+     * @return bool|string
+     */
+    private function getClassValidator($value)
+    {
+        $className = basename(get_class($value));
+        $fullClass = 'Greenter\\Validator\\Loader\\'.$className.'Loader';
+
+        if (!class_exists($fullClass)) {
+            return false;
+        }
+
+        return $fullClass;
     }
 }

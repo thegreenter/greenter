@@ -20,7 +20,7 @@ class CompanyLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\Length(['min' => 11, 'max' => 11]),
         ]);
-        $metadata->addPropertyConstraints('rznSocial', [
+        $metadata->addPropertyConstraints('razonSocial', [
             new Assert\NotBlank(),
             new Assert\Length(['max' => 100]),
         ]);
