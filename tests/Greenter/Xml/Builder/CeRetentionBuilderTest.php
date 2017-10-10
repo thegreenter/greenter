@@ -44,18 +44,6 @@ class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
         // file_put_contents('reten.xml', $xml);
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testCreateXmlRetentionException()
-    {
-        $retention = $this->getRetention();
-        $retention->setSerie('F2333')
-        ->setRegimen('023');
-
-        $this->build($retention);
-    }
-
     public function testRetentionFilename()
     {
         $retention = $this->getRetention();

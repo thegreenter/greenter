@@ -48,17 +48,6 @@ class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($xml);
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testXmlReversionException()
-    {
-        $reversion = $this->getReversion();
-        $reversion->setCorrelativo('1232');
-
-        $this->build($reversion);
-    }
-
     public function testReversionFilename()
     {
         $reversion = $this->getReversion();

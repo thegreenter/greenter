@@ -51,17 +51,6 @@ class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($success);
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testXmlVoidedException()
-    {
-        $voided = $this->getVoided();
-        $voided->setCorrelativo('1232');
-
-        $this->build($voided);
-    }
-
     public function testVoidedFilename()
     {
         $voided = $this->getVoided();

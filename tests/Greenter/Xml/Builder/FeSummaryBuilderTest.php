@@ -51,18 +51,6 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($success);
     }
 
-
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testXmlSummaryException()
-    {
-        $summary = $this->getSummary();
-        $summary->setFecResumen(null);
-
-        $this->build($summary);
-    }
-
     public function testSummaryFilename()
     {
         $summary = $this->getSummary();

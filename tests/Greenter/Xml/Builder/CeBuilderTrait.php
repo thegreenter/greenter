@@ -13,6 +13,7 @@ use Greenter\Model\DocumentInterface;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Voided\Reversion;
+use Greenter\Validator\SymfonyValidator;
 use Greenter\Xml\Builder\BuilderInterface;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -20,7 +21,6 @@ use Greenter\Xml\Builder\DespatchBuilder;
 use Greenter\Xml\Builder\PerceptionBuilder;
 use Greenter\Xml\Builder\RetentionBuilder;
 use Greenter\Xml\Builder\VoidedBuilder;
-use Symfony\Component\Validator\Validation;
 
 /**
  * Trait CeBuilderTrait
@@ -77,13 +77,11 @@ trait CeBuilderTrait
     }
 
     /**
-     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+     * @return SymfonyValidator
      */
     private function getValidator()
     {
-        $validator = Validation::createValidatorBuilder()
-            ->addMethodMapping('loadValidatorMetadata')
-            ->getValidator();
+        $validator = new SymfonyValidator();
 
         return $validator;
     }

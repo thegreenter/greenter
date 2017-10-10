@@ -33,6 +33,18 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($result->getCdrZip());
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testCreateXmlInvoiceException()
+    {
+        $invoice = $this->getInvoice();
+        $invoice->setTipoDoc('333')
+            ->setSerie('FF000');
+
+        $this->getFactoryResult($invoice);
+    }
+
     public function testInvalidInvoice()
     {
         $invoice = $this->getInvoice();
@@ -54,6 +66,17 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
         $this->assertEquals('0151', $result->getError()->getCode());
+    }
+
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testXmlCreditNoteException()
+    {
+        $note = $this->getCreditNote();
+        $note->setCodMotivo('C00');
+
+        $this->getFactoryResult($note);
     }
 
     public function testInvoiceRechazado()
@@ -138,6 +161,17 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
             $result->getError()->getMessage());
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testXmlSummaryException()
+    {
+        $summary = $this->getSummary();
+        $summary->setFecResumen(null);
+
+        $this->getFactoryResult($summary);
+    }
+
     public function testResumenV2()
     {
         $resumen = $this->getSummaryV2();
@@ -158,6 +192,17 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $resumen = $this->getSummary();
         $resumen->setCorrelativo('1234');
         $this->getFactoryResult($resumen);
+    }
+
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testXmlSummaryV2Exception()
+    {
+        $summary = $this->getSummary();
+        $summary->setFecResumen(null);
+
+        $this->getFactoryResult($summary);
     }
 
     public function testBaja()
@@ -185,6 +230,18 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $baja->getDetails()[0]->setTipoDoc('100');
         $this->getFactoryResult($baja);
     }
+
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testXmlVoidedException()
+    {
+        $voided = $this->getVoided();
+        $voided->setCorrelativo('1232');
+
+        $this->getFactoryResult($voided);
+    }
+
 
     /**
      * @depends testBaja

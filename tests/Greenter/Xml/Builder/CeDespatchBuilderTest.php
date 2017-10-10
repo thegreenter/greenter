@@ -42,18 +42,6 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
         // file_put_contents('guia.xml', $xml);
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testCreateXmlDespatchException()
-    {
-        $despatch = $this->getDespatch();
-        $despatch->setSerie('T3333')
-            ->setCorrelativo('000000000');
-
-        $this->build($despatch);
-    }
-
     public function testDespatchFilename()
     {
         $despatch = $this->getDespatch();
