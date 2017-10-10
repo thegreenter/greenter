@@ -38,12 +38,6 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testDespatchException()
-    {
-        $despatch = $this->getDespatch();
-        $despatch->setTipoDoc('000');
-        $this->getFactoryResult($despatch);
-    }
 
     public function testRetention()
     {
@@ -58,6 +52,9 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testRetentionException()
     {
         $retention = $this->getRetention();
@@ -89,6 +86,9 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2603', $result->getError()->getCode());
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testPerceptionException()
     {
         $perception = $this->getPerception();
@@ -96,6 +96,9 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->getFactoryResult($perception);
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testCreateXmlIPerceptionException()
     {
         $perception = $this->getPerception();
@@ -122,6 +125,9 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         return $result->getTicket();
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testReversionException()
     {
         $reversion = $this->getReversion();
@@ -129,6 +135,9 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->getFactoryResult($reversion);
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testXmlReversionException()
     {
         $reversion = $this->getReversion();
@@ -151,10 +160,10 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
             $result
                 ->setCode('0')
                 ->setCdrResponse((new CdrResponse())
-                ->setDescription('El Comprobante numero RR-20171001-001 ha sido aceptado')
-                ->setId('RR-20171001-001')
-                ->setCode('0')
-                ->setNotes([]))
+                    ->setDescription('El Comprobante numero RR-20171001-001 ha sido aceptado')
+                    ->setId('RR-20171001-001')
+                    ->setCode('0')
+                    ->setNotes([]))
                 ->setCdrZip('xx')
                 ->setSuccess(true);
         }

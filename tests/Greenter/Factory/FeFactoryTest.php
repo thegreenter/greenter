@@ -33,6 +33,9 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($result->getCdrZip());
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testCreateXmlInvoiceException()
     {
         $invoice = $this->getInvoice();
@@ -65,6 +68,9 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('0151', $result->getError()->getCode());
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testXmlCreditNoteException()
     {
         $note = $this->getCreditNote();
@@ -84,6 +90,9 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2016', $result->getError()->getCode());
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testInvoiceInvalid()
     {
         $invoice = $this->getInvoice();
@@ -104,6 +113,9 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testCreditNoteException()
     {
         $creditNote = $this->getCreditNote();
@@ -124,6 +136,9 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testDebitNoteException()
     {
         $debitNote = $this->getDebitNote();
@@ -146,6 +161,9 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
             $result->getError()->getMessage());
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testXmlSummaryException()
     {
         $summary = $this->getSummary();
@@ -166,6 +184,9 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(13, strlen($result->getTicket()));
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testResumenException()
     {
         $resumen = $this->getSummary();
@@ -173,6 +194,9 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->getFactoryResult($resumen);
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
     public function testXmlSummaryV2Exception()
     {
         $summary = $this->getSummary();
