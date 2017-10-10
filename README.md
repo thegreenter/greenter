@@ -14,6 +14,11 @@ PHP Implementación de la Facturación Electrónica Sunat - Perú
   <img alt="Sunat Facturacion Electronica" src="http://www.sunat.gob.pe/p/imagenes/icons/favicon.ico">
 </p>
 
+# Install
+```bash
+composer require greenter/greenter
+```
+
 Caracteristicas
 ---------------
 
