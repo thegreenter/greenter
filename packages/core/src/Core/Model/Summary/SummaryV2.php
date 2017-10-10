@@ -18,7 +18,7 @@ class SummaryV2 extends Summary
      * @Assert\Valid()
      * @var SummaryDetailV2[]
      */
-    private $details;
+    protected $details;
 
     /**
      * @return SummaryDetailV2[]
