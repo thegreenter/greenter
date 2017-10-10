@@ -20,6 +20,8 @@ use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Prepayment;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
+use Greenter\Model\Voided\Reversion;
+use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Validator\SymfonyValidator;
 
 /**
@@ -34,6 +36,16 @@ class SymfonyValidatorTests extends \PHPUnit_Framework_TestCase
         $errors = $validator->validate($this->getInvoice());
 
         $this->assertEquals(0, count($errors));
+    }
+
+    public function testNotValidReversion()
+    {
+        $reversion = $this->getReversion();
+        $reversion->setCorrelativo('12321');
+        $validator = new SymfonyValidator();
+        $errors = $validator->validate($reversion);
+
+        $this->assertEquals(1, count($errors));
     }
 
     private function getInvoice()
@@ -155,5 +167,32 @@ class SymfonyValidatorTests extends \PHPUnit_Framework_TestCase
             ->setAddress($address);
 
         return $company;
+    }
+
+    /**
+     * @return Reversion
+     */
+    private function getReversion()
+    {
+        $detial1 = new VoidedDetail();
+        $detial1->setTipoDoc('20')
+            ->setSerie('R001')
+            ->setCorrelativo('02132132')
+            ->setDesMotivoBaja('ERROR DE SISTEMA');
+
+        $detial2 = new VoidedDetail();
+        $detial2->setTipoDoc('20')
+            ->setSerie('R001')
+            ->setCorrelativo('123')
+            ->setDesMotivoBaja('ERROR DE RUC');
+
+        $reversion = new Reversion();
+        $reversion->setCorrelativo('001')
+            ->setFecComunicacion(new \DateTime())
+            ->setFecGeneracion(new \DateTime())
+            ->setCompany($this->getCompany())
+            ->setDetails([$detial1, $detial2]);
+
+        return $reversion;
     }
 }
