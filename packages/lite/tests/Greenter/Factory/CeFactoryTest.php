@@ -38,15 +38,6 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testDespatchException()
-    {
-        $despatch = $this->getDespatch();
-        $despatch->setTipoDoc('000');
-        $this->getFactoryResult($despatch);
-    }
 
     public function testRetention()
     {

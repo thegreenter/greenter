@@ -15,13 +15,13 @@ namespace Greenter\Xml\Exception;
 class ValidationException extends \Exception
 {
     /**
-     * @var mixed
+     * @var array
      */
     public $validations;
 
     /**
      * ValidationException constructor.
-     * @param $validations
+     * @param array $validations
      */
     public function __construct($validations)
     {
