@@ -9,6 +9,7 @@
 namespace Tests\Greenter\Factory;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
+use Greenter\Validator\SymfonyValidator;
 use Greenter\Ws\Services\SenderInterface;
 
 /**
@@ -128,7 +129,8 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
         $builder = new $this->builders[get_class($document)]();
         $factory = $this->factory
             ->setBuilder($builder)
-            ->setSender($sender);
+            ->setSender($sender)
+            ->setValidator(new SymfonyValidator());
 
         return $factory->send($document);
     }
