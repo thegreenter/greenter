@@ -12,10 +12,10 @@ use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 
 /**
- * Class NonDocumentTests
+ * Class NonDocumentTest
  * @package Tests\Greenter\Validator
  */
-class NonDocumentTests extends \PHPUnit_Framework_TestCase
+class NonDocumentTest extends \PHPUnit_Framework_TestCase
 {
     use CustomValidator;
 

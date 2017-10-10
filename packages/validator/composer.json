@@ -21,7 +21,7 @@
     },
 	"autoload": {
         "psr-4": {
-            "Greenter\\Validator\\": "src/Validator"
+            "Greenter\\": "src/"
         }
     },
     "autoload-dev": {
