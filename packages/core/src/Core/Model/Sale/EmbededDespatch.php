@@ -10,8 +10,6 @@ namespace Greenter\Model\Sale;
 
 use Greenter\Model\Client\Client;
 use Greenter\Model\Despatch\Direction;
-use Greenter\Xml\Validator\EmbededDespatchValidator;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class EmbededDespatch
@@ -19,8 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class EmbededDespatch
 {
-    use EmbededDespatchValidator;
-
     /**
      * @Assert\Valid()
      * @var Direction

@@ -9,8 +9,6 @@
 namespace Greenter\Model\Client;
 
 use Greenter\Model\Company\Address;
-use Greenter\Xml\Validator\ClientValidator;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Client
@@ -18,8 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Client
 {
-    use ClientValidator;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min="1", max="1")

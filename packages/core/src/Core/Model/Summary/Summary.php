@@ -10,8 +10,6 @@ namespace Greenter\Model\Summary;
 
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
-use Greenter\Xml\Validator\SummaryValidator;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Summary
@@ -19,8 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Summary implements DocumentInterface
 {
-    use SummaryValidator;
-
     /**
      * @Assert\Length(max="3")
      * @var string

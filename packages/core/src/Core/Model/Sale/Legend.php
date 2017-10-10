@@ -8,17 +8,12 @@
 
 namespace Greenter\Model\Sale;
 
-use Greenter\Xml\Validator\LegendValidator;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class Legend
  * @package Greenter\Model\Sale
  */
 class Legend
 {
-    use LegendValidator;
-
     /**
      * @Assert\Length(
      *     min="4",

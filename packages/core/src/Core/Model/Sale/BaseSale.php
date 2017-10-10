@@ -10,7 +10,6 @@ namespace Greenter\Model\Sale;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class BaseSale

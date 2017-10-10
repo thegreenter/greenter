@@ -8,17 +8,12 @@
 
 namespace Greenter\Model\Sale;
 
-use Greenter\Xml\Validator\SaleDetailValidator;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class SaleDetail
  * @package Greenter\Model\Sale
  */
 class SaleDetail
 {
-    use SaleDetailValidator;
-
     /**
      * Codigo unidad de Medida.
      *

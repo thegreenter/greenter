@@ -8,8 +8,6 @@
 
 namespace Greenter\Model\Company;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class Company
  * @package Greenter\Xml\Model\Company

@@ -11,8 +11,6 @@ namespace Greenter\Model\Retention;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
-use Greenter\Xml\Validator\RetentionValidator;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Retention
@@ -20,8 +18,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Retention implements DocumentInterface
 {
-    use RetentionValidator;
-
     /**
      * Serie del Documento (ejem: R001)
      *

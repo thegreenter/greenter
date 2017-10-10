@@ -10,8 +10,6 @@ namespace Greenter\Model\Voided;
 
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
-use Greenter\Xml\Validator\VoidedValidator;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Voided
@@ -19,8 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Voided implements DocumentInterface
 {
-    use VoidedValidator;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max="3")

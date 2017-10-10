@@ -8,17 +8,12 @@
 
 namespace Greenter\Model\Despatch;
 
-use Greenter\Xml\Validator\DirectionValidator;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class Direction
  * @package Greenter\Model\Despatch
  */
 class Direction
 {
-    use DirectionValidator;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max="8")

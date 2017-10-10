@@ -8,17 +8,12 @@
 
 namespace Greenter\Model\Despatch;
 
-use Greenter\Xml\Validator\DespatchDetailValidator;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class DespatchDetail
  * @package Greenter\Model\Despatch
  */
 class DespatchDetail
 {
-    use DespatchDetailValidator;
-
     /**
      * @Assert\Length(max="16")
      * @var string

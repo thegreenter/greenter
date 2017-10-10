@@ -8,17 +8,12 @@
 
 namespace Greenter\Model\Sale;
 
-use Greenter\Xml\Validator\NoteValidator;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class Note
  * @package Greenter\Model\Sale
  */
 class Note extends BaseSale
 {
-    use NoteValidator;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min="2", max="2")

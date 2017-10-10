@@ -8,17 +8,12 @@
 
 namespace Greenter\Model\Retention;
 
-use Greenter\Xml\Validator\PaymentValidator;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class Payment
  * @package Greenter\Model\Retention
  */
 class Payment
 {
-    use PaymentValidator;
-
     /**
      * Moneda de pago (igual a la moneda del documento de referencia).
      *

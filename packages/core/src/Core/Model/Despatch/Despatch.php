@@ -12,8 +12,6 @@ use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Document;
-use Greenter\Xml\Validator\DespatchValidator;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Despatch
@@ -21,8 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Despatch implements DocumentInterface
 {
-    use DespatchValidator;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max="2")

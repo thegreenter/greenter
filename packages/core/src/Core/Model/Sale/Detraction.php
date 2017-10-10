@@ -9,18 +9,12 @@
 
 namespace Greenter\Model\Sale;
 
-
-use Greenter\Xml\Validator\DetractionValidator;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class Detraction
  * @package Greenter\Model\Sale
  */
 class Detraction
 {
-    use DetractionValidator;
-
     /**
      * Porcentaje de la detracción
      *

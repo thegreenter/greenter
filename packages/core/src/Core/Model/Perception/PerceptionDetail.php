@@ -10,8 +10,6 @@ namespace Greenter\Model\Perception;
 
 use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
-use Greenter\Xml\Validator\PerceptionDetailValidator;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class PerceptionDetail
@@ -19,8 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class PerceptionDetail
 {
-    use PerceptionDetailValidator;
-
     /**
      * Tipo de documento Relacionado.
      *

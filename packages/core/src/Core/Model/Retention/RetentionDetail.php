@@ -7,8 +7,6 @@
  */
 
 namespace Greenter\Model\Retention;
-use Greenter\Xml\Validator\RetentionDetailValidator;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class RetentionDetail
@@ -16,8 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class RetentionDetail
 {
-    use RetentionDetailValidator;
-
     /**
      * Tipo de documento Relacionado.
      *

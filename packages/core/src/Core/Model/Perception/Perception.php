@@ -11,7 +11,6 @@ namespace Greenter\Model\Perception;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
-use Greenter\Xml\Validator\PerceptionValidator;
 
 /**
  * Class Perception
@@ -19,8 +18,6 @@ use Greenter\Xml\Validator\PerceptionValidator;
  */
 class Perception implements DocumentInterface
 {
-    use PerceptionValidator;
-
     /**
      * Serie del Documento (ejem: P001)
      *

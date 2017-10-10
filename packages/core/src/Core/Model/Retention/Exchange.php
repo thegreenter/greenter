@@ -8,17 +8,12 @@
 
 namespace Greenter\Model\Retention;
 
-use Greenter\Xml\Validator\ExchangeValidator;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class Exchange
  * @package Greenter\Model\Retention
  */
 class Exchange
 {
-    use ExchangeValidator;
-
     /**
      * La moneda de referencia para el Tipo de Cambio.
      *

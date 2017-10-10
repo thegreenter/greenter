@@ -8,17 +8,12 @@
 
 namespace Greenter\Model\Sale;
 
-use Greenter\Xml\Validator\SalePerceptionValidator;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class SalePerception
  * @package Greenter\Model\Sale
  */
 class SalePerception
 {
-    use SalePerceptionValidator;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min="2", max="2")

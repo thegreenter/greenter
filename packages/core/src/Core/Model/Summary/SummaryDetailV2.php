@@ -10,8 +10,6 @@
 namespace Greenter\Model\Summary;
 
 use Greenter\Model\Sale\Document;
-use Greenter\Xml\Validator\SummaryDetailV2Validator;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class SummaryDetailV2
@@ -19,8 +17,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class SummaryDetailV2
 {
-    use SummaryDetailV2Validator;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min="2", max="2")

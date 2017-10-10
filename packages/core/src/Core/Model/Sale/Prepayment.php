@@ -8,17 +8,12 @@
 
 namespace Greenter\Model\Sale;
 
-use Greenter\Xml\Validator\PrepaymentValidator;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class Prepayment
  * @package Greenter\Model\Sale
  */
 class Prepayment
 {
-    use PrepaymentValidator;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min="2", max="2")

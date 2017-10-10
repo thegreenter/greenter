@@ -8,17 +8,12 @@
 
 namespace Greenter\Model\Summary;
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Greenter\Xml\Validator\SummaryDetailValidator;
-
 /**
  * Class SummaryDetail
  * @package Greenter\Model\Summary
  */
 class SummaryDetail
 {
-    use SummaryDetailValidator;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min="2", max="2")

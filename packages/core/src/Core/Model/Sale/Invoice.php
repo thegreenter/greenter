@@ -8,17 +8,12 @@
 
 namespace Greenter\Model\Sale;
 
-use Greenter\Xml\Validator\InvoiceValidator;
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class Invoice
  * @package Greenter\Model\Sale
  */
 class Invoice extends BaseSale
 {
-    use InvoiceValidator;
-
     /**
      * Tipo operacion (Catálogo 17).
      * @var string

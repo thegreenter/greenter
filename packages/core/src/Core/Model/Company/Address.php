@@ -8,8 +8,6 @@
 
 namespace Greenter\Model\Company;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Class Address
  * @package Greenter\Model\Company

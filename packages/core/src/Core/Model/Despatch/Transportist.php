@@ -7,8 +7,6 @@
  */
 
 namespace Greenter\Model\Despatch;
-use Greenter\Xml\Validator\TransportistValidator;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Transportist
@@ -16,8 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Transportist
 {
-    use TransportistValidator;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min="1", max="1")
