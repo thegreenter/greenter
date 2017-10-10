@@ -12,8 +12,7 @@
     "homepage": "https://github.com/giansalex/greenter",
     "type": "project",
     "require": {
-		"php": ">=5.5.9",
-        "symfony/validator": "^3.3"
+		"php": ">=5.5.9"
     },
 	"autoload": {
         "psr-4": {
