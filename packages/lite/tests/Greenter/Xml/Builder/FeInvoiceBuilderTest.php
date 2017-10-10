@@ -62,18 +62,6 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertInvoiceXml($xml);
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testCreateXmlInvoiceException()
-    {
-        $invoice = $this->getInvoice();
-        $invoice->setTipoDoc('333')
-            ->setSerie('FF000');
-
-        $this->build($invoice);
-    }
-
     public function testCompanyValidate()
     {
         $company = $this->getCompany();

@@ -44,18 +44,6 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
         // file_put_contents('percep.xml', $xml);
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testCreateXmlIPerceptionException()
-    {
-        $perception = $this->getPerception();
-        $perception->setSerie('F2333')
-            ->setRegimen('023');
-
-        $this->build($perception);
-    }
-
     public function testPerceptionFilename()
     {
         $perception = $this->getPerception();

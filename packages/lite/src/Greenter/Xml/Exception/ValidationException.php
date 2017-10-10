@@ -8,8 +8,6 @@
 
 namespace Greenter\Xml\Exception;
 
-use Symfony\Component\Validator\ConstraintViolationListInterface;
-
 /**
  * Class ValidationException
  * @package Greenter\Xml\Exception
@@ -17,15 +15,15 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 class ValidationException extends \Exception
 {
     /**
-     * @var ConstraintViolationListInterface
+     * @var mixed
      */
     public $validations;
 
     /**
      * ValidationException constructor.
-     * @param ConstraintViolationListInterface $validations
+     * @param $validations
      */
-    public function __construct(ConstraintViolationListInterface $validations)
+    public function __construct($validations)
     {
         $this->validations = $validations;
     }

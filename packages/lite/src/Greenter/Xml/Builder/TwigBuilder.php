@@ -8,9 +8,6 @@
 
 namespace Greenter\Xml\Builder;
 
-use Greenter\Xml\Exception\ValidationException;
-use Symfony\Component\Validator\Validation;
-
 /**
  * Class TwigBuilder
  * @package Greenter\Xml\Builder
@@ -40,8 +37,6 @@ class TwigBuilder
      */
     public function render($template, $doc)
     {
-        $this->validate($doc);
-
         return $this->twig->render($template, [
             'doc' => $doc
         ]);
@@ -57,24 +52,5 @@ class TwigBuilder
         $twig->addFilter($numFilter);
 
         $this->twig = $twig;
-    }
-
-    /**
-     * Validate Entity.
-     *
-     * @param object $entity
-     * @throws ValidationException
-     */
-    public function validate($entity)
-    {
-        // TODO: init validator one time.
-        $validator = Validation::createValidatorBuilder()
-            ->addMethodMapping('loadValidatorMetadata')
-            ->getValidator();
-
-        $errs = $validator->validate($entity);
-        if ($errs->count() > 0) {
-            throw new ValidationException($errs);
-        }
     }
 }

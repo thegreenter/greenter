@@ -25,6 +25,7 @@ use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
+use Greenter\Validator\SymfonyValidator;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SenderInterface;
@@ -103,7 +104,8 @@ trait FeFactoryTraitTest
         $builder = new $this->builders[get_class($document)]();
         $factory = $this->factory
             ->setBuilder($builder)
-            ->setSender($sender);
+            ->setSender($sender)
+            ->setValidator(new SymfonyValidator());
 
         return $factory->send($document);
     }

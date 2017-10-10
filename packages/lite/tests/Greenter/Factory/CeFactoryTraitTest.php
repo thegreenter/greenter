@@ -29,6 +29,7 @@ use Greenter\Model\Sale\Document;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
+use Greenter\Validator\SymfonyValidator;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SenderInterface;
@@ -88,6 +89,7 @@ trait CeFactoryTraitTest
         $factory->setCertificate(file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'));
         $factory->setSender($sender);
         $factory->setBuilder($builder);
+        $factory->setValidator(new SymfonyValidator());
         $this->factory = $factory;
 
         return $factory->send($document);

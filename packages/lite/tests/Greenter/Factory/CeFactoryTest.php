@@ -7,6 +7,7 @@
  */
 
 namespace Tests\Greenter\Factory;
+
 use Greenter\Model\Response\CdrResponse;
 use Greenter\Model\Response\StatusResult;
 
@@ -104,6 +105,18 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->getFactoryResult($perception);
     }
 
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testCreateXmlIPerceptionException()
+    {
+        $perception = $this->getPerception();
+        $perception->setSerie('F2333')
+            ->setRegimen('023');
+
+        $this->getFactoryResult($perception);
+    }
+
     public function testReversion()
     {
         $reversion = $this->getReversion();
@@ -128,6 +141,17 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $reversion = $this->getReversion();
         $reversion->getDetails()[0]->setTipoDoc('100');
+        $this->getFactoryResult($reversion);
+    }
+
+    /**
+     * @expectedException \Greenter\Xml\Exception\ValidationException
+     */
+    public function testXmlReversionException()
+    {
+        $reversion = $this->getReversion();
+        $reversion->setCorrelativo('1232');
+
         $this->getFactoryResult($reversion);
     }
 

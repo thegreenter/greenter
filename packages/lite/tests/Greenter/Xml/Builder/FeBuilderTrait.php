@@ -14,6 +14,7 @@ use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Summary\SummaryV2;
 use Greenter\Model\Voided\Voided;
+use Greenter\Validator\SymfonyValidator;
 use Greenter\Xml\Builder\BuilderInterface;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -22,7 +23,6 @@ use Greenter\Xml\Builder\NoteBuilder;
 use Greenter\Xml\Builder\SummaryBuilder;
 use Greenter\Xml\Builder\SummaryV2Builder;
 use Greenter\Xml\Builder\VoidedBuilder;
-use Symfony\Component\Validator\Validation;
 
 /**
  * Trait FeBuilderTrait
@@ -83,15 +83,11 @@ trait FeBuilderTrait
     }
 
     /**
-     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+     * @return SymfonyValidator
      */
     private function getValidator()
     {
-//        $loader = require __DIR__ . '/../../../../vendor/autoload.php';
-//        AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
-        $validator = Validation::createValidatorBuilder()
-            ->addMethodMapping('loadValidatorMetadata')
-            ->getValidator();
+        $validator = new SymfonyValidator();
 
         return $validator;
     }

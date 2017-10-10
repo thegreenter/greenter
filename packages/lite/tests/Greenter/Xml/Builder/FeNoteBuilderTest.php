@@ -56,17 +56,6 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
 //         file_put_contents('notecr.xml', $xml);
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testXmlCreditNoteException()
-    {
-        $note = $this->getCreditNote();
-        $note->setCodMotivo('C00');
-
-        $this->build($note);
-    }
-
     public function testCreateXmlDebitNote()
     {
         $note = $this->getCreditNote();

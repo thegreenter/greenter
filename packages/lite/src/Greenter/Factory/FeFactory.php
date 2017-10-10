@@ -11,8 +11,10 @@ namespace Greenter\Factory;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Security\SignedXml;
+use Greenter\Validator\DocumentValidatorInterface;
 use Greenter\Ws\Services\SenderInterface;
 use Greenter\Xml\Builder\BuilderInterface;
+use Greenter\Xml\Exception\ValidationException;
 use Greenter\Zip\ZipFactory;
 
 /**
@@ -24,29 +26,44 @@ class FeFactory implements FactoryInterface
     /**
      * @var SignedXml
      */
-    protected $signer;
+    private $signer;
 
     /**
      * @var ZipFactory
      */
-    protected $zipper;
+    private $zipper;
 
     /**
      * @var SenderInterface
      */
-    protected $sender;
+    private $sender;
 
     /**
      * Ultimo xml generado.
      *
      * @var string
      */
-    protected $lastXml;
+    private $lastXml;
 
     /**
      * @var BuilderInterface
      */
     private $builder;
+
+    /**
+     * @var DocumentValidatorInterface
+     */
+    private $validator;
+
+    /**
+     * @param $validator
+     * @return FeFactory
+     */
+    public function setValidator($validator)
+    {
+        $this->validator = $validator;
+        return $this;
+    }
 
     /**
      * BaseFactory constructor.
@@ -96,9 +113,14 @@ class FeFactory implements FactoryInterface
     /**
      * @param DocumentInterface $document
      * @return BaseResult
+     * @throws ValidationException
      */
     public function send(DocumentInterface $document)
     {
+        $errs = $this->validator->validate($document);
+        if (count($errs) > 0) {
+            throw new ValidationException($errs);
+        }
         $xml = $this->builder->build($document);
         $this->lastXml = $this->getXmmlSigned($xml);
         $filename = $document->getName();
