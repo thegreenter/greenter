@@ -64,5 +64,9 @@ class NoteParserTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($obj->getNumDocfectado());
         $this->assertNotEmpty($obj->getCodMotivo());
         $this->assertGreaterThan(0, count($obj->getDetails()));
+        $this->assertNotNull($obj->getCompany());
+        $this->assertNotNull($obj->getCompany()->getAddress());
+        $this->assertNotEmpty($obj->getCompany()->getAddress()->getDireccion());
+        $this->assertNotEmpty($obj->getCompany()->getAddress()->getUbigueo());
     }
 }

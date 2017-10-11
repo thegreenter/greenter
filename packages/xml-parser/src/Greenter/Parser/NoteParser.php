@@ -165,7 +165,8 @@ class NoteParser implements DocumentParserInterface
         $cl = new Client();
         $cl->setNumDoc($xml->getValue('cbc:CustomerAssignedAccountID', $node))
             ->setTipoDoc($xml->getValue('cbc:AdditionalAccountID', $node))
-            ->setRznSocial($xml->getValue('cac:Party/cac:PartyLegalEntity/cbc:RegistrationName', $node));
+            ->setRznSocial($xml->getValue('cac:Party/cac:PartyLegalEntity/cbc:RegistrationName', $node))
+            ->setAddress($this->getAddress($node));
 
         return $cl;
     }
@@ -179,10 +180,27 @@ class NoteParser implements DocumentParserInterface
         $cl->setRuc($xml->getValue('cbc:CustomerAssignedAccountID', $node))
             ->setNombreComercial($xml->getValue('cac:Party/cac:PartyName/cbc:Name', $node))
             ->setRazonSocial($xml->getValue('cac:Party/cac:PartyLegalEntity/cbc:RegistrationName', $node))
-            ->setAddress((new Address())
-                ->setDireccion($xml->getValue('cac:Party/cac:PostalAddress/cbc:StreetName', $node)));
+            ->setAddress($this->getAddress($node));
 
         return $cl;
+    }
+
+    private function getAddress($node)
+    {
+        $xml = $this->reader;
+
+        $address = $xml->getNode('cac:Party/cac:PostalAddress', $node);
+        if ($address) {
+
+            return (new Address())
+                ->setDireccion($xml->getValue('cbc:StreetName', $address))
+                ->setDepartamento($xml->getValue('cbc:CityName', $address))
+                ->setProvincia($xml->getValue('cbc:CountrySubentity', $address))
+                ->setDistrito($xml->getValue('cbc:District', $address))
+                ->setUbigueo($xml->getValue('cbc:ID', $address));
+        }
+
+        return null;
     }
 
     private function getDetails($isNcr)

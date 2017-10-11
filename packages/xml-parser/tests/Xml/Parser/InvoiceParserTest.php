@@ -31,6 +31,10 @@ class InvoiceParserTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($obj->getFechaEmision());
         $this->assertGreaterThanOrEqual(1, count($obj->getDetails()));
         $this->assertGreaterThanOrEqual(1, count($obj->getLegends()));
+        $this->assertNotNull($obj->getCompany());
+        $this->assertNotNull($obj->getCompany()->getAddress());
+        $this->assertNotEmpty($obj->getCompany()->getAddress()->getDireccion());
+        $this->assertNotEmpty($obj->getCompany()->getAddress()->getUbigueo());
     }
 
     /**
@@ -69,7 +73,6 @@ class InvoiceParserTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($obj->getFechaEmision());
         $this->assertGreaterThanOrEqual(1, count($obj->getDetails()));
         $this->assertGreaterThanOrEqual(1, count($obj->getLegends()));
-        var_dump($obj);
     }
 
     public function filenameProvider()

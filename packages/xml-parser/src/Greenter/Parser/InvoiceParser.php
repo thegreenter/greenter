@@ -182,8 +182,7 @@ class InvoiceParser implements DocumentParserInterface
         $cl->setNumDoc($this->defValue($xp->query('cbc:CustomerAssignedAccountID', $node)))
             ->setTipoDoc($this->defValue($xp->query('cbc:AdditionalAccountID', $node)))
             ->setRznSocial($this->defValue($xp->query('cac:Party/cac:PartyLegalEntity/cbc:RegistrationName', $node)))
-            ->setAddress((new Address())
-                ->setDireccion($this->defValue($xp->query('cac:Party/cac:PostalAddress/cbc:StreetName', $node))));
+            ->setAddress($this->getAddress($xp, $node));
 
         return $cl;
     }
@@ -196,10 +195,31 @@ class InvoiceParser implements DocumentParserInterface
         $cl->setRuc($this->defValue($xp->query('cbc:CustomerAssignedAccountID', $node)))
             ->setNombreComercial($this->defValue($xp->query('cac:Party/cac:PartyName/cbc:Name', $node)))
             ->setRazonSocial($this->defValue($xp->query('cac:Party/cac:PartyLegalEntity/cbc:RegistrationName', $node)))
-            ->setAddress((new Address())
-                ->setDireccion($this->defValue($xp->query('cac:Party/cac:PostalAddress/cbc:StreetName', $node))));
+            ->setAddress($this->getAddress($xp, $node));
 
         return $cl;
+    }
+
+    /**
+     * @param \DOMXPath $xp
+     * @param $node
+     * @return Address|null
+     */
+    private function getAddress(\DOMXPath $xp, $node)
+    {
+        $nAd = $xp->query('cac:Party/cac:PostalAddress', $node);
+        if ($nAd->length > 0) {
+            $address = $nAd->item(0);
+
+            return (new Address())
+                ->setDireccion($this->defValue($xp->query('cbc:StreetName', $address)))
+                ->setDepartamento($this->defValue($xp->query('cbc:CityName', $address)))
+                ->setProvincia($this->defValue($xp->query('cbc:CountrySubentity', $address)))
+                ->setDistrito($this->defValue($xp->query('cbc:District', $address)))
+                ->setUbigueo($this->defValue($xp->query('cbc:ID', $address)));
+        }
+
+        return null;
     }
 
     private function getDetails(\DOMXPath $xpt)
