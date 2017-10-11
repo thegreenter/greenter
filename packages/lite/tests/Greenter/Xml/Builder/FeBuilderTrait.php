@@ -72,6 +72,7 @@ trait FeBuilderTrait
             ->setProvincia('LIMA')
             ->setCodigoPais('PE')
             ->setDistrito('LIMA')
+            ->setUrbanizacion('-')
             ->setDireccion('AV LS');
         $company->setRuc('20000000001')
             ->setRazonSocial('EMPRESA SAC')
