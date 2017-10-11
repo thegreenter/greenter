@@ -357,6 +357,7 @@ trait FeFactoryTraitTest
             ->setDepartamento('LIMA')
             ->setProvincia('LIMA')
             ->setDistrito('LIMA')
+            ->setUrbanizacion('NONE')
             ->setDireccion('AV LS');
         $company->setRuc('20000000001')
             ->setRazonSocial('EMPRESA SAC')
