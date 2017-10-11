@@ -94,7 +94,7 @@
    <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
    <cbc:CustomizationID>1.0</cbc:CustomizationID>
    <cbc:ID>F001-123</cbc:ID>
-   <cbc:IssueDate>2017-09-29</cbc:IssueDate>
+   <cbc:IssueDate>2017-10-11</cbc:IssueDate>
    <cbc:InvoiceTypeCode>01</cbc:InvoiceTypeCode>
    <cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
    <cac:OrderReference>
@@ -116,7 +116,7 @@
             <cbc:ID>20000000001</cbc:ID>
          </cac:PartyIdentification>
          <cac:PartyName>
-            <cbc:Name>EMPRESA</cbc:Name>
+            <cbc:Name><![CDATA[EMPRESA]]></cbc:Name>
          </cac:PartyName>
       </cac:SignatoryParty>
       <cac:DigitalSignatureAttachment>
@@ -134,13 +134,16 @@
          </cac:PartyName>
          <cac:PostalAddress>
             <cbc:ID>150101</cbc:ID>
-            <cbc:StreetName>AV LS</cbc:StreetName>
+            <cbc:StreetName><![CDATA[AV LS]]></cbc:StreetName>
+            <cbc:CityName>LIMA</cbc:CityName>
+            <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
+            <cbc:District>LIMA</cbc:District>
             <cac:Country>
                <cbc:IdentificationCode>PE</cbc:IdentificationCode>
             </cac:Country>
          </cac:PostalAddress>
          <cac:PartyLegalEntity>
-            <cbc:RegistrationName>EMPRESA SAC</cbc:RegistrationName>
+            <cbc:RegistrationName><![CDATA[EMPRESA SAC]]></cbc:RegistrationName>
          </cac:PartyLegalEntity>
       </cac:Party>
    </cac:AccountingSupplierParty>
@@ -149,7 +152,7 @@
       <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
       <cac:Party>
          <cac:PartyLegalEntity>
-            <cbc:RegistrationName>EMPRESA 1</cbc:RegistrationName>
+            <cbc:RegistrationName><![CDATA[EMPRESA 1]]></cbc:RegistrationName>
          </cac:PartyLegalEntity>
       </cac:Party>
    </cac:AccountingCustomerParty>
@@ -251,7 +254,7 @@
          </cac:TaxSubtotal>
       </cac:TaxTotal>
       <cac:Item>
-         <cbc:Description>PROD 1</cbc:Description>
+         <cbc:Description><![CDATA[PROD 1]]></cbc:Description>
          <cac:SellersItemIdentification>
             <cbc:ID>C023</cbc:ID>
          </cac:SellersItemIdentification>
@@ -289,7 +292,7 @@
          </cac:TaxSubtotal>
       </cac:TaxTotal>
       <cac:Item>
-         <cbc:Description>PROD 2</cbc:Description>
+         <cbc:Description><![CDATA[PROD 2]]></cbc:Description>
          <cac:SellersItemIdentification>
             <cbc:ID>C02</cbc:ID>
          </cac:SellersItemIdentification>

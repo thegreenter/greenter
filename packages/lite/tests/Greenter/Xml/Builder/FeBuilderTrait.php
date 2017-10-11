@@ -70,7 +70,6 @@ trait FeBuilderTrait
         $address->setUbigueo('150101')
             ->setDepartamento('LIMA')
             ->setProvincia('LIMA')
-            ->setUrbanizacion('NINGUNA')
             ->setCodigoPais('PE')
             ->setDistrito('LIMA')
             ->setDireccion('AV LS');

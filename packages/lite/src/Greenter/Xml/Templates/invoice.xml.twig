@@ -116,7 +116,7 @@
                 <cbc:ID>{{ emp.ruc }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name>{{ emp.nombreComercial }}</cbc:Name>
+                <cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
             </cac:PartyName>
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
@@ -132,15 +132,19 @@
             <cac:PartyName>
                 <cbc:Name>{{ emp.nombreComercial }}</cbc:Name>
             </cac:PartyName>
+            {% set addr = emp.address %}
             <cac:PostalAddress>
-                <cbc:ID>{{ emp.address.ubigueo }}</cbc:ID>
-                <cbc:StreetName>{{ emp.address.direccion }}</cbc:StreetName>
+                <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
+                <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
+                <cbc:CityName>{{ addr.departamento }}</cbc:CityName>
+                <cbc:CountrySubentity>{{ addr.provincia }}</cbc:CountrySubentity>
+                <cbc:District>{{ addr.distrito }}</cbc:District>
                 <cac:Country>
-                    <cbc:IdentificationCode>{{ emp.address.codigoPais }}</cbc:IdentificationCode>
+                    <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName>{{ emp.razonSocial }}</cbc:RegistrationName>
+                <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
@@ -149,8 +153,18 @@
         <cbc:CustomerAssignedAccountID>{{ client.numDoc }}</cbc:CustomerAssignedAccountID>
         <cbc:AdditionalAccountID>{{ client.tipoDoc }}</cbc:AdditionalAccountID>
         <cac:Party>
+            {% if client.address %}
+                {% set addr = client.address %}
+                <cac:PostalAddress>
+                    <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
+                    <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
+                    <cac:Country>
+                        <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:PostalAddress>
+            {% endif %}
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName>{{ client.rznSocial }}</cbc:RegistrationName>
+                <cbc:RegistrationName><![CDATA[{{ client.rznSocial|raw }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingCustomerParty>
@@ -276,7 +290,7 @@
                 </cac:TaxTotal>
             {% endif %}
             <cac:Item>
-                <cbc:Description>{{ detail.desItem }}</cbc:Description>
+                <cbc:Description><![CDATA[{{ detail.desItem|raw }}]]></cbc:Description>
                 <cac:SellersItemIdentification>
                     <cbc:ID>{{ detail.codProducto }}</cbc:ID>
                 </cac:SellersItemIdentification>
