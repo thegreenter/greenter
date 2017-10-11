@@ -11,7 +11,7 @@ Greenter - Facturacion Electronica
 PHP Implementación de la Facturación Electrónica Sunat - Perú
 
 <p align="center">
-  <img alt="Sunat Facturacion Electronica" src="http://www.sunat.gob.pe/p/imagenes/icons/favicon.ico">
+  <img alt="Sunat Facturacion Electronica" src="https://raw.githubusercontent.com/giansalex/greenter/master/extras/sunat.ico">
 </p>
 
 # Install
