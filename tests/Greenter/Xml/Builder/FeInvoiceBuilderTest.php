@@ -18,6 +18,7 @@ use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Prepayment;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * Class FeInvoiceBuilderTest
@@ -53,13 +54,20 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateXmlInvoice()
     {
+        $stopwatch = new Stopwatch();
+        $stopwatch->start('invoice');
         $invoice = $this->getInvoice();
 
         $xml = $this->build($invoice);
+        $event = $stopwatch->stop('invoice');
 
         // file_put_contents('x.xml', $xml);
         $this->assertNotEmpty($xml);
         $this->assertInvoiceXml($xml);
+
+        if ($event->getDuration() > 300) {
+            printf('Warning: time is long %d ms', $event->getDuration());
+        }
     }
 
     public function testCompanyValidate()
