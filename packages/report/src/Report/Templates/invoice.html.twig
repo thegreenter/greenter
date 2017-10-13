@@ -9,19 +9,15 @@
             display: table;
             clear: both;
         }
-        a {
-            color: #0087C3;
-            text-decoration: none;
-        }
         body {
             position: relative;
             width: 100%;
             height: 29.7cm;
-            margin: 0 auto;
+            margin: 0;
             color: #555555;
             background: #FFFFFF;
             font-family: Arial, sans-serif;
-            font-size: 14px;
+            font-size: 12px;
         }
         header {
             padding: 10px 0;
@@ -47,11 +43,15 @@
             border-left: 6px solid #0087C3;
             float: left;
         }
+        #qrcode {
+            margin-bottom: 20px;
+            float: right;
+        }
         #client .to {
             color: #777777;
         }
-        h2.name {
-            font-size: 1.4em;
+        h2.ruc {
+            font-size: 1.2em;
             font-weight: normal;
             margin: 0;
         }
@@ -61,7 +61,7 @@
         }
         #invoice h1 {
             color: #0087C3;
-            font-size: 2.4em;
+            font-size: 2em;
             line-height: 1em;
             font-weight: normal;
             margin: 0  0 10px 0;
@@ -120,6 +120,7 @@
         table td.qty,
         table td.total {
             font-size: 1.2em;
+            text-align: center;
         }
         table tbody tr:last-child td {
             border: none;
@@ -135,6 +136,9 @@
         table tfoot tr:first-child td {
             border-top: none;
         }
+        table tfoot tr td:last-child {
+            text-align: center;
+        }
         table tfoot tr:last-child td {
             color: #57B223;
             font-size: 1.4em;
@@ -143,10 +147,6 @@
         table tfoot tr td:first-child {
             border: none;
         }
-        #thanks{
-            font-size: 2em;
-            margin-bottom: 50px;
-        }
         #notices{
             padding-left: 6px;
             border-left: 6px solid #0087C3;
@@ -154,43 +154,39 @@
         #notices .notice {
             font-size: 1.2em;
         }
-        footer {
-            color: #777777;
-            width: 100%;
-            height: 30px;
-            position: absolute;
-            bottom: 0;
-            border-top: 1px solid #AAAAAA;
-            padding: 8px 0;
-            text-align: center;
+        .name {
+            font-size: 1.4em;
+            margin: 0.2em 0;
         }
     </style>
 </head>
 <body>
 <header class="clearfix">
     <div id="logo">
-        <img src="{{ params.logo }}">
+        <img src="{{ params.system.logo }}">
     </div>
     <div id="company">
         {% set cp = doc.company %}
-        <h2 class="name">{{ cp.razonSocial }}</h2>
+        <h2 style="margin-bottom:0">RUC {{ cp.ruc }}</h2>
+        <h3 style="margin:0.2em 0;font-size:1.3em">{{ cp.razonSocial }}</h3>
         <div>{{ cp.address.direccion }}</div>
-        <div>(602) 519-0450</div>
-        <div><a href="mailto:company@example.com">company@example.com</a></div>
+        <div>{{ params.user.telefono }}</div>
     </div>
 </header>
 <main>
     <div id="details" class="clearfix">
-        <div id="client">
-            <div class="to">INVOICE TO:</div>
-            <h2 class="name">John Doe</h2>
-            <div class="address">796 Silver Harbour, TX 79273, US</div>
-            <div class="email"><a href="mailto:john@example.com">john@example.com</a></div>
+        <div id="client" style="max-width: 60%">
+            <div class="to">EMITIDO A:</div>
+            {% set cl = doc.client %}
+            <h2 class="ruc"><b>{{ params.system.clientDoc }}</b> {{ cl.numDoc }}</h2>
+            <span class="name">{{ cl.rznSocial }}</span>
+            <div class="address"><i>{{ cl.address.direccion }}</i></div>
         </div>
         <div id="invoice">
-            <h1>INVOICE 3-2-1</h1>
-            <div class="date">Date of Invoice: 01/06/2014</div>
-            <div class="date">Due Date: 30/06/2014</div>
+            {% set serieNro = doc.serie ~ '-' ~ doc.correlativo %}
+            <h1>{{ params.system.nameDoc }}</h1>
+            <h1>{{ serieNro }}</h1>
+            <div class="date">EMITIDO: {{ doc.fechaEmision|date('d/m/Y') }}</div>
         </div>
     </div>
     <table border="0" cellspacing="0" cellpadding="0">
@@ -221,29 +217,72 @@
         <tfoot>
         <tr>
             <td colspan="2"></td>
-            <td colspan="2">SUBTOTAL</td>
-            <td>S/.5,200.00</td>
+            <td colspan="2">Op. Gravadas</td>
+            <td>{{ moneda }}{{ doc.mtoOperGravadas|number_format(2, '.', '') }}</td>
         </tr>
+        {% if doc.mtoOperInafectas %}
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="2">Op. Inafectas</td>
+                <td>{{ moneda }}{{  doc.mtoOperInafectas|number_format(2, '.', '') }}</td>
+            </tr>
+        {% endif %}
+        {% if doc.mtoOperExoneradas %}
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="2">Op. Exoneradas</td>
+                <td>{{ moneda }}{{  doc.mtoOperExoneradas|number_format(2, '.', '') }}</td>
+            </tr>
+        {% endif %}
+        {% if doc.mtoOperGratuitas %}
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="2">Op. Gratuitas</td>
+                <td>{{ moneda }}{{  doc.mtoOperGratuitas|number_format(2, '.', '') }}</td>
+            </tr>
+        {% endif %}
         <tr>
             <td colspan="2"></td>
-            <td colspan="2">TAX 25%</td>
-            <td>S/.1,300.00</td>
+            <td colspan="2">IGV (18%)</td>
+            <td>{{ moneda }}{{  doc.mtoIGV|number_format(2, '.', '') }}</td>
         </tr>
+        {% if doc.mtoISC %}
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="2">ISC</td>
+                <td>{{ moneda }}{{  doc.mtoISC|number_format(2, '.', '') }}</td>
+            </tr>
+        {% endif %}
+        {% if doc.mtoOtrosTributos %}
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="2">Otros Tributos</td>
+                <td>{{ moneda }}{{  doc.mtoOtrosTributos|number_format(2, '.', '') }}</td>
+            </tr>
+        {% endif %}
         <tr>
             <td colspan="2"></td>
-            <td colspan="2">GRAND TOTAL</td>
-            <td>S/.6,500.00</td>
+            <td colspan="2">TOTAL</td>
+            <td>{{ moneda }}{{ doc.mtoImpVenta|number_format(2, '.', '') }}</td>
         </tr>
         </tfoot>
     </table>
-    <div id="thanks">Thank you!</div>
-    <div id="notices">
-        <div>NOTICE:</div>
-        <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+    <hr>
+    <div style="margin: 20px 0;width: 100%;text-align: center">
+        <span>
+            <b>IMPORTE EN LETRAS</b> {{ params.system.montletras }}
+        </span>
+    </div>
+    <div class="clearfix">
+        <div style="float: left">
+            <div id="notices">
+                <div class="notice">Representación Impresa de la {{ params.system.nameDoc }}.</div>
+            </div>
+        </div>
+        <div id="qrcode">
+            <img src="{{ params.system.qrcode }}">
+        </div>
     </div>
 </main>
-<footer>
-    Invoice was created on a computer and is valid without the signature and seal.
-</footer>
 </body>
 </html>

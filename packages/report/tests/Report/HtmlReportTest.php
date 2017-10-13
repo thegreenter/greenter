@@ -43,8 +43,16 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
         $qrcode = 'data:image/png;base64,' . base64_encode(file_get_contents(__DIR__.'/../Resources/qrcode.png'));
 
         return [
-            'logo' => $logo,
-            'qrcode' => $qrcode,
+            'system' => [
+                'logo' => $logo,
+                'qrcode' => $qrcode,
+                'nameDoc' => 'FACTURA ELECTRÓNICA',
+                'montletras' => 'CIEN CON 00/100 NUEVOS SOLES',
+                'clientDoc' => 'RUC',
+            ],
+            'user' => [
+                'telefono' => '(056) 123375'
+            ]
         ];
     }
 
@@ -53,7 +61,9 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
         $client = new Client();
         $client->setTipoDoc('6')
             ->setNumDoc('20000000001')
-            ->setRznSocial('EMPRESA 1');
+            ->setRznSocial('EMPRESA 1')
+        ->setAddress((new Address())
+        ->setDireccion('AV ITALIA 231 MZ K LT 4'));
         $perc = new SalePerception();
         $perc->setCodReg('01')
             ->setMto(2)
