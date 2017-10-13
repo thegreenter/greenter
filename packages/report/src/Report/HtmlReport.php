@@ -47,7 +47,7 @@ class HtmlReport implements ReportInterface
      * @param array $parameters
      * @return bool|string
      */
-    public function build(DocumentInterface $document, $parameters = [])
+    public function render(DocumentInterface $document, $parameters = [])
     {
         $html = $this->twig->render($this->template, [
             'doc' => $document,
