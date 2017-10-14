@@ -1,7 +1,7 @@
 {
-    "name": "greenter/greenter",
-    "description": "Implementación de la Facturacion Electrónica SUNAT - Perú",
-    "keywords": ["sunat", "xml", "facturacion electronica"],
+    "name": "greenter/xml",
+    "description": "XML generación de documentos electrónicos, Facturacion Electrónica SUNAT - Perú",
+    "keywords": ["greenter", "xml", "facturacion electronica"],
     "license": "MIT",
     "authors": [
         {
@@ -9,7 +9,7 @@
             "email": "giansalex@gmail.com"
         }
     ],
-    "homepage": "https://github.com/giansalex/greenter",
+    "homepage": "https://github.com/giansalex/greenter-xml",
     "type": "project",
     "require": {
 		"php": ">=5.5.9",
