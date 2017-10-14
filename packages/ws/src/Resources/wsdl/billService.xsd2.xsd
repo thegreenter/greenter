@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:tns="http://service.sunat.gob.pe" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://service.sunat.gob.pe">
+
+	
+<xs:element name="getStatus" type="tns:getStatus"/>
+
+	
+<xs:element name="getStatusResponse" type="tns:getStatusResponse"/>
+
+	
+<xs:element name="sendBill" type="tns:sendBill"/>
+
+	
+<xs:element name="sendBillResponse" type="tns:sendBillResponse"/>
+
+	
+<xs:element name="sendPack" type="tns:sendPack"/>
+
+	
+<xs:element name="sendPackResponse" type="tns:sendPackResponse"/>
+
+	
+<xs:element name="sendSummary" type="tns:sendSummary"/>
+
+	
+<xs:element name="sendSummaryResponse" type="tns:sendSummaryResponse"/>
+
+	
+<xs:complexType name="sendSummary">
+		
+<xs:sequence>
+			
+<xs:element name="fileName" type="xs:string" minOccurs="0"/>
+			
+<xs:element xmlns:ns1="http://www.w3.org/2005/05/xmlmime" name="contentFile" ns1:expectedContentTypes="application/octet-stream" type="xs:base64Binary" minOccurs="0"/>
+			
+<xs:element name="partyType" type="xs:string" maxOccurs="1" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	
+<xs:complexType name="sendSummaryResponse">
+		
+<xs:sequence>
+			
+<xs:element name="ticket" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	
+<xs:complexType name="getStatus">
+		
+<xs:sequence>
+			
+<xs:element name="ticket" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	
+<xs:complexType name="getStatusResponse">
+		
+<xs:sequence>
+			
+<xs:element name="status" type="tns:statusResponse" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	
+<xs:complexType name="statusResponse">
+		
+<xs:sequence>
+			
+<xs:element name="content" type="xs:base64Binary" minOccurs="0"/>
+			
+<xs:element name="statusCode" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	
+<xs:complexType name="sendPack">
+		
+<xs:sequence>
+			
+<xs:element name="fileName" type="xs:string" minOccurs="0"/>
+			
+<xs:element xmlns:ns2="http://www.w3.org/2005/05/xmlmime" name="contentFile" ns2:expectedContentTypes="application/octet-stream" type="xs:base64Binary" minOccurs="0"/>
+			
+<xs:element name="partyType" type="xs:string" maxOccurs="1" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	
+<xs:complexType name="sendPackResponse">
+		
+<xs:sequence>
+			
+<xs:element name="ticket" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	
+<xs:complexType name="sendBill">
+		
+<xs:sequence>
+			
+<xs:element name="fileName" type="xs:string" minOccurs="0"/>
+			
+<xs:element xmlns:ns3="http://www.w3.org/2005/05/xmlmime" name="contentFile" ns3:expectedContentTypes="application/octet-stream" type="xs:base64Binary" minOccurs="0"/>
+			
+<xs:element name="partyType" type="xs:string" maxOccurs="1" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+
+	
+<xs:complexType name="sendBillResponse">
+		
+<xs:sequence>
+			
+<xs:element name="applicationResponse" type="xs:base64Binary" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

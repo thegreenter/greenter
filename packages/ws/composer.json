@@ -1,0 +1,31 @@
+{
+    "name": "greenter/ws",
+    "description": "WS Facturacion Electrónica SUNAT - Perú",
+    "keywords": ["ws", "greenter", "facturacion electronica"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Giancarlos Salas",
+            "email": "giansalex@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/giansalex/greenter-ws",
+    "type": "project",
+    "require": {
+		"php": ">=5.5.9",
+        "greenter/core": "^1.0"
+    },
+	"require-dev": {
+        "phpunit/phpunit": "4.8.36"
+    },
+	"autoload": {
+        "psr-4": {
+            "Greenter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Greenter\\": "tests/"
+        }
+    }
+}
