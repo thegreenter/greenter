@@ -1,0 +1,18 @@
+language: php
+
+php:
+  - 5.6
+  - 7.0
+
+before_script:
+  - composer self-update
+  - composer install --prefer-source --no-interaction
+
+install:
+  - composer require jakub-onderka/php-parallel-lint
+
+script:
+  - mkdir -p build/logs
+  - vendor/bin/parallel-lint --exclude vendor .
+  - vendor/bin/phpunit --configuration phpunit.xml
+

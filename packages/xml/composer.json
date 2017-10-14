@@ -1,0 +1,34 @@
+{
+    "name": "greenter/greenter",
+    "description": "Implementación de la Facturacion Electrónica SUNAT - Perú",
+    "keywords": ["sunat", "xml", "facturacion electronica"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Giancarlos Salas",
+            "email": "giansalex@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/giansalex/greenter",
+    "type": "project",
+    "require": {
+		"php": ">=5.5.9",
+        "twig/twig": "~1.0",
+        "greenter/core": "^1.0"
+    },
+	"require-dev": {
+        "phpunit/phpunit": "4.8.36",
+        "symfony/stopwatch": "^3.3",
+        "greenter/validator": "^1.0"
+    },
+	"autoload": {
+        "psr-4": {
+            "Greenter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Greenter\\": "tests/"
+        }
+    }
+}
