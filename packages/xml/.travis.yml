@@ -9,10 +9,15 @@ before_script:
   - composer install --prefer-source --no-interaction
 
 install:
+  - composer require satooshi/php-coveralls
   - composer require jakub-onderka/php-parallel-lint
 
 script:
   - mkdir -p build/logs
   - vendor/bin/parallel-lint --exclude vendor .
-  - vendor/bin/phpunit --configuration phpunit.xml
+  - vendor/bin/phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
+
+after_success:
+  - travis_retry php vendor/bin/coveralls -v
+
 
