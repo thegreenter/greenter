@@ -6,6 +6,6 @@
 git_pull.sh export-ignore
 phpunit.xml export-ignore
 _config.yml export-ignore
-LICENCE export-ignore
+LICENSE export-ignore
 README.md export-ignore
 *.twig linguist-language=XML
