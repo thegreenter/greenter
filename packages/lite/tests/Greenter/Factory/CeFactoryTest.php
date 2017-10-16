@@ -53,7 +53,7 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testRetentionException()
     {
@@ -87,7 +87,7 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testPerceptionException()
     {
@@ -97,7 +97,7 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testCreateXmlIPerceptionException()
     {
@@ -126,7 +126,7 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testReversionException()
     {
@@ -136,7 +136,7 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testXmlReversionException()
     {

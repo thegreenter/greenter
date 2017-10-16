@@ -8,14 +8,13 @@
 
 namespace Greenter\Factory;
 
+use Greenter\Builder\BuilderInterface;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
-use Greenter\Security\SignedXml;
+use Greenter\Services\SenderInterface;
 use Greenter\Validator\DocumentValidatorInterface;
-use Greenter\Ws\Services\SenderInterface;
-use Greenter\Xml\Builder\BuilderInterface;
-use Greenter\Xml\Exception\ValidationException;
-use Greenter\Zip\ZipFactory;
+use Greenter\Validator\ValidationException;
+use RobRichards\XMLSecLibs\Sunat\Adapter\SunatXmlSecAdapter;
 
 /**
  * Class FeFactory
@@ -24,14 +23,9 @@ use Greenter\Zip\ZipFactory;
 class FeFactory implements FactoryInterface
 {
     /**
-     * @var SignedXml
+     * @var SunatXmlSecAdapter
      */
     private $signer;
-
-    /**
-     * @var ZipFactory
-     */
-    private $zipper;
 
     /**
      * @var SenderInterface
@@ -70,8 +64,7 @@ class FeFactory implements FactoryInterface
      */
     public function __construct()
     {
-        $this->signer = new SignedXml();
-        $this->zipper = new ZipFactory();
+        $this->signer = new SunatXmlSecAdapter();
     }
 
     /**
@@ -123,10 +116,8 @@ class FeFactory implements FactoryInterface
         }
         $xml = $this->builder->build($document);
         $this->lastXml = $this->getXmmlSigned($xml);
-        $filename = $document->getName();
 
-        $zip = $this->zipper->compress("$filename.xml", $this->lastXml);
-        return $this->sender->send("$filename.zip", $zip);
+        return $this->sender->send($document->getName(), $this->lastXml);
     }
 
     /**
@@ -154,6 +145,6 @@ class FeFactory implements FactoryInterface
      */
     private function getXmmlSigned($xml)
     {
-        return $this->signer->sign($xml);
+        return $this->signer->signXml($xml);
     }
 }
