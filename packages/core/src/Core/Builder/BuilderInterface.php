@@ -6,21 +6,21 @@
  * Time: 13:26
  */
 
-namespace Greenter\Xml\Builder;
+namespace Greenter\Builder;
 
 use Greenter\Model\DocumentInterface;
 
 /**
  * Interface BuilderInterface
- * @package Greenter\Xml\Builder
+ * @package Greenter\Builder
  */
 interface BuilderInterface
 {
     /**
-     * Create xml for document.
+     * Create file for document.
      *
      * @param DocumentInterface $document
-     * @return string
+     * @return string           Content File
      */
     public function build(DocumentInterface $document);
 }

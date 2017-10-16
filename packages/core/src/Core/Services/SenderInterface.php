@@ -6,19 +6,21 @@
  * Time: 09:58 AM
  */
 
-namespace Greenter\Ws\Services;
+namespace Greenter\Services;
 
 use Greenter\Model\Response\BaseResult;
 
 /**
  * Interface SenderInterface
- * @package Greenter\Ws\Services
+ * @package Greenter\Services
  */
 interface SenderInterface
 {
     /**
-     * @param string $filename
-     * @param string $content
+     * Send document.
+     *
+     * @param string $filename  Filename
+     * @param string $content   Content File
      * @return BaseResult
      */
     public function send($filename, $content);

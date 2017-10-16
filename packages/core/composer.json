@@ -9,7 +9,7 @@
             "email": "giansalex@gmail.com"
         }
     ],
-    "homepage": "https://github.com/giansalex/greenter",
+    "homepage": "https://github.com/giansalex/greenter-core",
     "type": "project",
     "require": {
 		"php": ">=5.5.9"
