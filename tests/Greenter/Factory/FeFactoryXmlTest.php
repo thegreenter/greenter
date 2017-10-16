@@ -7,10 +7,11 @@
  */
 
 namespace Tests\Greenter\Factory;
+
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Validator\SymfonyValidator;
-use Greenter\Ws\Services\SenderInterface;
+use Greenter\Services\SenderInterface;
 
 /**
  * Class FeFactoryXmlTest

@@ -34,7 +34,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testCreateXmlInvoiceException()
     {
@@ -69,7 +69,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testXmlCreditNoteException()
     {
@@ -91,7 +91,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testInvoiceInvalid()
     {
@@ -114,7 +114,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testCreditNoteException()
     {
@@ -137,7 +137,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testDebitNoteException()
     {
@@ -162,7 +162,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testXmlSummaryException()
     {
@@ -185,7 +185,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testResumenException()
     {
@@ -195,7 +195,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testXmlSummaryV2Exception()
     {
@@ -222,7 +222,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testBajaException()
     {
@@ -232,7 +232,7 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
+     * @expectedException \Greenter\Validator\ValidationException
      */
     public function testXmlVoidedException()
     {

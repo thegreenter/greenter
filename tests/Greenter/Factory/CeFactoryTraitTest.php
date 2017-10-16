@@ -32,7 +32,7 @@ use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Validator\SymfonyValidator;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
-use Greenter\Ws\Services\SenderInterface;
+use Greenter\Services\SenderInterface;
 use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SummarySender;
 use Greenter\Ws\Services\SunatEndpoints;
@@ -86,7 +86,7 @@ trait CeFactoryTraitTest
         $builder = new $builders[get_class($document)]();
 
         $factory = new FeFactory();
-        $factory->setCertificate(file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'));
+        $factory->setCertificate(file_get_contents(__DIR__ . '/../../Resources/SFSCert.pem'));
         $factory->setSender($sender);
         $factory->setBuilder($builder);
         $factory->setValidator(new SymfonyValidator());

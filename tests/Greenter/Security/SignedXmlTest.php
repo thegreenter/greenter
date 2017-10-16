@@ -8,7 +8,7 @@
 
 namespace tests\Greenter\Security;
 
-use Greenter\Security\SignedXml;
+use RobRichards\XMLSecLibs\Sunat\Adapter\SunatXmlSecAdapter;
 
 /**
  * Class SignedXmlTest
@@ -28,8 +28,8 @@ class SignedXmlTest extends \PHPUnit_Framework_TestCase
     {
         $xmlSigned = $this->createXmlSigned();
 
-        $signer = new SignedXml();
-        $result = $signer->verify($xmlSigned);
+        $signer = new SunatXmlSecAdapter();
+        $result = $signer->verifyXml($xmlSigned);
 
         $this->assertTrue($result);
     }
@@ -43,11 +43,11 @@ class SignedXmlTest extends \PHPUnit_Framework_TestCase
 
     private function createXmlSigned()
     {
-        $xml = file_get_contents(__DIR__ . '/../Resources/invoice.xml');
-        $cert = file_get_contents(__DIR__ . '/../Resources/SFSCert.pem');
-        $signer = new SignedXml();
+        $xml = file_get_contents(__DIR__ . '/../../Resources/invoice.xml');
+        $cert = file_get_contents(__DIR__ . '/../../Resources/SFSCert.pem');
+        $signer = new SunatXmlSecAdapter();
         $signer->setCertificate($cert);
-        $xmlSigned = $signer->sign($xml);
+        $xmlSigned = $signer->signXml($xml);
 
         //file_put_contents('signed.xml', $xmlSigned);
         return $xmlSigned;
