@@ -11,8 +11,8 @@ namespace Tests\Greenter\Ws\Services;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\CdrResponse;
 use Greenter\Model\Response\SummaryResult;
+use Greenter\Services\SenderInterface;
 use Greenter\Ws\Services\ExtService;
-use Greenter\Ws\Services\SenderInterface;
 use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\WsClientInterface;
 

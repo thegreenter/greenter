@@ -10,6 +10,7 @@ namespace Greenter\Ws\Services;
 
 use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Response\SummaryResult;
+use Greenter\Services\SenderInterface;
 
 /**
  * Class SummarySender

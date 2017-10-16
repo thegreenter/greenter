@@ -9,6 +9,7 @@
 namespace Greenter\Ws\Services;
 
 use Greenter\Model\Response\BillResult;
+use Greenter\Services\SenderInterface;
 
 /**
  * Class BillSender
