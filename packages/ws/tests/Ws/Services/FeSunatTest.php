@@ -19,8 +19,23 @@ class FeSunatTest extends FeSunatTestBase
 {
     public function testSendInvoice()
     {
-        $nameXml = '20600055519-01-F001-00000001.xml';
-        $xml = file_get_contents(__DIR__."/../../Resources/$nameXml");
+        $nameXml = '20600055519-01-F001-00000001';
+        $xml = file_get_contents(__DIR__."/../../Resources/$nameXml.xml");
+
+        $wss = $this->getBillSenderMock();
+        $response = $wss->send($nameXml, $xml);
+
+        /**@var $response BillResult */
+        $this->assertTrue($response->isSuccess());
+        $this->assertNotNull($response->getCdrResponse());
+        $this->assertContains('La Factura numero F001-00000001, ha sido aceptada',
+            $response->getCdrResponse()->getDescription());
+    }
+
+    public function testSendInvoiceBillSender()
+    {
+        $nameXml = '20600055519-01-F001-00000001';
+        $xml = file_get_contents(__DIR__."/../../Resources/$nameXml.xml");
 
         $wss = $this->getBillSender();
         $response = $wss->send($nameXml, $xml);
@@ -32,10 +47,38 @@ class FeSunatTest extends FeSunatTestBase
             $response->getCdrResponse()->getDescription());
     }
 
+    public function testSendInvalidInvoice()
+    {
+        $nameXml = '20600055519-01-F001-00000001';
+        $xml = file_get_contents(__DIR__."/../../Resources/$nameXml.xml");
+
+        $wss = $this->getBillSenderThrow('0156');
+        $response = $wss->send($nameXml, $xml);
+
+        /**@var $response BillResult */
+        $this->assertFalse($response->isSuccess());
+        $this->assertEquals('0156', $response->getError()->getCode());
+        $this->assertEquals('El archivo ZIP esta corrupto', $response->getError()->getMessage());
+    }
+
     public function testSendVoided()
     {
-        $nameXml = '20600995805-RA-20170719-01.xml';
-        $xml = file_get_contents(__DIR__."/../../Resources/$nameXml");
+        $nameXml = '20600995805-RA-20170719-01';
+        $xml = file_get_contents(__DIR__."/../../Resources/$nameXml.xml");
+
+        $wss = $this->getSummarySenderMock();
+        $result = $wss->send($nameXml, $xml);
+
+        /**@var $result SummaryResult */
+        $this->assertNotNull($result);
+        $this->assertTrue($result->isSuccess());
+        $this->assertEquals(13, strlen($result->getTicket()));
+    }
+
+    public function testSendVoidedSummarySender()
+    {
+        $nameXml = '20600995805-RA-20170719-01';
+        $xml = file_get_contents(__DIR__."/../../Resources/$nameXml.xml");
 
         $wss = $this->getSummarySender();
         $result = $wss->send($nameXml, $xml);
@@ -44,6 +87,20 @@ class FeSunatTest extends FeSunatTestBase
         $this->assertNotNull($result);
         $this->assertTrue($result->isSuccess());
         $this->assertEquals(13, strlen($result->getTicket()));
+    }
+
+    public function testSendInvalidVoided()
+    {
+        $nameXml = '20600995805-RA-20170719-01';
+        $xml = file_get_contents(__DIR__."/../../Resources/$nameXml.xml");
+
+        $wss = $this->getSummarySenderThrow('2001');
+        $result = $wss->send($nameXml, $xml);
+
+        /**@var $result SummaryResult */
+        $this->assertNotNull($result);
+        $this->assertFalse($result->isSuccess());
+        $this->assertEquals('2001', $result->getError()->getCode());
     }
 
     public function testGetStatus()

@@ -3,5 +3,6 @@
 .gitignore export-ignore
 .travis.yml export-ignore
 git_pull.sh export-ignore
+LICENSE export-ignore
 phpunit.xml export-ignore
-*.twig linguist-language=XML
+README.md export-ignore

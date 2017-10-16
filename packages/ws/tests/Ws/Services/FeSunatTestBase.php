@@ -12,8 +12,11 @@ use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\CdrResponse;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\Services\SenderInterface;
+use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SoapClient;
+use Greenter\Ws\Services\SummarySender;
+use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Ws\Services\WsClientInterface;
 
 /**
@@ -74,6 +77,29 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
      */
     protected function getBillSender()
     {
+        $sender = new BillSender();
+        $sender->setClient($this->getClient());
+
+        return $sender;
+    }
+
+    /**
+     * @param string $code
+     * @return SenderInterface
+     */
+    protected function getBillSenderThrow($code)
+    {
+        $sender = new BillSender();
+        $sender->setClient($this->getClientMock($code));
+
+        return $sender;
+    }
+
+    /**
+     * @return SenderInterface
+     */
+    protected function getBillSenderMock()
+    {
         $stub = $this->getMockBuilder(SenderInterface::class)
             ->getMock();
         $stub->method('send')->will($this->returnValue((new BillResult())
@@ -93,6 +119,17 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
      */
     protected function getSummarySender()
     {
+        $sender = new SummarySender();
+        $sender->setClient($this->getClient());
+
+        return $sender;
+    }
+
+    /**
+     * @return SenderInterface
+     */
+    protected function getSummarySenderMock()
+    {
         $stub = $this->getMockBuilder(SenderInterface::class)
             ->getMock();
         $stub->method('send')->will($this->returnValue((new SummaryResult())
@@ -104,6 +141,17 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
         return $stub;
     }
 
+    /**
+     * @param string $code
+     * @return SenderInterface
+     */
+    protected function getSummarySenderThrow($code)
+    {
+        $sender = new SummarySender();
+        $sender->setClient($this->getClientMock($code));
+
+        return $sender;
+    }
 
     /**
      * @param string $code FaultCode
@@ -111,13 +159,36 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
      */
     protected function getExtServiceForFault($code)
     {
+        $client = $this->getClientMock($code);
+        $sunat = new ExtService();
+        $sunat->setClient($client);
+
+        return $sunat;
+    }
+
+    /**
+     * @return SoapClient
+     */
+    private function getClient()
+    {
+        $client = new SoapClient();
+        $client->setCredentials('20000000001MODDATOS', 'moddatos');
+        $client->setService(SunatEndpoints::FE_BETA);
+
+        return $client;
+    }
+
+    /**
+     * @param $code
+     * @return WsClientInterface
+     */
+    private function getClientMock($code)
+    {
         $stub = $this->getMockBuilder(WsClientInterface::class)
             ->getMock();
         $stub->method('call')->will($this->throwException(new \SoapFault($code, 'ERROR TEST')));
-        /**@var $stub WsClientInterface */
-        $sunat = new ExtService();
-        $sunat->setClient($stub);
 
-        return $sunat;
+        /**@var $stub WsClientInterface */
+        return $stub;
     }
 }
