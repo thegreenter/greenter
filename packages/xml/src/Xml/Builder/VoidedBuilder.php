@@ -8,6 +8,7 @@
 
 namespace Greenter\Xml\Builder;
 
+use Greenter\Builder\BuilderInterface;
 use Greenter\Model\DocumentInterface;
 
 /**
