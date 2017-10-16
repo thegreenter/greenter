@@ -110,10 +110,7 @@ class FeFactory implements FactoryInterface
      */
     public function send(DocumentInterface $document)
     {
-        $errs = $this->validator->validate($document);
-        if (count($errs) > 0) {
-            throw new ValidationException($errs);
-        }
+        $this->validate($document);
         $xml = $this->builder->build($document);
         $this->lastXml = $this->getXmmlSigned($xml);
 
@@ -146,5 +143,16 @@ class FeFactory implements FactoryInterface
     private function getXmmlSigned($xml)
     {
         return $this->signer->signXml($xml);
+    }
+
+    private function validate(DocumentInterface $document)
+    {
+        if (!$this->validator) {
+            return;
+        }
+        $errs = $this->validator->validate($document);
+        if (count($errs) > 0) {
+            throw new ValidationException($errs);
+        }
     }
 }

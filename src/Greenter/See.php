@@ -1,0 +1,141 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Administrador
+ * Date: 16/10/2017
+ * Time: 04:23 PM
+ */
+
+namespace Greenter;
+
+use Greenter\Builder\BuilderInterface;
+use Greenter\Factory\FeFactory;
+use Greenter\Model\DocumentInterface;
+use Greenter\Model\Summary\Summary;
+use Greenter\Model\Summary\SummaryV2;
+use Greenter\Model\Voided\Reversion;
+use Greenter\Model\Voided\Voided;
+use Greenter\Services\SenderInterface;
+use Greenter\Ws\Services\BillSender;
+use Greenter\Ws\Services\SoapClient;
+use Greenter\Ws\Services\SummarySender;
+
+/**
+ * Sistema de Emision del Contribuyente.
+ *
+ * Class See
+ * @package Greenter
+ */
+class See
+{
+    /**
+     * @var FeFactory
+     */
+    private $factory;
+
+    /**
+     * @var SoapClient
+     */
+    private $wsClient;
+
+    /**
+     * @var array
+     */
+    private $builders;
+
+    /**
+     * @var array
+     */
+    private $summarys;
+
+    /**
+     * See constructor.
+     */
+    public function __construct()
+    {
+        $this->factory = new FeFactory();
+        $this->wsClient = new SoapClient();
+        $this->builders = [
+            Model\Sale\Invoice::class => Xml\Builder\InvoiceBuilder::class,
+            Model\Sale\Note::class => Xml\Builder\NoteBuilder::class,
+            Model\Summary\Summary::class => Xml\Builder\SummaryBuilder::class,
+            Model\Summary\SummaryV2::class => Xml\Builder\SummaryV2Builder::class,
+            Model\Voided\Voided::class => Xml\Builder\VoidedBuilder::class,
+            Model\Despatch\Despatch::class => Xml\Builder\DespatchBuilder::class,
+            Model\Retention\Retention::class => Xml\Builder\RetentionBuilder::class,
+            Model\Perception\Perception::class => Xml\Builder\PerceptionBuilder::class,
+            Model\Voided\Reversion::class => Xml\Builder\VoidedBuilder::class,
+        ];
+        $this->summarys = [Summary::class, SummaryV2::class, Voided::class, Reversion::class];
+    }
+
+    /**
+     * @param string $certificate
+     */
+    public function setCertificate($certificate)
+    {
+        $this->factory->setCertificate($certificate);
+    }
+
+    /**
+     * @param string $user
+     * @param string $password
+     */
+    public function setCredentials($user, $password)
+    {
+        $this->wsClient->setCredentials($user, $password);
+    }
+
+    /**
+     * @param string $service
+     */
+    public function setService($service)
+    {
+        $this->wsClient->setService($service);
+    }
+
+    /**
+     * Envia documento.
+     *
+     * @param DocumentInterface $document
+     * @return Model\Response\BaseResult
+     */
+    public function send(DocumentInterface $document)
+    {
+        $classDoc = get_class($document);
+        $this->factory
+            ->setBuilder($this->getBuilder($classDoc))
+            ->setSender($this->getSender($classDoc));
+
+        return $this->factory->send($document);
+    }
+
+    /**
+     * @return FeFactory
+     */
+    public function getFactory()
+    {
+        return $this->factory;
+    }
+
+    /**
+     * @param string $class
+     * @return BuilderInterface
+     */
+    private function getBuilder($class)
+    {
+        return new $this->builders[$class];
+    }
+
+    /**
+     * @param string $class
+     * @return SenderInterface
+     */
+    private function getSender($class)
+    {
+        $sender = in_array($class, $this->summarys) ? new SummarySender(): new BillSender();
+        $sender->setClient($this->wsClient);
+
+        return $sender;
+    }
+}

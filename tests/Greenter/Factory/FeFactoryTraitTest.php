@@ -54,11 +54,6 @@ trait FeFactoryTraitTest
      */
     private $builders;
 
-    /**
-     * @var \DateTime
-     */
-    private $dateEmision;
-
     public function setUp()
     {
         $this->builders = [
@@ -72,9 +67,6 @@ trait FeFactoryTraitTest
         $factory = new FeFactory();
         $factory->setCertificate(file_get_contents(__DIR__ . '/../../Resources/SFSCert.pem'));
         $this->factory = $factory;
-        $date = new \DateTime();
-        $date->sub(new \DateInterval('P1D'));
-        $this->dateEmision = $date;
     }
 
     /**
@@ -135,7 +127,7 @@ trait FeFactoryTraitTest
         $invoice->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
-            ->setFechaEmision($this->dateEmision)
+            ->setFechaEmision($this->getDate())
             ->setTipoMoneda('PEN')
             ->setClient($client)
             ->setMtoOperGravadas(200)
@@ -192,7 +184,7 @@ trait FeFactoryTraitTest
             ->setDesMotivo('ANULACION DE LA OPERACION')
             ->setTipoDoc('07')
             ->setSerie('FF01')
-            ->setFechaEmision($this->dateEmision)
+            ->setFechaEmision($this->getDate())
             ->setCorrelativo('123')
             ->setTipoMoneda('PEN')
             ->setClient($client)
@@ -241,7 +233,7 @@ trait FeFactoryTraitTest
         $debit->setCodMotivo('01')
             ->setDesMotivo('XXXX ')
             ->setTipoDoc('08')
-            ->setFechaEmision($this->dateEmision);
+            ->setFechaEmision($this->getDate());
 
         return $debit;
     }
@@ -272,8 +264,8 @@ trait FeFactoryTraitTest
             ->setMtoISC(2.8);
 
         $sum = new Summary();
-        $sum->setFecGeneracion($this->dateEmision)
-            ->setFecResumen($this->dateEmision)
+        $sum->setFecGeneracion($this->getDate())
+            ->setFecResumen($this->getDate())
             ->setCorrelativo('001')
             ->setCompany($this->getCompany())
             ->setDetails([$detiail1, $detiail2]);
@@ -313,8 +305,8 @@ trait FeFactoryTraitTest
             ->setMtoISC(2.8);
 
         $sum = new SummaryV2();
-        $sum->setFecGeneracion($this->dateEmision)
-            ->setFecResumen($this->dateEmision)
+        $sum->setFecGeneracion($this->getDate())
+            ->setFecResumen($this->getDate())
             ->setCorrelativo('001')
             ->setCompany($this->getCompany())
             ->setDetails([$detiail1, $detiail2]);
@@ -338,8 +330,8 @@ trait FeFactoryTraitTest
 
         $voided = new Voided();
         $voided->setCorrelativo('001')
-            ->setFecComunicacion($this->dateEmision)
-            ->setFecGeneracion($this->dateEmision)
+            ->setFecComunicacion($this->getDate())
+            ->setFecGeneracion($this->getDate())
             ->setCompany($this->getCompany())
             ->setDetails([$detial1, $detial2]);
 
@@ -365,5 +357,13 @@ trait FeFactoryTraitTest
             ->setAddress($address);
 
         return $company;
+    }
+
+    private function getDate()
+    {
+        $date = new \DateTime();
+        $date->sub(new \DateInterval('P1D'));
+
+        return $date;
     }
 }

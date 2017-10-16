@@ -52,16 +52,8 @@ trait CeFactoryTraitTest
      */
     private $factory;
 
-    /**
-     * @var \DateTime
-     */
-    private $dateEmision;
-
     public function setUp()
     {
-        $date = new \DateTime();
-        $date->sub(new \DateInterval('P1D'));
-        $this->dateEmision = $date;
         $this->factory = new FeFactory();
     }
 
@@ -182,7 +174,7 @@ trait CeFactoryTraitTest
         $perception
             ->setSerie('P001')
             ->setCorrelativo('123')
-            ->setFechaEmision($this->dateEmision)
+            ->setFechaEmision($this->getDate())
             ->setObservacion('NOTA PRUEBA />')
             ->setCompany($this->getCompany())
             ->setProveedor($client)
@@ -244,11 +236,11 @@ trait CeFactoryTraitTest
             ->setCorrelativo('123')
             ->setDesMotivoBaja('ERROR DE RUC');
 
-        $fecGeneracion = clone $this->dateEmision;
+        $fecGeneracion = clone $this->getDate();
         $fecGeneracion->sub(new \DateInterval('P2D'));
         $reversion = new Reversion();
         $reversion->setCorrelativo('001')
-            ->setFecComunicacion($this->dateEmision)
+            ->setFecComunicacion($this->getDate())
             ->setFecGeneracion($fecGeneracion)
             ->setCompany($this->getCompany())
             ->setDetails([$detial1, $detial2]);
@@ -354,5 +346,13 @@ trait CeFactoryTraitTest
             ->setAddress($address);
 
         return $company;
+    }
+
+    private function getDate()
+    {
+        $date = new \DateTime();
+        $date->sub(new \DateInterval('P1D'));
+
+        return $date;
     }
 }
