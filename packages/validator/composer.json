@@ -1,7 +1,7 @@
 {
     "name": "greenter/validator",
     "description": "Greenter Validator - Facturacion Electrónica SUNAT - Perú",
-    "keywords": ["sunat", "validator", "facturacion electronica"],
+    "keywords": ["sunat", "greenter", "validator", "facturacion electronica"],
     "license": "MIT",
     "authors": [
         {
