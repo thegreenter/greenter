@@ -29,7 +29,7 @@ use Greenter\Model\Sale\Document;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
-use Greenter\Validator\SymfonyValidator;
+use Greenter\Validator\DocumentValidatorInterface;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Services\SenderInterface;
@@ -42,15 +42,15 @@ use Greenter\Xml\Builder\RetentionBuilder;
 use Greenter\Xml\Builder\VoidedBuilder;
 
 /**
- * Trait CeFactoryTraitTest
+ * Class CeFactoryBase
  * @package Tests\Greenter\Factory
  */
-trait CeFactoryTraitTest
+class CeFactoryBase extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var FeFactory
      */
-    private $factory;
+    protected $factory;
 
     public function setUp()
     {
@@ -59,9 +59,10 @@ trait CeFactoryTraitTest
 
     /**
      * @param DocumentInterface $document
+     * @param array $errors
      * @return BaseResult|\Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
      */
-    private function getFactoryResult(DocumentInterface $document)
+    protected function getFactoryResult(DocumentInterface $document, $errors = [])
     {
         $builders = [
             Despatch::class => DespatchBuilder::class,
@@ -81,7 +82,7 @@ trait CeFactoryTraitTest
         $factory->setCertificate(file_get_contents(__DIR__ . '/../../Resources/SFSCert.pem'));
         $factory->setSender($sender);
         $factory->setBuilder($builder);
-        $factory->setValidator(new SymfonyValidator());
+        $factory->setValidator($this->getValidator($errors));
         $this->factory = $factory;
 
         return $factory->send($document);
@@ -104,10 +105,22 @@ trait CeFactoryTraitTest
         return $sender;
     }
 
+    private function getValidator($errors)
+    {
+        $stub = $this->getMockBuilder(DocumentValidatorInterface::class)
+            ->getMock();
+
+        $stub->method('validate')
+            ->will($this->returnValue($errors));
+
+        /**@var $stub DocumentValidatorInterface */
+        return $stub;
+    }
+
     /**
      * @return ExtService
      */
-    private function getExtService()
+    protected function getExtService()
     {
         $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
         $client->setCredentials('20000000001MODDATOS', 'moddatos');
@@ -121,7 +134,7 @@ trait CeFactoryTraitTest
     /**
      * @return Retention
      */
-    private function getRetention()
+    protected function getRetention()
     {
         $client = new Client();
         $client->setTipoDoc('6')
@@ -162,7 +175,7 @@ trait CeFactoryTraitTest
     /**
      * @return Perception
      */
-    private function getPerception()
+    protected function getPerception()
     {
         $client = new Client();
         $client->setTipoDoc('6')
@@ -222,7 +235,7 @@ trait CeFactoryTraitTest
     /**
      * @return Reversion
      */
-    private function getReversion()
+    protected function getReversion()
     {
         $detial1 = new VoidedDetail();
         $detial1->setTipoDoc('20')
@@ -251,7 +264,7 @@ trait CeFactoryTraitTest
     /**
      * @return Despatch
      */
-    private function getDespatch()
+    protected function getDespatch()
     {
         list($baja, $rel, $envio) = $this->getExtrasDespatch();
         $despatch = new Despatch();

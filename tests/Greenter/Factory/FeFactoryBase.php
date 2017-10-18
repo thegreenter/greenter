@@ -25,7 +25,7 @@ use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
-use Greenter\Validator\SymfonyValidator;
+use Greenter\Validator\DocumentValidatorInterface;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Services\SenderInterface;
@@ -42,17 +42,17 @@ use Greenter\Xml\Builder\VoidedBuilder;
  * Trait FeFactoryTrait
  * @package Tests\Greenter
  */
-trait FeFactoryTraitTest
+class FeFactoryBase extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var FeFactory
      */
-    private $factory;
+    protected $factory;
 
     /**
      * @var array
      */
-    private $builders;
+    protected $builders;
 
     public function setUp()
     {
@@ -88,24 +88,37 @@ trait FeFactoryTraitTest
 
     /**
      * @param DocumentInterface $document
+     * @param array $errors
      * @return BaseResult|\Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
      */
-    private function getFactoryResult(DocumentInterface $document)
+    protected function getFactoryResult(DocumentInterface $document, $errors = [])
     {
         $sender = $this->getSender(get_class($document), SunatEndpoints::FE_BETA);
         $builder = new $this->builders[get_class($document)]();
         $factory = $this->factory
             ->setBuilder($builder)
             ->setSender($sender)
-            ->setValidator(new SymfonyValidator());
+            ->setValidator($this->getValidator($errors));
 
         return $factory->send($document);
+    }
+
+    protected function getValidator($errors)
+    {
+        $stub = $this->getMockBuilder(DocumentValidatorInterface::class)
+            ->getMock();
+
+        $stub->method('validate')
+            ->will($this->returnValue($errors));
+
+        /**@var $stub DocumentValidatorInterface */
+        return $stub;
     }
 
     /**
      * @return ExtService
      */
-    private function getExtService()
+    protected function getExtService()
     {
         $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
         $client->setCredentials('20000000001MODDATOS', 'moddatos');
@@ -116,7 +129,7 @@ trait FeFactoryTraitTest
         return $service;
     }
 
-    private function getInvoice()
+    protected function getInvoice()
     {
         $client = new Client();
         $client->setTipoDoc('6')
@@ -169,7 +182,7 @@ trait FeFactoryTraitTest
         return $invoice;
     }
 
-    private function getCreditNote()
+    protected function getCreditNote()
     {
         $client = new Client();
         $client->setTipoDoc('6')
@@ -227,7 +240,7 @@ trait FeFactoryTraitTest
         return $note;
     }
 
-    private function getDebitNote()
+    protected function getDebitNote()
     {
         $debit = $this->getCreditNote();
         $debit->setCodMotivo('01')
@@ -238,7 +251,7 @@ trait FeFactoryTraitTest
         return $debit;
     }
 
-    private function getSummary()
+    protected function getSummary()
     {
         $detiail1 = new SummaryDetail();
         $detiail1->setTipoDoc('03')
@@ -273,7 +286,7 @@ trait FeFactoryTraitTest
         return $sum;
     }
 
-    private function getSummaryV2()
+    protected function getSummaryV2()
     {
         $detiail1 = new SummaryDetailV2();
         $detiail1->setTipoDoc('07')
@@ -314,7 +327,7 @@ trait FeFactoryTraitTest
         return $sum;
     }
 
-    private function getVoided()
+    protected function getVoided()
     {
         $detial1 = new VoidedDetail();
         $detial1->setTipoDoc('01')

@@ -19,8 +19,7 @@
         "greenter/xml": "^1.0"
     },
 	"require-dev": {
-        "phpunit/phpunit": "4.8.36",
-        "greenter/validator": "^1.0"
+        "phpunit/phpunit": "4.8.36"
     },
 	"autoload": {
         "psr-4": {

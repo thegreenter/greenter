@@ -15,10 +15,8 @@ use Greenter\Model\Response\StatusResult;
  * Class CeFactoryTest
  * @package Tests\Greenter\Factory
  */
-class CeFactoryTest extends \PHPUnit_Framework_TestCase
+class CeFactoryTest extends CeFactoryBase
 {
-    use CeFactoryTraitTest;
-
     public function testDespatch()
     {
         $despatch = $this->getDespatch();
@@ -52,16 +50,6 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \Greenter\Validator\ValidationException
-     */
-    public function testRetentionException()
-    {
-        $retention = $this->getRetention();
-        $retention->setSerie('RR000');
-        $this->getFactoryResult($retention);
-    }
-
     public function testPerception()
     {
         $perception = $this->getPerception();
@@ -84,28 +72,6 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
         $this->assertEquals('2603', $result->getError()->getCode());
-    }
-
-    /**
-     * @expectedException \Greenter\Validator\ValidationException
-     */
-    public function testPerceptionException()
-    {
-        $perception = $this->getPerception();
-        $perception->setSerie('FF000');
-        $this->getFactoryResult($perception);
-    }
-
-    /**
-     * @expectedException \Greenter\Validator\ValidationException
-     */
-    public function testCreateXmlIPerceptionException()
-    {
-        $perception = $this->getPerception();
-        $perception->setSerie('F2333')
-            ->setRegimen('023');
-
-        $this->getFactoryResult($perception);
     }
 
     public function testReversion()
@@ -132,18 +98,7 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $reversion = $this->getReversion();
         $reversion->getDetails()[0]->setTipoDoc('100');
-        $this->getFactoryResult($reversion);
-    }
-
-    /**
-     * @expectedException \Greenter\Validator\ValidationException
-     */
-    public function testXmlReversionException()
-    {
-        $reversion = $this->getReversion();
-        $reversion->setCorrelativo('1232');
-
-        $this->getFactoryResult($reversion);
+        $this->getFactoryResult($reversion, ['1' => 'error']);
     }
 
     /**
