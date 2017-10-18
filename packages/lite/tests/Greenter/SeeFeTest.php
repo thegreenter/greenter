@@ -13,16 +13,14 @@ use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\See;
 use Greenter\Ws\Services\SunatEndpoints;
-use Tests\Greenter\Factory\FeFactoryTraitTest;
+use Tests\Greenter\Factory\FeFactoryBase;
 
 /**
  * Class SeeFeTest
  * @package Greenter
  */
-class SeeFeTest extends \PHPUnit_Framework_TestCase
+class SeeFeTest extends FeFactoryBase
 {
-    use FeFactoryTraitTest;
-
     /**
      * @dataProvider providerInvoiceDocs
      * @param DocumentInterface $doc

@@ -28,6 +28,8 @@ class FeFactory implements FactoryInterface
     private $signer;
 
     /**
+     * Sender service.
+     *
      * @var SenderInterface
      */
     private $sender;
@@ -40,6 +42,8 @@ class FeFactory implements FactoryInterface
     private $lastXml;
 
     /**
+     * Xml Builder.
+     *
      * @var BuilderInterface
      */
     private $builder;
@@ -68,6 +72,8 @@ class FeFactory implements FactoryInterface
     }
 
     /**
+     * Get document builder.
+     *
      * @return BuilderInterface
      */
     public function getBuilder()
@@ -76,6 +82,8 @@ class FeFactory implements FactoryInterface
     }
 
     /**
+     * Get sender service.
+     *
      * @return SenderInterface
      */
     public function getSender()
@@ -84,6 +92,8 @@ class FeFactory implements FactoryInterface
     }
 
     /**
+     * Set sender service.
+     *
      * @param SenderInterface $sender
      * @return FeFactory
      */
@@ -94,6 +104,8 @@ class FeFactory implements FactoryInterface
     }
 
     /**
+     * Set document builder.
+     *
      * @param BuilderInterface $builder
      * @return FeFactory
      */
@@ -104,6 +116,8 @@ class FeFactory implements FactoryInterface
     }
 
     /**
+     * Build and send document.
+     *
      * @param DocumentInterface $document
      * @return BaseResult
      * @throws ValidationException
@@ -118,7 +132,8 @@ class FeFactory implements FactoryInterface
     }
 
     /**
-     * Set Certicated content
+     * Set Certicated content (From PEM format)
+     *
      * @param string $cert
      */
     public function setCertificate($cert)

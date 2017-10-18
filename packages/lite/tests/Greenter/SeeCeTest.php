@@ -13,16 +13,14 @@ use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\See;
 use Greenter\Ws\Services\SunatEndpoints;
-use Tests\Greenter\Factory\CeFactoryTraitTest;
+use Tests\Greenter\Factory\CeFactoryBase;
 
 /**
  * Class SeeCeTest
  * @package Tests\Greenter
  */
-class SeeCeTest extends \PHPUnit_Framework_TestCase
+class SeeCeTest extends CeFactoryBase
 {
-    use CeFactoryTraitTest;
-
     public function testSendDespatch()
     {
         $doc = $this->getDespatch();

@@ -10,17 +10,15 @@ namespace Tests\Greenter\Factory;
 
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
-use Greenter\Validator\SymfonyValidator;
 use Greenter\Services\SenderInterface;
+use Greenter\Validator\DocumentValidatorInterface;
 
 /**
  * Class FeFactoryXmlTest
  * @package Tests\Greenter
  */
-class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
+class FeFactoryXmlTest extends FeFactoryBase
 {
-    use FeFactoryTraitTest;
-
     public function testInvoiceXml()
     {
         $invoice = $this->getInvoice();
@@ -126,12 +124,14 @@ class FeFactoryXmlTest extends \PHPUnit_Framework_TestCase
                 ->will($this->returnValue((new BaseResult())
                     ->setSuccess(true)));
 
+        /**@var $validator DocumentValidatorInterface */
+
         /**@var $sender SenderInterface */
         $builder = new $this->builders[get_class($document)]();
         $factory = $this->factory
             ->setBuilder($builder)
             ->setSender($sender)
-            ->setValidator(new SymfonyValidator());
+            ->setValidator($this->getValidator([]));
 
         return $factory->send($document);
     }

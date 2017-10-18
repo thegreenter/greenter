@@ -124,7 +124,8 @@ class See
      */
     private function getBuilder($class)
     {
-        return new $this->builders[$class];
+        $builder = $this->builders[$class];
+        return new $builder();
     }
 
     /**
