@@ -7,5 +7,8 @@ before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
 
+install:
+  - composer require jakub-onderka/php-parallel-lint
+
 script:
-  - php -v
+  - vendor/bin/parallel-lint --exclude vendor .
