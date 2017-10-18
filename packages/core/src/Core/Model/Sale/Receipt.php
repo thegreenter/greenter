@@ -8,6 +8,7 @@
 
 namespace Greenter\Model\Sale;
 
+use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 
@@ -29,7 +30,7 @@ class Receipt implements DocumentInterface
     /**
      * Receptor del rr.hh.
      *
-     * @var Company
+     * @var Client
      */
     private $receptor;
 
@@ -121,7 +122,7 @@ class Receipt implements DocumentInterface
     }
 
     /**
-     * @return Company
+     * @return Client
      */
     public function getReceptor()
     {
@@ -129,7 +130,7 @@ class Receipt implements DocumentInterface
     }
 
     /**
-     * @param Company $receptor
+     * @param Client $receptor
      * @return Receipt
      */
     public function setReceptor($receptor)

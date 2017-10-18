@@ -8,3 +8,7 @@ Core Definitions for Greenter.
 ```bash
 composer require greenter/core
 ```
+
+## Documentation
+
+Documentacion autogenerada en [CodeDoc](https://codedoc.pub/giansalex/greenter-core/master/)
