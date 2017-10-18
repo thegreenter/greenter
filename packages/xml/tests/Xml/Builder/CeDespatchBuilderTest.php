@@ -23,15 +23,6 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use CeBuilderTrait;
 
-    public function testValidateDespatch()
-    {
-        $despatch = $this->getDespatch();
-        $validator = $this->getValidator();
-        $errors = $validator->validate($despatch);
-
-        $this->assertEquals(0,$errors->count());
-    }
-
     public function testCreateXmlDespatch()
     {
         $despatch = $this->getDespatch();

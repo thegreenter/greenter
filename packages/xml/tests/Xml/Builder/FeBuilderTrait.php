@@ -14,8 +14,7 @@ use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Summary\SummaryV2;
 use Greenter\Model\Voided\Voided;
-use Greenter\Validator\SymfonyValidator;
-use Greenter\Xml\Builder\BuilderInterface;
+use Greenter\Builder\BuilderInterface;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
 use Greenter\Xml\Builder\InvoiceBuilder;
@@ -80,15 +79,5 @@ trait FeBuilderTrait
             ->setAddress($address);
 
         return $company;
-    }
-
-    /**
-     * @return SymfonyValidator
-     */
-    private function getValidator()
-    {
-        $validator = new SymfonyValidator();
-
-        return $validator;
     }
 }

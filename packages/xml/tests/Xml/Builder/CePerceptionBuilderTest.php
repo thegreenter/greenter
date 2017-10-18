@@ -22,15 +22,6 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use CeBuilderTrait;
 
-    public function testValidatePerception()
-    {
-        $perception = $this->getPerception();
-        $validator = $this->getValidator();
-        $errors = $validator->validate($perception);
-
-        $this->assertEquals(0,$errors->count());
-    }
-
     public function testCreateXmlPerception()
     {
         $perception = $this->getPerception();

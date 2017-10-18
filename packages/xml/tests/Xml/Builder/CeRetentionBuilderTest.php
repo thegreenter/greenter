@@ -22,15 +22,6 @@ class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use CeBuilderTrait;
 
-    public function testValidateRetention()
-    {
-        $retention = $this->getRetention();
-        $validator = $this->getValidator();
-        $errors = $validator->validate($retention);
-
-        $this->assertEquals(0,$errors->count());
-    }
-
     public function testCreateXmlRetention()
     {
         $retention = $this->getRetention();

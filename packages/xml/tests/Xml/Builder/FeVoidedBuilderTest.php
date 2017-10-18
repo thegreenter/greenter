@@ -19,26 +19,6 @@ class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use FeBuilderTrait;
 
-    public function testValidateVoided()
-    {
-        $voided = $this->getVoided();
-        $validator = $this->getValidator();
-        $errors = $validator->validate($voided);
-
-        $this->assertEquals(0, count($errors));
-    }
-
-    public function testNotValidateVoided()
-    {
-        $voided = $this->getVoided();
-        $voided->setCorrelativo('1232')
-            ->setFecComunicacion(null);
-        $validator = $this->getValidator();
-        $errors = $validator->validate($voided);
-
-        $this->assertEquals(2, count($errors));
-    }
-
     public function testCreateXmlVoided()
     {
         $voided = $this->getVoided();

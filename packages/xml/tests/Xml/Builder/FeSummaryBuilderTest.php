@@ -19,26 +19,6 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use FeBuilderTrait;
 
-    public function testValidateSummary()
-    {
-        $summary = $this->getSummary();
-        $validator = $this->getValidator();
-        $errors = $validator->validate($summary);
-
-        $this->assertEquals(0, count($errors));
-    }
-
-    public function testNotValidateSummary()
-    {
-        $summary = $this->getSummary();
-        $summary->setFecResumen(null);
-
-        $validator = $this->getValidator();
-        $errors = $validator->validate($summary);
-
-        $this->assertEquals(1, count($errors));
-    }
-
     public function testCreateXmlSummary()
     {
         $summary = $this->getSummary();

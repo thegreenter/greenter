@@ -13,8 +13,7 @@ use Greenter\Model\DocumentInterface;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Voided\Reversion;
-use Greenter\Validator\SymfonyValidator;
-use Greenter\Xml\Builder\BuilderInterface;
+use Greenter\Builder\BuilderInterface;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
 use Greenter\Xml\Builder\DespatchBuilder;
@@ -74,15 +73,5 @@ trait CeBuilderTrait
             ->setAddress($address);
 
         return $company;
-    }
-
-    /**
-     * @return SymfonyValidator
-     */
-    private function getValidator()
-    {
-        $validator = new SymfonyValidator();
-
-        return $validator;
     }
 }

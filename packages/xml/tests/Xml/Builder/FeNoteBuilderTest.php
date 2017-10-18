@@ -22,26 +22,6 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use FeBuilderTrait;
 
-    public function testValidateNote()
-    {
-        $note = $this->getCreditNote();
-        $validator = $this->getValidator();
-        $errors = $validator->validate($note);
-
-        $this->assertEquals(0,$errors->count());
-    }
-
-    public function testNotValidateNote()
-    {
-        $note = $this->getCreditNote();
-        $note->setCodMotivo('C00')
-            ->setTipoDoc('212');
-        $validator = $this->getValidator();
-        $errors = $validator->validate($note);
-
-        $this->assertEquals(2,$errors->count());
-    }
-
     public function testCreateXmlCreditNote()
     {
         $note = $this->getCreditNote();

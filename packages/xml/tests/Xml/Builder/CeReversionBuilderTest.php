@@ -19,26 +19,6 @@ class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use CeBuilderTrait;
 
-    public function testValidateReversion()
-    {
-        $reversion = $this->getReversion();
-        $validator = $this->getValidator();
-        $errors = $validator->validate($reversion);
-
-        $this->assertEquals(0, count($errors));
-    }
-
-    public function testNotValidateReversion()
-    {
-        $reversion = $this->getReversion();
-        $reversion->setCorrelativo('1232')
-            ->setFecComunicacion(null);
-        $validator = $this->getValidator();
-        $errors = $validator->validate($reversion);
-
-        $this->assertEquals(2, count($errors));
-    }
-
     public function testCreateXmlReversion()
     {
         $reversion = $this->getReversion();
