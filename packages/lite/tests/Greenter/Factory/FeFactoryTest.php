@@ -108,6 +108,10 @@ class FeFactoryTest extends FeFactoryBase
         $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
         $this->assertInstanceOf(SummaryBuilder::class, $this->factory->getBuilder());
 
+        if (!$result->isSuccess()) {
+            return;
+        }
+
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
         $this->assertEquals('2072', $result->getError()->getCode());
@@ -121,6 +125,10 @@ class FeFactoryTest extends FeFactoryBase
         $result = $this->getFactoryResult($resumen);
         $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
         $this->assertInstanceOf(SummaryV2Builder::class, $this->factory->getBuilder());
+
+        if (!$result->isSuccess()) {
+            return;
+        }
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
@@ -150,6 +158,10 @@ class FeFactoryTest extends FeFactoryBase
     public function testStatus($ticket)
     {
         $result = $this->getExtService()->getStatus($ticket);
+
+        if ($result->getCode() !== '0') {
+            return;
+        }
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());

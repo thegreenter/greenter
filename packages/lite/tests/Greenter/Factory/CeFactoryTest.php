@@ -79,8 +79,7 @@ class CeFactoryTest extends CeFactoryBase
         $reversion = $this->getReversion();
         $result = $this->getFactoryResult($reversion);
 
-        if (!$result->isSuccess() &&
-            $result->getError()->getCode() == '200') {
+        if (!$result->isSuccess()) {
             return '';
         }
         $this->assertNotEmpty($this->factory->getLastXml());

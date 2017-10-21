@@ -48,6 +48,10 @@ class SeeFeTest extends FeFactoryBase
         /**@var $result SummaryResult*/
         $result = $this->getSee()->send($doc);
 
+        if (!$result->isSuccess()) {
+            return;
+        }
+
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
         $this->assertEquals(13, strlen($result->getTicket()));
