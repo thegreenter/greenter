@@ -10,7 +10,6 @@ namespace Tests\Greenter\Ws\Services;
 
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\CdrResponse;
-use Greenter\Model\Response\SummaryResult;
 use Greenter\Services\SenderInterface;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
@@ -130,15 +129,18 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
      */
     protected function getSummarySenderMock()
     {
-        $stub = $this->getMockBuilder(SenderInterface::class)
+        $stub = $this->getMockBuilder(WsClientInterface::class)
             ->getMock();
-        $stub->method('send')->will($this->returnValue((new SummaryResult())
-            ->setTicket('1500523236696')
-            ->setSuccess(true)
-        ));
+        $stub->method('call')->will($this->returnCallback(function (){
+            $obj = new \stdClass();
+            $obj->ticket = '1500523236696';
+            return $obj;
+        }));
 
-        /**@var $stub SenderInterface*/
-        return $stub;
+        /**@var $stub WsClientInterface*/
+        $sender = new SummarySender();
+        $sender->setClient($stub);
+        return $sender;
     }
 
     /**
