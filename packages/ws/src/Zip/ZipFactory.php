@@ -65,9 +65,14 @@ final class ZipFactory
         file_put_contents($temp, $zipContent);
         $zip = new ZipArchive;
         $output = "";
-        if ($zip->open($temp) === true && $zip->numFiles > 0) {
+        if (!$zip->open($temp)) {
+            return $output;
+        }
+
+        if ($zip->numFiles > 0) {
             $output = $zip->getFromIndex($zip->numFiles - 1);
         }
+
         $zip->close();
         unlink($temp);
 

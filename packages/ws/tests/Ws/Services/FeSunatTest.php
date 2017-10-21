@@ -83,6 +83,10 @@ class FeSunatTest extends FeSunatTestBase
         $wss = $this->getSummarySender();
         $result = $wss->send($nameXml, $xml);
 
+        if (!$result->isSuccess()) {
+            return;
+        }
+
         /**@var $result SummaryResult */
         $this->assertNotNull($result);
         $this->assertTrue($result->isSuccess());

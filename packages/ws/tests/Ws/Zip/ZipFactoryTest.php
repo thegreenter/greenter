@@ -51,6 +51,14 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2162688, $result);
     }
 
+    public function testInvalidZip()
+    {
+        $zip = new ZipFactory();
+        $res = $zip->decompressLastFile('');
+
+        $this->assertEmpty($res);
+    }
+
     private function createZip()
     {
         $helper = new ZipFactory();
