@@ -78,16 +78,6 @@ class FeFactoryTest extends FeFactoryBase
         );
     }
 
-    /**
-     * @expectedException \Greenter\Validator\ValidationException
-     */
-    public function testCreditNoteException()
-    {
-        $creditNote = $this->getCreditNote();
-        $creditNote->setCodMotivo('C00');
-        $this->getFactoryResult($creditNote, ['1' => 'ERROR']);
-    }
-
     public function testNotaDebito()
     {
         $debitNote = $this->getDebitNote();
@@ -160,6 +150,14 @@ class FeFactoryTest extends FeFactoryBase
         $result = $this->getExtService()->getStatus($ticket);
 
         if ($result->getCode() !== '0') {
+            return;
+        }
+
+        if ($result->isSuccess()) {
+            $this->assertNull($result->getError());
+            $this->assertNotNull($result->getCdrResponse());
+            $this->assertEquals('0', $result->getCdrResponse()->getCode());
+            $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
             return;
         }
 

@@ -88,17 +88,15 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
 
     /**
      * @param DocumentInterface $document
-     * @param array $errors
      * @return BaseResult|\Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
      */
-    protected function getFactoryResult(DocumentInterface $document, $errors = [])
+    protected function getFactoryResult(DocumentInterface $document)
     {
         $sender = $this->getSender(get_class($document), SunatEndpoints::FE_BETA);
         $builder = new $this->builders[get_class($document)]();
         $factory = $this->factory
             ->setBuilder($builder)
-            ->setSender($sender)
-            ->setValidator($this->getValidator($errors));
+            ->setSender($sender);
 
         return $factory->send($document);
     }

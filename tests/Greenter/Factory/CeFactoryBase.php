@@ -29,7 +29,6 @@ use Greenter\Model\Sale\Document;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
-use Greenter\Validator\DocumentValidatorInterface;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Services\SenderInterface;
@@ -59,10 +58,9 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
 
     /**
      * @param DocumentInterface $document
-     * @param array $errors
      * @return BaseResult|\Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
      */
-    protected function getFactoryResult(DocumentInterface $document, $errors = [])
+    protected function getFactoryResult(DocumentInterface $document)
     {
         $builders = [
             Despatch::class => DespatchBuilder::class,
@@ -82,7 +80,6 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
         $factory->setCertificate(file_get_contents(__DIR__ . '/../../Resources/SFSCert.pem'));
         $factory->setSender($sender);
         $factory->setBuilder($builder);
-        $factory->setValidator($this->getValidator($errors));
         $this->factory = $factory;
 
         return $factory->send($document);
@@ -103,18 +100,6 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
         $sender->setClient($client);
 
         return $sender;
-    }
-
-    private function getValidator($errors)
-    {
-        $stub = $this->getMockBuilder(DocumentValidatorInterface::class)
-            ->getMock();
-
-        $stub->method('validate')
-            ->will($this->returnValue($errors));
-
-        /**@var $stub DocumentValidatorInterface */
-        return $stub;
     }
 
     /**
