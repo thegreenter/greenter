@@ -91,16 +91,6 @@ class CeFactoryTest extends CeFactoryBase
     }
 
     /**
-     * @expectedException \Greenter\Validator\ValidationException
-     */
-    public function testReversionException()
-    {
-        $reversion = $this->getReversion();
-        $reversion->getDetails()[0]->setTipoDoc('100');
-        $this->getFactoryResult($reversion, ['1' => 'error']);
-    }
-
-    /**
      * @depends testReversion
      * @param string $ticket
      */

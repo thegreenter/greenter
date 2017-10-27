@@ -12,8 +12,6 @@ use Greenter\Builder\BuilderInterface;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Services\SenderInterface;
-use Greenter\Validator\DocumentValidatorInterface;
-use Greenter\Validator\ValidationException;
 use RobRichards\XMLSecLibs\Sunat\Adapter\SunatXmlSecAdapter;
 
 /**
@@ -47,21 +45,6 @@ class FeFactory implements FactoryInterface
      * @var BuilderInterface
      */
     private $builder;
-
-    /**
-     * @var DocumentValidatorInterface
-     */
-    private $validator;
-
-    /**
-     * @param $validator
-     * @return FeFactory
-     */
-    public function setValidator($validator)
-    {
-        $this->validator = $validator;
-        return $this;
-    }
 
     /**
      * BaseFactory constructor.
@@ -120,11 +103,9 @@ class FeFactory implements FactoryInterface
      *
      * @param DocumentInterface $document
      * @return BaseResult
-     * @throws ValidationException
      */
     public function send(DocumentInterface $document)
     {
-        $this->validate($document);
         $xml = $this->builder->build($document);
         $this->lastXml = $this->getXmmlSigned($xml);
 
@@ -158,16 +139,5 @@ class FeFactory implements FactoryInterface
     private function getXmmlSigned($xml)
     {
         return $this->signer->signXml($xml);
-    }
-
-    private function validate(DocumentInterface $document)
-    {
-        if (!$this->validator) {
-            return;
-        }
-        $errs = $this->validator->validate($document);
-        if (count($errs) > 0) {
-            throw new ValidationException($errs);
-        }
     }
 }

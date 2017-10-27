@@ -130,8 +130,7 @@ class FeFactoryXmlTest extends FeFactoryBase
         $builder = new $this->builders[get_class($document)]();
         $factory = $this->factory
             ->setBuilder($builder)
-            ->setSender($sender)
-            ->setValidator($this->getValidator([]));
+            ->setSender($sender);
 
         return $factory->send($document);
     }
