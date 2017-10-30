@@ -13,6 +13,7 @@ use Greenter\Xml\Parser\NoteParser;
 
 /**
  * Class ParserResolver
+ * @deprecated no utilizar por añadidirse RRHH.
  * @package Greenter\Xml
  */
 class ParserResolver
