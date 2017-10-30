@@ -16,6 +16,7 @@ composer require greenter/xml-parser
 - Boleta Electrónica
 - Nota de Crédito Electrónica
 - Nota de Débito Electrónica
+- Recibo por Honorarios Electrónico
 
 # TODO
 
