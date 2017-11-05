@@ -25,7 +25,7 @@ class XmlReader
     public function loadXml($xml)
     {
         $doc = new \DOMDocument();
-        $doc->loadXML($xml);
+        @$doc->loadXML($xml);
         $this->loadDom($doc);
     }
 

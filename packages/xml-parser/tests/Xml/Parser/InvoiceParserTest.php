@@ -89,6 +89,7 @@ class InvoiceParserTest extends \PHPUnit_Framework_TestCase
           [$dir.'factura-guia.xml'],
           [$dir.'gravada.xml'],
           [$dir.'plazavea-bol.xml'],
+          [$dir.'20480072872-01-FB99-70000.xml']
         ];
     }
 

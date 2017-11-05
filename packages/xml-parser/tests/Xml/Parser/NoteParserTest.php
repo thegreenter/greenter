@@ -17,7 +17,7 @@ use Greenter\Xml\Parser\NoteParser;
  */
 class NoteParserTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCreditNoteTest()
+    public function testCreditNote()
     {
         $parser = new NoteParser();
         $xml = file_get_contents(__DIR__.'/../../Resources/notacr-fac.xml');
@@ -26,6 +26,22 @@ class NoteParserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('07', $obj->getTipoDoc());
         $this->assertEquals('F001', $obj->getSerie());
+        $this->assertLessThanOrEqual(8, strlen($obj->getCorrelativo()));
+        $this->assertNotEmpty($obj->getTipDocAfectado());
+        $this->assertNotEmpty($obj->getNumDocfectado());
+        $this->assertNotEmpty($obj->getCodMotivo());
+        $this->assertGreaterThan(0, count($obj->getDetails()));
+    }
+
+    public function testCreditNoteSfs()
+    {
+        $parser = new NoteParser();
+        $xml = file_get_contents(__DIR__.'/../../Resources/20480072872-07-FB99-00001.xml');
+        /**@var $obj Note */
+        $obj = $parser->parse($xml);
+
+        $this->assertEquals('07', $obj->getTipoDoc());
+        $this->assertEquals('FB99', $obj->getSerie());
         $this->assertLessThanOrEqual(8, strlen($obj->getCorrelativo()));
         $this->assertNotEmpty($obj->getTipDocAfectado());
         $this->assertNotEmpty($obj->getNumDocfectado());
@@ -50,7 +66,7 @@ class NoteParserTest extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, count($obj->getDetails()));
     }
 
-    public function testCreditNoteSunatSolTest()
+    public function testCreditNoteSunatSol()
     {
         $parser = new NoteParser();
         $xml = file_get_contents(__DIR__.'/../../Resources/NOTA_CREDITOE001-27.XML');

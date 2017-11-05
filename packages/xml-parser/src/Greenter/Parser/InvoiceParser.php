@@ -66,7 +66,7 @@ class InvoiceParser implements DocumentParserInterface
             $doc = $value;
         } else {
             $doc = new \DOMDocument();
-            $doc->loadXML($value);
+            @$doc->loadXML($value);
         }
         $rootNamespace = $doc->documentElement->namespaceURI;
         $xpt = new \DOMXPath($doc);
