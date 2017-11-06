@@ -17,7 +17,7 @@ composer require greenter/xml-parser
 - Nota de Crédito Electrónica
 - Nota de Débito Electrónica
 - Recibo por Honorarios Electrónico
-- Guia de Remision Electrónica
+- Guia de Remisión Electrónica
 
 # TODO
 
@@ -25,4 +25,4 @@ Documentos faltantes:
 - Retencion Electrónica
 - Percepcion Electrónica
 - Comunicacion de Baja
-
+- Resumen Diario de Boletas
