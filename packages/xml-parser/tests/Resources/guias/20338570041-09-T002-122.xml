@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by izegarrav (EMBRACE) -->
+<DespatchAdvice xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2">
+	<ext:UBLExtensions>
+  </ext:UBLExtensions>
+	<cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+	<cbc:CustomizationID>1.0</cbc:CustomizationID>
+	<cbc:ID>T002-122</cbc:ID>
+	<cbc:IssueDate>2017-09-08</cbc:IssueDate>
+	<cbc:DespatchAdviceTypeCode>09</cbc:DespatchAdviceTypeCode>
+	<cac:AdditionalDocumentReference>
+		<cbc:ID>2017-10-235-0122</cbc:ID>
+		<cbc:DocumentTypeCode>01</cbc:DocumentTypeCode>
+	</cac:AdditionalDocumentReference>
+	
+	<cac:Signature>
+		<cbc:ID>IDSignSP</cbc:ID>
+		<cac:SignatoryParty>
+			<cac:PartyIdentification>
+				<cbc:ID>20338570041</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyName>
+				<cbc:Name>RODRIGUEZ ROQUE AQUILES RUFO</cbc:Name>
+			</cac:PartyName>
+		</cac:SignatoryParty>
+		<cac:DigitalSignatureAttachment>
+			<cac:ExternalReference>
+				<cbc:URI>#SignatureSP</cbc:URI>
+			</cac:ExternalReference>
+		</cac:DigitalSignatureAttachment>
+	</cac:Signature>
+	<cac:DespatchSupplierParty>
+		<cbc:CustomerAssignedAccountID schemeID="6">20338570041</cbc:CustomerAssignedAccountID>
+		<cac:Party>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>PERU QUIMICOS S.A.C.</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:DespatchSupplierParty>
+	<cac:DeliveryCustomerParty>
+		<cbc:CustomerAssignedAccountID schemeID="6">20100255325</cbc:CustomerAssignedAccountID>
+		<cac:Party>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>RODRIGUEZ ROQUE AQUILES RUFO</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:DeliveryCustomerParty>
+	<cac:SellerSupplierParty>
+		<cbc:CustomerAssignedAccountID schemeID="6">20384203133</cbc:CustomerAssignedAccountID>
+		<cac:Party>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>RODRIQUEZ ROQUE AQUILES RUFO</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:SellerSupplierParty>
+	<cac:Shipment>
+		<cbc:ID>1</cbc:ID>
+		<cbc:HandlingCode>09</cbc:HandlingCode>
+		<cbc:Information>EXPORTACION</cbc:Information>
+		<cbc:GrossWeightMeasure unitCode="KGM">1000.001</cbc:GrossWeightMeasure>
+		
+		<cbc:SplitConsignmentIndicator>true</cbc:SplitConsignmentIndicator>
+		<cac:ShipmentStage>
+			<cbc:TransportModeCode>01</cbc:TransportModeCode>
+			<cac:TransitPeriod>
+				<cbc:StartDate>2017-09-01</cbc:StartDate>
+			</cac:TransitPeriod>
+			<cac:CarrierParty>
+				<cac:PartyIdentification>
+					<cbc:ID>102098652096</cbc:ID>
+				</cac:PartyIdentification>
+				<cac:PartyName>
+					<cbc:Name>PERU QUIMICOS S.A.C.</cbc:Name>
+				</cac:PartyName>
+			</cac:CarrierParty>
+			<cac:TransportMeans>
+				<cac:RoadTransport>
+					<cbc:LicensePlateID>PGY-0988</cbc:LicensePlateID>
+				</cac:RoadTransport>
+			</cac:TransportMeans><cac:DriverPerson>
+				<cbc:ID schemeID="1">07976340</cbc:ID>
+			</cac:DriverPerson>
+			
+		</cac:ShipmentStage>
+		<cac:Delivery>
+			<cac:DeliveryAddress>
+				<cbc:ID>150114</cbc:ID>
+				<cbc:StreetName>JR. MANTARO NRO. 257</cbc:StreetName>
+			</cac:DeliveryAddress>
+		</cac:Delivery>
+		
+		<cac:OriginAddress>
+			<cbc:ID>150110</cbc:ID>
+			<cbc:StreetName>CAR.PANAM SUR KM 25 NO. 25050 NRO. 050 Z.I. CONCHAN</cbc:StreetName>
+		</cac:OriginAddress>
+		<cac:FirstArrivalPortLocation>
+			<cbc:ID>PAI</cbc:ID>
+		</cac:FirstArrivalPortLocation>
+	</cac:Shipment>
+	<cac:DespatchLine>
+		<cbc:ID>1</cbc:ID>
+		<cbc:DeliveredQuantity unitCode="KGM">10</cbc:DeliveredQuantity>
+		<cac:OrderLineReference>
+			<cbc:LineID>1</cbc:LineID>
+		</cac:OrderLineReference>
+		<cac:Item>
+			<cbc:Name>ACETONA - 500.50 BALDE - 500.50 BALAS</cbc:Name>
+			<cac:SellersItemIdentification>
+				<cbc:ID>COD1</cbc:ID>
+			</cac:SellersItemIdentification>
+		</cac:Item>
+	</cac:DespatchLine>
+</DespatchAdvice>
