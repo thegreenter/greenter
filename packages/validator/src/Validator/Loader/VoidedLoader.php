@@ -18,7 +18,7 @@ class VoidedLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 3]),
+            new Assert\Length(['max' => 5]),
         ]);
         $metadata->addPropertyConstraint('fecGeneracion', new Assert\Date());
         $metadata->addPropertyConstraints('fecComunicacion', [
