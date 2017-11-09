@@ -41,7 +41,7 @@ class SymfonyValidatorTest extends \PHPUnit_Framework_TestCase
     public function testNotValidReversion()
     {
         $reversion = $this->getReversion();
-        $reversion->setCorrelativo('12321');
+        $reversion->setCorrelativo('123421');
         $validator = new SymfonyValidator();
         $errors = $validator->validate($reversion);
 

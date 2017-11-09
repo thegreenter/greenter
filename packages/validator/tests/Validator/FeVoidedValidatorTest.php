@@ -27,7 +27,7 @@ class FeVoidedValidatorTest extends \PHPUnit_Framework_TestCase
     public function testNotValidateVoided()
     {
         $voided = $this->getVoided();
-        $voided->setCorrelativo('1232')
+        $voided->setCorrelativo('123342')
             ->setFecComunicacion(null);
         $validator = $this->getValidator();
         $errors = $validator->validate($voided);

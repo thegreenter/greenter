@@ -27,7 +27,7 @@ class CeReversionValidatorTest extends \PHPUnit_Framework_TestCase
     public function testNotValidateReversion()
     {
         $reversion = $this->getReversion();
-        $reversion->setCorrelativo('1232')
+        $reversion->setCorrelativo('123234')
             ->setFecComunicacion(null);
         $validator = $this->getValidator();
         $errors = $validator->validate($reversion);
