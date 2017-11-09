@@ -25,10 +25,10 @@ use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Validator\SymfonyValidator;
 
 /**
- * Class SymfonyValidatorTests
+ * Class SymfonyValidatorTest
  * @package Tests\Greenter\Validator
  */
-class SymfonyValidatorTests extends \PHPUnit_Framework_TestCase
+class SymfonyValidatorTest extends \PHPUnit_Framework_TestCase
 {
     public function testInvoiceValidate()
     {

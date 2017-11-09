@@ -20,7 +20,6 @@ class SymfonyValidator implements DocumentValidatorInterface
     /**
      * @param DocumentInterface $document
      * @return \Symfony\Component\Validator\ConstraintViolationListInterface
-     * @throws \Exception
      */
     public function validate(DocumentInterface $document)
     {
