@@ -19,7 +19,7 @@ class Voided implements DocumentInterface
 {
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max="3")
+     * @Assert\Length(max="5")
      * @var string
      */
     protected $correlativo;

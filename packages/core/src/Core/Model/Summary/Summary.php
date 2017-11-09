@@ -18,7 +18,7 @@ use Greenter\Model\DocumentInterface;
 class Summary implements DocumentInterface
 {
     /**
-     * @Assert\Length(max="3")
+     * @Assert\Length(max="5")
      * @var string
      */
     protected $correlativo;
