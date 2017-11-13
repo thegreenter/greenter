@@ -28,7 +28,10 @@ class SeeFeTest extends FeFactoryBase
     public function testSendInvoice(DocumentInterface $doc)
     {
         /**@var $result BillResult*/
-        $result = $this->getSee()->send($doc);
+        $see = $this->getSee();
+        $this->assertNotNull($see->getFactory());
+
+        $result = $see->send($doc);
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
