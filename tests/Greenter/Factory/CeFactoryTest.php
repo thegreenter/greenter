@@ -15,10 +15,8 @@ use Greenter\Model\Response\StatusResult;
  * Class CeFactoryTest
  * @package Tests\Greenter\Factory
  */
-class CeFactoryTest extends \PHPUnit_Framework_TestCase
+class CeFactoryTest extends CeFactoryBase
 {
-    use CeFactoryTraitTest;
-
     public function testDespatch()
     {
         $despatch = $this->getDespatch();
@@ -38,7 +36,6 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
     public function testRetention()
     {
         $retention = $this->getRetention();
@@ -52,14 +49,12 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testRetentionException()
+    public function testGetXmlSigned()
     {
-        $retention = $this->getRetention();
-        $retention->setSerie('RR000');
-        $this->getFactoryResult($retention);
+        $despatch = $this->getDespatch();
+        $signXml = $this->getXmlSigned($despatch);
+
+        $this->assertNotEmpty($signXml);
     }
 
     public function testPerception()
@@ -86,35 +81,12 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2603', $result->getError()->getCode());
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testPerceptionException()
-    {
-        $perception = $this->getPerception();
-        $perception->setSerie('FF000');
-        $this->getFactoryResult($perception);
-    }
-
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testCreateXmlIPerceptionException()
-    {
-        $perception = $this->getPerception();
-        $perception->setSerie('F2333')
-            ->setRegimen('023');
-
-        $this->getFactoryResult($perception);
-    }
-
     public function testReversion()
     {
         $reversion = $this->getReversion();
         $result = $this->getFactoryResult($reversion);
 
-        if (!$result->isSuccess() &&
-            $result->getError()->getCode() == '200') {
+        if (!$result->isSuccess()) {
             return '';
         }
         $this->assertNotEmpty($this->factory->getLastXml());
@@ -123,27 +95,6 @@ class CeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(13, strlen($result->getTicket()));
 
         return $result->getTicket();
-    }
-
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testReversionException()
-    {
-        $reversion = $this->getReversion();
-        $reversion->getDetails()[0]->setTipoDoc('100');
-        $this->getFactoryResult($reversion);
-    }
-
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testXmlReversionException()
-    {
-        $reversion = $this->getReversion();
-        $reversion->setCorrelativo('1232');
-
-        $this->getFactoryResult($reversion);
     }
 
     /**

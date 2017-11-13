@@ -29,10 +29,9 @@ use Greenter\Model\Sale\Document;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
-use Greenter\Validator\SymfonyValidator;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
-use Greenter\Ws\Services\SenderInterface;
+use Greenter\Services\SenderInterface;
 use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SummarySender;
 use Greenter\Ws\Services\SunatEndpoints;
@@ -42,57 +41,51 @@ use Greenter\Xml\Builder\RetentionBuilder;
 use Greenter\Xml\Builder\VoidedBuilder;
 
 /**
- * Trait CeFactoryTraitTest
+ * Class CeFactoryBase
  * @package Tests\Greenter\Factory
  */
-trait CeFactoryTraitTest
+class CeFactoryBase extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var FeFactory
      */
-    private $factory;
+    protected $factory;
 
     /**
-     * @var \DateTime
+     * @var array
      */
-    private $dateEmision;
+    protected $builders;
 
     public function setUp()
     {
-        $date = new \DateTime();
-        $date->sub(new \DateInterval('P1D'));
-        $this->dateEmision = $date;
         $this->factory = new FeFactory();
+        $this->factory->setCertificate(file_get_contents(__DIR__ . '/../../Resources/SFSCert.pem'));
+        $this->builders = [
+            Despatch::class => DespatchBuilder::class,
+            Perception::class => PerceptionBuilder::class,
+            Retention::class => RetentionBuilder::class,
+            Reversion::class => VoidedBuilder::class,
+        ];
     }
 
     /**
      * @param DocumentInterface $document
      * @return BaseResult|\Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
      */
-    private function getFactoryResult(DocumentInterface $document)
+    protected function getFactoryResult(DocumentInterface $document)
     {
-        $builders = [
-            Despatch::class => DespatchBuilder::class,
-            Perception::class => PerceptionBuilder::class,
-            Retention::class => RetentionBuilder::class,
-            Reversion::class => VoidedBuilder::class,
-        ];
         $url = SunatEndpoints::RETENCION_BETA;
         if ($document instanceof Despatch) {
             $url = SunatEndpoints::GUIA_BETA;
         }
 
         $sender = $this->getSender(get_class($document), $url);
-        $builder = new $builders[get_class($document)]();
+        $builder = new $this->builders[get_class($document)]();
 
-        $factory = new FeFactory();
-        $factory->setCertificate(file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'));
-        $factory->setSender($sender);
-        $factory->setBuilder($builder);
-        $factory->setValidator(new SymfonyValidator());
-        $this->factory = $factory;
+        $this->factory->setSender($sender);
+        $this->factory->setBuilder($builder);
 
-        return $factory->send($document);
+        return $this->factory->send($document);
     }
 
     /**
@@ -115,7 +108,7 @@ trait CeFactoryTraitTest
     /**
      * @return ExtService
      */
-    private function getExtService()
+    protected function getExtService()
     {
         $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
         $client->setCredentials('20000000001MODDATOS', 'moddatos');
@@ -127,9 +120,21 @@ trait CeFactoryTraitTest
     }
 
     /**
+     * @param DocumentInterface $document
+     * @return string
+     */
+    protected function getXmlSigned(DocumentInterface $document)
+    {
+        $builder = new $this->builders[get_class($document)]();
+        $this->factory->setBuilder($builder);
+
+        return $this->factory->getXmmlSigned($document);
+    }
+
+    /**
      * @return Retention
      */
-    private function getRetention()
+    protected function getRetention()
     {
         $client = new Client();
         $client->setTipoDoc('6')
@@ -170,7 +175,7 @@ trait CeFactoryTraitTest
     /**
      * @return Perception
      */
-    private function getPerception()
+    protected function getPerception()
     {
         $client = new Client();
         $client->setTipoDoc('6')
@@ -182,7 +187,7 @@ trait CeFactoryTraitTest
         $perception
             ->setSerie('P001')
             ->setCorrelativo('123')
-            ->setFechaEmision($this->dateEmision)
+            ->setFechaEmision($this->getDate())
             ->setObservacion('NOTA PRUEBA />')
             ->setCompany($this->getCompany())
             ->setProveedor($client)
@@ -230,7 +235,7 @@ trait CeFactoryTraitTest
     /**
      * @return Reversion
      */
-    private function getReversion()
+    protected function getReversion()
     {
         $detial1 = new VoidedDetail();
         $detial1->setTipoDoc('20')
@@ -244,11 +249,11 @@ trait CeFactoryTraitTest
             ->setCorrelativo('123')
             ->setDesMotivoBaja('ERROR DE RUC');
 
-        $fecGeneracion = clone $this->dateEmision;
+        $fecGeneracion = clone $this->getDate();
         $fecGeneracion->sub(new \DateInterval('P2D'));
         $reversion = new Reversion();
         $reversion->setCorrelativo('001')
-            ->setFecComunicacion($this->dateEmision)
+            ->setFecComunicacion($this->getDate())
             ->setFecGeneracion($fecGeneracion)
             ->setCompany($this->getCompany())
             ->setDetails([$detial1, $detial2]);
@@ -259,7 +264,7 @@ trait CeFactoryTraitTest
     /**
      * @return Despatch
      */
-    private function getDespatch()
+    protected function getDespatch()
     {
         list($baja, $rel, $envio) = $this->getExtrasDespatch();
         $despatch = new Despatch();
@@ -354,5 +359,13 @@ trait CeFactoryTraitTest
             ->setAddress($address);
 
         return $company;
+    }
+
+    private function getDate()
+    {
+        $date = new \DateTime();
+        $date->sub(new \DateInterval('P1D'));
+
+        return $date;
     }
 }

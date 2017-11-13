@@ -15,10 +15,8 @@ use Greenter\Xml\Builder\SummaryV2Builder;
  * Class FeFactoryTest
  * @package Tests\Greenter
  */
-class FeFactoryTest extends \PHPUnit_Framework_TestCase
+class FeFactoryTest extends FeFactoryBase
 {
-    use FeFactoryTraitTest;
-
     public function testInvoice()
     {
         $invoice = $this->getInvoice();
@@ -33,16 +31,15 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($result->getCdrZip());
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testCreateXmlInvoiceException()
+    public function testGetXmlSigned()
     {
         $invoice = $this->getInvoice();
-        $invoice->setTipoDoc('333')
-            ->setSerie('FF000');
+        $builder = $this->getBuilder($invoice);
+        $this->factory->setBuilder($builder);
 
-        $this->getFactoryResult($invoice);
+        $signXml = $this->factory->getXmmlSigned($invoice);
+
+        $this->assertNotEmpty($signXml);
     }
 
     public function testInvalidInvoice()
@@ -68,17 +65,6 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('0151', $result->getError()->getCode());
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testXmlCreditNoteException()
-    {
-        $note = $this->getCreditNote();
-        $note->setCodMotivo('C00');
-
-        $this->getFactoryResult($note);
-    }
-
     public function testInvoiceRechazado()
     {
         $invoice = $this->getInvoice();
@@ -88,16 +74,6 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
         $this->assertEquals('2016', $result->getError()->getCode());
-    }
-
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testInvoiceInvalid()
-    {
-        $invoice = $this->getInvoice();
-        $invoice->setTipoDoc('000');
-        $this->getFactoryResult($invoice);
     }
 
     public function testNotaCredito()
@@ -113,16 +89,6 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testCreditNoteException()
-    {
-        $creditNote = $this->getCreditNote();
-        $creditNote->setCodMotivo('C00');
-        $this->getFactoryResult($creditNote);
-    }
-
     public function testNotaDebito()
     {
         $debitNote = $this->getDebitNote();
@@ -136,17 +102,6 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testDebitNoteException()
-    {
-        $debitNote = $this->getDebitNote();
-        $debitNote->setCodMotivo('C00');
-        $this->getFactoryResult($debitNote);
-    }
-
-
     public function testResumen()
     {
         $resumen = $this->getSummary();
@@ -154,22 +109,15 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
         $this->assertInstanceOf(SummaryBuilder::class, $this->factory->getBuilder());
 
+        if (!$result->isSuccess()) {
+            return;
+        }
+
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
         $this->assertEquals('2072', $result->getError()->getCode());
         $this->assertEquals('CustomizationID - La versión del documento no es la correcta',
             $result->getError()->getMessage());
-    }
-
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testXmlSummaryException()
-    {
-        $summary = $this->getSummary();
-        $summary->setFecResumen(null);
-
-        $this->getFactoryResult($summary);
     }
 
     public function testResumenV2()
@@ -179,30 +127,13 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
         $this->assertInstanceOf(SummaryV2Builder::class, $this->factory->getBuilder());
 
+        if (!$result->isSuccess()) {
+            return;
+        }
+
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
         $this->assertEquals(13, strlen($result->getTicket()));
-    }
-
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testResumenException()
-    {
-        $resumen = $this->getSummary();
-        $resumen->setCorrelativo('1234');
-        $this->getFactoryResult($resumen);
-    }
-
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testXmlSummaryV2Exception()
-    {
-        $summary = $this->getSummary();
-        $summary->setFecResumen(null);
-
-        $this->getFactoryResult($summary);
     }
 
     public function testBaja()
@@ -222,34 +153,24 @@ class FeFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testBajaException()
-    {
-        $baja = $this->getVoided();
-        $baja->getDetails()[0]->setTipoDoc('100');
-        $this->getFactoryResult($baja);
-    }
-
-    /**
-     * @expectedException \Greenter\Xml\Exception\ValidationException
-     */
-    public function testXmlVoidedException()
-    {
-        $voided = $this->getVoided();
-        $voided->setCorrelativo('1232');
-
-        $this->getFactoryResult($voided);
-    }
-
-
-    /**
      * @depends testBaja
      * @param string $ticket
      */
     public function testStatus($ticket)
     {
         $result = $this->getExtService()->getStatus($ticket);
+
+        if ($result->getCode() !== '0') {
+            return;
+        }
+
+        if ($result->isSuccess()) {
+            $this->assertNull($result->getError());
+            $this->assertNotNull($result->getCdrResponse());
+            $this->assertEquals('0', $result->getCdrResponse()->getCode());
+            $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
+            return;
+        }
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());

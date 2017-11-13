@@ -13,14 +13,13 @@
     "type": "project",
     "require": {
 		"php": ">=5.5.9",
-        "twig/twig": "~1.0",
         "giansalex/xmldsig": "3.0.*",
-        "greenter/core": "^1.0"
+        "greenter/core": "^1.0",
+        "greenter/ws": "^1.0",
+        "greenter/xml": "^1.0"
     },
 	"require-dev": {
-        "phpunit/phpunit": "4.8.36",
-        "greenter/validator": "^1.0",
-        "symfony/stopwatch": "^3.3"
+        "phpunit/phpunit": "4.8.36"
     },
 	"autoload": {
         "psr-4": {

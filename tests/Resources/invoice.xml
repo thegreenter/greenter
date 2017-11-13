@@ -48,39 +48,6 @@
                   <cbc:ID>1000</cbc:ID>
                   <cbc:Value>SON N SOLES</cbc:Value>
                </sac:AdditionalProperty>
-               <sac:SUNATEmbededDespatchAdvice>
-                  <cac:DeliveryAddress>
-                     <cbc:ID>070101</cbc:ID>
-                     <cbc:StreetName>AV. REPUBLICA DE ARGENTINA N? 2976 URB.</cbc:StreetName>
-                  </cac:DeliveryAddress>
-                  <cac:OriginAddress>
-                     <cbc:ID>070101</cbc:ID>
-                     <cbc:StreetName>AV OSCAR R BENAVIDES No 5915  PE</cbc:StreetName>
-                  </cac:OriginAddress>
-                  <sac:SUNATCarrierParty>
-                     <cbc:CustomerAssignedAccountID>20100006376</cbc:CustomerAssignedAccountID>
-                     <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
-                     <cac:Party>
-                        <cac:PartyLegalEntity>
-                           <cbc:RegistrationName>TRANS SAC</cbc:RegistrationName>
-                        </cac:PartyLegalEntity>
-                     </cac:Party>
-                  </sac:SUNATCarrierParty>
-                  <sac:DriverParty>
-                     <cac:Party>
-                        <cac:PartyIdentification>
-                           <cbc:ID>1111111111</cbc:ID>
-                        </cac:PartyIdentification>
-                     </cac:Party>
-                  </sac:DriverParty>
-                  <sac:SUNATRoadTransport>
-                     <cbc:LicensePlateID>B9Y-778</cbc:LicensePlateID>
-                     <cbc:TransportAuthorizationCode>112121</cbc:TransportAuthorizationCode>
-                     <cbc:BrandName>Scania</cbc:BrandName>
-                  </sac:SUNATRoadTransport>
-                  <cbc:TransportModeCode>01</cbc:TransportModeCode>
-                  <cbc:GrossWeightMeasure unitCode="KGM">2020.23</cbc:GrossWeightMeasure>
-               </sac:SUNATEmbededDespatchAdvice>
                <sac:SUNATTransaction>
                   <cbc:ID>2</cbc:ID>
                </sac:SUNATTransaction>
@@ -156,16 +123,6 @@
          </cac:PartyLegalEntity>
       </cac:Party>
    </cac:AccountingCustomerParty>
-   <cac:PrepaidPayment>
-      <cbc:ID schemeID="02">F001-21</cbc:ID>
-      <cbc:PaidAmount currencyID="PEN">100.00</cbc:PaidAmount>
-      <cbc:InstructionID schemeID="6">20000000001</cbc:InstructionID>
-   </cac:PrepaidPayment>
-   <cac:PrepaidPayment>
-      <cbc:ID schemeID="02">F001-23</cbc:ID>
-      <cbc:PaidAmount currencyID="PEN">200.00</cbc:PaidAmount>
-      <cbc:InstructionID schemeID="6">20000000001</cbc:InstructionID>
-   </cac:PrepaidPayment>
    <cac:TaxTotal>
       <cbc:TaxAmount currencyID="PEN">2.00</cbc:TaxAmount>
       <cac:TaxSubtotal>
@@ -206,7 +163,6 @@
       </cac:TaxSubtotal>
    </cac:TaxTotal>
    <cac:LegalMonetaryTotal>
-      <cbc:PrepaidAmount currencyID="PEN">300.00</cbc:PrepaidAmount>
       <cbc:AllowanceTotalAmount currencyID="PEN">12.00</cbc:AllowanceTotalAmount>
       <cbc:ChargeTotalAmount currencyID="PEN">1.00</cbc:ChargeTotalAmount>
       <cbc:PayableAmount currencyID="PEN">236.00</cbc:PayableAmount>

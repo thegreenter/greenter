@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Factory;
 
+use Greenter\Builder\BuilderInterface;
 use Greenter\Factory\FeFactory;
 use Greenter\Model\Client\Client;
 use Greenter\Model\DocumentInterface;
@@ -25,10 +26,10 @@ use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
-use Greenter\Validator\SymfonyValidator;
+use Greenter\Validator\DocumentValidatorInterface;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
-use Greenter\Ws\Services\SenderInterface;
+use Greenter\Services\SenderInterface;
 use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SummarySender;
 use Greenter\Ws\Services\SunatEndpoints;
@@ -42,22 +43,17 @@ use Greenter\Xml\Builder\VoidedBuilder;
  * Trait FeFactoryTrait
  * @package Tests\Greenter
  */
-trait FeFactoryTraitTest
+class FeFactoryBase extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var FeFactory
      */
-    private $factory;
+    protected $factory;
 
     /**
      * @var array
      */
-    private $builders;
-
-    /**
-     * @var \DateTime
-     */
-    private $dateEmision;
+    protected $builders;
 
     public function setUp()
     {
@@ -70,11 +66,8 @@ trait FeFactoryTraitTest
         ];
 
         $factory = new FeFactory();
-        $factory->setCertificate(file_get_contents(__DIR__ . '/../Resources/SFSCert.pem'));
+        $factory->setCertificate(file_get_contents(__DIR__ . '/../../Resources/SFSCert.pem'));
         $this->factory = $factory;
-        $date = new \DateTime();
-        $date->sub(new \DateInterval('P1D'));
-        $this->dateEmision = $date;
     }
 
     /**
@@ -98,22 +91,41 @@ trait FeFactoryTraitTest
      * @param DocumentInterface $document
      * @return BaseResult|\Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
      */
-    private function getFactoryResult(DocumentInterface $document)
+    protected function getFactoryResult(DocumentInterface $document)
     {
         $sender = $this->getSender(get_class($document), SunatEndpoints::FE_BETA);
-        $builder = new $this->builders[get_class($document)]();
+        $builder = $this->getBuilder($document);
         $factory = $this->factory
             ->setBuilder($builder)
-            ->setSender($sender)
-            ->setValidator(new SymfonyValidator());
+            ->setSender($sender);
 
         return $factory->send($document);
     }
 
     /**
+     * @param DocumentInterface $document
+     * @return BuilderInterface
+     */
+    protected function getBuilder(DocumentInterface $document) {
+        return new $this->builders[get_class($document)]();
+    }
+
+    protected function getValidator($errors)
+    {
+        $stub = $this->getMockBuilder(DocumentValidatorInterface::class)
+            ->getMock();
+
+        $stub->method('validate')
+            ->will($this->returnValue($errors));
+
+        /**@var $stub DocumentValidatorInterface */
+        return $stub;
+    }
+
+    /**
      * @return ExtService
      */
-    private function getExtService()
+    protected function getExtService()
     {
         $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
         $client->setCredentials('20000000001MODDATOS', 'moddatos');
@@ -124,7 +136,7 @@ trait FeFactoryTraitTest
         return $service;
     }
 
-    private function getInvoice()
+    protected function getInvoice()
     {
         $client = new Client();
         $client->setTipoDoc('6')
@@ -135,7 +147,7 @@ trait FeFactoryTraitTest
         $invoice->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
-            ->setFechaEmision($this->dateEmision)
+            ->setFechaEmision($this->getDate())
             ->setTipoMoneda('PEN')
             ->setClient($client)
             ->setMtoOperGravadas(200)
@@ -177,7 +189,7 @@ trait FeFactoryTraitTest
         return $invoice;
     }
 
-    private function getCreditNote()
+    protected function getCreditNote()
     {
         $client = new Client();
         $client->setTipoDoc('6')
@@ -192,7 +204,7 @@ trait FeFactoryTraitTest
             ->setDesMotivo('ANULACION DE LA OPERACION')
             ->setTipoDoc('07')
             ->setSerie('FF01')
-            ->setFechaEmision($this->dateEmision)
+            ->setFechaEmision($this->getDate())
             ->setCorrelativo('123')
             ->setTipoMoneda('PEN')
             ->setClient($client)
@@ -235,18 +247,18 @@ trait FeFactoryTraitTest
         return $note;
     }
 
-    private function getDebitNote()
+    protected function getDebitNote()
     {
         $debit = $this->getCreditNote();
         $debit->setCodMotivo('01')
             ->setDesMotivo('XXXX ')
             ->setTipoDoc('08')
-            ->setFechaEmision($this->dateEmision);
+            ->setFechaEmision($this->getDate());
 
         return $debit;
     }
 
-    private function getSummary()
+    protected function getSummary()
     {
         $detiail1 = new SummaryDetail();
         $detiail1->setTipoDoc('03')
@@ -272,8 +284,8 @@ trait FeFactoryTraitTest
             ->setMtoISC(2.8);
 
         $sum = new Summary();
-        $sum->setFecGeneracion($this->dateEmision)
-            ->setFecResumen($this->dateEmision)
+        $sum->setFecGeneracion($this->getDate())
+            ->setFecResumen($this->getDate())
             ->setCorrelativo('001')
             ->setCompany($this->getCompany())
             ->setDetails([$detiail1, $detiail2]);
@@ -281,7 +293,7 @@ trait FeFactoryTraitTest
         return $sum;
     }
 
-    private function getSummaryV2()
+    protected function getSummaryV2()
     {
         $detiail1 = new SummaryDetailV2();
         $detiail1->setTipoDoc('07')
@@ -313,8 +325,8 @@ trait FeFactoryTraitTest
             ->setMtoISC(2.8);
 
         $sum = new SummaryV2();
-        $sum->setFecGeneracion($this->dateEmision)
-            ->setFecResumen($this->dateEmision)
+        $sum->setFecGeneracion($this->getDate())
+            ->setFecResumen($this->getDate())
             ->setCorrelativo('001')
             ->setCompany($this->getCompany())
             ->setDetails([$detiail1, $detiail2]);
@@ -322,7 +334,7 @@ trait FeFactoryTraitTest
         return $sum;
     }
 
-    private function getVoided()
+    protected function getVoided()
     {
         $detial1 = new VoidedDetail();
         $detial1->setTipoDoc('01')
@@ -338,8 +350,8 @@ trait FeFactoryTraitTest
 
         $voided = new Voided();
         $voided->setCorrelativo('001')
-            ->setFecComunicacion($this->dateEmision)
-            ->setFecGeneracion($this->dateEmision)
+            ->setFecComunicacion($this->getDate())
+            ->setFecGeneracion($this->getDate())
             ->setCompany($this->getCompany())
             ->setDetails([$detial1, $detial2]);
 
@@ -365,5 +377,13 @@ trait FeFactoryTraitTest
             ->setAddress($address);
 
         return $company;
+    }
+
+    private function getDate()
+    {
+        $date = new \DateTime();
+        $date->sub(new \DateInterval('P1D'));
+
+        return $date;
     }
 }

@@ -1,5 +1,5 @@
-Greenter - Facturacion Electronica
-=========================
+# Greenter - Facturación Electrónica
+
 [![Travis-CI](https://img.shields.io/travis/giansalex/greenter.svg?label=travis-ci&branch=master&style=flat-square)](https://travis-ci.org/giansalex/greenter)
 [![Coverage Status](https://img.shields.io/coveralls/giansalex/greenter.svg?label=coveralls&style=flat-square&branch=master)](https://coveralls.io/github/giansalex/greenter?branch=master)
 [![Codacy Badge](https://img.shields.io/codacy/grade/eccd5a16d035464cbe40b1cf9d0f9f43.svg?style=flat-square)](https://www.codacy.com/app/giansalex/greenter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=giansalex/greenter&amp;utm_campaign=Badge_Grade)
@@ -36,7 +36,7 @@ Caracteristicas
 * Resumen de Reversiones
 
 ### Web Services
-- Envio y empaquetado de documentos electronicos
+- Envio y empaquetado de los documentos electrónicos
 - Consulta de tickets
 - Consulta de Cdr
 
