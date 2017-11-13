@@ -36,7 +36,6 @@ class CeFactoryTest extends CeFactoryBase
         );
     }
 
-
     public function testRetention()
     {
         $retention = $this->getRetention();
@@ -48,6 +47,14 @@ class CeFactoryTest extends CeFactoryBase
             'El Comprobante numero R001-123 ha sido aceptado',
             $result->getCdrResponse()->getDescription()
         );
+    }
+
+    public function testGetXmlSigned()
+    {
+        $despatch = $this->getDespatch();
+        $signXml = $this->getXmlSigned($despatch);
+
+        $this->assertNotEmpty($signXml);
     }
 
     public function testPerception()

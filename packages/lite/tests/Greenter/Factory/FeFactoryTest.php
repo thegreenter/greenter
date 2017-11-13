@@ -31,6 +31,17 @@ class FeFactoryTest extends FeFactoryBase
         $this->assertNotEmpty($result->getCdrZip());
     }
 
+    public function testGetXmlSigned()
+    {
+        $invoice = $this->getInvoice();
+        $builder = $this->getBuilder($invoice);
+        $this->factory->setBuilder($builder);
+
+        $signXml = $this->factory->getXmmlSigned($invoice);
+
+        $this->assertNotEmpty($signXml);
+    }
+
     public function testInvalidInvoice()
     {
         $invoice = $this->getInvoice();

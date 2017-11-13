@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Factory;
 
+use Greenter\Builder\BuilderInterface;
 use Greenter\Factory\FeFactory;
 use Greenter\Model\Client\Client;
 use Greenter\Model\DocumentInterface;
@@ -93,12 +94,20 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
     protected function getFactoryResult(DocumentInterface $document)
     {
         $sender = $this->getSender(get_class($document), SunatEndpoints::FE_BETA);
-        $builder = new $this->builders[get_class($document)]();
+        $builder = $this->getBuilder($document);
         $factory = $this->factory
             ->setBuilder($builder)
             ->setSender($sender);
 
         return $factory->send($document);
+    }
+
+    /**
+     * @param DocumentInterface $document
+     * @return BuilderInterface
+     */
+    protected function getBuilder(DocumentInterface $document) {
+        return new $this->builders[get_class($document)]();
     }
 
     protected function getValidator($errors)
