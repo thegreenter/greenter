@@ -8,14 +8,11 @@
 
 namespace Greenter\Factory;
 
+use Greenter\Builder\BuilderInterface;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
-use Greenter\Security\SignedXml;
-use Greenter\Validator\DocumentValidatorInterface;
-use Greenter\Ws\Services\SenderInterface;
-use Greenter\Xml\Builder\BuilderInterface;
-use Greenter\Xml\Exception\ValidationException;
-use Greenter\Zip\ZipFactory;
+use Greenter\Services\SenderInterface;
+use RobRichards\XMLSecLibs\Sunat\Adapter\SunatXmlSecAdapter;
 
 /**
  * Class FeFactory
@@ -24,16 +21,13 @@ use Greenter\Zip\ZipFactory;
 class FeFactory implements FactoryInterface
 {
     /**
-     * @var SignedXml
+     * @var SunatXmlSecAdapter
      */
     private $signer;
 
     /**
-     * @var ZipFactory
-     */
-    private $zipper;
-
-    /**
+     * Sender service.
+     *
      * @var SenderInterface
      */
     private $sender;
@@ -46,35 +40,23 @@ class FeFactory implements FactoryInterface
     private $lastXml;
 
     /**
+     * Xml Builder.
+     *
      * @var BuilderInterface
      */
     private $builder;
-
-    /**
-     * @var DocumentValidatorInterface
-     */
-    private $validator;
-
-    /**
-     * @param $validator
-     * @return FeFactory
-     */
-    public function setValidator($validator)
-    {
-        $this->validator = $validator;
-        return $this;
-    }
 
     /**
      * BaseFactory constructor.
      */
     public function __construct()
     {
-        $this->signer = new SignedXml();
-        $this->zipper = new ZipFactory();
+        $this->signer = new SunatXmlSecAdapter();
     }
 
     /**
+     * Get document builder.
+     *
      * @return BuilderInterface
      */
     public function getBuilder()
@@ -83,6 +65,8 @@ class FeFactory implements FactoryInterface
     }
 
     /**
+     * Get sender service.
+     *
      * @return SenderInterface
      */
     public function getSender()
@@ -91,6 +75,8 @@ class FeFactory implements FactoryInterface
     }
 
     /**
+     * Set sender service.
+     *
      * @param SenderInterface $sender
      * @return FeFactory
      */
@@ -101,6 +87,8 @@ class FeFactory implements FactoryInterface
     }
 
     /**
+     * Set document builder.
+     *
      * @param BuilderInterface $builder
      * @return FeFactory
      */
@@ -111,26 +99,21 @@ class FeFactory implements FactoryInterface
     }
 
     /**
+     * Build and send document.
+     *
      * @param DocumentInterface $document
      * @return BaseResult
-     * @throws ValidationException
      */
     public function send(DocumentInterface $document)
     {
-        $errs = $this->validator->validate($document);
-        if (count($errs) > 0) {
-            throw new ValidationException($errs);
-        }
-        $xml = $this->builder->build($document);
-        $this->lastXml = $this->getXmmlSigned($xml);
-        $filename = $document->getName();
+        $this->lastXml = $this->getXmmlSigned($document);
 
-        $zip = $this->zipper->compress("$filename.xml", $this->lastXml);
-        return $this->sender->send("$filename.zip", $zip);
+        return $this->sender->send($document->getName(), $this->lastXml);
     }
 
     /**
-     * Set Certicated content
+     * Set Certicated content (From PEM format)
+     *
      * @param string $cert
      */
     public function setCertificate($cert)
@@ -149,11 +132,13 @@ class FeFactory implements FactoryInterface
     }
 
     /**
-     * @param string $xml
+     * @param DocumentInterface $document
      * @return string
      */
-    private function getXmmlSigned($xml)
+    public function getXmmlSigned(DocumentInterface $document)
     {
-        return $this->signer->sign($xml);
+        $xml = $this->builder->build($document);
+
+        return $this->signer->signXml($xml);
     }
 }
