@@ -95,6 +95,22 @@ class See
     }
 
     /**
+     * Get signed xml from document.
+     *
+     * @param DocumentInterface $document
+     * @return string
+     */
+    public function getXmlSigned(DocumentInterface $document)
+    {
+        $classDoc = get_class($document);
+
+        return $this->factory
+            ->setBuilder($this->getBuilder($classDoc))
+            ->getXmmlSigned($document);
+    }
+
+
+    /**
      * Envia documento.
      *
      * @param DocumentInterface $document

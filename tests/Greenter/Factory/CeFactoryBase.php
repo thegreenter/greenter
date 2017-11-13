@@ -51,9 +51,21 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
      */
     protected $factory;
 
+    /**
+     * @var array
+     */
+    protected $builders;
+
     public function setUp()
     {
         $this->factory = new FeFactory();
+        $this->factory->setCertificate(file_get_contents(__DIR__ . '/../../Resources/SFSCert.pem'));
+        $this->builders = [
+            Despatch::class => DespatchBuilder::class,
+            Perception::class => PerceptionBuilder::class,
+            Retention::class => RetentionBuilder::class,
+            Reversion::class => VoidedBuilder::class,
+        ];
     }
 
     /**
@@ -62,27 +74,18 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
      */
     protected function getFactoryResult(DocumentInterface $document)
     {
-        $builders = [
-            Despatch::class => DespatchBuilder::class,
-            Perception::class => PerceptionBuilder::class,
-            Retention::class => RetentionBuilder::class,
-            Reversion::class => VoidedBuilder::class,
-        ];
         $url = SunatEndpoints::RETENCION_BETA;
         if ($document instanceof Despatch) {
             $url = SunatEndpoints::GUIA_BETA;
         }
 
         $sender = $this->getSender(get_class($document), $url);
-        $builder = new $builders[get_class($document)]();
+        $builder = new $this->builders[get_class($document)]();
 
-        $factory = new FeFactory();
-        $factory->setCertificate(file_get_contents(__DIR__ . '/../../Resources/SFSCert.pem'));
-        $factory->setSender($sender);
-        $factory->setBuilder($builder);
-        $this->factory = $factory;
+        $this->factory->setSender($sender);
+        $this->factory->setBuilder($builder);
 
-        return $factory->send($document);
+        return $this->factory->send($document);
     }
 
     /**
@@ -114,6 +117,18 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
         $service->setClient($client);
 
         return $service;
+    }
+
+    /**
+     * @param DocumentInterface $document
+     * @return string
+     */
+    protected function getXmlSigned(DocumentInterface $document)
+    {
+        $builder = new $this->builders[get_class($document)]();
+        $this->factory->setBuilder($builder);
+
+        return $this->factory->getXmmlSigned($document);
     }
 
     /**

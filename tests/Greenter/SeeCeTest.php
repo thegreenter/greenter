@@ -68,6 +68,17 @@ class SeeCeTest extends CeFactoryBase
         $this->assertEquals(13, strlen($result->getTicket()));
     }
 
+    /**
+     * @dataProvider providerBillDocs
+     * @param DocumentInterface $doc
+     */
+    public function testGetXmlSigned(DocumentInterface $doc)
+    {
+        $xmlSigned = $this->getSee(SunatEndpoints::RETENCION_BETA)->getXmlSigned($doc);
+
+        $this->assertNotEmpty($xmlSigned);
+    }
+
     public function providerBillDocs()
     {
         return [

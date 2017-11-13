@@ -57,6 +57,17 @@ class SeeFeTest extends FeFactoryBase
         $this->assertEquals(13, strlen($result->getTicket()));
     }
 
+    /**
+     * @dataProvider providerInvoiceDocs
+     * @param DocumentInterface $doc
+     */
+    public function testGetXmlSigned(DocumentInterface $doc)
+    {
+        $xmlSigned = $this->getSee()->getXmlSigned($doc);
+
+        $this->assertNotEmpty($xmlSigned);
+    }
+
     public function providerInvoiceDocs()
     {
         return [
@@ -65,7 +76,6 @@ class SeeFeTest extends FeFactoryBase
             [$this->getDebitNote()],
         ];
     }
-
 
     public function providerSummaryDocs()
     {
