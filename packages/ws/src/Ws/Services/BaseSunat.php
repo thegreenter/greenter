@@ -88,7 +88,7 @@ class BaseSunat
     protected function extractResponse($zipContent)
     {
         $zip = new ZipFactory();
-        $xml = $zip->decompressLastFile($zipContent);
+        $xml = $zip->decompressXmlFile($zipContent);
         $reader = new DomCdrReader();
 
         return $reader->getCdrResponse($xml);

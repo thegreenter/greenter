@@ -17,11 +17,12 @@ use Greenter\Zip\ZipFile;
  */
 class ZipFactoryTest extends \PHPUnit_Framework_TestCase
 {
+    const DATA_XML = '<root>Empty</root>';
+
     public function testCompressFile()
     {
         $zip = $this->createZip();
 
-        //file_put_contents(sys_get_temp_dir() . '/myzip.zip', $zip);
         $this->assertNotEmpty($zip);
     }
 
@@ -29,18 +30,18 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $zipContent = $this->createZip();
         $helper = new ZipFactory();
-        $content = $helper->decompress($zipContent, 'myFile.txt');
+        $content = $helper->decompress($zipContent, 'myFile.xml');
 
-        $this->assertEquals('TEST TEXT 1', $content);
+        $this->assertEquals(self::DATA_XML, $content);
     }
 
     public function testDecompressLastFile()
     {
         $zipContent = $this->createZip();
         $helper = new ZipFactory();
-        $content = $helper->decompressLastFile($zipContent);
+        $content = $helper->decompressXmlFile($zipContent);
 
-        $this->assertEquals('TEST TEXT 1', $content);
+        $this->assertEquals(self::DATA_XML, $content);
     }
 
     public function testUnixTime()
@@ -54,7 +55,17 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
     public function testInvalidZip()
     {
         $zip = new ZipFactory();
-        $res = $zip->decompressLastFile('');
+        $res = $zip->decompressXmlFile('');
+
+        $this->assertEmpty($res);
+    }
+
+    public function testNotXmlZip()
+    {
+        $helper = new ZipFactory();
+        $zip = $helper->compress('myFile.txt', 'TEST TEXT 1');
+
+        $res = $helper->decompressXmlFile($zip);
 
         $this->assertEmpty($res);
     }
@@ -62,7 +73,7 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
     private function createZip()
     {
         $helper = new ZipFactory();
-        $zip = $helper->compress('myFile.txt', 'TEST TEXT 1');
+        $zip = $helper->compress('myFile.xml', self::DATA_XML);
 
         return $zip;
     }

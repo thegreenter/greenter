@@ -8,14 +8,14 @@
 
 namespace Greenter\Zip;
 
-use ZipArchive;
-
 /**
  * Class ZipFactory
  * @package Greenter\Zip
  */
 final class ZipFactory
 {
+    const UNZIP_FORMAT = 'Vsig/vver/vflag/vmeth/vmodt/vmodd/Vcrc/Vcsize/Vsize/vnamelen/vexlen';
+
     /**
      * Comprime el contenido del archivo con el nombre especifico y retorna el contenido del zip.
      *
@@ -40,42 +40,71 @@ final class ZipFactory
      */
     public function decompress($zipContent, $fileToExtract)
     {
-        $temp = tempnam(sys_get_temp_dir(),time() . '.zip');
-        file_put_contents($temp, $zipContent);
-        $zip = new ZipArchive;
-        $output = "";
-        if ($zip->open($temp) === true) {
-            $output = $zip->getFromName($fileToExtract);
-        }
-        $zip->close();
-        unlink($temp);
+        $start = 0;
+        $max = 10;
+        while ($max > 0) {
+            $dat = substr($zipContent, $start, 30);
+            if (empty($dat)) {
+                break;
+            }
 
-        return $output;
+            $head = unpack(self::UNZIP_FORMAT, $dat);
+            $filename = substr(substr($zipContent, $start),30, $head['namelen']);
+            if (empty($filename)) {
+                break;
+            }
+            $count = 30 + $head['namelen'] + $head['exlen'];
+
+            if ($filename == $fileToExtract) {
+                return gzinflate(substr($zipContent, $start + $count, $head['csize']));
+            }
+
+            $start += $count + $head['csize'];
+            $max--;
+        }
+
+        return '';
     }
 
     /**
-     * Retorna el contenido del ultimo archivo dentro del zip.
+     * Retorna el contenido del primer xml dentro del zip.
      *
      * @param string $zipContent
      * @return string
      */
-    public function decompressLastFile($zipContent)
+    public function decompressXmlFile($zipContent)
     {
-        $temp = tempnam(sys_get_temp_dir(),time() . '.zip');
-        file_put_contents($temp, $zipContent);
-        $zip = new ZipArchive;
-        $output = "";
-        if (!$zip->open($temp)) {
-            return $output;
+        $start = 0;
+        $max = 10;
+        while ($max > 0) {
+            $dat = substr($zipContent, $start, 30);
+            if (empty($dat)) {
+                break;
+            }
+
+            $head = unpack(self::UNZIP_FORMAT, $dat);
+            $filename = substr(substr($zipContent, $start),30, $head['namelen']);
+            if (empty($filename)) {
+                break;
+            }
+            $count = 30 + $head['namelen'] + $head['exlen'];
+
+            if (strtolower($this->getFileExtension($filename)) == 'xml') {
+                return gzinflate(substr($zipContent, $start + $count, $head['csize']));
+            }
+
+            $start += $count + $head['csize'];
+            $max--;
         }
 
-        if ($zip->numFiles > 0) {
-            $output = $zip->getFromIndex($zip->numFiles - 1);
-        }
+        return '';
+    }
 
-        $zip->close();
-        unlink($temp);
+    function getFileExtension($filename)
+    {
+        $lastDotPos = strrpos($filename, '.');
+        if (!$lastDotPos) return '';
 
-        return $output;
+        return substr($filename, $lastDotPos + 1);
     }
 }

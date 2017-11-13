@@ -13,6 +13,7 @@
     "type": "project",
     "require": {
 		"php": ">=5.5.9",
+        "ext-zlib": "*",
         "greenter/core": "^1.0"
     },
 	"require-dev": {
