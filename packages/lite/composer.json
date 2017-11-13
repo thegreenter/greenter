@@ -30,5 +30,10 @@
         "psr-4": {
             "Tests\\": "tests/"
         }
+    },
+    "suggest": {
+        "ext-dom": "Dom extension",
+        "ext-zip": "Zip extension",
+        "ext-openssl": "OpenSSL extension"
     }
 }
