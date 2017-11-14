@@ -18,6 +18,7 @@ PHP Implementación de la Facturación Electrónica Sunat - Perú
 ```bash
 composer require greenter/greenter
 ```
+Para propositos de prueba, visite [Greenter Sampple](https://github.com/giansalex/greenter-sample).
 
 Caracteristicas
 ---------------
