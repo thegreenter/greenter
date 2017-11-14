@@ -8,8 +8,8 @@
 
 namespace Tests\Greenter\Zip;
 
-use Greenter\Zip\ZipFactory;
-use Greenter\Zip\ZipFile;
+use Greenter\Zip\ZipReader;
+use Greenter\Zip\ZipWriter;
 
 /**
  * Class ZipFactoryTest
@@ -29,7 +29,7 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
     public function testDecompressLastFile()
     {
         $zipContent = $this->createZip();
-        $helper = new ZipFactory();
+        $helper = new ZipReader();
         $content = $helper->decompressXmlFile($zipContent);
 
         $this->assertEquals(self::DATA_XML, $content);
@@ -37,7 +37,7 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testUnixTime()
     {
-        $zip = new ZipFile();
+        $zip = new ZipWriter();
         $result = $zip->unix2DosTime(181233012);
 
         $this->assertEquals(2162688, $result);
@@ -45,7 +45,7 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidZip()
     {
-        $zip = new ZipFactory();
+        $zip = new ZipReader();
         $res = $zip->decompressXmlFile('');
 
         $this->assertEmpty($res);
@@ -53,17 +53,17 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testNotXmlZip()
     {
-        $helper = new ZipFactory();
+        $helper = new ZipWriter();
         $zip = $helper->compress('myFile.txt', 'TEST TEXT 1');
 
-        $res = $helper->decompressXmlFile($zip);
+        $res = (new ZipReader())->decompressXmlFile($zip);
 
         $this->assertEmpty($res);
     }
 
     private function createZip()
     {
-        $helper = new ZipFactory();
+        $helper = new ZipWriter();
         $zip = $helper->compress('myFile.xml', self::DATA_XML);
 
         return $zip;

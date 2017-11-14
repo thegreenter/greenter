@@ -17,7 +17,6 @@ use Greenter\Services\SenderInterface;
  */
 class BillSender extends BaseSunat implements SenderInterface
 {
-
     /**
      * @param string $filename
      * @param string $content

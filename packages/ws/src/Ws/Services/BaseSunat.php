@@ -11,7 +11,8 @@ namespace Greenter\Ws\Services;
 use Greenter\Model\Response\Error;
 use Greenter\Ws\Reader\DomCdrReader;
 use Greenter\Ws\Reader\XmlErrorReader;
-use Greenter\Zip\ZipFactory;
+use Greenter\Zip\ZipReader;
+use Greenter\Zip\ZipWriter;
 
 /**
  * Class BaseSunat
@@ -78,7 +79,8 @@ class BaseSunat
      */
     protected function compress($filename, $xml)
     {
-        return (new ZipFactory())->compress($filename, $xml);
+        return (new ZipWriter())
+            ->compress($filename, $xml);
     }
 
     /**
@@ -87,11 +89,11 @@ class BaseSunat
      */
     protected function extractResponse($zipContent)
     {
-        $zip = new ZipFactory();
-        $xml = $zip->decompressXmlFile($zipContent);
-        $reader = new DomCdrReader();
+        $xml = (new ZipReader())
+            ->decompressXmlFile($zipContent);
 
-        return $reader->getCdrResponse($xml);
+        return (new DomCdrReader())
+            ->getCdrResponse($xml);
     }
 
     /**
@@ -100,8 +102,8 @@ class BaseSunat
      */
     protected function getMessageError($code)
     {
-        $search = new XmlErrorReader();
-        $msg = $search->getMessageByCode(intval($code));
+        $msg = (new XmlErrorReader())
+                ->getMessageByCode(intval($code));
 
         return $msg;
     }

@@ -11,7 +11,7 @@ namespace Greenter\Zip;
 /**
  * Class ZipFile.
  */
-class ZipFile
+class ZipWriter
 {
     /**
      * Array to store compressed data.
@@ -64,8 +64,6 @@ class ZipFile
             | ($timearray['minutes'] << 5)
             | ($timearray['seconds'] >> 1);
     }
-
- // end of the 'unix2DosTime()' method
 
     /**
      * Adds "file" to archive.
@@ -148,5 +146,18 @@ class ZipFile
         return $data.$header;
     }
 
+    /**
+     * Comprime el contenido del archivo con el nombre especifico y retorna el contenido del zip.
+     *
+     * @param string $filename
+     * @param string $content
+     * @return string
+     */
+    public function compress($filename, $content)
+    {
+        $this->addFile($content, $filename);
+
+        return $this->file();
+    }
  // end of the 'file()' method
 }

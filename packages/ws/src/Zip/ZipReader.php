@@ -12,24 +12,9 @@ namespace Greenter\Zip;
  * Class ZipFactory
  * @package Greenter\Zip
  */
-final class ZipFactory
+final class ZipReader
 {
     const UNZIP_FORMAT = 'Vsig/vver/vflag/vmeth/vmodt/vmodd/Vcrc/Vcsize/Vsize/vnamelen/vexlen';
-
-    /**
-     * Comprime el contenido del archivo con el nombre especifico y retorna el contenido del zip.
-     *
-     * @param string $filename
-     * @param string $content
-     * @return string
-     */
-    public function compress($filename, $content)
-    {
-        $archive = new ZipFile();
-        $archive->addFile($content, $filename);
-
-        return $archive->file();
-    }
 
     /**
      * Retorna el contenido del primer xml dentro del zip.
