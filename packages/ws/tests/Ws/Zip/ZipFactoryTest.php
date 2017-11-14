@@ -26,15 +26,6 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($zip);
     }
 
-    public function testDecompressFile()
-    {
-        $zipContent = $this->createZip();
-        $helper = new ZipFactory();
-        $content = $helper->decompress($zipContent, 'myFile.xml');
-
-        $this->assertEquals(self::DATA_XML, $content);
-    }
-
     public function testDecompressLastFile()
     {
         $zipContent = $this->createZip();

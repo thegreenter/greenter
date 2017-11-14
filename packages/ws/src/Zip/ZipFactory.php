@@ -32,41 +32,6 @@ final class ZipFactory
     }
 
     /**
-     * Retorna el contenido del archivo especificado dentro del zip.
-     *
-     * @param string $zipContent
-     * @param string $fileToExtract
-     * @return string
-     */
-    public function decompress($zipContent, $fileToExtract)
-    {
-        $start = 0;
-        $max = 10;
-        while ($max > 0) {
-            $dat = substr($zipContent, $start, 30);
-            if (empty($dat)) {
-                break;
-            }
-
-            $head = unpack(self::UNZIP_FORMAT, $dat);
-            $filename = substr(substr($zipContent, $start),30, $head['namelen']);
-            if (empty($filename)) {
-                break;
-            }
-            $count = 30 + $head['namelen'] + $head['exlen'];
-
-            if ($filename == $fileToExtract) {
-                return gzinflate(substr($zipContent, $start + $count, $head['csize']));
-            }
-
-            $start += $count + $head['csize'];
-            $max--;
-        }
-
-        return '';
-    }
-
-    /**
      * Retorna el contenido del primer xml dentro del zip.
      *
      * @param string $zipContent
