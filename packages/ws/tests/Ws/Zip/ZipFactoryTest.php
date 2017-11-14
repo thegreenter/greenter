@@ -8,8 +8,8 @@
 
 namespace Tests\Greenter\Zip;
 
-use Greenter\Zip\ZipFactory;
-use Greenter\Zip\ZipFile;
+use Greenter\Zip\ZipReader;
+use Greenter\Zip\ZipWriter;
 
 /**
  * Class ZipFactoryTest
@@ -17,35 +17,27 @@ use Greenter\Zip\ZipFile;
  */
 class ZipFactoryTest extends \PHPUnit_Framework_TestCase
 {
+    const DATA_XML = '<root>Empty</root>';
+
     public function testCompressFile()
     {
         $zip = $this->createZip();
 
-        //file_put_contents(sys_get_temp_dir() . '/myzip.zip', $zip);
         $this->assertNotEmpty($zip);
-    }
-
-    public function testDecompressFile()
-    {
-        $zipContent = $this->createZip();
-        $helper = new ZipFactory();
-        $content = $helper->decompress($zipContent, 'myFile.txt');
-
-        $this->assertEquals('TEST TEXT 1', $content);
     }
 
     public function testDecompressLastFile()
     {
         $zipContent = $this->createZip();
-        $helper = new ZipFactory();
-        $content = $helper->decompressLastFile($zipContent);
+        $helper = new ZipReader();
+        $content = $helper->decompressXmlFile($zipContent);
 
-        $this->assertEquals('TEST TEXT 1', $content);
+        $this->assertEquals(self::DATA_XML, $content);
     }
 
     public function testUnixTime()
     {
-        $zip = new ZipFile();
+        $zip = new ZipWriter();
         $result = $zip->unix2DosTime(181233012);
 
         $this->assertEquals(2162688, $result);
@@ -53,16 +45,26 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidZip()
     {
-        $zip = new ZipFactory();
-        $res = $zip->decompressLastFile('');
+        $zip = new ZipReader();
+        $res = $zip->decompressXmlFile('');
+
+        $this->assertEmpty($res);
+    }
+
+    public function testNotXmlZip()
+    {
+        $helper = new ZipWriter();
+        $zip = $helper->compress('myFile.txt', 'TEST TEXT 1');
+
+        $res = (new ZipReader())->decompressXmlFile($zip);
 
         $this->assertEmpty($res);
     }
 
     private function createZip()
     {
-        $helper = new ZipFactory();
-        $zip = $helper->compress('myFile.txt', 'TEST TEXT 1');
+        $helper = new ZipWriter();
+        $zip = $helper->compress('myFile.xml', self::DATA_XML);
 
         return $zip;
     }
