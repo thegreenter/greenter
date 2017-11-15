@@ -12,8 +12,9 @@
     "homepage": "https://github.com/giansalex/greenter-ws",
     "type": "project",
     "require": {
-		"php": ">=5.5.9",
+	"php": ">=5.5.9",
         "ext-zlib": "*",
+	"ext-soap": "*",
         "greenter/core": "^1.0"
     },
 	"require-dev": {
