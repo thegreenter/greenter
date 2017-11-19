@@ -6,6 +6,19 @@ Symfony Validator for [Greenter](https://github.com/giansalex/greenter)
 
 ## Composer
 
-````bash
+```bash
 composer require greenter/validator
-````
+```
+
+## Example
+
+```php
+use Greenter\Validator\SymfonyValidator;
+
+$invoice = createInvoice();
+
+$validator = new SymfonyValidator();
+$errors = $validator->validate($invoice);
+
+var_dump($errors);
+```

@@ -10,7 +10,7 @@
         }
     ],
     "homepage": "https://github.com/giansalex/greenter-validator",
-    "type": "project",
+    "type": "library",
     "require": {
 		"php": ">=5.5.9",
         "greenter/core": "^1.0",
