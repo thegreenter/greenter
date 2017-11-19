@@ -10,7 +10,7 @@
         }
     ],
     "homepage": "https://github.com/giansalex/greenter-core",
-    "type": "project",
+    "type": "library",
     "require": {
 		"php": ">=5.5.9"
     },
