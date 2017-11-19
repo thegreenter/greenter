@@ -79,12 +79,14 @@
             <sac:SUNATRetentionAmount currencyID="PEN">{{ det.impRetenido|n_format }}</sac:SUNATRetentionAmount>
             <sac:SUNATRetentionDate>{{ det.fechaRetencion|date('Y-m-d') }}</sac:SUNATRetentionDate>
             <sac:SUNATNetTotalPaid currencyID="PEN">{{ det.impPagar|n_format }}</sac:SUNATNetTotalPaid>
+            {% if det.tipoCambio %}
             <cac:ExchangeRate>
                 <cbc:SourceCurrencyCode>{{ det.tipoCambio.monedaRef }}</cbc:SourceCurrencyCode>
                 <cbc:TargetCurrencyCode>{{ det.tipoCambio.monedaObj }}</cbc:TargetCurrencyCode>
-                <cbc:CalculationRate>{{ det.tipoCambio.factor }}</cbc:CalculationRate>
+                <cbc:CalculationRate>{{ det.tipoCambio.factor|n_format(6)}}</cbc:CalculationRate>
                 <cbc:Date>{{ det.tipoCambio.fecha|date('Y-m-d') }}</cbc:Date>
             </cac:ExchangeRate>
+            {% endif %}
         </sac:SUNATRetentionInformation>
     </sac:SUNATRetentionDocumentReference>
     {% endfor %}

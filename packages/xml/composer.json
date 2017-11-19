@@ -3,6 +3,8 @@
     "description": "XML generación de documentos electrónicos, Facturacion Electrónica SUNAT - Perú",
     "keywords": ["greenter", "xml", "facturacion electronica"],
     "license": "MIT",
+    "optimize-autoloader": true,
+    "classmap-authoritative": true,
     "authors": [
         {
             "name": "Giancarlos Salas",
@@ -17,7 +19,7 @@
         "greenter/core": "^1.0"
     },
 	"require-dev": {
-        "phpunit/phpunit": "4.8.36",
+        "phpunit/phpunit": ">=4.8 < 6.0",
         "symfony/stopwatch": "^3.3"
     },
 	"autoload": {

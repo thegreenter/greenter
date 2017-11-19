@@ -79,12 +79,14 @@
 			<sac:SUNATPerceptionAmount currencyID="PEN">{{ det.impPercibido|n_format }}</sac:SUNATPerceptionAmount>
 			<sac:SUNATPerceptionDate>{{ det.fechaPercepcion|date('Y-m-d') }}</sac:SUNATPerceptionDate>
 			<sac:SUNATNetTotalCashed currencyID="PEN">{{ det.impCobrar|n_format }}</sac:SUNATNetTotalCashed>
+            {% if det.tipoCambio %}
 			<cac:ExchangeRate>
 				<cbc:SourceCurrencyCode>{{ det.tipoCambio.monedaRef }}</cbc:SourceCurrencyCode>
 				<cbc:TargetCurrencyCode>{{ det.tipoCambio.monedaObj }}</cbc:TargetCurrencyCode>
-				<cbc:CalculationRate>{{ det.tipoCambio.factor }}</cbc:CalculationRate>
+				<cbc:CalculationRate>{{ det.tipoCambio.factor|n_format(6)}}</cbc:CalculationRate>
 				<cbc:Date>{{ det.tipoCambio.fecha|date('Y-m-d') }}</cbc:Date>
 			</cac:ExchangeRate>
+            {% endif %}
 		</sac:SUNATPerceptionInformation>
 	</sac:SUNATPerceptionDocumentReference>
 	{% endfor %}
