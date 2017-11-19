@@ -10,7 +10,7 @@
         }
     ],
     "homepage": "https://github.com/giansalex/greenter",
-    "type": "project",
+    "type": "library",
     "require": {
 		"php": ">=5.5.9",
         "giansalex/xmldsig": "3.0.*",
