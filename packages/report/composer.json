@@ -10,7 +10,7 @@
         }
     ],
     "homepage": "https://github.com/giansalex/greenter-report",
-    "type": "project",
+    "type": "library",
     "require": {
 		"php": ">=5.5.9",
         "twig/twig": "~1.0",
