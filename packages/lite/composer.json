@@ -19,7 +19,7 @@
         "greenter/xml": "^1.0"
     },
 	"require-dev": {
-        "phpunit/phpunit": "4.8.36"
+        "phpunit/phpunit": ">=4.8 < 6.0"
     },
 	"autoload": {
         "psr-4": {
