@@ -62,9 +62,9 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
      */
     public function getExtSunat()
     {
-        $client = new SoapClient('https://www.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?wsdl');
+        $client = new SoapClient(SunatEndpoints::FE_CONSULTA_CDR . '?wsdl');
         $client->setCredentials('20000000001MODDATOS', 'moddatos');
-        $client->setService('https://www.sunat.gob.pe/ol-it-wsconscpegem/billConsultService');
+        $client->setService(SunatEndpoints::FE_CONSULTA_CDR);
         $sunat = new ExtService();
         $sunat->setClient($client);
 

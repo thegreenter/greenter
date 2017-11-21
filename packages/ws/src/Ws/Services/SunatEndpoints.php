@@ -21,6 +21,7 @@ final class SunatEndpoints
     const FE_HOMOLOGACION  = 'https://www.sunat.gob.pe/ol-ti-itcpgem-sqa/billService';
     const FE_PRODUCCION = 'https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService';
     const WSDL_ENDPOINT = 'https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl';
+    const FE_CONSULTA_CDR = 'https://www.sunat.gob.pe/ol-it-wsconscpegem/billConsultService';
 
     /**
      * GUIA REMISION SERVICES
