@@ -6,7 +6,7 @@
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/giansalex/greenter.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/giansalex/greenter/?branch=master)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/giansalex/greenter.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/giansalex/greenter/?branch=master)
 [![Build Status](https://img.shields.io/scrutinizer/build/g/giansalex/greenter.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/giansalex/greenter/build-status/master)
-[![Code Climate](https://img.shields.io/codeclimate/github/giansalex/greenter.svg?style=flat-square)](https://codeclimate.com/github/giansalex/greenter)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4cf428e28ba4ae6fb234/maintainability)](https://codeclimate.com/github/giansalex/greenter)
 [![Packagist](https://img.shields.io/packagist/v/greenter/greenter.svg?style=flat-square)](https://packagist.org/packages/greenter/greenter)     
 PHP Implementación de la Facturación Electrónica Sunat - Perú
 
