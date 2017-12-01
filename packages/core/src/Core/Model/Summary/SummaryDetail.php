@@ -69,7 +69,7 @@ class SummaryDetail
     /**
      * @var float
      */
-    private $mtoDescuentos;
+    private $mtoOtrosCargos;
 
     /**
      * @Assert\NotBlank()
@@ -234,18 +234,18 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getMtoDescuentos()
+    public function getMtoOtrosCargos()
     {
-        return $this->mtoDescuentos;
+        return $this->mtoOtrosCargos;
     }
 
     /**
-     * @param float $mtoDescuentos
+     * @param float $mtoOtrosCargos
      * @return SummaryDetail
      */
-    public function setMtoDescuentos($mtoDescuentos)
+    public function setMtoOtrosCargos($mtoOtrosCargos)
     {
-        $this->mtoDescuentos = $mtoDescuentos;
+        $this->mtoOtrosCargos = $mtoOtrosCargos;
         return $this;
     }
 
