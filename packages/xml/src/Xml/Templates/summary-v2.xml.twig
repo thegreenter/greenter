@@ -64,22 +64,30 @@
                 <cbc:ConditionCode>{{ det.estado }}</cbc:ConditionCode>
             </cac:Status>
             <sac:TotalAmount currencyID="PEN">{{ det.total|n_format }}</sac:TotalAmount>
-            <sac:BillingPayment>
-                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperGravadas|n_format }}</cbc:PaidAmount>
-                <cbc:InstructionID>01</cbc:InstructionID>
-            </sac:BillingPayment>
-            <sac:BillingPayment>
-                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperExoneradas|n_format }}</cbc:PaidAmount>
-                <cbc:InstructionID>02</cbc:InstructionID>
-            </sac:BillingPayment>
-            <sac:BillingPayment>
-                <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperInafectas|n_format }}</cbc:PaidAmount>
-                <cbc:InstructionID>03</cbc:InstructionID>
-            </sac:BillingPayment>
-            <cac:AllowanceCharge>
-                <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
-                <cbc:Amount currencyID="PEN">{{ det.mtoDescuentos|default(0)|n_format }}</cbc:Amount>
-            </cac:AllowanceCharge>
+            {% if det.mtoOperGravadas %}
+                <sac:BillingPayment>
+                    <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperGravadas|n_format }}</cbc:PaidAmount>
+                    <cbc:InstructionID>01</cbc:InstructionID>
+                </sac:BillingPayment>
+            {% endif %}
+            {% if det.mtoOperExoneradas %}
+                <sac:BillingPayment>
+                    <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperExoneradas|n_format }}</cbc:PaidAmount>
+                    <cbc:InstructionID>02</cbc:InstructionID>
+                </sac:BillingPayment>
+            {% endif %}
+            {% if det.mtoOperInafectas %}
+                <sac:BillingPayment>
+                    <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperInafectas|n_format }}</cbc:PaidAmount>
+                    <cbc:InstructionID>03</cbc:InstructionID>
+                </sac:BillingPayment>
+            {% endif %}
+            {% if det.mtoOtrosCargos %}
+                <cac:AllowanceCharge>
+                    <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+                    <cbc:Amount currencyID="PEN">{{ det.mtoOtrosCargos|n_format }}</cbc:Amount>
+                </cac:AllowanceCharge>
+            {% endif %}
             {% set igv = det.mtoIGV|n_format %}
             <cac:TaxTotal>
                 <cbc:TaxAmount currencyID="PEN">{{ igv }}</cbc:TaxAmount>

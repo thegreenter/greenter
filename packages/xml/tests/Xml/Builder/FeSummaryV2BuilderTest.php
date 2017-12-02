@@ -24,7 +24,6 @@ class FeSummaryV2BuilderTest extends \PHPUnit_Framework_TestCase
         $summary = $this->getSummary();
 
         $xml = $this->build($summary);
-
         $this->assertNotEmpty($xml);
     }
 
@@ -60,11 +59,10 @@ class FeSummaryV2BuilderTest extends \PHPUnit_Framework_TestCase
                 ->setTipoDoc('03')
                 ->setNroDoc('B001-1'))
             ->setTotal(100)
-            ->setMtoOperGravadas(20.555)
             ->setMtoOperInafectas(24.4)
             ->setMtoOperExoneradas(50)
             ->setMtoOtrosTributos(12.32)
-            ->setMtoDescuentos(5)
+            ->setMtoOtrosCargos(0)
             ->setMtoIGV(3.6);
 
         $detiail2 = new SummaryDetailV2();

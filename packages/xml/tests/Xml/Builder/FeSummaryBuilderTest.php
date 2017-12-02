@@ -62,7 +62,7 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
             ->setMtoOperInafectas(24.4)
             ->setMtoOperExoneradas(50)
             ->setMtoOtrosTributos(12.32)
-            ->setMtoDescuentos(5)
+            ->setMtoOtrosCargos(5)
             ->setMtoIGV(3.6);
 
         $detiail2 = new SummaryDetail();
