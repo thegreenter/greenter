@@ -41,9 +41,7 @@ class SummaryDetailV2Loader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraint('docReferencia', new Assert\Valid());
         $metadata->addPropertyConstraint('total', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoOperGravadas', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoOperInafectas', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoOperExoneradas', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoIGV', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('mtoISC', new Assert\NotBlank());
     }
 }

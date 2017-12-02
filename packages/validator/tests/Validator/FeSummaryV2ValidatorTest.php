@@ -54,8 +54,9 @@ class FeSummaryV2ValidatorTest extends \PHPUnit_Framework_TestCase
             ->setMtoOperInafectas(24.4)
             ->setMtoOperExoneradas(50)
             ->setMtoOtrosTributos(12.32)
-            ->setMtoDescuentos(5)
-            ->setMtoIGV(3.6);
+            ->setMtoOtrosCargos(5)
+            ->setMtoIGV(3.6)
+            ->setMtoISC(0);
 
         $detiail2 = new SummaryDetailV2();
         $detiail2->setTipoDoc('07')
@@ -67,7 +68,7 @@ class FeSummaryV2ValidatorTest extends \PHPUnit_Framework_TestCase
             ->setMtoOperGravadas(40)
             ->setMtoOperExoneradas(30)
             ->setMtoOperInafectas(120)
-            ->setMtoIGV(7.2)
+            ->setMtoIGV(0)
             ->setMtoISC(2.8);
 
         $sum = new SummaryV2();
