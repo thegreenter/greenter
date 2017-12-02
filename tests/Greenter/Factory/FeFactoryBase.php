@@ -269,6 +269,7 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setMtoOperGravadas(20.555)
             ->setMtoOperInafectas(24.4)
             ->setMtoOperExoneradas(50)
+            ->setMtoOtrosCargos(21)
             ->setMtoIGV(3.6);
 
         $detiail2 = new SummaryDetail();
@@ -320,7 +321,7 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setMtoOperGravadas(3)
             ->setMtoOperExoneradas(30)
             ->setMtoOperInafectas(2)
-            ->setMtoDescuentos(1)
+            ->setMtoOtrosCargos(1)
             ->setMtoIGV(7.2)
             ->setMtoISC(2.8);
 
