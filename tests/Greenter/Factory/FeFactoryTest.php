@@ -110,7 +110,7 @@ class FeFactoryTest extends FeFactoryBase
         $this->assertInstanceOf(SummaryBuilder::class, $this->factory->getBuilder());
 
         $this->assertTrue($result->isSuccess());
-        $this->assertNotNull($result->getError());
+        $this->assertNotEmpty($result->getTicket());
         $this->assertEquals(13, strlen($result->getTicket()));
 
         return $result->getTicket();
