@@ -109,15 +109,11 @@ class FeFactoryTest extends FeFactoryBase
         $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
         $this->assertInstanceOf(SummaryBuilder::class, $this->factory->getBuilder());
 
-        if (!$result->isSuccess()) {
-            return;
-        }
-
-        $this->assertFalse($result->isSuccess());
+        $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getError());
-        $this->assertEquals('2072', $result->getError()->getCode());
-        $this->assertEquals('CustomizationID - La versión del documento no es la correcta',
-            $result->getError()->getMessage());
+        $this->assertEquals(13, strlen($result->getTicket()));
+
+        return $result->getTicket();
     }
 
     public function testResumenV2()
@@ -127,13 +123,11 @@ class FeFactoryTest extends FeFactoryBase
         $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
         $this->assertInstanceOf(SummaryV2Builder::class, $this->factory->getBuilder());
 
-        if (!$result->isSuccess()) {
-            return;
-        }
-
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
         $this->assertEquals(13, strlen($result->getTicket()));
+
+        return $result->getTicket();
     }
 
     public function testBaja()
@@ -150,6 +144,56 @@ class FeFactoryTest extends FeFactoryBase
         $this->assertEquals(13, strlen($result->getTicket()));
 
         return $result->getTicket();
+    }
+
+    /**
+     * @depends testResumen
+     * @param string $ticket
+     */
+    public function testStatusResumen($ticket)
+    {
+        $result = $this->getExtService()->getStatus($ticket);
+
+        if ($result->getCode() !== '0') {
+            return;
+        }
+
+        if ($result->isSuccess()) {
+            $this->assertNull($result->getError());
+            $this->assertNotNull($result->getCdrResponse());
+            $this->assertEquals('0', $result->getCdrResponse()->getCode());
+            $this->assertContains('aceptado', $result->getCdrResponse()->getDescription());
+            return;
+        }
+
+        $this->assertFalse($result->isSuccess());
+        $this->assertNotNull($result->getError());
+        $this->assertEquals('200', $result->getError()->getCode());
+    }
+
+    /**
+     * @depends testResumenV2
+     * @param string $ticket
+     */
+    public function testStatusResumenV2($ticket)
+    {
+        $result = $this->getExtService()->getStatus($ticket);
+
+        if ($result->getCode() !== '0') {
+            return;
+        }
+
+        if ($result->isSuccess()) {
+            $this->assertNull($result->getError());
+            $this->assertNotNull($result->getCdrResponse());
+            $this->assertEquals('0', $result->getCdrResponse()->getCode());
+            $this->assertContains('aceptado', $result->getCdrResponse()->getDescription());
+            return;
+        }
+
+        $this->assertFalse($result->isSuccess());
+        $this->assertNotNull($result->getError());
+        $this->assertEquals('200', $result->getError()->getCode());
     }
 
     /**
