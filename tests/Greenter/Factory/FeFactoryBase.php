@@ -38,6 +38,7 @@ use Greenter\Xml\Builder\NoteBuilder;
 use Greenter\Xml\Builder\SummaryBuilder;
 use Greenter\Xml\Builder\SummaryV2Builder;
 use Greenter\Xml\Builder\VoidedBuilder;
+use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
 
 /**
  * Trait FeFactoryTrait
@@ -65,8 +66,11 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             SummaryV2::class => SummaryV2Builder::class,
         ];
 
+        $signer = new SunatXmlSecAdapter();
+        $signer->setCertificateFromFile(__DIR__.'/../../Resources/SFSCert.pem');
+
         $factory = new FeFactory();
-        $factory->setCertificate(file_get_contents(__DIR__ . '/../../Resources/SFSCert.pem'));
+        $factory->setSigner($signer);
         $this->factory = $factory;
     }
 
@@ -344,8 +348,8 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setDesMotivoBaja('ERROR DE SISTEMA');
 
         $detial2 = new VoidedDetail();
-        $detial2->setTipoDoc('03')
-            ->setSerie('B001')
+        $detial2->setTipoDoc('07')
+            ->setSerie('FC01')
             ->setCorrelativo('123')
             ->setDesMotivoBaja('ERROR DE RUC');
 

@@ -68,12 +68,13 @@ class FeFactoryTest extends FeFactoryBase
     public function testInvoiceRechazado()
     {
         $invoice = $this->getInvoice();
-        $invoice->getClient()->setTipoDoc('0');
+        $invoice->getClient()->setTipoDoc('1');
+
         $result = $this->getFactoryResult($invoice);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
-        $this->assertEquals('2016', $result->getError()->getCode());
+        $this->assertEquals('2801', $result->getError()->getCode());
     }
 
     public function testNotaCredito()
@@ -106,6 +107,10 @@ class FeFactoryTest extends FeFactoryBase
     {
         $resumen = $this->getSummary();
         $result = $this->getFactoryResult($resumen);
+        if (!$result->isSuccess()) {
+            return '123456789234';
+        }
+
         $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
         $this->assertInstanceOf(SummaryBuilder::class, $this->factory->getBuilder());
 
@@ -120,6 +125,10 @@ class FeFactoryTest extends FeFactoryBase
     {
         $resumen = $this->getSummaryV2();
         $result = $this->getFactoryResult($resumen);
+        if (!$result->isSuccess()) {
+            return '123456789234';
+        }
+
         $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
         $this->assertInstanceOf(SummaryV2Builder::class, $this->factory->getBuilder());
 
