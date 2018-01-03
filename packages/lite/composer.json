@@ -13,7 +13,7 @@
     "type": "library",
     "require": {
 		"php": ">=5.5.9",
-        "giansalex/xmldsig": "3.0.*",
+        "greenter/xmldsig": "^1.0",
         "greenter/core": "^1.0",
         "greenter/ws": "^1.0",
         "greenter/xml": "^1.0"
