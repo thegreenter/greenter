@@ -19,6 +19,7 @@ use Greenter\Services\SenderInterface;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SummarySender;
+use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
 
 /**
  * Sistema de Emision del Contribuyente.
@@ -49,12 +50,18 @@ class See
     private $summarys;
 
     /**
+     * @var SunatXmlSecAdapter
+     */
+    private $signer;
+
+    /**
      * See constructor.
      */
     public function __construct()
     {
         $this->factory = new FeFactory();
         $this->wsClient = new SoapClient();
+        $this->signer = new SunatXmlSecAdapter();
         $this->builders = [
             Model\Sale\Invoice::class => Xml\Builder\InvoiceBuilder::class,
             Model\Sale\Note::class => Xml\Builder\NoteBuilder::class,
@@ -67,6 +74,7 @@ class See
             Model\Voided\Reversion::class => Xml\Builder\VoidedBuilder::class,
         ];
         $this->summarys = [Summary::class, SummaryV2::class, Voided::class, Reversion::class];
+        $this->factory->setSigner($this->signer);
     }
 
     /**
@@ -74,7 +82,7 @@ class See
      */
     public function setCertificate($certificate)
     {
-        $this->factory->setCertificate($certificate);
+        $this->signer->setCertificate($certificate);
     }
 
     /**

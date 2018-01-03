@@ -12,7 +12,8 @@ use Greenter\Builder\BuilderInterface;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Services\SenderInterface;
-use RobRichards\XMLSecLibs\Sunat\Adapter\SunatXmlSecAdapter;
+use Greenter\XMLSecLibs\Sunat\AdapterInterface;
+use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
 
 /**
  * Class FeFactory
@@ -21,7 +22,7 @@ use RobRichards\XMLSecLibs\Sunat\Adapter\SunatXmlSecAdapter;
 class FeFactory implements FactoryInterface
 {
     /**
-     * @var SunatXmlSecAdapter
+     * @var AdapterInterface
      */
     private $signer;
 
@@ -99,6 +100,24 @@ class FeFactory implements FactoryInterface
     }
 
     /**
+     * @return AdapterInterface
+     */
+    public function getSigner()
+    {
+        return $this->signer;
+    }
+
+    /**
+     * @param AdapterInterface $signer
+     * @return FeFactory
+     */
+    public function setSigner($signer)
+    {
+        $this->signer = $signer;
+        return $this;
+    }
+
+    /**
      * Build and send document.
      *
      * @param DocumentInterface $document
@@ -109,16 +128,6 @@ class FeFactory implements FactoryInterface
         $this->lastXml = $this->getXmmlSigned($document);
 
         return $this->sender->send($document->getName(), $this->lastXml);
-    }
-
-    /**
-     * Set Certicated content (From PEM format)
-     *
-     * @param string $cert
-     */
-    public function setCertificate($cert)
-    {
-        $this->signer->setCertificate($cert);
     }
 
     /**
