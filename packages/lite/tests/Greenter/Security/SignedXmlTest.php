@@ -8,7 +8,7 @@
 
 namespace tests\Greenter\Security;
 
-use RobRichards\XMLSecLibs\Sunat\Adapter\SunatXmlSecAdapter;
+use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
 
 /**
  * Class SignedXmlTest
