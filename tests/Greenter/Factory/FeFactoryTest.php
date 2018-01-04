@@ -10,6 +10,7 @@ namespace Tests\Greenter\Factory;
 use Greenter\Ws\Services\SummarySender;
 use Greenter\Xml\Builder\SummaryBuilder;
 use Greenter\Xml\Builder\SummaryV2Builder;
+use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
 
 /**
  * Class FeFactoryTest
@@ -39,6 +40,7 @@ class FeFactoryTest extends FeFactoryBase
 
         $signXml = $this->factory->getXmmlSigned($invoice);
 
+        $this->assertInstanceOf(SunatXmlSecAdapter::class, $this->factory->getSigner());
         $this->assertNotEmpty($signXml);
     }
 
@@ -107,12 +109,11 @@ class FeFactoryTest extends FeFactoryBase
     {
         $resumen = $this->getSummary();
         $result = $this->getFactoryResult($resumen);
+        $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
+        $this->assertInstanceOf(SummaryBuilder::class, $this->factory->getBuilder());
         if (!$result->isSuccess()) {
             return '123456789234';
         }
-
-        $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
-        $this->assertInstanceOf(SummaryBuilder::class, $this->factory->getBuilder());
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
@@ -125,12 +126,12 @@ class FeFactoryTest extends FeFactoryBase
     {
         $resumen = $this->getSummaryV2();
         $result = $this->getFactoryResult($resumen);
+        $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
+        $this->assertInstanceOf(SummaryV2Builder::class, $this->factory->getBuilder());
+
         if (!$result->isSuccess()) {
             return '123456789234';
         }
-
-        $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
-        $this->assertInstanceOf(SummaryV2Builder::class, $this->factory->getBuilder());
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
