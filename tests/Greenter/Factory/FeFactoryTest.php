@@ -8,7 +8,6 @@
 
 namespace Tests\Greenter\Factory;
 use Greenter\Ws\Services\SummarySender;
-use Greenter\Xml\Builder\SummaryBuilder;
 use Greenter\Xml\Builder\SummaryV2Builder;
 use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
 
@@ -105,23 +104,6 @@ class FeFactoryTest extends FeFactoryBase
         );
     }
 
-    public function testResumen()
-    {
-        $resumen = $this->getSummary();
-        $result = $this->getFactoryResult($resumen);
-        $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
-        $this->assertInstanceOf(SummaryBuilder::class, $this->factory->getBuilder());
-        if (!$result->isSuccess()) {
-            return '123456789234';
-        }
-
-        $this->assertTrue($result->isSuccess());
-        $this->assertNotEmpty($result->getTicket());
-        $this->assertEquals(13, strlen($result->getTicket()));
-
-        return $result->getTicket();
-    }
-
     public function testResumenV2()
     {
         $resumen = $this->getSummaryV2();
@@ -154,31 +136,6 @@ class FeFactoryTest extends FeFactoryBase
         $this->assertEquals(13, strlen($result->getTicket()));
 
         return $result->getTicket();
-    }
-
-    /**
-     * @depends testResumen
-     * @param string $ticket
-     */
-    public function testStatusResumen($ticket)
-    {
-        $result = $this->getExtService()->getStatus($ticket);
-
-        if ($result->getCode() !== '0') {
-            return;
-        }
-
-        if ($result->isSuccess()) {
-            $this->assertNull($result->getError());
-            $this->assertNotNull($result->getCdrResponse());
-            $this->assertEquals('0', $result->getCdrResponse()->getCode());
-            $this->assertContains('aceptado', $result->getCdrResponse()->getDescription());
-            return;
-        }
-
-        $this->assertFalse($result->isSuccess());
-        $this->assertNotNull($result->getError());
-        $this->assertEquals('200', $result->getError()->getCode());
     }
 
     /**
