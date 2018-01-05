@@ -30,10 +30,13 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
         $report = new HtmlReport();
         $report->setTemplate('invoice.html.twig');
 
-        $html = $report->render($inv, $this->getParamters());
-        $this->assertNotEmpty($html);
-
-
+        try {
+            $html = $report->render($inv, $this->getParamters());
+            $this->assertNotEmpty($html);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+            $this->assertTrue(false);
+        }
         // file_put_contents('file.html', $html);
     }
 

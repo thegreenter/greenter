@@ -45,7 +45,10 @@ class HtmlReport implements ReportInterface
      *
      * @param DocumentInterface $document
      * @param array $parameters
-     * @return bool|string
+     * @return mixed
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function render(DocumentInterface $document, $parameters = [])
     {
