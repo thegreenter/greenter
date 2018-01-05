@@ -316,7 +316,7 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setMtoIGV(3.6);
 
         $detiail2 = new SummaryDetailV2();
-        $detiail2->setTipoDoc('07')
+        $detiail2->setTipoDoc('03')
             ->setSerieNro('B001-22')
             ->setClienteTipo('1')
             ->setClienteNro('55667733')
