@@ -30,6 +30,7 @@ Caracteristicas
 * Nota de Crédito Electrónica
 * Nota de Débito Electrónica
 * Resumen Diario de Boletas (v1, v2)
+    > Emplear la version 2 apartir del 01/01/2018
 * Comunicación de Bajas
 * Guia Remisión Electrónica
 * Retención Electrónica
