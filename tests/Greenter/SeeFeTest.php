@@ -44,19 +44,38 @@ class SeeFeTest extends FeFactoryBase
     /**
      * @dataProvider providerSummaryDocs
      * @param DocumentInterface $doc
+     * @return string
      */
     public function testSendSummary(DocumentInterface $doc)
     {
         /**@var $result SummaryResult*/
         $result = $this->getSee()->send($doc);
 
-        if (!$result->isSuccess()) {
+        $this->assertTrue($result->isSuccess());
+        $this->assertNotEmpty($result->getTicket());
+        $this->assertEquals(13, strlen($result->getTicket()));
+
+        return $result->getTicket();
+    }
+
+    /**
+     * @depends testSendSummary
+     * @param $ticket
+     */
+    public function testGetStatus($ticket)
+    {
+        $result = $this->getSee()->getStatus($ticket);
+
+        if ($result->getCode() === '0127')
+        {
             return;
         }
 
         $this->assertTrue($result->isSuccess());
-        $this->assertNotEmpty($result->getTicket());
-        $this->assertEquals(13, strlen($result->getTicket()));
+        $this->assertNull($result->getError());
+        $this->assertNotNull($result->getCdrResponse());
+        $this->assertEquals('0', $result->getCdrResponse()->getCode());
+        $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
     }
 
     /**
@@ -82,7 +101,6 @@ class SeeFeTest extends FeFactoryBase
     public function providerSummaryDocs()
     {
         return [
-            [$this->getSummary()],
             [$this->getSummaryV2()],
             [$this->getVoided()],
         ];

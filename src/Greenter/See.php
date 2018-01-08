@@ -17,6 +17,7 @@ use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\Voided;
 use Greenter\Services\SenderInterface;
 use Greenter\Ws\Services\BillSender;
+use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SummarySender;
 use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
@@ -147,6 +148,18 @@ class See
             ->setSender($this->getSender($classDoc));
 
         return $this->factory->send($document);
+    }
+
+    /**
+     * @param $ticket
+     * @return Model\Response\StatusResult
+     */
+    public function getStatus($ticket)
+    {
+        $sender = new ExtService();
+        $sender->setClient($this->wsClient);
+
+        return $sender->getStatus($ticket);
     }
 
     /**
