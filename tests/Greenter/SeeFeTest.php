@@ -39,7 +39,6 @@ class SeeFeTest extends FeFactoryBase
             'aceptada',
             $result->getCdrResponse()->getDescription()
         );
-
     }
 
     /**
@@ -93,6 +92,7 @@ class SeeFeTest extends FeFactoryBase
     {
         $see = new See();
         $see->setService(SunatEndpoints::FE_BETA);
+        $see->setCachePath(__DIR__.'/../Resources');
         $see->setCredentials('20000000001MODDATOS', 'moddatos');
         $see->setCertificate(file_get_contents(__DIR__.'/../Resources/SFSCert.pem'));
 

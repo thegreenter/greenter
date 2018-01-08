@@ -55,6 +55,13 @@ class See
     private $signer;
 
     /**
+     * Twig Render Options
+     *
+     * @var array
+     */
+    private $options = [];
+
+    /**
      * See constructor.
      */
     public function __construct()
@@ -75,6 +82,14 @@ class See
         ];
         $this->summarys = [Summary::class, SummaryV2::class, Voided::class, Reversion::class];
         $this->factory->setSigner($this->signer);
+    }
+
+    /**
+     * @param string $directory
+     */
+    public function setCachePath($directory)
+    {
+        $this->options['cache'] = $directory;
     }
 
     /**
@@ -149,7 +164,8 @@ class See
     private function getBuilder($class)
     {
         $builder = $this->builders[$class];
-        return new $builder();
+
+        return new $builder($this->options);
     }
 
     /**
