@@ -42,7 +42,7 @@ trait FeBuilderTrait
           Voided::class => VoidedBuilder::class,
           SummaryV2::class => SummaryV2Builder::class,
         ];
-        $builder = new $builders[$className](['cache' => sys_get_temp_dir()]);
+        $builder = new $builders[$className](['cache' => false, 'strict_variables' => true]);
 
         /**@var $builder BuilderInterface */
         return $builder;

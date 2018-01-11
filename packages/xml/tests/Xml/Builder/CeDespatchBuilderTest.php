@@ -101,10 +101,6 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
         $rel->setTipoDoc('09')
             ->setNroDoc('T001-00001');
 
-        $rel2 = new Document();
-        $rel2->setTipoDoc('09')
-            ->setNroDoc('T001-00002');
-
         $dir = new Direction('', '');
         $dir->setDireccion('AV ITALIA');
         $dir->setUbigueo('150203');
@@ -124,7 +120,7 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
             ->setPartida($dir)
             ->setTransportista($this->getTransportist());
 
-        return [$baja, [$rel, $rel2], $envio];
+        return [$baja, $rel, $envio];
     }
 
     private function getTransportist()

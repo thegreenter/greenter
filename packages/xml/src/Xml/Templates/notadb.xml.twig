@@ -9,18 +9,24 @@
         <ext:UBLExtension>
             <ext:ExtensionContent>
                 <sac:AdditionalInformation>
-                    <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>1001</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|n_format }}</cbc:PayableAmount>
-                    </sac:AdditionalMonetaryTotal>
-                    <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>1002</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|n_format }}</cbc:PayableAmount>
-                    </sac:AdditionalMonetaryTotal>
-                    <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>1003</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:PayableAmount>
-                    </sac:AdditionalMonetaryTotal>
+                    {% if doc.mtoOperGravadas %}
+                        <sac:AdditionalMonetaryTotal>
+                            <cbc:ID>1001</cbc:ID>
+                            <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|n_format }}</cbc:PayableAmount>
+                        </sac:AdditionalMonetaryTotal>
+                    {% endif %}
+                    {% if doc.mtoOperInafectas %}
+                        <sac:AdditionalMonetaryTotal>
+                            <cbc:ID>1002</cbc:ID>
+                            <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|n_format }}</cbc:PayableAmount>
+                        </sac:AdditionalMonetaryTotal>
+                    {% endif %}
+                    {% if doc.mtoOperExoneradas %}
+                        <sac:AdditionalMonetaryTotal>
+                            <cbc:ID>1003</cbc:ID>
+                            <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:PayableAmount>
+                        </sac:AdditionalMonetaryTotal>
+                    {% endif %}
                     {% if doc.perception %}
                         {% set perc = doc.perception %}
                         <sac:AdditionalMonetaryTotal>

@@ -71,8 +71,6 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
 
     private function assertInvoiceXml($xml)
     {
-        $expec = new \DOMDocument();
-        $expec->load(__DIR__ . '/../../Resources/invoice.xml');
         $actual = new \DOMDocument();
         $actual->loadXML($xml);
 
@@ -83,8 +81,6 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($id));
         $this->assertEquals('F001-123', $id[0]);
         $this->assertEquals(2, count($lines));
-        $this->assertEqualXMLStructure($expec->documentElement, $actual->documentElement);
-        //$this->assertXmlStringEqualsXmlFile(__DIR__.'/../../Resources/invoice.xml', $xml);
     }
 
     private function getFileName(Invoice $invoice)

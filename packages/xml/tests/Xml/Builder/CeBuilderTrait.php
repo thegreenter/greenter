@@ -39,7 +39,7 @@ trait CeBuilderTrait
             Retention::class => RetentionBuilder::class,
             Reversion::class => VoidedBuilder::class,
         ];
-        $builder = new $builders[$className]();
+        $builder = new $builders[$className](['cache' => false, 'strict_variables' => true]);
 
         return $builder;
     }
