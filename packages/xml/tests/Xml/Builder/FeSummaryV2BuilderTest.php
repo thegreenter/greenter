@@ -9,6 +9,7 @@
 namespace Tests\Greenter\Xml\Builder;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Summary\SummaryDetailV2;
+use Greenter\Model\Summary\SummaryPerception;
 use Greenter\Model\Summary\SummaryV2;
 
 /**
@@ -66,10 +67,16 @@ class FeSummaryV2BuilderTest extends \PHPUnit_Framework_TestCase
             ->setMtoIGV(3.6);
 
         $detiail2 = new SummaryDetailV2();
-        $detiail2->setTipoDoc('07')
+        $detiail2->setTipoDoc('03')
             ->setSerieNro('B001-22')
             ->setClienteTipo('1')
             ->setClienteNro('55667733')
+            ->setPercepcion((new SummaryPerception())
+                ->setCodReg('01')
+                ->setTasa(2.00)
+                ->setMtoBase(200.00)
+                ->setMto(4.00)
+                ->setMtoTotal(204.00))
             ->setEstado('1')
             ->setTotal(200)
             ->setMtoOperGravadas(40)
