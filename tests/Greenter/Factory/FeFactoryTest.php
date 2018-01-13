@@ -111,10 +111,6 @@ class FeFactoryTest extends FeFactoryBase
         $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
         $this->assertInstanceOf(SummaryV2Builder::class, $this->factory->getBuilder());
 
-        if (!$result->isSuccess()) {
-            return '123456789234';
-        }
-
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
         $this->assertEquals(13, strlen($result->getTicket()));
