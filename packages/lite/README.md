@@ -43,6 +43,11 @@ Caracteristicas
 - Consulta de Cdr
 
 ### XML
-- Estandar UBL v2
+- Estandar UBL v2, v2.1
 - Signature xmldsig
 
+### Used Packages
+- [greenter/core](https://github.com/giansalex/greenter-core)
+- [greenter/xml](https://github.com/giansalex/greenter-xml)
+- [greenter/ws](https://github.com/giansalex/greenter-ws)
+- [greenter/xmldsig](https://github.com/giansalex/xmldsig)

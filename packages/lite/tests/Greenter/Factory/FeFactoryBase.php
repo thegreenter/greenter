@@ -21,6 +21,7 @@ use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Summary\SummaryDetail;
 use Greenter\Model\Summary\SummaryDetailV2;
+use Greenter\Model\Summary\SummaryPerception;
 use Greenter\Model\Summary\SummaryV2;
 use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
@@ -320,6 +321,12 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setSerieNro('B001-22')
             ->setClienteTipo('1')
             ->setClienteNro('55667733')
+            ->setPercepcion((new SummaryPerception())
+                ->setCodReg('01')
+                ->setTasa(2.00)
+                ->setMtoBase(200.00)
+                ->setMto(4.00)
+                ->setMtoTotal(204.00))
             ->setEstado('1')
             ->setTotal(200)
             ->setMtoOperGravadas(3)
