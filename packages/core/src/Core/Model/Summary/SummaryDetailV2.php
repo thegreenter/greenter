@@ -54,6 +54,11 @@ class SummaryDetailV2
     private $docReferencia;
 
     /**
+     * @var SummaryPerception
+     */
+    private $percepcion;
+
+    /**
      * Estado del item (catalog: 19).
      *
      * @Assert\NotBlank()
@@ -89,6 +94,13 @@ class SummaryDetailV2
     /**
      * @var float
      */
+    private $mtoOperGratuitas;
+
+    /**
+     * Otros Cargos.
+     *
+     * @var float
+     */
     private $mtoOtrosCargos;
 
     /**
@@ -98,6 +110,7 @@ class SummaryDetailV2
     private $mtoIGV;
 
     /**
+     * @Assert\NotBlank()
      * @var float
      */
     private $mtoISC;
@@ -198,6 +211,24 @@ class SummaryDetailV2
     }
 
     /**
+     * @return SummaryPerception
+     */
+    public function getPercepcion()
+    {
+        return $this->percepcion;
+    }
+
+    /**
+     * @param SummaryPerception $percepcion
+     * @return SummaryDetailV2
+     */
+    public function setPercepcion($percepcion)
+    {
+        $this->percepcion = $percepcion;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getEstado()
@@ -284,6 +315,24 @@ class SummaryDetailV2
     public function setMtoOperExoneradas($mtoOperExoneradas)
     {
         $this->mtoOperExoneradas = $mtoOperExoneradas;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoOperGratuitas()
+    {
+        return $this->mtoOperGratuitas;
+    }
+
+    /**
+     * @param float $mtoOperGratuitas
+     * @return SummaryDetailV2
+     */
+    public function setMtoOperGratuitas($mtoOperGratuitas)
+    {
+        $this->mtoOperGratuitas = $mtoOperGratuitas;
         return $this;
     }
 
