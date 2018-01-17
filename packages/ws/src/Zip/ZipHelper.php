@@ -11,20 +11,22 @@ namespace Greenter\Zip;
 /**
  * Class ZipFile.
  */
-class ZipWriter
+class ZipHelper
 {
+    const UNZIP_FORMAT = 'Vsig/vver/vflag/vmeth/vmodt/vmodd/Vcrc/Vcsize/Vsize/vnamelen/vexlen';
+
     /**
      * Array to store compressed data.
      *
      * @private  array    $datasec
      */
-    private $datasec = [];
+    private $datasec;
     /**
      * Central directory.
      *
      * @private  array    $ctrl_dir
      */
-    private $ctrl_dir = [];
+    private $ctrl_dir;
     /**
      * End of central directory record.
      *
@@ -36,7 +38,15 @@ class ZipWriter
      *
      * @private  integer  $old_offset
      */
-    private $old_offset = 0;
+    private $old_offset;
+
+    /**
+     * ZipHelper constructor.
+     */
+    public function __construct()
+    {
+        $this->clear();
+    }
 
     /**
      * Converts an Unix timestamp to a four byte DOS date and time format (date
@@ -82,17 +92,9 @@ class ZipWriter
         $frd .= "\x08\x00";            // compression method
         $frd .= $hexdtime;             // last mod time and date
         // "local file header" segment
-        $unc_len = strlen($data);
-        $crc = crc32($data);
-        $zdata = gzcompress($data);
-        $zdata = substr(substr($zdata, 0, strlen($zdata) - 4), 2); // fix crc bug
-        $c_len = strlen($zdata);
-        $frd .= pack('V', $crc);             // crc32
-        $frd .= pack('V', $c_len);           // compressed filesize
-        $frd .= pack('V', $unc_len);         // uncompressed filesize
-        $frd .= pack('v', strlen($name));    // length of filename
-        $frd .= pack('v', 0);                // extra field length
-        $frd .= $name;
+        list($zdata, $part) = $this->getPartsFromData($data, $name);
+
+        $frd .= $part.$name;
         // "file data" segment
         $frd .= $zdata;
         // echo this entry on the fly, ...
@@ -104,14 +106,9 @@ class ZipWriter
         $cdrec .= "\x00\x00";                // gen purpose bit flag
         $cdrec .= "\x08\x00";                // compression method
         $cdrec .= $hexdtime;                 // last mod time & date
-        $cdrec .= pack('V', $crc);           // crc32
-        $cdrec .= pack('V', $c_len);         // compressed filesize
-        $cdrec .= pack('V', $unc_len);       // uncompressed filesize
-        $cdrec .= pack('v', strlen($name)); // length of filename
-        $cdrec .= pack('v', 0);             // extra field length
-        $cdrec .= pack('v', 0);             // file comment length
-        $cdrec .= pack('v', 0);             // disk number start
-        $cdrec .= pack('v', 0);             // internal file attributes
+        $cdrec .= $part;
+        // file comment length, disk number start, internal file attributes
+        $cdrec .= str_repeat(pack('v', 0), 3);
         $cdrec .= pack('V', 32);            // external file attributes
         // - 'archive' bit set
         $cdrec .= pack('V', $this->old_offset); // relative offset of local header
@@ -122,7 +119,22 @@ class ZipWriter
         $this->ctrl_dir[] = $cdrec;
     }
 
- // end of the 'addFile()' method
+    private function getPartsFromData($data, $name)
+    {
+        $zdata = gzcompress($data);
+        $zdata = substr(substr($zdata, 0, strlen($zdata) - 4), 2); // fix crc bug
+        $unc_len = strlen($data);
+        $crc = crc32($data);
+        $c_len = strlen($zdata);
+
+        $frd = pack('V', $crc);             // crc32
+        $frd .= pack('V', $c_len);          // compressed filesize
+        $frd .= pack('V', $unc_len);        // uncompressed filesize
+        $frd .= pack('v', strlen($name));   // length of filename
+        $frd .= pack('v', 0);         // extra field length
+
+        return [$zdata, $frd];
+    }
 
     /**
      * Echo central dir if ->doWrite==true, else build string to return.
@@ -157,7 +169,61 @@ class ZipWriter
     public function compress($filename, $content)
     {
         $this->addFile($content, $filename);
+        $zip = $this->file();
+        $this->clear();
 
-        return $this->file();
+        return $zip;
+    }
+
+    /**
+     * Retorna el contenido del primer xml dentro del zip.
+     *
+     * @param string $zipContent
+     *
+     * @return string
+     */
+    public function decompressXmlFile($zipContent)
+    {
+        $start = 0;
+        $max = 10;
+        while ($max > 0) {
+            $dat = substr($zipContent, $start, 30);
+            if (empty($dat)) {
+                break;
+            }
+
+            $head = unpack(self::UNZIP_FORMAT, $dat);
+            $filename = substr(substr($zipContent, $start), 30, $head['namelen']);
+            if (empty($filename)) {
+                break;
+            }
+            $count = 30 + $head['namelen'] + $head['exlen'];
+
+            if (strtolower($this->getFileExtension($filename)) == 'xml') {
+                return gzinflate(substr($zipContent, $start + $count, $head['csize']));
+            }
+
+            $start += $count + $head['csize'];
+            --$max;
+        }
+
+        return '';
+    }
+
+    private function getFileExtension($filename)
+    {
+        $lastDotPos = strrpos($filename, '.');
+        if (!$lastDotPos) {
+            return '';
+        }
+
+        return substr($filename, $lastDotPos + 1);
+    }
+
+    private function clear()
+    {
+        $this->datasec = [];
+        $this->ctrl_dir = [];
+        $this->old_offset = 0;
     }
 }
