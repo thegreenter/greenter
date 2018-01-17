@@ -25,7 +25,7 @@
                 <cbc:ID>{{ emp.ruc }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name>GREENTER</cbc:Name>
+                <cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
             </cac:PartyName>
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
@@ -39,7 +39,7 @@
         <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
         <cac:Party>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName>{{ emp.razonSocial }}</cbc:RegistrationName>
+                <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>

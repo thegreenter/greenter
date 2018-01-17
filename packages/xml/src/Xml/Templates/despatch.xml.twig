@@ -15,22 +15,22 @@
 <cbc:ID>{{ doc.serie }}-{{ doc.correlativo }}</cbc:ID>
 <cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
 <cbc:DespatchAdviceTypeCode>{{ doc.tipoDoc }}</cbc:DespatchAdviceTypeCode>
-{% if doc.observacion %}
+{% if doc.observacion -%}
 <cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
-{% endif %}
-{% if doc.docBaja %}
+{% endif -%}
+{% if doc.docBaja -%}
 <cac:OrderReference>
 	<cbc:ID>{{ doc.docBaja.nroDoc }}</cbc:ID>
 	<cbc:OrderTypeCode>{{ doc.docBaja.tipoDoc }}</cbc:OrderTypeCode>
 </cac:OrderReference>
-{% endif %}
-{% if doc.relDoc %}
+{% endif -%}
+{% if doc.relDoc -%}
 <cac:AdditionalDocumentReference>
 	<cbc:ID>{{ doc.relDoc.nroDoc }}</cbc:ID>
 	<cbc:DocumentTypeCode>{{ doc.relDoc.tipoDoc }}</cbc:DocumentTypeCode>
 </cac:AdditionalDocumentReference>
-{% endif %}
-{% set emp = doc.company %}
+{% endif -%}
+{% set emp = doc.company -%}
 <cac:DespatchSupplierParty>
 	<cbc:CustomerAssignedAccountID schemeID="6">{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
 	<cac:Party>
@@ -47,7 +47,7 @@
 		</cac:PartyLegalEntity>
 	</cac:Party>
 </cac:DeliveryCustomerParty>
-{% if doc.tercero %}
+{% if doc.tercero -%}
 <cac:SellerSupplierParty>
 	<cbc:CustomerAssignedAccountID schemeID="{{ doc.tercero.tipoDoc }}">{{ doc.tercero.numDoc }}</cbc:CustomerAssignedAccountID>
 	<cac:Party>
@@ -56,22 +56,21 @@
 		</cac:PartyLegalEntity>
 	</cac:Party>
 </cac:SellerSupplierParty>
-{% endif %}
-{# @var envio \Greenter\Model\Despatch\Shipment#}
-{% set envio = doc.envio %}
+{% endif -%}
+{% set envio = doc.envio -%}
 <cac:Shipment>
 	<cbc:ID>1</cbc:ID>
 	<cbc:HandlingCode>{{ envio.codTraslado }}</cbc:HandlingCode>
-	{% if envio.desTraslado %}<cbc:Information>{{ envio.desTraslado }}</cbc:Information>{% endif %}
+	{% if envio.desTraslado -%}<cbc:Information>{{ envio.desTraslado }}</cbc:Information>{% endif -%}
 	<cbc:GrossWeightMeasure unitCode="{{ envio.undPesoTotal }}">{{ envio.pesoTotal|n_format(3) }}</cbc:GrossWeightMeasure>
-	{% if envio.numBultos %}<cbc:TotalTransportHandlingUnitQuantity>{{ envio.numBultos }}</cbc:TotalTransportHandlingUnitQuantity>{% endif %}
+	{% if envio.numBultos -%}<cbc:TotalTransportHandlingUnitQuantity>{{ envio.numBultos }}</cbc:TotalTransportHandlingUnitQuantity>{% endif -%}
 	<cbc:SplitConsignmentIndicator>{{ envio.indTransbordo ? "true" : "false" }}</cbc:SplitConsignmentIndicator>
 	<cac:ShipmentStage>
 		<cbc:TransportModeCode>{{ envio.modTraslado }}</cbc:TransportModeCode>
 		<cac:TransitPeriod>
 			<cbc:StartDate>{{ envio.fecTraslado|date('Y-m-d') }}</cbc:StartDate>
 		</cac:TransitPeriod>
-		{% if envio.transportista %}
+		{% if envio.transportista -%}
 		<cac:CarrierParty>
 			<cac:PartyIdentification>
 				<cbc:ID schemeID="{{ envio.transportista.tipoDoc }}">{{ envio.transportista.numDoc }}</cbc:ID>
@@ -88,7 +87,7 @@
 		<cac:DriverPerson>
 			<cbc:ID schemeID="{{ envio.transportista.choferTipoDoc }}">{{ envio.transportista.choferDoc }}</cbc:ID>
 		</cac:DriverPerson>
-		{% endif %}
+		{% endif -%}
 	</cac:ShipmentStage>
 	<cac:Delivery>
 		<cac:DeliveryAddress>
@@ -96,22 +95,22 @@
 			<cbc:StreetName>{{ envio.llegada.direccion }}</cbc:StreetName>
 		</cac:DeliveryAddress>
 	</cac:Delivery>
-    {% if envio.numContenedor %}
+    {% if envio.numContenedor -%}
 	<cac:TransportHandlingUnit>
 		<cbc:ID>{{ envio.numContenedor }}</cbc:ID>
 	</cac:TransportHandlingUnit>
-    {% endif %}
+    {% endif -%}
 	<cac:OriginAddress>
 		<cbc:ID>{{ envio.partida.ubigueo }}</cbc:ID>
 		<cbc:StreetName>{{ envio.partida.direccion }}</cbc:StreetName>
 	</cac:OriginAddress>
-	{% if envio.codPuerto %}
+	{% if envio.codPuerto -%}
 	<cac:FirstArrivalPortLocation>
 		<cbc:ID>{{ envio.codPuerto }}</cbc:ID>
 	</cac:FirstArrivalPortLocation>
-	{% endif %}
+	{% endif -%}
 </cac:Shipment>
-{% for det in doc.details %}
+{% for det in doc.details -%}
 	<cac:DespatchLine>
 		<cbc:ID>{{ loop.index }}</cbc:ID>
 		<cbc:DeliveredQuantity unitCode="{{ det.unidad }}">{{ det.cantidad }}</cbc:DeliveredQuantity>
@@ -125,5 +124,5 @@
 			</cac:SellersItemIdentification>
 		</cac:Item>
 	</cac:DespatchLine>
-{% endfor %}
+{% endfor -%}
 </DespatchAdvice>

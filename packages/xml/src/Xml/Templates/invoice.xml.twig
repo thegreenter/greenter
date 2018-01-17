@@ -138,7 +138,7 @@
         <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
         <cac:Party>
             <cac:PartyName>
-                <cbc:Name>{{ emp.nombreComercial }}</cbc:Name>
+                <cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
             </cac:PartyName>
             {% set addr = emp.address %}
             <cac:PostalAddress>
