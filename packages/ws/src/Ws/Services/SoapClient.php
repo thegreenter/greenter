@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 03/10/2017
- * Time: 09:47 AM
+ * Time: 09:47 AM.
  */
 
 namespace Greenter\Ws\Services;
@@ -11,8 +11,7 @@ namespace Greenter\Ws\Services;
 use Greenter\Ws\Header\WSSESecurityHeader;
 
 /**
- * Class SoapClient
- * @package Greenter\Ws\Services
+ * Class SoapClient.
  */
 class SoapClient implements WsClientInterface
 {
@@ -20,8 +19,9 @@ class SoapClient implements WsClientInterface
 
     /**
      * SoapClient constructor.
-     * @param string $wsdl          Url of WSDL
-     * @param array $parameters     Soap's parameters
+     *
+     * @param string $wsdl       Url of WSDL
+     * @param array  $parameters Soap's parameters
      */
     public function __construct($wsdl = '', $parameters = [])
     {
@@ -53,6 +53,7 @@ class SoapClient implements WsClientInterface
     /**
      * @param $function
      * @param $arguments
+     *
      * @return mixed
      */
     public function call($function, $arguments)

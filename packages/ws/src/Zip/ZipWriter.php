@@ -151,6 +151,7 @@ class ZipWriter
      *
      * @param string $filename
      * @param string $content
+     *
      * @return string
      */
     public function compress($filename, $content)
@@ -159,5 +160,4 @@ class ZipWriter
 
         return $this->file();
     }
- // end of the 'file()' method
 }

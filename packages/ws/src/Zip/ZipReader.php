@@ -3,14 +3,13 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 16/07/2017
- * Time: 12:23
+ * Time: 12:23.
  */
 
 namespace Greenter\Zip;
 
 /**
- * Class ZipFactory
- * @package Greenter\Zip
+ * Class ZipFactory.
  */
 final class ZipReader
 {
@@ -20,6 +19,7 @@ final class ZipReader
      * Retorna el contenido del primer xml dentro del zip.
      *
      * @param string $zipContent
+     *
      * @return string
      */
     public function decompressXmlFile($zipContent)
@@ -33,7 +33,7 @@ final class ZipReader
             }
 
             $head = unpack(self::UNZIP_FORMAT, $dat);
-            $filename = substr(substr($zipContent, $start),30, $head['namelen']);
+            $filename = substr(substr($zipContent, $start), 30, $head['namelen']);
             if (empty($filename)) {
                 break;
             }
@@ -44,16 +44,18 @@ final class ZipReader
             }
 
             $start += $count + $head['csize'];
-            $max--;
+            --$max;
         }
 
         return '';
     }
 
-    function getFileExtension($filename)
+    public function getFileExtension($filename)
     {
         $lastDotPos = strrpos($filename, '.');
-        if (!$lastDotPos) return '';
+        if (!$lastDotPos) {
+            return '';
+        }
 
         return substr($filename, $lastDotPos + 1);
     }

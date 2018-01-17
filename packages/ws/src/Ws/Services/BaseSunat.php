@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 15/07/2017
- * Time: 23:13
+ * Time: 23:13.
  */
 
 namespace Greenter\Ws\Services;
@@ -15,8 +15,7 @@ use Greenter\Zip\ZipReader;
 use Greenter\Zip\ZipWriter;
 
 /**
- * Class BaseSunat
- * @package Greenter\Ws\Services
+ * Class BaseSunat.
  */
 class BaseSunat
 {
@@ -35,11 +34,13 @@ class BaseSunat
 
     /**
      * @param WsClientInterface $client
+     *
      * @return BaseSunat
      */
     public function setClient($client)
     {
         $this->client = $client;
+
         return $this;
     }
 
@@ -47,6 +48,7 @@ class BaseSunat
      * Get error from Fault Exception.
      *
      * @param \SoapFault $fault
+     *
      * @return Error
      */
     protected function getErrorFromFault(\SoapFault $fault)
@@ -75,6 +77,7 @@ class BaseSunat
     /**
      * @param string $filename
      * @param string $xml
+     *
      * @return string
      */
     protected function compress($filename, $xml)
@@ -85,6 +88,7 @@ class BaseSunat
 
     /**
      * @param $zipContent
+     *
      * @return \Greenter\Model\Response\CdrResponse
      */
     protected function extractResponse($zipContent)
@@ -98,6 +102,7 @@ class BaseSunat
 
     /**
      * @param $code
+     *
      * @return string
      */
     protected function getMessageError($code)

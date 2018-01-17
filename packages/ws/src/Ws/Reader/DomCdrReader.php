@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 22/07/2017
- * Time: 15:40
+ * Time: 15:40.
  */
 
 namespace Greenter\Ws\Reader;
@@ -11,8 +11,7 @@ namespace Greenter\Ws\Reader;
 use Greenter\Model\Response\CdrResponse;
 
 /**
- * Class DomCdrReader
- * @package Greenter\Ws\Reader
+ * Class DomCdrReader.
  */
 class DomCdrReader implements CdrReader
 {
@@ -20,7 +19,9 @@ class DomCdrReader implements CdrReader
      * Get Cdr using DomDocument.
      *
      * @param string $xml
+     *
      * @return CdrResponse
+     *
      * @throws \Exception
      */
     public function getCdrResponse($xml)
@@ -40,6 +41,7 @@ class DomCdrReader implements CdrReader
      * Get Xpath from xml content.
      *
      * @param string $xmlContent
+     *
      * @return \DOMXPath
      */
     private function getXpath($xmlContent)
@@ -48,11 +50,13 @@ class DomCdrReader implements CdrReader
         $doc->loadXML($xmlContent);
         $xpt = new \DOMXPath($doc);
         $xpt->registerNamespace('x', $doc->documentElement->namespaceURI);
+
         return $xpt;
     }
 
     /**
      * @param \DOMXPath $xpath
+     *
      * @return CdrResponse
      */
     private function getResponseByXpath(\DOMXPath $xpath)
@@ -65,17 +69,17 @@ class DomCdrReader implements CdrReader
         $obj = $resp[0];
 
         $cdr = new CdrResponse();
-        $cdr->setId($this->getValueByName($obj,'ReferenceID'))
-            ->setCode($this->getValueByName($obj,'ResponseCode'))
-            ->setDescription($this->getValueByName($obj,'Description'));
+        $cdr->setId($this->getValueByName($obj, 'ReferenceID'))
+            ->setCode($this->getValueByName($obj, 'ResponseCode'))
+            ->setDescription($this->getValueByName($obj, 'Description'));
 
         return $cdr;
     }
 
-
     /**
      * @param \DOMElement $node
-     * @param string $name
+     * @param string      $name
+     *
      * @return string
      */
     private function getValueByName(\DOMElement $node, $name)
@@ -84,11 +88,13 @@ class DomCdrReader implements CdrReader
         if ($values->length !== 1) {
             return '';
         }
+
         return $values[0]->nodeValue;
     }
 
     /**
      * @param \DOMXPath $xpath
+     *
      * @return string[]
      */
     private function getNotes(\DOMXPath $xpath)
@@ -99,9 +105,8 @@ class DomCdrReader implements CdrReader
             return $notes;
         }
 
-        /**@var \DOMElement $node*/
-        foreach ($nodes as $node)
-        {
+        /** @var \DOMElement $node */
+        foreach ($nodes as $node) {
             $notes[] = $node->nodeValue;
         }
 

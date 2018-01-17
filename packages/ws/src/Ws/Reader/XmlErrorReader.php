@@ -3,22 +3,31 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 22/07/2017
- * Time: 16:09
+ * Time: 16:09.
  */
 
 namespace Greenter\Ws\Reader;
 
 /**
- * Class XmlCodeErrorReader
- * @package Greenter\Ws\Reader
+ * Class XmlCodeErrorReader.
  */
 class XmlErrorReader implements ErrorReader
 {
-    private $xmlErrorFile = __DIR__ . '/../../Resources/CodeErrors.xml';
+    private $xmlErrorFile;
+
+    /**
+     * XmlErrorReader constructor.
+     */
+    public function __construct()
+    {
+        $this->xmlErrorFile = __DIR__.'/../../Resources/CodeErrors.xml';
+    }
 
     /**
      * Get Error Message by code.
+     *
      * @param string $code
+     *
      * @return string
      */
     public function getMessageByCode($code)
@@ -39,15 +48,18 @@ class XmlErrorReader implements ErrorReader
      * Cambia el archivo de busqueda de errores por defecto.
      *
      * @param $xmlErrorFile
+     *
      * @return $this
+     *
      * @throws \Exception
      */
     public function setXmlErrorFile($xmlErrorFile)
     {
         if (!file_exists($xmlErrorFile)) {
-            throw new \Exception("Archivo de errores no existe");
+            throw new \Exception('Archivo de errores no existe');
         }
         $this->xmlErrorFile = $xmlErrorFile;
+
         return $this;
     }
 }

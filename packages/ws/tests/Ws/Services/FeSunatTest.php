@@ -107,6 +107,22 @@ class FeSunatTest extends FeSunatTestBase
         $this->assertEquals('2001', $result->getError()->getCode());
     }
 
+    public function testSendSummaryV2()
+    {
+        $nameXml = '20000000001-RC-20171119-001';
+        $xml = file_get_contents(__DIR__."/../../Resources/$nameXml.xml");
+
+        $wss = $this->getSummarySender();
+        $result = $wss->send($nameXml, $xml);
+
+        var_dump($result);
+
+        /**@var $result SummaryResult */
+        $this->assertNotNull($result);
+        $this->assertTrue($result->isSuccess());
+        $this->assertEquals(13, strlen($result->getTicket()));
+    }
+
     public function testGetStatus()
     {
         $wss = $this->getExtSender();

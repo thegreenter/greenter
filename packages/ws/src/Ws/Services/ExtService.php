@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 02/10/2017
- * Time: 10:10 AM
+ * Time: 10:10 AM.
  */
 
 namespace Greenter\Ws\Services;
@@ -12,13 +12,13 @@ use Greenter\Model\Response\StatusCdrResult;
 use Greenter\Model\Response\StatusResult;
 
 /**
- * Class ExtService
- * @package Greenter\Ws\Services
+ * Class ExtService.
  */
 class ExtService extends BaseSunat
 {
     /**
      * @param string $ticket
+     *
      * @return StatusResult
      */
     public function getStatus($ticket)
@@ -30,7 +30,7 @@ class ExtService extends BaseSunat
             $params = [
                 'ticket' => $ticket,
             ];
-            $response = $client->call('getStatus', [ 'parameters' => $params ]);
+            $response = $client->call('getStatus', ['parameters' => $params]);
             $status = $response->status;
             $cdrZip = $status->content;
             $code = $status->statusCode;
@@ -44,8 +44,7 @@ class ExtService extends BaseSunat
                     ->setCdrResponse($this->extractResponse($cdrZip))
                     ->setCdrZip($cdrZip);
             }
-        }
-        catch (\SoapFault $e) {
+        } catch (\SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
         }
 
@@ -57,6 +56,7 @@ class ExtService extends BaseSunat
      * @param string $tipo
      * @param string $serie
      * @param string $numero
+     *
      * @return StatusCdrResult
      */
     public function getCdrStatus($ruc, $tipo, $serie, $numero)
@@ -71,8 +71,8 @@ class ExtService extends BaseSunat
                 'serieComprobante' => $serie,
                 'numeroComprobante' => $numero,
             ];
-            $response = $client->call('getStatusCdr', [ 'parameters' => $params ]);
-            $statusCdr =$response->statusCdr;
+            $response = $client->call('getStatusCdr', ['parameters' => $params]);
+            $statusCdr = $response->statusCdr;
 
             $result->setCode($statusCdr->statusCode)
                 ->setMessage($statusCdr->statusMessage)
@@ -82,12 +82,10 @@ class ExtService extends BaseSunat
             if ($statusCdr->content) {
                 $result->setCdrResponse($this->extractResponse($statusCdr->content));
             }
-        }
-        catch (\SoapFault $e) {
+        } catch (\SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
         }
 
         return $result;
     }
-
 }
