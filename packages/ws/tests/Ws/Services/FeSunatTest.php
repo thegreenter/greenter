@@ -115,12 +115,11 @@ class FeSunatTest extends FeSunatTestBase
         $wss = $this->getSummarySender();
         $result = $wss->send($nameXml, $xml);
 
-        var_dump($result);
-
         /**@var $result SummaryResult */
         $this->assertNotNull($result);
-        $this->assertTrue($result->isSuccess());
-        $this->assertEquals(13, strlen($result->getTicket()));
+        $this->assertFalse($result->isSuccess());
+        $this->assertNotNull($result->getError());
+        $this->assertEquals('2335', $result->getError()->getCode());
     }
 
     public function testGetStatus()
