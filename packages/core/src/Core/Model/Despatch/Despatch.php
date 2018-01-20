@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 07/08/2017
- * Time: 21:42
+ * Time: 21:42.
  */
 
 namespace Greenter\Model\Despatch;
@@ -14,89 +14,90 @@ use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Document;
 
 /**
- * Class Despatch
- * @package Greenter\Model\Despatch
+ * Class Despatch.
  */
 class Despatch implements DocumentInterface
 {
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max="2")
+     *
      * @var string
      */
     private $tipoDoc;
-
     /**
-     * Serie del Documento (ejem: T001)
+     * Serie del Documento (ejem: T001).
      *
      * @Assert\NotBlank()
      * @Assert\Length(max="4")
+     *
      * @var string
      */
     private $serie;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max="8")
+     *
      * @var string
      */
     private $correlativo;
-
     /**
      * @Assert\Length(max="250")
+     *
      * @var string
      */
     private $observacion;
     /**
      * @Assert\Date()
+     *
      * @var \DateTime
      */
     private $fechaEmision;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Valid()
+     *
      * @var Company
      */
     private $company;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Valid()
+     *
      * @var Client
      */
     private $destinatario;
-
     /**
-     * Datos del Establecimiento del tercero (cuando se ingrese)
+     * Datos del Proveedor. (cuando se ingrese).
      *
      * @Assert\Valid()
+     *
      * @var Client
      */
     private $tercero;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Valid()
+     *
      * @var Shipment
      */
     private $envio;
-
     /**
      * @Assert\Valid()
+     *
      * @var Document
      */
     private $docBaja;
-
     /**
      * @Assert\Valid()
+     *
      * @var Document
      */
     private $relDoc;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Valid()
+     *
      * @var DespatchDetail[]
      */
     private $details;
@@ -111,11 +112,13 @@ class Despatch implements DocumentInterface
 
     /**
      * @param string $tipoDoc
+     *
      * @return Despatch
      */
     public function setTipoDoc($tipoDoc)
     {
         $this->tipoDoc = $tipoDoc;
+
         return $this;
     }
 
@@ -129,11 +132,13 @@ class Despatch implements DocumentInterface
 
     /**
      * @param string $serie
+     *
      * @return Despatch
      */
     public function setSerie($serie)
     {
         $this->serie = $serie;
+
         return $this;
     }
 
@@ -147,11 +152,13 @@ class Despatch implements DocumentInterface
 
     /**
      * @param string $correlativo
+     *
      * @return Despatch
      */
     public function setCorrelativo($correlativo)
     {
         $this->correlativo = $correlativo;
+
         return $this;
     }
 
@@ -165,11 +172,13 @@ class Despatch implements DocumentInterface
 
     /**
      * @param string $observacion
+     *
      * @return Despatch
      */
     public function setObservacion($observacion)
     {
         $this->observacion = $observacion;
+
         return $this;
     }
 
@@ -183,11 +192,13 @@ class Despatch implements DocumentInterface
 
     /**
      * @param \DateTime $fechaEmision
+     *
      * @return Despatch
      */
     public function setFechaEmision($fechaEmision)
     {
         $this->fechaEmision = $fechaEmision;
+
         return $this;
     }
 
@@ -201,11 +212,13 @@ class Despatch implements DocumentInterface
 
     /**
      * @param Company $company
+     *
      * @return Despatch
      */
     public function setCompany($company)
     {
         $this->company = $company;
+
         return $this;
     }
 
@@ -219,11 +232,13 @@ class Despatch implements DocumentInterface
 
     /**
      * @param Client $destinatario
+     *
      * @return Despatch
      */
     public function setDestinatario($destinatario)
     {
         $this->destinatario = $destinatario;
+
         return $this;
     }
 
@@ -237,11 +252,13 @@ class Despatch implements DocumentInterface
 
     /**
      * @param Client $tercero
+     *
      * @return Despatch
      */
     public function setTercero($tercero)
     {
         $this->tercero = $tercero;
+
         return $this;
     }
 
@@ -255,11 +272,13 @@ class Despatch implements DocumentInterface
 
     /**
      * @param Shipment $envio
+     *
      * @return Despatch
      */
     public function setEnvio($envio)
     {
         $this->envio = $envio;
+
         return $this;
     }
 
@@ -273,11 +292,13 @@ class Despatch implements DocumentInterface
 
     /**
      * @param Document $docBaja
+     *
      * @return Despatch
      */
     public function setDocBaja($docBaja)
     {
         $this->docBaja = $docBaja;
+
         return $this;
     }
 
@@ -291,11 +312,13 @@ class Despatch implements DocumentInterface
 
     /**
      * @param Document $relDoc
+     *
      * @return Despatch
      */
     public function setRelDoc($relDoc)
     {
         $this->relDoc = $relDoc;
+
         return $this;
     }
 
@@ -309,11 +332,13 @@ class Despatch implements DocumentInterface
 
     /**
      * @param DespatchDetail[] $details
+     *
      * @return Despatch
      */
     public function setDetails($details)
     {
         $this->details = $details;
+
         return $this;
     }
 

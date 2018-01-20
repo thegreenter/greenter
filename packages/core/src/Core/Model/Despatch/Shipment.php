@@ -3,108 +3,107 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 08/08/2017
- * Time: 00:03
+ * Time: 00:03.
  */
 
 namespace Greenter\Model\Despatch;
 
 /**
- * Class Shipment
- * @package Greenter\Model\Despatch
+ * Class Shipment.
  */
 class Shipment
 {
     /**
-     * Motivo del traslado
+     * Motivo del traslado.
      *
      * @Assert\NotBlank()
      * @Assert\Length(min="2", max="2")
+     *
      * @var string
      */
     private $codTraslado;
-
     /**
-     * Descripción de motivo de traslado
+     * Descripción de motivo de traslado.
      *
      * @Assert\Length(max="100")
+     *
      * @var string
      */
     private $desTraslado;
-
     /**
      * Indicador de Transbordo Programado.
      *
      * @Assert\Type("bool")
+     *
      * @var bool
      */
     private $indTransbordo;
-
     /**
      * @Assert\NotBlank()
+     *
      * @var float
      */
     private $pesoTotal;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max="4")
+     *
      * @var string
      */
     private $undPesoTotal;
-
     /**
      * Numero de Bultos.
      *
      * @var int
      */
     private $numBultos;
-
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min="2", max="2")
+     *
      * @var string
      */
     private $modTraslado;
-
     /**
-     * Fecha de inicio del traslado
+     * Fecha de inicio del traslado.
      *
      * @Assert\NotBlank()
      * @Assert\Date()
+     *
      * @var \DateTime
      */
     private $fecTraslado;
-
     /**
-     * Numero de Contenedor (Motivo Importación)
+     * Numero de Contenedor (Motivo Importación).
      *
      * @Assert\Length(max="17")
+     *
      * @var string
      */
     private $numContenedor;
-
     /**
-     * Codigo del Puerto. (Puerto o Aeropuerto de embarque/desembarque)
+     * Codigo del Puerto. (Puerto o Aeropuerto de embarque/desembarque).
      *
      * @Assert\Length(max="3")
+     *
      * @var string
      */
     private $codPuerto;
-
     /**
      * @Assert\Valid()
+     *
      * @var Transportist
      */
     private $transportista;
-
     /**
      * @Assert\Valid()
+     *
      * @var Direction
      */
     private $llegada;
-
     /**
      * @Assert\Valid()
+     *
      * @var Direction
      */
     private $partida;
@@ -119,11 +118,13 @@ class Shipment
 
     /**
      * @param string $codTraslado
+     *
      * @return Shipment
      */
     public function setCodTraslado($codTraslado)
     {
         $this->codTraslado = $codTraslado;
+
         return $this;
     }
 
@@ -137,11 +138,13 @@ class Shipment
 
     /**
      * @param string $desTraslado
+     *
      * @return Shipment
      */
     public function setDesTraslado($desTraslado)
     {
         $this->desTraslado = $desTraslado;
+
         return $this;
     }
 
@@ -155,11 +158,13 @@ class Shipment
 
     /**
      * @param bool $indTransbordo
+     *
      * @return Shipment
      */
     public function setIndTransbordo($indTransbordo)
     {
         $this->indTransbordo = $indTransbordo;
+
         return $this;
     }
 
@@ -173,11 +178,13 @@ class Shipment
 
     /**
      * @param float $pesoTotal
+     *
      * @return Shipment
      */
     public function setPesoTotal($pesoTotal)
     {
         $this->pesoTotal = $pesoTotal;
+
         return $this;
     }
 
@@ -191,11 +198,13 @@ class Shipment
 
     /**
      * @param string $undPesoTotal
+     *
      * @return Shipment
      */
     public function setUndPesoTotal($undPesoTotal)
     {
         $this->undPesoTotal = $undPesoTotal;
+
         return $this;
     }
 
@@ -209,11 +218,13 @@ class Shipment
 
     /**
      * @param int $numBultos
+     *
      * @return Shipment
      */
     public function setNumBultos($numBultos)
     {
         $this->numBultos = $numBultos;
+
         return $this;
     }
 
@@ -227,11 +238,13 @@ class Shipment
 
     /**
      * @param string $modTraslado
+     *
      * @return Shipment
      */
     public function setModTraslado($modTraslado)
     {
         $this->modTraslado = $modTraslado;
+
         return $this;
     }
 
@@ -245,11 +258,13 @@ class Shipment
 
     /**
      * @param \DateTime $fecTraslado
+     *
      * @return Shipment
      */
     public function setFecTraslado($fecTraslado)
     {
         $this->fecTraslado = $fecTraslado;
+
         return $this;
     }
 
@@ -263,11 +278,13 @@ class Shipment
 
     /**
      * @param string $numContenedor
+     *
      * @return Shipment
      */
     public function setNumContenedor($numContenedor)
     {
         $this->numContenedor = $numContenedor;
+
         return $this;
     }
 
@@ -281,11 +298,13 @@ class Shipment
 
     /**
      * @param string $codPuerto
+     *
      * @return Shipment
      */
     public function setCodPuerto($codPuerto)
     {
         $this->codPuerto = $codPuerto;
+
         return $this;
     }
 
@@ -299,11 +318,13 @@ class Shipment
 
     /**
      * @param Transportist $transportista
+     *
      * @return Shipment
      */
     public function setTransportista($transportista)
     {
         $this->transportista = $transportista;
+
         return $this;
     }
 
@@ -317,11 +338,13 @@ class Shipment
 
     /**
      * @param Direction $llegada
+     *
      * @return Shipment
      */
     public function setLlegada($llegada)
     {
         $this->llegada = $llegada;
+
         return $this;
     }
 
@@ -335,11 +358,13 @@ class Shipment
 
     /**
      * @param Direction $partida
+     *
      * @return Shipment
      */
     public function setPartida($partida)
     {
         $this->partida = $partida;
+
         return $this;
     }
 }

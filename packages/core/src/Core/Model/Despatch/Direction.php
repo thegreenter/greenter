@@ -3,20 +3,20 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 07/08/2017
- * Time: 23:56
+ * Time: 23:56.
  */
 
 namespace Greenter\Model\Despatch;
 
 /**
- * Class Direction
- * @package Greenter\Model\Despatch
+ * Class Direction.
  */
 class Direction
 {
     /**
      * @Assert\NotBlank()
      * @Assert\Length(max="8")
+     *
      * @var string
      */
     private $ubigueo;
@@ -26,12 +26,14 @@ class Direction
      *
      * @Assert\NotBlank()
      * @Assert\Length(max="100")
+     *
      * @var string
      */
     private $direccion;
 
     /**
      * Direction constructor.
+     *
      * @param string $ubigueo
      * @param string $direccion
      */
@@ -40,7 +42,6 @@ class Direction
         $this->ubigueo = $ubigueo;
         $this->direccion = $direccion;
     }
-
 
     /**
      * @return string
@@ -52,11 +53,13 @@ class Direction
 
     /**
      * @param string $ubigueo
+     *
      * @return Direction
      */
     public function setUbigueo($ubigueo)
     {
         $this->ubigueo = $ubigueo;
+
         return $this;
     }
 
@@ -70,11 +73,13 @@ class Direction
 
     /**
      * @param string $direccion
+     *
      * @return Direction
      */
     public function setDireccion($direccion)
     {
         $this->direccion = $direccion;
+
         return $this;
     }
 }
