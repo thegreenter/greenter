@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 16/10/2017
- * Time: 04:23 PM
+ * Time: 04:23 PM.
  */
 
 namespace Greenter;
@@ -12,7 +12,6 @@ use Greenter\Builder\BuilderInterface;
 use Greenter\Factory\FeFactory;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Summary\Summary;
-use Greenter\Model\Summary\SummaryV2;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\Voided;
 use Greenter\Services\SenderInterface;
@@ -26,7 +25,6 @@ use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
  * Sistema de Emision del Contribuyente.
  *
  * Class See
- * @package Greenter
  */
 class See
 {
@@ -56,7 +54,7 @@ class See
     private $signer;
 
     /**
-     * Twig Render Options
+     * Twig Render Options.
      *
      * @var array
      */
@@ -74,14 +72,13 @@ class See
             Model\Sale\Invoice::class => Xml\Builder\InvoiceBuilder::class,
             Model\Sale\Note::class => Xml\Builder\NoteBuilder::class,
             Model\Summary\Summary::class => Xml\Builder\SummaryBuilder::class,
-            Model\Summary\SummaryV2::class => Xml\Builder\SummaryV2Builder::class,
             Model\Voided\Voided::class => Xml\Builder\VoidedBuilder::class,
             Model\Despatch\Despatch::class => Xml\Builder\DespatchBuilder::class,
             Model\Retention\Retention::class => Xml\Builder\RetentionBuilder::class,
             Model\Perception\Perception::class => Xml\Builder\PerceptionBuilder::class,
             Model\Voided\Reversion::class => Xml\Builder\VoidedBuilder::class,
         ];
-        $this->summarys = [Summary::class, SummaryV2::class, Voided::class, Reversion::class];
+        $this->summarys = [Summary::class, Summary::class, Voided::class, Reversion::class];
         $this->factory->setSigner($this->signer);
     }
 
@@ -122,6 +119,7 @@ class See
      * Get signed xml from document.
      *
      * @param DocumentInterface $document
+     *
      * @return string
      */
     public function getXmlSigned(DocumentInterface $document)
@@ -133,11 +131,11 @@ class See
             ->getXmmlSigned($document);
     }
 
-
     /**
      * Envia documento.
      *
      * @param DocumentInterface $document
+     *
      * @return Model\Response\BaseResult
      */
     public function send(DocumentInterface $document)
@@ -152,6 +150,7 @@ class See
 
     /**
      * @param $ticket
+     *
      * @return Model\Response\StatusResult
      */
     public function getStatus($ticket)
@@ -172,6 +171,7 @@ class See
 
     /**
      * @param string $class
+     *
      * @return BuilderInterface
      */
     private function getBuilder($class)
@@ -183,11 +183,12 @@ class See
 
     /**
      * @param string $class
+     *
      * @return SenderInterface
      */
     private function getSender($class)
     {
-        $sender = in_array($class, $this->summarys) ? new SummarySender(): new BillSender();
+        $sender = in_array($class, $this->summarys) ? new SummarySender() : new BillSender();
         $sender->setClient($this->wsClient);
 
         return $sender;
