@@ -3,36 +3,53 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 04/10/2017
- * Time: 04:41 PM
+ * Time: 04:41 PM.
  */
 
 namespace Greenter\Report;
 
 /**
- * Class XmlUtils
- * @package Greenter\Report
+ * Class XmlUtils.
  */
 final class XmlUtils
 {
+    const EXT_NAMESPACE = 'urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2';
+    const DS_NAMESPACE = 'http://www.w3.org/2000/09/xmldsig#';
+
     /**
      * @param string $xml
+     *
      * @return string
      */
-    public static function extractSign($xml)
+    public function getHashSign($xml)
     {
         $doc = new \DOMDocument();
         $doc->loadXML($xml);
 
-        return self::extractSignFromDoc($doc);
+        return $this->getHashSignFromDoc($doc);
+    }
+
+    /**
+     * @param string $filename
+     *
+     * @return string
+     */
+    public function getHashSignFromFile($filename)
+    {
+        $doc = new \DOMDocument();
+        $doc->load($filename);
+
+        return $this->getHashSignFromDoc($doc);
     }
 
     /**
      * @param \DOMDocument $document
+     *
      * @return string
      */
-    public static function extractSignFromDoc(\DOMDocument $document)
+    public function getHashSignFromDoc(\DOMDocument $document)
     {
-        $xpt = new \DOMXPath($document);
+        $xpt = $this->getXpath($document);
 
         $exts = $xpt->query('ext:UBLExtensions/ext:UBLExtension', $document->documentElement);
         if ($exts->length == 0) {
@@ -47,5 +64,19 @@ final class XmlUtils
         }
 
         return $hash->item(0)->nodeValue;
+    }
+
+    /**
+     * @param \DOMDocument $document
+     *
+     * @return \DOMXPath
+     */
+    public function getXpath(\DOMDocument $document)
+    {
+        $xpt = new \DOMXPath($document);
+        $xpt->registerNamespace('ext', self::EXT_NAMESPACE);
+        $xpt->registerNamespace('ds', self::DS_NAMESPACE);
+
+        return $xpt;
     }
 }

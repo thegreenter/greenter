@@ -102,11 +102,11 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')
-            ->setCodUnidadMedida('NIU')
-            ->setCtdUnidadItem(2)
-            ->setDesItem('PROD 1')
-            ->setMtoIgvItem(18)
-            ->setMtoIscItem(3)
+            ->setUnidad('NIU')
+            ->setCantidad(2)
+            ->setDescripcion('PROD 1')
+            ->setIgv(18)
+            ->setIsc(3)
             ->setTipSisIsc('3')
             ->setMtoValorGratuito(12)
             ->setTipAfeIgv('10')
@@ -116,11 +116,11 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
 
         $detail2 = new SaleDetail();
         $detail2->setCodProducto('C02')
-            ->setCodUnidadMedida('NIU')
-            ->setCtdUnidadItem(2)
-            ->setDesItem('PROD 2')
-            ->setMtoDsctoItem(1)
-            ->setMtoIgvItem(18)
+            ->setUnidad('NIU')
+            ->setCantidad(2)
+            ->setDescripcion('PROD 2')
+            ->setDescuento(1)
+            ->setIgv(18)
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(10)
