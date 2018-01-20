@@ -3,4 +3,7 @@
 .gitignore export-ignore
 .travis.yml export-ignore
 git_pull.sh export-ignore
+.php_cs.dist export-ignore
 phpunit.xml export-ignore
+LICENSE export-ignore
+*.md export-ignore

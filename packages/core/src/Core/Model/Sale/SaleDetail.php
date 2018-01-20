@@ -21,19 +21,26 @@ class SaleDetail
      * @Assert\Length(max="3")
      * @var string
      */
-    private $codUnidadMedida;
+    private $unidad;
     /**
      * Cantidad de unidades por ítem.
      *
      * @Assert\NotBlank()
      * @var float
      */
-    private $ctdUnidadItem;
+    private $cantidad;
 
     /**
      * @var string
      */
     private $codProducto;
+
+    /**
+     * Codigo de Producto - SUNAT.
+     *
+     * @var string
+     */
+    private $codProdSunat;
 
     /**
      * Descripcion del Producto.
@@ -45,7 +52,7 @@ class SaleDetail
      * )
      * @var string
      */
-    private $desItem;
+    private $descripcion;
 
     /**
      * Monto del valor unitario (PrecioUnitario SIN IGV).
@@ -58,13 +65,13 @@ class SaleDetail
     /**
      * @var float
      */
-    private $mtoDsctoItem;
+    private $descuento;
 
     /**
      * @Assert\NotBlank()
      * @var float
      */
-    private $mtoIgvItem;
+    private $igv;
 
     /**
      * @Assert\NotBlank()
@@ -76,7 +83,7 @@ class SaleDetail
     /**
      * @var float
      */
-    private $mtoIscItem;
+    private $isc;
 
     /**
      * @var string
@@ -109,36 +116,36 @@ class SaleDetail
     /**
      * @return string
      */
-    public function getCodUnidadMedida()
+    public function getUnidad()
     {
-        return $this->codUnidadMedida;
+        return $this->unidad;
     }
 
     /**
-     * @param string $codUnidadMedida
+     * @param string $unidad
      * @return SaleDetail
      */
-    public function setCodUnidadMedida($codUnidadMedida)
+    public function setUnidad($unidad)
     {
-        $this->codUnidadMedida = $codUnidadMedida;
+        $this->unidad = $unidad;
         return $this;
     }
 
     /**
      * @return float
      */
-    public function getCtdUnidadItem()
+    public function getCantidad()
     {
-        return $this->ctdUnidadItem;
+        return $this->cantidad;
     }
 
     /**
-     * @param float $ctdUnidadItem
+     * @param float $cantidad
      * @return SaleDetail
      */
-    public function setCtdUnidadItem($ctdUnidadItem)
+    public function setCantidad($cantidad)
     {
-        $this->ctdUnidadItem = $ctdUnidadItem;
+        $this->cantidad = $cantidad;
         return $this;
     }
 
@@ -163,18 +170,36 @@ class SaleDetail
     /**
      * @return string
      */
-    public function getDesItem()
+    public function getCodProdSunat()
     {
-        return $this->desItem;
+        return $this->codProdSunat;
     }
 
     /**
-     * @param string $desItem
+     * @param string $codProdSunat
      * @return SaleDetail
      */
-    public function setDesItem($desItem)
+    public function setCodProdSunat($codProdSunat)
     {
-        $this->desItem = $desItem;
+        $this->codProdSunat = $codProdSunat;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescripcion()
+    {
+        return $this->descripcion;
+    }
+
+    /**
+     * @param string $descripcion
+     * @return SaleDetail
+     */
+    public function setDescripcion($descripcion)
+    {
+        $this->descripcion = $descripcion;
         return $this;
     }
 
@@ -199,36 +224,36 @@ class SaleDetail
     /**
      * @return float
      */
-    public function getMtoDsctoItem()
+    public function getDescuento()
     {
-        return $this->mtoDsctoItem;
+        return $this->descuento;
     }
 
     /**
-     * @param float $mtoDsctoItem
+     * @param float $descuento
      * @return SaleDetail
      */
-    public function setMtoDsctoItem($mtoDsctoItem)
+    public function setDescuento($descuento)
     {
-        $this->mtoDsctoItem = $mtoDsctoItem;
+        $this->descuento = $descuento;
         return $this;
     }
 
     /**
      * @return float
      */
-    public function getMtoIgvItem()
+    public function getIgv()
     {
-        return $this->mtoIgvItem;
+        return $this->igv;
     }
 
     /**
-     * @param float $mtoIgvItem
+     * @param float $igv
      * @return SaleDetail
      */
-    public function setMtoIgvItem($mtoIgvItem)
+    public function setIgv($igv)
     {
-        $this->mtoIgvItem = $mtoIgvItem;
+        $this->igv = $igv;
         return $this;
     }
 
@@ -253,18 +278,18 @@ class SaleDetail
     /**
      * @return float
      */
-    public function getMtoIscItem()
+    public function getIsc()
     {
-        return $this->mtoIscItem;
+        return $this->isc;
     }
 
     /**
-     * @param float $mtoIscItem
+     * @param float $isc
      * @return SaleDetail
      */
-    public function setMtoIscItem($mtoIscItem)
+    public function setIsc($isc)
     {
-        $this->mtoIscItem = $mtoIscItem;
+        $this->isc = $isc;
         return $this;
     }
 
