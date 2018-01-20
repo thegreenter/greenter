@@ -13,7 +13,7 @@ use Greenter\Model\Response\CdrResponse;
 /**
  * Class DomCdrReader.
  */
-class DomCdrReader implements CdrReader
+class DomCdrReaderInterface implements CdrReaderInterface
 {
     /**
      * Get Cdr using DomDocument.

@@ -11,7 +11,7 @@ namespace Greenter\Ws\Reader;
 /**
  * Class XmlCodeErrorReader.
  */
-class XmlErrorReader implements ErrorReader
+class XmlErrorReaderInterface implements ErrorReaderInterface
 {
     private $xmlErrorFile;
 

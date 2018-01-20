@@ -8,7 +8,7 @@
 
 namespace Tests\Greenter\Ws\Reader;
 
-use Greenter\Ws\Reader\XmlErrorReader;
+use Greenter\Ws\Reader\XmlErrorReaderInterface;
 
 /**
  * Class SunatErrorHelperTest
@@ -47,15 +47,18 @@ class XmlErrorReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidFileErrors()
     {
-        $reader = new XmlErrorReader();
+        $reader = new XmlErrorReaderInterface();
         $reader->setXmlErrorFile('errors_invalid_file.xml');
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testSetErrorFile()
     {
         $xmlFile = $this->createXmlErrorFile();
 
-        $reader = new XmlErrorReader();
+        $reader = new XmlErrorReaderInterface();
         $reader->setXmlErrorFile($xmlFile);
         $message = $reader->getMessageByCode('100');
 
@@ -70,7 +73,7 @@ class XmlErrorReaderTest extends \PHPUnit_Framework_TestCase
 
     private function getErrorMessage($code)
     {
-        $reader = new XmlErrorReader();
+        $reader = new XmlErrorReaderInterface();
         $message = $reader->getMessageByCode($code);
         return $message;
     }

@@ -9,9 +9,9 @@
 namespace Greenter\Ws\Services;
 
 use Greenter\Model\Response\Error;
-use Greenter\Ws\Reader\CdrReader;
-use Greenter\Ws\Reader\DomCdrReader;
-use Greenter\Ws\Reader\XmlErrorReader;
+use Greenter\Ws\Reader\CdrReaderInterface;
+use Greenter\Ws\Reader\DomCdrReaderInterface;
+use Greenter\Ws\Reader\XmlErrorReaderInterface;
 use Greenter\Zip\ZipHelper;
 
 /**
@@ -25,7 +25,7 @@ class BaseSunat
     private $zipper;
 
     /**
-     * @var CdrReader
+     * @var CdrReaderInterface
      */
     private $cdrReader;
 
@@ -40,7 +40,7 @@ class BaseSunat
     public function __construct()
     {
         $this->zipper = new ZipHelper();
-        $this->cdrReader = new DomCdrReader();
+        $this->cdrReader = new DomCdrReaderInterface();
     }
 
     /**
@@ -123,7 +123,7 @@ class BaseSunat
      */
     protected function getMessageError($code)
     {
-        $msg = (new XmlErrorReader())
+        $msg = (new XmlErrorReaderInterface())
                 ->getMessageByCode(intval($code));
 
         return $msg;

@@ -9,9 +9,9 @@
 namespace Greenter\Ws\Reader;
 
 /**
- * Interface CodeErrorReader.
+ * Interface ErrorReaderInterface.
  */
-interface ErrorReader
+interface ErrorReaderInterface
 {
     /**
      * Get Error Message by code.

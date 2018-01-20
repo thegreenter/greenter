@@ -11,9 +11,9 @@ namespace Greenter\Ws\Reader;
 use Greenter\Model\Response\CdrResponse;
 
 /**
- * Interface CdrReader.
+ * Interface CdrReaderInterface.
  */
-interface CdrReader
+interface CdrReaderInterface
 {
     /**
      * Get Cdr using DomDocument.
