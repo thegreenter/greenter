@@ -20,9 +20,7 @@ use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Summary\SummaryDetail;
-use Greenter\Model\Summary\SummaryDetailV2;
 use Greenter\Model\Summary\SummaryPerception;
-use Greenter\Model\Summary\SummaryV2;
 use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Model\Company\Address;
@@ -37,7 +35,6 @@ use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Xml\Builder\InvoiceBuilder;
 use Greenter\Xml\Builder\NoteBuilder;
 use Greenter\Xml\Builder\SummaryBuilder;
-use Greenter\Xml\Builder\SummaryV2Builder;
 use Greenter\Xml\Builder\VoidedBuilder;
 use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
 
@@ -64,7 +61,6 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             Note::class => NoteBuilder::class,
             Summary::class => SummaryBuilder::class,
             Voided::class => VoidedBuilder::class,
-            SummaryV2::class => SummaryV2Builder::class,
         ];
 
         $signer = new SunatXmlSecAdapter();
@@ -85,7 +81,7 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
         $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
         $client->setCredentials('20000000001MODDATOS', 'moddatos');
         $client->setService($endpoint);
-        $summValids = [Summary::class, SummaryV2::class, Voided::class];
+        $summValids = [Summary::class, Summary::class, Voided::class];
         $sender = in_array($className, $summValids) ? new SummarySender(): new BillSender();
         $sender->setClient($client);
 
@@ -164,10 +160,11 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')
-            ->setCodUnidadMedida('NIU')
-            ->setCtdUnidadItem(2)
-            ->setDesItem('PROD 1')
-            ->setMtoIgvItem(18)
+            ->setUnidad('NIU')
+            ->setCantidad(2)
+            ->setDescuento(1)
+            ->setDescripcion('PROD 1')
+            ->setIgv(18)
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
@@ -175,10 +172,11 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
 
         $detail2 = new SaleDetail();
         $detail2->setCodProducto('C02')
-            ->setCodUnidadMedida('NIU')
-            ->setCtdUnidadItem(2)
-            ->setDesItem('PROD 2')
-            ->setMtoIgvItem(18)
+            ->setCodProdSunat('012')
+            ->setUnidad('NIU')
+            ->setCantidad(2)
+            ->setDescripcion('PROD 1')
+            ->setIgv(18)
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
@@ -222,10 +220,10 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')
-            ->setCodUnidadMedida('NIU')
-            ->setCtdUnidadItem(2)
-            ->setDesItem('PROD 1')
-            ->setMtoIgvItem(18)
+            ->setUnidad('NIU')
+            ->setCantidad(2)
+            ->setDescripcion('PROD 1')
+            ->setIgv(18)
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
@@ -233,10 +231,10 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
 
         $detail2 = new SaleDetail();
         $detail2->setCodProducto('C02')
-            ->setCodUnidadMedida('NIU')
-            ->setCtdUnidadItem(2)
-            ->setDesItem('PROD 2')
-            ->setMtoIgvItem(18)
+            ->setUnidad('NIU')
+            ->setCantidad(2)
+            ->setDescripcion('PROD 2')
+            ->setIgv(18)
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
@@ -266,42 +264,6 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
     protected function getSummary()
     {
         $detiail1 = new SummaryDetail();
-        $detiail1->setTipoDoc('03')
-            ->setSerie('B001')
-            ->setDocInicio('1')
-            ->setDocFin('4')
-            ->setTotal(100)
-            ->setMtoOperGravadas(20.555)
-            ->setMtoOperInafectas(24.4)
-            ->setMtoOperExoneradas(50)
-            ->setMtoOtrosCargos(21)
-            ->setMtoIGV(3.6);
-
-        $detiail2 = new SummaryDetail();
-        $detiail2->setTipoDoc('07')
-            ->setSerie('BB01')
-            ->setDocInicio('4')
-            ->setDocFin('8')
-            ->setTotal(200)
-            ->setMtoOperGravadas(40)
-            ->setMtoOperExoneradas(30)
-            ->setMtoOperInafectas(120)
-            ->setMtoIGV(7.2)
-            ->setMtoISC(2.8);
-
-        $sum = new Summary();
-        $sum->setFecGeneracion($this->getDate())
-            ->setFecResumen($this->getDate())
-            ->setCorrelativo('001')
-            ->setCompany($this->getCompany())
-            ->setDetails([$detiail1, $detiail2]);
-
-        return $sum;
-    }
-
-    protected function getSummaryV2()
-    {
-        $detiail1 = new SummaryDetailV2();
         $detiail1->setTipoDoc('07')
             ->setSerieNro('B001-12')
             ->setClienteTipo('1')
@@ -316,7 +278,7 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setMtoOperExoneradas(15)
             ->setMtoIGV(3.6);
 
-        $detiail2 = new SummaryDetailV2();
+        $detiail2 = new SummaryDetail();
         $detiail2->setTipoDoc('03')
             ->setSerieNro('B001-22')
             ->setClienteTipo('1')
@@ -336,7 +298,7 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setMtoIGV(7.2)
             ->setMtoISC(2.8);
 
-        $sum = new SummaryV2();
+        $sum = new Summary();
         $sum->setFecGeneracion($this->getDate())
             ->setFecResumen($this->getDate())
             ->setCorrelativo('001')
@@ -394,7 +356,11 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
     private function getDate()
     {
         $date = new \DateTime();
-        $date->sub(new \DateInterval('P1D'));
+        try {
+            $date->sub(new \DateInterval('P1D'));
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
 
         return $date;
     }

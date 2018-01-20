@@ -238,6 +238,7 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
 
     /**
      * @return Reversion
+     * @throws \Exception
      */
     protected function getReversion()
     {
@@ -293,6 +294,7 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
         $detail = new DespatchDetail();
         $detail->setCantidad(2)
             ->setUnidad('ZZ')
+            ->setCodProdSunat('22222')
             ->setDescripcion('PROD 1')
             ->setCodigo('PROD1');
 
