@@ -86,11 +86,4 @@ class HtmlReport implements ReportInterface
 
         return $twig;
     }
-
-    public function toBase64($image)
-    {
-        $content = base64_encode($image);
-
-        return $content;
-    }
 }

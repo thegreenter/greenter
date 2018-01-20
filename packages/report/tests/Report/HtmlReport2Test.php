@@ -1,18 +1,14 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Giansalex
- * Date: 17/09/2017
- * Time: 22:17
+ * User: Administrador
+ * Date: 20/01/2018
+ * Time: 02:21 PM
  */
 
 namespace Tests\Greenter\Report;
 
-/**
- * Trait HtmlReportTest
- * @package Tests\Greenter\Report
- */
-class HtmlReportTest extends \PHPUnit_Framework_TestCase
+class HtmlReport2Test extends \PHPUnit_Framework_TestCase
 {
     use HtmlReportTrait;
 
@@ -20,7 +16,7 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
     {
         $report = $this->getReporter();
         $inv = $this->getInvoice();
-        $report->setTemplate('invoice.html.twig');
+        $report->setTemplate('invoice2.html.twig');
 
         try {
             $html = $report->render($inv, $this->getParamters());
@@ -29,7 +25,7 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
             echo $e->getMessage();
             $this->assertTrue(false);
         }
-        // file_put_contents('file.html', $html);
+//        file_put_contents('file2.html', $html);
     }
 
     private function getParamters()
@@ -41,7 +37,14 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
                 'logo' => $logo,
             ],
             'user' => [
-                'header' => 'Telf: <b>(056) 123375</b>'
+                'resolucion' => '212321',
+                'header' => 'Telf: <b>(056) 123375</b>',
+                'dir_client' => 'AV ITALIA 23423',
+                'extras' => [
+                    ['name' => 'CONDICION DE PAGO', 'value' => 'Efectivo'],
+                    ['name' => 'VENDEDOR', 'value' => 'GITHUB SELLER'],
+                ],
+                'footer' => file_get_contents(__DIR__.'/../Resources/footer.html'),
             ]
         ];
     }
