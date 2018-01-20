@@ -37,7 +37,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $this->build($invoice);
         $event = $stopwatch->stop('invoice');
 
-        // file_put_contents('x.xml', $xml);
+//         file_put_contents('x.xml', $xml);
         $this->assertNotEmpty($xml);
         $this->assertInvoiceXml($xml);
 
@@ -162,11 +162,11 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
             ->setCompany($this->getCompany())
             ->setDetails([(new SaleDetail())
             ->setCodProducto('C023')
-            ->setCodUnidadMedida('NIU')
-            ->setCtdUnidadItem(2)
-            ->setDesItem('PROD 1')
-            ->setMtoIgvItem(18)
-            ->setMtoIscItem(3)
+            ->setUnidad('NIU')
+            ->setCantidad(2)
+            ->setDescripcion('PROD 1')
+            ->setIgv(18)
+            ->setIsc(3)
             ->setTipSisIsc('3')
             ->setMtoValorGratuito(12)
             ->setTipAfeIgv('10')
@@ -175,11 +175,13 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
             ->setMtoPrecioUnitario(56)
             , (new SaleDetail())
             ->setCodProducto('C02')
-            ->setCodUnidadMedida('NIU')
-            ->setCtdUnidadItem(2)
-            ->setDesItem('PROD 2')
-            ->setMtoDsctoItem(1)
-            ->setMtoIgvItem(18)
+            ->setCodProdSunat('001')
+            ->setUnidad('NIU')
+            ->setCantidad(2)
+            ->setDescripcion('PROD 2')
+            ->setDescuento(1)
+            ->setIsc(1)
+            ->setIgv(18)
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(10)
