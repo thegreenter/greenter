@@ -29,8 +29,8 @@ Caracteristicas
 * Boleta Electrónica
 * Nota de Crédito Electrónica
 * Nota de Débito Electrónica
-* Resumen Diario de Boletas (v1, v2)
-    > Emplear la version 2 apartir del 01/01/2018
+* Resumen Diario de Boletas
+    > Version 2.1 apartir del 01/01/2018
 * Comunicación de Bajas
 * Guia Remisión Electrónica
 * Retención Electrónica
@@ -43,7 +43,7 @@ Caracteristicas
 - Consulta de Cdr
 
 ### XML
-- Estandar UBL v2, v2.1
+- Estandar UBL v2.0, v2.1
 - Signature xmldsig
 
 ### Used Packages
