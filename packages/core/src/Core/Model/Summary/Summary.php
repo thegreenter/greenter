@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 15/07/2017
- * Time: 21:59
+ * Time: 21:59.
  */
 
 namespace Greenter\Model\Summary;
@@ -12,13 +12,13 @@ use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 
 /**
- * Class Summary
- * @package Greenter\Model\Summary
+ * Class Summary.
  */
 class Summary implements DocumentInterface
 {
     /**
      * @Assert\Length(max="5")
+     *
      * @var string
      */
     protected $correlativo;
@@ -27,6 +27,7 @@ class Summary implements DocumentInterface
      * Fecha de generación de los documentos a enviar en el resumen.
      *
      * @Assert\Date()
+     *
      * @var \DateTime
      */
     protected $fecGeneracion;
@@ -36,6 +37,7 @@ class Summary implements DocumentInterface
      *
      * @Assert\NotBlank()
      * @Assert\Date()
+     *
      * @var \DateTime
      */
     protected $fecResumen;
@@ -43,12 +45,14 @@ class Summary implements DocumentInterface
     /**
      * @Assert\NotBlank()
      * @Assert\Valid()
+     *
      * @var Company
      */
     protected $company;
 
     /**
      * @Assert\Valid()
+     *
      * @var SummaryDetail[]
      */
     protected $details;
@@ -63,11 +67,13 @@ class Summary implements DocumentInterface
 
     /**
      * @param string $correlativo
+     *
      * @return Summary
      */
     public function setCorrelativo($correlativo)
     {
         $this->correlativo = $correlativo;
+
         return $this;
     }
 
@@ -81,11 +87,13 @@ class Summary implements DocumentInterface
 
     /**
      * @param \DateTime $fecGeneracion
+     *
      * @return Summary
      */
     public function setFecGeneracion($fecGeneracion)
     {
         $this->fecGeneracion = $fecGeneracion;
+
         return $this;
     }
 
@@ -99,11 +107,13 @@ class Summary implements DocumentInterface
 
     /**
      * @param \DateTime $fecResumen
+     *
      * @return Summary
      */
     public function setFecResumen($fecResumen)
     {
         $this->fecResumen = $fecResumen;
+
         return $this;
     }
 
@@ -117,11 +127,13 @@ class Summary implements DocumentInterface
 
     /**
      * @param Company $company
+     *
      * @return Summary
      */
     public function setCompany($company)
     {
         $this->company = $company;
+
         return $this;
     }
 
@@ -135,11 +147,13 @@ class Summary implements DocumentInterface
 
     /**
      * @param SummaryDetail[] $details
+     *
      * @return Summary
      */
     public function setDetails($details)
     {
         $this->details = $details;
+
         return $this;
     }
 

@@ -1,67 +1,101 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Giansalex
- * Date: 15/07/2017
- * Time: 22:12
+ * User: Admi
+ * nistrador
+ * Date: 04/10/2017
+ * Time: 12:10 PM.
  */
 
 namespace Greenter\Model\Summary;
 
+use Greenter\Model\Sale\Document;
+
 /**
- * Class SummaryDetail
- * @package Greenter\Model\Summary
+ * Class SummaryDetail.
  */
 class SummaryDetail
 {
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min="2", max="2")
+     *
      * @var string
      */
     private $tipoDoc;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(min="4", max="4")
+     * @Assert\Length(max="13")
+     *
      * @var string
      */
-    private $serie;
+    private $serieNro;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max="8")
+     * @Assert\Length(max="1")
+     *
      * @var string
      */
-    private $docInicio;
+    private $clienteTipo;
 
     /**
      * @Assert\NotBlank()
-     * @Assert\Length(max="8")
+     * @Assert\Length(max="20")
+     *
      * @var string
      */
-    private $docFin;
+    private $clienteNro;
+
+    /**
+     * Boleta de Venta que se modifica.
+     *
+     * @Assert\Valid()
+     *
+     * @var Document
+     */
+    private $docReferencia;
+
+    /**
+     * @var SummaryPerception
+     */
+    private $percepcion;
+
+    /**
+     * Estado del item (catalog: 19).
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(max="1")
+     *
+     * @var string
+     */
+    private $estado;
 
     /**
      * @Assert\NotBlank()
+     *
      * @var float
      */
     private $total;
 
     /**
      * @Assert\NotBlank()
+     *
      * @var float
      */
     private $mtoOperGravadas;
 
     /**
      * @Assert\NotBlank()
+     *
      * @var float
      */
     private $mtoOperInafectas;
 
     /**
      * @Assert\NotBlank()
+     *
      * @var float
      */
     private $mtoOperExoneradas;
@@ -69,15 +103,25 @@ class SummaryDetail
     /**
      * @var float
      */
+    private $mtoOperGratuitas;
+
+    /**
+     * Otros Cargos.
+     *
+     * @var float
+     */
     private $mtoOtrosCargos;
 
     /**
      * @Assert\NotBlank()
+     *
      * @var float
      */
     private $mtoIGV;
 
     /**
+     * @Assert\NotBlank()
+     *
      * @var float
      */
     private $mtoISC;
@@ -97,65 +141,133 @@ class SummaryDetail
 
     /**
      * @param string $tipoDoc
+     *
      * @return SummaryDetail
      */
     public function setTipoDoc($tipoDoc)
     {
         $this->tipoDoc = $tipoDoc;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getSerie()
+    public function getSerieNro()
     {
-        return $this->serie;
+        return $this->serieNro;
     }
 
     /**
-     * @param string $serie
+     * @param string $serieNro
+     *
      * @return SummaryDetail
      */
-    public function setSerie($serie)
+    public function setSerieNro($serieNro)
     {
-        $this->serie = $serie;
+        $this->serieNro = $serieNro;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getDocInicio()
+    public function getClienteTipo()
     {
-        return $this->docInicio;
+        return $this->clienteTipo;
     }
 
     /**
-     * @param string $docInicio
+     * @param string $clienteTipo
+     *
      * @return SummaryDetail
      */
-    public function setDocInicio($docInicio)
+    public function setClienteTipo($clienteTipo)
     {
-        $this->docInicio = $docInicio;
+        $this->clienteTipo = $clienteTipo;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getDocFin()
+    public function getClienteNro()
     {
-        return $this->docFin;
+        return $this->clienteNro;
     }
 
     /**
-     * @param string $docFin
+     * @param string $clienteNro
+     *
      * @return SummaryDetail
      */
-    public function setDocFin($docFin)
+    public function setClienteNro($clienteNro)
     {
-        $this->docFin = $docFin;
+        $this->clienteNro = $clienteNro;
+
+        return $this;
+    }
+
+    /**
+     * @return Document
+     */
+    public function getDocReferencia()
+    {
+        return $this->docReferencia;
+    }
+
+    /**
+     * @param Document $docReferencia
+     *
+     * @return SummaryDetail
+     */
+    public function setDocReferencia($docReferencia)
+    {
+        $this->docReferencia = $docReferencia;
+
+        return $this;
+    }
+
+    /**
+     * @return SummaryPerception
+     */
+    public function getPercepcion()
+    {
+        return $this->percepcion;
+    }
+
+    /**
+     * @param SummaryPerception $percepcion
+     *
+     * @return SummaryDetail
+     */
+    public function setPercepcion($percepcion)
+    {
+        $this->percepcion = $percepcion;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    /**
+     * @param string $estado
+     *
+     * @return SummaryDetail
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
         return $this;
     }
 
@@ -169,11 +281,13 @@ class SummaryDetail
 
     /**
      * @param float $total
+     *
      * @return SummaryDetail
      */
     public function setTotal($total)
     {
         $this->total = $total;
+
         return $this;
     }
 
@@ -187,11 +301,13 @@ class SummaryDetail
 
     /**
      * @param float $mtoOperGravadas
+     *
      * @return SummaryDetail
      */
     public function setMtoOperGravadas($mtoOperGravadas)
     {
         $this->mtoOperGravadas = $mtoOperGravadas;
+
         return $this;
     }
 
@@ -205,16 +321,18 @@ class SummaryDetail
 
     /**
      * @param float $mtoOperInafectas
+     *
      * @return SummaryDetail
      */
     public function setMtoOperInafectas($mtoOperInafectas)
     {
         $this->mtoOperInafectas = $mtoOperInafectas;
+
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getMtoOperExoneradas()
     {
@@ -222,12 +340,34 @@ class SummaryDetail
     }
 
     /**
-     * @param mixed $mtoOperExoneradas
+     * @param float $mtoOperExoneradas
+     *
      * @return SummaryDetail
      */
     public function setMtoOperExoneradas($mtoOperExoneradas)
     {
         $this->mtoOperExoneradas = $mtoOperExoneradas;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoOperGratuitas()
+    {
+        return $this->mtoOperGratuitas;
+    }
+
+    /**
+     * @param float $mtoOperGratuitas
+     *
+     * @return SummaryDetail
+     */
+    public function setMtoOperGratuitas($mtoOperGratuitas)
+    {
+        $this->mtoOperGratuitas = $mtoOperGratuitas;
+
         return $this;
     }
 
@@ -241,11 +381,13 @@ class SummaryDetail
 
     /**
      * @param float $mtoOtrosCargos
+     *
      * @return SummaryDetail
      */
     public function setMtoOtrosCargos($mtoOtrosCargos)
     {
         $this->mtoOtrosCargos = $mtoOtrosCargos;
+
         return $this;
     }
 
@@ -259,16 +401,18 @@ class SummaryDetail
 
     /**
      * @param float $mtoIGV
+     *
      * @return SummaryDetail
      */
     public function setMtoIGV($mtoIGV)
     {
         $this->mtoIGV = $mtoIGV;
+
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getMtoISC()
     {
@@ -276,12 +420,14 @@ class SummaryDetail
     }
 
     /**
-     * @param mixed $mtoISC
+     * @param float $mtoISC
+     *
      * @return SummaryDetail
      */
     public function setMtoISC($mtoISC)
     {
         $this->mtoISC = $mtoISC;
+
         return $this;
     }
 
@@ -295,11 +441,13 @@ class SummaryDetail
 
     /**
      * @param float $mtoOtrosTributos
+     *
      * @return SummaryDetail
      */
     public function setMtoOtrosTributos($mtoOtrosTributos)
     {
         $this->mtoOtrosTributos = $mtoOtrosTributos;
+
         return $this;
     }
 }

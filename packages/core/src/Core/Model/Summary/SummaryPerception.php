@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 19/11/2017
- * Time: 19:37
+ * Time: 19:37.
  */
 
 namespace Greenter\Model\Summary;
@@ -11,8 +11,6 @@ namespace Greenter\Model\Summary;
 /**
  * Class SummaryPerception
  * Perception for Summary.
- *
- * @package Greenter\Model\Summary
  */
 class SummaryPerception
 {
@@ -61,11 +59,13 @@ class SummaryPerception
 
     /**
      * @param string $codReg
+     *
      * @return SummaryPerception
      */
     public function setCodReg($codReg)
     {
         $this->codReg = $codReg;
+
         return $this;
     }
 
@@ -79,11 +79,13 @@ class SummaryPerception
 
     /**
      * @param float $tasa
+     *
      * @return SummaryPerception
      */
     public function setTasa($tasa)
     {
         $this->tasa = $tasa;
+
         return $this;
     }
 
@@ -97,11 +99,13 @@ class SummaryPerception
 
     /**
      * @param float $mtoBase
+     *
      * @return SummaryPerception
      */
     public function setMtoBase($mtoBase)
     {
         $this->mtoBase = $mtoBase;
+
         return $this;
     }
 
@@ -115,11 +119,13 @@ class SummaryPerception
 
     /**
      * @param float $mto
+     *
      * @return SummaryPerception
      */
     public function setMto($mto)
     {
         $this->mto = $mto;
+
         return $this;
     }
 
@@ -133,11 +139,13 @@ class SummaryPerception
 
     /**
      * @param float $mtoTotal
+     *
      * @return SummaryPerception
      */
     public function setMtoTotal($mtoTotal)
     {
         $this->mtoTotal = $mtoTotal;
+
         return $this;
     }
 }
