@@ -9,7 +9,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <ext:UBLExtensions>
         <ext:UBLExtension>
-            <ext:ExtensionContent></ext:ExtensionContent>
+            <ext:ExtensionContent/>
         </ext:UBLExtension>
     </ext:UBLExtensions>
     <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
@@ -17,7 +17,7 @@
     <cbc:ID>RC-{{ doc.fecResumen|date('Ymd') }}-{{ doc.correlativo }}</cbc:ID>
     <cbc:ReferenceDate>{{ doc.fecGeneracion|date('Y-m-d') }}</cbc:ReferenceDate>
     <cbc:IssueDate>{{ doc.fecResumen|date('Y-m-d') }}</cbc:IssueDate>
-    {% set emp = doc.company %}
+    {% set emp = doc.company -%}
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
         <cbc:Note>GREENTER Builder</cbc:Note>
@@ -44,7 +44,7 @@
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
-    {% for det in doc.details %}
+    {% for det in doc.details -%}
         <sac:SummaryDocumentsLine>
             <cbc:LineID>{{ loop.index }}</cbc:LineID>
             <cbc:DocumentTypeCode>{{ det.tipoDoc }}</cbc:DocumentTypeCode>
@@ -52,31 +52,31 @@
             <sac:StartDocumentNumberID>{{ det.docInicio }}</sac:StartDocumentNumberID>
             <sac:EndDocumentNumberID>{{ det.docFin }}</sac:EndDocumentNumberID>
             <sac:TotalAmount currencyID="PEN">{{ det.total|n_format }}</sac:TotalAmount>
-            {% if det.mtoOperGravadas %}
+            {% if det.mtoOperGravadas -%}
             <sac:BillingPayment>
                 <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperGravadas|n_format }}</cbc:PaidAmount>
                 <cbc:InstructionID>01</cbc:InstructionID>
             </sac:BillingPayment>
-            {% endif %}
-            {% if det.mtoOperExoneradas %}
+            {% endif -%}
+            {% if det.mtoOperExoneradas -%}
             <sac:BillingPayment>
                 <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperExoneradas|n_format }}</cbc:PaidAmount>
                 <cbc:InstructionID>02</cbc:InstructionID>
             </sac:BillingPayment>
-            {% endif %}
-            {% if det.mtoOperInafectas %}
+            {% endif -%}
+            {% if det.mtoOperInafectas -%}
             <sac:BillingPayment>
                 <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperInafectas|n_format }}</cbc:PaidAmount>
                 <cbc:InstructionID>03</cbc:InstructionID>
             </sac:BillingPayment>
-            {% endif %}
-            {% if det.mtoOtrosCargos %}
+            {% endif -%}
+            {% if det.mtoOtrosCargos -%}
             <cac:AllowanceCharge>
                 <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
                 <cbc:Amount currencyID="PEN">{{ det.mtoOtrosCargos|n_format }}</cbc:Amount>
             </cac:AllowanceCharge>
-            {% endif %}
-            {% set igv = det.mtoIGV|n_format %}
+            {% endif -%}
+            {% set igv = det.mtoIGV|n_format -%}
             <cac:TaxTotal>
                 <cbc:TaxAmount currencyID="PEN">{{ igv }}</cbc:TaxAmount>
                 <cac:TaxSubtotal>
@@ -90,7 +90,7 @@
                     </cac:TaxCategory>
                 </cac:TaxSubtotal>
             </cac:TaxTotal>
-            {% set isc = det.mtoISC|default(0)|n_format %}
+            {% set isc = det.mtoISC|default(0)|n_format -%}
             <cac:TaxTotal>
                 <cbc:TaxAmount currencyID="PEN">{{ isc }}</cbc:TaxAmount>
                 <cac:TaxSubtotal>
@@ -104,8 +104,8 @@
                     </cac:TaxCategory>
                 </cac:TaxSubtotal>
             </cac:TaxTotal>
-            {% if det.mtoOtrosTributos %}
-            {% set oth = det.mtoOtrosTributos|n_format %}
+            {% if det.mtoOtrosTributos -%}
+            {% set oth = det.mtoOtrosTributos|n_format -%}
             <cac:TaxTotal>
                 <cbc:TaxAmount currencyID="PEN">{{ oth }}</cbc:TaxAmount>
                 <cac:TaxSubtotal>
@@ -119,7 +119,7 @@
                     </cac:TaxCategory>
                 </cac:TaxSubtotal>
             </cac:TaxTotal>
-            {% endif %}
+            {% endif -%}
         </sac:SummaryDocumentsLine>
-    {% endfor %}
+    {% endfor -%}
 </SummaryDocuments>

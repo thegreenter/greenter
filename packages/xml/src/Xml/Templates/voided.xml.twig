@@ -7,7 +7,7 @@
                  xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <ext:UBLExtensions>
         <ext:UBLExtension>
-            <ext:ExtensionContent></ext:ExtensionContent>
+            <ext:ExtensionContent/>
         </ext:UBLExtension>
     </ext:UBLExtensions>
     <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
@@ -48,7 +48,7 @@
             <cbc:DocumentTypeCode>{{ det.tipoDoc }}</cbc:DocumentTypeCode>
             <sac:DocumentSerialID>{{ det.serie }}</sac:DocumentSerialID>
             <sac:DocumentNumberID>{{ det.correlativo }}</sac:DocumentNumberID>
-            <sac:VoidReasonDescription>{{ det.desMotivoBaja }}</sac:VoidReasonDescription>
+            <sac:VoidReasonDescription><![CDATA[{{ det.desMotivoBaja|raw }}]]></sac:VoidReasonDescription>
         </sac:VoidedDocumentsLine>
     {% endfor %}
 </VoidedDocuments>
