@@ -101,7 +101,7 @@ class SeeFeTest extends FeFactoryBase
     public function providerSummaryDocs()
     {
         return [
-            [$this->getSummaryV2()],
+            [$this->getSummary()],
             [$this->getVoided()],
         ];
     }

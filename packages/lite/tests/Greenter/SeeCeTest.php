@@ -53,15 +53,14 @@ class SeeCeTest extends CeFactoryBase
         );
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testSendSummary()
     {
         $doc = $this->getReversion();
         /**@var $result SummaryResult*/
         $result = $this->getSee(SunatEndpoints::RETENCION_BETA)->send($doc);
-
-        if (!$result->isSuccess()) {
-            return;
-        }
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
