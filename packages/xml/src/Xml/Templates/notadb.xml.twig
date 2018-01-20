@@ -199,7 +199,7 @@
     {% for detail in doc.details -%}
         <cac:DebitNoteLine>
             <cbc:ID>{{ loop.index }}</cbc:ID>
-            <cbc:DebitedQuantity unitCode="{{ detail.codUnidadMedida }}">{{ detail.ctdUnidadItem }}</cbc:DebitedQuantity>
+            <cbc:DebitedQuantity unitCode="{{ detail.unidad }}">{{ detail.cantidad }}</cbc:DebitedQuantity>
             <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|n_format }}</cbc:LineExtensionAmount>
             {% if detail.mtoPrecioUnitario > 0 -%}
                 <cac:PricingReference>
@@ -216,8 +216,8 @@
                     </cac:AlternativeConditionPrice>
                 </cac:PricingReference>
             {% endif -%}
-            {% if detail.mtoIscItem -%}
-                {% set isc = detail.mtoIscItem|n_format -%}
+            {% if detail.isc -%}
+                {% set isc = detail.isc|n_format -%}
                 <cac:TaxTotal>
                     <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ isc }}</cbc:TaxAmount>
                     <cac:TaxSubtotal>
@@ -233,8 +233,8 @@
                     </cac:TaxSubtotal>
                 </cac:TaxTotal>
             {% endif -%}
-            {% if detail.mtoIgvItem -%}
-                {% set igv = detail.mtoIgvItem|n_format -%}
+            {% if detail.igv -%}
+                {% set igv = detail.igv|n_format -%}
                 <cac:TaxTotal>
                     <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igv }}</cbc:TaxAmount>
                     <cac:TaxSubtotal>
@@ -251,10 +251,15 @@
                 </cac:TaxTotal>
             {% endif -%}
             <cac:Item>
-                <cbc:Description><![CDATA[{{ detail.desItem|raw }}]]></cbc:Description>
+                <cbc:Description><![CDATA[{{ detail.descripcion|raw }}]]></cbc:Description>
                 <cac:SellersItemIdentification>
                     <cbc:ID>{{ detail.codProducto }}</cbc:ID>
                 </cac:SellersItemIdentification>
+                {% if detail.codProdSunat %}
+                    <cac:CommodityClassification>
+                        <cbc:ItemClassificationCode listID="UNSPSC" listAgencyName="GS1 US" listName="Item Classification">{{ detail.codProdSunat }}</cbc:ItemClassificationCode>
+                    </cac:CommodityClassification>
+                {% endif %}
             </cac:Item>
             <cac:Price>
                 <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario|n_format }}</cbc:PriceAmount>
