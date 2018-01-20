@@ -170,7 +170,7 @@
         <h2 style="margin-bottom:0">RUC {{ cp.ruc }}</h2>
         <h3 style="margin:0.2em 0;font-size:1.3em">{{ cp.razonSocial }}</h3>
         <div>{{ cp.address.direccion }}</div>
-        <div>{{ params.user.telefono }}</div>
+        <div>{{ params.user.header|raw }}</div>
     </div>
 </header>
 <main>
@@ -270,7 +270,7 @@
     <hr>
     <div style="margin: 20px 0;width: 100%;text-align: center">
         <span>
-            <b>IMPORTE EN LETRAS</b> {{ doc.legends|legend('1000')  }} {{ doc.tipoMoneda|name_money }}
+            <b>IMPORTE EN LETRAS</b> {{ legend(doc.legends, '1000')  }} {{ doc.tipoMoneda|name_money }}
         </span>
     </div>
     <div class="clearfix">
@@ -280,7 +280,7 @@
             </div>
         </div>
         <div id="qrcode">
-            <img src="{{ params.system.qrcode|image_b64 }}">
+            <img src="{{ qrCode(doc)|image_b64 }}">
         </div>
     </div>
 </main>

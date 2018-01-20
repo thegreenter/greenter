@@ -43,15 +43,13 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
     private function getParamters()
     {
         $logo = file_get_contents(__DIR__.'/../Resources/logo.png');
-        $qrcode = file_get_contents(__DIR__.'/../Resources/qrcode.png');
 
         return [
             'system' => [
                 'logo' => $logo,
-                'qrcode' => $qrcode,
             ],
             'user' => [
-                'telefono' => '(056) 123375'
+                'header' => 'Telf: <b>(056) 123375</b>'
             ]
         ];
     }

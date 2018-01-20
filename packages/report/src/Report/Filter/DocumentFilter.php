@@ -8,8 +8,9 @@
 
 namespace Greenter\Report\Filter;
 
-use Greenter\Model\Sale\Legend;
-
+/**
+ * Class DocumentFilter.
+ */
 class DocumentFilter
 {
     public function getNameDoc($tipo)
@@ -54,23 +55,6 @@ class DocumentFilter
         switch (trim($code)) {
             case '1': return 'DNI';
             case '6': return 'RUC';
-        }
-
-        return '';
-    }
-
-    /**
-     * @param Legend[] $legends
-     * @param $code
-     *
-     * @return string
-     */
-    public function getValueCode($legends, $code)
-    {
-        foreach ($legends as $legend) {
-            if ($legend->getCode() == $code) {
-                return $legend->getValue();
-            }
         }
 
         return '';
