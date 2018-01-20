@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 17/07/2017
- * Time: 10:27 AM
+ * Time: 10:27 AM.
  */
 
 namespace Greenter\Validator\Loader;
@@ -25,7 +25,7 @@ class InvoiceLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
-            new Assert\Length([ 'max' => 4]),
+            new Assert\Length(['max' => 4]),
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
@@ -39,19 +39,19 @@ class InvoiceLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\Length(['max' => 3]),
         ]);
-        $metadata->addPropertyConstraints('mtoOperGravadas',[
+        $metadata->addPropertyConstraints('mtoOperGravadas', [
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
         ]);
-        $metadata->addPropertyConstraints('mtoOperInafectas',[
+        $metadata->addPropertyConstraints('mtoOperInafectas', [
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
         ]);
-        $metadata->addPropertyConstraints('mtoOperExoneradas',[
+        $metadata->addPropertyConstraints('mtoOperExoneradas', [
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
         ]);
-        $metadata->addPropertyConstraints('mtoImpVenta',[
+        $metadata->addPropertyConstraints('mtoImpVenta', [
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
         ]);

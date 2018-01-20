@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 07/08/2017
- * Time: 23:49
+ * Time: 23:49.
  */
 
 namespace Greenter\Validator\Loader;
@@ -29,7 +29,7 @@ class DespatchDetailLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('cantidad', [
             new Assert\NotBlank(),
-            new Assert\Type(['type' => 'int'])
+            new Assert\Type(['type' => 'int']),
         ]);
         $metadata->addPropertyConstraint('codProdSunat', new Assert\Length(['max' => 20]));
     }

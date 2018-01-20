@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 07/08/2017
- * Time: 23:04
+ * Time: 23:04.
  */
 
 namespace Greenter\Validator\Loader;
@@ -13,8 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
- * Class ClientLoader
- * @package Greenter\Validator\Loader
+ * Class ClientLoader.
  */
 class ClientLoader implements LoaderMetadataInterface
 {

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 18/07/2017
- * Time: 22:27
+ * Time: 22:27.
  */
 
 namespace Greenter\Validator\Loader;
@@ -25,7 +25,7 @@ class NoteLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
-            new Assert\Length([ 'max' => 4]),
+            new Assert\Length(['max' => 4]),
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
@@ -39,19 +39,19 @@ class NoteLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\Length(['max' => 3]),
         ]);
-        $metadata->addPropertyConstraints('mtoOperGravadas',[
+        $metadata->addPropertyConstraints('mtoOperGravadas', [
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
         ]);
-        $metadata->addPropertyConstraints('mtoOperInafectas',[
+        $metadata->addPropertyConstraints('mtoOperInafectas', [
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
         ]);
-        $metadata->addPropertyConstraints('mtoOperExoneradas',[
+        $metadata->addPropertyConstraints('mtoOperExoneradas', [
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
         ]);
-        $metadata->addPropertyConstraints('mtoImpVenta',[
+        $metadata->addPropertyConstraints('mtoImpVenta', [
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
         ]);
@@ -76,7 +76,7 @@ class NoteLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('desMotivo', [
             new Assert\NotBlank(),
-            new Assert\Length([ 'max' => 250]),
+            new Assert\Length(['max' => 250]),
         ]);
         $metadata->addPropertyConstraints('tipDocAfectado', [
             new Assert\NotBlank(),
@@ -87,7 +87,7 @@ class NoteLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('numDocfectado', [
             new Assert\NotBlank(),
-            new Assert\Length([ 'max' => 13]),
+            new Assert\Length(['max' => 13]),
         ]);
     }
 }

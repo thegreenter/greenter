@@ -74,10 +74,10 @@ class FeNoteValidatorTest extends \PHPUnit_Framework_TestCase
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')
-            ->setCodUnidadMedida('NIU')
-            ->setCtdUnidadItem(2)
-            ->setDesItem('PROD 1')
-            ->setMtoIgvItem(18)
+            ->setUnidad('NIU')
+            ->setCantidad(2)
+            ->setDescripcion('PROD 2')
+            ->setIgv(18)
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
@@ -85,10 +85,10 @@ class FeNoteValidatorTest extends \PHPUnit_Framework_TestCase
 
         $detail2 = new SaleDetail();
         $detail2->setCodProducto('C02')
-            ->setCodUnidadMedida('NIU')
-            ->setCtdUnidadItem(2)
-            ->setDesItem('PROD 2')
-            ->setMtoIgvItem(18)
+            ->setUnidad('NIU')
+            ->setCantidad(2)
+            ->setDescripcion('PROD 2')
+            ->setIgv(18)
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)

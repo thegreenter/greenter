@@ -57,6 +57,7 @@ class CeDespatchValidatorTest extends \PHPUnit_Framework_TestCase
         $detail->setCantidad(2)
             ->setUnidad('ZZ')
             ->setDescripcion('PROD 1')
+            ->setCodProdSunat('P001')
             ->setCodigo('PROD1');
 
         $despatch->setDetails([$detail]);

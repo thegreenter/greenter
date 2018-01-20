@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 08/08/2017
- * Time: 10:00 AM
+ * Time: 10:00 AM.
  */
 
 namespace Greenter\Validator\Loader;
@@ -33,7 +33,7 @@ class ShipmentLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('fecTraslado', [
             new Assert\NotBlank(),
-            new Assert\Date()
+            new Assert\Date(),
         ]);
         $metadata->addPropertyConstraint('numContenedor', new Assert\Length(['max' => 17]));
         $metadata->addPropertyConstraint('codPuerto', new Assert\Length(['max' => 3]));

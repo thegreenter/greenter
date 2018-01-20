@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 09/10/2017
- * Time: 12:38 PM
+ * Time: 12:38 PM.
  */
 
 namespace Greenter\Validator;
@@ -14,8 +14,7 @@ use Symfony\Component\Validator\Mapping\Factory\MetadataFactoryInterface;
 use Symfony\Component\Validator\Mapping\MetadataInterface;
 
 /**
- * Class CustomMetadataFactory
- * @package Greenter\Validator
+ * Class CustomMetadataFactory.
  */
 class CustomMetadataFactory implements MetadataFactoryInterface
 {
@@ -34,8 +33,8 @@ class CustomMetadataFactory implements MetadataFactoryInterface
         $fullClass = $this->getClassValidator($value);
 
         if ($fullClass) {
-            /**@var $loader LoaderMetadataInterface */
-            $loader = new $fullClass;
+            /** @var $loader LoaderMetadataInterface */
+            $loader = new $fullClass();
             $loader->load($metaData);
         }
 
@@ -56,12 +55,13 @@ class CustomMetadataFactory implements MetadataFactoryInterface
 
     /**
      * @param $value
+     *
      * @return bool|string
      */
     private function getClassValidator($value)
     {
         $classModel = get_class($value);
-        $className = substr(strrchr($classModel, "\\"),1);
+        $className = substr(strrchr($classModel, '\\'), 1);
         $fullClass = 'Greenter\\Validator\\Loader\\'.$className.'Loader';
 
         if (!class_exists($fullClass)) {

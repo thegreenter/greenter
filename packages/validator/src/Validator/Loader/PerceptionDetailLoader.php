@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 08/08/2017
- * Time: 11:37 AM
+ * Time: 11:37 AM.
  */
 
 namespace Greenter\Validator\Loader;

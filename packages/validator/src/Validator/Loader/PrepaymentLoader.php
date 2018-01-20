@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 27/09/2017
- * Time: 08:31 PM
+ * Time: 08:31 PM.
  */
 
 namespace Greenter\Validator\Loader;
@@ -25,9 +25,9 @@ class PrepaymentLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('nroDocRel', [
             new Assert\NotBlank(),
-            new Assert\Length([ 'max' => 30]),
+            new Assert\Length(['max' => 30]),
         ]);
-        $metadata->addPropertyConstraints('total',[
+        $metadata->addPropertyConstraints('total', [
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
         ]);
