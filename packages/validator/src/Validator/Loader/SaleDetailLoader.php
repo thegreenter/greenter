@@ -16,16 +16,19 @@ class SaleDetailLoader implements LoaderMetadataInterface
 {
     public function load(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraints('codUnidadMedida', [
+        $metadata->addPropertyConstraints('unidad', [
             new Assert\NotBlank(),
             new Assert\Length(['max' => 3]),
         ]);
-        $metadata->addPropertyConstraints('desItem', [
+        $metadata->addPropertyConstraints('descripcion', [
             new Assert\NotBlank(),
             new Assert\Length(['max' => 250]),
         ]);
+        $metadata->addPropertyConstraint('cantidad', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('codProducto', new Assert\Length(['max' => 30]));
+        $metadata->addPropertyConstraint('codProdSunat', new Assert\Length(['max' => 20]));
         $metadata->addPropertyConstraint('mtoValorUnitario', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoIgvItem', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('igv', new Assert\NotBlank());
         $metadata->addPropertyConstraint('tipAfeIgv', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoPrecioUnitario', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoValorVenta', new Assert\NotBlank());

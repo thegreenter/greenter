@@ -23,6 +23,7 @@ class SalePerceptionLoader implements LoaderMetadataInterface
                 'max' => 2,
             ]),
         ]);
+//        $metadata->addPropertyConstraint('tasa', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoBase', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mto', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoTotal', new Assert\NotBlank());

@@ -33,7 +33,7 @@ class DespatchLoader implements LoaderMetadataInterface
             new Assert\Length(['max' => 8]),
         ]);
         $metadata->addPropertyConstraint('observacion', new Assert\Length(['max' => 250]));
-        $metadata->addPropertyConstraint('fechaEmision', new Assert\Date());
+        $metadata->addPropertyConstraint('fechaEmision', new Assert\DateTime());
         $metadata->addPropertyConstraints('destinatario', [
             new Assert\NotBlank(),
             new Assert\Valid(),

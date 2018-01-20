@@ -13,8 +13,8 @@
     "type": "library",
     "require": {
 		"php": ">=5.5.9",
-        "greenter/core": "^1.0",
-        "symfony/validator": "^3.3"
+        "greenter/core": "^1.2",
+        "symfony/validator": "^3.4"
     },
 	"require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"

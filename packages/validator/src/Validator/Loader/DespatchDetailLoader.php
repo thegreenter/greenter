@@ -31,5 +31,6 @@ class DespatchDetailLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'int'])
         ]);
+        $metadata->addPropertyConstraint('codProdSunat', new Assert\Length(['max' => 20]));
     }
 }
