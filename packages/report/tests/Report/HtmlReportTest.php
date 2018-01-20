@@ -27,7 +27,7 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
     public function testGenReport()
     {
         $inv = $this->getInvoice();
-        $report = new HtmlReport();
+        $report = new HtmlReport('', ['cache' => false, 'strict_variables' => true]);
         $report->setTemplate('invoice.html.twig');
 
         try {
@@ -37,21 +37,18 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
             echo $e->getMessage();
             $this->assertTrue(false);
         }
-        // file_put_contents('file.html', $html);
+//         file_put_contents('file.html', $html);
     }
 
     private function getParamters()
     {
-        $logo = 'data:image/png;base64,' . base64_encode(file_get_contents(__DIR__.'/../Resources/logo.png'));
-        $qrcode = 'data:image/png;base64,' . base64_encode(file_get_contents(__DIR__.'/../Resources/qrcode.png'));
+        $logo = file_get_contents(__DIR__.'/../Resources/logo.png');
+        $qrcode = file_get_contents(__DIR__.'/../Resources/qrcode.png');
 
         return [
             'system' => [
                 'logo' => $logo,
                 'qrcode' => $qrcode,
-                'nameDoc' => 'FACTURA ELECTRÓNICA',
-                'montletras' => 'CIEN CON 00/100 NUEVOS SOLES',
-                'clientDoc' => 'RUC',
             ],
             'user' => [
                 'telefono' => '(056) 123375'

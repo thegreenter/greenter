@@ -9,6 +9,8 @@
 namespace Greenter\Report;
 
 use Greenter\Model\DocumentInterface;
+use Greenter\Report\Extension\ReportTwigExtension;
+use Greenter\Report\Extension\RuntimeLoader;
 
 /**
  * Class HtmlReport
@@ -36,8 +38,8 @@ class HtmlReport implements ReportInterface
         if (empty($templatesDir)) {
             $templatesDir = __DIR__ . '/Templates';
         }
-        $loader = new \Twig_Loader_Filesystem($templatesDir);
-        $this->twig = new \Twig_Environment($loader, $optionTwig);
+
+        $this->twig = $this->getTwig($templatesDir, $optionTwig);
     }
 
     /**
@@ -68,5 +70,27 @@ class HtmlReport implements ReportInterface
     public function setTemplate($template)
     {
         $this->template = $template;
+    }
+
+    /**
+     * @param $directory
+     * @param $options
+     * @return \Twig_Environment
+     */
+    private function getTwig($directory, $options)
+    {
+        $loader = new \Twig_Loader_Filesystem($directory);
+        $twig = new \Twig_Environment($loader, $options);
+        $twig->addRuntimeLoader(new RuntimeLoader());
+        $twig->addExtension(new ReportTwigExtension());
+
+        return $twig;
+    }
+
+    public function toBase64($image)
+    {
+        $content = base64_encode($image);
+
+        return $content;
     }
 }
