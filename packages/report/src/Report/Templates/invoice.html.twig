@@ -178,13 +178,13 @@
         <div id="client" style="max-width: 60%">
             <div class="to">EMITIDO A:</div>
             {% set cl = doc.client %}
-            <h2 class="ruc"><b>{{ cl.tipoDoc|symbol_docident }}</b> {{ cl.numDoc }}</h2>
+            <h2 class="ruc"><b>{{ cl.tipoDoc|catalog('06') }}</b> {{ cl.numDoc }}</h2>
             <span class="name">{{ cl.rznSocial }}</span>
             <div class="address"><i>{{ cl.address.direccion }}</i></div>
         </div>
         <div id="invoice">
             {% set serieNro = doc.serie ~ '-' ~ doc.correlativo %}
-            <h1>{{ doc.tipoDoc|doc_name }} ELECTRÓNICA</h1>
+            <h1>{{ doc.tipoDoc|catalog('01') }} ELECTRÓNICA</h1>
             <h1>{{ serieNro }}</h1>
             <div class="date">EMITIDO: {{ doc.fechaEmision|date('d/m/Y') }}</div>
         </div>
@@ -200,7 +200,7 @@
         </tr>
         </thead>
         <tbody>
-        {% set moneda = doc.tipoMoneda|symbol_money %}
+        {% set moneda = doc.tipoMoneda|catalog('02') %}
         {% for det in doc.details %}
             <tr>
                 <td class="no">{{ det.cantidad|n_format }}</td>
@@ -218,65 +218,65 @@
         <tr>
             <td colspan="2"></td>
             <td colspan="2">Op. Gravadas</td>
-            <td>{{ moneda }}{{ doc.mtoOperGravadas|n_format }}</td>
+            <td>{{ moneda }} {{ doc.mtoOperGravadas|n_format }}</td>
         </tr>
         {% if doc.mtoOperInafectas %}
             <tr>
                 <td colspan="2"></td>
                 <td colspan="2">Op. Inafectas</td>
-                <td>{{ moneda }}{{  doc.mtoOperInafectas|n_format }}</td>
+                <td>{{ moneda }} {{  doc.mtoOperInafectas|n_format }}</td>
             </tr>
         {% endif %}
         {% if doc.mtoOperExoneradas %}
             <tr>
                 <td colspan="2"></td>
                 <td colspan="2">Op. Exoneradas</td>
-                <td>{{ moneda }}{{  doc.mtoOperExoneradas|n_format }}</td>
+                <td>{{ moneda }} {{  doc.mtoOperExoneradas|n_format }}</td>
             </tr>
         {% endif %}
         {% if doc.mtoOperGratuitas %}
             <tr>
                 <td colspan="2"></td>
                 <td colspan="2">Op. Gratuitas</td>
-                <td>{{ moneda }}{{  doc.mtoOperGratuitas|n_format }}</td>
+                <td>{{ moneda }} {{  doc.mtoOperGratuitas|n_format }}</td>
             </tr>
         {% endif %}
         <tr>
             <td colspan="2"></td>
             <td colspan="2">IGV (18%)</td>
-            <td>{{ moneda }}{{  doc.mtoIGV|n_format }}</td>
+            <td>{{ moneda }} {{  doc.mtoIGV|n_format }}</td>
         </tr>
         {% if doc.mtoISC %}
             <tr>
                 <td colspan="2"></td>
                 <td colspan="2">ISC</td>
-                <td>{{ moneda }}{{  doc.mtoISC|n_format }}</td>
+                <td>{{ moneda }} {{  doc.mtoISC|n_format }}</td>
             </tr>
         {% endif %}
         {% if doc.mtoOtrosTributos %}
             <tr>
                 <td colspan="2"></td>
                 <td colspan="2">Otros Tributos</td>
-                <td>{{ moneda }}{{  doc.mtoOtrosTributos|n_format }}</td>
+                <td>{{ moneda }} {{  doc.mtoOtrosTributos|n_format }}</td>
             </tr>
         {% endif %}
         <tr>
             <td colspan="2"></td>
             <td colspan="2">TOTAL</td>
-            <td>{{ moneda }}{{ doc.mtoImpVenta|n_format }}</td>
+            <td>{{ moneda }} {{ doc.mtoImpVenta|n_format }}</td>
         </tr>
         </tfoot>
     </table>
     <hr>
     <div style="margin: 20px 0;width: 100%;text-align: center">
         <span>
-            <b>IMPORTE EN LETRAS</b> {{ legend(doc.legends, '1000')  }} {{ doc.tipoMoneda|name_money }}
+            <b>IMPORTE EN LETRAS</b> {{ legend(doc.legends, '1000')  }} {{ doc.tipoMoneda|catalog('021') }}
         </span>
     </div>
     <div class="clearfix">
         <div style="float: left">
             <div id="notices">
-                <div class="notice">Representación Impresa de la {{ doc.tipoDoc|doc_name }} ELECTRÓNICA.</div>
+                <div class="notice">Representación Impresa de la {{ doc.tipoDoc|catalog('01') }} ELECTRÓNICA.</div>
             </div>
         </div>
         <div id="qrcode">

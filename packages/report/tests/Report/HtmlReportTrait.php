@@ -24,7 +24,10 @@ trait HtmlReportTrait
      */
     private function getReporter()
     {
-        return new HtmlReport('', ['cache' => false, 'strict_variables' => true]);
+        $report = new HtmlReport('', ['cache' => false, 'strict_variables' => true]);
+        $report->getTwig()->addGlobal('max_items', 7);
+
+        return $report;
     }
 
     private function getInvoice()
@@ -99,9 +102,20 @@ trait HtmlReportTrait
         $legend->setCode('1000')
             ->setValue('SON DOSCIENTOS TREINTA Y SEIS CON 00/100');
 
-        $invoice->setDetails([$detail1, $detail2])
+        $items = array_merge([$detail1, $detail2], $this->getItems($detail1, 6));
+        $invoice->setDetails($items)
             ->setLegends([$legend]);
 
         return $invoice;
+    }
+
+    private function getItems(SaleDetail $detail, $count)
+    {
+        $items = [];
+        for ($i = 0; $i < $count; $i++) {
+            $items[] = $detail;
+        }
+
+        return $items;
     }
 }

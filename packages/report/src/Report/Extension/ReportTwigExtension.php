@@ -21,20 +21,17 @@ class ReportTwigExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('doc_name', DocumentFilter::class.'::getNameDoc'),
-            new \Twig_SimpleFilter('symbol_money', DocumentFilter::class.'::getSymbolCurrency'),
-            new \Twig_SimpleFilter('name_money', DocumentFilter::class.'::getNameCurrency'),
-            new \Twig_SimpleFilter('symbol_docident', DocumentFilter::class.'::getSymbolDocIdentidad'),
-            new \Twig_SimpleFilter('image_b64', ImageFilter::class.'::toBase64'),
-            new \Twig_SimpleFilter('n_format', FormatFilter::class.'::number'),
+            new \Twig_SimpleFilter('catalog', ['Greenter\Report\Filter\DocumentFilter', 'getValueCatalog']),
+            new \Twig_SimpleFilter('image_b64', ['Greenter\Report\Filter\ImageFilter', 'toBase64']),
+            new \Twig_SimpleFilter('n_format', ['Greenter\Report\Filter\FormatFilter', 'number']),
         ];
     }
 
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('legend', ResolveFilter::class.'::getValueLegend'),
-            new \Twig_SimpleFunction('qrCode', ResolveFilter::class.'::getQr'),
+            new \Twig_SimpleFunction('legend', ['Greenter\Report\Filter\ResolveFilter', 'getValueLegend']),
+            new \Twig_SimpleFunction('qrCode', ['Greenter\Report\Filter\ResolveFilter', 'getQr']),
         ];
     }
 }

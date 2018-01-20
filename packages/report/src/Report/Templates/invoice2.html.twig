@@ -16,12 +16,12 @@
                         <span><img src="{{ params.system.logo|image_b64 }}" height="80" style="text-align:center" border="0"></span>
                     </td>
                     <td width="5%" height="40" align="center"></td>
-                    <td width="45%" rowspan="2" valign="bottom">
+                    <td width="45%" rowspan="2" valign="bottom" style="padding-left:0">
                         <div class="tabla_borde">
                             <table width="100%" border="0" height="200" cellpadding="6" cellspacing="0">
                                 <tbody><tr>
                                     <td align="center">
-                                        <span style="font-family:Tahoma, Geneva, sans-serif; font-size:29px" text-align="center">{{ doc.tipoDoc|doc_name }}</span>
+                                        <span style="font-family:Tahoma, Geneva, sans-serif; font-size:29px" text-align="center">{{ doc.tipoDoc|catalog('01') }}</span>
                                         <br>
                                         <span style="font-family:Tahoma, Geneva, sans-serif; font-size:19px" text-align="center">E L E C T R Ó N I C A</span>
                                     </td>
@@ -51,7 +51,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td valign="bottom">
+                    <td valign="bottom" style="padding-left:0">
                         <div class="tabla_borde">
                             <table width="96%" height="100%" border="0" border-radius="" cellpadding="9" cellspacing="0">
                                 <tbody><tr>
@@ -74,8 +74,8 @@
                     </td>
                 </tr>
                 </tbody></table>
-            &nbsp;
             <div class="tabla_borde">
+                {% set moneyName = doc.tipoMoneda|catalog('021') %}
                 {% set cl = doc.client %}
                 <table width="100%" border="0" cellpadding="5" cellspacing="0">
                     <tbody><tr>
@@ -84,7 +84,7 @@
                             </strong>&nbsp{{ cl.rznSocial }}
                         </td>
                         <td width="40%" height="15" align="left"><strong>
-                             {{ cl.tipoDoc|symbol_docident }}:
+                             {{ cl.tipoDoc|catalog('06') }}:
                             </strong>&nbsp; &nbsp;
                             {{ cl.numDoc }}
                         </td>
@@ -96,13 +96,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td width="60%" height="15" align="left"><strong>Tipo Moneda: </strong>&nbsp; &nbsp; {{ doc.tipoMoneda|name_money }} </td>
+                        <td width="60%" height="15" align="left"><strong>Tipo Moneda: </strong>&nbsp; &nbsp; {{ moneyName }} </td>
                         <td width="40%" height="15" align="left">
                         </td>
                     </tr>
                     </tbody></table>
             </div><br>
-            {% set moneda = doc.tipoMoneda|symbol_money %}
+            {% set moneda = doc.tipoMoneda|catalog('02') %}
             <div class="tabla_borde">
                 <table width="100%" border="0" cellpadding="5" cellspacing="0">
                     <tbody>
@@ -146,7 +146,7 @@
                                 <td colspan="4">
                                     <br>
                                     <br>
-                                    <span style="font-family:Tahoma, Geneva, sans-serif; font-size:12px" text-align="center"><strong>{{ legend(doc.legends, '1000')  }} {{ doc.tipoMoneda|name_money }}.</strong></span>
+                                    <span style="font-family:Tahoma, Geneva, sans-serif; font-size:12px" text-align="center"><strong>{{ legend(doc.legends, '1000')  }} {{ moneyName }}.</strong></span>
                                     <br>
                                     <br>
                                     <strong>Información Adicional</strong>
@@ -221,18 +221,21 @@
                     </td>
                 </tr>
                 </tbody></table>
-
             <br>
             <br>
-            <div style="page-break-after: always;page-break-inside: avoid;">
+            {% if max_items is defined and doc.details|length > max_items %}
+                <div style="page-break-after:always;"></div>
+            {% endif %}
+            <div>
                 <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #666; margin: 20px 0; padding: 0;"><table width="100%" border="0" cellpadding="0" cellspacing="0">
                     <tbody><tr>
                         <td width="85%">
-                            {% if params.user.footer is defined %}
-                                <blockquote>
+                            <blockquote>
+                                {% if params.user.footer is defined %}
                                     {{ params.user.footer|raw }}
-                                </blockquote>
-                            {% endif %}
+                                {% endif %}
+                                <span style="font-size: 8pt">Representación Impresa de la {{ doc.tipoDoc|catalog('01') }} ELECTRÓNICA.</span>
+                            </blockquote>
                         </td>
                         <td width="15%" align="right">
                             <img src="{{ qrCode(doc)|image_b64 }}" alt="Qr Image">

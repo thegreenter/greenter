@@ -13,50 +13,52 @@ namespace Greenter\Report\Filter;
  */
 class DocumentFilter
 {
-    public function getNameDoc($tipo)
-    {
-        switch (trim($tipo)) {
-            case '01': return 'FACTURA';
-            case '03': return 'BOLETA';
-            case '07': return 'NOTA DE CRÉDITO';
-            case '08': return 'NOTA DE DÉBITO';
-            case '09': return 'GUÍA DE REMISIÓN';
-            case '20': return 'RETENCIÓN';
-            case '40': return 'PERCEPCIÓN';
-        }
+    /**
+     * @var array
+     */
+    private $store;
 
-        return '';
+    /**
+     * DocumentFilter constructor.
+     */
+    public function __construct()
+    {
+        $this->store = [
+            '01' => [
+              '01' => 'FACTURA',
+              '03' => 'BOLETA',
+              '07' => 'NOTA DE CRÉDITO',
+              '08' => 'NOTA DE DÉBITO',
+              '09' => 'GUÍA DE REMISIÓN',
+              '20' => 'RETENCIÓN',
+              '40' => 'PERCEPCIÓN',
+            ],
+            '02' => [
+                'PEN' => 'S/',
+                'USD' => '$',
+                'EUR' => '€',
+            ],
+            '021' => [
+                'PEN' => 'SOLES',
+                'USD' => 'DÓLARES AMERICANOS',
+                'EUR' => 'EUROS',
+            ],
+            '06' => [
+                '0' => 'N/D',
+                '1' => 'DNI',
+                '6' => 'RUC',
+            ],
+        ];
     }
 
-    public function getSymbolCurrency($code)
+    public function getValueCatalog($value, $code)
     {
-        switch (trim($code)) {
-            case 'PEN': return 'S/';
-            case 'USD': return '$';
-            case 'EUR': return '€';
+        if (!isset($this->store[$code])) {
+            return '';
         }
 
-        return $code;
-    }
+        $items = $this->store[$code];
 
-    public function getNameCurrency($code)
-    {
-        switch (trim($code)) {
-            case 'PEN': return 'SOLES';
-            case 'USD': return 'DÓLARES AMERICANOS';
-            case 'EUR': return 'EUROS';
-        }
-
-        return $code;
-    }
-
-    public function getSymbolDocIdentidad($code)
-    {
-        switch (trim($code)) {
-            case '1': return 'DNI';
-            case '6': return 'RUC';
-        }
-
-        return '';
+        return isset($items[$value]) ? $items[$value] : '';
     }
 }

@@ -39,7 +39,11 @@ class HtmlReport implements ReportInterface
             $templatesDir = __DIR__ . '/Templates';
         }
 
-        $this->twig = $this->getTwig($templatesDir, $optionTwig);
+        if (!isset($optionTwig['autoescape'])) {
+            $optionTwig['autoescape'] = false;
+        }
+
+        $this->twig = $this->buildTwig($templatesDir, $optionTwig);
     }
 
     /**
@@ -73,11 +77,19 @@ class HtmlReport implements ReportInterface
     }
 
     /**
+     * @return \Twig_Environment
+     */
+    public function getTwig()
+    {
+        return $this->twig;
+    }
+
+    /**
      * @param $directory
      * @param $options
      * @return \Twig_Environment
      */
-    private function getTwig($directory, $options)
+    private function buildTwig($directory, $options)
     {
         $loader = new \Twig_Loader_Filesystem($directory);
         $twig = new \Twig_Environment($loader, $options);
