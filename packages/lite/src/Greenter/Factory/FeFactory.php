@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 20/07/2017
- * Time: 04:06 PM
+ * Time: 04:06 PM.
  */
 
 namespace Greenter\Factory;
@@ -16,8 +16,7 @@ use Greenter\XMLSecLibs\Sunat\AdapterInterface;
 use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
 
 /**
- * Class FeFactory
- * @package Greenter\Factory
+ * Class FeFactory.
  */
 class FeFactory implements FactoryInterface
 {
@@ -79,11 +78,13 @@ class FeFactory implements FactoryInterface
      * Set sender service.
      *
      * @param SenderInterface $sender
+     *
      * @return FeFactory
      */
     public function setSender($sender)
     {
         $this->sender = $sender;
+
         return $this;
     }
 
@@ -91,11 +92,13 @@ class FeFactory implements FactoryInterface
      * Set document builder.
      *
      * @param BuilderInterface $builder
+     *
      * @return FeFactory
      */
     public function setBuilder($builder)
     {
         $this->builder = $builder;
+
         return $this;
     }
 
@@ -109,11 +112,13 @@ class FeFactory implements FactoryInterface
 
     /**
      * @param AdapterInterface $signer
+     *
      * @return FeFactory
      */
     public function setSigner($signer)
     {
         $this->signer = $signer;
+
         return $this;
     }
 
@@ -121,6 +126,7 @@ class FeFactory implements FactoryInterface
      * Build and send document.
      *
      * @param DocumentInterface $document
+     *
      * @return BaseResult
      */
     public function send(DocumentInterface $document)
@@ -142,6 +148,7 @@ class FeFactory implements FactoryInterface
 
     /**
      * @param DocumentInterface $document
+     *
      * @return string
      */
     public function getXmmlSigned(DocumentInterface $document)
