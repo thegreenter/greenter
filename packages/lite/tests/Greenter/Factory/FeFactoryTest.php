@@ -8,9 +8,8 @@
 
 namespace Tests\Greenter\Factory;
 use Greenter\Ws\Services\SummarySender;
-use Greenter\Xml\Builder\SummaryV2Builder;
+use Greenter\Xml\Builder\SummaryBuilder;
 use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
-
 /**
  * Class FeFactoryTest
  * @package Tests\Greenter
@@ -104,12 +103,12 @@ class FeFactoryTest extends FeFactoryBase
         );
     }
 
-    public function testResumenV2()
+    public function testResumen()
     {
-        $resumen = $this->getSummaryV2();
+        $resumen = $this->getSummary();
         $result = $this->getFactoryResult($resumen);
         $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
-        $this->assertInstanceOf(SummaryV2Builder::class, $this->factory->getBuilder());
+        $this->assertInstanceOf(SummaryBuilder::class, $this->factory->getBuilder());
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
@@ -135,7 +134,7 @@ class FeFactoryTest extends FeFactoryBase
     }
 
     /**
-     * @depends testResumenV2
+     * @depends testResumen
      * @param string $ticket
      */
     public function testStatusResumenV2($ticket)
