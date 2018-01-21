@@ -12,14 +12,14 @@
     "homepage": "https://github.com/giansalex/greenter-htmltopdf",
     "type": "library",
     "require": {
-	    "php": ">=5.5.9",
+	"php": ">=5.5.9",
         "greenter/core": "^1.2",
         "mikehaertl/phpwkhtmltopdf": "^2.3"
     },
 	"require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"
     },
-	"autoload": {
+    "autoload": {
         "psr-4": {
             "Greenter\\": "src/"
         }
@@ -28,5 +28,8 @@
         "psr-4": {
             "Tests\\Greenter\\": "tests/"
         }
+    },
+    "suggest": {
+        "greenter/report": "Html Reporter"
     }
 }
