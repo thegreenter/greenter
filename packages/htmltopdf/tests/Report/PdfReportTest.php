@@ -30,7 +30,10 @@ class PdfReportTest extends \PHPUnit_Framework_TestCase
             'page-width' => '21cm',
             'page-height' => '29.7cm',
         ]);
-        $this->pdf->setBinPath(__DIR__.'/../../wkhtmltopdf.exe');
+
+        if ($this->isWindows()) {
+            $this->pdf->setBinPath(__DIR__.'/../../wkhtmltopdf.exe');
+        }
     }
 
     public function testPdfRender()
