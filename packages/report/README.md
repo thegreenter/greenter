@@ -10,8 +10,12 @@ Representación en formato Html para Facturación Electrónica Sunat - Perú, pa
 ## Documentos
 - Factura Electronica
 - Boleta Electronica
-
-## TODO
 - Nota de Credito
 - Nota de Debito
+
+## Result
+
+![Factura](docs/factura.png)
+
+## TODO
 - Guía de Remisión
