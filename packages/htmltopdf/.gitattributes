@@ -6,3 +6,4 @@
 LICENSE export-ignore
 phpunit.xml export-ignore
 README.md export-ignore
+tests/Resources/* linguist-vendored

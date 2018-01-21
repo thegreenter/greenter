@@ -5,9 +5,15 @@
   
 Greenter HTML Report to PDF using wkhtmltopdf.
 
-# Install
+## Install
 Using composer.
 
 ```bash
 composer require greenter/htmltopdf
 ```
+
+## Result
+Representacion Impresa de la Factura Electrónica.
+
+![Factura Impresa](docs/factura.png)
+

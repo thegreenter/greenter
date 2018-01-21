@@ -7,6 +7,7 @@
  */
 
 namespace Tests\Greenter\Report;
+
 use Greenter\Model\Sale\Invoice;
 use Greenter\Report\PdfReport;
 use Greenter\Report\ReportInterface;
@@ -31,9 +32,9 @@ class PdfReportTest extends \PHPUnit_Framework_TestCase
             'page-height' => '29.7cm',
         ]);
 
-        if ($this->isWindows()) {
-            $this->pdf->setBinPath(__DIR__.'/../../wkhtmltopdf.exe');
-        }
+        $this->pdf->setBinPath($this->isWindows()
+            ? __DIR__.'/../../wkhtmltopdf.exe'
+            : 'wkhtmltopdf');
     }
 
     public function testPdfRender()
