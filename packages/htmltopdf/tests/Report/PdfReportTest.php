@@ -70,14 +70,6 @@ class PdfReportTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
-     */
-    public function testInvalidBinPath()
-    {
-        $this->pdf->setBinPath(__DIR__ . '/../Resources/invoice.html');
-    }
-
-    /**
      * @return ReportInterface
      */
     private function getHtmlRender()

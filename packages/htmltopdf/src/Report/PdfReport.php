@@ -63,10 +63,6 @@ class PdfReport implements ReportInterface
      */
     public function setBinPath($path)
     {
-        if (!is_executable($path)) {
-            throw new \RuntimeException('file is not executable');
-        }
-
         $this->pdfRender->binary = $path;
     }
 
