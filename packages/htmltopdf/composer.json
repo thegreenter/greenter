@@ -1,0 +1,32 @@
+{
+    "name": "greenter/htmtopdf",
+    "description": "Greenter Html Report to Pdf using wkhtmltopdf",
+    "keywords": ["greenter", "wkhtmltodf", "representacion-impresa", "facturacion electronica"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Giancarlos Salas",
+            "email": "giansalex@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/giansalex/greenter-htmltopdf",
+    "type": "library",
+    "require": {
+	    "php": ">=5.5.9",
+        "greenter/core": "^1.2",
+        "mikehaertl/phpwkhtmltopdf": "^2.3"
+    },
+	"require-dev": {
+        "phpunit/phpunit": ">=4.8 < 6.0"
+    },
+	"autoload": {
+        "psr-4": {
+            "Greenter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Greenter\\": "tests/"
+        }
+    }
+}
