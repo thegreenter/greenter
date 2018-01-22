@@ -16,20 +16,21 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
 {
     use HtmlReportTrait;
 
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
     public function testGenReport()
     {
         $report = $this->getReporter();
         $inv = $this->getInvoice();
         $report->setTemplate('invoice.html.twig');
 
-        try {
-            $html = $report->render($inv, $this->getParamters());
-            $this->assertNotEmpty($html);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-            $this->assertTrue(false);
-        }
-        // file_put_contents('file.html', $html);
+        $html = $report->render($inv, $this->getParamters());
+        $this->assertNotEmpty($html);
+
+//         file_put_contents('file.html', $html);
     }
 
     private function getParamters()

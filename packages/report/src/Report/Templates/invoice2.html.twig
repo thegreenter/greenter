@@ -7,6 +7,7 @@
 </head>
 <body class="white-bg" style="font-family:'Verdana'">
 {% set cp = doc.company %}
+{% set isNota = doc.tipoDoc in ['07', '08'] %}
 <table width="100%">
     <tbody><tr>
         <td style="padding:30px; !important">
@@ -79,26 +80,22 @@
                 {% set cl = doc.client %}
                 <table width="100%" border="0" cellpadding="5" cellspacing="0">
                     <tbody><tr>
-                        <td width="60%" height="15" align="left"><strong>
-                                Razón Social:
-                            </strong>&nbsp{{ cl.rznSocial }}
-                        </td>
-                        <td width="40%" height="15" align="left"><strong>
-                             {{ cl.tipoDoc|catalog('06') }}:
-                            </strong>&nbsp; &nbsp;
-                            {{ cl.numDoc }}
-                        </td>
+                        <td width="60%" height="15" align="left"><strong>Razón Social:</strong>  {{ cl.rznSocial }}</td>
+                        <td width="40%" height="15" align="left"><strong>{{ cl.tipoDoc|catalog('06') }}:</strong>  {{ cl.numDoc }}</td>
                     </tr>
                     <tr>
-                        <td width="60%" height="15" align="left"><strong>Fecha Emisión: </strong>&nbsp; &nbsp; {{ doc.fechaEmision|date('d/m/Y') }}</td>
-                        <td width="40%" height="15" align="left"><strong>Dirección: </strong>&nbsp; &nbsp;
-                            {{ params.user.dir_client }}
-                        </td>
+                        <td width="60%" height="15" align="left"><strong>Fecha Emisión: </strong>  {{ doc.fechaEmision|date('d/m/Y') }}</td>
+                        <td width="40%" height="15" align="left"><strong>Dirección: </strong>  {% if cl.address is not null %}{{ cl.address.direccion }}{% endif %}</td>
                     </tr>
+                    {% if isNota %}
                     <tr>
-                        <td width="60%" height="15" align="left"><strong>Tipo Moneda: </strong>&nbsp; &nbsp; {{ moneyName }} </td>
-                        <td width="40%" height="15" align="left">
-                        </td>
+                        <td width="60%" height="15" align="left"><strong>Tipo Doc. Ref.: </strong>  {{ doc.tipDocAfectado|catalog('01') }}</td>
+                        <td width="40%" height="15" align="left"><strong>Documento Ref.: </strong>  {{ doc.numDocfectado }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td width="60%" height="15" align="left"><strong>Tipo Moneda: </strong>  {{ moneyName }} </td>
+                        <td width="40%" height="15" align="left"> </td>
                     </tr>
                     </tbody></table>
             </div><br>
@@ -162,9 +159,25 @@
                                     LEYENDA:
                                 </td>
                                 <td width="70%" style="font-size: 10px;">
-
+                                    <p>
+                                        {% for leg in doc.legends %}
+                                        {% if leg.code != '1000' %}
+                                            {{ leg.value }}<br>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </p>
                                 </td>
                             </tr>
+                            {% if isNota %}
+                            <tr class="border_top">
+                                <td width="30%" style="font-size: 10px;">
+                                    MOTIVO DE EMISIÓN:
+                                </td>
+                                <td width="70%" style="font-size: 10px;">
+                                    {{ doc.desMotivo }}
+                                </td>
+                            </tr>
+                            {% endif %}
                             {% if params.user.extras is defined %}
                                 {% for item in params.user.extras %}
                                     <tr class="border_top">

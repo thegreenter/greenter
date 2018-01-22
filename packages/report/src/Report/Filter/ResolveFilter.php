@@ -43,7 +43,7 @@ class ResolveFilter
      */
     public function getQr($sale)
     {
-        $cl = $sale->getClient();
+        $client = $sale->getClient();
         $params = [
             $sale->getCompany()->getRuc(),
             $sale->getTipoDoc(),
@@ -52,8 +52,8 @@ class ResolveFilter
             number_format($sale->getMtoIGV(), 2, '.', ''),
             number_format($sale->getMtoImpVenta(), 2, '.', ''),
             $sale->getFechaEmision()->format('Y-m-d'),
-            $cl->getTipoDoc(),
-            $cl->getNumDoc(),
+            $client->getTipoDoc(),
+            $client->getNumDoc(),
         ];
         $content = implode('|', $params).'|';
 

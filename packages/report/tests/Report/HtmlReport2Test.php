@@ -8,24 +8,36 @@
 
 namespace Tests\Greenter\Report;
 
+use Greenter\Model\DocumentInterface;
+
 class HtmlReport2Test extends \PHPUnit_Framework_TestCase
 {
     use HtmlReportTrait;
 
-    public function testGenReport()
+    /**
+     * @dataProvider provideDocs
+     * @param DocumentInterface $document
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function testGenReport(DocumentInterface $document)
     {
         $report = $this->getReporter();
-        $inv = $this->getInvoice();
         $report->setTemplate('invoice2.html.twig');
 
-        try {
-            $html = $report->render($inv, $this->getParamters());
-            $this->assertNotEmpty($html);
-        } catch (\Exception $e) {
-            echo $e->getMessage();
-            $this->assertTrue(false);
-        }
-//        file_put_contents('file2.html', $html);
+        $html = $report->render($document, $this->getParamters());
+        $this->assertNotEmpty($html);
+
+//        file_put_contents($document->getName().'.html', $html);
+    }
+
+    public function provideDocs()
+    {
+        return [
+          [$this->getInvoice()],
+          [$this->getNote()]
+        ];
     }
 
     private function getParamters()
@@ -39,7 +51,6 @@ class HtmlReport2Test extends \PHPUnit_Framework_TestCase
             'user' => [
                 'resolucion' => '212321',
                 'header' => 'Telf: <b>(056) 123375</b>',
-                'dir_client' => 'AV ITALIA 23423',
                 'extras' => [
                     ['name' => 'CONDICION DE PAGO', 'value' => 'Efectivo'],
                     ['name' => 'VENDEDOR', 'value' => 'GITHUB SELLER'],
