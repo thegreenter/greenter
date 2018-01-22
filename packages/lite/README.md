@@ -46,6 +46,10 @@ Caracteristicas
 - Estandar UBL v2.0, v2.1
 - Signature xmldsig
 
+### Representación Impresa.
+- Generacion de HTML Report [greenter/report](https://github.com/giansalex/greenter-report)
+- Generacion de PDF empleando [greenter/htmltopdf](https://github.com/giansalex/greenter-htmltopdf)
+
 ### Used Packages
 - [greenter/core](https://github.com/giansalex/greenter-core)
 - [greenter/xml](https://github.com/giansalex/greenter-xml)
