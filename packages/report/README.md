@@ -8,6 +8,10 @@
 Representación en formato HTML del comprobante electrónico empleado en la facturación electrónica - SUNAT - Perú.
 > Para generar el PDF puede utilizar [wkhtmltopdf](https://wkhtmltopdf.org/) y/o [greenter/htmltopdf](https://github.com/giansalex/greenter-htmltopdf).
 
+## Preview
+
+![Factura](docs/factura.png)
+
 ## Documents
 - [x] Factura Electrónica  
 - [x] Boleta Electrónica  
@@ -17,6 +21,9 @@ Representación en formato HTML del comprobante electrónico empleado en la fact
 - [ ] Retención Electrónica  
 - [ ] Percepción Electrónica  
 
-## Result
-
-![Factura](docs/factura.png)
+## Features
+- Generacion de Codigo QR
+- Obtenecion del Hash de la firma digital
+- Agregar cabecera y pie de pagina personalizado
+- Agregar datos extras al comprobante
+- Crear nuevas plantillas segun sus necesidades
