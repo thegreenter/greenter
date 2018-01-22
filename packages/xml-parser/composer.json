@@ -10,9 +10,10 @@
         }
     ],
     "homepage": "https://github.com/giansalex/greenter-xml-parser",
-    "type": "project",
+    "type": "library",
     "require": {
 		"php": ">=5.5.9",
+        "ext-dom": "*",
         "greenter/core": "^1.2"
     },
     "require-dev": {
