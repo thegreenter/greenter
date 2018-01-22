@@ -54,11 +54,11 @@ class NoteParser implements DocumentParserInterface
         $this->rootNode = $root;
         $isNcr = $root->nodeName == 'CreditNote';
 
-        $inv = new Note();
-        $docFac = explode('-', $xml->getValue('cbc:ID', $root));
-        $this->loadDocAfectado($inv);
-        $inv->setSerie($docFac[0])
-            ->setCorrelativo($docFac[1])
+        $note = new Note();
+        $idNum = explode('-', $xml->getValue('cbc:ID', $root));
+        $this->loadDocAfectado($note);
+        $note->setSerie($idNum[0])
+            ->setCorrelativo($idNum[1])
             ->setTipoDoc($isNcr ? '07' : '08')
             ->setTipoMoneda($xml->getValue('cbc:DocumentCurrencyCode', $root))
             ->setFechaEmision(new \DateTime($xml->getValue('cbc:IssueDate', $root)))
@@ -67,15 +67,15 @@ class NoteParser implements DocumentParserInterface
 
         $extensions = $xml->getNode('ext:UBLExtensions', $root);
         $additional = $xml->getNode('//sac:AdditionalInformation', $extensions);
-        $this->loadTotals($inv, $additional);
-        $this->loadTributos($inv);
+        $this->loadTotals($note, $additional);
+        $this->loadTributos($note);
         $monetaryTotal = $xml->getNode($isNcr ? 'cac:LegalMonetaryTotal': 'cac:RequestedMonetaryTotal', $root);
-        $inv->setMtoOtrosTributos(floatval($xml->getValue('cbc:ChargeTotalAmount', $monetaryTotal, 0)))
+        $note->setMtoOtrosTributos(floatval($xml->getValue('cbc:ChargeTotalAmount', $monetaryTotal, 0)))
             ->setMtoImpVenta($xml->getValue('cbc:PayableAmount', $monetaryTotal, 0))
             ->setDetails(iterator_to_array($this->getDetails($isNcr)))
             ->setLegends(iterator_to_array($this->getLegends($additional)));
 
-        return $inv;
+        return $note;
     }
 
     private function loadTotals(Note $inv, \DOMNode $node)

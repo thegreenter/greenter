@@ -18,15 +18,14 @@ use Greenter\Xml\Parser\DespatchParser;
 class DespatchParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @dataProvider getGuiasFile
+     * @dataProvider providerDocs
      * @param string $filename
      */
-    public function testGuias($filename)
+    public function testParseDoc($filename)
     {
-        $parser = new DespatchParser();
         $xml = file_get_contents($filename);
         /**@var $obj Despatch */
-        $obj = $parser->parse($xml);
+        $obj = $this->getParser()->parse($xml);
 
         $this->assertEquals('09', $obj->getTipoDoc());
         $this->assertRegExp('/^T\w{3}/', $obj->getSerie());
@@ -36,12 +35,17 @@ class DespatchParserTest extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThan(0, count($obj->getDetails()));
     }
 
-    public function getGuiasFile()
+    public function providerDocs()
     {
         $files = glob(__DIR__.'/../../Resources/guias/*.xml');
 
         return array_map(function ($file) {
             return [$file];
         }, $files);
+    }
+
+    private function getParser()
+    {
+        return new DespatchParser();
     }
 }

@@ -17,7 +17,7 @@ class ReceiptParserTest extends \PHPUnit_Framework_TestCase
      * @dataProvider providerDocs
      * @param string $filename
      */
-    public function testParseRrhh($filename)
+    public function testParseDoc($filename)
     {
         $xml = file_get_contents($filename);
         /**@var $doc Receipt */
