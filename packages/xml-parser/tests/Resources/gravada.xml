@@ -134,6 +134,10 @@
         <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
       </cac:AlternativeConditionPrice>
     </cac:PricingReference>
+    <cac:AllowanceCharge>
+      <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+      <cbc:Amount currencyID="PEN">2.00</cbc:Amount>
+    </cac:AllowanceCharge>
     <cac:TaxTotal>
       <cbc:TaxAmount currencyID="PEN">18.00</cbc:TaxAmount>
       <cac:TaxSubtotal>

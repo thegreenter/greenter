@@ -229,12 +229,13 @@ class InvoiceParser implements DocumentParserInterface
         foreach ($nodes as $node) {
             $quant = $xpt->query('cbc:InvoicedQuantity', $node)->item(0);
             $det = new SaleDetail();
-            $det->setCtdUnidadItem($quant->nodeValue)
-                ->setCodUnidadMedida($quant->getAttribute('unitCode'))
+            $det->setCantidad($quant->nodeValue)
+                ->setUnidad($quant->getAttribute('unitCode'))
                 ->setMtoValorVenta($this->defValue($xpt->query('cbc:LineExtensionAmount', $node)))
                 ->setMtoValorUnitario($this->defValue($xpt->query('cac:Price/cbc:PriceAmount', $node)))
-                ->setDesItem($this->defValue($xpt->query('cac:Item/cbc:Description', $node)))
-                ->setCodProducto($this->defValue($xpt->query('cac:Item/cac:SellersItemIdentification/cbc:ID', $node)));
+                ->setDescripcion($this->defValue($xpt->query('cac:Item/cbc:Description', $node)))
+                ->setCodProducto($this->defValue($xpt->query('cac:Item/cac:SellersItemIdentification/cbc:ID', $node)))
+                ->setCodProdSunat($this->defValue($xpt->query('cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode', $node)));
 
             $taxs = $xpt->query('cac:TaxTotal', $node);
             foreach ($taxs as $tax) {
@@ -242,13 +243,24 @@ class InvoiceParser implements DocumentParserInterface
                 $val = floatval($this->defValue($xpt->query('cbc:TaxAmount', $tax),0));
                 switch ($name) {
                     case 'IGV':
-                        $det->setMtoIgvItem($val);
+                        $det->setIgv($val);
                         $det->setTipAfeIgv($this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cbc:TaxExemptionReasonCode', $tax)));
                         break;
                     case 'ISC':
-                        $det->setMtoIscItem($val);
+                        $det->setIsc($val);
                         $det->setTipSisIsc($this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cbc:TierRange', $tax)));
                         break;
+                }
+            }
+
+            // Descuento
+            $descs = $xpt->query('cac:AllowanceCharge', $node);
+            foreach ($descs as $desc) {
+                $charge = $this->defValue($xpt->query('cbc:ChargeIndicator', $desc));
+                $charge = trim($charge);
+                if ($charge == 'false') {
+                    $val = floatval($this->defValue($xpt->query('cbc:Amount', $desc),0));
+                    $det->setDescuento($val);
                 }
             }
 

@@ -1,7 +1,7 @@
 {
     "name": "greenter/xml-parser",
-    "description": "Greenter Core",
-    "keywords": ["sunat", "greenter", "parser","facturacion electronica"],
+    "description": "Greenter XML Parser",
+    "keywords": ["sunat", "xml", "greenter", "parser","facturacion electronica"],
     "license": "MIT",
     "authors": [
         {
@@ -13,7 +13,7 @@
     "type": "project",
     "require": {
 		"php": ">=5.5.9",
-        "greenter/core": "^1.0"
+        "greenter/core": "^1.2"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8.36",

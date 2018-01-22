@@ -192,7 +192,8 @@ class DespatchParser implements DocumentParserInterface
             $det->setCantidad($quant->nodeValue)
                 ->setUnidad($quant->getAttribute('unitCode'))
                 ->setDescripcion($xml->getValue('cac:Item/cbc:Name', $node))
-                ->setCodigo($xml->getValue('cac:Item/cac:SellersItemIdentification/cbc:ID', $node));
+                ->setCodigo($xml->getValue('cac:Item/cac:SellersItemIdentification/cbc:ID', $node))
+                ->setCodProdSunat($xml->getValue('cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode', $node));
 
             yield $det;
         }

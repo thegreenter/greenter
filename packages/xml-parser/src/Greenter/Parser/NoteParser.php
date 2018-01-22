@@ -211,12 +211,13 @@ class NoteParser implements DocumentParserInterface
         foreach ($nodes as $node) {
             $quant = $xml->getNode('cbc:'.$nameQuant, $node);
             $det = new SaleDetail();
-            $det->setCtdUnidadItem($quant->nodeValue)
-                ->setCodUnidadMedida($quant->getAttribute('unitCode'))
+            $det->setCantidad($quant->nodeValue)
+                ->setUnidad($quant->getAttribute('unitCode'))
                 ->setMtoValorVenta($xml->getValue('cbc:LineExtensionAmount', $node))
                 ->setMtoValorUnitario($xml->getValue('cac:Price/cbc:PriceAmount',  $node))
-                ->setDesItem($xml->getValue('cac:Item/cbc:Description', $node))
-                ->setCodProducto($xml->getValue('cac:Item/cac:SellersItemIdentification/cbc:ID', $node));
+                ->setDescripcion($xml->getValue('cac:Item/cbc:Description', $node))
+                ->setCodProducto($xml->getValue('cac:Item/cac:SellersItemIdentification/cbc:ID', $node))
+                ->setCodProdSunat($xml->getValue('cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode', $node));
 
             $taxs = $xml->getNodes('cac:TaxTotal', $node);
             foreach ($taxs as $tax) {
@@ -225,13 +226,24 @@ class NoteParser implements DocumentParserInterface
                 $val = floatval($xml->getValue('cbc:TaxAmount', $tax, 0));
                 switch ($name) {
                     case 'IGV':
-                        $det->setMtoIgvItem($val);
+                        $det->setIgv($val);
                         $det->setTipAfeIgv($xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cbc:TaxExemptionReasonCode', $tax));
                         break;
                     case 'ISC':
-                        $det->setMtoIscItem($val);
+                        $det->setIsc($val);
                         $det->setTipSisIsc($xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cbc:TierRange', $tax));
                         break;
+                }
+            }
+
+            // Descuento
+            $descs = $xml->getNodes('cac:AllowanceCharge', $node);
+            foreach ($descs as $desc) {
+                $charge = $xml->getValue('cbc:ChargeIndicator', $desc);
+                $charge = trim($charge);
+                if ($charge == 'false') {
+                    $val = floatval($xml->getValue('cbc:Amount', $desc, 0));
+                    $det->setDescuento($val);
                 }
             }
 
