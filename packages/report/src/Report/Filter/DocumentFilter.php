@@ -16,40 +16,32 @@ class DocumentFilter
     /**
      * @var array
      */
-    private $store;
-
-    /**
-     * DocumentFilter constructor.
-     */
-    public function __construct()
-    {
-        $this->store = [
-            '01' => [
-              '01' => 'FACTURA',
-              '03' => 'BOLETA',
-              '07' => 'NOTA DE CRÉDITO',
-              '08' => 'NOTA DE DÉBITO',
-              '09' => 'GUÍA DE REMISIÓN',
-              '20' => 'RETENCIÓN',
-              '40' => 'PERCEPCIÓN',
-            ],
-            '02' => [
-                'PEN' => 'S/',
-                'USD' => '$',
-                'EUR' => '€',
-            ],
-            '021' => [
-                'PEN' => 'SOLES',
-                'USD' => 'DÓLARES AMERICANOS',
-                'EUR' => 'EUROS',
-            ],
-            '06' => [
-                '0' => 'N/D',
-                '1' => 'DNI',
-                '6' => 'RUC',
-            ],
-        ];
-    }
+    private $store = [
+        '01' => [
+            '01' => 'FACTURA',
+            '03' => 'BOLETA',
+            '07' => 'NOTA DE CRÉDITO',
+            '08' => 'NOTA DE DÉBITO',
+            '09' => 'GUÍA DE REMISIÓN',
+            '20' => 'RETENCIÓN',
+            '40' => 'PERCEPCIÓN',
+        ],
+        '02' => [
+            'PEN' => 'S/',
+            'USD' => '$',
+            'EUR' => '€',
+        ],
+        '021' => [
+            'PEN' => 'SOLES',
+            'USD' => 'DÓLARES AMERICANOS',
+            'EUR' => 'EUROS',
+        ],
+        '06' => [
+            '0' => 'N/D',
+            '1' => 'DNI',
+            '6' => 'RUC',
+        ],
+    ];
 
     public function getValueCatalog($value, $code)
     {
