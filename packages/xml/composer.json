@@ -19,8 +19,7 @@
         "greenter/core": "^1.2"
     },
 	"require-dev": {
-        "phpunit/phpunit": ">=4.8 < 6.0",
-        "symfony/stopwatch": "^3.3"
+        "phpunit/phpunit": ">=4.8 < 6.0"
     },
 	"autoload": {
         "psr-4": {

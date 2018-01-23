@@ -18,7 +18,6 @@ use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Prepayment;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * Class FeInvoiceBuilderTest
@@ -30,20 +29,16 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateXmlInvoice()
     {
-        $stopwatch = new Stopwatch();
-        $stopwatch->start('invoice');
         $invoice = $this->getInvoice();
-
         $xml = $this->build($invoice);
-        $event = $stopwatch->stop('invoice');
 
-//         file_put_contents('x.xml', $xml);
         $this->assertNotEmpty($xml);
-        $this->assertInvoiceXml($xml);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $success = $doc->schemaValidate(__DIR__ . '/../../Resources/xsd/maindoc/UBLPE-Invoice-1.0.xsd');
+        $this->assertTrue($success);
 
-        if ($event->getDuration() > 300) {
-            printf('Warning: time is long %d ms', $event->getDuration());
-        }
+//      file_put_contents('x.xml', $xml);
     }
 
     public function testCompanyValidate()
@@ -69,20 +64,6 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->getFilename($invoice), $filename);
     }
 
-    private function assertInvoiceXml($xml)
-    {
-        $actual = new \DOMDocument();
-        $actual->loadXML($xml);
-
-        @$sXml = new \SimpleXMLElement($xml);
-        $sXml->registerXPathNamespace('xs', 'urn:oasis:names:specification:ubl:schema:xsd:Invoice-2');
-        $id = $sXml->xpath('/xs:Invoice/cbc:ID');
-        $lines = $sXml->xpath('//cac:InvoiceLine');
-        $this->assertEquals(1, count($id));
-        $this->assertEquals('F001-123', $id[0]);
-        $this->assertEquals(2, count($lines));
-    }
-
     private function getFileName(Invoice $invoice)
     {
         $parts = [
@@ -99,6 +80,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $invoice = new Invoice();
         $invoice
+            ->setFecVencimiento(new \DateTime())
             ->setMtoOperGratuitas(12)
             ->setSumDsctoGlobal(12)
             ->setMtoDescuentos(23)
@@ -108,10 +90,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
                 ->setMto(2)
                 ->setMtoBase(3)
                 ->setMtoTotal(4)
-            )->setGuias([(new Document())
-                ->setTipoDoc('09')
-                ->setNroDoc('T001-1')
-            ])->setCompra('001-12112')
+            )->setCompra('001-12112')
             ->setDetraccion((new Detraction())
                 ->setMount(2228.3)
                 ->setPercent(9)
@@ -141,6 +120,10 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
             ->setRelDocs([(new Document())
                 ->setTipoDoc('01')
                 ->setNroDoc('F001-123')
+            ])
+            ->setGuias([(new Document())
+                ->setTipoDoc('09')
+                ->setNroDoc('T001-1')
             ])
             ->setTipoDoc('01')
             ->setSerie('F001')

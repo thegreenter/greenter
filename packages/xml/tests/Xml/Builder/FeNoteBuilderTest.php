@@ -9,6 +9,7 @@
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Model\Client\Client;
+use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Sale\SaleDetail;
@@ -91,6 +92,10 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
             ->setDesMotivo('ANULACION DE LA OPERACION')
             ->setMtoOperGratuitas(1)
             ->setPerception($perc)
+            ->setGuias([(new Document())
+                ->setTipoDoc('09')
+                ->setNroDoc('T001-1')
+            ])
             ->setTipoDoc('07')
             ->setSerie('FF01')
             ->setCorrelativo('123')
