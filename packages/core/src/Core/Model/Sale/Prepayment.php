@@ -3,34 +3,27 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 27/09/2017
- * Time: 08:21 PM
+ * Time: 08:21 PM.
  */
 
 namespace Greenter\Model\Sale;
 
 /**
- * Class Prepayment
- * @package Greenter\Model\Sale
+ * Class Prepayment.
  */
 class Prepayment
 {
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(min="2", max="2")
      * @var string
      */
     private $tipoDocRel;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="30")
      * @var string
      */
     private $nroDocRel;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Type("numeric")
      * @var float
      */
     private $total;
@@ -45,11 +38,13 @@ class Prepayment
 
     /**
      * @param string $tipoDocRel
+     *
      * @return Prepayment
      */
     public function setTipoDocRel($tipoDocRel)
     {
         $this->tipoDocRel = $tipoDocRel;
+
         return $this;
     }
 
@@ -63,11 +58,13 @@ class Prepayment
 
     /**
      * @param string $nroDocRel
+     *
      * @return Prepayment
      */
     public function setNroDocRel($nroDocRel)
     {
         $this->nroDocRel = $nroDocRel;
+
         return $this;
     }
 
@@ -81,11 +78,13 @@ class Prepayment
 
     /**
      * @param float $total
+     *
      * @return Prepayment
      */
     public function setTotal($total)
     {
         $this->total = $total;
+
         return $this;
     }
 }

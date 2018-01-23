@@ -3,29 +3,25 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 15/07/2017
- * Time: 21:05
+ * Time: 21:05.
  */
 
 namespace Greenter\Model\Sale;
 
 /**
- * Class SaleDetail
- * @package Greenter\Model\Sale
+ * Class SaleDetail.
  */
 class SaleDetail
 {
     /**
      * Codigo unidad de Medida.
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(max="3")
      * @var string
      */
     private $unidad;
     /**
      * Cantidad de unidades por ítem.
      *
-     * @Assert\NotBlank()
      * @var float
      */
     private $cantidad;
@@ -45,11 +41,6 @@ class SaleDetail
     /**
      * Descripcion del Producto.
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *     max="250",
-     *     maxMessage="El valor demasiado largo, longitud maxima es {{ limit }}"
-     * )
      * @var string
      */
     private $descripcion;
@@ -57,7 +48,6 @@ class SaleDetail
     /**
      * Monto del valor unitario (PrecioUnitario SIN IGV).
      *
-     * @Assert\NotBlank()
      * @var float
      */
     private $mtoValorUnitario;
@@ -68,14 +58,11 @@ class SaleDetail
     private $descuento;
 
     /**
-     * @Assert\NotBlank()
      * @var float
      */
     private $igv;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(min="2", max="2")
      * @var string
      */
     private $tipAfeIgv;
@@ -93,7 +80,6 @@ class SaleDetail
     /**
      * Precio de venta unitario por item.
      *
-     * @Assert\NotBlank()
      * @var float
      */
     private $mtoPrecioUnitario;
@@ -101,7 +87,6 @@ class SaleDetail
     /**
      * Valor de venta por ítem. (Total).
      *
-     * @Assert\NotBlank()
      * @var float
      */
     private $mtoValorVenta;
@@ -123,11 +108,13 @@ class SaleDetail
 
     /**
      * @param string $unidad
+     *
      * @return SaleDetail
      */
     public function setUnidad($unidad)
     {
         $this->unidad = $unidad;
+
         return $this;
     }
 
@@ -141,11 +128,13 @@ class SaleDetail
 
     /**
      * @param float $cantidad
+     *
      * @return SaleDetail
      */
     public function setCantidad($cantidad)
     {
         $this->cantidad = $cantidad;
+
         return $this;
     }
 
@@ -159,11 +148,13 @@ class SaleDetail
 
     /**
      * @param string $codProducto
+     *
      * @return SaleDetail
      */
     public function setCodProducto($codProducto)
     {
         $this->codProducto = $codProducto;
+
         return $this;
     }
 
@@ -177,11 +168,13 @@ class SaleDetail
 
     /**
      * @param string $codProdSunat
+     *
      * @return SaleDetail
      */
     public function setCodProdSunat($codProdSunat)
     {
         $this->codProdSunat = $codProdSunat;
+
         return $this;
     }
 
@@ -195,11 +188,13 @@ class SaleDetail
 
     /**
      * @param string $descripcion
+     *
      * @return SaleDetail
      */
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
+
         return $this;
     }
 
@@ -213,11 +208,13 @@ class SaleDetail
 
     /**
      * @param float $mtoValorUnitario
+     *
      * @return SaleDetail
      */
     public function setMtoValorUnitario($mtoValorUnitario)
     {
         $this->mtoValorUnitario = $mtoValorUnitario;
+
         return $this;
     }
 
@@ -231,11 +228,13 @@ class SaleDetail
 
     /**
      * @param float $descuento
+     *
      * @return SaleDetail
      */
     public function setDescuento($descuento)
     {
         $this->descuento = $descuento;
+
         return $this;
     }
 
@@ -249,11 +248,13 @@ class SaleDetail
 
     /**
      * @param float $igv
+     *
      * @return SaleDetail
      */
     public function setIgv($igv)
     {
         $this->igv = $igv;
+
         return $this;
     }
 
@@ -267,11 +268,13 @@ class SaleDetail
 
     /**
      * @param string $tipAfeIgv
+     *
      * @return SaleDetail
      */
     public function setTipAfeIgv($tipAfeIgv)
     {
         $this->tipAfeIgv = $tipAfeIgv;
+
         return $this;
     }
 
@@ -285,11 +288,13 @@ class SaleDetail
 
     /**
      * @param float $isc
+     *
      * @return SaleDetail
      */
     public function setIsc($isc)
     {
         $this->isc = $isc;
+
         return $this;
     }
 
@@ -303,11 +308,13 @@ class SaleDetail
 
     /**
      * @param string $tipSisIsc
+     *
      * @return SaleDetail
      */
     public function setTipSisIsc($tipSisIsc)
     {
         $this->tipSisIsc = $tipSisIsc;
+
         return $this;
     }
 
@@ -321,11 +328,13 @@ class SaleDetail
 
     /**
      * @param float $mtoPrecioUnitario
+     *
      * @return SaleDetail
      */
     public function setMtoPrecioUnitario($mtoPrecioUnitario)
     {
         $this->mtoPrecioUnitario = $mtoPrecioUnitario;
+
         return $this;
     }
 
@@ -339,11 +348,13 @@ class SaleDetail
 
     /**
      * @param float $mtoValorVenta
+     *
      * @return SaleDetail
      */
     public function setMtoValorVenta($mtoValorVenta)
     {
         $this->mtoValorVenta = $mtoValorVenta;
+
         return $this;
     }
 
@@ -357,11 +368,13 @@ class SaleDetail
 
     /**
      * @param float $mtoValorGratuito
+     *
      * @return SaleDetail
      */
     public function setMtoValorGratuito($mtoValorGratuito)
     {
         $this->mtoValorGratuito = $mtoValorGratuito;
+
         return $this;
     }
 }

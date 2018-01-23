@@ -14,29 +14,18 @@ namespace Greenter\Model\Despatch;
 class DespatchDetail
 {
     /**
-     * @Assert\Length(max="16")
-     *
      * @var string
      */
     private $codigo;
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="250")
-     *
      * @var string
      */
     private $descripcion;
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="4")
-     *
      * @var string
      */
     private $unidad;
     /**
-     * @Assert\NotBlank()
-     * @Assert\Type("int")
-     *
      * @var int
      */
     private $cantidad;

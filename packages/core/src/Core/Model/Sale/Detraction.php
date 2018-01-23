@@ -10,30 +10,27 @@
 namespace Greenter\Model\Sale;
 
 /**
- * Class Detraction
- * @package Greenter\Model\Sale
+ * Class Detraction.
  */
 class Detraction
 {
     /**
-     * Porcentaje de la detracción
+     * Porcentaje de la detracción.
      *
-     * @Assert\NotBlank()
-     * @Assert\Type("numeric")
      * @var float
      */
     private $percent;
 
     /**
-     * Monto de la detracción
+     * Monto de la detracción.
      *
-     * @Assert\NotBlank()
      * @var float
      */
     private $mount;
 
     /**
-     * Valor referencial, en el caso de detracciones al transporte de bienes por vía terrestre
+     * Valor referencial, en el caso de detracciones al transporte de bienes por vía terrestre.
+     *
      * @var float
      */
     private $valueRef;
@@ -48,11 +45,13 @@ class Detraction
 
     /**
      * @param float $percent
+     *
      * @return Detraction
      */
     public function setPercent($percent)
     {
         $this->percent = $percent;
+
         return $this;
     }
 
@@ -66,11 +65,13 @@ class Detraction
 
     /**
      * @param float $mount
+     *
      * @return Detraction
      */
     public function setMount($mount)
     {
         $this->mount = $mount;
+
         return $this;
     }
 
@@ -84,11 +85,13 @@ class Detraction
 
     /**
      * @param float $valueRef
+     *
      * @return Detraction
      */
     public function setValueRef($valueRef)
     {
         $this->valueRef = $valueRef;
+
         return $this;
     }
 }

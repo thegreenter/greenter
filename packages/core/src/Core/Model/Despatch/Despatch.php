@@ -19,85 +19,56 @@ use Greenter\Model\Sale\Document;
 class Despatch implements DocumentInterface
 {
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="2")
-     *
      * @var string
      */
     private $tipoDoc;
     /**
      * Serie del Documento (ejem: T001).
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(max="4")
      *
      * @var string
      */
     private $serie;
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="8")
-     *
      * @var string
      */
     private $correlativo;
     /**
-     * @Assert\Length(max="250")
-     *
      * @var string
      */
     private $observacion;
     /**
-     * @Assert\Date()
-     *
      * @var \DateTime
      */
     private $fechaEmision;
     /**
-     * @Assert\NotBlank()
-     * @Assert\Valid()
-     *
      * @var Company
      */
     private $company;
     /**
-     * @Assert\NotBlank()
-     * @Assert\Valid()
-     *
      * @var Client
      */
     private $destinatario;
     /**
      * Datos del Proveedor. (cuando se ingrese).
      *
-     * @Assert\Valid()
      *
      * @var Client
      */
     private $tercero;
     /**
-     * @Assert\NotBlank()
-     * @Assert\Valid()
-     *
      * @var Shipment
      */
     private $envio;
     /**
-     * @Assert\Valid()
-     *
      * @var Document
      */
     private $docBaja;
     /**
-     * @Assert\Valid()
-     *
      * @var Document
      */
     private $relDoc;
     /**
-     * @Assert\NotBlank()
-     * @Assert\Valid()
-     *
      * @var DespatchDetail[]
      */
     private $details;

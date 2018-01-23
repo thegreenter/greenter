@@ -16,16 +16,11 @@ class Shipment
     /**
      * Motivo del traslado.
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(min="2", max="2")
-     *
      * @var string
      */
     private $codTraslado;
     /**
      * Descripción de motivo de traslado.
-     *
-     * @Assert\Length(max="100")
      *
      * @var string
      */
@@ -33,21 +28,14 @@ class Shipment
     /**
      * Indicador de Transbordo Programado.
      *
-     * @Assert\Type("bool")
-     *
      * @var bool
      */
     private $indTransbordo;
     /**
-     * @Assert\NotBlank()
-     *
      * @var float
      */
     private $pesoTotal;
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="4")
-     *
      * @var string
      */
     private $undPesoTotal;
@@ -58,17 +46,11 @@ class Shipment
      */
     private $numBultos;
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(min="2", max="2")
-     *
      * @var string
      */
     private $modTraslado;
     /**
      * Fecha de inicio del traslado.
-     *
-     * @Assert\NotBlank()
-     * @Assert\Date()
      *
      * @var \DateTime
      */
@@ -76,34 +58,24 @@ class Shipment
     /**
      * Numero de Contenedor (Motivo Importación).
      *
-     * @Assert\Length(max="17")
-     *
      * @var string
      */
     private $numContenedor;
     /**
      * Codigo del Puerto. (Puerto o Aeropuerto de embarque/desembarque).
      *
-     * @Assert\Length(max="3")
-     *
      * @var string
      */
     private $codPuerto;
     /**
-     * @Assert\Valid()
-     *
      * @var Transportist
      */
     private $transportista;
     /**
-     * @Assert\Valid()
-     *
      * @var Direction
      */
     private $llegada;
     /**
-     * @Assert\Valid()
-     *
      * @var Direction
      */
     private $partida;

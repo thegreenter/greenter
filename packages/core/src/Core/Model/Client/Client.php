@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 07/08/2017
- * Time: 23:01
+ * Time: 23:01.
  */
 
 namespace Greenter\Model\Client;
@@ -11,34 +11,26 @@ namespace Greenter\Model\Client;
 use Greenter\Model\Company\Address;
 
 /**
- * Class Client
- * @package Greenter\Model\Client
+ * Class Client.
  */
 class Client
 {
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(min="1", max="1")
      * @var string
      */
     private $tipoDoc;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="15")
      * @var string
      */
     private $numDoc;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="100")
      * @var string
      */
     private $rznSocial;
 
     /**
-     * @Assert\Valid()
      * @var Address
      */
     private $address;
@@ -53,11 +45,13 @@ class Client
 
     /**
      * @param string $tipoDoc
+     *
      * @return Client
      */
     public function setTipoDoc($tipoDoc)
     {
         $this->tipoDoc = $tipoDoc;
+
         return $this;
     }
 
@@ -71,11 +65,13 @@ class Client
 
     /**
      * @param string $numDoc
+     *
      * @return Client
      */
     public function setNumDoc($numDoc)
     {
         $this->numDoc = $numDoc;
+
         return $this;
     }
 
@@ -89,11 +85,13 @@ class Client
 
     /**
      * @param string $rznSocial
+     *
      * @return Client
      */
     public function setRznSocial($rznSocial)
     {
         $this->rznSocial = $rznSocial;
+
         return $this;
     }
 
@@ -107,11 +105,13 @@ class Client
 
     /**
      * @param Address $address
+     *
      * @return Client
      */
     public function setAddress($address)
     {
         $this->address = $address;
+
         return $this;
     }
 }

@@ -14,18 +14,12 @@ namespace Greenter\Model\Despatch;
 class Direction
 {
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="8")
-     *
      * @var string
      */
     private $ubigueo;
 
     /**
      * Direccion completa y detallada.
-     *
-     * @Assert\NotBlank()
-     * @Assert\Length(max="100")
      *
      * @var string
      */

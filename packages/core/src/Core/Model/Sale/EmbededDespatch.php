@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 28/09/2017
- * Time: 05:19 PM
+ * Time: 05:19 PM.
  */
 
 namespace Greenter\Model\Sale;
@@ -12,69 +12,58 @@ use Greenter\Model\Client\Client;
 use Greenter\Model\Despatch\Direction;
 
 /**
- * Class EmbededDespatch
- * @package Greenter\Model\Sale
+ * Class EmbededDespatch.
  */
 class EmbededDespatch
 {
     /**
-     * @Assert\Valid()
      * @var Direction
      */
     private $llegada;
 
     /**
-     * @Assert\Valid()
      * @var Direction
      */
     private $partida;
 
     /**
-     * @Assert\Valid()
      * @var Client
      */
     private $transportista;
 
     /**
-     * N° de licencia de conducir
+     * N° de licencia de conducir.
      *
-     * @Assert\Length(max="30")
      * @var string
      */
     private $nroLicencia;
 
     /**
-     * @Assert\Length(max="10")
      * @var string
      */
     private $transpPlaca;
 
     /**
-     * @Assert\Length(max="50")
      * @var string
      */
     private $transpCodeAuth;
 
     /**
-     * @Assert\Length(max="50")
      * @var string
      */
     private $transpMarca;
 
     /**
-     * @Assert\Length(min="2", max="2")
      * @var string
      */
     private $modTraslado;
 
     /**
-     * @Assert\Type("numeric")
      * @var float
      */
     private $pesoBruto;
 
     /**
-     * @Assert\Length(max="4")
      * @var string
      */
     private $undPesoBruto;
@@ -89,11 +78,13 @@ class EmbededDespatch
 
     /**
      * @param Direction $llegada
+     *
      * @return EmbededDespatch
      */
     public function setLlegada($llegada)
     {
         $this->llegada = $llegada;
+
         return $this;
     }
 
@@ -107,11 +98,13 @@ class EmbededDespatch
 
     /**
      * @param Direction $partida
+     *
      * @return EmbededDespatch
      */
     public function setPartida($partida)
     {
         $this->partida = $partida;
+
         return $this;
     }
 
@@ -125,11 +118,13 @@ class EmbededDespatch
 
     /**
      * @param Client $transportista
+     *
      * @return EmbededDespatch
      */
     public function setTransportista($transportista)
     {
         $this->transportista = $transportista;
+
         return $this;
     }
 
@@ -143,11 +138,13 @@ class EmbededDespatch
 
     /**
      * @param string $nroLicencia
+     *
      * @return EmbededDespatch
      */
     public function setNroLicencia($nroLicencia)
     {
         $this->nroLicencia = $nroLicencia;
+
         return $this;
     }
 
@@ -161,11 +158,13 @@ class EmbededDespatch
 
     /**
      * @param string $transpPlaca
+     *
      * @return EmbededDespatch
      */
     public function setTranspPlaca($transpPlaca)
     {
         $this->transpPlaca = $transpPlaca;
+
         return $this;
     }
 
@@ -179,11 +178,13 @@ class EmbededDespatch
 
     /**
      * @param string $transpCodeAuth
+     *
      * @return EmbededDespatch
      */
     public function setTranspCodeAuth($transpCodeAuth)
     {
         $this->transpCodeAuth = $transpCodeAuth;
+
         return $this;
     }
 
@@ -197,11 +198,13 @@ class EmbededDespatch
 
     /**
      * @param string $transpMarca
+     *
      * @return EmbededDespatch
      */
     public function setTranspMarca($transpMarca)
     {
         $this->transpMarca = $transpMarca;
+
         return $this;
     }
 
@@ -215,11 +218,13 @@ class EmbededDespatch
 
     /**
      * @param string $modTraslado
+     *
      * @return EmbededDespatch
      */
     public function setModTraslado($modTraslado)
     {
         $this->modTraslado = $modTraslado;
+
         return $this;
     }
 
@@ -233,11 +238,13 @@ class EmbededDespatch
 
     /**
      * @param float $pesoBruto
+     *
      * @return EmbededDespatch
      */
     public function setPesoBruto($pesoBruto)
     {
         $this->pesoBruto = $pesoBruto;
+
         return $this;
     }
 
@@ -251,11 +258,13 @@ class EmbededDespatch
 
     /**
      * @param string $undPesoBruto
+     *
      * @return EmbededDespatch
      */
     public function setUndPesoBruto($undPesoBruto)
     {
         $this->undPesoBruto = $undPesoBruto;
+
         return $this;
     }
 }

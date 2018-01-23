@@ -3,41 +3,32 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 15/07/2017
- * Time: 22:00
+ * Time: 22:00.
  */
 
 namespace Greenter\Model\Voided;
 
 /**
- * Class VoidedDetail
- * @package Greenter\Model\Voided
+ * Class VoidedDetail.
  */
 class VoidedDetail
 {
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="2")
      * @var string
      */
     private $tipoDoc;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="4")
      * @var string
      */
     private $serie;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="8")
      * @var string
      */
     private $correlativo;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="100")
      * @var string
      */
     private $desMotivoBaja;
@@ -52,11 +43,13 @@ class VoidedDetail
 
     /**
      * @param string $tipoDoc
+     *
      * @return VoidedDetail
      */
     public function setTipoDoc($tipoDoc)
     {
         $this->tipoDoc = $tipoDoc;
+
         return $this;
     }
 
@@ -70,11 +63,13 @@ class VoidedDetail
 
     /**
      * @param string $serie
+     *
      * @return VoidedDetail
      */
     public function setSerie($serie)
     {
         $this->serie = $serie;
+
         return $this;
     }
 
@@ -88,11 +83,13 @@ class VoidedDetail
 
     /**
      * @param string $correlativo
+     *
      * @return VoidedDetail
      */
     public function setCorrelativo($correlativo)
     {
         $this->correlativo = $correlativo;
+
         return $this;
     }
 
@@ -106,11 +103,13 @@ class VoidedDetail
 
     /**
      * @param string $desMotivoBaja
+     *
      * @return VoidedDetail
      */
     public function setDesMotivoBaja($desMotivoBaja)
     {
         $this->desMotivoBaja = $desMotivoBaja;
+
         return $this;
     }
 }

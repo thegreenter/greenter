@@ -3,14 +3,13 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 21/07/2017
- * Time: 23:14
+ * Time: 23:14.
  */
 
 namespace Greenter\Model\Response;
 
 /**
- * Class Error
- * @package Greenter\Model\Response
+ * Class Error.
  */
 class Error
 {
@@ -34,11 +33,13 @@ class Error
 
     /**
      * @param string $code
+     *
      * @return Error
      */
     public function setCode($code)
     {
         $this->code = $code;
+
         return $this;
     }
 
@@ -52,11 +53,13 @@ class Error
 
     /**
      * @param string $message
+     *
      * @return Error
      */
     public function setMessage($message)
     {
         $this->message = $message;
+
         return $this;
     }
 }

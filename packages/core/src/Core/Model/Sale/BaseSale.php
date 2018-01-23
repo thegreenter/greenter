@@ -3,65 +3,51 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 17/07/2017
- * Time: 23:26
+ * Time: 23:26.
  */
 
 namespace Greenter\Model\Sale;
+
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 
 /**
- * Class BaseSale
- * @package Greenter\Model\Sale
+ * Class BaseSale.
  */
 class BaseSale implements DocumentInterface
 {
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="2")
      * @var string
      */
     protected $tipoDoc;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="4")
      * @var string
      */
     protected $serie;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="8")
      * @var string
      */
     protected $correlativo;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Date()
      * @var \DateTime
      */
     protected $fechaEmision;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Valid()
      * @var Company
      */
     protected $company;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Valid()
      * @var Client
      */
     protected $client;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="3")
      * @var string
      */
     protected $tipoMoneda;
@@ -72,22 +58,16 @@ class BaseSale implements DocumentInterface
     protected $sumOtrosCargos;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Type("numeric")
      * @var float
      */
     protected $mtoOperGravadas;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Type("numeric")
      * @var float
      */
     protected $mtoOperInafectas;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Type("numeric")
      * @var float
      */
     protected $mtoOperExoneradas;
@@ -110,26 +90,21 @@ class BaseSale implements DocumentInterface
     /**
      * Importe total de la venta, cesión en uso o del servicio prestado.
      *
-     * @Assert\NotBlank()
-     * @Assert\Type("numeric")
      * @var float
      */
     protected $mtoImpVenta;
 
     /**
-     * @Assert\Valid()
      * @var SaleDetail[]
      */
     protected $details;
 
     /**
-     * @Assert\Valid()
      * @var Legend[]
      */
     protected $legends;
 
     /**
-     * @Assert\Valid()
      * @var Document[]
      */
     protected $relDocs;
@@ -144,11 +119,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param string $tipoDoc
+     *
      * @return BaseSale
      */
     public function setTipoDoc($tipoDoc)
     {
         $this->tipoDoc = $tipoDoc;
+
         return $this;
     }
 
@@ -162,11 +139,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param string $serie
+     *
      * @return BaseSale
      */
     public function setSerie($serie)
     {
         $this->serie = $serie;
+
         return $this;
     }
 
@@ -180,11 +159,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param string $correlativo
+     *
      * @return BaseSale
      */
     public function setCorrelativo($correlativo)
     {
         $this->correlativo = $correlativo;
+
         return $this;
     }
 
@@ -198,11 +179,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param \DateTime $fechaEmision
+     *
      * @return BaseSale
      */
     public function setFechaEmision($fechaEmision)
     {
         $this->fechaEmision = $fechaEmision;
+
         return $this;
     }
 
@@ -216,11 +199,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param Client $client
+     *
      * @return BaseSale
      */
     public function setClient($client)
     {
         $this->client = $client;
+
         return $this;
     }
 
@@ -234,11 +219,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param Company $company
+     *
      * @return BaseSale
      */
     public function setCompany($company)
     {
         $this->company = $company;
+
         return $this;
     }
 
@@ -252,11 +239,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param mixed $tipoMoneda
+     *
      * @return BaseSale
      */
     public function setTipoMoneda($tipoMoneda)
     {
         $this->tipoMoneda = $tipoMoneda;
+
         return $this;
     }
 
@@ -270,11 +259,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param mixed $sumOtrosCargos
+     *
      * @return BaseSale
      */
     public function setSumOtrosCargos($sumOtrosCargos)
     {
         $this->sumOtrosCargos = $sumOtrosCargos;
+
         return $this;
     }
 
@@ -288,11 +279,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param mixed $mtoOperGravadas
+     *
      * @return BaseSale
      */
     public function setMtoOperGravadas($mtoOperGravadas)
     {
         $this->mtoOperGravadas = $mtoOperGravadas;
+
         return $this;
     }
 
@@ -306,11 +299,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param mixed $mtoOperInafectas
+     *
      * @return BaseSale
      */
     public function setMtoOperInafectas($mtoOperInafectas)
     {
         $this->mtoOperInafectas = $mtoOperInafectas;
+
         return $this;
     }
 
@@ -324,11 +319,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param float $mtoOperExoneradas
+     *
      * @return BaseSale
      */
     public function setMtoOperExoneradas($mtoOperExoneradas)
     {
         $this->mtoOperExoneradas = $mtoOperExoneradas;
+
         return $this;
     }
 
@@ -342,11 +339,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param mixed $mtoIGV
+     *
      * @return BaseSale
      */
     public function setMtoIGV($mtoIGV)
     {
         $this->mtoIGV = $mtoIGV;
+
         return $this;
     }
 
@@ -360,11 +359,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param mixed $mtoISC
+     *
      * @return BaseSale
      */
     public function setMtoISC($mtoISC)
     {
         $this->mtoISC = $mtoISC;
+
         return $this;
     }
 
@@ -378,11 +379,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param float $mtoOtrosTributos
+     *
      * @return BaseSale
      */
     public function setMtoOtrosTributos($mtoOtrosTributos)
     {
         $this->mtoOtrosTributos = $mtoOtrosTributos;
+
         return $this;
     }
 
@@ -396,11 +399,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param float $mtoImpVenta
+     *
      * @return BaseSale
      */
     public function setMtoImpVenta($mtoImpVenta)
     {
         $this->mtoImpVenta = $mtoImpVenta;
+
         return $this;
     }
 
@@ -414,11 +419,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param SaleDetail[] $details
+     *
      * @return BaseSale
      */
     public function setDetails($details)
     {
         $this->details = $details;
+
         return $this;
     }
 
@@ -432,11 +439,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param Legend[] $legends
+     *
      * @return BaseSale
      */
     public function setLegends($legends)
     {
         $this->legends = $legends;
+
         return $this;
     }
 
@@ -450,11 +459,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param Document[] $relDocs
+     *
      * @return BaseSale
      */
     public function setRelDocs($relDocs)
     {
         $this->relDocs = $relDocs;
+
         return $this;
     }
 

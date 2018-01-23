@@ -3,42 +3,32 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 30/07/2017
- * Time: 15:10
+ * Time: 15:10.
  */
 
 namespace Greenter\Model\Sale;
 
 /**
- * Class SalePerception
- * @package Greenter\Model\Sale
+ * Class SalePerception.
  */
 class SalePerception
 {
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(min="2", max="2")
-     *
      * @var string
      */
     private $codReg;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var float
      */
     private $mtoBase;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var float
      */
     private $mto;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var float
      */
     private $mtoTotal;
@@ -53,11 +43,13 @@ class SalePerception
 
     /**
      * @param string $codReg
+     *
      * @return SalePerception
      */
     public function setCodReg($codReg)
     {
         $this->codReg = $codReg;
+
         return $this;
     }
 
@@ -71,11 +63,13 @@ class SalePerception
 
     /**
      * @param float $mtoBase
+     *
      * @return SalePerception
      */
     public function setMtoBase($mtoBase)
     {
         $this->mtoBase = $mtoBase;
+
         return $this;
     }
 
@@ -89,11 +83,13 @@ class SalePerception
 
     /**
      * @param float $mto
+     *
      * @return SalePerception
      */
     public function setMto($mto)
     {
         $this->mto = $mto;
+
         return $this;
     }
 
@@ -107,11 +103,13 @@ class SalePerception
 
     /**
      * @param float $mtoTotal
+     *
      * @return SalePerception
      */
     public function setMtoTotal($mtoTotal)
     {
         $this->mtoTotal = $mtoTotal;
+
         return $this;
     }
 }

@@ -3,22 +3,19 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 08/08/2017
- * Time: 11:00 AM
+ * Time: 11:00 AM.
  */
 
 namespace Greenter\Model\Retention;
 
 /**
- * Class Exchange
- * @package Greenter\Model\Retention
+ * Class Exchange.
  */
 class Exchange
 {
     /**
      * La moneda de referencia para el Tipo de Cambio.
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(min="3", max="3")
      * @var string
      */
     private $monedaRef;
@@ -26,8 +23,6 @@ class Exchange
     /**
      * La moneda objetivo para la Tasa de Cambio.
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(min="3", max="3")
      * @var string
      */
     private $monedaObj;
@@ -35,16 +30,13 @@ class Exchange
     /**
      * Tipo de Cambio.
      *
-     * @Assert\NotBlank()
      * @var float
      */
     private $factor;
 
     /**
-     * Fecha de cambio
+     * Fecha de cambio.
      *
-     * @Assert\NotBlank()
-     * @Assert\Date()
      * @var \DateTime
      */
     private $fecha;
@@ -59,11 +51,13 @@ class Exchange
 
     /**
      * @param string $monedaRef
+     *
      * @return Exchange
      */
     public function setMonedaRef($monedaRef)
     {
         $this->monedaRef = $monedaRef;
+
         return $this;
     }
 
@@ -77,11 +71,13 @@ class Exchange
 
     /**
      * @param string $monedaObj
+     *
      * @return Exchange
      */
     public function setMonedaObj($monedaObj)
     {
         $this->monedaObj = $monedaObj;
+
         return $this;
     }
 
@@ -95,11 +91,13 @@ class Exchange
 
     /**
      * @param float $factor
+     *
      * @return Exchange
      */
     public function setFactor($factor)
     {
         $this->factor = $factor;
+
         return $this;
     }
 
@@ -113,11 +111,13 @@ class Exchange
 
     /**
      * @param \DateTime $fecha
+     *
      * @return Exchange
      */
     public function setFecha($fecha)
     {
         $this->fecha = $fecha;
+
         return $this;
     }
 }

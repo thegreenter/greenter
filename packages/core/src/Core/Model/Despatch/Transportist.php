@@ -14,31 +14,19 @@ namespace Greenter\Model\Despatch;
 class Transportist
 {
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(min="1", max="1")
-     *
      * @var string
      */
     private $tipoDoc;
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="15")
-     *
      * @var string
      */
     private $numDoc;
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="100")
-     *
      * @var string
      */
     private $rznSocial;
     /**
      * (Transporte Privado).
-     *
-     * @Assert\NotBlank()
-     * @Assert\Length(max="8")
      *
      * @var string
      */
@@ -46,17 +34,11 @@ class Transportist
     /**
      * (Transporte Privado).
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(min="1", max="1")
-     *
      * @var string
      */
     private $choferTipoDoc;
     /**
      * (Transporte Privado).
-     *
-     * @Assert\NotBlank()
-     * @Assert\Length(max="11")
      *
      * @var string
      */

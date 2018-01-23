@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 01/10/2017
- * Time: 13:26
+ * Time: 13:26.
  */
 
 namespace Greenter\Builder;
@@ -11,8 +11,7 @@ namespace Greenter\Builder;
 use Greenter\Model\DocumentInterface;
 
 /**
- * Interface BuilderInterface
- * @package Greenter\Builder
+ * Interface BuilderInterface.
  */
 interface BuilderInterface
 {
@@ -20,7 +19,8 @@ interface BuilderInterface
      * Create file for document.
      *
      * @param DocumentInterface $document
-     * @return string           Content File
+     *
+     * @return string Content File
      */
     public function build(DocumentInterface $document);
 }

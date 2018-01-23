@@ -17,41 +17,27 @@ use Greenter\Model\Sale\Document;
 class SummaryDetail
 {
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(min="2", max="2")
-     *
      * @var string
      */
     private $tipoDoc;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="13")
-     *
      * @var string
      */
     private $serieNro;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="1")
-     *
      * @var string
      */
     private $clienteTipo;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="20")
-     *
      * @var string
      */
     private $clienteNro;
 
     /**
      * Boleta de Venta que se modifica.
-     *
-     * @Assert\Valid()
      *
      * @var Document
      */
@@ -65,37 +51,27 @@ class SummaryDetail
     /**
      * Estado del item (catalog: 19).
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(max="1")
      *
      * @var string
      */
     private $estado;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var float
      */
     private $total;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var float
      */
     private $mtoOperGravadas;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var float
      */
     private $mtoOperInafectas;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var float
      */
     private $mtoOperExoneradas;
@@ -113,15 +89,11 @@ class SummaryDetail
     private $mtoOtrosCargos;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var float
      */
     private $mtoIGV;
 
     /**
-     * @Assert\NotBlank()
-     *
      * @var float
      */
     private $mtoISC;

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 15/07/2017
- * Time: 22:00
+ * Time: 22:00.
  */
 
 namespace Greenter\Model\Voided;
@@ -12,14 +12,11 @@ use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 
 /**
- * Class Voided
- * @package Greenter\Model\Voided
+ * Class Voided.
  */
 class Voided implements DocumentInterface
 {
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="5")
      * @var string
      */
     protected $correlativo;
@@ -27,7 +24,6 @@ class Voided implements DocumentInterface
     /**
      * Fecha de generación del documento dado de baja.
      *
-     * @Assert\Date()
      * @var \DateTime
      */
     protected $fecGeneracion;
@@ -35,21 +31,16 @@ class Voided implements DocumentInterface
     /**
      * Fecha de generación de la comunicación.
      *
-     * @Assert\NotBlank()
-     * @Assert\Date()
      * @var \DateTime
      */
     protected $fecComunicacion;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Valid()
      * @var Company
      */
     protected $company;
 
     /**
-     * @Assert\Valid()
      * @var VoidedDetail[]
      */
     protected $details;
@@ -69,11 +60,13 @@ class Voided implements DocumentInterface
 
     /**
      * @param string $correlativo
+     *
      * @return Voided
      */
     public function setCorrelativo($correlativo)
     {
         $this->correlativo = $correlativo;
+
         return $this;
     }
 
@@ -87,11 +80,13 @@ class Voided implements DocumentInterface
 
     /**
      * @param \DateTime $fecGeneracion
+     *
      * @return Voided
      */
     public function setFecGeneracion($fecGeneracion)
     {
         $this->fecGeneracion = $fecGeneracion;
+
         return $this;
     }
 
@@ -105,11 +100,13 @@ class Voided implements DocumentInterface
 
     /**
      * @param \DateTime $fecComunicacion
+     *
      * @return Voided
      */
     public function setFecComunicacion($fecComunicacion)
     {
         $this->fecComunicacion = $fecComunicacion;
+
         return $this;
     }
 
@@ -123,11 +120,13 @@ class Voided implements DocumentInterface
 
     /**
      * @param Company $company
+     *
      * @return Voided
      */
     public function setCompany($company)
     {
         $this->company = $company;
+
         return $this;
     }
 
@@ -141,11 +140,13 @@ class Voided implements DocumentInterface
 
     /**
      * @param VoidedDetail[] $details
+     *
      * @return Voided
      */
     public function setDetails($details)
     {
         $this->details = $details;
+
         return $this;
     }
 
@@ -156,7 +157,7 @@ class Voided implements DocumentInterface
      */
     public function getName()
     {
-        return $this->company->getRuc() . '-' . $this->getXmlId();
+        return $this->company->getRuc().'-'.$this->getXmlId();
     }
 
     /**

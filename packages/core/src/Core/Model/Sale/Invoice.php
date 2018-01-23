@@ -3,19 +3,19 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 15/07/2017
- * Time: 21:05
+ * Time: 21:05.
  */
 
 namespace Greenter\Model\Sale;
 
 /**
- * Class Invoice
- * @package Greenter\Model\Sale
+ * Class Invoice.
  */
 class Invoice extends BaseSale
 {
     /**
      * Tipo operacion (Catálogo 17).
+     *
      * @var string
      */
     private $tipoOperacion;
@@ -41,8 +41,6 @@ class Invoice extends BaseSale
     private $totalAnticipos;
 
     /**
-     * @Assert\Valid()
-     *
      * @var SalePerception
      */
     private $perception;
@@ -57,22 +55,16 @@ class Invoice extends BaseSale
     /**
      * Guias de Remision relacionado (caso de uso en venta itinerante).
      *
-     * @Assert\Valid()
-     *
      * @var Document[]
      */
     private $guias;
 
     /**
-     * @Assert\Valid()
-     *
      * @var Prepayment[]
      */
     private $anticipos;
 
     /**
-     * @Assert\Valid()
-     *
      * @var Detraction
      */
     private $detraccion;
@@ -80,7 +72,6 @@ class Invoice extends BaseSale
     /**
      * Utilizado cuando se trata de una Factura Guia.
      *
-     * @Assert\Valid()
      *
      * @var EmbededDespatch
      */
@@ -96,11 +87,13 @@ class Invoice extends BaseSale
 
     /**
      * @param string $tipoOperacion
+     *
      * @return Invoice
      */
     public function setTipoOperacion($tipoOperacion)
     {
         $this->tipoOperacion = $tipoOperacion;
+
         return $this;
     }
 
@@ -114,11 +107,13 @@ class Invoice extends BaseSale
 
     /**
      * @param float $sumDsctoGlobal
+     *
      * @return Invoice
      */
     public function setSumDsctoGlobal($sumDsctoGlobal)
     {
         $this->sumDsctoGlobal = $sumDsctoGlobal;
+
         return $this;
     }
 
@@ -132,11 +127,13 @@ class Invoice extends BaseSale
 
     /**
      * @param float $mtoDescuentos
+     *
      * @return Invoice
      */
     public function setMtoDescuentos($mtoDescuentos)
     {
         $this->mtoDescuentos = $mtoDescuentos;
+
         return $this;
     }
 
@@ -150,11 +147,13 @@ class Invoice extends BaseSale
 
     /**
      * @param float $mtoOperGratuitas
+     *
      * @return Invoice
      */
     public function setMtoOperGratuitas($mtoOperGratuitas)
     {
         $this->mtoOperGratuitas = $mtoOperGratuitas;
+
         return $this;
     }
 
@@ -168,11 +167,13 @@ class Invoice extends BaseSale
 
     /**
      * @param mixed $totalAnticipos
+     *
      * @return Invoice
      */
     public function setTotalAnticipos($totalAnticipos)
     {
         $this->totalAnticipos = $totalAnticipos;
+
         return $this;
     }
 
@@ -186,11 +187,13 @@ class Invoice extends BaseSale
 
     /**
      * @param SalePerception $perception
+     *
      * @return Invoice
      */
     public function setPerception($perception)
     {
         $this->perception = $perception;
+
         return $this;
     }
 
@@ -204,11 +207,13 @@ class Invoice extends BaseSale
 
     /**
      * @param string $compra
+     *
      * @return Invoice
      */
     public function setCompra($compra)
     {
         $this->compra = $compra;
+
         return $this;
     }
 
@@ -222,11 +227,13 @@ class Invoice extends BaseSale
 
     /**
      * @param Document[] $guias
+     *
      * @return Invoice
      */
     public function setGuias($guias)
     {
         $this->guias = $guias;
+
         return $this;
     }
 
@@ -240,11 +247,13 @@ class Invoice extends BaseSale
 
     /**
      * @param Prepayment[] $anticipos
+     *
      * @return Invoice
      */
     public function setAnticipos($anticipos)
     {
         $this->anticipos = $anticipos;
+
         return $this;
     }
 
@@ -258,11 +267,13 @@ class Invoice extends BaseSale
 
     /**
      * @param Detraction $detraccion
+     *
      * @return Invoice
      */
     public function setDetraccion($detraccion)
     {
         $this->detraccion = $detraccion;
+
         return $this;
     }
 
@@ -276,11 +287,13 @@ class Invoice extends BaseSale
 
     /**
      * @param EmbededDespatch $guiaEmbebida
+     *
      * @return Invoice
      */
     public function setGuiaEmbebida($guiaEmbebida)
     {
         $this->guiaEmbebida = $guiaEmbebida;
+
         return $this;
     }
 }

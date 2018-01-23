@@ -3,14 +3,13 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 21/07/2017
- * Time: 23:12
+ * Time: 23:12.
  */
 
 namespace Greenter\Model\Response;
 
 /**
- * Class CdrResponse
- * @package Greenter\Model\Response
+ * Class CdrResponse.
  */
 class CdrResponse
 {
@@ -44,11 +43,13 @@ class CdrResponse
 
     /**
      * @param string $id
+     *
      * @return CdrResponse
      */
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -62,11 +63,13 @@ class CdrResponse
 
     /**
      * @param string $code
+     *
      * @return CdrResponse
      */
     public function setCode($code)
     {
         $this->code = $code;
+
         return $this;
     }
 
@@ -80,11 +83,13 @@ class CdrResponse
 
     /**
      * @param string $description
+     *
      * @return CdrResponse
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -98,11 +103,13 @@ class CdrResponse
 
     /**
      * @param string[] $notes
+     *
      * @return CdrResponse
      */
     public function setNotes($notes)
     {
         $this->notes = $notes;
+
         return $this;
     }
 }

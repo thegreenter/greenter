@@ -3,14 +3,13 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 21/07/2017
- * Time: 23:19
+ * Time: 23:19.
  */
 
 namespace Greenter\Model\Response;
 
 /**
- * Class SummaryResult
- * @package Greenter\Model\Response
+ * Class SummaryResult.
  */
 class SummaryResult extends BaseResult
 {
@@ -29,11 +28,13 @@ class SummaryResult extends BaseResult
 
     /**
      * @param string $ticket
+     *
      * @return SummaryResult
      */
     public function setTicket($ticket)
     {
         $this->ticket = $ticket;
+
         return $this;
     }
 }

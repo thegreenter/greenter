@@ -3,28 +3,22 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 17/07/2017
- * Time: 23:34
+ * Time: 23:34.
  */
 
 namespace Greenter\Model\Sale;
 
 /**
- * Class Legend
- * @package Greenter\Model\Sale
+ * Class Legend.
  */
 class Legend
 {
     /**
-     * @Assert\Length(
-     *     min="4",
-     *     max="4"
-     * )
      * @var string
      */
     private $code;
 
     /**
-     * @Assert\Length(max="100")
      * @var string
      */
     private $value;
@@ -39,11 +33,13 @@ class Legend
 
     /**
      * @param string $code
+     *
      * @return Legend
      */
     public function setCode($code)
     {
         $this->code = $code;
+
         return $this;
     }
 
@@ -57,12 +53,13 @@ class Legend
 
     /**
      * @param string $value
+     *
      * @return Legend
      */
     public function setValue($value)
     {
         $this->value = $value;
+
         return $this;
     }
-
 }

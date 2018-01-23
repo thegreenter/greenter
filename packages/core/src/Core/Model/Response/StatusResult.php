@@ -3,14 +3,13 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 21/07/2017
- * Time: 23:20
+ * Time: 23:20.
  */
 
 namespace Greenter\Model\Response;
 
 /**
- * Class StatusResult
- * @package Greenter\Model\Response
+ * Class StatusResult.
  */
 class StatusResult extends BaseResult
 {
@@ -34,6 +33,7 @@ class StatusResult extends BaseResult
      * @var CdrResponse
      */
     protected $cdrResponse;
+
     /**
      * @return string
      */
@@ -44,11 +44,13 @@ class StatusResult extends BaseResult
 
     /**
      * @param string $code
+     *
      * @return StatusResult
      */
     public function setCode($code)
     {
         $this->code = $code;
+
         return $this;
     }
 
@@ -62,11 +64,13 @@ class StatusResult extends BaseResult
 
     /**
      * @param string $cdrZip
+     *
      * @return StatusResult
      */
     public function setCdrZip($cdrZip)
     {
         $this->cdrZip = $cdrZip;
+
         return $this;
     }
 
@@ -80,11 +84,13 @@ class StatusResult extends BaseResult
 
     /**
      * @param CdrResponse $cdrResponse
+     *
      * @return StatusResult
      */
     public function setCdrResponse($cdrResponse)
     {
         $this->cdrResponse = $cdrResponse;
+
         return $this;
     }
 }

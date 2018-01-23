@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 08/08/2017
- * Time: 10:37 AM
+ * Time: 10:37 AM.
  */
 
 namespace Greenter\Model\Retention;
@@ -13,78 +13,62 @@ use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 
 /**
- * Class Retention
- * @package Greenter\Model\Retention
+ * Class Retention.
  */
 class Retention implements DocumentInterface
 {
     /**
-     * Serie del Documento (ejem: R001)
+     * Serie del Documento (ejem: R001).
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(max="4")
      * @var string
      */
     private $serie;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max="8")
      * @var string
      */
     private $correlativo;
 
     /**
-     * @Assert\Date()
      * @var \DateTime
      */
     private $fechaEmision;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Valid()
      * @var Company
      */
     private $company;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Valid()
      * @var Client
      */
     private $proveedor;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Length(min="2", max="2")
      * @var string
      */
     private $regimen;
 
     /**
-     * @Assert\NotBlank()
      * @var float
      */
     private $tasa;
 
     /**
-     * Importe total Retenido
+     * Importe total Retenido.
      *
-     * @Assert\NotBlank()
      * @var float
      */
     private $impRetenido;
 
     /**
-     * Importe total Pagado
+     * Importe total Pagado.
      *
-     * @Assert\NotBlank()
      * @var float
      */
     private $impPagado;
 
     /**
-     * @Assert\Length(max="250")
      * @var string
      */
     private $observacion;
@@ -92,8 +76,6 @@ class Retention implements DocumentInterface
     /**
      * Dato del Comprobante relacionado.
      *
-     * @Assert\NotBlank()
-     * @Assert\Valid()
      * @var RetentionDetail[]
      */
     private $details;
@@ -108,11 +90,13 @@ class Retention implements DocumentInterface
 
     /**
      * @param string $serie
+     *
      * @return Retention
      */
     public function setSerie($serie)
     {
         $this->serie = $serie;
+
         return $this;
     }
 
@@ -126,11 +110,13 @@ class Retention implements DocumentInterface
 
     /**
      * @param string $correlativo
+     *
      * @return Retention
      */
     public function setCorrelativo($correlativo)
     {
         $this->correlativo = $correlativo;
+
         return $this;
     }
 
@@ -144,11 +130,13 @@ class Retention implements DocumentInterface
 
     /**
      * @param \DateTime $fechaEmision
+     *
      * @return Retention
      */
     public function setFechaEmision($fechaEmision)
     {
         $this->fechaEmision = $fechaEmision;
+
         return $this;
     }
 
@@ -162,11 +150,13 @@ class Retention implements DocumentInterface
 
     /**
      * @param Client $proveedor
+     *
      * @return Retention
      */
     public function setProveedor($proveedor)
     {
         $this->proveedor = $proveedor;
+
         return $this;
     }
 
@@ -180,11 +170,13 @@ class Retention implements DocumentInterface
 
     /**
      * @param Company $company
+     *
      * @return Retention
      */
     public function setCompany($company)
     {
         $this->company = $company;
+
         return $this;
     }
 
@@ -198,11 +190,13 @@ class Retention implements DocumentInterface
 
     /**
      * @param string $regimen
+     *
      * @return Retention
      */
     public function setRegimen($regimen)
     {
         $this->regimen = $regimen;
+
         return $this;
     }
 
@@ -216,11 +210,13 @@ class Retention implements DocumentInterface
 
     /**
      * @param float $tasa
+     *
      * @return Retention
      */
     public function setTasa($tasa)
     {
         $this->tasa = $tasa;
+
         return $this;
     }
 
@@ -234,11 +230,13 @@ class Retention implements DocumentInterface
 
     /**
      * @param float $impRetenido
+     *
      * @return Retention
      */
     public function setImpRetenido($impRetenido)
     {
         $this->impRetenido = $impRetenido;
+
         return $this;
     }
 
@@ -252,11 +250,13 @@ class Retention implements DocumentInterface
 
     /**
      * @param float $impPagado
+     *
      * @return Retention
      */
     public function setImpPagado($impPagado)
     {
         $this->impPagado = $impPagado;
+
         return $this;
     }
 
@@ -270,11 +270,13 @@ class Retention implements DocumentInterface
 
     /**
      * @param string $observacion
+     *
      * @return Retention
      */
     public function setObservacion($observacion)
     {
         $this->observacion = $observacion;
+
         return $this;
     }
 
@@ -288,11 +290,13 @@ class Retention implements DocumentInterface
 
     /**
      * @param RetentionDetail[] $details
+     *
      * @return Retention
      */
     public function setDetails($details)
     {
         $this->details = $details;
+
         return $this;
     }
 

@@ -17,16 +17,12 @@ use Greenter\Model\DocumentInterface;
 class Summary implements DocumentInterface
 {
     /**
-     * @Assert\Length(max="5")
-     *
      * @var string
      */
     protected $correlativo;
 
     /**
      * Fecha de generación de los documentos a enviar en el resumen.
-     *
-     * @Assert\Date()
      *
      * @var \DateTime
      */
@@ -35,24 +31,16 @@ class Summary implements DocumentInterface
     /**
      * Fecha de generación del resumen.
      *
-     * @Assert\NotBlank()
-     * @Assert\Date()
-     *
      * @var \DateTime
      */
     protected $fecResumen;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Valid()
-     *
      * @var Company
      */
     protected $company;
 
     /**
-     * @Assert\Valid()
-     *
      * @var SummaryDetail[]
      */
     protected $details;

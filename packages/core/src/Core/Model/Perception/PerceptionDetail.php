@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 08/08/2017
- * Time: 11:28 AM
+ * Time: 11:28 AM.
  */
 
 namespace Greenter\Model\Perception;
@@ -12,16 +12,13 @@ use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
 
 /**
- * Class PerceptionDetail
- * @package Greenter\Model\Perception
+ * Class PerceptionDetail.
  */
 class PerceptionDetail
 {
     /**
      * Tipo de documento Relacionado.
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(max="2")
      * @var string
      */
     private $tipoDoc;
@@ -29,8 +26,6 @@ class PerceptionDetail
     /**
      * Numero del documento relacionado (Serie-Correlativo).
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(max="13")
      * @var string
      */
     private $numDoc;
@@ -38,8 +33,6 @@ class PerceptionDetail
     /**
      * Fecha de Emision del documento relacionado.
      *
-     * @Assert\NotBlank()
-     * @Assert\Date()
      * @var \DateTime
      */
     private $fechaEmision;
@@ -47,7 +40,6 @@ class PerceptionDetail
     /**
      * Importe total documento Relacionado.
      *
-     * @Assert\NotBlank()
      * @var float
      */
     private $impTotal;
@@ -55,8 +47,6 @@ class PerceptionDetail
     /**
      * Moneda del docoumento relacionado.
      *
-     * @Assert\NotBlank()
-     * @Assert\Length(min="3", max="3")
      * @var string
      */
     private $moneda;
@@ -64,8 +54,6 @@ class PerceptionDetail
     /**
      * Datos del Cobro.
      *
-     * @Assert\NotBlank()
-     * @Assert\Valid()
      * @var Payment[]
      */
     private $cobros;
@@ -73,8 +61,6 @@ class PerceptionDetail
     /**
      * Fecha de Retención.
      *
-     * @Assert\NotBlank()
-     * @Assert\Date()
      * @var \DateTime
      */
     private $fechaPercepcion;
@@ -82,7 +68,6 @@ class PerceptionDetail
     /**
      * Importe Percibido.
      *
-     * @Assert\NotBlank()
      * @var float
      */
     private $impPercibido;
@@ -90,13 +75,11 @@ class PerceptionDetail
     /**
      * Importe total a cobrar (neto).
      *
-     * @Assert\NotBlank()
      * @var float
      */
     private $impCobrar;
 
     /**
-     * @Assert\Valid()
      * @var Exchange
      */
     private $tipoCambio;
@@ -111,11 +94,13 @@ class PerceptionDetail
 
     /**
      * @param string $tipoDoc
+     *
      * @return PerceptionDetail
      */
     public function setTipoDoc($tipoDoc)
     {
         $this->tipoDoc = $tipoDoc;
+
         return $this;
     }
 
@@ -129,11 +114,13 @@ class PerceptionDetail
 
     /**
      * @param string $numDoc
+     *
      * @return PerceptionDetail
      */
     public function setNumDoc($numDoc)
     {
         $this->numDoc = $numDoc;
+
         return $this;
     }
 
@@ -147,11 +134,13 @@ class PerceptionDetail
 
     /**
      * @param \DateTime $fechaEmision
+     *
      * @return PerceptionDetail
      */
     public function setFechaEmision($fechaEmision)
     {
         $this->fechaEmision = $fechaEmision;
+
         return $this;
     }
 
@@ -165,11 +154,13 @@ class PerceptionDetail
 
     /**
      * @param float $impTotal
+     *
      * @return PerceptionDetail
      */
     public function setImpTotal($impTotal)
     {
         $this->impTotal = $impTotal;
+
         return $this;
     }
 
@@ -183,11 +174,13 @@ class PerceptionDetail
 
     /**
      * @param string $moneda
+     *
      * @return PerceptionDetail
      */
     public function setMoneda($moneda)
     {
         $this->moneda = $moneda;
+
         return $this;
     }
 
@@ -201,11 +194,13 @@ class PerceptionDetail
 
     /**
      * @param Payment[] $cobros
+     *
      * @return PerceptionDetail
      */
     public function setCobros($cobros)
     {
         $this->cobros = $cobros;
+
         return $this;
     }
 
@@ -219,11 +214,13 @@ class PerceptionDetail
 
     /**
      * @param \DateTime $fechaPercepcion
+     *
      * @return PerceptionDetail
      */
     public function setFechaPercepcion($fechaPercepcion)
     {
         $this->fechaPercepcion = $fechaPercepcion;
+
         return $this;
     }
 
@@ -237,11 +234,13 @@ class PerceptionDetail
 
     /**
      * @param float $impPercibido
+     *
      * @return PerceptionDetail
      */
     public function setImpPercibido($impPercibido)
     {
         $this->impPercibido = $impPercibido;
+
         return $this;
     }
 
@@ -255,11 +254,13 @@ class PerceptionDetail
 
     /**
      * @param float $impCobrar
+     *
      * @return PerceptionDetail
      */
     public function setImpCobrar($impCobrar)
     {
         $this->impCobrar = $impCobrar;
+
         return $this;
     }
 
@@ -273,11 +274,13 @@ class PerceptionDetail
 
     /**
      * @param Exchange $tipoCambio
+     *
      * @return PerceptionDetail
      */
     public function setTipoCambio($tipoCambio)
     {
         $this->tipoCambio = $tipoCambio;
+
         return $this;
     }
 }
