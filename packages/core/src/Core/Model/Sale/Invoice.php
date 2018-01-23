@@ -9,16 +9,23 @@
 namespace Greenter\Model\Sale;
 
 /**
+ * Invoice 2.1
+ *
  * Class Invoice.
  */
 class Invoice extends BaseSale
 {
     /**
-     * Tipo operacion (Catálogo 17).
+     * Tipo operacion (Catálogo 51).
      *
      * @var string
      */
     private $tipoOperacion;
+
+    /**
+     * @var \DateTime
+     */
+    private $fecVencimiento;
 
     /**
      * @var float
@@ -51,13 +58,6 @@ class Invoice extends BaseSale
      * @var string
      */
     private $compra;
-
-    /**
-     * Guias de Remision relacionado (caso de uso en venta itinerante).
-     *
-     * @var Document[]
-     */
-    private $guias;
 
     /**
      * @var Prepayment[]
@@ -94,6 +94,24 @@ class Invoice extends BaseSale
     {
         $this->tipoOperacion = $tipoOperacion;
 
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFecVencimiento()
+    {
+        return $this->fecVencimiento;
+    }
+
+    /**
+     * @param \DateTime $fecVencimiento
+     * @return Invoice
+     */
+    public function setFecVencimiento($fecVencimiento)
+    {
+        $this->fecVencimiento = $fecVencimiento;
         return $this;
     }
 
@@ -213,26 +231,6 @@ class Invoice extends BaseSale
     public function setCompra($compra)
     {
         $this->compra = $compra;
-
-        return $this;
-    }
-
-    /**
-     * @return Document[]
-     */
-    public function getGuias()
-    {
-        return $this->guias;
-    }
-
-    /**
-     * @param Document[] $guias
-     *
-     * @return Invoice
-     */
-    public function setGuias($guias)
-    {
-        $this->guias = $guias;
 
         return $this;
     }

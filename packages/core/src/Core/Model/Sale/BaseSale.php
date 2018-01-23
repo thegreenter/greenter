@@ -105,6 +105,13 @@ class BaseSale implements DocumentInterface
     protected $legends;
 
     /**
+     * Guias de Remision relacionado (caso de uso en venta itinerante).
+     *
+     * @var Document[]
+     */
+    protected $guias;
+
+    /**
      * @var Document[]
      */
     protected $relDocs;
@@ -446,6 +453,24 @@ class BaseSale implements DocumentInterface
     {
         $this->legends = $legends;
 
+        return $this;
+    }
+
+    /**
+     * @return Document[]
+     */
+    public function getGuias()
+    {
+        return $this->guias;
+    }
+
+    /**
+     * @param Document[] $guias
+     * @return BaseSale
+     */
+    public function setGuias($guias)
+    {
+        $this->guias = $guias;
         return $this;
     }
 
