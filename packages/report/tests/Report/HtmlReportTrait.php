@@ -90,7 +90,7 @@ trait HtmlReportTrait
 
         $legend = new Legend();
         $legend->setCode('1000')
-            ->setValue('SON DOSCIENTOS TREINTA Y SEIS CON 00/100');
+            ->setValue('SON DOSCIENTOS TREINTA Y SEIS CON 00/100 SOLES');
 
         $items = array_merge([$detail1, $detail2], $this->getItems($detail1, 6));
         $invoice->setDetails($items)
@@ -133,7 +133,7 @@ trait HtmlReportTrait
 
         $legend = new Legend();
         $legend->setCode('1000')
-            ->setValue('SON DOSCIENTOS TREINTA Y SEIS CON 00/100');
+            ->setValue('SON DOSCIENTOS TREINTA Y SEIS CON 00/100 SOLES');
 
         $items = $this->getItems($detail1, 6);
         $note->setDetails($items)

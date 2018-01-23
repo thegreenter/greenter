@@ -76,7 +76,6 @@
                 </tr>
                 </tbody></table>
             <div class="tabla_borde">
-                {% set moneyName = doc.tipoMoneda|catalog('021') %}
                 {% set cl = doc.client %}
                 <table width="100%" border="0" cellpadding="5" cellspacing="0">
                     <tbody><tr>
@@ -94,7 +93,7 @@
                     </tr>
                     {% endif %}
                     <tr>
-                        <td width="60%" height="15" align="left"><strong>Tipo Moneda: </strong>  {{ moneyName }} </td>
+                        <td width="60%" height="15" align="left"><strong>Tipo Moneda: </strong>  {{ doc.tipoMoneda|catalog('021') }} </td>
                         <td width="40%" height="15" align="left"> </td>
                     </tr>
                     </tbody></table>
@@ -143,7 +142,7 @@
                                 <td colspan="4">
                                     <br>
                                     <br>
-                                    <span style="font-family:Tahoma, Geneva, sans-serif; font-size:12px" text-align="center"><strong>{{ legend(doc.legends, '1000')  }} {{ moneyName }}.</strong></span>
+                                    <span style="font-family:Tahoma, Geneva, sans-serif; font-size:12px" text-align="center"><strong>{{ legend(doc.legends, '1000')  }}.</strong></span>
                                     <br>
                                     <br>
                                     <strong>Información Adicional</strong>

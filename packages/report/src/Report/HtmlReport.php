@@ -26,7 +26,7 @@ class HtmlReport implements ReportInterface
     /**
      * @var string
      */
-    private $template;
+    private $template = 'invoice2.html.twig';
 
     /**
      * HtmlReport constructor.
