@@ -180,7 +180,7 @@
             {% set cl = doc.client %}
             <h2 class="ruc"><b>{{ cl.tipoDoc|catalog('06') }}</b> {{ cl.numDoc }}</h2>
             <span class="name">{{ cl.rznSocial }}</span>
-            <div class="address"><i>{{ cl.address.direccion }}</i></div>
+            {% if cl.address %}<div class="address"><i>{{ cl.address.direccion }}</i></div>{% endif %}
         </div>
         <div id="invoice">
             {% set serieNro = doc.serie ~ '-' ~ doc.correlativo %}
