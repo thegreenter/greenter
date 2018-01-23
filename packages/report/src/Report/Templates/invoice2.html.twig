@@ -8,6 +8,7 @@
 <body class="white-bg" style="font-family:'Verdana'">
 {% set cp = doc.company %}
 {% set isNota = doc.tipoDoc in ['07', '08'] %}
+{% set isAnticipo = doc.totalAnticipos is defined and doc.totalAnticipos > 0 %}
 <table width="100%">
     <tbody><tr>
         <td style="padding:30px; !important">
@@ -84,7 +85,7 @@
                     </tr>
                     <tr>
                         <td width="60%" height="15" align="left"><strong>Fecha Emisión: </strong>  {{ doc.fechaEmision|date('d/m/Y') }}</td>
-                        <td width="40%" height="15" align="left"><strong>Dirección: </strong>  {% if cl.address is not null %}{{ cl.address.direccion }}{% endif %}</td>
+                        <td width="40%" height="15" align="left"><strong>Dirección: </strong>  {% if cl.address %}{{ cl.address.direccion }}{% endif %}</td>
                     </tr>
                     {% if isNota %}
                     <tr>
@@ -142,7 +143,7 @@
                                 <td colspan="4">
                                     <br>
                                     <br>
-                                    <span style="font-family:Tahoma, Geneva, sans-serif; font-size:12px" text-align="center"><strong>{{ legend(doc.legends, '1000')  }}.</strong></span>
+                                    <span style="font-family:Tahoma, Geneva, sans-serif; font-size:12px" text-align="center"><strong>{{ legend(doc.legends, '1000')  }}</strong></span>
                                     <br>
                                     <br>
                                     <strong>Información Adicional</strong>
@@ -150,7 +151,6 @@
                             </tr>
                             </tbody>
                         </table>
-
                         <table width="100%" border="0" cellpadding="5" cellspacing="0">
                             <tbody>
                             <tr class="border_top">
@@ -191,43 +191,99 @@
                             {% endif %}
                             </tbody>
                         </table>
+                        {% if isAnticipo %}
+                        <table width="100%" border="0" cellpadding="5" cellspacing="0">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <br>
+                                    <strong>Anticipo</strong>
+                                    <br>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table width="100%" border="0" cellpadding="5" cellspacing="0" style="font-size: 10px;">
+                            <tbody>
+                            <tr>
+                                <td width="30%"><b>Nro. Doc.</b></td>
+                                <td width="70%"><b>Total</b></td>
+                            </tr>
+                            {% for atp in doc.anticipos %}
+                            <tr class="border_top">
+                                <td width="30%">{{ atp.nroDocRel }}</td>
+                                <td width="70%">{{ moneda }} {{ atp.total|n_format }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
                     </td>
                     <td width="50%" valign="top">
                         <br>
                         <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-valores-totales">
                             <tbody>
+                            {% if isAnticipo %}
+                                <tr class="border_bottom">
+                                    <td align="right"><strong>Total Anticipo:</strong></td>
+                                    <td width="120" align="right"><span>{{ moneda }}  {{ doc.totalAnticipos|n_format }}</span></td>
+                                </tr>
+                            {% endif %}
+                            {% if doc.mtoOperGravadas %}
                             <tr class="border_bottom">
                                 <td align="right"><strong>Op. Gravadas:</strong></td>
                                 <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoOperGravadas|n_format }}</span></td>
                             </tr>
+                            {% endif %}
+                            {% if doc.mtoOperInafectas %}
                             <tr class="border_bottom">
                                 <td align="right"><strong>Op. Inafectas:</strong></td>
                                 <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoOperInafectas|n_format }}</span></td>
                             </tr>
+                            {% endif %}
+                            {% if doc.mtoOperExoneradas %}
                             <tr class="border_bottom">
                                 <td align="right"><strong>Op. Exoneradas:</strong></td>
                                 <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoOperExoneradas|n_format }}</span></td>
                             </tr>
+                            {% endif %}
                             <tr>
                                 <td align="right"><strong>IGV:</strong></td>
                                 <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoIGV|n_format }}</span></td>
                             </tr>
+                            {% if doc.mtoISC %}
                             <tr>
                                 <td align="right"><strong>ISC:</strong></td>
                                 <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoISC|n_format }}</span></td>
                             </tr>
+                            {% endif %}
+                            {% if  doc.sumOtrosCargos %}
+                                <tr>
+                                    <td align="right"><strong>Otros Cargos:</strong></td>
+                                    <td width="120" align="right"><span>{{ moneda }}  {{ doc.sumOtrosCargos|n_format }}</span></td>
+                                </tr>
+                            {% endif %}
+                            {% if doc.mtoOtrosTributos %}
+                                <tr>
+                                    <td align="right"><strong>Otros Tributos:</strong></td>
+                                    <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoOtrosTributos|n_format }}</span></td>
+                                </tr>
+                            {% endif %}
                             <tr>
                                 <td align="right"><strong>Precio Venta:</strong></td>
                                 <td width="120" align="right"><span id="ride-importeTotal" class="ride-importeTotal">{{ moneda }}  {{ doc.mtoImpVenta }}</span></td>
                             </tr>
-                            <tr>
-                                <td align="right"><strong>Otros Cargos:</strong></td>
-                                <td width="120" align="right"><span>{{ moneda }}  {{ doc.sumOtrosCargos|n_format }}</span></td>
-                            </tr>
-                            <tr>
-                                <td align="right"><strong>Otros Tributos:</strong></td>
-                                <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoOtrosTributos|n_format }}</span></td>
-                            </tr>
+                            {% if doc.perception %}
+                                {% set perc = doc.perception %}
+                                <tr>
+                                    <td align="right"><strong>Percepción:</strong></td>
+                                    <td width="120" align="right"><span>{{ moneda }}  {{ perc.mto|n_format }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td align="right"><strong>Total a Pagar:</strong></td>
+                                    <td width="120" align="right"><span>{{ moneda }}  {{ perc.mtoTotal|n_format }}</span></td>
+                                </tr>
+                            {% endif %}
                             </tbody>
                         </table>
                     </td>

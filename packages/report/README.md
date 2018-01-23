@@ -22,8 +22,8 @@ Representación en formato HTML del comprobante electrónico empleado en la fact
 - [ ] Percepción Electrónica  
 
 ## Features
-- Generacion de Codigo QR
-- Obtenecion del Hash de la firma digital
+- Generación de Codigo QR
+- Obteneción del Hash de la firma digital
 - Agregar cabecera y pie de pagina personalizado
 - Agregar datos extras al comprobante
-- Crear nuevas plantillas segun sus necesidades
+- Crear nuevas plantillas según sus propios requerimientos

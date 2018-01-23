@@ -14,6 +14,7 @@ use Greenter\Model\Company\Company;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
+use Greenter\Model\Sale\Prepayment;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
 use Greenter\Report\HtmlReport;
@@ -40,7 +41,18 @@ trait HtmlReportTrait
             ->setMtoTotal(4);
 
         $invoice = new Invoice();
+        $invoice->setAnticipos([
+            (new Prepayment())
+            ->setNroDocRel('0001-211')
+            ->setTipoDocRel('01')
+            ->setTotal(100),
+            (new Prepayment())
+                ->setNroDocRel('0001-213')
+                ->setTipoDocRel('01')
+                ->setTotal(120)
+        ]);
         $invoice
+            ->setTotalAnticipos(120.24)
             ->setMtoOperGratuitas(12)
             ->setSumDsctoGlobal(12)
             ->setMtoDescuentos(23)
@@ -57,8 +69,6 @@ trait HtmlReportTrait
             ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
             ->setMtoISC(2)
-            ->setSumOtrosCargos(12)
-            ->setMtoOtrosTributos(1)
             ->setMtoImpVenta(236);
 
         $detail1 = new SaleDetail();
@@ -92,9 +102,17 @@ trait HtmlReportTrait
         $legend->setCode('1000')
             ->setValue('SON DOSCIENTOS TREINTA Y SEIS CON 00/100 SOLES');
 
+        $legend2 = new Legend();
+        $legend2->setCode('1002')
+            ->setValue('TRANSFERENCIA GRATUITA DE UN BIEN Y/O SERVICIO PRESTADO GRATUITAMENTE');
+
+        $legend3 = new Legend();
+        $legend3->setCode('2000')
+            ->setValue('COMPROBANTE DE PERCEPCION');
+
         $items = array_merge([$detail1, $detail2], $this->getItems($detail1, 6));
         $invoice->setDetails($items)
-            ->setLegends([$legend]);
+            ->setLegends([$legend, $legend2, $legend3]);
 
         return $invoice;
     }
