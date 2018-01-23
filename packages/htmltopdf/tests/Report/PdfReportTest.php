@@ -31,6 +31,7 @@ class PdfReportTest extends \PHPUnit_Framework_TestCase
             'page-width' => '21cm',
             'page-height' => '29.7cm',
         ]);
+        $this->pdf->getExporter()->tmpDir = __DIR__.'/../Resources';
 
         $this->pdf->setBinPath($this->isWindows()
             ? __DIR__.'/../../wkhtmltopdf.exe'

@@ -53,9 +53,22 @@ class PdfReport implements ReportInterface
         return $this->buildPdf($html);
     }
 
+    /**
+     * Pdf Options.
+     *
+     * @param array $options
+     */
     public function setOptions(array $options)
     {
         $this->pdfRender->setOptions($options);
+    }
+
+    /**
+     * @return Pdf
+     */
+    public function getExporter()
+    {
+        return $this->pdfRender;
     }
 
     /**
