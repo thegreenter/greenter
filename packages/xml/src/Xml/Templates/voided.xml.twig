@@ -15,7 +15,7 @@
     <cbc:ID>{{ doc.xmlId }}</cbc:ID>
     <cbc:ReferenceDate>{{ doc.fecGeneracion|date('Y-m-d') }}</cbc:ReferenceDate>
     <cbc:IssueDate>{{ doc.fecComunicacion|date('Y-m-d') }}</cbc:IssueDate>
-    {% set emp = doc.company %}
+    {% set emp = doc.company -%}
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
         <cbc:Note>GREENTER Builder</cbc:Note>
@@ -42,13 +42,13 @@
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
-    {% for det in doc.details %}
-        <sac:VoidedDocumentsLine>
-            <cbc:LineID>{{ loop.index }}</cbc:LineID>
-            <cbc:DocumentTypeCode>{{ det.tipoDoc }}</cbc:DocumentTypeCode>
-            <sac:DocumentSerialID>{{ det.serie }}</sac:DocumentSerialID>
-            <sac:DocumentNumberID>{{ det.correlativo }}</sac:DocumentNumberID>
-            <sac:VoidReasonDescription><![CDATA[{{ det.desMotivoBaja|raw }}]]></sac:VoidReasonDescription>
-        </sac:VoidedDocumentsLine>
-    {% endfor %}
+    {% for det in doc.details -%}
+    <sac:VoidedDocumentsLine>
+        <cbc:LineID>{{ loop.index }}</cbc:LineID>
+        <cbc:DocumentTypeCode>{{ det.tipoDoc }}</cbc:DocumentTypeCode>
+        <sac:DocumentSerialID>{{ det.serie }}</sac:DocumentSerialID>
+        <sac:DocumentNumberID>{{ det.correlativo }}</sac:DocumentNumberID>
+        <sac:VoidReasonDescription><![CDATA[{{ det.desMotivoBaja|raw }}]]></sac:VoidReasonDescription>
+    </sac:VoidedDocumentsLine>
+    {% endfor -%}
 </VoidedDocuments>

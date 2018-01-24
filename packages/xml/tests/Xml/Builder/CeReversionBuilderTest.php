@@ -18,6 +18,7 @@ use Greenter\Model\Voided\VoidedDetail;
 class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use CeBuilderTrait;
+    use XsdValidatorTrait;
 
     public function testCreateXmlReversion()
     {
@@ -26,6 +27,7 @@ class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $this->build($reversion);
 
         $this->assertNotEmpty($xml);
+        $this->assertVoidedSchema($xml);
     }
 
     public function testReversionFilename()

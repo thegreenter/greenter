@@ -18,6 +18,7 @@ use Greenter\Model\Voided\VoidedDetail;
 class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use FeBuilderTrait;
+    use XsdValidatorTrait;
 
     public function testCreateXmlVoided()
     {
@@ -25,10 +26,8 @@ class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
 
         $xml = $this->build($voided);
 
-        $doc = new \DOMDocument();
-        $doc->loadXML($xml);
-        $success = $doc->schemaValidate(__DIR__ . '/../../Resources/xsd/maindoc/UBLPE-VoidedDocuments-1.0.xsd');
-        $this->assertTrue($success);
+        $this->assertNotEmpty($xml);
+        $this->assertVoidedSchema($xml);
     }
 
     public function testVoidedFilename()

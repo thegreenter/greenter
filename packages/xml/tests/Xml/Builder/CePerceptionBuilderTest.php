@@ -21,6 +21,7 @@ use Greenter\Model\Retention\Payment;
 class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use CeBuilderTrait;
+    use XsdValidatorTrait;
 
     public function testCreateXmlPerception()
     {
@@ -28,10 +29,8 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
 
         $xml = $this->build($perception);
 
-        $doc = new \DOMDocument();
-        $doc->loadXML($xml);
-        $success = $doc->schemaValidate(__DIR__ . '/../../Resources/xsd/maindoc/UBLPE-Perception-1.0.xsd');
-        $this->assertTrue($success);
+        $this->assertNotEmpty($xml);
+        $this->assertPerceptionSchema($xml);
         // file_put_contents('percep.xml', $xml);
     }
 

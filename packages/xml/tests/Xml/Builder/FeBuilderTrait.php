@@ -40,7 +40,11 @@ trait FeBuilderTrait
           Voided::class => VoidedBuilder::class,
           Summary::class => SummaryBuilder::class,
         ];
-        $builder = new $builders[$className](['cache' => false, 'strict_variables' => true]);
+        $builder = new $builders[$className]([
+            'cache' => false,
+            'strict_variables' => true,
+            'autoescape' => false,
+        ]);
 
         /**@var $builder BuilderInterface */
         return $builder;

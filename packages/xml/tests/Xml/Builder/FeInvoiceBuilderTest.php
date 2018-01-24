@@ -26,6 +26,7 @@ use Greenter\Model\Sale\SalePerception;
 class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use FeBuilderTrait;
+    use XsdValidatorTrait;
 
     public function testCreateXmlInvoice()
     {
@@ -33,12 +34,9 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $this->build($invoice);
 
         $this->assertNotEmpty($xml);
-        $doc = new \DOMDocument();
-        $doc->loadXML($xml);
-        $success = $doc->schemaValidate(__DIR__ . '/../../Resources/xsd/maindoc/UBLPE-Invoice-1.0.xsd');
-        $this->assertTrue($success);
+        $this->assertInvoiceSchema($xml);
 
-//      file_put_contents('x.xml', $xml);
+//        file_put_contents('x.xml', $xml);
     }
 
     public function testCompanyValidate()
@@ -163,6 +161,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
             ->setCantidad(2)
             ->setDescripcion('PROD 2')
             ->setDescuento(1)
+            ->setTipSisIsc('3')
             ->setIsc(1)
             ->setIgv(18)
             ->setTipAfeIgv('10')
@@ -173,7 +172,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         ])->setLegends([
             (new Legend())
             ->setCode('1000')
-            ->setValue('SON N SOLES')
+            ->setValue('SON N CON 00/100 SOLES')
         ]);
 
         return $invoice;

@@ -22,6 +22,7 @@ use Greenter\Model\Sale\SalePerception;
 class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use FeBuilderTrait;
+    use XsdValidatorTrait;
 
     public function testCreateXmlCreditNote()
     {
@@ -29,11 +30,8 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
 
         $xml = $this->build($note);
 
-        $doc = new \DOMDocument();
-        $doc->loadXML($xml);
-        $success = $doc->schemaValidate(__DIR__ . '/../../Resources/xsd/maindoc/UBLPE-CreditNote-1.0.xsd');
-
-        $this->assertTrue($success);
+        $this->assertNotEmpty($xml);
+        $this->assertCreditNoteSchema($xml);
 //         file_put_contents('notecr.xml', $xml);
     }
 
@@ -44,10 +42,8 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
 
         $xml = $this->build($note);
 
-        $doc = new \DOMDocument();
-        $doc->loadXML($xml);
-        $success = $doc->schemaValidate(__DIR__ . '/../../Resources/xsd/maindoc/UBLPE-DebitNote-1.0.xsd');
-        $this->assertTrue($success);
+        $this->assertNotEmpty($xml);
+        $this->assertDebitNoteSchema($xml);
         // file_put_contents('notedb.xml', $xml);
     }
 

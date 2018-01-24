@@ -76,12 +76,12 @@
         </cac:InvoiceDocumentReference>
     </cac:BillingReference>
     {% if doc.relDocs -%}
-        {% for rel in doc.relDocs -%}
-        <cac:AdditionalDocumentReference>
-            <cbc:ID>{{ rel.nroDoc }}</cbc:ID>
-            <cbc:DocumentTypeCode>{{ rel.tipoDoc }}</cbc:DocumentTypeCode>
-        </cac:AdditionalDocumentReference>
-        {% endfor -%}
+    {% for rel in doc.relDocs -%}
+    <cac:AdditionalDocumentReference>
+        <cbc:ID>{{ rel.nroDoc }}</cbc:ID>
+        <cbc:DocumentTypeCode>{{ rel.tipoDoc }}</cbc:DocumentTypeCode>
+    </cac:AdditionalDocumentReference>
+    {% endfor -%}
     {% endif -%}
     {% set emp = doc.company -%}
     <cac:Signature>
@@ -130,14 +130,14 @@
         <cbc:AdditionalAccountID>{{ client.tipoDoc }}</cbc:AdditionalAccountID>
         <cac:Party>
             {% if client.address -%}
-                {% set addr = client.address -%}
-                <cac:PostalAddress>
-                    <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
-                    <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
-                    <cac:Country>
-                        <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
-                    </cac:Country>
-                </cac:PostalAddress>
+            {% set addr = client.address -%}
+            <cac:PostalAddress>
+                <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
+                <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
+                <cac:Country>
+                    <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
             {% endif -%}
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName><![CDATA[{{ client.rznSocial|raw }}]]></cbc:RegistrationName>
@@ -145,12 +145,85 @@
         </cac:Party>
     </cac:AccountingCustomerParty>
     {% if doc.mtoISC -%}
-        {% set iscT = doc.mtoISC|n_format -%}
-        <cac:TaxTotal>
+    {% set iscT = doc.mtoISC|n_format -%}
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ iscT }}</cbc:TaxAmount>
+        <cac:TaxSubtotal>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ iscT }}</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cac:TaxScheme>
+                    <cbc:ID>2000</cbc:ID>
+                    <cbc:Name>ISC</cbc:Name>
+                    <cbc:TaxTypeCode>EXC</cbc:TaxTypeCode>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    {% endif -%}
+    {% if doc.mtoIGV -%}
+    {% set igvT = doc.mtoIGV|n_format -%}
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igvT }}</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igvT }}</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cac:TaxScheme>
+                    <cbc:ID>1000</cbc:ID>
+                    <cbc:Name>IGV</cbc:Name>
+                    <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    {% endif -%}
+    {% if doc.sumOtrosCargos -%}
+    {% set othT = doc.sumOtrosCargos|n_format -%}
+    <cac:TaxTotal>
+        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ othT }}</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ othT }}</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cac:TaxScheme>
+                    <cbc:ID>9999</cbc:ID>
+                    <cbc:Name>OTROS</cbc:Name>
+                    <cbc:TaxTypeCode>>OTH</cbc:TaxTypeCode>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    {% endif -%}
+    <cac:RequestedMonetaryTotal>
+        <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0)|n_format }}</cbc:ChargeTotalAmount>
+        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>
+    </cac:RequestedMonetaryTotal>
+    {% for detail in doc.details -%}
+    <cac:DebitNoteLine>
+        <cbc:ID>{{ loop.index }}</cbc:ID>
+        <cbc:DebitedQuantity unitCode="{{ detail.unidad }}">{{ detail.cantidad }}</cbc:DebitedQuantity>
+        <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|n_format }}</cbc:LineExtensionAmount>
+        {% if detail.mtoPrecioUnitario > 0 -%}
+        <cac:PricingReference>
+            <cac:AlternativeConditionPrice>
+                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|n_format }}</cbc:PriceAmount>
+                <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+            </cac:AlternativeConditionPrice>
+        </cac:PricingReference>
+        {% else -%}
+        <cac:PricingReference>
+            <cac:AlternativeConditionPrice>
+                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito|n_format }}</cbc:PriceAmount>
+                <cbc:PriceTypeCode>02</cbc:PriceTypeCode>
+            </cac:AlternativeConditionPrice>
+        </cac:PricingReference>
+        {% endif -%}
+        {% if detail.isc -%}
+        {% set isc = detail.isc|n_format -%}
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ isc }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
-                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ iscT }}</cbc:TaxAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ isc }}</cbc:TaxAmount>
                 <cac:TaxCategory>
+                    <cbc:TierRange>{{ detail.tipSisIsc }}</cbc:TierRange>
                     <cac:TaxScheme>
                         <cbc:ID>2000</cbc:ID>
                         <cbc:Name>ISC</cbc:Name>
@@ -159,14 +232,15 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         </cac:TaxTotal>
-    {% endif -%}
-    {% if doc.mtoIGV -%}
-        {% set igvT = doc.mtoIGV|n_format -%}
+        {% endif -%}
+        {% if detail.igv -%}
+        {% set igv = detail.igv|n_format -%}
         <cac:TaxTotal>
-            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igvT }}</cbc:TaxAmount>
+            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igv }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
-                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igvT }}</cbc:TaxAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igv }}</cbc:TaxAmount>
                 <cac:TaxCategory>
+                    <cbc:TaxExemptionReasonCode>{{ detail.tipAfeIgv }}</cbc:TaxExemptionReasonCode>
                     <cac:TaxScheme>
                         <cbc:ID>1000</cbc:ID>
                         <cbc:Name>IGV</cbc:Name>
@@ -175,95 +249,21 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         </cac:TaxTotal>
-    {% endif -%}
-    {% if doc.sumOtrosCargos -%}
-        {% set othT = doc.sumOtrosCargos|n_format -%}
-        <cac:TaxTotal>
-            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ othT }}</cbc:TaxAmount>
-            <cac:TaxSubtotal>
-                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ othT }}</cbc:TaxAmount>
-                <cac:TaxCategory>
-                    <cac:TaxScheme>
-                        <cbc:ID>9999</cbc:ID>
-                        <cbc:Name>OTROS</cbc:Name>
-                        <cbc:TaxTypeCode>>OTH</cbc:TaxTypeCode>
-                    </cac:TaxScheme>
-                </cac:TaxCategory>
-            </cac:TaxSubtotal>
-        </cac:TaxTotal>
-    {% endif -%}
-    <cac:RequestedMonetaryTotal>
-        <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0)|n_format }}</cbc:ChargeTotalAmount>
-        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>
-    </cac:RequestedMonetaryTotal>
-    {% for detail in doc.details -%}
-        <cac:DebitNoteLine>
-            <cbc:ID>{{ loop.index }}</cbc:ID>
-            <cbc:DebitedQuantity unitCode="{{ detail.unidad }}">{{ detail.cantidad }}</cbc:DebitedQuantity>
-            <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|n_format }}</cbc:LineExtensionAmount>
-            {% if detail.mtoPrecioUnitario > 0 -%}
-                <cac:PricingReference>
-                    <cac:AlternativeConditionPrice>
-                        <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|n_format }}</cbc:PriceAmount>
-                        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
-                    </cac:AlternativeConditionPrice>
-                </cac:PricingReference>
-            {% else -%}
-                <cac:PricingReference>
-                    <cac:AlternativeConditionPrice>
-                        <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito|n_format }}</cbc:PriceAmount>
-                        <cbc:PriceTypeCode>02</cbc:PriceTypeCode>
-                    </cac:AlternativeConditionPrice>
-                </cac:PricingReference>
+        {% endif -%}
+        <cac:Item>
+            <cbc:Description><![CDATA[{{ detail.descripcion|raw }}]]></cbc:Description>
+            <cac:SellersItemIdentification>
+                <cbc:ID>{{ detail.codProducto }}</cbc:ID>
+            </cac:SellersItemIdentification>
+            {% if detail.codProdSunat -%}
+            <cac:CommodityClassification>
+                <cbc:ItemClassificationCode listID="UNSPSC" listAgencyName="GS1 US" listName="Item Classification">{{ detail.codProdSunat }}</cbc:ItemClassificationCode>
+            </cac:CommodityClassification>
             {% endif -%}
-            {% if detail.isc -%}
-                {% set isc = detail.isc|n_format -%}
-                <cac:TaxTotal>
-                    <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ isc }}</cbc:TaxAmount>
-                    <cac:TaxSubtotal>
-                        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ isc }}</cbc:TaxAmount>
-                        <cac:TaxCategory>
-                            <cbc:TierRange>{{ detail.tipSisIsc }}</cbc:TierRange>
-                            <cac:TaxScheme>
-                                <cbc:ID>2000</cbc:ID>
-                                <cbc:Name>ISC</cbc:Name>
-                                <cbc:TaxTypeCode>EXC</cbc:TaxTypeCode>
-                            </cac:TaxScheme>
-                        </cac:TaxCategory>
-                    </cac:TaxSubtotal>
-                </cac:TaxTotal>
-            {% endif -%}
-            {% if detail.igv -%}
-                {% set igv = detail.igv|n_format -%}
-                <cac:TaxTotal>
-                    <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igv }}</cbc:TaxAmount>
-                    <cac:TaxSubtotal>
-                        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igv }}</cbc:TaxAmount>
-                        <cac:TaxCategory>
-                            <cbc:TaxExemptionReasonCode>{{ detail.tipAfeIgv }}</cbc:TaxExemptionReasonCode>
-                            <cac:TaxScheme>
-                                <cbc:ID>1000</cbc:ID>
-                                <cbc:Name>IGV</cbc:Name>
-                                <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
-                            </cac:TaxScheme>
-                        </cac:TaxCategory>
-                    </cac:TaxSubtotal>
-                </cac:TaxTotal>
-            {% endif -%}
-            <cac:Item>
-                <cbc:Description><![CDATA[{{ detail.descripcion|raw }}]]></cbc:Description>
-                <cac:SellersItemIdentification>
-                    <cbc:ID>{{ detail.codProducto }}</cbc:ID>
-                </cac:SellersItemIdentification>
-                {% if detail.codProdSunat %}
-                    <cac:CommodityClassification>
-                        <cbc:ItemClassificationCode listID="UNSPSC" listAgencyName="GS1 US" listName="Item Classification">{{ detail.codProdSunat }}</cbc:ItemClassificationCode>
-                    </cac:CommodityClassification>
-                {% endif %}
-            </cac:Item>
-            <cac:Price>
-                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario|n_format }}</cbc:PriceAmount>
-            </cac:Price>
-        </cac:DebitNoteLine>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario|n_format }}</cbc:PriceAmount>
+        </cac:Price>
+    </cac:DebitNoteLine>
    {% endfor -%}
 </DebitNote>

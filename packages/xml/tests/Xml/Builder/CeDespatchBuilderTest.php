@@ -29,8 +29,6 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
 
         $xml = $this->build($despatch);
 
-        $this->assertNotEmpty($xml);
-
         $doc = new \DOMDocument();
         $doc->loadXML($xml);
         $this->createExtensionContent($doc);

@@ -21,6 +21,7 @@ use Greenter\Model\Retention\RetentionDetail;
 class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use CeBuilderTrait;
+    use XsdValidatorTrait;
 
     public function testCreateXmlRetention()
     {
@@ -28,10 +29,8 @@ class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
 
         $xml = $this->build($retention);
 
-        $doc = new \DOMDocument();
-        $doc->loadXML($xml);
-        $success = $doc->schemaValidate(__DIR__ . '/../../Resources/xsd/maindoc/UBLPE-Retention-1.0.xsd');
-        $this->assertTrue($success);
+        $this->assertNotEmpty($xml);
+        $this->assertRetentionSchema($xml);
         // file_put_contents('reten.xml', $xml);
     }
 

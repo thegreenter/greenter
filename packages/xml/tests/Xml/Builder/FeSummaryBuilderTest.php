@@ -20,6 +20,7 @@ use Greenter\Model\Summary\SummaryPerception;
 class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use FeBuilderTrait;
+    use XsdValidatorTrait;
 
     public function testCreateXmlSummary()
     {
@@ -28,10 +29,8 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $this->build($summary);
         $this->assertNotEmpty($xml);
 
-        $doc = new \DOMDocument();
-        $doc->loadXML($xml);
-        $success = $doc->schemaValidate(__DIR__ . '/../../Resources/xsd/maindoc/UBLPE-SummaryDocuments-1.0.xsd');
-        $this->assertTrue($success);
+        $this->assertNotEmpty($xml);
+        $this->assertSummarySchema($xml);
     }
 
     public function testSummaryFilename()
