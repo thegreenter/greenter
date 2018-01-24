@@ -1,18 +1,21 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Giansalex
- * Date: 30/07/2017
- * Time: 15:37.
+ * User: Administrador
+ * Date: 24/01/2018
+ * Time: 11:34 AM
  */
 
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\LoaderMetadataInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints as Assert;
 
-class SalePerceptionLoader implements LoaderMetadataInterface
+/**
+ * Class SummaryPerceptionLoader
+ */
+class SummaryPerceptionLoader implements LoaderMetadataInterface
 {
     public function load(ClassMetadata $metadata)
     {
@@ -22,7 +25,7 @@ class SalePerceptionLoader implements LoaderMetadataInterface
                 'choices' => ['01', '02', '03'],
             ]),
         ]);
-//        $metadata->addPropertyConstraint('tasa', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('tasa', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoBase', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mto', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoTotal', new Assert\NotBlank());

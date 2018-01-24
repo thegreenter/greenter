@@ -4,8 +4,8 @@
  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/b237d274d88d47fbab43ddac252d73a9)](https://www.codacy.com/app/giansalex/greenter-validator?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=giansalex/greenter-validator&amp;utm_campaign=Badge_Grade)    
 Symfony Validator for [Greenter](https://github.com/giansalex/greenter)
 
-## Composer
-
+## Install
+Using composer from [packagist.org](https://packagist.org/packages/greenter/validator)
 ```bash
 composer require greenter/validator
 ```

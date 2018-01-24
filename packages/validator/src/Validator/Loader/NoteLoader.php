@@ -65,6 +65,7 @@ class NoteLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraint('details', new Assert\Valid());
         $metadata->addPropertyConstraint('legends', new Assert\Valid());
+        $metadata->addPropertyConstraint('guias', new Assert\Valid());
         $metadata->addPropertyConstraint('relDocs', new Assert\Valid());
         $metadata->addPropertyConstraint('perception', new Assert\Valid());
         $metadata->addPropertyConstraints('codMotivo', [

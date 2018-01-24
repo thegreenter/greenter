@@ -35,6 +35,7 @@ class InvoiceLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\Date(),
         ]);
+        $metadata->addPropertyConstraint('fecVencimiento', new Assert\Date());
         $metadata->addPropertyConstraints('tipoMoneda', [
             new Assert\NotBlank(),
             new Assert\Length(['max' => 3]),
