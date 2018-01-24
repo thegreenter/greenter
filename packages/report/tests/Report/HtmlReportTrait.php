@@ -11,6 +11,7 @@ namespace Tests\Greenter\Report;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
+use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
@@ -52,6 +53,7 @@ trait HtmlReportTrait
                 ->setTotal(120)
         ]);
         $invoice
+            ->setCompra('0000123232')
             ->setTotalAnticipos(120.24)
             ->setMtoOperGratuitas(12)
             ->setSumDsctoGlobal(12)
@@ -69,7 +71,14 @@ trait HtmlReportTrait
             ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
             ->setMtoISC(2)
-            ->setMtoImpVenta(236);
+            ->setMtoImpVenta(236)
+            ->setGuias([(new Document())
+                ->setTipoDoc('09')
+                ->setNroDoc('T001-213'),
+                (new Document())
+                ->setTipoDoc('09')
+                ->setNroDoc('001-442')
+            ]);
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')

@@ -95,8 +95,17 @@
                     {% endif %}
                     <tr>
                         <td width="60%" height="15" align="left"><strong>Tipo Moneda: </strong>  {{ doc.tipoMoneda|catalog('021') }} </td>
-                        <td width="40%" height="15" align="left"> </td>
+                        <td width="40%" height="15" align="left">{% if doc.compra is defined and doc.compra %}<strong>O/C: </strong>  {{ doc.compra }}{% endif %}</td>
                     </tr>
+                    {% if doc.guias %}
+                    <tr>
+                        <td width="60%" align="left"><strong>Guias: </strong>
+                        {% for guia in doc.guias %}
+                            {{ guia.nroDoc }}&nbsp;&nbsp;
+                        {% endfor %}</td>
+                        <td width="40%"></td>
+                    </tr>
+                    {% endif %}
                     </tbody></table>
             </div><br>
             {% set moneda = doc.tipoMoneda|catalog('02') %}
