@@ -31,6 +31,7 @@ class NoteParserTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($obj->getNumDocfectado());
         $this->assertNotEmpty($obj->getCodMotivo());
         $this->assertGreaterThan(0, count($obj->getDetails()));
+        $this->assertGreaterThan(1, count($obj->getGuias()));
     }
 
     public function testCreditNoteSfs()

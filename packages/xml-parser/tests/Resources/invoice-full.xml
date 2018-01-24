@@ -153,6 +153,10 @@
          </cac:PartyLegalEntity>
       </cac:Party>
    </cac:AccountingCustomerParty>
+   <cac:PaymentMeans>
+      <cbc:PaymentMeansCode>1</cbc:PaymentMeansCode>
+      <cbc:PaymentDueDate>2017-09-30</cbc:PaymentDueDate>
+   </cac:PaymentMeans>
    <cac:PrepaidPayment>
       <cbc:ID schemeID="02">F001-21</cbc:ID>
       <cbc:PaidAmount currencyID="PEN">100.00</cbc:PaidAmount>

@@ -13,6 +13,7 @@ use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Detraction;
+use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Prepayment;
@@ -39,6 +40,7 @@ class InvoiceParser implements DocumentParserInterface
             ->setCorrelativo($docFac[1])
             ->setTipoDoc($this->defValue($xpt->query('/xt:Invoice/cbc:InvoiceTypeCode')))
             ->setTipoMoneda($this->defValue($xpt->query('/xt:Invoice/cbc:DocumentCurrencyCode')))
+            ->setTipoMoneda($this->defValue($xpt->query('/xt:Invoice/cbc:DocumentCurrencyCode')))
             ->setFechaEmision(new \DateTime($this->defValue($xpt->query('/xt:Invoice/cbc:IssueDate'))))
             ->setCompany($this->getCompany($xpt))
             ->setClient($this->getClient($xpt));
@@ -56,6 +58,7 @@ class InvoiceParser implements DocumentParserInterface
             ->setMtoImpVenta($this->defValue($xpt->query('cbc:PayableAmount', $monetaryTotal)))
             ->setDetails(iterator_to_array($this->getDetails($xpt)))
             ->setLegends(iterator_to_array($this->getLegends($xpt,  $additional)));
+        $this->loadExtras($xpt, $inv);
 
         return $inv;
     }
@@ -198,6 +201,33 @@ class InvoiceParser implements DocumentParserInterface
             ->setAddress($this->getAddress($xp, $node));
 
         return $cl;
+    }
+
+    private function loadExtras(\DOMXPath $xpt, Invoice $inv)
+    {
+        $inv->setCompra($this->defValue($xpt->query('/xt:Invoice/cac:OrderReference/cbc:ID')));
+        $fecVen = $this->defValue($xpt->query('/xt:Invoice/cac:PaymentMeans/cbc:PaymentDueDate'));
+        if (!empty($fecVen)) {
+            $inv->setFecVencimiento(new \DateTime($fecVen));
+        }
+
+        $inv->setGuias(iterator_to_array($this->getGuias($xpt)));
+    }
+
+    private function getGuias(\DOMXPath $xpt)
+    {
+        $guias = $xpt->query('/xt:Invoice/cac:DespatchDocumentReference');
+        if ($guias->length == 0) {
+            return;
+        }
+
+        foreach ($guias as $guia) {
+            $item = new Document();
+            $item->setTipoDoc($this->defValue($xpt->query('cbc:DocumentTypeCode', $guia)));
+            $item->setNroDoc($this->defValue($xpt->query('cbc:ID', $guia)));
+
+            yield $item;
+        }
     }
 
     /**

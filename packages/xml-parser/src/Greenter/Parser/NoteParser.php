@@ -12,6 +12,7 @@ use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Sale\SaleDetail;
@@ -73,7 +74,8 @@ class NoteParser implements DocumentParserInterface
         $note->setMtoOtrosTributos(floatval($xml->getValue('cbc:ChargeTotalAmount', $monetaryTotal, 0)))
             ->setMtoImpVenta($xml->getValue('cbc:PayableAmount', $monetaryTotal, 0))
             ->setDetails(iterator_to_array($this->getDetails($isNcr)))
-            ->setLegends(iterator_to_array($this->getLegends($additional)));
+            ->setLegends(iterator_to_array($this->getLegends($additional)))
+            ->setGuias(iterator_to_array($this->getGuias($root)));
 
         return $note;
     }
@@ -183,6 +185,23 @@ class NoteParser implements DocumentParserInterface
             ->setAddress($this->getAddress($node));
 
         return $cl;
+    }
+
+    private function getGuias($node)
+    {
+        $xml = $this->reader;
+        $guias = $xml->getNodes('cac:DespatchDocumentReference', $node);
+        if ($guias->length == 0) {
+            return;
+        }
+
+        foreach ($guias as $guia) {
+            $item = new Document();
+            $item->setTipoDoc($xml->getValue('cbc:DocumentTypeCode', $guia));
+            $item->setNroDoc($xml->getValue('cbc:ID', $guia));
+
+            yield $item;
+        }
     }
 
     private function getAddress($node)

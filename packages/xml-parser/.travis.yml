@@ -7,7 +7,10 @@ php:
 before_script:
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
-  - if find . -name "*.php" ! -path "./vendor/*" -exec php -l {} 2>&1 \; | grep "syntax error, unexpected"; then exit 1; fi
+
+install:
+  - composer require jakub-onderka/php-parallel-lint
 
 script:
+  - vendor/bin/parallel-lint --exclude vendor .
   - vendor/bin/phpunit --configuration phpunit.xml

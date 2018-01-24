@@ -42,6 +42,14 @@
         <cbc:DocumentTypeCode>01</cbc:DocumentTypeCode>
       </cac:InvoiceDocumentReference>
     </cac:BillingReference>
+    <cac:DespatchDocumentReference>
+        <cbc:ID>T001-123</cbc:ID>
+        <cbc:DocumentTypeCode>09</cbc:DocumentTypeCode>
+    </cac:DespatchDocumentReference>
+    <cac:DespatchDocumentReference>
+        <cbc:ID>T001-124</cbc:ID>
+        <cbc:DocumentTypeCode>09</cbc:DocumentTypeCode>
+    </cac:DespatchDocumentReference>
     <cac:Signature>
         <cbc:ID>IDSignSP</cbc:ID>
         <cac:SignatoryParty>
