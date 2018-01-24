@@ -80,22 +80,27 @@
                 {% set cl = doc.client %}
                 <table width="100%" border="0" cellpadding="5" cellspacing="0">
                     <tbody><tr>
-                        <td width="60%" height="15" align="left"><strong>Razón Social:</strong>  {{ cl.rznSocial }}</td>
-                        <td width="40%" height="15" align="left"><strong>{{ cl.tipoDoc|catalog('06') }}:</strong>  {{ cl.numDoc }}</td>
+                        <td width="60%" align="left"><strong>Razón Social:</strong>  {{ cl.rznSocial }}</td>
+                        <td width="40%" align="left"><strong>{{ cl.tipoDoc|catalog('06') }}:</strong>  {{ cl.numDoc }}</td>
                     </tr>
                     <tr>
-                        <td width="60%" height="15" align="left"><strong>Fecha Emisión: </strong>  {{ doc.fechaEmision|date('d/m/Y') }}</td>
-                        <td width="40%" height="15" align="left"><strong>Dirección: </strong>  {% if cl.address %}{{ cl.address.direccion }}{% endif %}</td>
+                        <td width="60%" align="left">
+                            <strong>Fecha Emisión: </strong>  {{ doc.fechaEmision|date('d/m/Y') }}
+                            {% if doc.fecVencimiento is defined and doc.fecVencimiento %}
+                            <br><br><strong>Fecha Vencimiento: </strong>  {{ doc.fecVencimiento|date('d/m/Y') }}
+                            {% endif %}
+                        </td>
+                        <td width="40%" align="left"><strong>Dirección: </strong>  {% if cl.address %}{{ cl.address.direccion }}{% endif %}</td>
                     </tr>
                     {% if isNota %}
                     <tr>
-                        <td width="60%" height="15" align="left"><strong>Tipo Doc. Ref.: </strong>  {{ doc.tipDocAfectado|catalog('01') }}</td>
-                        <td width="40%" height="15" align="left"><strong>Documento Ref.: </strong>  {{ doc.numDocfectado }}</td>
+                        <td width="60%" align="left"><strong>Tipo Doc. Ref.: </strong>  {{ doc.tipDocAfectado|catalog('01') }}</td>
+                        <td width="40%" align="left"><strong>Documento Ref.: </strong>  {{ doc.numDocfectado }}</td>
                     </tr>
                     {% endif %}
                     <tr>
-                        <td width="60%" height="15" align="left"><strong>Tipo Moneda: </strong>  {{ doc.tipoMoneda|catalog('021') }} </td>
-                        <td width="40%" height="15" align="left">{% if doc.compra is defined and doc.compra %}<strong>O/C: </strong>  {{ doc.compra }}{% endif %}</td>
+                        <td width="60%" align="left"><strong>Tipo Moneda: </strong>  {{ doc.tipoMoneda|catalog('021') }} </td>
+                        <td width="40%" align="left">{% if doc.compra is defined and doc.compra %}<strong>O/C: </strong>  {{ doc.compra }}{% endif %}</td>
                     </tr>
                     {% if doc.guias %}
                     <tr>

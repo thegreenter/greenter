@@ -53,6 +53,7 @@ trait HtmlReportTrait
                 ->setTotal(120)
         ]);
         $invoice
+            ->setFecVencimiento(new \DateTime())
             ->setCompra('0000123232')
             ->setTotalAnticipos(120.24)
             ->setMtoOperGratuitas(12)
@@ -186,7 +187,7 @@ trait HtmlReportTrait
             ->setNumDoc('20000000001')
             ->setRznSocial('EMPRESA 1')
             ->setAddress((new Address())
-                ->setDireccion('AV ITALIA 231 MZ K LT 4'));
+                ->setDireccion('JR. NIQUEL MZA. F LOTE. 3 URB.  INDUSTRIAL INFANTAS - LIMA - LIMA -PERU'));
 
         return $client;
     }
