@@ -10,6 +10,7 @@ namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\LoaderMetadataInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Greenter\Validator\Constraint as MyAssert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class PerceptionDetailLoader implements LoaderMetadataInterface
@@ -31,7 +32,7 @@ class PerceptionDetailLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraint('impTotal', new Assert\NotBlank());
         $metadata->addPropertyConstraints('moneda', [
             new Assert\NotBlank(),
-            new Assert\Length(['min' => 3, 'max' => 3]),
+            new MyAssert\Currency(),
         ]);
         $metadata->addPropertyConstraints('cobros', [
             new Assert\NotBlank(),

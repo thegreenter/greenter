@@ -50,7 +50,7 @@ class SummaryDetailLoader implements LoaderMetadataInterface
     public function validate($object, ExecutionContextInterface $context)
     {
         /** @var $object SummaryDetail */
-        $pattern = $object->getTipoDoc() == '12' ? "/^[a-zA-Z0-9]{1,20}(-[0-9]{1,20})$/" : "/^[B][A-Z0-9]{3}-[0-9]{1,8}$/";
+        $pattern = $object->getTipoDoc() == '12' ? '/^[a-zA-Z0-9]{1,20}(-[0-9]{1,20})$/' : '/^[B][A-Z0-9]{3}-[0-9]{1,8}$/';
         if (!preg_match($pattern, $object->getSerieNro())) {
             $context->buildViolation('Nro de documento no cumple con el formato para tipo doc. '.$object->getTipoDoc())
                 ->atPath('serieNro')

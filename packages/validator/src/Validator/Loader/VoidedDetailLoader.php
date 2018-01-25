@@ -8,8 +8,10 @@
 
 namespace Greenter\Validator\Loader;
 
+use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Validator\LoaderMetadataInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class VoidedDetailLoader implements LoaderMetadataInterface
@@ -18,25 +20,37 @@ class VoidedDetailLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('tipoDoc', [
             new Assert\NotBlank(),
-            new Assert\Length([
-                'min' => 2,
-                'max' => 2,
-            ]),
+            new Assert\Choice(['choices' => ["01", "07", "08", "20", "40"]]),
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
-            new Assert\Length([
-                'min' => 4,
-                'max' => 4,
-            ]),
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 8]),
+            new Assert\Regex(['pattern' => '/^[0-9]{1,8}$/']),
         ]);
         $metadata->addPropertyConstraints('desMotivoBaja', [
             new Assert\NotBlank(),
             new Assert\Length(['max' => 100]),
         ]);
+        $metadata->addConstraint(new Assert\Callback([$this, 'validate']));
+
+    }
+
+    public function validate($object, ExecutionContextInterface $context)
+    {
+        /** @var $object VoidedDetail */
+        $letter = 'F';
+        if ($object->getTipoDoc() == '20') {
+            $letter = 'R';
+        } elseif ($object->getTipoDoc() == '40') {
+            $letter = 'P';
+        }
+
+        if (!preg_match('/^['.$letter.'][A-Z0-9]{3}$/', $object->getSerie())) {
+            $context->buildViolation('Serie del documento no cumple con el formato')
+                ->atPath('serie')
+                ->addViolation();
+        }
     }
 }

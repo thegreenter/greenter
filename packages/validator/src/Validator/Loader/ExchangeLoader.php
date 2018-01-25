@@ -10,6 +10,7 @@ namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\LoaderMetadataInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Greenter\Validator\Constraint as MyAssert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class ExchangeLoader implements LoaderMetadataInterface
@@ -18,11 +19,11 @@ class ExchangeLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('monedaRef', [
             new Assert\NotBlank(),
-            new Assert\Length(['min' => 3, 'max' => 3]),
+            new MyAssert\Currency(),
         ]);
         $metadata->addPropertyConstraints('monedaObj', [
             new Assert\NotBlank(),
-            new Assert\Length(['min' => 3, 'max' => 3]),
+            new MyAssert\Currency(),
         ]);
         $metadata->addPropertyConstraint('factor', new Assert\NotBlank());
         $metadata->addPropertyConstraints('fecha', [

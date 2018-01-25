@@ -44,8 +44,8 @@ class FeVoidedValidatorTest extends \PHPUnit_Framework_TestCase
             ->setDesMotivoBaja('ERROR DE SISTEMA');
 
         $detial2 = new VoidedDetail();
-        $detial2->setTipoDoc('03')
-            ->setSerie('B001')
+        $detial2->setTipoDoc('07')
+            ->setSerie('F001')
             ->setCorrelativo('123')
             ->setDesMotivoBaja('ERROR DE RUC');
 

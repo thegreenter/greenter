@@ -10,6 +10,7 @@ namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\LoaderMetadataInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Greenter\Validator\Constraint as MyAssert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class DespatchDetailLoader implements LoaderMetadataInterface
@@ -25,7 +26,7 @@ class DespatchDetailLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('unidad', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 4]),
+            new MyAssert\CodeUnit(),
         ]);
         $metadata->addPropertyConstraints('cantidad', [
             new Assert\NotBlank(),
