@@ -26,7 +26,7 @@ class DespatchDetail
      */
     private $unidad;
     /**
-     * @var int
+     * @var float
      */
     private $cantidad;
     /**
@@ -97,7 +97,7 @@ class DespatchDetail
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getCantidad()
     {
@@ -105,7 +105,7 @@ class DespatchDetail
     }
 
     /**
-     * @param int $cantidad
+     * @param float $cantidad
      *
      * @return DespatchDetail
      */
