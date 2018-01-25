@@ -11,7 +11,7 @@
 PHP Implementación de la Facturación Electrónica Sunat - Perú
 
 <p align="center">
-  <img alt="Sunat Facturacion Electronica" src="https://raw.githubusercontent.com/giansalex/greenter/master/extras/sunat.ico">
+  <img alt="Sunat Facturacion Electronica" src="https://raw.githubusercontent.com/giansalex/greenter/master/docs/sunat.ico">
 </p>
 
 # Install
