@@ -58,7 +58,7 @@ class See
      *
      * @var array
      */
-    private $options = [];
+    private $options = ['autoescape' => false];
 
     /**
      * See constructor.
@@ -80,6 +80,16 @@ class See
         ];
         $this->summarys = [Summary::class, Summary::class, Voided::class, Reversion::class];
         $this->factory->setSigner($this->signer);
+    }
+
+    /**
+     * Set Xml Builder Options.
+     *
+     * @param array $options
+     */
+    public function setBuilderOptions(array $options)
+    {
+        $this->options = array_merge($this->options, $options);
     }
 
     /**

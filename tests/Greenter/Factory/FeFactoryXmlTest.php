@@ -11,7 +11,6 @@ namespace Tests\Greenter\Factory;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Services\SenderInterface;
-use Greenter\Validator\DocumentValidatorInterface;
 
 /**
  * Class FeFactoryXmlTest
@@ -124,10 +123,11 @@ class FeFactoryXmlTest extends FeFactoryBase
                 ->will($this->returnValue((new BaseResult())
                     ->setSuccess(true)));
 
-        /**@var $validator DocumentValidatorInterface */
-
         /**@var $sender SenderInterface */
-        $builder = new $this->builders[get_class($document)]();
+        $builder = new $this->builders[get_class($document)]([
+            'cache' => false,
+            'strict_variables' => true,
+        ]);
         $factory = $this->factory
             ->setBuilder($builder)
             ->setSender($sender);

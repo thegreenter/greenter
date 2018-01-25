@@ -90,6 +90,12 @@ class SeeCeTest extends CeFactoryBase
     {
         $see = new See();
         $see->setService($endpoint);
+        $see->setBuilderOptions([
+            'strict_variables' => true,
+            'optimizations' => 0,
+            'debug' => true,
+            'cache' => false,
+        ]);
         $see->setCredentials('20000000001MODDATOS', 'moddatos');
         $see->setCertificate(file_get_contents(__DIR__.'/../Resources/SFSCert.pem'));
 
