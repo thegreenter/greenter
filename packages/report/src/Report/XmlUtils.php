@@ -24,7 +24,7 @@ final class XmlUtils
     public function getHashSign($xml)
     {
         $doc = new \DOMDocument();
-        $doc->loadXML($xml);
+        @$doc->loadXML($xml);
 
         return $this->getHashSignFromDoc($doc);
     }
@@ -37,7 +37,7 @@ final class XmlUtils
     public function getHashSignFromFile($filename)
     {
         $doc = new \DOMDocument();
-        $doc->load($filename);
+        @$doc->load($filename);
 
         return $this->getHashSignFromDoc($doc);
     }
@@ -55,15 +55,8 @@ final class XmlUtils
         if ($exts->length == 0) {
             return '';
         }
-        $nodeSign = $exts->item($exts->length - 1);
 
-        $hash = $xpt->query('ext:ExtensionContent/ds:Signature/ds:SignedInfo/ds:Reference/ds:DigestValue', $nodeSign);
-
-        if ($hash->length == 0) {
-            return '';
-        }
-
-        return $hash->item(0)->nodeValue;
+        return $this->getHash($exts, $xpt);
     }
 
     /**
@@ -78,5 +71,26 @@ final class XmlUtils
         $xpt->registerNamespace('ds', self::DS_NAMESPACE);
 
         return $xpt;
+    }
+
+    /**
+     * @param \DOMNodeList $exts
+     * @param \DOMXPath $xpt
+     * @return string
+     */
+    public function getHash(\DOMNodeList $exts, \DOMXPath $xpt)
+    {
+        for ($i = $exts->length; $i-- > 0;) {
+            $nodeSign = $exts->item($i);
+            $hash = $xpt->query('ext:ExtensionContent/ds:Signature/ds:SignedInfo/ds:Reference/ds:DigestValue', $nodeSign);
+
+            if ($hash->length == 0) {
+                continue;
+            }
+
+            return $hash->item(0)->nodeValue;
+        }
+
+        return '';
     }
 }

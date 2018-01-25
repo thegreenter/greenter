@@ -33,7 +33,7 @@ class XmlUtilsTest extends \PHPUnit_Framework_TestCase
     public function testExtractFromDoc($filename)
     {
         $doc = new \DOMDocument();
-        $doc->load($filename);
+        @$doc->load($filename);
         $hash = $this->utils->getHashSignFromDoc($doc);
 
         $this->assertNotEmpty($hash);
@@ -86,6 +86,7 @@ class XmlUtilsTest extends \PHPUnit_Framework_TestCase
         return [
             [$dir.'/20505310072-01-F001-00019772.xml'],
             [$dir.'/20505310072-03-B001-00000088.xml'],
+            [$dir.'/dte_1513569521004.xml'],
         ];
     }
 }

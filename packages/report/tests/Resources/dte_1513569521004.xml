@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 ..\xsd\maindoc\UBLPE-Invoice-2.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ext:UBLExtensions>
+<ext:UBLExtension>
+<ext:ExtensionContent>
+<ds:Signature Id="#SB561-365900-171006201427"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><ds:Reference URI=""><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>T8CQ0EjaW/LKbvjM38ShzEcWRrg=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>oRIMJb6Mop+FKbnzfMwTlxyoAjfCddHDlo4SsynI5s5DxUuFotg7YbeOwVvfvWWJHKkPIAj0ccna
+BxlouBBdhnGajmPI+eIuLf8HU6svpgpUROtsRGhsBD3GDz5myb6T2Z5BogFnOIxdh05bxUCypNTy
+oNvDWsuJoY6H5z4j8UwOLmwWQ/WaH5YLpJKNwSoutOasIMUcHpYYnExNfNQhE1mi3YokbWtlnEYe
+CJpNxm7/lc2+YTe6BakI2/Q/VYXSdi1FLjyy3bekMn/qOqGihEg51TljDUjthn4JPeQg/3DtaYy2
+sFNp2ttasa+YfSpGoAJ/UZOQ+KahDFm6pWp9Ig==</ds:SignatureValue><ds:KeyInfo><ds:X509Data><ds:X509Certificate>MIIFwzCCBKugAwIBAgIKbEu0bgAAAAAi6DANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCQ0gx
+EDAOBgNVBAoTB1dJU2VLZXkxIjAgBgNVBAsTGUNvcHlyaWdodCAyMDExIFdJU2VLZXkgU0ExFjAU
+BgNVBAsTDUludGVybmF0aW9uYWwxMTAvBgNVBAMTKFdJU2VLZXkgQ2VydGlmeUlEIEFkdmFuY2Vk
+IFNlcnZpY2VzIENBIDIwHhcNMTUwNTI1MjIyMzE1WhcNMTgwNTI0MjIyMzE1WjCB1zELMAkGA1UE
+BhMCUEUxDTALBgNVBAcTBExJTUExIDAeBgNVBAoTF0ZBUk1BQ0lBUyBQRVJVQU5BUyBTLkEuMRQw
+EgYDVQQLEwsyMDMwNTM1NDU2MzERMA8GA1UECxMIMjk2NjU2NjIxJTAjBgNVBAsTHElkZW50aWRh
+ZCB2YWxpZGFkYSBwb3IgR1JBTUQxHzAdBgNVBAMTFlBhdHJpY2lvIExhemFydGUgUGFsYW8xJjAk
+BgkqhkiG9w0BCQEWF3BsYXphcnRlQG1pZmFybWEuY29tLnBlMIIBIjANBgkqhkiG9w0BAQEFAAOC
+AQ8AMIIBCgKCAQEAo4HSVlO3fgZ4XDrfrdKFLwONYKMZW06BwzEFP5rwJzJx+v770qw/J58rpNbs
+bfaA52uNB/Xy3DlQqtR5tP+SopfLSFkeAfJq0GIuz9jvuQatteHpkzmMHGNYMc8NgYwbmZk35pIV
+aOMAc6hmGuIgPraOV1pLWE1JmxxPHi7t0YP2NiZdw1iqE+2+l7d1NSnPSZAbBaNhvTKT8BGKeHPz
+zwHGd/Ws6LOVh6/5fr+8WB3dPc8VHMln59Uy6tCD7e/UDhcYHqgI+Pb2OrYf5zjogN4+ChZeuVpG
+6zAq/YuGpJ0qG13qp+Jw8e4xT/0SMVsQNS+mJff6K6uer0cnrQVMhwIDAQABo4IB1jCCAdIwHQYD
+VR0OBBYEFPsds4dHKvteTWulB1UJpqC8mg7FMA4GA1UdDwEB/wQEAwIE8DAfBgNVHSMEGDAWgBTX
+Ly/zCfFWIVMd50wuSERK2ob9mDA8BgNVHR8ENTAzMDGgL6AthitodHRwOi8vcHVibGljLndpc2Vr
+ZXkuY29tL2NybC93Y2lkYXNjYTIuY3JsMG0GCCsGAQUFBwEBBGEwXzA3BggrBgEFBQcwAoYraHR0
+cDovL3B1YmxpYy53aXNla2V5LmNvbS9jcnQvd2NpZGFzY2EyLmNydDAkBggrBgEFBQcwAYYYaHR0
+cDovL29jc3Aud2lzZWtleS5jb20vMDUGA1UdJQQuMCwGCCsGAQUFBwMCBgorBgEEAYI3CgMMBggr
+BgEFBQcDBAYKKwYBBAGCNxQCAjBDBgkrBgEEAYI3FQoENjA0MAoGCCsGAQUFBwMCMAwGCisGAQQB
+gjcKAwwwCgYIKwYBBQUHAwQwDAYKKwYBBAGCNxQCAjBEBgkqhkiG9w0BCQ8ENzA1MA4GCCqGSIb3
+DQMCAgIAgDAOBggqhkiG9w0DBAICAIAwBwYFKw4DAgcwCgYIKoZIhvcNAwcwEQYJYIZIAYb4QgEB
+BAQDAgCgMA0GCSqGSIb3DQEBBQUAA4IBAQBfZTujLumFCxTr+TXwa7NYsAB13U+lteC1zd92hJdE
+cghjvxF058TyqGKtAqe/0mTGQYlZCXL448Dtr8Sj1N1KCbBUq+X1BTGl8Lj/2jlces7ZIfdiSvLP
+LWRCi5fIz/O7J18YLY7ugA49Zq8bzWFkwjHULms0udRkuzwBFC6uVg4PhJAF7jWy01rkkiFgLTnu
+FJ01Z6bk7MF+X6aIc2+kxaOa6qFveWpbaqw5DELrwfma66mk+wn5FKD47FK25A0oKBtscjk/ISUB
+PPzQW+aaaZVGqBXORGb9JJT4M6QcuGt2FYQ1mHKLfgc6Jzbi1t5jchpssFd8Z9wAW5M3ASBh</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature></ext:ExtensionContent>
+</ext:UBLExtension>
+<ext:UBLExtension>
+<ext:ExtensionContent>
+<sac:AdditionalInformation>
+<sac:AdditionalMonetaryTotal>
+<cbc:ID>1001</cbc:ID>
+<cbc:PayableAmount currencyID="PEN">10.68</cbc:PayableAmount>
+</sac:AdditionalMonetaryTotal>
+<sac:AdditionalMonetaryTotal>
+<cbc:ID>2005</cbc:ID>
+<cbc:PayableAmount currencyID="PEN">0</cbc:PayableAmount>
+</sac:AdditionalMonetaryTotal>
+<sac:AdditionalMonetaryTotal>
+<cbc:ID>2001</cbc:ID>
+<cbc:PayableAmount currencyID="PEN">0</cbc:PayableAmount>
+</sac:AdditionalMonetaryTotal>
+<sac:AdditionalProperty>
+<cbc:ID>1000</cbc:ID>
+<cbc:Value><![CDATA[SON: DOCE CON 60/100 SOLES]]></cbc:Value>
+</sac:AdditionalProperty>
+</sac:AdditionalInformation>
+</ext:ExtensionContent>
+</ext:UBLExtension>
+</ext:UBLExtensions>
+<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+<cbc:CustomizationID>1.0</cbc:CustomizationID>
+<cbc:ID>B561-365900</cbc:ID>
+<cbc:IssueDate>2017-10-06</cbc:IssueDate>
+<cbc:InvoiceTypeCode>03</cbc:InvoiceTypeCode>
+<cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
+<cac:Signature>
+<cbc:ID>SB561-365900</cbc:ID>
+<cac:SignatoryParty>
+<cac:PartyIdentification>
+<cbc:ID>20305354563</cbc:ID>
+</cac:PartyIdentification>
+<cac:PartyName>
+<cbc:Name><![CDATA[SUNAT]]></cbc:Name>
+</cac:PartyName>
+</cac:SignatoryParty>
+<cac:DigitalSignatureAttachment>
+<cac:ExternalReference>
+<cbc:URI>#SB561-365900-171006201427</cbc:URI>
+</cac:ExternalReference>
+</cac:DigitalSignatureAttachment>
+</cac:Signature>
+<cac:AccountingSupplierParty>
+<cbc:CustomerAssignedAccountID>20305354563</cbc:CustomerAssignedAccountID>
+<cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+<cac:Party>
+<cac:PartyName>
+<cbc:Name><![CDATA[MIFARMA]]></cbc:Name>
+</cac:PartyName>
+<cac:PostalAddress>
+<cbc:ID>150115</cbc:ID>
+<cbc:StreetName><![CDATA[CAL. VICTOR ALZAMORA NRO. 147 URB. SANTA CATALINA - LA VICTORIA - LIMA]]></cbc:StreetName>
+<cbc:CitySubdivisionName><![CDATA[]]></cbc:CitySubdivisionName>
+<cbc:CityName>LIMA</cbc:CityName>
+<cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
+<cbc:District>LA VICTORIA</cbc:District>
+<cac:Country>
+<cbc:IdentificationCode>PE</cbc:IdentificationCode>
+</cac:Country>
+</cac:PostalAddress>
+<cac:PartyLegalEntity>
+<cbc:RegistrationName><![CDATA[FARMACIAS PERUANAS S.A.]]></cbc:RegistrationName>
+</cac:PartyLegalEntity>
+</cac:Party>
+</cac:AccountingSupplierParty>
+<cac:AccountingCustomerParty>
+<cbc:CustomerAssignedAccountID>0</cbc:CustomerAssignedAccountID>
+<cbc:AdditionalAccountID>0</cbc:AdditionalAccountID>
+<cac:Party>
+<cac:PartyLegalEntity>
+<cbc:RegistrationName><![CDATA[SIN NOMBRE]]></cbc:RegistrationName>
+<cac:RegistrationAddress>
+<cbc:StreetName><![CDATA[]]></cbc:StreetName>
+<cac:Country>
+<cbc:IdentificationCode>PE</cbc:IdentificationCode>
+</cac:Country>
+</cac:RegistrationAddress>
+</cac:PartyLegalEntity>
+</cac:Party>
+</cac:AccountingCustomerParty>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">1.92</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxAmount currencyID="PEN">1.92</cbc:TaxAmount>
+<cac:TaxCategory>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:LegalMonetaryTotal>
+<cbc:LineExtensionAmount currencyID="PEN">10.68</cbc:LineExtensionAmount>
+<cbc:TaxExclusiveAmount currencyID="PEN">1.92</cbc:TaxExclusiveAmount>
+<cbc:PayableAmount currencyID="PEN">12.6</cbc:PayableAmount>
+</cac:LegalMonetaryTotal>
+<cac:InvoiceLine>
+<cbc:ID>1</cbc:ID>
+<cbc:InvoicedQuantity unitCode="ZZ">1.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">10.68</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">12.6</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">0.0</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">1.92</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">10.68</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">1.92</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[SPEED STICK SPRAY EXTREM FCO 100 GR COLGATE/PALMOLIVE DEL PERU@#@1]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>189993</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">10.68</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+</Invoice>
