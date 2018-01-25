@@ -129,7 +129,10 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
      */
     protected function getXmlSigned(DocumentInterface $document)
     {
-        $builder = new $this->builders[get_class($document)]();
+        $builder = new $this->builders[get_class($document)]([
+            'cache' => false,
+            'strict_variables' => true,
+        ]);
         $this->factory->setBuilder($builder);
 
         return $this->factory->getXmmlSigned($document);

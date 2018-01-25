@@ -108,7 +108,10 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
      * @return BuilderInterface
      */
     protected function getBuilder(DocumentInterface $document) {
-        return new $this->builders[get_class($document)]();
+        return new $this->builders[get_class($document)]([
+            'cache' => false,
+            'strict_variables' => true,
+        ]);
     }
 
     protected function getValidator($errors)

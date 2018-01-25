@@ -110,7 +110,12 @@ class SeeFeTest extends FeFactoryBase
     {
         $see = new See();
         $see->setService(SunatEndpoints::FE_BETA);
-        $see->setCachePath(__DIR__.'/../Resources');
+        $see->setBuilderOptions([
+            'strict_variables' => true,
+            'optimizations' => 0,
+            'debug' => true,
+        ]);
+        $see->setCachePath(false);
         $see->setCredentials('20000000001MODDATOS', 'moddatos');
         $see->setCertificate(file_get_contents(__DIR__.'/../Resources/SFSCert.pem'));
 
