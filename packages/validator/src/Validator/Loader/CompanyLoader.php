@@ -18,7 +18,7 @@ class CompanyLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('ruc', [
             new Assert\NotBlank(),
-            new Assert\Length(['min' => 11, 'max' => 11]),
+            new Assert\Regex(['pattern' => '/^[0-9]{11}$/']),
         ]);
         $metadata->addPropertyConstraints('razonSocial', [
             new Assert\NotBlank(),

@@ -44,46 +44,46 @@ class SummaryDetailLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraint('percepcion', new Assert\Valid());
         $metadata->addPropertyConstraint('total', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoIGV', new Assert\NotBlank());
+        $metadata->addConstraint(new Assert\Callback([$this, 'validate']));
+    }
 
-        $callback = function ($object, ExecutionContextInterface $context) {
-            /** @var $object SummaryDetail */
-            $pattern = $object->getTipoDoc() == '12' ? "/^[a-zA-Z0-9]{1,20}(-[0-9]{1,20})$/" : "/^[B][A-Z0-9]{3}-[0-9]{1,8}$/";
-            if (!preg_match($pattern, $object->getSerieNro())) {
-                $context->buildViolation('Nro de documento no cumple con el formato para tipo doc. '.$object->getTipoDoc())
-                    ->atPath('serieNro')
+    public function validate($object, ExecutionContextInterface $context)
+    {
+        /** @var $object SummaryDetail */
+        $pattern = $object->getTipoDoc() == '12' ? "/^[a-zA-Z0-9]{1,20}(-[0-9]{1,20})$/" : "/^[B][A-Z0-9]{3}-[0-9]{1,8}$/";
+        if (!preg_match($pattern, $object->getSerieNro())) {
+            $context->buildViolation('Nro de documento no cumple con el formato para tipo doc. '.$object->getTipoDoc())
+                ->atPath('serieNro')
+                ->addViolation();
+        }
+
+        if ($object->getTipoDoc() == '07' || $object->getTipoDoc() == '08') {
+            if (empty($object->getDocReferencia())) {
+                $context->buildViolation('Necesita un documento de referencia para tipo doc. '.$object->getTipoDoc())
+                    ->atPath('docReferencia')
+                    ->addViolation();
+            } else if (!in_array($object->getDocReferencia()->getTipoDoc(), ['03', '12'])) {
+                $context->buildViolation('Documento de referencia solo puede ser Ticket(12) o Boleta(03)')
+                    ->atPath('docReferencia')
                     ->addViolation();
             }
 
-            if ($object->getTipoDoc() == '07' || $object->getTipoDoc() == '08') {
-                if (empty($object->getDocReferencia())) {
-                    $context->buildViolation('Necesita un documento de referencia para tipo doc. '.$object->getTipoDoc())
-                        ->atPath('docReferencia')
-                        ->addViolation();
-                } else if (!in_array($object->getDocReferencia()->getTipoDoc(), ['03', '12'])) {
-                    $context->buildViolation('Documento de referencia solo puede ser Ticket(12) o Boleta(03)')
-                        ->atPath('docReferencia')
-                        ->addViolation();
-                }
+        }
 
-            }
+        if (!($object->getTotal() > 750)) {
+            return;
+        }
 
-            if (!($object->getTotal() > 750)) {
-                return;
-            }
+        if (empty($object->getClienteTipo())) {
+            $context->buildViolation('Tipo de documento del cliente requerido para ventas mayores a 750')
+                ->atPath('clienteTipo')
+                ->addViolation();
+        }
 
-            if (empty($object->getClienteTipo())) {
-                $context->buildViolation('Tipo de documento del cliente requerido para ventas mayores a 750')
-                    ->atPath('clienteTipo')
-                    ->addViolation();
-            }
-
-            if (empty($object->getClienteNro())) {
-                $context->buildViolation('Numero de documento del cliente requerido para ventas mayores a 750')
-                    ->atPath('clienteNro')
-                    ->addViolation();
-            }
-        };
-
-        $metadata->addConstraint(new Assert\Callback($callback));
+        if (empty($object->getClienteNro())) {
+            $context->buildViolation('Numero de documento del cliente requerido para ventas mayores a 750')
+                ->atPath('clienteNro')
+                ->addViolation();
+        }
     }
 }

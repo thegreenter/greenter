@@ -18,18 +18,17 @@ class InvoiceLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('tipoDoc', [
             new Assert\NotBlank(),
-            new Assert\Length([
-                'min' => 2,
-                'max' => 2,
+            new Assert\Choice([
+                'choices' => ['01', '03'],
             ]),
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 4]),
+            new Assert\Regex(['pattern' => '/^[F|B][A-Z0-9]{3}$/']),
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 8]),
+            new Assert\Regex(['pattern' => '/^[0-9]{1,8}$/']),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
             new Assert\NotBlank(),
