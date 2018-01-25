@@ -44,9 +44,9 @@
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>2003</cbc:ID>
                         {% if detr.valueRef -%}
-                            <cbc:ReferenceAmount currencyID="{{ doc.tipoMoneda }}">{{ detr.valueRef|n_format }}</cbc:ReferenceAmount>
+                         <cbc:ReferenceAmount currencyID="PEN">{{ detr.valueRef|n_format }}</cbc:ReferenceAmount>
                         {% endif -%}
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ detr.mount|n_format }}</cbc:PayableAmount>
+                        <cbc:PayableAmount currencyID="PEN">{{ detr.mount|n_format }}</cbc:PayableAmount>
                         <cbc:Percent>{{ detr.percent|n_format }}</cbc:Percent>
                     </sac:AdditionalMonetaryTotal>
                     {% endif -%}

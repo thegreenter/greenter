@@ -34,7 +34,7 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
         $this->createExtensionContent($doc);
         $success = $doc->schemaValidate(__DIR__ . '/../../Resources/xsd2.1/maindoc/UBL-DespatchAdvice-2.1.xsd');
         $this->assertTrue($success);
-        // file_put_contents('guia.xml', $xml);
+//         file_put_contents('guia.xml', $xml);
     }
 
     public function testDespatchFilename()
@@ -82,7 +82,7 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
             ->setCompany($this->getCompany());
 
         $detail = new DespatchDetail();
-        $detail->setCantidad(2)
+        $detail->setCantidad(2.4)
             ->setUnidad('ZZ')
             ->setCodProdSunat('2121')
             ->setDescripcion('PROD 1')
