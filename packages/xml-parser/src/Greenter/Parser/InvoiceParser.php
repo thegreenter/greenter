@@ -87,13 +87,12 @@ class InvoiceParser implements DocumentParserInterface
         return $nodeList->item(0)->nodeValue;
     }
 
-    private function loadTotals(Invoice $inv, \DOMXPath $xpt, $node)
+    private function loadTotals(Invoice $inv, \DOMXPath $xpt, \DOMNode $node = null)
     {
         if (empty($node)) {
             return;
         }
 
-        /**@var $node \DOMNode */
         $totals = $xpt->query('sac:AdditionalMonetaryTotal', $node);
         foreach ($totals as $total) {
             /**@var $total \DOMElement*/
@@ -169,13 +168,12 @@ class InvoiceParser implements DocumentParserInterface
         }
     }
 
-    private function getLegends(\DOMXPath $xpt, $node)
+    private function getLegends(\DOMXPath $xpt, \DOMNode $node = null)
     {
         if (empty($node)) {
             return;
         }
 
-        /**@var $node \DOMNode*/
         $legends = $xpt->query('sac:AdditionalProperty', $node);
         foreach ($legends as $legend) {
             /**@var $legend \DOMElement*/
