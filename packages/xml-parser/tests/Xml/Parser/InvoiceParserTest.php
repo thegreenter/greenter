@@ -63,7 +63,7 @@ class InvoiceParserTest extends \PHPUnit_Framework_TestCase
 
         $xml = file_get_contents($this->filenameProvider()[0][0]);
         $doc = new \DOMDocument();
-        $doc->loadXML($xml);
+        @$doc->loadXML($xml);
         /**@var $obj Invoice */
         $obj = $parser->parse($doc);
 
@@ -79,17 +79,18 @@ class InvoiceParserTest extends \PHPUnit_Framework_TestCase
     {
         $dir = __DIR__.'/../../Resources/';
         return [
-          [$dir.'invoice-full.xml'],
-          [$dir.'anticipos.xml'],
-          [$dir.'anticipos-regularizacion.xml'],
-          [$dir.'boleta-itinerante.xml'],
-          [$dir.'datos-no-trib.xml'],
-          [$dir.'detraccion.xml'],
-          [$dir.'exportacion.xml'],
-          [$dir.'factura-guia.xml'],
-          [$dir.'gravada.xml'],
-          [$dir.'plazavea-bol.xml'],
-          [$dir.'20480072872-01-FB99-70000.xml']
+          [$dir.'dte_1513569521004.xml'],
+//          [$dir.'invoice-full.xml'],
+//          [$dir.'anticipos.xml'],
+//          [$dir.'anticipos-regularizacion.xml'],
+//          [$dir.'boleta-itinerante.xml'],
+//          [$dir.'datos-no-trib.xml'],
+//          [$dir.'detraccion.xml'],
+//          [$dir.'exportacion.xml'],
+//          [$dir.'factura-guia.xml'],
+//          [$dir.'gravada.xml'],
+//          [$dir.'plazavea-bol.xml'],
+//          [$dir.'20480072872-01-FB99-70000.xml']
         ];
     }
 

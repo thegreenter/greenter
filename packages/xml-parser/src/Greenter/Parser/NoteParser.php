@@ -80,8 +80,12 @@ class NoteParser implements DocumentParserInterface
         return $note;
     }
 
-    private function loadTotals(Note $inv, \DOMNode $node)
+    private function loadTotals(Note $inv, $node)
     {
+        if (empty($node)) {
+            return;
+        }
+
         $xml = $this->reader;
         $totals = $xml->getNodes('sac:AdditionalMonetaryTotal', $node);
         foreach ($totals as $total) {
@@ -135,8 +139,12 @@ class NoteParser implements DocumentParserInterface
         }
     }
 
-    private function getLegends(\DOMNode $node)
+    private function getLegends($node)
     {
+        if (empty($node)) {
+            return;
+        }
+
         $xml = $this->reader;
         $legends = $xml->getNodes('sac:AdditionalProperty', $node);
         foreach ($legends as $legend) {
