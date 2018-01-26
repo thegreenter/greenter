@@ -30,7 +30,7 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $this->build($perception);
 
         $this->assertNotEmpty($xml);
-        $this->assertPerceptionSchema($xml);
+        $this->assertSchema($xml);
         // file_put_contents('percep.xml', $xml);
     }
 

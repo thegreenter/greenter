@@ -27,7 +27,7 @@ class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $this->build($reversion);
 
         $this->assertNotEmpty($xml);
-        $this->assertVoidedSchema($xml);
+        $this->assertSchema($xml);
     }
 
     public function testReversionFilename()

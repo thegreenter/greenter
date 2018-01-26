@@ -30,7 +30,7 @@ class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $this->build($retention);
 
         $this->assertNotEmpty($xml);
-        $this->assertRetentionSchema($xml);
+        $this->assertSchema($xml);
         // file_put_contents('reten.xml', $xml);
     }
 

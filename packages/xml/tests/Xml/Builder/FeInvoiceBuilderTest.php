@@ -34,7 +34,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $this->build($invoice);
 
         $this->assertNotEmpty($xml);
-        $this->assertInvoiceSchema($xml);
+        $this->assertSchema($xml);
 
 //        file_put_contents('x.xml', $xml);
     }

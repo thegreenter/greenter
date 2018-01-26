@@ -22,6 +22,7 @@ use Greenter\Model\Sale\Document;
 class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use CeBuilderTrait;
+    use XsdValidatorTrait;
 
     public function testCreateXmlDespatch()
     {
@@ -32,8 +33,8 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
         $doc = new \DOMDocument();
         $doc->loadXML($xml);
         $this->createExtensionContent($doc);
-        $success = $doc->schemaValidate(__DIR__ . '/../../Resources/xsd2.1/maindoc/UBL-DespatchAdvice-2.1.xsd');
-        $this->assertTrue($success);
+
+        $this->assertSchema($doc, '2.1');
 //         file_put_contents('guia.xml', $xml);
     }
 

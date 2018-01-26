@@ -30,7 +30,7 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($xml);
 
         $this->assertNotEmpty($xml);
-        $this->assertSummarySchema($xml);
+        $this->assertSchema($xml);
     }
 
     public function testSummaryFilename()

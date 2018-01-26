@@ -82,5 +82,4 @@ trait FeBuilderTrait
 
         return $company;
     }
-
 }

@@ -27,7 +27,7 @@ class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $this->build($voided);
 
         $this->assertNotEmpty($xml);
-        $this->assertVoidedSchema($xml);
+        $this->assertSchema($xml);
     }
 
     public function testVoidedFilename()

@@ -31,7 +31,7 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $this->build($note);
 
         $this->assertNotEmpty($xml);
-        $this->assertCreditNoteSchema($xml);
+        $this->assertSchema($xml);
 //         file_put_contents('notecr.xml', $xml);
     }
 
@@ -43,7 +43,7 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
         $xml = $this->build($note);
 
         $this->assertNotEmpty($xml);
-        $this->assertDebitNoteSchema($xml);
+        $this->assertSchema($xml);
         // file_put_contents('notedb.xml', $xml);
     }
 
