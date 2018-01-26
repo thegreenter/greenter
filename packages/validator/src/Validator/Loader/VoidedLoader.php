@@ -20,7 +20,10 @@ class VoidedLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\Length(['max' => 5]),
         ]);
-        $metadata->addPropertyConstraint('fecGeneracion', new Assert\Date());
+        $metadata->addPropertyConstraints('fecGeneracion', [
+            new Assert\NotBlank(),
+            new Assert\Date(),
+        ]);
         $metadata->addPropertyConstraints('fecComunicacion', [
             new Assert\NotBlank(),
             new Assert\Date(),

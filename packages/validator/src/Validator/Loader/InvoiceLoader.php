@@ -33,7 +33,7 @@ class InvoiceLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
             new Assert\NotBlank(),
-            new Assert\Date(),
+            new Assert\DateTime(),
         ]);
         $metadata->addPropertyConstraint('fecVencimiento', new Assert\Date());
         $metadata->addPropertyConstraints('tipoMoneda', [

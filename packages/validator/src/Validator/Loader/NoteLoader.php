@@ -34,7 +34,7 @@ class NoteLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
             new Assert\NotBlank(),
-            new Assert\Date(),
+            new Assert\DateTime(),
         ]);
         $metadata->addPropertyConstraints('tipoMoneda', [
             new Assert\NotBlank(),
