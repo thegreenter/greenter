@@ -55,7 +55,7 @@ class InvoiceParser implements DocumentParserInterface
             ->setTotalAnticipos(floatval($this->defValue($xpt->query('cbc:PrepaidAmount', $monetaryTotal),0)))
             ->setAnticipos(iterator_to_array($this->getPrepayments($xpt)))
             ->setMtoOtrosTributos(floatval($this->defValue($xpt->query('cbc:ChargeTotalAmount', $monetaryTotal), 0)))
-            ->setMtoImpVenta($this->defValue($xpt->query('cbc:PayableAmount', $monetaryTotal)))
+            ->setMtoImpVenta(floatval($this->defValue($xpt->query('cbc:PayableAmount', $monetaryTotal),0)))
             ->setDetails(iterator_to_array($this->getDetails($xpt)))
             ->setLegends(iterator_to_array($this->getLegends($xpt,  $additional)));
         $this->loadExtras($xpt, $inv);
@@ -116,14 +116,14 @@ class InvoiceParser implements DocumentParserInterface
                     $inv->setPerception((new SalePerception())
                         ->setCodReg($xpt->query('cbc:ID', $total)->item(0)->getAttribute('schemeID'))
                         ->setMto($val)
-                        ->setMtoBase($this->defValue($xpt->query('sac:ReferenceAmount', $total)))
-                        ->setMtoTotal($this->defValue($xpt->query('sac:TotalAmount', $total))));
+                        ->setMtoBase(floatval($this->defValue($xpt->query('sac:ReferenceAmount', $total), 0)))
+                        ->setMtoTotal(floatval($this->defValue($xpt->query('sac:TotalAmount', $total),0))));
                     break;
                 case '2003':
                     $inv->setDetraccion((new Detraction())
                         ->setMount($val)
-                        ->setPercent($this->defValue($xpt->query('cbc:Percent', $total)))
-                        ->setValueRef($this->defValue($xpt->query('sac:ReferenceAmount', $total))));
+                        ->setPercent(floatval($this->defValue($xpt->query('cbc:Percent', $total),0)))
+                        ->setValueRef(floatval($this->defValue($xpt->query('sac:ReferenceAmount', $total),0))));
                     break;
                 case '2005':
                     $inv->setMtoDescuentos($val);

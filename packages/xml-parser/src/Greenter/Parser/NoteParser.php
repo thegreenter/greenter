@@ -72,7 +72,7 @@ class NoteParser implements DocumentParserInterface
         $this->loadTributos($note);
         $monetaryTotal = $xml->getNode($isNcr ? 'cac:LegalMonetaryTotal': 'cac:RequestedMonetaryTotal', $root);
         $note->setMtoOtrosTributos(floatval($xml->getValue('cbc:ChargeTotalAmount', $monetaryTotal, 0)))
-            ->setMtoImpVenta($xml->getValue('cbc:PayableAmount', $monetaryTotal, 0))
+            ->setMtoImpVenta(floatval($xml->getValue('cbc:PayableAmount', $monetaryTotal, 0)))
             ->setDetails(iterator_to_array($this->getDetails($isNcr)))
             ->setLegends(iterator_to_array($this->getLegends($additional)))
             ->setGuias(iterator_to_array($this->getGuias($root)));
@@ -110,8 +110,8 @@ class NoteParser implements DocumentParserInterface
                     $inv->setPerception((new SalePerception())
                         ->setCodReg($nodeId->getAttribute('schemeID'))
                         ->setMto($val)
-                        ->setMtoBase($xml->getValue('sac:ReferenceAmount', $total))
-                        ->setMtoTotal($xml->getValue('sac:TotalAmount', $total)));
+                        ->setMtoBase(floatval($xml->getValue('sac:ReferenceAmount', $total,0)))
+                        ->setMtoTotal(floatval($xml->getValue('sac:TotalAmount', $total,0))));
                     break;
             }
         }

@@ -55,6 +55,7 @@ class InvoiceParserTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($obj->getFechaEmision());
         $this->assertGreaterThanOrEqual(1, count($obj->getDetails()));
         $this->assertGreaterThanOrEqual(1, count($obj->getLegends()));
+        $this->assertTrue(is_float($obj->getMtoImpVenta()));
     }
 
     public function testFacParseFromDoc()
@@ -80,17 +81,17 @@ class InvoiceParserTest extends \PHPUnit_Framework_TestCase
         $dir = __DIR__.'/../../Resources/';
         return [
           [$dir.'dte_1513569521004.xml'],
-//          [$dir.'invoice-full.xml'],
-//          [$dir.'anticipos.xml'],
-//          [$dir.'anticipos-regularizacion.xml'],
-//          [$dir.'boleta-itinerante.xml'],
-//          [$dir.'datos-no-trib.xml'],
-//          [$dir.'detraccion.xml'],
-//          [$dir.'exportacion.xml'],
-//          [$dir.'factura-guia.xml'],
-//          [$dir.'gravada.xml'],
-//          [$dir.'plazavea-bol.xml'],
-//          [$dir.'20480072872-01-FB99-70000.xml']
+          [$dir.'invoice-full.xml'],
+          [$dir.'anticipos.xml'],
+          [$dir.'anticipos-regularizacion.xml'],
+          [$dir.'boleta-itinerante.xml'],
+          [$dir.'datos-no-trib.xml'],
+          [$dir.'detraccion.xml'],
+          [$dir.'exportacion.xml'],
+          [$dir.'factura-guia.xml'],
+          [$dir.'gravada.xml'],
+          [$dir.'plazavea-bol.xml'],
+          [$dir.'20480072872-01-FB99-70000.xml']
         ];
     }
 
