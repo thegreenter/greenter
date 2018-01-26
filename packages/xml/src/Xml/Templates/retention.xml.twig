@@ -32,6 +32,7 @@
     </cac:Signature>
     <cbc:ID>{{ doc.serie }}-{{ doc.correlativo }}</cbc:ID>
     <cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
+    <cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>
     <cac:AgentParty>
         <cac:PartyIdentification>
             <cbc:ID schemeID="6">{{ emp.ruc }}</cbc:ID>

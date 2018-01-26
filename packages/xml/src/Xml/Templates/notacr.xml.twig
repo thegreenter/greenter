@@ -63,6 +63,7 @@
     <cbc:CustomizationID>1.0</cbc:CustomizationID>
     <cbc:ID>{{ doc.serie }}-{{ doc.correlativo }}</cbc:ID>
     <cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
+    <cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>
     <cbc:DocumentCurrencyCode>{{ doc.tipoMoneda }}</cbc:DocumentCurrencyCode>
     <cac:DiscrepancyResponse>
         <cbc:ReferenceID>{{ doc.numDocfectado }}</cbc:ReferenceID>
