@@ -285,17 +285,18 @@
                             {% endif %}
                             <tr>
                                 <td align="right"><strong>Precio Venta:</strong></td>
-                                <td width="120" align="right"><span id="ride-importeTotal" class="ride-importeTotal">{{ moneda }}  {{ doc.mtoImpVenta }}</span></td>
+                                <td width="120" align="right"><span id="ride-importeTotal" class="ride-importeTotal">{{ moneda }}  {{ doc.mtoImpVenta|n_format }}</span></td>
                             </tr>
-                            {% if doc.perception %}
+                            {% if doc.perception and doc.perception.mto %}
                                 {% set perc = doc.perception %}
+                                {% set soles = 'PEN'|catalog('02') %}
                                 <tr>
                                     <td align="right"><strong>Percepción:</strong></td>
-                                    <td width="120" align="right"><span>{{ moneda }}  {{ perc.mto|n_format }}</span></td>
+                                    <td width="120" align="right"><span>{{ soles }}  {{ perc.mto|n_format }}</span></td>
                                 </tr>
                                 <tr>
                                     <td align="right"><strong>Total a Pagar:</strong></td>
-                                    <td width="120" align="right"><span>{{ moneda }}  {{ perc.mtoTotal|n_format }}</span></td>
+                                    <td width="120" align="right"><span>{{ soles }} {{ perc.mtoTotal|n_format }}</span></td>
                                 </tr>
                             {% endif %}
                             </tbody>
