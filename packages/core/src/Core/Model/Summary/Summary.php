@@ -24,14 +24,14 @@ class Summary implements DocumentInterface
     /**
      * Fecha de generación de los documentos a enviar en el resumen.
      *
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     protected $fecGeneracion;
 
     /**
      * Fecha de generación del resumen.
      *
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     protected $fecResumen;
 
@@ -66,7 +66,7 @@ class Summary implements DocumentInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getFecGeneracion()
     {
@@ -74,11 +74,11 @@ class Summary implements DocumentInterface
     }
 
     /**
-     * @param \DateTime $fecGeneracion
+     * @param \DateTimeInterface $fecGeneracion
      *
      * @return Summary
      */
-    public function setFecGeneracion($fecGeneracion)
+    public function setFecGeneracion(\DateTimeInterface $fecGeneracion)
     {
         $this->fecGeneracion = $fecGeneracion;
 
@@ -86,7 +86,7 @@ class Summary implements DocumentInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getFecResumen()
     {
@@ -94,11 +94,11 @@ class Summary implements DocumentInterface
     }
 
     /**
-     * @param \DateTime $fecResumen
+     * @param \DateTimeInterface $fecResumen
      *
      * @return Summary
      */
-    public function setFecResumen($fecResumen)
+    public function setFecResumen(\DateTimeInterface $fecResumen)
     {
         $this->fecResumen = $fecResumen;
 
@@ -118,7 +118,7 @@ class Summary implements DocumentInterface
      *
      * @return Summary
      */
-    public function setCompany($company)
+    public function setCompany(Company $company)
     {
         $this->company = $company;
 

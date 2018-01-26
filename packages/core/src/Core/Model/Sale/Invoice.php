@@ -9,7 +9,7 @@
 namespace Greenter\Model\Sale;
 
 /**
- * Invoice 2.1
+ * Invoice 2.1.
  *
  * Class Invoice.
  */
@@ -72,7 +72,6 @@ class Invoice extends BaseSale
     /**
      * Utilizado cuando se trata de una Factura Guia.
      *
-     *
      * @var EmbededDespatch
      */
     private $guiaEmbebida;
@@ -107,11 +106,13 @@ class Invoice extends BaseSale
 
     /**
      * @param \DateTime $fecVencimiento
+     *
      * @return Invoice
      */
     public function setFecVencimiento($fecVencimiento)
     {
         $this->fecVencimiento = $fecVencimiento;
+
         return $this;
     }
 

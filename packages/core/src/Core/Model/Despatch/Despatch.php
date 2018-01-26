@@ -38,7 +38,7 @@ class Despatch implements DocumentInterface
      */
     private $observacion;
     /**
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     private $fechaEmision;
     /**
@@ -154,7 +154,7 @@ class Despatch implements DocumentInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getFechaEmision()
     {
@@ -162,11 +162,11 @@ class Despatch implements DocumentInterface
     }
 
     /**
-     * @param \DateTime $fechaEmision
+     * @param \DateTimeInterface $fechaEmision
      *
      * @return Despatch
      */
-    public function setFechaEmision($fechaEmision)
+    public function setFechaEmision(\DateTimeInterface $fechaEmision)
     {
         $this->fechaEmision = $fechaEmision;
 
@@ -186,7 +186,7 @@ class Despatch implements DocumentInterface
      *
      * @return Despatch
      */
-    public function setCompany($company)
+    public function setCompany(Company $company)
     {
         $this->company = $company;
 
@@ -246,7 +246,7 @@ class Despatch implements DocumentInterface
      *
      * @return Despatch
      */
-    public function setEnvio($envio)
+    public function setEnvio(Shipment $envio)
     {
         $this->envio = $envio;
 

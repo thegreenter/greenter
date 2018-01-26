@@ -33,7 +33,7 @@ class BaseSale implements DocumentInterface
     protected $correlativo;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     protected $fechaEmision;
 
@@ -177,7 +177,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getFechaEmision()
     {
@@ -185,11 +185,11 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @param \DateTime $fechaEmision
+     * @param \DateTimeInterface $fechaEmision
      *
      * @return BaseSale
      */
-    public function setFechaEmision($fechaEmision)
+    public function setFechaEmision(\DateTimeInterface $fechaEmision)
     {
         $this->fechaEmision = $fechaEmision;
 
@@ -229,7 +229,7 @@ class BaseSale implements DocumentInterface
      *
      * @return BaseSale
      */
-    public function setCompany($company)
+    public function setCompany(Company $company)
     {
         $this->company = $company;
 

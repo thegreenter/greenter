@@ -30,7 +30,7 @@ class Perception implements DocumentInterface
     private $correlativo;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     private $fechaEmision;
 
@@ -121,7 +121,7 @@ class Perception implements DocumentInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getFechaEmision()
     {
@@ -129,11 +129,11 @@ class Perception implements DocumentInterface
     }
 
     /**
-     * @param \DateTime $fechaEmision
+     * @param \DateTimeInterface $fechaEmision
      *
      * @return Perception
      */
-    public function setFechaEmision($fechaEmision)
+    public function setFechaEmision(\DateTimeInterface $fechaEmision)
     {
         $this->fechaEmision = $fechaEmision;
 
@@ -153,7 +153,7 @@ class Perception implements DocumentInterface
      *
      * @return Perception
      */
-    public function setCompany($company)
+    public function setCompany(Company $company)
     {
         $this->company = $company;
 

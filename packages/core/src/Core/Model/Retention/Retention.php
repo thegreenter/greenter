@@ -30,7 +30,7 @@ class Retention implements DocumentInterface
     private $correlativo;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     private $fechaEmision;
 
@@ -121,7 +121,7 @@ class Retention implements DocumentInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getFechaEmision()
     {
@@ -129,11 +129,11 @@ class Retention implements DocumentInterface
     }
 
     /**
-     * @param \DateTime $fechaEmision
+     * @param \DateTimeInterface $fechaEmision
      *
      * @return Retention
      */
-    public function setFechaEmision($fechaEmision)
+    public function setFechaEmision(\DateTimeInterface $fechaEmision)
     {
         $this->fechaEmision = $fechaEmision;
 
@@ -173,7 +173,7 @@ class Retention implements DocumentInterface
      *
      * @return Retention
      */
-    public function setCompany($company)
+    public function setCompany(Company $company)
     {
         $this->company = $company;
 

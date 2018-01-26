@@ -22,16 +22,16 @@ class Voided implements DocumentInterface
     protected $correlativo;
 
     /**
-     * Fecha de generación del documento dado de baja.
+     * Fecha de generación de los documentos a dar baja.
      *
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     protected $fecGeneracion;
 
     /**
      * Fecha de generación de la comunicación.
      *
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     protected $fecComunicacion;
 
@@ -71,7 +71,7 @@ class Voided implements DocumentInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getFecGeneracion()
     {
@@ -79,11 +79,11 @@ class Voided implements DocumentInterface
     }
 
     /**
-     * @param \DateTime $fecGeneracion
+     * @param \DateTimeInterface $fecGeneracion
      *
      * @return Voided
      */
-    public function setFecGeneracion($fecGeneracion)
+    public function setFecGeneracion(\DateTimeInterface $fecGeneracion)
     {
         $this->fecGeneracion = $fecGeneracion;
 
@@ -91,7 +91,7 @@ class Voided implements DocumentInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getFecComunicacion()
     {
@@ -99,11 +99,11 @@ class Voided implements DocumentInterface
     }
 
     /**
-     * @param \DateTime $fecComunicacion
+     * @param \DateTimeInterface $fecComunicacion
      *
      * @return Voided
      */
-    public function setFecComunicacion($fecComunicacion)
+    public function setFecComunicacion(\DateTimeInterface $fecComunicacion)
     {
         $this->fecComunicacion = $fecComunicacion;
 
@@ -123,7 +123,7 @@ class Voided implements DocumentInterface
      *
      * @return Voided
      */
-    public function setCompany($company)
+    public function setCompany(Company $company)
     {
         $this->company = $company;
 
