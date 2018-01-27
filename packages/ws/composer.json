@@ -1,7 +1,7 @@
 {
     "name": "greenter/ws",
-    "description": "WS Facturacion Electrónica SUNAT - Perú",
-    "keywords": ["ws", "greenter", "facturacion electronica"],
+    "description": "WebServices Sunat Facturación Electrónica - Perú",
+    "keywords": ["greenter", "soap", "webservices", "sunat", "facturacion electronica"],
     "license": "MIT",
     "authors": [
         {
@@ -12,9 +12,9 @@
     "homepage": "https://github.com/giansalex/greenter-ws",
     "type": "library",
     "require": {
-	"php": ">=5.5.9",
+	    "php": ">=5.5.9",
         "ext-zlib": "*",
-	"ext-soap": "*",
+	    "ext-soap": "*",
         "greenter/core": "^1.2"
     },
 	"require-dev": {
