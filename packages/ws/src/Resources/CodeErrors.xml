@@ -98,8 +98,8 @@
   <error code="1039">Solo se pueden recibir notas electronicas que modifican facturas</error>
   <error code="1040">El tipo de documento modificado por la nota electronica no es valido</error>
   <error code="1041">cac:PrepaidPayment/cbc:ID - El tag no contiene el atributo @SchemaID. que indica el tipo de documento que realiza el anticipo</error>
-  <error code="1042">cac:PrepaidPayment/cbc:InstructionID – El tag no contiene el atributo @SchemaID. Que indica el tipo de documento del emisor del documento del </error>anticipo.
-  <error code="1043">cac:OriginatorDocumentReference/cbc:ID - El tag no contiene el atributo @SchemaID. Que indica el tipo de documento del originador del documento </error>electrónico.
+  <error code="1042">cac:PrepaidPayment/cbc:InstructionID – El tag no contiene el atributo @SchemaID. Que indica el tipo de documento del emisor del documento del anticipo.</error>
+  <error code="1043">cac:OriginatorDocumentReference/cbc:ID - El tag no contiene el atributo @SchemaID. Que indica el tipo de documento del originador del documento electrónico.</error>
   <error code="1044">cac:PrepaidPayment/cbc:InstructionID – El dato ingresado no cumple con el estándar.</error>
   <error code="1045">cac:OriginatorDocumentReference/cbc:ID – El dato ingresado no cumple con el estándar.</error>
   <error code="1046">cbc:Amount - El dato ingresado no cumple con el estándar.</error>
@@ -548,7 +548,7 @@
   <error code="2422">El valor unitario debe ser menor al precio unitario.</error>
   <error code="2423">Si ha consignado monto ISC a nivel de item, debe consignar un monto a nivel de total.</error>
   <error code="2424">RC Debe consignar solo un elemento sac:BillingPayment a nivel de item con cbc:InstructionID igual a 05.</error>
-  <error code="2425">Si la  operacion es gratuita PriceTypeCode =02 y cbc:PriceAmount> 0 el codigo de afectacion de igv debe ser  no onerosa es  decir diferente de </error>10,20,30.
+  <error code="2425">Si la  operacion es gratuita PriceTypeCode =02 y cbc:PriceAmount> 0 el codigo de afectacion de igv debe ser  no onerosa es  decir diferente de 10,20,30.</error>
   <error code="2426">Documentos relacionados duplicados en el comprobante.</error>
   <error code="2427">Solo debe de existir un tag AdditionalInformation.</error>
   <error code="2428">Comprobante no cumple con grupo de facturas con detracciones.</error>
@@ -613,7 +613,7 @@
   <error code="2547">El XML no contiene el tag o no existe información del país en domicilio fiscal.</error>
   <error code="2548">El valor del país inválido.</error>
   <error code="2549">El XML no contiene el tag o no existe informacion del tipo de documento identidad del destinatario.</error>
-  <error code="2550">cac:DeliveryCustomerParty/cbc:CustomerAssignedAccountID@schemeID - El dato ingresado de tipo de documento identidad del destinatario no cumple con </error>el estandar.
+  <error code="2550">cac:DeliveryCustomerParty/cbc:CustomerAssignedAccountID@schemeID - El dato ingresado de tipo de documento identidad del destinatario no cumple con el estandar.</error>
   <error code="2551">El XML no contiene el tag o no existe informacion de CustomerAssignedAccountID del proveedor de servicios.</error>
   <error code="2552">El XML no contiene el tag o no existe informacion del tipo de documento identidad del proveedor.</error>
   <error code="2553">cac:SellerSupplierParty/cbc:CustomerAssignedAccountID@schemeID - El dato ingresado no es valido.</error>
@@ -622,10 +622,10 @@
   <error code="2556">cbc:TransportModeCode -  dato ingresado no es valido.</error>
   <error code="2557">La fecha del StartDate no debe ser menor al Today.</error>
   <error code="2558">El XML no contiene el tag o no existe informacion en Numero de Ruc del transportista.</error>
-  <error code="2559"	>DespatchAdvice/cac:Shipment/cac:ShipmentStage/cac:CarrierParty/cac:PartyIdentification/cbc:ID  - El dato ingresado no cumple con el formato </error>establecido.
+  <error code="2559">/DespatchAdvice/cac:Shipment/cac:ShipmentStage/cac:CarrierParty/cac:PartyIdentification/cbc:ID  - El dato ingresado no cumple con el formato establecido.</error>
   <error code="2560">Transportista  no debe ser igual al remitente o destinatario.</error>
   <error code="2561">El XML no contiene el tag o no existe informacion del tipo de documento identidad del transportista.</error>
-  <error code="2562"	>DespatchAdvice/cac:Shipment/cac:ShipmentStage/cac:CarrierParty/cac:PartyIdentification/cbc:ID@schemeID  - El dato ingresado no es valido.</error>
+  <error code="2562">/DespatchAdvice/cac:Shipment/cac:ShipmentStage/cac:CarrierParty/cac:PartyIdentification/cbc:ID@schemeID  - El dato ingresado no es valido.</error>
   <error code="2563">El XML no contiene el tag o no existe informacion de Apellido, Nombre o razon social del transportista.</error>
   <error code="2564">Razon social transportista - El dato ingresado no cumple con el formato establecido.</error>
   <error code="2565">El XML no contiene el tag o no existe informacion del tipo de unidad de transporte.</error>
@@ -656,7 +656,7 @@
   <error code="2609">El comprobante electrónico enviado no se encuentra registrado en la SUNAT.</error>
   <error code="2610">La fecha de emisión, Importe total del comprobante y la moneda del comprobante electrónico enviado no son los registrados en los Sistemas de SUNAT.</error>
   <error code="2611">El comprobante electrónico no ha sido emitido al cliente.</error>
-  <error code="2612">La fecha de cobro debe estar entre el primer día calendario del mes al cual corresponde la fecha de emisión del comprobante de percepción o desde </error>la fecha de emisión del comprobante relacionado.
+  <error code="2612">La fecha de cobro debe estar entre el primer día calendario del mes al cual corresponde la fecha de emisión del comprobante de percepción o desde la fecha de emisión del comprobante relacionado.</error>
   <error code="2613">El Nro. de documento con número de cobro ya se encuentra en la Relación de Documentos Relacionados agregados.</error>
   <error code="2614">El Nro. de documento con el número de cobro ya se encuentra registrado como pago realizado.</error>
   <error code="2615">Importe total percibido debe ser igual a la suma de los importes percibidos por cada documento relacionado.</error>
@@ -669,7 +669,7 @@
   <error code="2622">La moneda del importe de pago debe ser la misma que la del documento relacionado.</error>
   <error code="2623">Los montos de pago, retenidos y montos pagados consignados para el documento relacionado no son correctos.</error>
   <error code="2624">El comprobante electrónico no ha sido emitido por el proveedor.</error>
-  <error code="2625">La fecha de pago debe estar entre el primer día calendario del mes al cual corresponde la fecha de emisión del comprobante de retención o desde la </error>fecha de emisión del comprobante relacionado.
+  <error code="2625">La fecha de pago debe estar entre el primer día calendario del mes al cual corresponde la fecha de emisión del comprobante de retención o desde la fecha de emisión del comprobante relacionado.</error>
   <error code="2626">El Nro. de documento con el número de pago ya se encuentra en la Relación de Documentos Relacionados agregados.</error>
   <error code="2627">El Nro. de documento con el número de pago ya se encuentra registrado como pago realizado.</error>
   <error code="2628">Importe total retenido debe ser igual a la suma de los importes retenidos por cada documento relacionado.</error>
@@ -701,9 +701,9 @@
   <error code="2656">Servicios prestados No domiciliados. Código tributo  UN/ECE debe ser VAT</error>
   <error code="2657">El Nro. de documento ya fué utilizado en la emision de CPE.</error>
   <error code="2658">El Nro. de documento no se ha informado o no se encuentra en estado Revertido</error>
-  <error code="2659">La fecha de cobro de cada documento relacionado deben ser del mismo Periodo (mm/aaaa), asimismo estas fechas podrán ser menores o iguales a la </error>fecha de emisión del comprobante de percepción
+  <error code="2659">La fecha de cobro de cada documento relacionado deben ser del mismo Periodo (mm/aaaa), asimismo estas fechas podrán ser menores o iguales a la fecha de emisión del comprobante de percepción</error>
   <error code="2660">Los datos del CPE revertido no corresponden a los registrados en la SUNAT</error>
-  <error code="2661">La fecha de cobro de cada documento relacionado deben ser del mismo Periodo (mm/aaaa), asimismo estas fechas podrán ser menores o iguales a la </error>fecha de emisión del comprobante de retencion
+  <error code="2661">La fecha de cobro de cada documento relacionado deben ser del mismo Periodo (mm/aaaa), asimismo estas fechas podrán ser menores o iguales a la fecha de emisión del comprobante de retencion</error>
   <error code="2662">El Nro. de documento ya fué utilizado en la emision de CRE.</error>
   <error code="2663">El documento indicado no existe no puede ser modificado/eliminado</error>
   <error code="2664">El calculo de la base imponible de percepción y el monto de la percepción no coincide con el monto total informado.</error>
@@ -838,7 +838,7 @@
   <error code="2794">El dato ingresado en sac:TotalAmount no cumple con el formato establecido</error>
   <error code="2795">Debe consignar la moneda para el Monto Total incluido la percepcion (sac:TotalAmount/@currencyID)</error>
   <error code="2796">El dato ingresado en sac:TotalAmount/@currencyID debe ser PEN</error>
-  <error code="2797">sac:ReferenceAmount no puede ser mayor al importe total de la venta (cac:LegalMonetaryTotal/cbc:PayableAmount) cuando sac:AdditionalMonetaryTotal/</error>cbc:ID es 2001
+  <error code="2797">sac:ReferenceAmount no puede ser mayor al importe total de la venta (cac:LegalMonetaryTotal/cbc:PayableAmount) cuando sac:AdditionalMonetaryTotal/cbc:ID es 2001</error>
   <error code="2798">cbc:PayableAmount no tiene el valor correcto cuando sac:AdditionalMonetaryTotal/cbc:ID es 2001</error>
   <error code="2799">sac:TotalAmount no tiene el valor correcto cuando sac:AdditionalMonetaryTotal/cbc:ID es 2001</error>
   <error code="2800">AdditionalAccountID -  El dato ingresado  en el tipo de documento de identidad del receptor no esta permitido.</error>
@@ -1010,7 +1010,7 @@
   <error code="4061">El numero de RUC del transportista no existe.</error>
   <error code="4062">El RUC del transportista no esta activo.</error>
   <error code="4063">El RUC del transportista no esta habido.</error>
-  <error code="4064"	>DespatchAdvice/cac:Shipment/cac:ShipmentStage/cac:TransportMeans/cbc:RegistrationNationalityID - El dato ingresado no cumple con el formato </error>establecido.
+  <error code="4064">/DespatchAdvice/cac:Shipment/cac:ShipmentStage/cac:TransportMeans/cbc:RegistrationNationalityID - El dato ingresado no cumple con el formato establecido.</error>
   <error code="4065">cac:TransportMeans/cbc:TransportMeansTypeCode - El valor ingresado como tipo de unidad de transporte es incorrecta.</error>
   <error code="4066">El numero de DNI del conductor no existe.</error>
   <error code="4067">El XML no contiene el tag o no existe informacion del ubigeo del punto de llegada.</error>
@@ -1064,23 +1064,23 @@
   <error code="4122">Factura con información que sustenta el traslado, debe registrar leyenda 2008.</error>
   <error code="4123">sac:SUNATEmbededDespatchAdvice - Para Factura Electrónica Remitente no se consigna datos en documento de referencia(cac:OrderReference).</error>
   <error code="4124">cac:Shipment - Para Factura Electrónica Remitente debe indicar sujeto que realiza el traslado de bienes (1: Vendendor o 2: Comprador).</error>
-  <error code="4125">cac:Shipment - Para Factura Electrónica Remitente debe indicar modalidad de transporte para el sustento de traslado de bienes (</error>cbc:TransportModeCode).
+  <error code="4125">cac:Shipment - Para Factura Electrónica Remitente debe indicar modalidad de transporte para el sustento de traslado de bienes (cbc:TransportModeCode).</error>
   <error code="4126">cac:Shipment - Debe indicar fecha de inicio de traslado para el  sustento de traslado de bienes (cac:TransitPeriod/cbc:StartDate).</error>
   <error code="4127">cac:Shipment - Para Factura Electrónica Remitente debe indicar el punto de partida para el sustento de traslado de bienes (cac:DeliveryAddrees).</error>
   <error code="4128">cac:Shipment - Para Factura Electrónica Remitente debe indicar el punto de llegada para el sustento de traslado de bienes (cac:OriginAddress).</error>
   <error code="4129">sac:SUNATEmbededDespatchAdvice - Para Factura Electrónica Remitente no se consigna indicador de subcontratación (cbc:MarkAttentionIndicator).</error>
   <error code="4130">sac:SUNATEmbededDespatchAdvice - Para Factura Electrónica Remitente debe consignar datos en documento de referencia (cac:OrderReference).</error>
-  <error code="4131">sac:SUNATEmbededDespatchAdvice - Para Factura Electrónica Transportista no se consigna destinatario para el sustento de traslado de bienes (</error>cac:DeliveryCustomerParty).
+  <error code="4131">sac:SUNATEmbededDespatchAdvice - Para Factura Electrónica Transportista no se consigna destinatario para el sustento de traslado de bienes (cac:DeliveryCustomerParty).</error>
   <error code="4132">cac:Shipment - Para Factura Electrónica Transportista no se consigna sujeto que realiza el traslado (cbc:HandlingCode).</error>
-  <error code="4133">cac:Shipment - Para Factura Electrónica Transportista no se consigna peso total de la factura para el sustento de traslado de bienes (</error>cbc:GrossWeightMeasure).
-  <error code="4134">cac:Shipment - Para Factura Electrónica Transportista no se consigna modalidad de transporte para el sustento de traslado de bienes (</error>cbc:TransportModeCode).
+  <error code="4133">cac:Shipment - Para Factura Electrónica Transportista no se consigna peso total de la factura para el sustento de traslado de bienes (cbc:GrossWeightMeasure).</error>
+  <error code="4134">cac:Shipment - Para Factura Electrónica Transportista no se consigna modalidad de transporte para el sustento de traslado de bienes (cbc:TransportModeCode).</error>
   <error code="4135">cac:Shipment - Para Factura Electrónica Transportista no se consigna punto de llegada para el sustento de traslado de bienes (cac:DeliveryAddress).</error>
   <error code="4136">cac:Shipment - Para Factura Electrónica transportista no se consigna punto de partida para el sustento de traslado de bienes (cac:OriginAddress).</error>
   <error code="4137">cac:OrderReference - Debe consignar número de  documento de referencia que sustenta el traslado (./cbc:ID).</error>
   <error code="4138">cac:OrderReference - Debe consignar tipo de documento de referencia que sustenta el traslado (./cbc:OrderTypeCode).</error>
   <error code="4139">cac:OrderReference - Tipo de documento de referencia que sustenta el traslado no válido (01 – Factura o 09 – Guía de Remisión).</error>
   <error code="4140">cac:OrderReference - Serie-Numero ingresado en documento de referencia que sustenta el traslado no cumple con el formato establecido.</error>
-  <error code="4141">cac:OrderReference - Debe consignar RUC emisor del documento de referencia que sustenta el traslado (./cac:DocumentReference/cac:IssuerParty/</error>cac:PartyIdentification/cbc:ID).
+  <error code="4141">cac:OrderReference - Debe consignar RUC emisor del documento de referencia que sustenta el traslado (./cac:DocumentReference/cac:IssuerParty/cac:PartyIdentification/cbc:ID).</error>
   <error code="4142">cac:OrderReference -  RUC emisor del documento de referencia que sustenta el traslado no cumple con el formato establecido.</error>
   <error code="4143">cac:OrderReference – RUC Emisor de documento de referencia que sustenta el traslado no existe o se encuentra dado de baja.</error>
   <error code="4144">cac:OrderReference – Documento de Referencia ingresado no corresponde a un comprobante electrónico declarado y activo en SUNAT.</error>
@@ -1090,7 +1090,7 @@
   <error code="4148">cac:DeliveryCustomerParty - Debe consignar tipo de documento de identidad del destinatario (cbc:CustomerAssignedAccountID/@schemeID).</error>
   <error code="4149">cac:DeliveryCustomerParty - Tipo de documento de identidad del destinatario no válido (Catálogo N° 06).</error>
   <error code="4150">cac:DeliveryCustomerParty - Numero de documento de identidad del destinatario no cumple con un formato válido.</error>
-  <error code="4151">cac:DeliveryCustomerParty - Debe consignar apellidos y nombres, denominación o razón social del destinatario (cac:Party/cac:PartyLegalEntity/</error>cbc:RegistrationName).
+  <error code="4151">cac:DeliveryCustomerParty - Debe consignar apellidos y nombres, denominación o razón social del destinatario (cac:Party/cac:PartyLegalEntity/cbc:RegistrationName).</error>
   <error code="4152">cac:DeliveryCustomerParty - Nombre o razon social del destinatario no cumple con un formato válido.</error>
   <error code="4153">cbc:HandlingCode - Sujeto que realiza el traslado no es valido.</error>
   <error code="4154">cbc:GrossWeightMeasure@unitCode: El valor ingresado en la unidad de medida para el peso bruto total no es correcta (KGM).</error>
