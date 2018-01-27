@@ -9,6 +9,10 @@
 namespace Greenter\Validator;
 
 use Greenter\Model\DocumentInterface;
+use Symfony\Component\Translation\Loader\ArrayLoader;
+use Symfony\Component\Translation\MessageSelector;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Validation;
 
 /**
@@ -20,13 +24,19 @@ class SymfonyValidator implements DocumentValidatorInterface
 
     /**
      * SymfonyValidator constructor.
+     * @param TranslatorInterface|null $translator
      */
-    public function __construct()
+    public function __construct(TranslatorInterface $translator = null)
     {
+        if ($translator == null) {
+            $translator = $this->getTranslator();
+        }
+
         $metaDataFactory = new CustomMetadataFactory();
 
         $this->validator = Validation::createValidatorBuilder()
             ->setMetadataFactory($metaDataFactory)
+            ->setTranslator($translator)
             ->getValidator();
     }
 
@@ -38,5 +48,14 @@ class SymfonyValidator implements DocumentValidatorInterface
     public function validate(DocumentInterface $document)
     {
         return $this->validator->validate($document);
+    }
+
+    private function getTranslator()
+    {
+        $translator = new Translator('es_PE', new MessageSelector());
+        $translator->addLoader('array', new ArrayLoader());
+        $translator->addResource('array', CodeTranslate::$ErrorCodes, 'es_PE');
+
+        return $translator;
     }
 }
