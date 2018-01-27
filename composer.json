@@ -15,7 +15,7 @@
 		"php": ">=5.5.9",
         "greenter/xmldsig": "^1.0",
         "greenter/core": "^1.2",
-        "greenter/ws": "^1.1",
+        "greenter/ws": "^1.2",
         "greenter/xml": "^1.2"
     },
 	"require-dev": {
