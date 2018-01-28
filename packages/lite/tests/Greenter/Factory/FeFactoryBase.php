@@ -148,7 +148,9 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setRznSocial('EMPRESA 1');
 
         $invoice = new Invoice();
-        $invoice->setTipoDoc('01')
+        $invoice->setFecVencimiento(new \DateTime())
+            ->setCompra('01-21312312')
+            ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
             ->setFechaEmision($this->getDate())
