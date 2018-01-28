@@ -18,6 +18,11 @@ use Greenter\Model\Sale\Note;
 use Greenter\Model\Sale\Prepayment;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
+use Greenter\Model\Summary\Summary;
+use Greenter\Model\Summary\SummaryDetail;
+use Greenter\Model\Summary\SummaryPerception;
+use Greenter\Model\Voided\Voided;
+use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Report\HtmlReport;
 
 trait HtmlReportTrait
@@ -200,5 +205,110 @@ trait HtmlReportTrait
         }
 
         return $items;
+    }
+
+    private function getVoided()
+    {
+        $detial1 = new VoidedDetail();
+        $detial1->setTipoDoc('01')
+            ->setSerie('F001')
+            ->setCorrelativo('02132132')
+            ->setDesMotivoBaja('ERROR DE SISTEMA');
+
+        $detial2 = new VoidedDetail();
+        $detial2->setTipoDoc('07')
+            ->setSerie('FC01')
+            ->setCorrelativo('222')
+            ->setDesMotivoBaja('ERROR DE RUC');
+
+        $voided = new Voided();
+        $voided->setCorrelativo('00111')
+            ->setFecComunicacion(new \DateTime())
+            ->setFecGeneracion(new \DateTime())
+            ->setCompany($this->getCompany())
+            ->setDetails([$detial1, $detial2]);
+
+        return $voided;
+    }
+
+    private function getSummary()
+    {
+        $detiail1 = new SummaryDetail();
+        $detiail1->setTipoDoc('03')
+            ->setSerieNro('B001-1')
+            ->setEstado('3')
+            ->setClienteTipo('1')
+            ->setClienteNro('00000000')
+            ->setTotal(100)
+            ->setMtoOperGravadas(20.555)
+            ->setMtoOperInafectas(24.4)
+            ->setMtoOperExoneradas(50)
+            ->setMtoOtrosCargos(21)
+            ->setMtoIGV(3.6);
+
+        $detiail2 = new SummaryDetail();
+        $detiail2->setTipoDoc('07')
+            ->setSerieNro('B001-4')
+            ->setDocReferencia((new Document())
+                ->setTipoDoc('03')
+                ->setNroDoc('0001-122'))
+            ->setEstado('1')
+            ->setClienteTipo('1')
+            ->setClienteNro('00000000')
+            ->setTotal(200)
+            ->setMtoOperGravadas(40)
+            ->setMtoOperExoneradas(30)
+            ->setMtoOperInafectas(120)
+            ->setMtoIGV(7.2)
+            ->setMtoISC(2.8);
+
+        $detiail3 = new SummaryDetail();
+        $detiail3->setTipoDoc('03')
+            ->setSerieNro('B001-2')
+            ->setEstado('1')
+            ->setClienteTipo('1')
+            ->setClienteNro('00000000')
+            ->setPercepcion((new SummaryPerception())
+                ->setCodReg('01')
+                ->setTasa(2.00)
+                ->setMtoBase(100.00)
+                ->setMto(2.00)
+                ->setMtoTotal(102.00))
+            ->setTotal(100)
+            ->setMtoOperGravadas(20.555)
+            ->setMtoOperInafectas(24.4)
+            ->setMtoOperExoneradas(50)
+            ->setMtoOtrosCargos(21)
+            ->setMtoIGV(3.6);
+
+        $sum = new Summary();
+        $sum->setFecGeneracion(new \DateTime('-1days'))
+            ->setFecResumen(new \DateTime('-1days'))
+            ->setCorrelativo('001')
+            ->setCompany($this->getCompany())
+            ->setDetails([$detiail1, $detiail2, $detiail3]);
+
+        return $sum;
+    }
+
+    private function getDefaultParamters()
+    {
+        $logo = file_get_contents(__DIR__.'/../Resources/logo.png');
+
+        return [
+            'system' => [
+                'logo' => $logo,
+                'hash' => 'xkhakjjuui293/=33w',
+            ],
+            'user' => [
+                'header' => 'Telf: <b>(056) 123375</b>',
+                'footer' => file_get_contents(__DIR__.'/../Resources/footer.html'),
+            ]
+        ];
+    }
+
+    private function showResult($name, $hml)
+    {
+        // file_put_contents($name.'.html', $hml);
     }
 }

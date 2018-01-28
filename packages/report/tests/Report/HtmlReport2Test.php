@@ -21,15 +21,46 @@ class HtmlReport2Test extends \PHPUnit_Framework_TestCase
      * @throws \Twig_Error_Runtime
      * @throws \Twig_Error_Syntax
      */
-    public function testGenReport(DocumentInterface $document)
+    public function testGenInvoiceReport(DocumentInterface $document)
     {
         $report = $this->getReporter();
         $report->setTemplate('invoice2.html.twig');
 
         $html = $report->render($document, $this->getParamters());
         $this->assertNotEmpty($html);
+        $this->showResult($document->getName(), $html);
+    }
 
-//        file_put_contents($document->getName().'.html', $html);
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function testGenVoidedReport()
+    {
+        $report = $this->getReporter();
+        $report->setTemplate('voided.html.twig');
+
+        $document = $this->getVoided();
+        $html = $report->render($document, $this->getDefaultParamters());
+        $this->assertNotEmpty($html);
+        $this->showResult($document->getName(), $html);
+    }
+
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function testGenSummaryReport()
+    {
+        $report = $this->getReporter();
+        $report->setTemplate('summary.html.twig');
+
+        $document = $this->getSummary();
+        $html = $report->render($document, $this->getDefaultParamters());
+        $this->assertNotEmpty($html);
+        $this->showResult($document->getName(), $html);
     }
 
     public function provideDocs()
