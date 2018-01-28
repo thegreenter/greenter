@@ -9,10 +9,6 @@
 namespace Greenter\Validator;
 
 use Greenter\Model\DocumentInterface;
-use Symfony\Component\Translation\Loader\ArrayLoader;
-use Symfony\Component\Translation\MessageSelector;
-use Symfony\Component\Translation\Translator;
-use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Validation;
 
 /**
@@ -24,19 +20,20 @@ class SymfonyValidator implements DocumentValidatorInterface
 
     /**
      * SymfonyValidator constructor.
-     * @param TranslatorInterface|null $translator
+     *
+     * @param ErrorCodeProviderInterface|null $provider
      */
-    public function __construct(TranslatorInterface $translator = null)
+    public function __construct(ErrorCodeProviderInterface $provider = null)
     {
-        if ($translator == null) {
-            $translator = $this->getTranslator();
+        $metaDataFactory = new CustomMetadataFactory();
+        $builder = Validation::createValidatorBuilder();
+
+        if ($provider) {
+            $builder->setTranslator($this->getTranslator($provider));
         }
 
-        $metaDataFactory = new CustomMetadataFactory();
-
-        $this->validator = Validation::createValidatorBuilder()
+        $this->validator = $builder
             ->setMetadataFactory($metaDataFactory)
-            ->setTranslator($translator)
             ->getValidator();
     }
 
@@ -50,12 +47,18 @@ class SymfonyValidator implements DocumentValidatorInterface
         return $this->validator->validate($document);
     }
 
-    private function getTranslator()
+    private function getTranslator($errorProvider)
     {
-        $translator = new Translator('es_PE', new MessageSelector());
-        $translator->addLoader('array', new ArrayLoader());
-        $translator->addResource('array', CodeTranslate::$ErrorCodes, 'es_PE');
+        $translator = new MessageTranslator($errorProvider);
+        $translator->addResource($this->getResources());
 
         return $translator;
+    }
+
+    private function getResources()
+    {
+        return [
+            'G001' => 'El texto no cumple con el formato establecido',
+        ];
     }
 }

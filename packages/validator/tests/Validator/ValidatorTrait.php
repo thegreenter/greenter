@@ -10,20 +10,23 @@ namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
+use Greenter\Validator\DocumentValidatorInterface;
+use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Validator\SymfonyValidator;
 
 /**
  * Trait ValidatorTrait
  * @package Tests\Greenter\Validator
+ * @method \PHPUnit_Framework_MockObject_MockBuilder getMockBuilder($classname)
  */
 trait ValidatorTrait
 {
     /**
-     * @return SymfonyValidator
+     * @return DocumentValidatorInterface
      */
     private function getValidator()
     {
-        $validator = new SymfonyValidator();
+        $validator = new SymfonyValidator($this->getCodeProvider());
 
         return $validator;
     }
@@ -46,5 +49,17 @@ trait ValidatorTrait
             ->setAddress($address);
 
         return $company;
+    }
+
+    private function getCodeProvider()
+    {
+        $stub = $this->getMockBuilder(ErrorCodeProviderInterface::class)
+                ->getMock();
+
+        $stub->method('getValue')
+            ->willReturn('');
+
+        /**@var $stub ErrorCodeProviderInterface*/
+        return $stub;
     }
 }
