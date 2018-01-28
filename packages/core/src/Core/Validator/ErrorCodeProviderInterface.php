@@ -1,17 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Giansalex
- * Date: 27/01/2018
- * Time: 20:24.
- */
 
 namespace Greenter\Validator;
 
 /**
- * Interface ErroCodeProviderInterface.
+ * Interface ErrorCodeProviderInterface.
  */
-interface ErroCodeProviderInterface
+interface ErrorCodeProviderInterface
 {
     /**
      * @return array
