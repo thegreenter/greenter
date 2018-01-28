@@ -15,6 +15,7 @@ use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\Voided;
 use Greenter\Services\SenderInterface;
+use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SoapClient;
@@ -52,6 +53,11 @@ class See
      * @var SunatXmlSecAdapter
      */
     private $signer;
+
+    /**
+     * @var ErrorCodeProviderInterface
+     */
+    private $codeProvider;
 
     /**
      * Twig Render Options.
@@ -123,6 +129,16 @@ class See
     public function setService($service)
     {
         $this->wsClient->setService($service);
+    }
+
+    /**
+     * Set error code provider.
+     *
+     * @param ErrorCodeProviderInterface $codeProvider
+     */
+    public function setCodeProvider($codeProvider)
+    {
+        $this->codeProvider = $codeProvider;
     }
 
     /**
@@ -200,6 +216,9 @@ class See
     {
         $sender = in_array($class, $this->summarys) ? new SummarySender() : new BillSender();
         $sender->setClient($this->wsClient);
+        if ($this->codeProvider) {
+            $sender->setCodeProvider($this->codeProvider);
+        }
 
         return $sender;
     }

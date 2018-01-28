@@ -12,6 +12,7 @@ use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\See;
+use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Services\SunatEndpoints;
 use Tests\Greenter\Factory\FeFactoryBase;
 
@@ -116,9 +117,22 @@ class SeeFeTest extends FeFactoryBase
             'debug' => true,
         ]);
         $see->setCachePath(false);
+        $see->setCodeProvider($this->getErrorCodeProvider());
         $see->setCredentials('20000000001MODDATOS', 'moddatos');
         $see->setCertificate(file_get_contents(__DIR__.'/../Resources/SFSCert.pem'));
 
         return $see;
+    }
+
+    private function getErrorCodeProvider()
+    {
+        $stub = $this->getMockBuilder(ErrorCodeProviderInterface::class)
+            ->getMock();
+
+        $stub->method('getValue')
+            ->willReturn('');
+
+        /**@var $stub ErrorCodeProviderInterface */
+        return $stub;
     }
 }

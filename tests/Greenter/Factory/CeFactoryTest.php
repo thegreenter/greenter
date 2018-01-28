@@ -81,6 +81,10 @@ class CeFactoryTest extends CeFactoryBase
         $this->assertEquals('2603', $result->getError()->getCode());
     }
 
+    /**
+     * @return string
+     * @throws \Exception
+     */
     public function testReversion()
     {
         $reversion = $this->getReversion();
@@ -136,7 +140,7 @@ class CeFactoryTest extends CeFactoryBase
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
         $this->assertEquals('0127', $result->getError()->getCode());
-        $this->assertEquals('El ticket no existe',
+        $this->assertContains('El ticket no existe',
             $result->getError()->getMessage());
     }
 }
