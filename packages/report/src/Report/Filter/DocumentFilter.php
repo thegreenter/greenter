@@ -22,8 +22,9 @@ class DocumentFilter
             '03' => 'BOLETA',
             '07' => 'NOTA DE CRÉDITO',
             '08' => 'NOTA DE DÉBITO',
-            '09' => 'GUÍA DE REMISIÓN',
+            '09' => 'GUÍA DE REMISIÓN REMITENTE',
             '20' => 'RETENCIÓN',
+            '31' => 'GUÍA DE REMISIÓN TRANSPORTISTA',
             '40' => 'PERCEPCIÓN',
         ],
         '02' => [

@@ -95,6 +95,24 @@ class HtmlReport2Test extends \PHPUnit_Framework_TestCase
         $this->showResult($document->getName(), $html);
     }
 
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function testGenDespatchReport()
+    {
+        $report = $this->getReporter();
+        $report->setTemplate('despatch.html.twig');
+
+        $document = $this->getDespatch();
+        $parameters = $this->getDefaultParamters();
+        unset($parameters['user']['footer']);
+        $html = $report->render($document, $parameters);
+        $this->assertNotEmpty($html);
+        $this->showResult($document->getName(), $html);
+    }
+
     public function provideDocs()
     {
         return [
