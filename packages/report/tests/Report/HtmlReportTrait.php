@@ -11,6 +11,12 @@ namespace Tests\Greenter\Report;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
+use Greenter\Model\Perception\Perception;
+use Greenter\Model\Perception\PerceptionDetail;
+use Greenter\Model\Retention\Exchange;
+use Greenter\Model\Retention\Payment;
+use Greenter\Model\Retention\Retention;
+use Greenter\Model\Retention\RetentionDetail;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
@@ -197,7 +203,7 @@ trait HtmlReportTrait
         return $client;
     }
 
-    private function getItems(SaleDetail $detail, $count)
+    private function getItems($detail, $count)
     {
         $items = [];
         for ($i = 0; $i < $count; $i++) {
@@ -291,6 +297,94 @@ trait HtmlReportTrait
         return $sum;
     }
 
+    private function getRetention()
+    {
+        $retention = new Retention();
+        $retention
+            ->setSerie('R001')
+            ->setCorrelativo('123')
+            ->setFechaEmision(new \DateTime())
+            ->setCompany($this->getCompany())
+            ->setProveedor($this->getClient())
+            ->setObservacion('NOTA ELEMENT')
+            ->setImpRetenido(10)
+            ->setImpPagado(210)
+            ->setRegimen('01')
+            ->setTasa(3);
+
+        $pay = new Payment();
+        $pay->setMoneda('PEN')
+            ->setFecha(new \DateTime())
+            ->setImporte(100);
+
+        $cambio = new Exchange();
+        $cambio->setFecha(new \DateTime())
+            ->setFactor(1)
+            ->setMonedaObj('PEN')
+            ->setMonedaRef('PEN');
+
+        $detail = new RetentionDetail();
+        $detail->setTipoDoc('01')
+            ->setNumDoc('F001-1')
+            ->setFechaEmision(new \DateTime())
+            ->setFechaRetencion(new \DateTime())
+            ->setMoneda('PEN')
+            ->setImpTotal(200)
+            ->setImpPagar(200)
+            ->setImpRetenido(5)
+            ->setPagos([$pay])
+            ->setTipoCambio($cambio);
+
+        $items = $this->getItems($detail, 3);
+        $retention->setDetails($items);
+
+        return $retention;
+    }
+
+    private function getPerception()
+    {
+        $perception = new Perception();
+        $perception
+            ->setSerie('P001')
+            ->setCorrelativo('123')
+            ->setFechaEmision(new \DateTime())
+            ->setObservacion('NOTA EXTRA')
+            ->setCompany($this->getCompany())
+            ->setProveedor($this->getClient())
+            ->setImpPercibido(10)
+            ->setImpCobrado(210)
+            ->setRegimen('01')
+            ->setTasa(2);
+
+        $pay = new Payment();
+        $pay->setMoneda('PEN')
+            ->setFecha(new \DateTime())
+            ->setImporte(100);
+
+        $cambio = new Exchange();
+        $cambio->setFecha(new \DateTime())
+            ->setFactor(1)
+            ->setMonedaObj('PEN')
+            ->setMonedaRef('PEN');
+
+        $detail = new PerceptionDetail();
+        $detail->setTipoDoc('01')
+            ->setNumDoc('F001-1')
+            ->setFechaEmision(new \DateTime())
+            ->setFechaPercepcion(new \DateTime())
+            ->setMoneda('PEN')
+            ->setImpTotal(200)
+            ->setImpCobrar(200)
+            ->setImpPercibido(5)
+            ->setCobros([$pay])
+            ->setTipoCambio($cambio);
+
+        $items = $this->getItems($detail, 4);
+        $perception->setDetails($items);
+
+        return $perception;
+    }
+
     private function getDefaultParamters()
     {
         $logo = file_get_contents(__DIR__.'/../Resources/logo.png');
@@ -303,12 +397,13 @@ trait HtmlReportTrait
             'user' => [
                 'header' => 'Telf: <b>(056) 123375</b>',
                 'footer' => file_get_contents(__DIR__.'/../Resources/footer.html'),
+                'resolucion' => '212321',
             ]
         ];
     }
 
     private function showResult($name, $hml)
     {
-        // file_put_contents($name.'.html', $hml);
+//         file_put_contents($name.'.html', $hml);
     }
 }

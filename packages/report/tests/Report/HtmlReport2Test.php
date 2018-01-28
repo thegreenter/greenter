@@ -63,6 +63,38 @@ class HtmlReport2Test extends \PHPUnit_Framework_TestCase
         $this->showResult($document->getName(), $html);
     }
 
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function testGenRetentionReport()
+    {
+        $report = $this->getReporter();
+        $report->setTemplate('retention.html.twig');
+
+        $document = $this->getRetention();
+        $html = $report->render($document, $this->getDefaultParamters());
+        $this->assertNotEmpty($html);
+        $this->showResult($document->getName(), $html);
+    }
+
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function testGenPerceptionReport()
+    {
+        $report = $this->getReporter();
+        $report->setTemplate('perception.html.twig');
+
+        $document = $this->getPerception();
+        $html = $report->render($document, $this->getDefaultParamters());
+        $this->assertNotEmpty($html);
+        $this->showResult($document->getName(), $html);
+    }
+
     public function provideDocs()
     {
         return [
