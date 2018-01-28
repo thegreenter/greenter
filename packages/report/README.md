@@ -14,6 +14,26 @@ Using composer from [packagist.org](https://packagist.org/packages/greenter/repo
 composer require greenter/report
 ```
 
+## Example
+```php
+$invoice = createInvoice();
+$report = new HtmlReport();
+
+$report->setTemplate('invoice.html.twig');
+
+$html = $report->render($invoice, [
+    'system' => [
+        'logo' => $logo,
+    ],
+    'user' => [
+        'header' => 'Telf: <b>(056) 123375</b>',
+        'resolucion' => '212321',
+    ]
+]);
+
+echo $html;
+```
+
 ## Preview
 
 ![Factura](docs/factura.png)
@@ -23,9 +43,11 @@ composer require greenter/report
 - [x] Boleta Electrónica  
 - [x] Nota de Crédito Electrónica  
 - [x] Nota de Débito Electrónica  
-- [ ] Guía de Remisión Electrónica  
-- [ ] Retención Electrónica  
-- [ ] Percepción Electrónica  
+- [x] Guía de Remisión Electrónica  
+- [x] Retención Electrónica  
+- [x] Percepción Electrónica
+- [x] Resume diario de Boletas
+- [x] Comunicación de Bajas
 
 ## Features
 - Generación de Codigo QR
