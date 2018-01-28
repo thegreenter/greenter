@@ -11,6 +11,7 @@ namespace Tests\Greenter\Ws\Services;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\CdrResponse;
 use Greenter\Services\SenderInterface;
+use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SoapClient;
@@ -77,6 +78,7 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
     protected function getBillSender()
     {
         $sender = new BillSender();
+        $sender->setCodeProvider($this->getErrorCodeProvider());
         $sender->setClient($this->getClient());
 
         return $sender;
@@ -89,6 +91,7 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
     protected function getBillSenderThrow($code)
     {
         $sender = new BillSender();
+        $sender->setCodeProvider($this->getErrorCodeProvider());
         $sender->setClient($this->getClientMock($code));
 
         return $sender;
@@ -191,6 +194,22 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
         $stub->method('call')->will($this->throwException(new \SoapFault($code, 'ERROR TEST')));
 
         /**@var $stub WsClientInterface */
+        return $stub;
+    }
+
+    private function getErrorCodeProvider()
+    {
+        $stub = $this->getMockBuilder(ErrorCodeProviderInterface::class)
+            ->getMock();
+        $stub->method('getValue')->willReturnCallback(function ($err) {
+            $items = [
+              '0156' => 'El archivo ZIP esta corrupto',
+            ];
+
+            return $items[$err];
+        });
+
+        /**@var $stub ErrorCodeProviderInterface */
         return $stub;
     }
 }

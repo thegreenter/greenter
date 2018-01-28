@@ -9,9 +9,9 @@
 namespace Greenter\Ws\Services;
 
 use Greenter\Model\Response\Error;
+use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Reader\CdrReaderInterface;
 use Greenter\Ws\Reader\DomCdrReaderInterface;
-use Greenter\Ws\Reader\XmlErrorReaderInterface;
 use Greenter\Zip\ZipHelper;
 
 /**
@@ -33,6 +33,19 @@ class BaseSunat
      * @var WsClientInterface
      */
     private $client;
+
+    /**
+     * @var ErrorCodeProviderInterface
+     */
+    private $codeProvider;
+
+    /**
+     * @param ErrorCodeProviderInterface $codeProvider
+     */
+    public function setCodeProvider(ErrorCodeProviderInterface $codeProvider)
+    {
+        $this->codeProvider = $codeProvider;
+    }
 
     /**
      * BaseSunat constructor.
@@ -123,9 +136,10 @@ class BaseSunat
      */
     protected function getMessageError($code)
     {
-        $msg = (new XmlErrorReaderInterface())
-                ->getMessageByCode(intval($code));
+        if (empty($this->codeProvider)) {
+            return '';
+        }
 
-        return $msg;
+        return $this->codeProvider->getValue($code);
     }
 }
