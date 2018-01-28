@@ -41,6 +41,11 @@ class DocumentFilter
             '1' => 'DNI',
             '6' => 'RUC',
         ],
+        '19' => [
+            '1' => 'ADICIONAR',
+            '2' => 'MODIFICAR',
+            '3' => 'ANULADO'
+        ]
     ];
 
     public function getValueCatalog($value, $code)
