@@ -1,0 +1,31 @@
+{
+    "name": "greenter/xcodes",
+    "description": "Códigos de Error en Facturación Electrónica SUNAT - Perú",
+    "keywords": ["greenter", "error-codes", "sunat", "facturacion electronica"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Giancarlos Salas",
+            "email": "giansalex@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/giansalex/greenter-xcodes",
+    "type": "library",
+    "require": {
+	    "php": ">=5.5.9",
+        "greenter/core": "dev-master"
+    },
+	"require-dev": {
+        "phpunit/phpunit": ">=4.8 < 6.0"
+    },
+	"autoload": {
+        "psr-4": {
+            "Greenter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Greenter\\": "tests/"
+        }
+    }
+}
