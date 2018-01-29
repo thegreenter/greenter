@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Data\StoreTrait;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Note;
@@ -27,6 +28,8 @@ use Greenter\Xml\Builder\VoidedBuilder;
  */
 trait FeBuilderTrait
 {
+    use StoreTrait;
+
     /**
      * @param $className
      * @return BuilderInterface

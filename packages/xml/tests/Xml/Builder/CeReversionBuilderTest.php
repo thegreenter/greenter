@@ -9,7 +9,6 @@
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Model\Voided\Reversion;
-use Greenter\Model\Voided\VoidedDetail;
 
 /**
  * Class CeReversionBuilderTest
@@ -48,29 +47,5 @@ class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
         ];
 
         return join('-', $parts);
-    }
-
-    private function getReversion()
-    {
-        $detial1 = new VoidedDetail();
-        $detial1->setTipoDoc('20')
-            ->setSerie('R001')
-            ->setCorrelativo('02132132')
-            ->setDesMotivoBaja('ERROR DE SISTEMA');
-
-        $detial2 = new VoidedDetail();
-        $detial2->setTipoDoc('20')
-            ->setSerie('R001')
-            ->setCorrelativo('123')
-            ->setDesMotivoBaja('ERROR DE RUC');
-
-        $reversion = new Reversion();
-        $reversion->setCorrelativo('001')
-            ->setFecComunicacion(new \DateTime())
-            ->setFecGeneracion(new \DateTime())
-            ->setCompany($this->getCompany())
-            ->setDetails([$detial1, $detial2]);
-
-        return $reversion;
     }
 }

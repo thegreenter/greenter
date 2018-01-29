@@ -8,14 +8,13 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Data\StoreTrait;
 use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Builder\BuilderInterface;
-use Greenter\Model\Company\Address;
-use Greenter\Model\Company\Company;
 use Greenter\Xml\Builder\DespatchBuilder;
 use Greenter\Xml\Builder\PerceptionBuilder;
 use Greenter\Xml\Builder\RetentionBuilder;
@@ -27,6 +26,8 @@ use Greenter\Xml\Builder\VoidedBuilder;
  */
 trait CeBuilderTrait
 {
+    use StoreTrait;
+
     /**
      * @param string $className
      * @return BuilderInterface
@@ -58,27 +59,6 @@ trait CeBuilderTrait
 
         return $generator->build($document);
     }
-
-    /**
-     * @return Company
-     */
-    private function getCompany()
-    {
-        $company = new Company();
-        $address = new Address();
-        $address->setUbigueo('150101')
-            ->setDepartamento('LIMA')
-            ->setProvincia('LIMA')
-            ->setDistrito('LIMA')
-            ->setDireccion('AV GS');
-        $company->setRuc('20000000001')
-            ->setRazonSocial('EMPRESA SAC')
-            ->setNombreComercial('EMPRESA')
-            ->setAddress($address);
-
-        return $company;
-    }
-
 
     private function createExtensionContent(\DOMDocument $document)
     {
