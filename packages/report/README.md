@@ -24,6 +24,7 @@ $report->setTemplate('invoice.html.twig');
 $html = $report->render($invoice, [
     'system' => [
         'logo' => $logo,
+        'hash' => 'qqnr2dN4p/HmaEA/CJuVGo7dv5g=',
     ],
     'user' => [
         'header' => 'Telf: <b>(056) 123375</b>',
@@ -48,7 +49,7 @@ echo $html;
 - [x] Percepción Electrónica
 - [x] Resumen diario de Boletas
 - [x] Comunicación de Bajas
-- [x] Resumen Diarios de Reversiones
+- [x] Resumen diario de Reversiones
 
 ## Features
 - Generación de Codigo QR
