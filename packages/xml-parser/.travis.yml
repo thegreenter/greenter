@@ -5,12 +5,16 @@ php:
   - 7.0
 
 before_script:
+  - wget -O phpunit https://phar.phpunit.de/phpunit-5.phar
+  - chmod +x phpunit
+  - ./phpunit --version
   - composer self-update
   - composer install --prefer-source --no-interaction --dev
 
 install:
   - composer require jakub-onderka/php-parallel-lint
+  - composer require johnkary/phpunit-speedtrap
 
 script:
   - vendor/bin/parallel-lint --exclude vendor .
-  - vendor/bin/phpunit --configuration phpunit.xml
+  - ./phpunit --configuration phpunit.xml
