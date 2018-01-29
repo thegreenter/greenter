@@ -96,7 +96,7 @@ class InvoiceParser implements DocumentParserInterface
         $totals = $xpt->query('sac:AdditionalMonetaryTotal', $node);
         foreach ($totals as $total) {
             /**@var $total \DOMElement*/
-            $id = $this->defValue($xpt->query('cbc:ID', $total));
+            $id = trim($this->defValue($xpt->query('cbc:ID', $total)));
             $val = floatval($this->defValue($xpt->query('cbc:PayableAmount', $total),0));
             switch ($id) {
                 case '1001':
