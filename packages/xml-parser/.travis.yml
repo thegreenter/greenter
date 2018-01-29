@@ -13,7 +13,6 @@ before_script:
 
 install:
   - composer require jakub-onderka/php-parallel-lint
-  - composer require johnkary/phpunit-speedtrap
 
 script:
   - vendor/bin/parallel-lint --exclude vendor .
