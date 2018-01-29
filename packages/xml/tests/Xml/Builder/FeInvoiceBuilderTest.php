@@ -21,7 +21,7 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateXmlInvoice()
     {
-        $invoice = $this->getInvoice();
+        $invoice = $this->getFullInvoice();
         $xml = $this->build($invoice);
 
         $this->assertNotEmpty($xml);
