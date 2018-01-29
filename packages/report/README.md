@@ -9,7 +9,7 @@ Representación en formato HTML del comprobante electrónico empleado en la fact
 > Para generar el PDF puede utilizar [wkhtmltopdf](https://wkhtmltopdf.org/) y/o [greenter/htmltopdf](https://github.com/giansalex/greenter-htmltopdf).
 
 ## Install
-Using composer from [packagist.org](https://packagist.org/packages/greenter/report)
+Via Composer from [packagist.org](https://packagist.org/packages/greenter/report)
 ```bash
 composer require greenter/report
 ```
