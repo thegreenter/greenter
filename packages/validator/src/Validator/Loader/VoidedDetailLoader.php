@@ -20,7 +20,7 @@ class VoidedDetailLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('tipoDoc', [
             new Assert\NotBlank(),
-            new Assert\Choice(['choices' => ["01", "07", "08", "20", "40"]]),
+            new Assert\Choice(['choices' => ["01", "07", "08", "14", "20", "40"]]),
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
@@ -41,14 +41,20 @@ class VoidedDetailLoader implements LoaderMetadataInterface
     {
         /** @var $object VoidedDetail */
         $letter = 'F';
-        if ($object->getTipoDoc() == '20') {
-            $letter = 'R';
-        } elseif ($object->getTipoDoc() == '40') {
-            $letter = 'P';
+        switch ($object->getTipoDoc()) {
+            case '20':
+                $letter = 'R';
+                break;
+            case '40':
+                $letter = 'P';
+                break;
+            case '14':
+                $letter = 'S';
+                break;
         }
 
         if (!preg_match('/^['.$letter.'][A-Z0-9]{3}$/', $object->getSerie())) {
-            $context->buildViolation('Serie del documento no cumple con el formato')
+            $context->buildViolation('2345')
                 ->atPath('serie')
                 ->addViolation();
         }
