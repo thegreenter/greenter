@@ -46,8 +46,9 @@ echo $html;
 - [x] Guía de Remisión Electrónica  
 - [x] Retención Electrónica  
 - [x] Percepción Electrónica
-- [x] Resume diario de Boletas
+- [x] Resumen diario de Boletas
 - [x] Comunicación de Bajas
+- [x] Resumen Diarios de Reversiones
 
 ## Features
 - Generación de Codigo QR

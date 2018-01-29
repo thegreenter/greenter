@@ -26,7 +26,7 @@ class HtmlReport2Test extends \PHPUnit_Framework_TestCase
     public function testGenInvoiceReport(DocumentInterface $document)
     {
         $report = $this->getReporter();
-        $report->setTemplate('invoice2.html.twig');
+        $report->setTemplate('invoice.html.twig');
 
         $html = $report->render($document, $this->getParamters());
         $this->assertNotEmpty($html);
@@ -44,6 +44,22 @@ class HtmlReport2Test extends \PHPUnit_Framework_TestCase
         $report->setTemplate('voided.html.twig');
 
         $document = $this->getVoided();
+        $html = $report->render($document, $this->getDefaultParamters());
+        $this->assertNotEmpty($html);
+        $this->showResult($document->getName(), $html);
+    }
+
+    /**
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function testGenReversionReport()
+    {
+        $report = $this->getReporter();
+        $report->setTemplate('voided.html.twig');
+
+        $document = $this->getReversion();
         $html = $report->render($document, $this->getDefaultParamters());
         $this->assertNotEmpty($html);
         $this->showResult($document->getName(), $html);
@@ -130,6 +146,7 @@ class HtmlReport2Test extends \PHPUnit_Framework_TestCase
         return [
             'system' => [
                 'logo' => $logo,
+                'hash' => 'xkhakjjuui293/=33w',
             ],
             'user' => [
                 'resolucion' => '212321',

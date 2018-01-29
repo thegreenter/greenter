@@ -17,7 +17,7 @@ trait HtmlReportTrait
      */
     private function getReporter()
     {
-        $report = new HtmlReport('', ['cache' => false, 'strict_variables' => true]);
+        $report = new HtmlReport(__DIR__.'/../Resources', ['cache' => false, 'strict_variables' => true]);
         $report->getTwig()->addGlobal('max_items', 7);
 
         return $report;
@@ -42,6 +42,6 @@ trait HtmlReportTrait
 
     private function showResult($name, $hml)
     {
-//         file_put_contents($name.'.html', $hml);
+//      file_put_contents($name.'.html', $hml);
     }
 }

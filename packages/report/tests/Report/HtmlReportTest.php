@@ -28,7 +28,7 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
     {
         $report = $this->getReporter();
         $inv = $this->getInvoice();
-        $report->setTemplate('invoice.html.twig');
+        $report->setTemplate('invoice2.html.twig');
 
         $html = $report->render($inv, $this->getParamters());
         $this->assertNotEmpty($html);
