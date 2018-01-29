@@ -8,12 +8,15 @@
 
 namespace Tests\Greenter\Report;
 
+use Greenter\Data\StoreTrait;
+
 /**
  * Trait HtmlReportTest
  * @package Tests\Greenter\Report
  */
 class HtmlReportTest extends \PHPUnit_Framework_TestCase
 {
+    use StoreTrait;
     use HtmlReportTrait;
 
     /**

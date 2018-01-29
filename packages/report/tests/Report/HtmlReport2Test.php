@@ -8,11 +8,13 @@
 
 namespace Tests\Greenter\Report;
 
+use Greenter\Data\StoreTrait;
 use Greenter\Model\DocumentInterface;
 
 class HtmlReport2Test extends \PHPUnit_Framework_TestCase
 {
     use HtmlReportTrait;
+    use StoreTrait;
 
     /**
      * @dataProvider provideDocs
