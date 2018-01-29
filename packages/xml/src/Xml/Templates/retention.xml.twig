@@ -61,7 +61,9 @@
     </cac:ReceiverParty>
     <sac:SUNATRetentionSystemCode>{{ doc.regimen }}</sac:SUNATRetentionSystemCode>
     <sac:SUNATRetentionPercent>{{ doc.tasa|n_format }}</sac:SUNATRetentionPercent>
-    {% if doc.observacion -%}<cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>{% endif -%}
+    {% if doc.observacion -%}
+    <cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
+    {% endif -%}
     <cbc:TotalInvoiceAmount currencyID="PEN">{{ doc.impRetenido|n_format }}</cbc:TotalInvoiceAmount>
     <sac:SUNATTotalPaid currencyID="PEN">{{ doc.impPagado|n_format }}</sac:SUNATTotalPaid>
     {% for det in doc.details -%}
