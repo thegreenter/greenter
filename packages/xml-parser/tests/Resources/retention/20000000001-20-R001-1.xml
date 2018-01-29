@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Retention xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:Retention-1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ext:UBLExtensions>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <ds:Signature Id="NubeFacTSign">
+        </ds:Signature>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+  </ext:UBLExtensions>
+  <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+  <cbc:CustomizationID>1.0</cbc:CustomizationID>
+  <cac:Signature>
+    <cbc:ID>20000000001</cbc:ID>
+    <cac:SignatoryParty>
+      <cac:PartyIdentification>
+        <cbc:ID>20000000001</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name>TECNOMAQ V &amp; L SRL</cbc:Name>
+      </cac:PartyName>
+    </cac:SignatoryParty>
+    <cac:DigitalSignatureAttachment>
+      <cac:ExternalReference>
+        <cbc:URI>20000000001</cbc:URI>
+      </cac:ExternalReference>
+    </cac:DigitalSignatureAttachment>
+  </cac:Signature>
+  <cbc:ID>R001-1</cbc:ID>
+  <cbc:IssueDate>2018-01-26</cbc:IssueDate>
+  <cac:AgentParty>
+    <cac:PartyIdentification>
+      <cbc:ID schemeID="6">20000000001</cbc:ID>
+    </cac:PartyIdentification>
+    <cac:PartyName>
+      <cbc:Name>TECNOMAQ V &amp; L SRL</cbc:Name>
+    </cac:PartyName>
+    <cac:PostalAddress>
+      <cbc:ID>150122</cbc:ID>
+      <cbc:StreetName>Miraflore</cbc:StreetName>
+      <cbc:CitySubdivisionName>SANTIAGO DE CHUCO</cbc:CitySubdivisionName>
+      <cbc:CityName>SANTIAGO DE CHUCO</cbc:CityName>
+      <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
+      <cbc:District>MIRAFLORES</cbc:District>
+      <cac:Country>
+        <cbc:IdentificationCode>PE</cbc:IdentificationCode>
+      </cac:Country>
+    </cac:PostalAddress>
+    <cac:PartyLegalEntity>
+      <cbc:RegistrationName>TECNOMAQ V &amp; L SRL</cbc:RegistrationName>
+    </cac:PartyLegalEntity>
+  </cac:AgentParty>
+  <cac:ReceiverParty>
+    <cac:PartyIdentification>
+      <cbc:ID schemeID="6">1724754054</cbc:ID>
+    </cac:PartyIdentification>
+    <cac:PartyLegalEntity>
+      <cbc:RegistrationName>TECNOMAQ V &amp; L SRL</cbc:RegistrationName>
+    </cac:PartyLegalEntity>
+  </cac:ReceiverParty>
+  <sac:SUNATRetentionSystemCode>01</sac:SUNATRetentionSystemCode>
+  <sac:SUNATRetentionPercent>3.0</sac:SUNATRetentionPercent>
+  <cbc:Note>NOTA</cbc:Note>
+  <cbc:TotalInvoiceAmount currencyID="PEN">6.33</cbc:TotalInvoiceAmount>
+  <sac:SUNATTotalPaid currencyID="PEN">204.67</sac:SUNATTotalPaid>
+  <sac:SUNATRetentionDocumentReference>
+    <cbc:ID schemeID="01">F001-12</cbc:ID>
+    <cbc:IssueDate>2018-01-26</cbc:IssueDate>
+    <cbc:TotalInvoiceAmount currencyID="PEN">221.00</cbc:TotalInvoiceAmount>
+    <cac:Payment>
+      <cbc:ID>1</cbc:ID>
+      <cbc:PaidAmount currencyID="PEN">211.00</cbc:PaidAmount>
+      <cbc:PaidDate>2018-01-26</cbc:PaidDate>
+    </cac:Payment>
+    <sac:SUNATRetentionInformation>
+      <sac:SUNATRetentionAmount currencyID="PEN">6.33</sac:SUNATRetentionAmount>
+      <sac:SUNATRetentionDate>2018-01-26</sac:SUNATRetentionDate>
+      <sac:SUNATNetTotalPaid currencyID="PEN">204.67</sac:SUNATNetTotalPaid>
+      <cac:ExchangeRate>
+        <cbc:SourceCurrencyCode>PEN</cbc:SourceCurrencyCode>
+        <cbc:TargetCurrencyCode>PEN</cbc:TargetCurrencyCode>
+        <cbc:CalculationRate>1.0</cbc:CalculationRate>
+        <cbc:Date>2018-01-26</cbc:Date>
+      </cac:ExchangeRate>
+    </sac:SUNATRetentionInformation>
+  </sac:SUNATRetentionDocumentReference>
+</Retention>

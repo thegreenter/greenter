@@ -5,26 +5,8 @@
 </ext:UBLExtension>
 
 		<ext:UBLExtension>
-			<ext:ExtensionContent><ds:Signature Id="SignSUNAT"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><ds:Reference URI=""><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>yCEvRNPxw/8FutpeCGJtC8Tb4TQ=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>WiPFDBknZPxU8ybE4ibfojGTgQQthVn/ETef/bSpMcAnDDvYkVLJq5HZE9MHjbrVArK5AsdKhZ2c
-z9dNDX8cUSKFC7NXamLPwv8bxM5ErtA5T4OYWCBFTRgVFsGYXQvz6+dN2Y7ukuM58Lu2yCqxlBKc
-J7m19ElIVFi3hXDH6wGXtuBN0Y4bdyEhhoifCF1gLQW/5R7Ro2PUzvzFxDrfahTxt+GqvtWYISTV
-p01RcaGR9s3ayyvOjmwNX4L5i/EMNiXvDzFQpPvQCoEqDosjiiYWgtEi63rKw1dpWC5sZm6FfxyV
-HXWHYv5XcIKelwtOE9Hwb7nH7AucnYhVD4rIcA==</ds:SignatureValue><ds:KeyInfo><ds:X509Data><ds:X509Certificate>MIIDfTCCAmmgAwIBAgIQJbrTqETg571KUM7MXSMZIDAJBgUrDgMCHQUAMEIxJTAjBgNVBAsTHERO
-SSA0MjgxOTk1NyBSVUMgMjA2MDA2OTU3NzExGTAXBgNVBAMTEEdJQU5DQVJMT1MgU0FMQVMwHhcN
-MTYwOTI4MTcxMTU1WhcNMzkxMjMxMjM1OTU5WjBCMSUwIwYDVQQLExxETkkgNDI4MTk5NTcgUlVD
-IDIwNjAwNjk1NzcxMRkwFwYDVQQDExBHSUFOQ0FSTE9TIFNBTEFTMIIBIjANBgkqhkiG9w0BAQEF
-AAOCAQ8AMIIBCgKCAQEAlIw0A1u1u2fIyTZD7rECOR5ifynrdy/yJQPMEIfWUsmrzq5nyIwD4laR
-9KqjjcOBPEvexC6TRfw8SYYVdyVzFFLxAJ6/MyjwzWKrfea0aj5no6MyAm4agAYlXCOsda+1doeV
-8/s9TuxpLhy81a8h6xSYLKxcfDVoWLQpOreT5w5gHBLHPCPOxpXBxOkbB/kyWmyoCRWvr1Eyi0nc
-lN/rxekK0wNY2LbzmVJM/M7Noutd1e4M5NAcI4JpIygP8TYxAMOxBKGDRMW6pVVw5IuRhLyoIflO
-+hZ4J6Au3Vg8wh8Rc8Ls+H+21H0bYxuMiUsgcquvjYCv3CVlznStVCkT5QIDAQABo3cwdTBzBgNV
-HQEEbDBqgBAcQ0FWQsKFrd5zUIKuU72HoUQwQjElMCMGA1UECxMcRE5JIDQyODE5OTU3IFJVQyAy
-MDYwMDY5NTc3MTEZMBcGA1UEAxMQR0lBTkNBUkxPUyBTQUxBU4IQJbrTqETg571KUM7MXSMZIDAJ
-BgUrDgMCHQUAA4IBAQAmvUJBz4PvvQUZ8Q8h/hgxMjZl1oRSOA9syO34F64YnyVL8XVRyy7CQtLb
-ZqTQFuPefElj7em1mOfZHpQaUw1ScjTlEnHXwHNW6IC9sOInUy6DekPh4RESpVidWscuq9uR+8ev
-CouEFkPuLmc3x9lC7f02FWKIvjAVPEXR3eSvu+QylDTJ/iUg1fB+YzBKJ7a6kOVefxNZyTAVcKv+
-bJUv2t4axpJdWDZ1sL4z7VBf/7Fk09iPKT4ZaI+7pShGrbCl1CXWb1SPnNrqJVJ6aDaDe8DCZuFt
-Nn1GYuYtzdeTI6JP3byzZMaYrM6sCi8En3fvQ5PniL+jsDs0cfCvc9jk</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature></ext:ExtensionContent>
+			<ext:ExtensionContent>
+                <ds:Signature Id="SignSUNAT"/></ext:ExtensionContent>
 		</ext:UBLExtension>
 	</ext:UBLExtensions>        
  <cbc:UBLVersionID>2.0</cbc:UBLVersionID>

@@ -35,10 +35,11 @@ class ReceiptParserTest extends \PHPUnit_Framework_TestCase
 
     public function providerDocs()
     {
-        return [
-          [__DIR__.'/../../Resources/RHE1048344835617.xml'],
-          [__DIR__.'/../../Resources/RHE1048344835618.xml']
-        ];
+        $files = glob(__DIR__.'/../../Resources/rrhh/*.xml');
+
+        return array_map(function ($file) {
+            return [$file];
+        }, $files);
     }
 
     private function getParser()

@@ -20,7 +20,7 @@ class NoteParserTest extends \PHPUnit_Framework_TestCase
     public function testCreditNote()
     {
         $parser = new NoteParser();
-        $xml = file_get_contents(__DIR__.'/../../Resources/notacr-fac.xml');
+        $xml = file_get_contents(__DIR__ . '/../../Resources/note/notacr-fac.xml');
         /**@var $obj Note */
         $obj = $parser->parse($xml);
 
@@ -37,7 +37,7 @@ class NoteParserTest extends \PHPUnit_Framework_TestCase
     public function testCreditNoteSfs()
     {
         $parser = new NoteParser();
-        $xml = file_get_contents(__DIR__.'/../../Resources/20480072872-07-FB99-00001.xml');
+        $xml = file_get_contents(__DIR__ . '/../../Resources/note/20480072872-07-FB99-00001.xml');
         /**@var $obj Note */
         $obj = $parser->parse($xml);
 
@@ -54,7 +54,7 @@ class NoteParserTest extends \PHPUnit_Framework_TestCase
     {
         $parser = new NoteParser();
 
-        $xml = file_get_contents(__DIR__.'/../../Resources/notadb-fac.xml');
+        $xml = file_get_contents(__DIR__ . '/../../Resources/note/notadb-fac.xml');
         /**@var $obj Note */
         $obj = $parser->parse($xml);
 
@@ -70,7 +70,7 @@ class NoteParserTest extends \PHPUnit_Framework_TestCase
     public function testCreditNoteSunatSol()
     {
         $parser = new NoteParser();
-        $xml = file_get_contents(__DIR__.'/../../Resources/NOTA_CREDITOE001-27.XML');
+        $xml = file_get_contents(__DIR__ . '/../../Resources/note/NOTA_CREDITOE001-27.XML');
         /**@var $obj Note */
         $obj = $parser->parse($xml);
 

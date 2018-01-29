@@ -14,7 +14,7 @@ use Greenter\Xml\Parser\InvoiceParser;
 class InvoiceParserTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @dataProvider filenameSolProvider
+     * @dataProvider providerSolDocs
      * @param string $filename
      */
     public function testParseSunatSOL($filename)
@@ -38,7 +38,7 @@ class InvoiceParserTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider filenameProvider
+     * @dataProvider providerDocs
      * @param string $filename
      */
     public function testFacParse($filename)
@@ -62,7 +62,7 @@ class InvoiceParserTest extends \PHPUnit_Framework_TestCase
     {
         $parser = new InvoiceParser();
 
-        $xml = file_get_contents($this->filenameProvider()[0][0]);
+        $xml = file_get_contents($this->providerDocs()[0][0]);
         $doc = new \DOMDocument();
         @$doc->loadXML($xml);
         /**@var $obj Invoice */
@@ -76,31 +76,21 @@ class InvoiceParserTest extends \PHPUnit_Framework_TestCase
         $this->assertGreaterThanOrEqual(1, count($obj->getLegends()));
     }
 
-    public function filenameProvider()
+    public function providerDocs()
     {
-        $dir = __DIR__.'/../../Resources/';
-        return [
-          [$dir.'dte_1513569521004.xml'],
-          [$dir.'invoice-full.xml'],
-          [$dir.'anticipos.xml'],
-          [$dir.'anticipos-regularizacion.xml'],
-          [$dir.'boleta-itinerante.xml'],
-          [$dir.'datos-no-trib.xml'],
-          [$dir.'detraccion.xml'],
-          [$dir.'exportacion.xml'],
-          [$dir.'factura-guia.xml'],
-          [$dir.'gravada.xml'],
-          [$dir.'plazavea-bol.xml'],
-          [$dir.'20480072872-01-FB99-70000.xml']
-        ];
+        $files = glob(__DIR__.'/../../Resources/invoice/*.xml');
+
+        return array_map(function ($file) {
+            return [$file];
+        }, $files);
     }
 
-    public function filenameSolProvider()
+    public function providerSolDocs()
     {
-        $dir = __DIR__.'/../../Resources/';
-        return [
-            [$dir.'FACTURAE001-17.XML'],
-            [$dir.'FACTURAE001-174.XML'],
-        ];
+        $files = glob(__DIR__.'/../../Resources/clavesol/*.xml');
+
+        return array_map(function ($file) {
+            return [$file];
+        }, $files);
     }
 }
