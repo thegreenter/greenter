@@ -1,0 +1,22 @@
+{
+    "name": "greenter/data",
+    "description": "Data Document for Greenter",
+    "keywords": ["greenter"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Giancarlos Salas",
+            "email": "giansalex@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/giansalex/greenter-data",
+    "type": "library",
+    "require": {
+        "greenter/core": "^1.2"
+    },
+	"autoload": {
+        "psr-4": {
+            "Greenter\\": "src/"
+        }
+    }
+}
