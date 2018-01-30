@@ -28,7 +28,7 @@ class XmlErrorCodeProviderTest extends \PHPUnit_Framework_TestCase
     {
         $items = $this->provider->getAll();
 
-        $this->assertEquals(1141, count($items));
+        $this->assertEquals(1470, count($items));
     }
 
     /**

@@ -5,8 +5,13 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/9833db8de44b42ff92669e892adb5e1f)](https://www.codacy.com/app/giansalex/greenter-xcodes?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=giansalex/greenter-xcodes&amp;utm_campaign=Badge_Grade)  
 Códigos de Error en Facturación Electrónica SUNAT.
 
-# Install
+## Install
 Via Composer from [packagist.org](https://packagist.org/packages/greenter/xcodes).
 ```bash
 composer require greenter/xcodes
 ```
+
+## Sunat Notification
+
+Total Codes: 1470
+Last Update: 19/01/2018
