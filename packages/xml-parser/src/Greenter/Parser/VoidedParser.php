@@ -10,6 +10,7 @@ namespace Greenter\Xml\Parser;
 
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Parser\DocumentParserInterface;
@@ -40,10 +41,10 @@ class VoidedParser implements DocumentParserInterface
         $this->load($value);
         $xml = $this->reader;
 
-        $voided = new Voided();
         $root = $this->rootNode;
         $id = explode('-', $xml->getValue('cbc:ID', $root));
 
+        $voided = $id[0] == 'RA' ? new Voided() : new Reversion();
         $voided->setCorrelativo($id[2])
             ->setFecGeneracion(new \DateTime($xml->getValue('cbc:ReferenceDate', $root)))
             ->setFecComunicacion(new \DateTime($xml->getValue('cbc:IssueDate', $root)))
