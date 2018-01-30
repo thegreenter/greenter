@@ -118,7 +118,7 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         </cac:TaxTotal>
-        {% if det.isc -%}
+        {% if det.mtoISC -%}
         {% set isc = det.mtoISC|n_format -%}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="PEN">{{ isc }}</cbc:TaxAmount>
