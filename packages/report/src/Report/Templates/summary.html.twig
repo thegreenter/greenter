@@ -105,7 +105,9 @@
                             <td align="center">{{ det.estado|catalog('19') }}</td>
                             <td>
                                 <p class="nmarg"><strong>IGV</strong>  {{ det.mtoIGV|n_format }}</p>
+                                {% if det.mtoISC %}
                                 <p class="nmarg"><strong>ISC</strong>  {{ det.mtoISC|n_format }}</p>
+                                {% endif %}
                                 {% if det.mtoOtrosTributos %}
                                 <p class="nmarg"><strong>Otros Tributos</strong>  {{ det.mtoOtrosTributos }}</p>
                                 {% endif %}
