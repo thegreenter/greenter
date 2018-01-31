@@ -11,4 +11,4 @@ composer require greenter/core
 
 ## Documentation
 
-Documentacion autogenerada en [CodeDoc](https://codedoc.pub/giansalex/greenter-core/master/)
+Autegenerated: [CodeDoc](https://codedoc.pub/giansalex/greenter-core/master/)
