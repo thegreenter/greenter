@@ -23,6 +23,7 @@ class FeSummaryValidatorTest extends \PHPUnit_Framework_TestCase
         $validator = $this->getValidator();
         $errors = $validator->validate($summary);
 
+        var_dump($errors);
         $this->assertEquals(0, count($errors));
     }
 
@@ -78,12 +79,17 @@ class FeSummaryValidatorTest extends \PHPUnit_Framework_TestCase
             ->setMtoIGV(0)
             ->setMtoISC(2.8);
 
+        $items = [];
+        for ($i = 0; $i < 501; $i++) {
+            $items[] = clone $detiail1;
+        }
+
         $sum = new Summary();
         $sum->setFecGeneracion(new \DateTime())
             ->setFecResumen(new \DateTime())
             ->setCompany($this->getCompany())
             ->setCorrelativo('001')
-            ->setDetails([$detiail1, $detiail2]);
+            ->setDetails($items);
 
         return $sum;
     }

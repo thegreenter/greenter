@@ -36,6 +36,7 @@ class SummaryLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('details', [
             new Assert\NotBlank(),
+            new Assert\Count(['min' => 1, 'max' => 500, 'maxMessage' => 'Solo se permite un maximo de 500 items']),
             new Assert\Valid(),
         ]);
         $metadata->addConstraint(new Assert\Callback([$this, 'validate']));
