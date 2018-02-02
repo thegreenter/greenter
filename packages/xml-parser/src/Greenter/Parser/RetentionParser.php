@@ -132,11 +132,19 @@ class RetentionParser
                 ->setNumDoc($temp->nodeValue)
                 ->setFechaEmision(new \DateTime($xml->getValue('cbc:IssueDate', $node)))
                 ->setImpTotal(floatval($mount->nodeValue))
-                ->setMoneda($mount->getAttribute('currencyID'));
+                ->setMoneda($mount->getAttribute('currencyID'))
+                ->setPagos(iterator_to_array($this->getPayments($node)));
 
             $temp = $xml->getNode('sac:SUNATRetentionInformation', $node);
+            if (empty($temp)) {
+                $det->setImpRetenido(0)
+                    ->setImpPagar(0)
+                    ->setFechaRetencion(new \DateTime());
+
+                yield $det;
+            }
+
             $det
-                ->setPagos(iterator_to_array($this->getPayments($node)))
                 ->setImpRetenido(floatval($xml->getValue('sac:SUNATRetentionAmount', $temp)))
                 ->setFechaRetencion(new \DateTime($xml->getValue('sac:SUNATRetentionDate', $temp)))
                 ->setImpPagar(floatval($xml->getValue('sac:SUNATNetTotalPaid', $temp)));

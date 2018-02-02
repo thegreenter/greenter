@@ -136,11 +136,19 @@ class PerceptionParser implements DocumentParserInterface
                 ->setNumDoc($temp->nodeValue)
                 ->setFechaEmision(new \DateTime($xml->getValue('cbc:IssueDate', $node)))
                 ->setImpTotal(floatval($mount->nodeValue))
-                ->setMoneda($mount->getAttribute('currencyID'));
+                ->setMoneda($mount->getAttribute('currencyID'))
+                ->setCobros(iterator_to_array($this->getPayments($node)));
 
             $temp = $xml->getNode('sac:SUNATPerceptionInformation', $node);
+            if (empty($temp)) {
+                $det->setImpPercibido(0)
+                    ->setImpCobrar(0)
+                    ->setFechaPercepcion(new \DateTime());
+
+                yield $det;
+            }
+
             $det
-                ->setCobros(iterator_to_array($this->getPayments($node)))
                 ->setImpPercibido(floatval($xml->getValue('sac:SUNATPerceptionAmount', $temp)))
                 ->setFechaPercepcion(new \DateTime($xml->getValue('sac:SUNATPerceptionDate', $temp)))
                 ->setImpCobrar(floatval($xml->getValue('sac:SUNATNetTotalCashed', $temp)));
