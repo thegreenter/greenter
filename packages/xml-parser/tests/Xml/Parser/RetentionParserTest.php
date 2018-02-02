@@ -33,7 +33,7 @@ class RetentionParserTest extends \PHPUnit_Framework_TestCase
             $this->assertNotEmpty($detail->getTipoDoc());
             $this->assertNotEmpty($detail->getNumDoc());
             $this->assertNotNull($detail->getFechaEmision());
-            $this->assertGreaterThan(0, count($detail->getPagos()));
+            $this->assertTrue(is_array($detail->getPagos()));
             $this->assertTrue(is_float($detail->getImpTotal()));
             $this->assertTrue(is_float($detail->getImpRetenido()));
             $this->assertTrue(is_float($detail->getImpPagar()));
