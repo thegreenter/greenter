@@ -137,11 +137,12 @@ class RetentionParser
 
             $temp = $xml->getNode('sac:SUNATRetentionInformation', $node);
             if (empty($temp)) {
-                $det->setImpRetenido(0)
-                    ->setImpPagar(0)
+                $det->setImpRetenido(0.00)
+                    ->setImpPagar(0.00)
                     ->setFechaRetencion(new \DateTime());
 
                 yield $det;
+                continue;
             }
 
             $det

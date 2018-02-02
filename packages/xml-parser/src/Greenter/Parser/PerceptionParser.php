@@ -141,11 +141,12 @@ class PerceptionParser implements DocumentParserInterface
 
             $temp = $xml->getNode('sac:SUNATPerceptionInformation', $node);
             if (empty($temp)) {
-                $det->setImpPercibido(0)
-                    ->setImpCobrar(0)
+                $det->setImpPercibido(0.00)
+                    ->setImpCobrar(0.00)
                     ->setFechaPercepcion(new \DateTime());
 
                 yield $det;
+                continue;
             }
 
             $det
