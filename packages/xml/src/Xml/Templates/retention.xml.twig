@@ -40,11 +40,15 @@
         <cac:PartyName>
             <cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
         </cac:PartyName>
+        {% set addr = emp.address -%}
         <cac:PostalAddress>
-            <cbc:ID>{{ emp.address.ubigueo }}</cbc:ID>
-            <cbc:StreetName>{{ emp.address.direccion }}</cbc:StreetName>
+            <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
+            <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
+            <cbc:CityName>{{ addr.departamento }}</cbc:CityName>
+            <cbc:CountrySubentity>{{ addr.provincia }}</cbc:CountrySubentity>
+            <cbc:District>{{ addr.distrito }}</cbc:District>
             <cac:Country>
-                <cbc:IdentificationCode>{{ emp.address.codigoPais }}</cbc:IdentificationCode>
+                <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
             </cac:Country>
         </cac:PostalAddress>
         <cac:PartyLegalEntity>
@@ -71,6 +75,7 @@
         <cbc:ID schemeID="{{ det.tipoDoc }}">{{ det.numDoc }}</cbc:ID>
         <cbc:IssueDate>{{ det.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
         <cbc:TotalInvoiceAmount currencyID="{{ det.moneda }}">{{ det.impTotal|n_format }}</cbc:TotalInvoiceAmount>
+        {% if det.pagos -%}
         {% for pay in det.pagos -%}
         <cac:Payment>
             <cbc:ID>{{ loop.index }}</cbc:ID>
@@ -78,6 +83,8 @@
             <cbc:PaidDate>{{ pay.fecha|date('Y-m-d') }}</cbc:PaidDate>
         </cac:Payment>
         {% endfor -%}
+        {% endif -%}
+        {% if det.impRetenido and det.impPagar and det.fechaRetencion -%}
         <sac:SUNATRetentionInformation>
             <sac:SUNATRetentionAmount currencyID="PEN">{{ det.impRetenido|n_format }}</sac:SUNATRetentionAmount>
             <sac:SUNATRetentionDate>{{ det.fechaRetencion|date('Y-m-d') }}</sac:SUNATRetentionDate>
@@ -91,6 +98,7 @@
             </cac:ExchangeRate>
             {% endif -%}
         </sac:SUNATRetentionInformation>
+        {% endif %}
     </sac:SUNATRetentionDocumentReference>
     {% endfor -%}
 </Retention>

@@ -22,12 +22,29 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
     public function testCreateXmlPerception()
     {
         $perception = $this->getPerception();
+        $xml = $this->build($perception);
+
+        $this->assertNotEmpty($xml);
+        $this->assertSchema($xml);
+        //file_put_contents('percep.xml', $xml);
+    }
+
+    public function testCreateXmlPerceptionWithoutInformation()
+    {
+        $perception = $this->getPerception();
+        foreach ($perception->getDetails() as $per)
+        {
+            $per->setImpCobrar(0)
+                ->setCobros(null)
+                ->setImpPercibido(0);
+
+        }
 
         $xml = $this->build($perception);
 
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
-        // file_put_contents('percep.xml', $xml);
+         //file_put_contents('percep.xml', $xml);
     }
 
     public function testPerceptionFilename()

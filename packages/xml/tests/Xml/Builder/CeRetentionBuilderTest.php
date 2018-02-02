@@ -23,6 +23,31 @@ class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $retention = $this->getRetention();
 
+        foreach ($retention->getDetails() as $per)
+        {
+            $per->setImpPagar(0)
+                ->setPagos(null)
+                ->setImpRetenido(0);
+
+        }
+        $xml = $this->build($retention);
+
+        $this->assertNotEmpty($xml);
+        $this->assertSchema($xml);
+        // file_put_contents('reten.xml', $xml);
+    }
+
+    public function testCreateXmlRetentionWithoutInformation()
+    {
+        $retention = $this->getRetention();
+
+        foreach ($retention->getDetails() as $per)
+        {
+            $per->setImpPagar(0)
+                ->setPagos(null)
+                ->setImpRetenido(0);
+
+        }
         $xml = $this->build($retention);
 
         $this->assertNotEmpty($xml);
