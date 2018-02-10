@@ -1,0 +1,51 @@
+site_name: Greenter
+site_url: https://giansalex.github.io/greenter
+site_description: 'Facturación Electrónica Sunat - Perú'
+site_author: 'Giancarlos Salas'
+
+# Repository
+repo_name: 'giansalex/greenter'
+repo_url: 'https://github.com/giansalex/greenter'
+
+pages:
+    - Principal: index.md
+
+# Configuration
+theme:
+  name: 'material'
+  favicon: 'img/sunat.ico'
+  logo:
+    icon: 'receipt'
+  language: 'es'
+  palette:
+    primary: 'Green'
+    accent: 'Indigo'
+
+extra_css:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/themes/prism-okaidia.min.css'
+extra_javascript:
+  - 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/prism.min.js'
+  - 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-php.min.js'
+
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/giansalex'
+  author:
+    github: giansalex
+  disqus: 'greenter'
+
+# Google Analytics
+google_analytics:
+  - 'UA-90097417-4'
+  - 'auto'
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - codehilite:
+      css_class: code
+      use_pygments: false
+      guess_lang: false
+  - toc:
+      permalink: true
