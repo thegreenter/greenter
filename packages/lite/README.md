@@ -1,3 +1,4 @@
+![Greenter](docs/img/logo.png)
 # Greenter - Facturación Electrónica
 
 [![Travis-CI](https://img.shields.io/travis/giansalex/greenter.svg?label=travis-ci&branch=master&style=flat-square)](https://travis-ci.org/giansalex/greenter)
@@ -9,6 +10,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/4cf428e28ba4ae6fb234/maintainability)](https://codeclimate.com/github/giansalex/greenter)
 [![Packagist](https://img.shields.io/packagist/v/greenter/greenter.svg?style=flat-square)](https://packagist.org/packages/greenter/greenter)     
 PHP Implementación de la Facturación Electrónica Sunat - Perú
+
+---
 
 <p align="center">
   <img alt="Sunat Facturacion Electronica" src="https://raw.githubusercontent.com/giansalex/greenter/master/docs/img/sunat.ico">
