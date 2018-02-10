@@ -11,7 +11,7 @@ namespace Greenter\Ws\Services;
 use Greenter\Model\Response\Error;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Reader\CdrReaderInterface;
-use Greenter\Ws\Reader\DomCdrReaderInterface;
+use Greenter\Ws\Reader\DomCdrReader;
 use Greenter\Zip\ZipHelper;
 
 /**
@@ -53,7 +53,7 @@ class BaseSunat
     public function __construct()
     {
         $this->zipper = new ZipHelper();
-        $this->cdrReader = new DomCdrReaderInterface();
+        $this->cdrReader = new DomCdrReader();
     }
 
     /**

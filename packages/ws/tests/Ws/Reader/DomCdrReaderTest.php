@@ -8,7 +8,7 @@
 
 namespace Tests\Greenter\Ws\Reader;
 
-use Greenter\Ws\Reader\DomCdrReaderInterface;
+use Greenter\Ws\Reader\DomCdrReader;
 
 /**
  * Class DomCdrReaderTest
@@ -23,7 +23,7 @@ class DomCdrReaderTest extends \PHPUnit_Framework_TestCase
     {
         $path = __DIR__ . '/../../Resources/R-20600995805-01-F001-1.xml';
         $xml = file_get_contents($path);
-        $reader = new DomCdrReaderInterface();
+        $reader = new DomCdrReader();
         $cdr = $reader->getCdrResponse($xml);
 
         $this->assertNotEmpty($cdr);
@@ -40,7 +40,7 @@ class DomCdrReaderTest extends \PHPUnit_Framework_TestCase
     {
         $path = __DIR__ . '/../../Resources/R-20600995805-01-F001-3.xml';
         $xml = file_get_contents($path);
-        $reader = new DomCdrReaderInterface();
+        $reader = new DomCdrReader();
         $cdr = $reader->getCdrResponse($xml);
 
         $this->assertNotEmpty($cdr);
@@ -58,7 +58,7 @@ xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponent
     <cac:item>Empty</cac:item>
 </AppRespnse>
 XML;
-        $reader = new DomCdrReaderInterface();
+        $reader = new DomCdrReader();
         $reader->getCdrResponse($xml);
     }
 
@@ -76,7 +76,7 @@ XML;
 
         $referenceId->parentNode->removeChild($referenceId);
         $xml = $doc->saveXML();
-        $reader = new DomCdrReaderInterface();
+        $reader = new DomCdrReader();
         $cdr = $reader->getCdrResponse($xml);
 
         $this->assertEmpty($cdr->getId());
