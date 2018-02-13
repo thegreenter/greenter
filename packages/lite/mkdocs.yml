@@ -13,7 +13,7 @@ pages:
 # Configuration
 theme:
   name: 'material'
-  favicon: 'img/sunat.ico'
+  favicon: 'img/favicon.ico'
   logo:
     icon: 'receipt'
   language: 'es'
