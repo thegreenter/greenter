@@ -9,7 +9,7 @@
 PHP Implementación de la Facturación Electrónica Sunat - Perú
 
 <p align="center">
-  <img alt="Sunat Facturacion Electronica" src="https://raw.githubusercontent.com/giansalex/greenter/master/docs/img/sunat.ico">
+  <img alt="Sunat Facturacion Electronica" src="https://github.com/giansalex/greenter/raw/master/docs/img/logo.png">
 </p>
 
 # Install
@@ -28,7 +28,7 @@ Caracteristicas
 * Nota de Crédito Electrónica
 * Nota de Débito Electrónica
 * Resumen Diario de Boletas
-    > Version 2.1 apartir del 01/01/2018
+> Version 2.1 apartir del 01/01/2018
 * Comunicación de Bajas
 * Guia Remisión Electrónica
 * Retención Electrónica
