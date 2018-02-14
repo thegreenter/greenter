@@ -12,6 +12,19 @@ Via composer from [packagist.org](https://packagist.org/packages/greenter/xml-pa
 composer require greenter/xml-parser
 ```
 
+## Example
+```php
+use Greenter\Xml\Parser\InvoiceParser;
+require 'vendor/autoload.php';
+
+$parser = new InvoiceParser();
+$xml = file_get_contents('20000000001-01-F001-1.xml');
+$invoice = $parser->parse($xml); // get an invoice.
+
+var_dump($invoice);
+```
+Other parsers on [api documentation](https://codedoc.pub/giansalex/greenter-xml-parser/master/index.html).
+
 # Supported Documents
 
 - Factura Electrónica
