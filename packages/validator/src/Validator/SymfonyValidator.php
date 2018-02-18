@@ -9,6 +9,7 @@
 namespace Greenter\Validator;
 
 use Greenter\Model\DocumentInterface;
+use Greenter\Validator\Metadata\CustomMetadataFactory;
 use Symfony\Component\Validator\Validation;
 
 /**
@@ -45,6 +46,14 @@ class SymfonyValidator implements DocumentValidatorInterface
     public function validate(DocumentInterface $document)
     {
         return $this->validator->validate($document);
+    }
+
+    /**
+     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+     */
+    public function getValidator()
+    {
+        return $this->validator;
     }
 
     private function getTranslator($errorProvider)
