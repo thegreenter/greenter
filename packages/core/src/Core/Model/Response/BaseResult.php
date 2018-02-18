@@ -42,7 +42,7 @@ class BaseResult
     /**
      * @param bool $success
      *
-     * @return BaseResult
+     * @return $this
      */
     public function setSuccess($success)
     {
@@ -62,7 +62,7 @@ class BaseResult
     /**
      * @param Error $error
      *
-     * @return BaseResult
+     * @return $this
      */
     public function setError($error)
     {

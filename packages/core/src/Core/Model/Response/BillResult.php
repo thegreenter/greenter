@@ -34,7 +34,7 @@ class BillResult extends BaseResult
     /**
      * @param string $cdrZip
      *
-     * @return BillResult
+     * @return $this
      */
     public function setCdrZip($cdrZip)
     {
@@ -54,7 +54,7 @@ class BillResult extends BaseResult
     /**
      * @param CdrResponse $cdrResponse
      *
-     * @return BillResult
+     * @return $this
      */
     public function setCdrResponse($cdrResponse)
     {

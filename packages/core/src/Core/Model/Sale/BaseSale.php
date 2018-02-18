@@ -127,7 +127,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param string $tipoDoc
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setTipoDoc($tipoDoc)
     {
@@ -147,7 +147,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param string $serie
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setSerie($serie)
     {
@@ -167,7 +167,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param string $correlativo
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setCorrelativo($correlativo)
     {
@@ -187,7 +187,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param \DateTimeInterface $fechaEmision
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setFechaEmision(\DateTimeInterface $fechaEmision)
     {
@@ -207,7 +207,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param Client $client
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setClient($client)
     {
@@ -227,7 +227,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param Company $company
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setCompany(Company $company)
     {
@@ -247,7 +247,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param mixed $tipoMoneda
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setTipoMoneda($tipoMoneda)
     {
@@ -267,7 +267,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param mixed $sumOtrosCargos
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setSumOtrosCargos($sumOtrosCargos)
     {
@@ -287,7 +287,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param mixed $mtoOperGravadas
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setMtoOperGravadas($mtoOperGravadas)
     {
@@ -307,7 +307,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param mixed $mtoOperInafectas
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setMtoOperInafectas($mtoOperInafectas)
     {
@@ -327,7 +327,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoOperExoneradas
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setMtoOperExoneradas($mtoOperExoneradas)
     {
@@ -347,7 +347,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param mixed $mtoIGV
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setMtoIGV($mtoIGV)
     {
@@ -367,7 +367,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param mixed $mtoISC
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setMtoISC($mtoISC)
     {
@@ -387,7 +387,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoOtrosTributos
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setMtoOtrosTributos($mtoOtrosTributos)
     {
@@ -407,7 +407,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoImpVenta
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setMtoImpVenta($mtoImpVenta)
     {
@@ -427,7 +427,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param SaleDetail[] $details
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setDetails($details)
     {
@@ -447,7 +447,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param Legend[] $legends
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setLegends($legends)
     {
@@ -466,7 +466,7 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param Document[] $guias
-     * @return BaseSale
+     * @return $this
      */
     public function setGuias($guias)
     {
@@ -485,7 +485,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param Document[] $relDocs
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setRelDocs($relDocs)
     {

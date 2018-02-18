@@ -61,7 +61,7 @@ class Voided implements DocumentInterface
     /**
      * @param string $correlativo
      *
-     * @return Voided
+     * @return $this
      */
     public function setCorrelativo($correlativo)
     {
@@ -81,7 +81,7 @@ class Voided implements DocumentInterface
     /**
      * @param \DateTimeInterface $fecGeneracion
      *
-     * @return Voided
+     * @return $this
      */
     public function setFecGeneracion(\DateTimeInterface $fecGeneracion)
     {
@@ -101,7 +101,7 @@ class Voided implements DocumentInterface
     /**
      * @param \DateTimeInterface $fecComunicacion
      *
-     * @return Voided
+     * @return $this
      */
     public function setFecComunicacion(\DateTimeInterface $fecComunicacion)
     {
@@ -121,7 +121,7 @@ class Voided implements DocumentInterface
     /**
      * @param Company $company
      *
-     * @return Voided
+     * @return $this
      */
     public function setCompany(Company $company)
     {
@@ -141,7 +141,7 @@ class Voided implements DocumentInterface
     /**
      * @param VoidedDetail[] $details
      *
-     * @return Voided
+     * @return $this
      */
     public function setDetails($details)
     {
