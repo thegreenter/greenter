@@ -8,7 +8,7 @@
 
 namespace Greenter\Validator\Loader;
 
-use Greenter\Validator\LoaderMetadataInterface;
+use Greenter\Validator\Metadata\LoaderMetadataInterface;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints as Assert;
 

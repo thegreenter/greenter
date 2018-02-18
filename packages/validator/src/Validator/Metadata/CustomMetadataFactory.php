@@ -6,7 +6,7 @@
  * Time: 12:38 PM.
  */
 
-namespace Greenter\Validator;
+namespace Greenter\Validator\Metadata;
 
 use Symfony\Component\Validator\Exception\NoSuchMetadataException;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -18,6 +18,19 @@ use Symfony\Component\Validator\Mapping\MetadataInterface;
  */
 class CustomMetadataFactory implements MetadataFactoryInterface
 {
+    /**
+     * @var LoaderListenerInterface
+     */
+    private $listener;
+
+    /**
+     * @param LoaderListenerInterface $listener
+     */
+    public function setListener(LoaderListenerInterface $listener)
+    {
+        $this->listener = $listener;
+    }
+
     /**
      * Returns the metadata for the given value.
      *
@@ -32,10 +45,15 @@ class CustomMetadataFactory implements MetadataFactoryInterface
         $metaData = new ClassMetadata(get_class($value));
         $fullClass = $this->getClassValidator($value);
 
-        if ($fullClass) {
-            /** @var $loader LoaderMetadataInterface */
-            $loader = new $fullClass();
-            $loader->load($metaData);
+        if (empty($fullClass)) {
+            return $metaData;
+        }
+
+        /** @var $loader LoaderMetadataInterface */
+        $loader = new $fullClass();
+        $loader->load($metaData);
+        if ($this->listener) {
+            $this->listener->onLoaded($value, $metaData);
         }
 
         return $metaData;

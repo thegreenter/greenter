@@ -6,7 +6,7 @@
  * Time: 12:07 PM.
  */
 
-namespace Greenter\Validator;
+namespace Greenter\Validator\Metadata;
 
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
