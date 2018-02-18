@@ -18,6 +18,9 @@ use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Prepayment;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
+use Greenter\Validator\SymfonyValidator;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Tests\Greenter\Validator\Listener\InvoiceListener;
 
 class FeInvoiceValidatorTest extends \PHPUnit_Framework_TestCase
 {
@@ -29,10 +32,27 @@ class FeInvoiceValidatorTest extends \PHPUnit_Framework_TestCase
     public function testValidateInvoice()
     {
         $invoice = $this->getInvoice();
+
         $validator = $this->getValidator();
         $errors = $validator->validate($invoice);
 
-        $this->assertEquals(0,$errors->count());
+        $this->assertEquals(0, $errors->count());
+    }
+
+    public function testNotValidDate()
+    {
+        $invoice = $this->getInvoice();
+        $invoice->setFechaEmision(new \DateTime('-8 days'));
+        /**@var $validator SymfonyValidator */
+        $validator = $this->getValidator();
+        $factory  = $validator->getMetadatFactory();
+        $factory->setListener(new InvoiceListener());
+        /**@var $errors ConstraintViolationList*/
+        $errors = $validator->validate($invoice);
+
+        $this->assertEquals(1, $errors->count());
+        $error = $errors->get(0);
+        $this->assertEquals('fechaEmision', $error->getPropertyPath());
     }
 
     public function testNotValidInvoice()

@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Validation;
 class SymfonyValidator implements DocumentValidatorInterface
 {
     private $validator;
+    private $factory;
 
     /**
      * SymfonyValidator constructor.
@@ -26,7 +27,7 @@ class SymfonyValidator implements DocumentValidatorInterface
      */
     public function __construct(ErrorCodeProviderInterface $provider = null)
     {
-        $metaDataFactory = new CustomMetadataFactory();
+        $this->factory = new CustomMetadataFactory();
         $builder = Validation::createValidatorBuilder();
 
         if ($provider) {
@@ -34,8 +35,9 @@ class SymfonyValidator implements DocumentValidatorInterface
         }
 
         $this->validator = $builder
-            ->setMetadataFactory($metaDataFactory)
+            ->setMetadataFactory($this->factory)
             ->getValidator();
+
     }
 
     /**
@@ -54,6 +56,14 @@ class SymfonyValidator implements DocumentValidatorInterface
     public function getValidator()
     {
         return $this->validator;
+    }
+
+    /**
+     * @return CustomMetadataFactory
+     */
+    public function getMetadatFactory()
+    {
+        return $this->factory;
     }
 
     private function getTranslator($errorProvider)
