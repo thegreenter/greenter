@@ -21,18 +21,14 @@
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|n_format }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
                     {% endif -%}
-                    {% if doc.mtoOperInafectas -%}
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>1002</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|n_format }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
-                    {% endif -%}
-                    {% if doc.mtoOperExoneradas -%}
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>1003</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
-                    {% endif -%}
                     {% if doc.mtoOperGratuitas -%}
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>1004</cbc:ID>
