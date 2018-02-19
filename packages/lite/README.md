@@ -50,11 +50,19 @@ Caracteristicas
 - Signature xmldsig
 
 ### Representación Impresa.
-- Generacion de HTML Report [greenter/report](https://github.com/giansalex/greenter-report)
-- Generacion de PDF empleando [greenter/htmltopdf](https://github.com/giansalex/greenter-htmltopdf)
+- Generación de [HTML Report](https://github.com/giansalex/greenter-report)
+- Generación de [PDF](https://github.com/giansalex/greenter-htmltopdf)
+
+### API REST
+API REST with [Lycet](https://github.com/giansalex/lycet) based on Symfony.
 
 ### Used Packages
 - [greenter/core](https://github.com/giansalex/greenter-core)
 - [greenter/xml](https://github.com/giansalex/greenter-xml)
 - [greenter/ws](https://github.com/giansalex/greenter-ws)
 - [greenter/xmldsig](https://github.com/giansalex/xmldsig)
+
+### Other Packages
+- [greenter/report](https://github.com/giansalex/greenter-report)
+- [greenter/htmltopdf](https://github.com/giansalex/greenter-htmltopdf)
+- [greenter/validation](https://github.com/giansalex/greenter-validation)
