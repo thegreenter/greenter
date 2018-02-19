@@ -1,5 +1,6 @@
+/build/
 /vendor/
 composer.lock
 /.idea/
-/build/
+/site/
 .php_cs.cache
