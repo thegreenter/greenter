@@ -8,7 +8,7 @@
 
 namespace Tests\Greenter\Validator;
 
-use Greenter\Validator\CustomMetadataFactory;
+use Greenter\Validator\Metadata\CustomMetadataFactory;
 use Symfony\Component\Validator\Validation;
 
 /**
