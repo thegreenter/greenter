@@ -1,4 +1,4 @@
-# Greenter - Facturación Electrónica
+# Greenter
 
 [![Travis-CI](https://img.shields.io/travis/giansalex/greenter.svg?label=travis-ci&branch=master&style=flat-square)](https://travis-ci.org/giansalex/greenter)
 [![Coverage Status](https://img.shields.io/coveralls/giansalex/greenter.svg?label=coveralls&style=flat-square&branch=master)](https://coveralls.io/github/giansalex/greenter?branch=master)
@@ -11,6 +11,10 @@ PHP Implementación de la Facturación Electrónica Sunat - Perú
 <p align="center">
   <img alt="Sunat Facturacion Electronica" src="https://github.com/giansalex/greenter/raw/master/docs/img/logo.png">
 </p>
+
+!!! info "API REST empleando Greenter"
+
+    Para usuarios finales, puede hacer uso de [Lycet](https://github.com/giansalex/lycet). 
 
 # Install
 ```bash
@@ -47,9 +51,6 @@ Caracteristicas
 ### Representación Impresa.
 - Generación de [HTML Report](https://github.com/giansalex/greenter-report)
 - Generación de [PDF](https://github.com/giansalex/greenter-htmltopdf)
-
-### API REST
-API REST with [Lycet](https://github.com/giansalex/lycet) based on Symfony.
 
 ### Used Packages
 - [greenter/core](https://github.com/giansalex/greenter-core)

@@ -1,4 +1,4 @@
-site_name: Greenter
+site_name: Greenter - Facturación Electrónica
 site_url: https://giansalex.github.io/greenter
 site_description: 'Facturación Electrónica Sunat - Perú'
 site_author: 'Giancarlos Salas'
@@ -8,7 +8,10 @@ repo_name: 'giansalex/greenter'
 repo_url: 'https://github.com/giansalex/greenter'
 
 pages:
-    - Principal: index.md
+    - Greenter: index.md
+    - Empezando: starter.md
+    - News:
+      - Start: news/index.md
 
 # Configuration
 theme:
@@ -17,6 +20,8 @@ theme:
   logo:
     icon: 'receipt'
   language: 'es'
+  feature:
+    tabs: true
   palette:
     primary: 'Green'
     accent: 'Indigo'
