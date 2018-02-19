@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  docs_deploy:
+    docker:
+      - image: circleci/python:3.4.6
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+      - run:
+          name: Deploy Docs
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            chmod +x .circleci/deploy.sh
+            ./.circleci/deploy.sh
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+          paths:
+            - "venv"
+workflows:
+  version: 2
+  build_test_and_deploy:
+    jobs:
+      - docs_deploy:
+          filters:
+            branches:
+              ignore: gh-pages
