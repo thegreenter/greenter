@@ -35,3 +35,7 @@ $xml = $builder->build($invoice);
 
 echo $xml;
 ```
+
+## Reference
+[Ubl 2.0](http://www.datypic.com/sc/ubl20/)
+[Ubl 2.1](http://www.datypic.com/sc/ubl21/)
