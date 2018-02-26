@@ -7,9 +7,10 @@
  */
 
 namespace Tests\Greenter\Factory;
+
 use Greenter\Ws\Services\SummarySender;
 use Greenter\Xml\Builder\SummaryBuilder;
-use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
+use Greenter\XMLSecLibs\Sunat\SignedXml;
 /**
  * Class FeFactoryTest
  * @package Tests\Greenter
@@ -38,7 +39,7 @@ class FeFactoryTest extends FeFactoryBase
 
         $signXml = $this->factory->getXmmlSigned($invoice);
 
-        $this->assertInstanceOf(SunatXmlSecAdapter::class, $this->factory->getSigner());
+        $this->assertInstanceOf(SignedXml::class, $this->factory->getSigner());
         $this->assertNotEmpty($signXml);
     }
 

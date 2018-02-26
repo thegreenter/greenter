@@ -39,7 +39,7 @@ use Greenter\Xml\Builder\DespatchBuilder;
 use Greenter\Xml\Builder\PerceptionBuilder;
 use Greenter\Xml\Builder\RetentionBuilder;
 use Greenter\Xml\Builder\VoidedBuilder;
-use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
+use Greenter\XMLSecLibs\Sunat\SignedXml;
 
 /**
  * Class CeFactoryBase
@@ -59,7 +59,7 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $signer = new SunatXmlSecAdapter();
+        $signer = new SignedXml();
         $signer->setCertificateFromFile(__DIR__.'/../../Resources/SFSCert.pem');
 
         $this->factory = new FeFactory();
