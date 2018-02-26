@@ -20,7 +20,7 @@ use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SummarySender;
-use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
+use Greenter\XMLSecLibs\Sunat\SignedXml;
 
 /**
  * Sistema de Emision del Contribuyente.
@@ -50,7 +50,7 @@ class See
     private $summarys;
 
     /**
-     * @var SunatXmlSecAdapter
+     * @var SignedXml
      */
     private $signer;
 
@@ -73,7 +73,7 @@ class See
     {
         $this->factory = new FeFactory();
         $this->wsClient = new SoapClient();
-        $this->signer = new SunatXmlSecAdapter();
+        $this->signer = new SignedXml();
         $this->builders = [
             Model\Sale\Invoice::class => Xml\Builder\InvoiceBuilder::class,
             Model\Sale\Note::class => Xml\Builder\NoteBuilder::class,
