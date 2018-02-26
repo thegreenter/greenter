@@ -12,8 +12,7 @@ use Greenter\Builder\BuilderInterface;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Services\SenderInterface;
-use Greenter\XMLSecLibs\Sunat\AdapterInterface;
-use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
+use Greenter\XMLSecLibs\Sunat\SignedXml;
 
 /**
  * Class FeFactory.
@@ -21,7 +20,7 @@ use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
 class FeFactory implements FactoryInterface
 {
     /**
-     * @var AdapterInterface
+     * @var SignedXml
      */
     private $signer;
 
@@ -45,14 +44,6 @@ class FeFactory implements FactoryInterface
      * @var BuilderInterface
      */
     private $builder;
-
-    /**
-     * BaseFactory constructor.
-     */
-    public function __construct()
-    {
-        $this->signer = new SunatXmlSecAdapter();
-    }
 
     /**
      * Get document builder.
@@ -103,7 +94,7 @@ class FeFactory implements FactoryInterface
     }
 
     /**
-     * @return AdapterInterface
+     * @return SignedXml
      */
     public function getSigner()
     {
@@ -111,7 +102,7 @@ class FeFactory implements FactoryInterface
     }
 
     /**
-     * @param AdapterInterface $signer
+     * @param SignedXml $signer
      *
      * @return FeFactory
      */
