@@ -36,7 +36,7 @@ use Greenter\Xml\Builder\InvoiceBuilder;
 use Greenter\Xml\Builder\NoteBuilder;
 use Greenter\Xml\Builder\SummaryBuilder;
 use Greenter\Xml\Builder\VoidedBuilder;
-use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
+use Greenter\XMLSecLibs\Sunat\SignedXml;
 
 /**
  * Trait FeFactoryTrait
@@ -63,7 +63,7 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             Voided::class => VoidedBuilder::class,
         ];
 
-        $signer = new SunatXmlSecAdapter();
+        $signer = new SignedXml();
         $signer->setCertificateFromFile(__DIR__.'/../../Resources/SFSCert.pem');
 
         $factory = new FeFactory();

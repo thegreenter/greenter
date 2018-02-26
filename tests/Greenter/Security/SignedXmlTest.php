@@ -8,7 +8,7 @@
 
 namespace tests\Greenter\Security;
 
-use Greenter\XMLSecLibs\Sunat\SunatXmlSecAdapter;
+use Greenter\XMLSecLibs\Sunat\SignedXml;
 
 /**
  * Class SignedXmlTest
@@ -28,7 +28,7 @@ class SignedXmlTest extends \PHPUnit_Framework_TestCase
     {
         $xmlSigned = $this->createXmlSigned();
 
-        $signer = new SunatXmlSecAdapter();
+        $signer = new SignedXml();
         $result = $signer->verifyXml($xmlSigned);
 
         $this->assertTrue($result);
@@ -45,7 +45,7 @@ class SignedXmlTest extends \PHPUnit_Framework_TestCase
     {
         $xml = file_get_contents(__DIR__ . '/../../Resources/invoice.xml');
         $cert = file_get_contents(__DIR__ . '/../../Resources/SFSCert.pem');
-        $signer = new SunatXmlSecAdapter();
+        $signer = new SignedXml();
         $signer->setCertificate($cert);
         $xmlSigned = $signer->signXml($xml);
 
