@@ -135,7 +135,7 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
         ]);
         $this->factory->setBuilder($builder);
 
-        return $this->factory->getXmmlSigned($document);
+        return $this->factory->getXmlSigned($document);
     }
 
     /**

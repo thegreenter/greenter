@@ -37,7 +37,7 @@ class FeFactoryTest extends FeFactoryBase
         $builder = $this->getBuilder($invoice);
         $this->factory->setBuilder($builder);
 
-        $signXml = $this->factory->getXmmlSigned($invoice);
+        $signXml = $this->factory->getXmlSigned($invoice);
 
         $this->assertInstanceOf(SignedXml::class, $this->factory->getSigner());
         $this->assertNotEmpty($signXml);
