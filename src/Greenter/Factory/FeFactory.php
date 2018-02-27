@@ -122,7 +122,7 @@ class FeFactory implements FactoryInterface
      */
     public function send(DocumentInterface $document)
     {
-        $this->lastXml = $this->getXmmlSigned($document);
+        $this->lastXml = $this->getXmlSigned($document);
 
         return $this->sender->send($document->getName(), $this->lastXml);
     }
@@ -142,7 +142,7 @@ class FeFactory implements FactoryInterface
      *
      * @return string
      */
-    public function getXmmlSigned(DocumentInterface $document)
+    public function getXmlSigned(DocumentInterface $document)
     {
         $xml = $this->builder->build($document);
 

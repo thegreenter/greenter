@@ -154,7 +154,7 @@ class See
 
         return $this->factory
             ->setBuilder($this->getBuilder($classDoc))
-            ->getXmmlSigned($document);
+            ->getXmlSigned($document);
     }
 
     /**
