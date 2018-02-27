@@ -108,7 +108,7 @@ if ($result->isSuccess()) {
 ```
 
 ## Ejecutar
-Finalmente invocaremos el script
+Finalmente invocaremos el script desde la linea de comandos (cmd, bash).
 ```bash
 php factura.php
 ```
