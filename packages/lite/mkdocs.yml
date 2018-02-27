@@ -9,7 +9,7 @@ repo_url: 'https://github.com/giansalex/greenter'
 
 pages:
     - Greenter: index.md
-    - Empezando: starter.md
+    - Primeros Pasos: starter.md
     - News:
       - Start: news/index.md
 
