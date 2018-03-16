@@ -1,9 +1,9 @@
 # Empezando con Greenter
 
-Después de instalar greenter podra empezar a emitir comprobantes electrónicos.
+Después de [instalar greenter](https://giansalex.github.io/greenter/#install) podrá empezar a emitir comprobantes electrónicos.
 
 ## Requerimientos
-- Cerficado en formato PEM
+- Certificado en formato PEM
 - Credenciales Clave SOL
 
 ## Configuración
