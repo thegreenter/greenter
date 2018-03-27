@@ -147,6 +147,16 @@
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
+            {% if emp.email or emp.telephone -%}
+            <cac:Contact>
+                {% if emp.telephone -%}
+                <cbc:Telephone>{{ emp.telephone }}</cbc:Telephone>
+                {% endif -%}
+                {% if emp.email -%}
+                <cbc:ElectronicMail>{{ emp.email }}</cbc:ElectronicMail>
+                {% endif -%}
+            </cac:Contact>
+            {% endif -%}
         </cac:Party>
     </cac:AccountingSupplierParty>
     {% set client = doc.client -%}
@@ -155,20 +165,66 @@
         <cbc:AdditionalAccountID>{{ client.tipoDoc }}</cbc:AdditionalAccountID>
         <cac:Party>
             {% if client.address -%}
-                {% set addr = client.address -%}
-                <cac:PostalAddress>
-                    <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
-                    <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
-                    <cac:Country>
-                        <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
-                    </cac:Country>
-                </cac:PostalAddress>
+            {% set addr = client.address -%}
+            <cac:PostalAddress>
+                {% if addr.ubigueo -%}
+                <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
+                {% endif -%}
+                <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
+                <cac:Country>
+                    <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
             {% endif -%}
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName><![CDATA[{{ client.rznSocial|raw }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
+            {% if client.email or client.telephone -%}
+            <cac:Contact>
+                {% if client.telephone -%}
+                <cbc:Telephone>{{ client.telephone }}</cbc:Telephone>
+                {% endif -%}
+                {% if client.email -%}
+                <cbc:ElectronicMail>{{ client.email }}</cbc:ElectronicMail>
+                {% endif -%}
+            </cac:Contact>
+            {% endif -%}
         </cac:Party>
     </cac:AccountingCustomerParty>
+    {% set seller = doc.seller -%}
+    {% if seller -%}
+    <cac:SellerSupplierParty>
+        <cbc:CustomerAssignedAccountID>{{ seller.numDoc }}</cbc:CustomerAssignedAccountID>
+        <cbc:AdditionalAccountID>{{ seller.tipoDoc }}</cbc:AdditionalAccountID>
+        <cac:Party>
+            {% if seller.address -%}
+            {% set addr = seller.address -%}
+            <cac:PostalAddress>
+                {% if addr.ubigueo -%}
+                <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
+                {% endif -%}
+                <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
+                <cac:Country>
+                    <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:PostalAddress>
+            {% endif -%}
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName><![CDATA[{{ seller.rznSocial|raw }}]]></cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+            {% if seller.email or seller.telephone -%}
+            <cac:Contact>
+                {% if seller.telephone -%}
+                <cbc:Telephone>{{ seller.telephone }}</cbc:Telephone>
+                {% endif -%}
+                {% if seller.email -%}
+                <cbc:ElectronicMail>{{ seller.email }}</cbc:ElectronicMail>
+                {% endif -%}
+            </cac:Contact>
+            {% endif -%}
+        </cac:Party>
+    </cac:SellerSupplierParty>
+    {% endif -%}
     {% if doc.fecVencimiento -%}
     <cac:PaymentMeans>
         <cbc:PaymentMeansCode>-</cbc:PaymentMeansCode>
