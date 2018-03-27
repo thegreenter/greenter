@@ -7,6 +7,7 @@
  */
 
 namespace Greenter\Model\Sale;
+use Greenter\Model\Client\Client;
 
 /**
  * Invoice 2.1.
@@ -75,6 +76,11 @@ class Invoice extends BaseSale
      * @var EmbededDespatch
      */
     private $guiaEmbebida;
+
+    /**
+     * @var Client
+     */
+    private $seller;
 
     /**
      * @return string
@@ -293,6 +299,24 @@ class Invoice extends BaseSale
     {
         $this->guiaEmbebida = $guiaEmbebida;
 
+        return $this;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getSeller()
+    {
+        return $this->seller;
+    }
+
+    /**
+     * @param Client $seller
+     * @return Invoice
+     */
+    public function setSeller($seller)
+    {
+        $this->seller = $seller;
         return $this;
     }
 }

@@ -36,6 +36,16 @@ class Client
     private $address;
 
     /**
+     * @var string
+     */
+    private $email;
+
+    /**
+     * @var string
+     */
+    private $telephone;
+
+    /**
      * @return string
      */
     public function getTipoDoc()
@@ -112,6 +122,42 @@ class Client
     {
         $this->address = $address;
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return Client
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @param string $telephone
+     * @return Client
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
         return $this;
     }
 }

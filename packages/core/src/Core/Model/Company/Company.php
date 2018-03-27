@@ -33,6 +33,17 @@ class Company
      */
     private $address;
 
+
+    /**
+     * @var string
+     */
+    private $email;
+
+    /**
+     * @var string
+     */
+    private $telephone;
+
     /**
      * @return string
      */
@@ -110,6 +121,42 @@ class Company
     {
         $this->address = $address;
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return Company
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * @param string $telephone
+     * @return Company
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
         return $this;
     }
 }
