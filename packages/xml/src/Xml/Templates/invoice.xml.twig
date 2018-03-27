@@ -171,7 +171,7 @@
     </cac:AccountingCustomerParty>
     {% if doc.fecVencimiento -%}
     <cac:PaymentMeans>
-        <cbc:PaymentMeansCode>1</cbc:PaymentMeansCode>
+        <cbc:PaymentMeansCode>-</cbc:PaymentMeansCode>
         <cbc:PaymentDueDate>{{ doc.fecVencimiento|date('Y-m-d') }}</cbc:PaymentDueDate>
     </cac:PaymentMeans>
     {% endif -%}
