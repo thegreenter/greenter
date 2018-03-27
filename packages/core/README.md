@@ -12,4 +12,4 @@ composer require greenter/core
 
 ## Documentation
 
-Latest [CodeDoc](https://codedoc.pub/giansalex/greenter-core/master/)
+[Greenter API Doc](https://giansalex.github.io/greenter-apidoc/)
