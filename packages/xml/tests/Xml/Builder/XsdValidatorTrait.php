@@ -23,6 +23,10 @@ trait XsdValidatorTrait
 
         $success = $validator->validate($xml);
 
+        if ($success === false) {
+            echo $validator->getMessage().PHP_EOL;
+        }
+
         $this->assertTrue($success);
     }
 

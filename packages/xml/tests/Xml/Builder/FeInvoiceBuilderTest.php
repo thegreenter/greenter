@@ -22,12 +22,13 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
     public function testCreateXmlInvoice()
     {
         $invoice = $this->getFullInvoice();
+        $this->loadExtras($invoice);
+
         $xml = $this->build($invoice);
 
+//        file_put_contents('x.xml', $xml);
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
-
-//        file_put_contents('x.xml', $xml);
     }
 
     public function testCompanyValidate()
@@ -63,5 +64,24 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         ];
 
         return join('-', $parts);
+    }
+
+    private function loadExtras(Invoice $invoice)
+    {
+        $invoice->getCompany()
+            ->setEmail('admin@corp.com')
+            ->setTelephone('001-123243');
+
+        $invoice->getClient()
+            ->setEmail('client@corp.com')
+            ->setTelephone('001-445566');
+
+        $invoice->setSeller($this->getClient()
+        ->setTipoDoc('0')
+        ->setNumDoc('00000000')
+        ->setRznSocial('Super Seller')
+        ->setEmail('seller@corp.com')
+        ->setTelephone('990134255'));
+
     }
 }
