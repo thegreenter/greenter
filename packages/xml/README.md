@@ -1,9 +1,9 @@
 # XML - Greenter
 
-[![Travis-CI](https://img.shields.io/travis/giansalex/greenter-xml.svg?label=build&branch=master&style=flat-square)](https://travis-ci.org/giansalex/greenter-xml)
-[![Coverage Status](https://img.shields.io/coveralls/giansalex/greenter-xml.svg?label=coveralls&style=flat-square&branch=master)](https://coveralls.io/github/giansalex/greenter-xml?branch=master)
+[![Travis-CI](https://img.shields.io/travis/giansalex/greenter-xml.svg?branch=master&style=flat-square)](https://travis-ci.org/giansalex/greenter-xml)
+[![Coverage Status](https://img.shields.io/coveralls/giansalex/greenter-xml.svg?style=flat-square&branch=master)](https://coveralls.io/github/giansalex/greenter-xml?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/bc6f0b348aec4b5db956815ccbc32daa)](https://www.codacy.com/app/giansalex/greenter-xml?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=giansalex/greenter-xml&amp;utm_campaign=Badge_Grade)  
-Construcción de XML basados en el estandar UBL v2.0, v2.1
+Generador de XML basados en el estandar UBL v2.0, v2.1 para la eleaboración de comprobantes electrónicos según normativa de SUNAT. Esta libreria forma parte de [Greenter](https://github.com/giansalex/greenter)
 
 # Install
 ```bash
