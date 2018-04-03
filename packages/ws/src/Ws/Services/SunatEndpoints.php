@@ -20,7 +20,7 @@ final class SunatEndpoints
     const FE_HOMOLOGACION = 'https://www.sunat.gob.pe/ol-ti-itcpgem-sqa/billService';
     const FE_PRODUCCION = 'https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService';
     const WSDL_ENDPOINT = 'https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl';
-    const FE_CONSULTA_CDR = 'https://www.sunat.gob.pe/ol-it-wsconscpegem/billConsultService';
+    const FE_CONSULTA_CDR = 'https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService';
 
     /**
      * GUIA REMISION SERVICES.
@@ -32,5 +32,5 @@ final class SunatEndpoints
      * RETENCION Y PERCEPCION SERVICES.
      */
     const RETENCION_BETA = 'https://e-beta.sunat.gob.pe/ol-ti-itemision-otroscpe-gem-beta/billService';
-    const RETENCION_PRODUCCION = 'https://www.sunat.gob.pe/ol-ti-itemision-otroscpe-gem/billService';
+    const RETENCION_PRODUCCION = 'https://e-factura.sunat.gob.pe/ol-ti-itemision-otroscpe-gem/billService';
 }
