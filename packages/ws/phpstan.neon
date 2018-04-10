@@ -1,0 +1,3 @@
+parameters:
+	ignoreErrors:
+	  - '#Greenter\\Ws\\Header\\WSSESecurityHeader::__construct\(\) does not call parent constructor from SoapHeader.#'

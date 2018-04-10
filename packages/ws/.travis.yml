@@ -10,11 +10,13 @@ before_script:
 
 install:
   - composer require satooshi/php-coveralls
-  - composer require jakub-onderka/php-parallel-lint
+  - |
+    composer global require phpstan/phpstan dev-master --prefer-dist \
+    && composer global show | grep phpstan
 
 script:
   - mkdir -p build/logs
-  - vendor/bin/parallel-lint --exclude vendor .
+  - phpstan analyse src --level 1 -c phpstan.neon
   - vendor/bin/phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
 
 after_success:
