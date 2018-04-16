@@ -22,6 +22,11 @@ class PdfReport implements ReportInterface
     private $htmlReport;
 
     /**
+     * @var string
+     */
+    private $html;
+
+    /**
      * @var Pdf
      */
     private $pdfRender;
@@ -40,6 +45,16 @@ class PdfReport implements ReportInterface
     }
 
     /**
+     * Return last html generated.
+     *
+     * @return string
+     */
+    public function getHtml()
+    {
+        return $this->html;
+    }
+
+    /**
      * @param DocumentInterface $document
      * @param array             $parameters
      *
@@ -47,9 +62,9 @@ class PdfReport implements ReportInterface
      */
     public function render(DocumentInterface $document, $parameters = [])
     {
-        $html = $this->htmlReport->render($document, $parameters);
+        $this->html = $this->htmlReport->render($document, $parameters);
 
-        return $this->buildPdf($html);
+        return $this->buildPdf($this->html);
     }
 
     /**

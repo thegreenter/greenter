@@ -30,6 +30,7 @@ class PdfReportTest extends \PHPUnit_Framework_TestCase
         $this->pdf->setOptions([
             'page-width' => '21cm',
             'page-height' => '29.7cm',
+            'viewport-size' => '1280x1024',
         ]);
         $this->pdf->getExporter()->tmpDir = __DIR__.'/../Resources';
 
@@ -45,6 +46,7 @@ class PdfReportTest extends \PHPUnit_Framework_TestCase
         $content = $this->pdf->render($invoice);
 
         $this->assertNotEmpty($content);
+        $this->assertNotEmpty($this->pdf->getHtml());
 
         if ($this->isWindows()) {
             $path = __DIR__.DIRECTORY_SEPARATOR.'report.pdf';
