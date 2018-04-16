@@ -36,7 +36,6 @@ class PdfReport implements ReportInterface
         $this->htmlReport = $htmlReport;
         $this->pdfRender = new Pdf([
             'no-outline', // Make Chrome not complain
-            'viewport-size' => '1280x1024',
         ]);
     }
 
