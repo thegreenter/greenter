@@ -107,6 +107,17 @@ if ($result->isSuccess()) {
 }
 ```
 
+Estructura del proyecto
+
+```text
+/
+├── vendor/
+├── composer.json
+├── config.php
+├── factura.php
+
+```
+
 ## Ejecutar
 Finalmente invocaremos el script desde la linea de comandos (cmd, bash).
 ```bash
