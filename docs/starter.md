@@ -112,6 +112,7 @@ Estructura del proyecto
 ```text
 /
 ├── vendor/
+├── certificate.pem
 ├── composer.json
 ├── config.php
 ├── factura.php
