@@ -10,7 +10,7 @@ repo_url: 'https://github.com/giansalex/greenter'
 pages:
     - Greenter: index.md
     - Primeros Pasos: starter.md
-    - 'Documentación|https://giansalex.github.io/greenter-apidoc/': index.md
+    - 'Documentación|https://giansalex.github.io/greenter-apidoc/': apidoc.md
     - News:
       - Start: news/index.md
 
