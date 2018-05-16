@@ -8,7 +8,7 @@ Greenter HTML Report to PDF using [wkhtmltopdf](https://wkhtmltopdf.org/).
 
 ## Install
 Using composer from [packagist](https://packagist.org/packages/greenter/htmltopdf).
-
+Activate  shell exec to avoid executable executable problems this configuration of your php.ini
 ```bash
 composer require greenter/htmltopdf
 ```
