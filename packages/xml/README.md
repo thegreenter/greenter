@@ -28,7 +28,7 @@ composer require greenter/xml
 ```php
 use Greenter\Xml\Builder\InvoiceBuilder;
 
-$invoice = crateInvoice();
+$invoice = createInvoice(); // create a custom new Invoice()
 
 $builder = new InvoiceBuilder();
 $xml = $builder->build($invoice);
