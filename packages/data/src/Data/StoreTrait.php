@@ -77,6 +77,7 @@ trait StoreTrait
             ->setFechaEmision(new \DateTime())
             ->setTipoMoneda('PEN')
             ->setClient($this->getClient())
+            ->setBuyer($this->getClient())
             ->setMtoOperGravadas(200)
             ->setMtoOperExoneradas(0)
             ->setMtoOperInafectas(0)
@@ -544,6 +545,7 @@ trait StoreTrait
             ->setRuc('20123456789')
             ->setNombreComercial('GREENTER')
             ->setRazonSocial('GREENTER S.A.C')
+            ->setLocalAnexoCode('0000')
             ->setAddress((new Address())
                 ->setDireccion('AV LOS GERANIOS 321 - LIMA - LIMA - PERU'));
     }
