@@ -39,6 +39,8 @@ Caracteristicas
 * Percepción Electrónica
 * Resumen de Reversiones
 
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/giansalex)
+
 ### Web Services
 - Envio y empaquetado de los documentos electrónicos
 - Consulta de tickets

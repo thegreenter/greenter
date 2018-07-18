@@ -130,3 +130,5 @@ La Factura numero F001-1, ha sido aceptada
 ```
 
 El código fuente puede encontrarlo en este [enlace](https://github.com/giansalex/greenter-fiststeps).
+
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WSYJNMDD6D79W)
