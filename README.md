@@ -38,6 +38,8 @@ Caracteristicas
 * Percepción Electrónica
 * Resumen de Reversiones
 
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/giansalex)
+
 ### API
 - [Api Documentation](https://giansalex.github.io/greenter-apidoc/)
 
