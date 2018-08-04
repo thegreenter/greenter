@@ -79,6 +79,11 @@ class SummaryDetail
     /**
      * @var float
      */
+    private $mtoOperExportacion;
+
+    /**
+     * @var float
+     */
     private $mtoOperGratuitas;
 
     /**
@@ -319,6 +324,25 @@ class SummaryDetail
     public function setMtoOperExoneradas($mtoOperExoneradas)
     {
         $this->mtoOperExoneradas = $mtoOperExoneradas;
+
+        return $this;
+    }
+    /**
+     * @return float
+     */
+    public function getMtoOperExportacion()
+    {
+        return $this->mtoOperExportacion;
+    }
+
+    /**
+     * @param float $mtoOperExportacion
+     *
+     * @return SummaryDetail
+     */
+    public function setMtoOperExportacion($mtoOperExportacion)
+    {
+        $this->mtoOperExportacion = $mtoOperExportacion;
 
         return $this;
     }
