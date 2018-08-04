@@ -22,6 +22,7 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
     public function testCreateXmlSummary()
     {
         $summary = $this->getSummary();
+        $summary->getDetails()[0]->setMtoOperExportacion(10);
 
         $xml = $this->build($summary);
         $this->assertNotEmpty($xml);
