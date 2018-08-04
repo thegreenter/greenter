@@ -92,6 +92,12 @@
             <cbc:InstructionID>03</cbc:InstructionID>
         </sac:BillingPayment>
         {% endif -%}
+        {% if det.mtoOperExportacion -%}
+        <sac:BillingPayment>
+            <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperExportacion|n_format }}</cbc:PaidAmount>
+            <cbc:InstructionID>04</cbc:InstructionID>
+        </sac:BillingPayment>
+        {% endif -%}
         {% if det.mtoOperGratuitas -%}
         <sac:BillingPayment>
             <cbc:PaidAmount currencyID="PEN">{{ det.mtoOperGratuitas|n_format }}</cbc:PaidAmount>
