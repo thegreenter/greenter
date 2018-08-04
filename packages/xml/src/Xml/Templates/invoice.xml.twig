@@ -256,8 +256,7 @@
         </cac:TaxSubtotal>
     </cac:TaxTotal>
     {% endif -%}
-    {% if doc.mtoIGV -%}
-    {% set igvT = doc.mtoIGV|n_format -%}
+    {% set igvT = doc.mtoIGV|default(0)|n_format -%}
     <cac:TaxTotal>
         <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igvT }}</cbc:TaxAmount>
         <cac:TaxSubtotal>
@@ -271,7 +270,6 @@
             </cac:TaxCategory>
         </cac:TaxSubtotal>
     </cac:TaxTotal>
-    {% endif -%}
     {% if doc.sumOtrosCargos -%}
     {% set othT = doc.sumOtrosCargos|n_format -%}
     <cac:TaxTotal>
