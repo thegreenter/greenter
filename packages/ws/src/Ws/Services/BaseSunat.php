@@ -124,7 +124,7 @@ class BaseSunat
      */
     protected function extractResponse($zipContent)
     {
-        $xml = $this->zipper->decompressXmlFile($zipContent);
+        $xml = $this->getXmlResponse($zipContent);
 
         return $this->cdrReader->getCdrResponse($xml);
     }
@@ -141,5 +141,25 @@ class BaseSunat
         }
 
         return $this->codeProvider->getValue($code);
+    }
+
+    private function getXmlResponse($content)
+    {
+        $filter = function ($filename) {
+            return strtolower($this->getFileExtension($filename)) === 'xml';
+        };
+        $files = $this->zipper->decompress($content, $filter);
+
+        return count($files) === 0 ? '' : $files[0]['content'];
+    }
+
+    private function getFileExtension($filename)
+    {
+        $lastDotPos = strrpos($filename, '.');
+        if (!$lastDotPos) {
+            return '';
+        }
+
+        return substr($filename, $lastDotPos + 1);
     }
 }

@@ -32,8 +32,8 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
         $zip = $helper->compress('myFile.xml', self::DATA_XML);
         $zip2 = $helper->compress('myFile.xml', $txtContent);
 
-        $result1 = $helper->decompressXmlFile($zip);
-        $result2 = $helper->decompressXmlFile($zip2);
+        $result1 = $this->getXmlResponse($helper, $zip);
+        $result2 = $this->getXmlResponse($helper, $zip2);
 
         $this->assertEquals(self::DATA_XML, $result1);
         $this->assertEquals($txtContent, $result2);
@@ -43,7 +43,7 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $zipContent = $this->createZip();
         $helper = new ZipFly();
-        $content = $helper->decompressXmlFile($zipContent);
+        $content = $this->getXmlResponse($helper, $zipContent);
 
         $this->assertEquals(self::DATA_XML, $content);
     }
@@ -59,7 +59,7 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
     public function testInvalidZip()
     {
         $zip = new ZipFly();
-        $res = $zip->decompressXmlFile('');
+        $res = $zip->decompress('');
 
         $this->assertEmpty($res);
     }
@@ -69,7 +69,7 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
         $helper = new ZipFly();
         $zip = $helper->compress('myFile.txt', 'TEST TEXT 1');
 
-        $res = (new ZipFly())->decompressXmlFile($zip);
+        $res = $this->getXmlResponse(new ZipFly(), $zip);
 
         $this->assertEmpty($res);
     }
@@ -80,5 +80,25 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
         $zip = $helper->compress('myFile.xml', self::DATA_XML);
 
         return $zip;
+    }
+
+    private function getXmlResponse(ZipFly $zipper, $content)
+    {
+        $filter = function ($filename) {
+            return strtolower($this->getFileExtension($filename)) === 'xml';
+        };
+        $files = $zipper->decompress($content, $filter);
+
+        return count($files) === 0 ? '' : $files[0]['content'];
+    }
+
+    private function getFileExtension($filename)
+    {
+        $lastDotPos = strrpos($filename, '.');
+        if (!$lastDotPos) {
+            return '';
+        }
+
+        return substr($filename, $lastDotPos + 1);
     }
 }
