@@ -11,7 +11,7 @@ namespace Greenter\Zip;
 /**
  * Class ZipFile.
  */
-class ZipHelper
+class ZipFly
 {
     const UNZIP_FORMAT = 'Vsig/vver/vflag/vmeth/vmodt/vmodd/Vcrc/Vcsize/Vsize/vnamelen/vexlen';
 
@@ -41,7 +41,7 @@ class ZipHelper
     private $old_offset;
 
     /**
-     * ZipHelper constructor.
+     * ZipFly constructor.
      */
     public function __construct()
     {

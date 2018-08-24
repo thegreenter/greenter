@@ -12,7 +12,7 @@ use Greenter\Model\Response\Error;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Reader\CdrReaderInterface;
 use Greenter\Ws\Reader\DomCdrReader;
-use Greenter\Zip\ZipHelper;
+use Greenter\Zip\ZipFly;
 
 /**
  * Class BaseSunat.
@@ -20,7 +20,7 @@ use Greenter\Zip\ZipHelper;
 class BaseSunat
 {
     /**
-     * @var ZipHelper
+     * @var ZipFly
      */
     private $zipper;
 
@@ -52,7 +52,7 @@ class BaseSunat
      */
     public function __construct()
     {
-        $this->zipper = new ZipHelper();
+        $this->zipper = new ZipFly();
         $this->cdrReader = new DomCdrReader();
     }
 
