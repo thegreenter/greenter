@@ -8,7 +8,7 @@
 
 namespace Tests\Greenter\Zip;
 
-use Greenter\Zip\ZipHelper;
+use Greenter\Zip\ZipFly;
 
 /**
  * Class ZipFactoryTest
@@ -28,12 +28,12 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
     public function testMultipleCompress()
     {
         $txtContent = '<h1>GREENTER WS</h1>';
-        $helper = new ZipHelper();
+        $helper = new ZipFly();
         $zip = $helper->compress('myFile.xml', self::DATA_XML);
         $zip2 = $helper->compress('myFile.xml', $txtContent);
 
-        $result1 = $helper->decompressXmlFile($zip);
-        $result2 = $helper->decompressXmlFile($zip2);
+        $result1 = $this->getXmlResponse($helper, $zip);
+        $result2 = $this->getXmlResponse($helper, $zip2);
 
         $this->assertEquals(self::DATA_XML, $result1);
         $this->assertEquals($txtContent, $result2);
@@ -42,15 +42,15 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
     public function testDecompressLastFile()
     {
         $zipContent = $this->createZip();
-        $helper = new ZipHelper();
-        $content = $helper->decompressXmlFile($zipContent);
+        $helper = new ZipFly();
+        $content = $this->getXmlResponse($helper, $zipContent);
 
         $this->assertEquals(self::DATA_XML, $content);
     }
 
     public function testUnixTime()
     {
-        $zip = new ZipHelper();
+        $zip = new ZipFly();
         $result = $zip->unix2DosTime(181233012);
 
         $this->assertEquals(2162688, $result);
@@ -58,27 +58,47 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidZip()
     {
-        $zip = new ZipHelper();
-        $res = $zip->decompressXmlFile('');
+        $zip = new ZipFly();
+        $res = $zip->decompress('');
 
         $this->assertEmpty($res);
     }
 
     public function testNotXmlZip()
     {
-        $helper = new ZipHelper();
+        $helper = new ZipFly();
         $zip = $helper->compress('myFile.txt', 'TEST TEXT 1');
 
-        $res = (new ZipHelper())->decompressXmlFile($zip);
+        $res = $this->getXmlResponse(new ZipFly(), $zip);
 
         $this->assertEmpty($res);
     }
 
     private function createZip()
     {
-        $helper = new ZipHelper();
+        $helper = new ZipFly();
         $zip = $helper->compress('myFile.xml', self::DATA_XML);
 
         return $zip;
+    }
+
+    private function getXmlResponse(ZipFly $zipper, $content)
+    {
+        $filter = function ($filename) {
+            return strtolower($this->getFileExtension($filename)) === 'xml';
+        };
+        $files = $zipper->decompress($content, $filter);
+
+        return count($files) === 0 ? '' : $files[0]['content'];
+    }
+
+    private function getFileExtension($filename)
+    {
+        $lastDotPos = strrpos($filename, '.');
+        if (!$lastDotPos) {
+            return '';
+        }
+
+        return substr($filename, $lastDotPos + 1);
     }
 }

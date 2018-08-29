@@ -12,7 +12,10 @@ use Greenter\Model\Response\Error;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Reader\CdrReaderInterface;
 use Greenter\Ws\Reader\DomCdrReader;
-use Greenter\Zip\ZipHelper;
+use Greenter\Zip\CompressInterface;
+use Greenter\Zip\DecompressInterface;
+use Greenter\Zip\ZipFileDecompress;
+use Greenter\Zip\ZipFly;
 
 /**
  * Class BaseSunat.
@@ -20,9 +23,14 @@ use Greenter\Zip\ZipHelper;
 class BaseSunat
 {
     /**
-     * @var ZipHelper
+     * @var CompressInterface
      */
-    private $zipper;
+    private $compressor;
+
+    /**
+     * @var DecompressInterface
+     */
+    private $decompressor;
 
     /**
      * @var CdrReaderInterface
@@ -52,7 +60,9 @@ class BaseSunat
      */
     public function __construct()
     {
-        $this->zipper = new ZipHelper();
+        //TODO: Inject
+        $this->compressor = new ZipFly();
+        $this->decompressor = new ZipFileDecompress();
         $this->cdrReader = new DomCdrReader();
     }
 
@@ -114,7 +124,7 @@ class BaseSunat
      */
     protected function compress($filename, $xml)
     {
-        return $this->zipper->compress($filename, $xml);
+        return $this->compressor->compress($filename, $xml);
     }
 
     /**
@@ -124,7 +134,7 @@ class BaseSunat
      */
     protected function extractResponse($zipContent)
     {
-        $xml = $this->zipper->decompressXmlFile($zipContent);
+        $xml = $this->getXmlResponse($zipContent);
 
         return $this->cdrReader->getCdrResponse($xml);
     }
@@ -141,5 +151,25 @@ class BaseSunat
         }
 
         return $this->codeProvider->getValue($code);
+    }
+
+    private function getXmlResponse($content)
+    {
+        $filter = function ($filename) {
+            return strtolower($this->getFileExtension($filename)) === 'xml';
+        };
+        $files = $this->decompressor->decompress($content, $filter);
+
+        return count($files) === 0 ? '' : $files[0]['content'];
+    }
+
+    private function getFileExtension($filename)
+    {
+        $lastDotPos = strrpos($filename, '.');
+        if (!$lastDotPos) {
+            return '';
+        }
+
+        return substr($filename, $lastDotPos + 1);
     }
 }

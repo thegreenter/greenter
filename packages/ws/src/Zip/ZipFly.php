@@ -11,7 +11,7 @@ namespace Greenter\Zip;
 /**
  * Class ZipFile.
  */
-class ZipHelper
+class ZipFly implements CompressInterface, DecompressInterface
 {
     const UNZIP_FORMAT = 'Vsig/vver/vflag/vmeth/vmodt/vmodd/Vcrc/Vcsize/Vsize/vnamelen/vexlen';
 
@@ -41,7 +41,7 @@ class ZipHelper
     private $old_offset;
 
     /**
-     * ZipHelper constructor.
+     * ZipFly constructor.
      */
     public function __construct()
     {
@@ -175,55 +175,48 @@ class ZipHelper
         return $zip;
     }
 
-    /**
-     * Retorna el contenido del primer xml dentro del zip.
-     *
-     * @param string $zipContent
-     *
-     * @return string
-     */
-    public function decompressXmlFile($zipContent)
-    {
-        $start = 0;
-        $max = 10;
-        while ($max > 0) {
-            $dat = substr($zipContent, $start, 30);
-            if (empty($dat)) {
-                break;
-            }
-
-            $head = unpack(self::UNZIP_FORMAT, $dat);
-            $filename = substr(substr($zipContent, $start), 30, $head['namelen']);
-            if (empty($filename)) {
-                break;
-            }
-            $count = 30 + $head['namelen'] + $head['exlen'];
-
-            if (strtolower($this->getFileExtension($filename)) == 'xml') {
-                return gzinflate(substr($zipContent, $start + $count, $head['csize']));
-            }
-
-            $start += $count + $head['csize'];
-            --$max;
-        }
-
-        return '';
-    }
-
-    private function getFileExtension($filename)
-    {
-        $lastDotPos = strrpos($filename, '.');
-        if (!$lastDotPos) {
-            return '';
-        }
-
-        return substr($filename, $lastDotPos + 1);
-    }
-
     private function clear()
     {
         $this->datasec = [];
         $this->ctrl_dir = [];
         $this->old_offset = 0;
+    }
+
+    /**
+     * Extract files.
+     *
+     * @param string $content
+     * @param callable|null $filter
+     * @return array
+     */
+    public function decompress($content, callable $filter = null)
+    {
+        $start = 0;
+        $result = [];
+
+        while (true) {
+            $dat = substr($content, $start, 30);
+            if (empty($dat)) {
+                break;
+            }
+
+            $head = unpack(self::UNZIP_FORMAT, $dat);
+            $filename = substr(substr($content, $start), 30, $head['namelen']);
+            if (empty($filename)) {
+                break;
+            }
+            $count = 30 + $head['namelen'] + $head['exlen'];
+
+            if (!$filter || $filter($filename)) {
+                $result[] = [
+                    'filename' => $filename,
+                    'content'  => gzinflate(substr($content, $start + $count, $head['csize']))
+                ];
+            }
+
+            $start += $count + $head['csize'];
+        }
+
+        return $result;
     }
 }
