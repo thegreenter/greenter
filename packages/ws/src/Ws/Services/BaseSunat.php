@@ -12,6 +12,9 @@ use Greenter\Model\Response\Error;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Reader\CdrReaderInterface;
 use Greenter\Ws\Reader\DomCdrReader;
+use Greenter\Zip\CompressInterface;
+use Greenter\Zip\DecompressInterface;
+use Greenter\Zip\ZipFileDecompress;
 use Greenter\Zip\ZipFly;
 
 /**
@@ -20,9 +23,14 @@ use Greenter\Zip\ZipFly;
 class BaseSunat
 {
     /**
-     * @var ZipFly
+     * @var CompressInterface
      */
-    private $zipper;
+    private $compressor;
+
+    /**
+     * @var DecompressInterface
+     */
+    private $decompressor;
 
     /**
      * @var CdrReaderInterface
@@ -52,7 +60,9 @@ class BaseSunat
      */
     public function __construct()
     {
-        $this->zipper = new ZipFly();
+        //TODO: Inject
+        $this->compressor = new ZipFly();
+        $this->decompressor = new ZipFileDecompress();
         $this->cdrReader = new DomCdrReader();
     }
 
@@ -114,7 +124,7 @@ class BaseSunat
      */
     protected function compress($filename, $xml)
     {
-        return $this->zipper->compress($filename, $xml);
+        return $this->compressor->compress($filename, $xml);
     }
 
     /**
@@ -148,7 +158,7 @@ class BaseSunat
         $filter = function ($filename) {
             return strtolower($this->getFileExtension($filename)) === 'xml';
         };
-        $files = $this->zipper->decompress($content, $filter);
+        $files = $this->decompressor->decompress($content, $filter);
 
         return count($files) === 0 ? '' : $files[0]['content'];
     }
