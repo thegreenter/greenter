@@ -126,7 +126,19 @@ class FeFactory implements FactoryInterface
 
         return $this->sender->send($document->getName(), $this->lastXml);
     }
+    
+    // by thefantas
+    public function sendForce(DocumentInterface $document, $dir_xml)
+    {
+        return $this->sender->send($document->getName(), $dir_xml);
+    }
 
+    // by thefantas
+    public function genXML(DocumentInterface $document)
+    {
+        $this->lastXml = $this->getXmmlSigned($document);
+    }
+    
     /**
      * Get Last XML Signed.
      *
