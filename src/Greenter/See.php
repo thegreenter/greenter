@@ -173,6 +173,26 @@ class See
 
         return $this->factory->send($document);
     }
+    
+	// Solicitar CDR desde un XML ya generado. by thefantas
+    public function sendForce(DocumentInterface $document, $dir_xml)
+    {
+        $classDoc = get_class($document);
+        $this->factory
+            ->setBuilder($this->getBuilder($classDoc))
+            ->setSender($this->getSender($classDoc));
+
+        return $this->factory->send($document, $dir_xml);
+    }
+	// Generar solo XML. by thefantas
+    public function genXML(DocumentInterface $document)
+    {
+        $classDoc = get_class($document);
+        $this->factory
+            ->setBuilder($this->getBuilder($classDoc));
+
+        return $this->factory->genXML($document);
+    }
 
     /**
      * @param $ticket
