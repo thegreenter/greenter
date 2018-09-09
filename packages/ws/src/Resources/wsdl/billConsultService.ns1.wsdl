@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns:tns="http://service.sunat.gob.pe" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://service.sunat.gob.pe">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://service.sunat.gob.pe" schemaLocation="billConsultService.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="getStatus">
+        <part name="parameters" element="tns:getStatus"/>
+    </message>
+    <message name="getStatusResponse">
+        <part name="parameters" element="tns:getStatusResponse"/>
+    </message>
+    <message name="getStatusCdr">
+        <part name="parameters" element="tns:getStatusCdr"/>
+    </message>
+    <message name="getStatusCdrResponse">
+        <part name="parameters" element="tns:getStatusCdrResponse"/>
+    </message>
+    <portType name="billService">
+        <operation name="getStatus">
+            <input xmlns:ns1="http://www.w3.org/2007/05/addressing/metadata" ns1:Action="urn:getStatus" message="tns:getStatus"/>
+            <output xmlns:ns2="http://www.w3.org/2007/05/addressing/metadata" ns2:Action="http://service.sunat.gob.pe/billService/getStatusResponse" message="tns:getStatusResponse"/>
+        </operation>
+        <operation name="getStatusCdr">
+            <input xmlns:ns3="http://www.w3.org/2007/05/addressing/metadata" ns3:Action="urn:getStatusCdr" message="tns:getStatusCdr"/>
+            <output xmlns:ns4="http://www.w3.org/2007/05/addressing/metadata" ns4:Action="http://service.sunat.gob.pe/billService/getStatusCdrResponse" message="tns:getStatusCdrResponse"/>
+        </operation>
+    </portType>
+</definitions>
