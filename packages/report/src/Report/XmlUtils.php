@@ -15,6 +15,7 @@ final class XmlUtils
 {
     const EXT_NAMESPACE = 'urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2';
     const DS_NAMESPACE = 'http://www.w3.org/2000/09/xmldsig#';
+    const DIGEST_QUERY = 'ext:ExtensionContent/ds:Signature/ds:SignedInfo/ds:Reference/ds:DigestValue';
 
     /**
      * @param string $xml
@@ -64,7 +65,7 @@ final class XmlUtils
      *
      * @return \DOMXPath
      */
-    public function getXpath(\DOMDocument $document)
+    private function getXpath(\DOMDocument $document)
     {
         $xpt = new \DOMXPath($document);
         $xpt->registerNamespace('ext', self::EXT_NAMESPACE);
@@ -78,11 +79,11 @@ final class XmlUtils
      * @param \DOMXPath $xpt
      * @return string
      */
-    public function getHash(\DOMNodeList $exts, \DOMXPath $xpt)
+    private function getHash(\DOMNodeList $exts, \DOMXPath $xpt)
     {
         for ($i = $exts->length; $i-- > 0;) {
             $nodeSign = $exts->item($i);
-            $hash = $xpt->query('ext:ExtensionContent/ds:Signature/ds:SignedInfo/ds:Reference/ds:DigestValue', $nodeSign);
+            $hash = $xpt->query(self::DIGEST_QUERY, $nodeSign);
 
             if ($hash->length == 0) {
                 continue;
