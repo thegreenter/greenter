@@ -52,10 +52,12 @@ class ExtService extends BaseSunat
     }
 
     /**
+     * @deprecated Use instead \Greenter\Ws\Services\ConsultCdrService
+     *
      * @param string $ruc
      * @param string $tipo
      * @param string $serie
-     * @param string $numero
+     * @param int $numero
      *
      * @return StatusCdrResult
      */
