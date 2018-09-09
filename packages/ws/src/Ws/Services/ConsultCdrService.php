@@ -27,7 +27,7 @@ class ConsultCdrService extends BaseSunat
      */
     public function getStatus($ruc, $tipo, $serie, $numero)
     {
-        return $this->getStatusResult('getStatus', $ruc, $tipo, $serie, $numero);
+        return $this->getStatusResult('getStatus', 'status', $ruc, $tipo, $serie, $numero);
     }
 
     /**
@@ -42,10 +42,10 @@ class ConsultCdrService extends BaseSunat
      */
     public function getStatusCdr($ruc, $tipo, $serie, $numero)
     {
-        return $this->getStatusResult('getStatusCdr', $ruc, $tipo, $serie, $numero);
+        return $this->getStatusResult('getStatusCdr', 'statusCdr', $ruc, $tipo, $serie, $numero);
     }
 
-    private function getStatusResult($method, $ruc, $tipo, $serie, $numero)
+    private function getStatusResult($method, $resultName, $ruc, $tipo, $serie, $numero)
     {
         $client = $this->getClient();
         $result = new StatusCdrResult();
@@ -58,7 +58,7 @@ class ConsultCdrService extends BaseSunat
                 'numeroComprobante' => $numero,
             ];
             $response = $client->call($method, ['parameters' => $params]);
-            $statusCdr = $response->statusCdr;
+            $statusCdr = $response->{$resultName};
 
             $result->setCode($statusCdr->statusCode)
                 ->setMessage($statusCdr->statusMessage)
