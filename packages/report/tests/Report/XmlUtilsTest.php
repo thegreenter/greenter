@@ -62,7 +62,6 @@ class XmlUtilsTest extends \PHPUnit_Framework_TestCase
         $hash = $this->utils->getHashSign($xml);
 
         $this->assertNotEmpty($hash);
-        echo basename($filename).' => '.$hash.PHP_EOL;
     }
 
     public function testExtractFromEmptyExt()
