@@ -8,11 +8,6 @@
 
 namespace Greenter\Report\Extension;
 
-use Greenter\Report\Filter\DocumentFilter;
-use Greenter\Report\Filter\FormatFilter;
-use Greenter\Report\Filter\ImageFilter;
-use Greenter\Report\Filter\ResolveFilter;
-
 /**
  * Class ReportTwigExtension.
  */
@@ -31,7 +26,7 @@ class ReportTwigExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('legend', ['Greenter\Report\Filter\ResolveFilter', 'getValueLegend']),
-            new \Twig_SimpleFunction('qrCode', ['Greenter\Report\Filter\ResolveFilter', 'getQr']),
+            new \Twig_SimpleFunction('qrCode', ['Greenter\Report\Render\QrRender', 'getImage']),
         ];
     }
 }
