@@ -50,7 +50,7 @@ trait ConsultCdrServiceTrait
                     $obj->status = new \stdClass();
                     $obj->status->statusCode = '0';
                     $obj->status->statusMessage = 'ACEPTADA';
-                    $obj->status->content = null;
+//                    $obj->status->content = null;
                 } elseif ($func == 'getStatusCdr') {
                     $zipContent = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
                     $obj->statusCdr = new \stdClass();
