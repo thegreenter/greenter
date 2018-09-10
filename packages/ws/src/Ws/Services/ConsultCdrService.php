@@ -62,11 +62,11 @@ class ConsultCdrService extends BaseSunat
 
             $result->setCode($statusCdr->statusCode)
                 ->setMessage($statusCdr->statusMessage)
-                ->setCdrZip($statusCdr->content)
                 ->setSuccess(true);
 
-            if ($statusCdr->content) {
-                $result->setCdrResponse($this->extractResponse($statusCdr->content));
+            if (isset($statusCdr->content)) {
+                $result->setCdrZip($statusCdr->content)
+                       ->setCdrResponse($this->extractResponse($statusCdr->content));
             }
         } catch (\SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
