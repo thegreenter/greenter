@@ -9,6 +9,7 @@
 namespace Greenter\Ws\Services;
 
 use Greenter\Model\Response\StatusCdrResult;
+use Greenter\Validator\XmlErrorCodeProvider;
 
 /**
  * Class ConsultCdrService.
@@ -67,6 +68,16 @@ class ConsultCdrService extends BaseSunat
             if (isset($statusCdr->content)) {
                 $result->setCdrZip($statusCdr->content)
                        ->setCdrResponse($this->extractResponse($statusCdr->content));
+
+                if(in_array($result->getCdrResponse()->getCode(), range(100 , 1999))) { //excepción
+                    $result->setSuccess(false)
+                        ->setError($this->getErrorForce($statusCdr->statusCode));
+                }
+            } else {
+                if(in_array($result->getCode(), range(100 , 1999))) { //excepción
+                    $result->setSuccess(false)
+                        ->setError($this->getErrorForce($statusCdr->statusCode));
+                }
             }
         } catch (\SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
