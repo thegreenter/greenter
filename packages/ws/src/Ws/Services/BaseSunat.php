@@ -115,7 +115,24 @@ class BaseSunat
 
         return $err->setMessage($msg);
     }
+    /*  
+        Muestra error  con el código
+    */
+	protected function getErrorForce($fault)
+    {
+        $err = new Error();
+        $err->setCode($fault);
+        $code = preg_replace('/[^0-9]+/', '', $err->getCode());
+        $msg = '';
 
+        if ($code) {
+            $msg = $this->getMessageError($code);
+            $err->setCode($code);
+        }
+
+        return $err->setMessage($msg);
+    }
+    
     /**
      * @param string $filename
      * @param string $xml
