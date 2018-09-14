@@ -58,4 +58,14 @@ class ConsultCdrServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($result->getCdrResponse());
         $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
     }
+
+    public function testGetErrorCodeFromCdr()
+    {
+        $wss = $this->getConsultServiceWithCdr();
+        $result = $wss->getStatusCdr('20600995805', '01', 'F001', '2');
+
+        $this->assertFalse($result->isSuccess());
+        $this->assertNotNull($result->getError());
+        $this->assertGreaterThan(0, intval($result->getError()->getCode()));
+    }
 }

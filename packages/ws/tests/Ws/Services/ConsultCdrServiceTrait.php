@@ -40,27 +40,50 @@ trait ConsultCdrServiceTrait
      */
     private function getConsultSender()
     {
+        return $this->getMockConsultService(function ($action) {
+            $obj = new \stdClass();
+            if ($action == 'getStatus') {
+                $obj->status = new \stdClass();
+                $obj->status->statusCode = '0';
+                $obj->status->statusMessage = 'ACEPTADA';
+//                    $obj->status->content = null;
+            } elseif ($action == 'getStatusCdr') {
+                $zipContent = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
+                $obj->statusCdr = new \stdClass();
+                $obj->statusCdr->statusCode = '0';
+                $obj->statusCdr->statusMessage = 'ACEPTADA';
+                $obj->statusCdr->content = $zipContent;
+            }
+
+            return $obj;
+        });
+    }
+
+    /**
+     * @return ConsultCdrService
+     */
+    private function getConsultServiceWithCdr()
+    {
+        return $this->getMockConsultService(function () {
+            $zipContent = file_get_contents(__DIR__.'/../../Resources/cdr-rechazo.zip');
+
+            $obj = new \stdClass();
+            $obj->statusCdr = new \stdClass();
+            $obj->statusCdr->statusCode = '004';
+            $obj->statusCdr->statusMessage = 'Constancia Existe';
+            $obj->statusCdr->content = $zipContent;
+
+            return $obj;
+        });
+    }
+
+    private function getMockConsultService($function)
+    {
         $stub = $this->getMockBuilder(WsClientInterface::class)
             ->getMock();
 
         $stub->method('call')
-            ->will($this->returnCallback(function ($action, $params) {
-                $obj = new \stdClass();
-                if ($action == 'getStatus') {
-                    $obj->status = new \stdClass();
-                    $obj->status->statusCode = '0';
-                    $obj->status->statusMessage = 'ACEPTADA';
-//                    $obj->status->content = null;
-                } elseif ($action == 'getStatusCdr') {
-                    $zipContent = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
-                    $obj->statusCdr = new \stdClass();
-                    $obj->statusCdr->statusCode = '0';
-                    $obj->statusCdr->statusMessage = 'ACEPTADA';
-                    $obj->statusCdr->content = $zipContent;
-                }
-
-                return $obj;
-            }));
+            ->will($this->returnCallback($function));
 
         /**@var $stub WsClientInterface */
         $sunat = new ConsultCdrService();
