@@ -97,13 +97,13 @@ class BaseSunat
      */
     protected function getErrorFromFault(\SoapFault $fault)
     {
-        $err = $this->getErrorByCode($fault->faultcode, $fault->faultstring);
+        $error = $this->getErrorByCode($fault->faultcode, $fault->faultstring);
 
-        if (empty($err->getMessage())) {
-            $err->setMessage(isset($fault->detail) ? $fault->detail->message : $fault->faultstring);
+        if (empty($error->getMessage())) {
+            $error->setMessage(isset($fault->detail) ? $fault->detail->message : $fault->faultstring);
         }
 
-        return $err;
+        return $error;
     }
 
     /**
@@ -113,21 +113,21 @@ class BaseSunat
      */
     protected function getErrorByCode($code, $optional = '')
     {
-        $err = new Error();
-        $err->setCode($code);
+        $error = new Error();
+        $error->setCode($code);
         $code = preg_replace(self::NumberPattern, '', $code);
-        $msg = '';
+        $message = '';
 
         if (empty($code) && $optional) {
             $code = preg_replace(self::NumberPattern, '', $optional);
         }
 
         if ($code) {
-            $msg = $this->getMessageError($code);
-            $err->setCode($code);
+            $message = $this->getMessageError($code);
+            $error->setCode($code);
         }
 
-        return $err->setMessage($msg);
+        return $error->setMessage($message);
     }
     
     /**
