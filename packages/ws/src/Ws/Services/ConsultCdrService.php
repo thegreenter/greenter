@@ -72,9 +72,7 @@ class ConsultCdrService extends BaseSunat
             }
 
             if ($this->isExceptionCode($code)) {
-                $result
-                    ->setSuccess(false)
-                    ->setError($this->getErrorByCode($code));
+                $this->loadErrorByCode($result, $code);
             }
 
         } catch (\SoapFault $e) {
@@ -89,5 +87,18 @@ class ConsultCdrService extends BaseSunat
         $value = intval($code);
 
         return $value >= 100 && $value <= 1999;
+    }
+
+    private function loadErrorByCode(StatusCdrResult $result, $code)
+    {
+        $error = $this->getErrorByCode($code);
+
+        if (empty($error->getMessage()) && $result->getCdrResponse()) {
+            $error->setMessage($result->getCdrResponse()->getDescription());
+        }
+
+        $result
+            ->setSuccess(false)
+            ->setError($error);
     }
 }
