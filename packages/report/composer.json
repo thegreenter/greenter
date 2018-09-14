@@ -23,7 +23,7 @@
     },
 	"autoload": {
         "psr-4": {
-            "Greenter\\Report\\": "src/Report/"
+            "Greenter\\": "src/"
         }
     },
     "autoload-dev": {
