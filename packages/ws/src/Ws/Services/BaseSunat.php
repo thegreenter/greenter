@@ -22,6 +22,8 @@ use Greenter\Zip\ZipFly;
  */
 class BaseSunat
 {
+    const NUMBER_PATTERN = '/[^0-9]+/';
+
     /**
      * @var CompressInterface
      */
@@ -95,27 +97,39 @@ class BaseSunat
      */
     protected function getErrorFromFault(\SoapFault $fault)
     {
-        $err = new Error();
-        $err->setCode($fault->faultcode);
-        $code = preg_replace('/[^0-9]+/', '', $err->getCode());
-        $msg = '';
+        $error = $this->getErrorByCode($fault->faultcode, $fault->faultstring);
 
-        if (empty($code)) {
-            $code = preg_replace('/[^0-9]+/', '', $fault->faultstring);
+        if (empty($error->getMessage())) {
+            $error->setMessage(isset($fault->detail) ? $fault->detail->message : $fault->faultstring);
+        }
+
+        return $error;
+    }
+
+    /**
+     * @param string $code
+     * @param string $optional Intenta obtener el codigo de este parametro sino $codigo no es válido.
+     * @return Error
+     */
+    protected function getErrorByCode($code, $optional = '')
+    {
+        $error = new Error();
+        $error->setCode($code);
+        $code = preg_replace(self::NUMBER_PATTERN, '', $code);
+        $message = '';
+
+        if (empty($code) && $optional) {
+            $code = preg_replace(self::NUMBER_PATTERN, '', $optional);
         }
 
         if ($code) {
-            $msg = $this->getMessageError($code);
-            $err->setCode($code);
+            $message = $this->getMessageError($code);
+            $error->setCode($code);
         }
 
-        if (empty($msg)) {
-            $msg = isset($fault->detail) ? $fault->detail->message : $fault->faultstring;
-        }
-
-        return $err->setMessage($msg);
+        return $error->setMessage($message);
     }
-
+    
     /**
      * @param string $filename
      * @param string $xml
