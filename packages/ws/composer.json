@@ -13,7 +13,7 @@
     "type": "library",
     "require": {
 	    "php": ">=5.5.9",
-        "ext-zlib": "*",
+        "ext-zip": "*",
 	    "ext-soap": "*",
         "greenter/core": "^1.2"
     },
