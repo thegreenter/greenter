@@ -22,7 +22,7 @@ use Greenter\Zip\ZipFly;
  */
 class BaseSunat
 {
-    const NumberPattern = '/[^0-9]+/';
+    const NUMBER_PATTERN = '/[^0-9]+/';
 
     /**
      * @var CompressInterface
@@ -115,11 +115,11 @@ class BaseSunat
     {
         $error = new Error();
         $error->setCode($code);
-        $code = preg_replace(self::NumberPattern, '', $code);
+        $code = preg_replace(self::NUMBER_PATTERN, '', $code);
         $message = '';
 
         if (empty($code) && $optional) {
-            $code = preg_replace(self::NumberPattern, '', $optional);
+            $code = preg_replace(self::NUMBER_PATTERN, '', $optional);
         }
 
         if ($code) {
