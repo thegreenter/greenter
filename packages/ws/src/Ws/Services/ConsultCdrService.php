@@ -9,7 +9,6 @@
 namespace Greenter\Ws\Services;
 
 use Greenter\Model\Response\StatusCdrResult;
-use Greenter\Validator\XmlErrorCodeProvider;
 
 /**
  * Class ConsultCdrService.
@@ -61,28 +60,34 @@ class ConsultCdrService extends BaseSunat
             $response = $client->call($method, ['parameters' => $params]);
             $statusCdr = $response->{$resultName};
 
-            $result->setCode($statusCdr->statusCode)
+            $code = $statusCdr->statusCode;
+            $result->setCode($code)
                 ->setMessage($statusCdr->statusMessage)
                 ->setSuccess(true);
 
             if (isset($statusCdr->content)) {
                 $result->setCdrZip($statusCdr->content)
                        ->setCdrResponse($this->extractResponse($statusCdr->content));
-
-                if(in_array($result->getCdrResponse()->getCode(), range(100 , 1999))) { //excepción
-                    $result->setSuccess(false)
-                        ->setError($this->getErrorForce($statusCdr->statusCode));
-                }
-            } else {
-                if(in_array($result->getCode(), range(100 , 1999))) { //excepción
-                    $result->setSuccess(false)
-                        ->setError($this->getErrorForce($statusCdr->statusCode));
-                }
+                $code = $result->getCdrResponse()->getCode();
             }
+
+            if ($this->isExceptionCode($code)) {
+                $result
+                    ->setSuccess(false)
+                    ->setError($this->getErrorByCode($code));
+            }
+
         } catch (\SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
         }
 
         return $result;
+    }
+
+    private function isExceptionCode($code)
+    {
+        $value = intval($code);
+
+        return $value >= 100 && $value <= 1999;
     }
 }

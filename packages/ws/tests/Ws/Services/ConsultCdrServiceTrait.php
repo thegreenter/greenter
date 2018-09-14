@@ -44,14 +44,14 @@ trait ConsultCdrServiceTrait
             ->getMock();
 
         $stub->method('call')
-            ->will($this->returnCallback(function ($func, $params) {
+            ->will($this->returnCallback(function ($action, $params) {
                 $obj = new \stdClass();
-                if ($func == 'getStatus') {
+                if ($action == 'getStatus') {
                     $obj->status = new \stdClass();
                     $obj->status->statusCode = '0';
                     $obj->status->statusMessage = 'ACEPTADA';
 //                    $obj->status->content = null;
-                } elseif ($func == 'getStatusCdr') {
+                } elseif ($action == 'getStatusCdr') {
                     $zipContent = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
                     $obj->statusCdr = new \stdClass();
                     $obj->statusCdr->statusCode = '0';

@@ -22,6 +22,8 @@ use Greenter\Zip\ZipFly;
  */
 class BaseSunat
 {
+    const NumberPattern = '/[^0-9]+/';
+
     /**
      * @var CompressInterface
      */
@@ -95,35 +97,30 @@ class BaseSunat
      */
     protected function getErrorFromFault(\SoapFault $fault)
     {
-        $err = new Error();
-        $err->setCode($fault->faultcode);
-        $code = preg_replace('/[^0-9]+/', '', $err->getCode());
-        $msg = '';
+        $err = $this->getErrorByCode($fault->faultcode, $fault->faultstring);
 
-        if (empty($code)) {
-            $code = preg_replace('/[^0-9]+/', '', $fault->faultstring);
+        if (empty($err->getMessage())) {
+            $err->setMessage(isset($fault->detail) ? $fault->detail->message : $fault->faultstring);
         }
 
-        if ($code) {
-            $msg = $this->getMessageError($code);
-            $err->setCode($code);
-        }
-
-        if (empty($msg)) {
-            $msg = isset($fault->detail) ? $fault->detail->message : $fault->faultstring;
-        }
-
-        return $err->setMessage($msg);
+        return $err;
     }
-    /*  
-        Muestra error  con el código
-    */
-	protected function getErrorForce($fault)
+
+    /**
+     * @param string $code
+     * @param string $optional Intenta obtener el codigo de este parametro sino $codigo no es válido.
+     * @return Error
+     */
+    protected function getErrorByCode($code, $optional = '')
     {
         $err = new Error();
-        $err->setCode($fault);
-        $code = preg_replace('/[^0-9]+/', '', $err->getCode());
+        $err->setCode($code);
+        $code = preg_replace(self::NumberPattern, '', $code);
         $msg = '';
+
+        if (empty($code) && $optional) {
+            $code = preg_replace(self::NumberPattern, '', $optional);
+        }
 
         if ($code) {
             $msg = $this->getMessageError($code);
