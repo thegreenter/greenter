@@ -158,7 +158,7 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setProveedor($client)
             ->setObservacion('NOTA /><!-- HI -->')
             ->setImpRetenido(10)
-            ->setImpPagado(210)
+            ->setImpPagado(200)
             ->setRegimen('01')
             ->setTasa(3);
 
@@ -168,9 +168,9 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setFechaEmision(new \DateTime())
             ->setFechaRetencion(new \DateTime())
             ->setMoneda('PEN')
-            ->setImpTotal(200)
+            ->setImpTotal(210)
             ->setImpPagar(200)
-            ->setImpRetenido(5)
+            ->setImpRetenido(10)
             ->setPagos($pays)
             ->setTipoCambio($cambio);
 
@@ -210,8 +210,8 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setFechaPercepcion(new \DateTime())
             ->setMoneda('PEN')
             ->setImpTotal(200)
-            ->setImpCobrar(200)
-            ->setImpPercibido(5)
+            ->setImpCobrar(210)
+            ->setImpPercibido(10)
             ->setCobros($pays)
             ->setTipoCambio($cambio);
 
