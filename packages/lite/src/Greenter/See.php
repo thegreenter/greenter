@@ -177,32 +177,18 @@ class See
     /**
      * Envia xml generado.
      *
-     * @param DocumentInterface $document
+     * @param string $type Document Type
+     * @param string $name Xml Name
      * @param string $xml Xml Content
      * @return Model\Response\BaseResult
      */
-    public function sendForce(DocumentInterface $document, $xml)
+    public function sendXml($type, $name, $xml)
     {
-        $classDoc = get_class($document);
         $this->factory
-            ->setBuilder($this->getBuilder($classDoc))
-            ->setSender($this->getSender($classDoc));
+            ->setBuilder($this->getBuilder($type))
+            ->setSender($this->getSender($type));
 
-        return $this->factory->sendForce($document, $xml);
-    }
-
-    /**
-     * Genera XML.
-     *
-     * @param DocumentInterface $document
-     */
-    public function genXML(DocumentInterface $document)
-    {
-        $classDoc = get_class($document);
-        $this->factory
-            ->setBuilder($this->getBuilder($classDoc));
-
-        return $this->factory->genXML($document);
+        return $this->factory->sendXml($name, $xml);
     }
 
     /**
