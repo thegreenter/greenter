@@ -210,8 +210,8 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setFechaPercepcion(new \DateTime())
             ->setMoneda('PEN')
             ->setImpTotal(200)
-            ->setImpCobrar(200)
-            ->setImpPercibido(5)
+            ->setImpCobrar(210)
+            ->setImpPercibido(10)
             ->setCobros($pays)
             ->setTipoCambio($cambio);
 
