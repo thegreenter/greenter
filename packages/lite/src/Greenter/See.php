@@ -175,6 +175,23 @@ class See
     }
 
     /**
+     * Envia xml generado.
+     *
+     * @param string $type Document Type
+     * @param string $name Xml Name
+     * @param string $xml Xml Content
+     * @return Model\Response\BaseResult
+     */
+    public function sendXml($type, $name, $xml)
+    {
+        $this->factory
+            ->setBuilder($this->getBuilder($type))
+            ->setSender($this->getSender($type));
+
+        return $this->factory->sendXml($name, $xml);
+    }
+
+    /**
      * @param $ticket
      *
      * @return Model\Response\StatusResult
