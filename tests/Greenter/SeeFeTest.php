@@ -11,6 +11,7 @@ namespace Tests\Greenter;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
+use Greenter\Model\Sale\Invoice;
 use Greenter\See;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Services\SunatEndpoints;
@@ -88,6 +89,19 @@ class SeeFeTest extends FeFactoryBase
         $xmlSigned = $this->getSee()->getXmlSigned($doc);
 
         $this->assertNotEmpty($xmlSigned);
+    }
+
+    public function testSendXml()
+    {
+        $see = $this->getSee();
+        $invoice = $this->getInvoice();
+        $xmlSigned = $see->getXmlSigned($invoice);
+
+        $this->assertNotEmpty($xmlSigned);
+
+        $result = $see->sendXml(Invoice::class, $invoice->getName(), $xmlSigned);
+
+        $this->assertTrue($result->isSuccess());
     }
 
     public function providerInvoiceDocs()
