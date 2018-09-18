@@ -399,7 +399,7 @@ trait StoreTrait
             ->setProveedor($this->getClient())
             ->setObservacion('NOTA EXTRA')
             ->setImpRetenido(10)
-            ->setImpPagado(210)
+            ->setImpPagado(200)
             ->setRegimen('01')
             ->setTasa(3);
 
@@ -420,9 +420,9 @@ trait StoreTrait
             ->setFechaEmision(new \DateTime())
             ->setFechaRetencion(new \DateTime())
             ->setMoneda('PEN')
-            ->setImpTotal(200)
+            ->setImpTotal(210)
             ->setImpPagar(200)
-            ->setImpRetenido(5)
+            ->setImpRetenido(10)
             ->setPagos([$pay])
             ->setTipoCambio($cambio);
 
@@ -465,8 +465,8 @@ trait StoreTrait
             ->setFechaPercepcion(new \DateTime())
             ->setMoneda('PEN')
             ->setImpTotal(200)
-            ->setImpCobrar(200)
-            ->setImpPercibido(5)
+            ->setImpCobrar(210)
+            ->setImpPercibido(10)
             ->setCobros([$pay])
             ->setTipoCambio($cambio);
 
