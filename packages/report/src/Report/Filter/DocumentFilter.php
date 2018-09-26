@@ -19,7 +19,7 @@ class DocumentFilter
     private $store = [
         '01' => [
             '01' => 'FACTURA',
-            '03' => 'BOLETA',
+            '03' => 'BOLETA DE VENTA',
             '07' => 'NOTA DE CRÉDITO',
             '08' => 'NOTA DE DÉBITO',
             '09' => 'GUÍA DE REMISIÓN REMITENTE',
