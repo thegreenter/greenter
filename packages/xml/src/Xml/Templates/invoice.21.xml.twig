@@ -381,13 +381,39 @@
         {% endif -%}
         <cac:Item>
             <cbc:Description><![CDATA[{{ detail.descripcion|raw }}]]></cbc:Description>
+            {% if detail.codProducto -%}
             <cac:SellersItemIdentification>
                 <cbc:ID>{{ detail.codProducto }}</cbc:ID>
             </cac:SellersItemIdentification>
+            {% endif -%}
             {% if detail.codProdSunat -%}
             <cac:CommodityClassification>
-                <cbc:ItemClassificationCode listID="UNSPSC" listAgencyName="GS1 US" listName="Item Classification">{{ detail.codProdSunat }}</cbc:ItemClassificationCode>
+                <cbc:ItemClassificationCode>{{ detail.codProdSunat }}</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
+            {% endif -%}
+            {% if detail.atributos -%}
+                {% for atr in detail.atributos -%}
+                    <cac:AdditionalItemProperty >
+                        <cbc:Name>{{ atr.name }}</cbc:Name>
+                        <cbc:NameCode>{{ atr.code }}</cbc:NameCode>
+                        {% if atr.value -%}
+                        <cbc:Value>{{ atr.value }}</cbc:Value>
+                        {% endif -%}
+                        {% if atr.fecInicio or atr.fecFin or atr.duracion -%}
+                            <cac:UsabilityPeriod>
+                                {% if atr.fecInicio -%}
+                                <cbc:StartDate>{{ atr.fecInicio|date('Y-m-d') }}</cbc:StartDate>
+                                {% endif -%}
+                                {% if atr.fecFin -%}
+                                <cbc:EndDate>{{ atr.fecFin|date('Y-m-d') }}</cbc:EndDate>
+                                {% endif -%}
+                                {% if atr.duracion -%}
+                                <cbc:DurationMeasure unitCode="DAY">{{ atr.duracion }}</cbc:DurationMeasure>
+                                {% endif -%}
+                            </cac:UsabilityPeriod>
+                        {% endif -%}
+                    </cac:AdditionalItemProperty>
+                {% endfor -%}
             {% endif -%}
         </cac:Item>
         <cac:Price>
