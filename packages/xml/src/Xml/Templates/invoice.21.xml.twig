@@ -7,76 +7,6 @@
          xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1">
     <ext:UBLExtensions>
         <ext:UBLExtension>
-            <ext:ExtensionContent>
-                <sac:AdditionalInformation>
-                    {% if doc.mtoDescuentos -%}
-                    <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>2005</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoDescuentos|n_format }}</cbc:PayableAmount>
-                    </sac:AdditionalMonetaryTotal>
-                    {% endif -%}
-                    {% if doc.mtoOperGravadas -%}
-                    <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>1001</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|n_format }}</cbc:PayableAmount>
-                    </sac:AdditionalMonetaryTotal>
-                    {% endif -%}
-                    <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>1002</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|n_format }}</cbc:PayableAmount>
-                    </sac:AdditionalMonetaryTotal>
-                    <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>1003</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:PayableAmount>
-                    </sac:AdditionalMonetaryTotal>
-                    {% if doc.mtoOperGratuitas -%}
-                    <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>1004</cbc:ID>
-                        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGratuitas|n_format }}</cbc:PayableAmount>
-                    </sac:AdditionalMonetaryTotal>
-                    {% endif -%}
-                    {% if doc.detraccion -%}
-                    {% set detr = doc.detraccion -%}
-                    <sac:AdditionalMonetaryTotal>
-                        <cbc:ID>2003</cbc:ID>
-                        {% if detr.valueRef -%}
-                         <cbc:ReferenceAmount currencyID="PEN">{{ detr.valueRef|n_format }}</cbc:ReferenceAmount>
-                        {% endif -%}
-                        <cbc:PayableAmount currencyID="PEN">{{ detr.mount|n_format }}</cbc:PayableAmount>
-                        <cbc:Percent>{{ detr.percent|n_format }}</cbc:Percent>
-                    </sac:AdditionalMonetaryTotal>
-                    {% endif -%}
-                    {% if doc.perception -%}
-                    {% set perc = doc.perception -%}
-                    <sac:AdditionalMonetaryTotal>
-                        <cbc:ID schemeID="{{ perc.codReg }}">2001</cbc:ID>
-                        <sac:ReferenceAmount currencyID="PEN">{{ perc.mtoBase|n_format }}</sac:ReferenceAmount>
-                        <cbc:PayableAmount currencyID="PEN">{{ perc.mto|n_format }}</cbc:PayableAmount>
-                        <sac:TotalAmount currencyID="PEN">{{ perc.mtoTotal|n_format }}</sac:TotalAmount>
-                    </sac:AdditionalMonetaryTotal>
-                    <sac:AdditionalProperty>
-                        <cbc:ID>2000</cbc:ID>
-                        <cbc:Value>COMPROBANTE DE PERCEPCION</cbc:Value>
-                    </sac:AdditionalProperty>
-                    {% endif -%}
-                    {% for leg in doc.legends -%}
-                    <sac:AdditionalProperty>
-                        <cbc:ID>{{ leg.code }}</cbc:ID>
-                        <cbc:Value>{{ leg.value }}</cbc:Value>
-                    </sac:AdditionalProperty>
-                    {% endfor -%}
-                    {% if doc.guiaEmbebida -%}
-                    {% include 'embededDespatch.xml.twig' with {'desp': doc.guiaEmbebida} only %}
-                    {% endif -%}
-                    {% if doc.tipoOperacion -%}
-                    <sac:SUNATTransaction>
-                        <cbc:ID>{{ doc.tipoOperacion }}</cbc:ID>
-                    </sac:SUNATTransaction>
-                    {% endif -%}
-                </sac:AdditionalInformation>
-            </ext:ExtensionContent>
-        </ext:UBLExtension>
-        <ext:UBLExtension>
             <ext:ExtensionContent/>
         </ext:UBLExtension>
     </ext:UBLExtensions>
@@ -302,12 +232,12 @@
     </cac:AllowanceCharge>
     {% endfor %}
     {% endif %}
-    {% if doc.mtoISC -%}
-    {% set iscT = doc.mtoISC|n_format -%}
     <cac:TaxTotal>
-        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ iscT }}</cbc:TaxAmount>
+        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.totalImpuestos|n_format }}</cbc:TaxAmount>
+        {% if doc.mtoISC -%}
         <cac:TaxSubtotal>
-            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ iscT }}</cbc:TaxAmount>
+            <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoBaseIsc|n_format }}</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoISC|n_format }}</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cac:TaxScheme>
                     <cbc:ID>2000</cbc:ID>
@@ -316,13 +246,11 @@
                 </cac:TaxScheme>
             </cac:TaxCategory>
         </cac:TaxSubtotal>
-    </cac:TaxTotal>
-    {% endif -%}
-    {% set igvT = doc.mtoIGV|default(0)|n_format -%}
-    <cac:TaxTotal>
-        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igvT }}</cbc:TaxAmount>
+        {% endif -%}
+        {% if doc.mtoOperGravadas -%}
         <cac:TaxSubtotal>
-            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igvT }}</cbc:TaxAmount>
+            <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|n_format }}</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoIGV|n_format }}</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cac:TaxScheme>
                     <cbc:ID>1000</cbc:ID>
@@ -331,13 +259,63 @@
                 </cac:TaxScheme>
             </cac:TaxCategory>
         </cac:TaxSubtotal>
-    </cac:TaxTotal>
-    {% if doc.sumOtrosCargos -%}
-    {% set othT = doc.sumOtrosCargos|n_format -%}
-    <cac:TaxTotal>
-        <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ othT }}</cbc:TaxAmount>
+        {% endif %}
+        {% if doc.mtoOperExoneradas -%}
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>9998</cbc:ID>
+                        <cbc:Name>INA</cbc:Name>
+                        <cbc:TaxTypeCode>FRE</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        {% endif %}
+        {% if doc.mtoOperExoneradas -%}
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>9997</cbc:ID>
+                        <cbc:Name>EXO</cbc:Name>
+                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        {% endif %}
+        {% if doc.mtoOperGratuitas -%}
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGratuitas|n_format }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>9996</cbc:ID>
+                        <cbc:Name>GRA</cbc:Name>
+                        <cbc:TaxTypeCode>FRE</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        {% endif %}
+        {% if doc.mtoOperExportacion -%}
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExportacion|n_format }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>9995</cbc:ID>
+                        <cbc:Name>EXP</cbc:Name>
+                        <cbc:TaxTypeCode>FRE</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        {% endif %}
+        {% if doc.mtoOtrosTributos -%}
         <cac:TaxSubtotal>
-            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ othT }}</cbc:TaxAmount>
+            <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoBaseOth|n_format }}</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|n_format }}</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cac:TaxScheme>
                     <cbc:ID>9999</cbc:ID>
@@ -346,12 +324,21 @@
                 </cac:TaxScheme>
             </cac:TaxCategory>
         </cac:TaxSubtotal>
+        {% endif -%}
     </cac:TaxTotal>
-    {% endif -%}
     <cac:LegalMonetaryTotal>
-        <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumDsctoGlobal|default(0)|n_format }}</cbc:AllowanceTotalAmount>
-        <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0)|n_format }}</cbc:ChargeTotalAmount>
-        {% if doc.totalAnticipos -%}<cbc:PrepaidAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.totalAnticipos|n_format }}</cbc:PrepaidAmount>{% endif -%}
+        {% if doc.mtoDescuentos %}
+        <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoDescuentos|n_format }}</cbc:AllowanceTotalAmount>
+        {% endif %}
+        {% if doc.sumOtrosCargos %}
+        <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumOtrosCargos|n_format }}</cbc:ChargeTotalAmount>
+        {% endif %}
+        {% if doc.totalAnticipos -%}
+        <cbc:PrepaidAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.totalAnticipos|n_format }}</cbc:PrepaidAmount>
+        {% endif -%}
+        {% if doc.valorVenta %}
+        <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.valorVenta|n_format }}</cbc:LineExtensionAmount>
+        {% endif %}
         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
     {% for detail in doc.details -%}
@@ -396,13 +383,14 @@
         </cac:AllowanceCharge>
         {% endfor %}
         {% endif %}
-        {% if detail.isc -%}
-        {% set isc = detail.isc|n_format -%}
         <cac:TaxTotal>
-            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ isc }}</cbc:TaxAmount>
+            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.totalImpuestos|n_format }}</cbc:TaxAmount>
+            {% if detail.isc -%}
             <cac:TaxSubtotal>
-                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ isc }}</cbc:TaxAmount>
+                <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoBaseIsc|n_format }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.isc|n_format }}</cbc:TaxAmount>
                 <cac:TaxCategory>
+                    <cbc:Percent>{{ detail.porcentajeIsc }}</cbc:Percent>
                     <cbc:TierRange>{{ detail.tipSisIsc }}</cbc:TierRange>
                     <cac:TaxScheme>
                         <cbc:ID>2000</cbc:ID>
@@ -411,15 +399,13 @@
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
-        </cac:TaxTotal>
-        {% endif -%}
-        {% if detail.igv -%}
-        {% set igv = detail.igv|n_format -%}
-        <cac:TaxTotal>
-            <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igv }}</cbc:TaxAmount>
+            {% endif -%}
+            {% if detail.igv -%}
             <cac:TaxSubtotal>
-                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igv }}</cbc:TaxAmount>
+                <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoBaseIgv|n_format }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.igv|n_format }}</cbc:TaxAmount>
                 <cac:TaxCategory>
+                    <cbc:Percent>{{ detail.porcentajeIgv }}</cbc:Percent>
                     <cbc:TaxExemptionReasonCode>{{ detail.tipAfeIgv }}</cbc:TaxExemptionReasonCode>
                     <cac:TaxScheme>
                         <cbc:ID>1000</cbc:ID>
@@ -428,8 +414,22 @@
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
+            {% endif -%}
+            {% if detail.otroTributo -%}
+                <cac:TaxSubtotal>
+                    <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoBaseOth|n_format }}</cbc:TaxableAmount>
+                    <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.otroTributo|n_format }}</cbc:TaxAmount>
+                    <cac:TaxCategory>
+                        <cbc:Percent>{{ detail.porcentajeOth }}</cbc:Percent>
+                        <cac:TaxScheme>
+                            <cbc:ID>9999</cbc:ID>
+                            <cbc:Name>OTROS</cbc:Name>
+                            <cbc:TaxTypeCode>>OTH</cbc:TaxTypeCode>
+                        </cac:TaxScheme>
+                    </cac:TaxCategory>
+                </cac:TaxSubtotal>
+            {% endif -%}
         </cac:TaxTotal>
-        {% endif -%}
         <cac:Item>
             <cbc:Description><![CDATA[{{ detail.descripcion|raw }}]]></cbc:Description>
             {% if detail.codProducto -%}
