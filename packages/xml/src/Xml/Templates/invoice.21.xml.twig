@@ -280,12 +280,33 @@
     </cac:PrepaidPayment>
     {% endfor -%}
     {% endif -%}
+    {% if doc.cargos %}
+    {% for cargo in doc.cargos %}
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>{{ cargo.codTipo }}</cbc:AllowanceChargeReasonCode>
+        <cbc:MultiplierFactorNumeric>{{ cargo.porcentaje }}</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ cargo.monto }}</cbc:Amount>
+        <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ cargo.montoBase }}</cbc:BaseAmount>
+    </cac:AllowanceCharge>
+    {% endfor %}
+    {% endif %}
+    {% if doc.descuentos %}
+    {% for desc in doc.descuentos %}
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>{{ desc.codTipo }}</cbc:AllowanceChargeReasonCode>
+        <cbc:MultiplierFactorNumeric>{{ desc.porcentaje }}</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ desc.monto }}</cbc:Amount>
+        <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ desc.montoBase }}</cbc:BaseAmount>
+    </cac:AllowanceCharge>
+    {% endfor %}
+    {% endif %}
     {% if doc.mtoISC -%}
     {% set iscT = doc.mtoISC|n_format -%}
     <cac:TaxTotal>
         <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ iscT }}</cbc:TaxAmount>
         <cac:TaxSubtotal>
-            <cbc:TaxableAmount currencyID=""></cbc:TaxableAmount>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ iscT }}</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cac:TaxScheme>
@@ -353,13 +374,28 @@
             </cac:AlternativeConditionPrice>
         </cac:PricingReference>
         {% endif -%}
-        {% if detail.descuento -%}
+        {% if detail.cargos %}
+        {% for cargo in detail.cargos %}
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:AllowanceChargeReasonCode>{{ cargo.codTipo }}</cbc:AllowanceChargeReasonCode>
+            <cbc:MultiplierFactorNumeric>{{ cargo.porcentaje }}</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ cargo.monto }}</cbc:Amount>
+            <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ cargo.montoBase }}</cbc:BaseAmount>
+        </cac:AllowanceCharge>
+        {% endfor %}
+        {% endif %}
+        {% if detail.descuentos %}
+        {% for desc in detail.descuentos %}
         <cac:AllowanceCharge>
             <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
-            <cbc:AllowanceChargeReasonCode>00</cbc:AllowanceChargeReasonCode>
-            <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ detail.descuento|n_format }}</cbc:Amount>
+            <cbc:AllowanceChargeReasonCode>{{ desc.codTipo }}</cbc:AllowanceChargeReasonCode>
+            <cbc:MultiplierFactorNumeric>{{ desc.porcentaje }}</cbc:MultiplierFactorNumeric>
+            <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ desc.monto }}</cbc:Amount>
+            <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ desc.montoBase }}</cbc:BaseAmount>
         </cac:AllowanceCharge>
-        {% endif -%}
+        {% endfor %}
+        {% endif %}
         {% if detail.isc -%}
         {% set isc = detail.isc|n_format -%}
         <cac:TaxTotal>
