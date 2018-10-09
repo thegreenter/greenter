@@ -258,6 +258,20 @@
         </cac:Party>
     </cac:SellerSupplierParty>
     {% endif -%}
+    {% if doc.detraccion -%}
+    {% set detr = doc.detraccion -%}
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>{{ detr.codMedioPago }}</cbc:PaymentMeansCode>
+        <cac:PayeeFinancialAccount>
+            <cbc:ID>{{ detr.ctaBanco }}</cbc:ID>
+        </cac:PayeeFinancialAccount>
+    </cac:PaymentMeans>
+    <cac:PaymentTerms>
+        <cbc:PaymentMeansID>{{ detr.codBienDetraccion }}</cbc:PaymentMeansID>
+        <cbc:PaymentPercent>{{ detr.percent }}</cbc:PaymentPercent>
+        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ detr.mount }}</cbc:Amount>
+    </cac:PaymentTerms>
+    {% endif -%}
     {% if doc.anticipos -%}
     {% for ant in doc.anticipos -%}
     <cac:PrepaidPayment>
@@ -271,6 +285,7 @@
     <cac:TaxTotal>
         <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ iscT }}</cbc:TaxAmount>
         <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID=""></cbc:TaxableAmount>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ iscT }}</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cac:TaxScheme>
