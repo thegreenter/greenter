@@ -202,6 +202,12 @@
         <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ detr.mount }}</cbc:Amount>
     </cac:PaymentTerms>
     {% endif -%}
+    {% if doc.perception %}
+    <cac:PaymentTerms>
+        <cbc:ID>Percepcion</cbc:ID>
+        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ doc.perception.mtoTotal }}</cbc:Amount>
+    </cac:PaymentTerms>
+    {% endif %}
     {% if doc.anticipos -%}
     {% for ant in doc.anticipos -%}
     <cac:PrepaidPayment>
@@ -231,6 +237,16 @@
         <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ desc.montoBase }}</cbc:BaseAmount>
     </cac:AllowanceCharge>
     {% endfor %}
+    {% endif %}
+    {% if doc.perception %}
+    {% set perc = doc.perception %}
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>{{ perc.codReg }}</cbc:AllowanceChargeReasonCode>
+        <cbc:MultiplierFactorNumeric>{{ perc.porcentaje }}</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ perc.mto }}</cbc:Amount>
+        <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ perc.mtoBase }}</cbc:BaseAmount>
+    </cac:AllowanceCharge>
     {% endif %}
     <cac:TaxTotal>
         <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.totalImpuestos|n_format }}</cbc:TaxAmount>
