@@ -10,6 +10,7 @@
             <ext:ExtensionContent/>
         </ext:UBLExtension>
     </ext:UBLExtensions>
+    {% set emp = doc.company -%}
     <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
     <cbc:CustomizationID>2.0</cbc:CustomizationID>
     <cbc:ID>{{ doc.serie }}-{{ doc.correlativo }}</cbc:ID>
@@ -58,7 +59,6 @@
     </cac:AdditionalDocumentReference>
     {% endfor -%}
     {% endif -%}
-    {% set emp = doc.company -%}
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
         <cbc:Note>GREENTER</cbc:Note>
@@ -423,10 +423,11 @@
                 <cac:TaxCategory>
                     <cbc:Percent>{{ detail.porcentajeIgv }}</cbc:Percent>
                     <cbc:TaxExemptionReasonCode>{{ detail.tipAfeIgv }}</cbc:TaxExemptionReasonCode>
+                    {% set afect = getTributoAfect(detail.tipAfeIgv) %}
                     <cac:TaxScheme>
-                        <cbc:ID>1000</cbc:ID>
-                        <cbc:Name>IGV</cbc:Name>
-                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                        <cbc:ID>{{ afect.id }}</cbc:ID>
+                        <cbc:Name>{{ afect.name }}</cbc:Name>
+                        <cbc:TaxTypeCode>{{ afect.code }}</cbc:TaxTypeCode>
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>

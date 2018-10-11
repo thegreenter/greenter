@@ -344,10 +344,11 @@
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igv }}</cbc:TaxAmount>
                 <cac:TaxCategory>
                     <cbc:TaxExemptionReasonCode>{{ detail.tipAfeIgv }}</cbc:TaxExemptionReasonCode>
+                    {% set afect = getTributoAfect(detail.tipAfeIgv) %}
                     <cac:TaxScheme>
-                        <cbc:ID>1000</cbc:ID>
-                        <cbc:Name>IGV</cbc:Name>
-                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                        <cbc:ID>{{ afect.id }}</cbc:ID>
+                        <cbc:Name>{{ afect.name }}</cbc:Name>
+                        <cbc:TaxTypeCode>{{ afect.code }}</cbc:TaxTypeCode>
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>

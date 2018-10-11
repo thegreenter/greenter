@@ -30,19 +30,27 @@ trait FeBuilderTrait
 {
     use StoreTrait;
 
+    private $builders21 = [
+        Invoice::class => \Greenter\Xml\Builder\v21\InvoiceBuilder::class,
+    ];
+
+    private $builders = [
+        Invoice::class => InvoiceBuilder::class,
+        Note::class => NoteBuilder::class,
+        Summary::class => SummaryBuilder::class,
+        Voided::class => VoidedBuilder::class,
+        Summary::class => SummaryBuilder::class,
+    ];
+
     /**
      * @param $className
+     * @param string $ublversion
      * @return BuilderInterface
      */
-    private function getGenerator($className)
+    private function getGenerator($className, $ublversion)
     {
-        $builders = [
-          Invoice::class => InvoiceBuilder::class,
-          Note::class => NoteBuilder::class,
-          Summary::class => SummaryBuilder::class,
-          Voided::class => VoidedBuilder::class,
-          Summary::class => SummaryBuilder::class,
-        ];
+        $builders = $ublversion === '2.1' ? $this->builders21 : $this->builders;
+
         $builder = new $builders[$className]([
             'cache' => false,
             'strict_variables' => true,
@@ -55,11 +63,12 @@ trait FeBuilderTrait
 
     /**
      * @param DocumentInterface $document
+     * @param string $ublversion
      * @return string
      */
-    private function build(DocumentInterface $document)
+    private function build(DocumentInterface $document, $ublversion = '2.0')
     {
-        $generator = $this->getGenerator(get_class($document));
+        $generator = $this->getGenerator(get_class($document), $ublversion);
 
         return $generator->build($document);
     }
