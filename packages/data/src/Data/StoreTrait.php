@@ -22,6 +22,7 @@ use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Retention\RetentionDetail;
+use Greenter\Model\Sale\Charge;
 use Greenter\Model\Sale\Detraction;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\EmbededDespatch;
@@ -46,8 +47,9 @@ trait StoreTrait
     public function getInvoice()
     {
         $perc = new SalePerception();
-        $perc->setCodReg('01')
+        $perc->setCodReg('01') // 51 on UBL2.1 - Catalog 53
             ->setMto(2)
+            ->setPorcentaje(2.00)
             ->setMtoBase(3)
             ->setMtoTotal(4);
 
@@ -97,9 +99,13 @@ trait StoreTrait
             ->setUnidad('NIU')
             ->setCantidad(2)
             ->setDescripcion('PRODUCTO 1')
+            ->setMtoBaseIgv(100.00)
+            ->setPorcentajeIgv(18.0)
             ->setIgv(18)
+            ->setMtoBaseIsc(10)
+            ->setPorcentajeIsc(0.50)
             ->setIsc(3)
-            ->setTipSisIsc('3')
+            ->setTipSisIsc('03')
             ->setMtoValorGratuito(12)
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
@@ -112,6 +118,15 @@ trait StoreTrait
             ->setCantidad(2)
             ->setDescripcion('PRODUCTO 2')
             ->setDescuento(1)
+            ->setDescuentos([
+                (new Charge())
+                ->setCodTipo('00')
+                ->setPorcentaje(5.00)
+                ->setMontoBase(100)
+                ->setMonto(5)
+            ])
+            ->setMtoBaseIgv(100)
+            ->setPorcentajeIgv(18.0)
             ->setIgv(18)
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
