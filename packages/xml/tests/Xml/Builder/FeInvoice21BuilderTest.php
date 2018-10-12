@@ -20,8 +20,8 @@ class FeInvoice21BuilderTest extends \PHPUnit_Framework_TestCase
 
         $xml = $this->build($invoice, '2.1');
 
-        file_put_contents('x.xml', $xml);
+//        file_put_contents('x.xml', $xml);
         $this->assertNotEmpty($xml);
-        $this->assertSchema($xml);
+        $this->assertSchemaV21($xml);
     }
 }

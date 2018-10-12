@@ -30,6 +30,21 @@ trait XsdValidatorTrait
         $this->assertTrue($success);
     }
 
+    public function assertSchemaV21($xml)
+    {
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $items = $doc->getElementsByTagNameNS('urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2','ExtensionContent');
+
+        if ($items->length > 0) {
+            $node = $doc->createElement('sign', '');
+            $items->item(0)->appendChild($node);
+            $xml = $doc->saveXML();
+        }
+
+        $this->assertSchema($xml, '2.1');
+    }
+
     /**
      * @param string $version
      * @return SchemaValidatorInterface
