@@ -89,7 +89,7 @@
                 {% set addr = emp.address -%}
                 <cac:RegistrationAddress>
                     <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
-                    <cbc:AddressTypeCode>{{ addr.localAnexoCode }}</cbc:AddressTypeCode>
+                    <cbc:AddressTypeCode>{{ addr.codLocal }}</cbc:AddressTypeCode>
                     {% if addr.urbanizacion -%}
                     <cbc:CitySubdivisionName>{{ addr.urbanizacion }}</cbc:CitySubdivisionName>
                     {% endif -%}
