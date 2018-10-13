@@ -199,13 +199,13 @@
     <cac:PaymentTerms>
         <cbc:PaymentMeansID>{{ detr.codBienDetraccion }}</cbc:PaymentMeansID>
         <cbc:PaymentPercent>{{ detr.percent }}</cbc:PaymentPercent>
-        <cbc:Amount currencyID="PEN">{{ detr.mount }}</cbc:Amount>
+        <cbc:Amount currencyID="PEN">{{ detr.mount|n_format }}</cbc:Amount>
     </cac:PaymentTerms>
     {% endif -%}
     {% if doc.perception %}
     <cac:PaymentTerms>
         <cbc:ID>Percepcion</cbc:ID>
-        <cbc:Amount currencyID="PEN">{{ doc.perception.mtoTotal }}</cbc:Amount>
+        <cbc:Amount currencyID="PEN">{{ doc.perception.mtoTotal|n_format }}</cbc:Amount>
     </cac:PaymentTerms>
     {% endif %}
     {% if doc.anticipos -%}
@@ -222,8 +222,8 @@
         <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ cargo.codTipo }}</cbc:AllowanceChargeReasonCode>
         <cbc:MultiplierFactorNumeric>{{ cargo.porcentaje }}</cbc:MultiplierFactorNumeric>
-        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ cargo.monto }}</cbc:Amount>
-        <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ cargo.montoBase }}</cbc:BaseAmount>
+        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ cargo.monto|n_format }}</cbc:Amount>
+        <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ cargo.montoBase|n_format }}</cbc:BaseAmount>
     </cac:AllowanceCharge>
     {% endfor %}
     {% endif %}
@@ -233,8 +233,8 @@
         <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ desc.codTipo }}</cbc:AllowanceChargeReasonCode>
         <cbc:MultiplierFactorNumeric>{{ desc.porcentaje }}</cbc:MultiplierFactorNumeric>
-        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ desc.monto }}</cbc:Amount>
-        <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ desc.montoBase }}</cbc:BaseAmount>
+        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ desc.monto|n_format }}</cbc:Amount>
+        <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ desc.montoBase|n_format }}</cbc:BaseAmount>
     </cac:AllowanceCharge>
     {% endfor %}
     {% endif %}
@@ -244,8 +244,8 @@
         <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ perc.codReg }}</cbc:AllowanceChargeReasonCode>
         <cbc:MultiplierFactorNumeric>{{ perc.porcentaje }}</cbc:MultiplierFactorNumeric>
-        <cbc:Amount currencyID="PEN">{{ perc.mto }}</cbc:Amount>
-        <cbc:BaseAmount currencyID="PEN">{{ perc.mtoBase }}</cbc:BaseAmount>
+        <cbc:Amount currencyID="PEN">{{ perc.mto|n_format }}</cbc:Amount>
+        <cbc:BaseAmount currencyID="PEN">{{ perc.mtoBase|n_format }}</cbc:BaseAmount>
     </cac:AllowanceCharge>
     {% endif %}
     <cac:TaxTotal>
