@@ -3,8 +3,7 @@
          xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
          xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
          xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
-         xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
-         xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1">
+         xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
     <ext:UBLExtensions>
         <ext:UBLExtension>
             <ext:ExtensionContent/>
@@ -202,12 +201,12 @@
         <cbc:Amount currencyID="PEN">{{ detr.mount|n_format }}</cbc:Amount>
     </cac:PaymentTerms>
     {% endif -%}
-    {% if doc.perception %}
+    {% if doc.perception -%}
     <cac:PaymentTerms>
         <cbc:ID>Percepcion</cbc:ID>
         <cbc:Amount currencyID="PEN">{{ doc.perception.mtoTotal|n_format }}</cbc:Amount>
     </cac:PaymentTerms>
-    {% endif %}
+    {% endif -%}
     {% if doc.anticipos -%}
     {% for ant in doc.anticipos -%}
     <cac:PrepaidPayment>
@@ -216,8 +215,8 @@
     </cac:PrepaidPayment>
     {% endfor -%}
     {% endif -%}
-    {% if doc.cargos %}
-    {% for cargo in doc.cargos %}
+    {% if doc.cargos -%}
+    {% for cargo in doc.cargos -%}
     <cac:AllowanceCharge>
         <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ cargo.codTipo }}</cbc:AllowanceChargeReasonCode>
@@ -225,10 +224,10 @@
         <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ cargo.monto|n_format }}</cbc:Amount>
         <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ cargo.montoBase|n_format }}</cbc:BaseAmount>
     </cac:AllowanceCharge>
-    {% endfor %}
-    {% endif %}
-    {% if doc.descuentos %}
-    {% for desc in doc.descuentos %}
+    {% endfor -%}
+    {% endif -%}
+    {% if doc.descuentos -%}
+    {% for desc in doc.descuentos -%}
     <cac:AllowanceCharge>
         <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ desc.codTipo }}</cbc:AllowanceChargeReasonCode>
@@ -236,10 +235,10 @@
         <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ desc.monto|n_format }}</cbc:Amount>
         <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ desc.montoBase|n_format }}</cbc:BaseAmount>
     </cac:AllowanceCharge>
-    {% endfor %}
-    {% endif %}
-    {% if doc.perception %}
-    {% set perc = doc.perception %}
+    {% endfor -%}
+    {% endif -%}
+    {% if doc.perception -%}
+    {% set perc = doc.perception -%}
     <cac:AllowanceCharge>
         <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ perc.codReg }}</cbc:AllowanceChargeReasonCode>
@@ -247,7 +246,7 @@
         <cbc:Amount currencyID="PEN">{{ perc.mto|n_format }}</cbc:Amount>
         <cbc:BaseAmount currencyID="PEN">{{ perc.mtoBase|n_format }}</cbc:BaseAmount>
     </cac:AllowanceCharge>
-    {% endif %}
+    {% endif -%}
     <cac:TaxTotal>
         <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.totalImpuestos|n_format }}</cbc:TaxAmount>
         {% if doc.mtoISC -%}
@@ -275,7 +274,7 @@
                 </cac:TaxScheme>
             </cac:TaxCategory>
         </cac:TaxSubtotal>
-        {% endif %}
+        {% endif -%}
         {% if doc.mtoOperInafectas -%}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|n_format }}</cbc:TaxableAmount>
@@ -288,7 +287,7 @@
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
-        {% endif %}
+        {% endif -%}
         {% if doc.mtoOperExoneradas -%}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:TaxableAmount>
@@ -301,7 +300,7 @@
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
-        {% endif %}
+        {% endif -%}
         {% if doc.mtoOperGratuitas -%}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGratuitas|n_format }}</cbc:TaxableAmount>
@@ -314,7 +313,7 @@
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
-        {% endif %}
+        {% endif -%}
         {% if doc.mtoOperExportacion -%}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExportacion|n_format }}</cbc:TaxableAmount>
@@ -327,7 +326,7 @@
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
-        {% endif %}
+        {% endif -%}
         {% if doc.mtoOtrosTributos -%}
         <cac:TaxSubtotal>
             <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoBaseOth|n_format }}</cbc:TaxableAmount>
@@ -343,18 +342,18 @@
         {% endif -%}
     </cac:TaxTotal>
     <cac:LegalMonetaryTotal>
-        {% if doc.mtoDescuentos %}
+        {% if doc.mtoDescuentos -%}
         <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoDescuentos|n_format }}</cbc:AllowanceTotalAmount>
-        {% endif %}
-        {% if doc.sumOtrosCargos %}
+        {% endif -%}
+        {% if doc.sumOtrosCargos -%}
         <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumOtrosCargos|n_format }}</cbc:ChargeTotalAmount>
-        {% endif %}
+        {% endif -%}
         {% if doc.totalAnticipos -%}
         <cbc:PrepaidAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.totalAnticipos|n_format }}</cbc:PrepaidAmount>
         {% endif -%}
-        {% if doc.valorVenta %}
+        {% if doc.valorVenta -%}
         <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.valorVenta|n_format }}</cbc:LineExtensionAmount>
-        {% endif %}
+        {% endif -%}
         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
     {% for detail in doc.details -%}
@@ -377,8 +376,8 @@
             </cac:AlternativeConditionPrice>
         </cac:PricingReference>
         {% endif -%}
-        {% if detail.cargos %}
-        {% for cargo in detail.cargos %}
+        {% if detail.cargos -%}
+        {% for cargo in detail.cargos -%}
         <cac:AllowanceCharge>
             <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
             <cbc:AllowanceChargeReasonCode>{{ cargo.codTipo }}</cbc:AllowanceChargeReasonCode>
@@ -386,10 +385,10 @@
             <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ cargo.monto }}</cbc:Amount>
             <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ cargo.montoBase }}</cbc:BaseAmount>
         </cac:AllowanceCharge>
-        {% endfor %}
-        {% endif %}
-        {% if detail.descuentos %}
-        {% for desc in detail.descuentos %}
+        {% endfor -%}
+        {% endif -%}
+        {% if detail.descuentos -%}
+        {% for desc in detail.descuentos -%}
         <cac:AllowanceCharge>
             <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
             <cbc:AllowanceChargeReasonCode>{{ desc.codTipo }}</cbc:AllowanceChargeReasonCode>
@@ -397,8 +396,8 @@
             <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ desc.monto }}</cbc:Amount>
             <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ desc.montoBase }}</cbc:BaseAmount>
         </cac:AllowanceCharge>
-        {% endfor %}
-        {% endif %}
+        {% endfor -%}
+        {% endif -%}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.totalImpuestos|n_format }}</cbc:TaxAmount>
             {% if detail.isc -%}
@@ -423,7 +422,7 @@
                 <cac:TaxCategory>
                     <cbc:Percent>{{ detail.porcentajeIgv }}</cbc:Percent>
                     <cbc:TaxExemptionReasonCode>{{ detail.tipAfeIgv }}</cbc:TaxExemptionReasonCode>
-                    {% set afect = getTributoAfect(detail.tipAfeIgv) %}
+                    {% set afect = getTributoAfect(detail.tipAfeIgv) -%}
                     <cac:TaxScheme>
                         <cbc:ID>{{ afect.id }}</cbc:ID>
                         <cbc:Name>{{ afect.name }}</cbc:Name>
