@@ -284,15 +284,22 @@ trait StoreTrait
             ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
             ->setMtoImpVenta(236)
-            ->setCompany($this->getCompany());
+            ->setCompany($this->getCompany())
+            ->setGuias([(new Document())
+                ->setTipoDoc('09')
+                ->setNroDoc('T001-213')
+            ]);
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')
             ->setUnidad('NIU')
             ->setCantidad(2)
             ->setDescripcion('PROD 1')
+            ->setMtoBaseIgv(100.00)
+            ->setPorcentajeIgv(18.0)
             ->setIgv(18)
             ->setTipAfeIgv('10')
+            ->setTotalImpuestos(18)
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
             ->setMtoPrecioUnitario(56);
