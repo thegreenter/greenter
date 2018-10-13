@@ -199,13 +199,13 @@
     <cac:PaymentTerms>
         <cbc:PaymentMeansID>{{ detr.codBienDetraccion }}</cbc:PaymentMeansID>
         <cbc:PaymentPercent>{{ detr.percent }}</cbc:PaymentPercent>
-        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ detr.mount }}</cbc:Amount>
+        <cbc:Amount currencyID="PEN">{{ detr.mount }}</cbc:Amount>
     </cac:PaymentTerms>
     {% endif -%}
     {% if doc.perception %}
     <cac:PaymentTerms>
         <cbc:ID>Percepcion</cbc:ID>
-        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ doc.perception.mtoTotal }}</cbc:Amount>
+        <cbc:Amount currencyID="PEN">{{ doc.perception.mtoTotal }}</cbc:Amount>
     </cac:PaymentTerms>
     {% endif %}
     {% if doc.anticipos -%}
@@ -244,8 +244,8 @@
         <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ perc.codReg }}</cbc:AllowanceChargeReasonCode>
         <cbc:MultiplierFactorNumeric>{{ perc.porcentaje }}</cbc:MultiplierFactorNumeric>
-        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ perc.mto }}</cbc:Amount>
-        <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ perc.mtoBase }}</cbc:BaseAmount>
+        <cbc:Amount currencyID="PEN">{{ perc.mto }}</cbc:Amount>
+        <cbc:BaseAmount currencyID="PEN">{{ perc.mtoBase }}</cbc:BaseAmount>
     </cac:AllowanceCharge>
     {% endif %}
     <cac:TaxTotal>
