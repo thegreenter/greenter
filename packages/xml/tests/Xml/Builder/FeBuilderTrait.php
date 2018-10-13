@@ -32,6 +32,7 @@ trait FeBuilderTrait
 
     private $builders21 = [
         Invoice::class => \Greenter\Xml\Builder\v21\InvoiceBuilder::class,
+        Note::class => \Greenter\Xml\Builder\v21\NoteBuilder::class,
     ];
 
     private $builders = [
