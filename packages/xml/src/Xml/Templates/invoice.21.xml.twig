@@ -276,9 +276,9 @@
             </cac:TaxCategory>
         </cac:TaxSubtotal>
         {% endif %}
-        {% if doc.mtoOperExoneradas -%}
+        {% if doc.mtoOperInafectas -%}
             <cac:TaxSubtotal>
-                <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:TaxableAmount>
+                <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|n_format }}</cbc:TaxableAmount>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0</cbc:TaxAmount>
                 <cac:TaxCategory>
                     <cac:TaxScheme>
