@@ -6,10 +6,12 @@
  * Time: 18:05
  */
 
-namespace Tests\Greenter\Xml\Builder;
+namespace Tests\Greenter\Xml\Builder\v21;
 
+use Tests\Greenter\Xml\Builder\FeBuilderTrait;
+use Tests\Greenter\Xml\Builder\XsdValidatorTrait;
 
-class FeInvoice21BuilderTest extends \PHPUnit_Framework_TestCase
+class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
 {
     use FeBuilderTrait;
     use XsdValidatorTrait;
