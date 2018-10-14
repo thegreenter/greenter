@@ -226,10 +226,7 @@
     </cac:TaxTotal>
     <cac:RequestedMonetaryTotal>
         {% if doc.sumOtrosCargos -%}
-            <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumOtrosCargos|n_format }}</cbc:ChargeTotalAmount>
-        {% endif -%}
-        {% if doc.valorVenta -%}
-            <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.valorVenta|n_format }}</cbc:LineExtensionAmount>
+        <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumOtrosCargos|n_format }}</cbc:ChargeTotalAmount>
         {% endif -%}
         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>
     </cac:RequestedMonetaryTotal>
@@ -238,21 +235,20 @@
         <cbc:ID>{{ loop.index }}</cbc:ID>
         <cbc:DebitedQuantity unitCode="{{ detail.unidad }}">{{ detail.cantidad }}</cbc:DebitedQuantity>
         <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|n_format }}</cbc:LineExtensionAmount>
-        {% if detail.mtoPrecioUnitario > 0 -%}
-            <cac:PricingReference>
-                <cac:AlternativeConditionPrice>
-                    <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|n_format }}</cbc:PriceAmount>
-                    <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
-                </cac:AlternativeConditionPrice>
-            </cac:PricingReference>
-        {% else -%}
-            <cac:PricingReference>
-                <cac:AlternativeConditionPrice>
-                    <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito|n_format }}</cbc:PriceAmount>
-                    <cbc:PriceTypeCode>02</cbc:PriceTypeCode>
-                </cac:AlternativeConditionPrice>
-            </cac:PricingReference>
-        {% endif -%}
+        <cac:PricingReference>
+            {% if detail.mtoPrecioUnitario -%}
+            <cac:AlternativeConditionPrice>
+                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|n_format(6) }}</cbc:PriceAmount>
+                <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+            </cac:AlternativeConditionPrice>
+            {% endif -%}
+            {% if detail.mtoValorGratuito -%}
+            <cac:AlternativeConditionPrice>
+                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito|n_format(6) }}</cbc:PriceAmount>
+                <cbc:PriceTypeCode>02</cbc:PriceTypeCode>
+            </cac:AlternativeConditionPrice>
+            {% endif -%}
+        </cac:PricingReference>
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.totalImpuestos|n_format }}</cbc:TaxAmount>
             {% if detail.isc -%}
@@ -344,7 +340,7 @@
             {% endif -%}
         </cac:Item>
         <cac:Price>
-            <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario|n_format }}</cbc:PriceAmount>
+            <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario|n_format(6) }}</cbc:PriceAmount>
         </cac:Price>
     </cac:DebitNoteLine>
    {% endfor -%}
