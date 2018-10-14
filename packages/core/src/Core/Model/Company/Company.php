@@ -33,7 +33,6 @@ class Company
      */
     private $address;
 
-
     /**
      * @var string
      */

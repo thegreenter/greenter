@@ -29,6 +29,21 @@ class Detraction
     private $mount;
 
     /**
+     * @var string
+     */
+    private $ctaBanco;
+
+    /**
+     * @var string
+     */
+    private $codMedioPago;
+
+    /**
+     * @var string
+     */
+    private $codBienDetraccion;
+
+    /**
      * Valor referencial, en el caso de detracciones al transporte de bienes por vía terrestre.
      *
      * @var float
@@ -76,6 +91,60 @@ class Detraction
     }
 
     /**
+     * @return string
+     */
+    public function getCtaBanco()
+    {
+        return $this->ctaBanco;
+    }
+
+    /**
+     * @param string $ctaBanco
+     * @return Detraction
+     */
+    public function setCtaBanco($ctaBanco)
+    {
+        $this->ctaBanco = $ctaBanco;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCodMedioPago()
+    {
+        return $this->codMedioPago;
+    }
+
+    /**
+     * @param string $codMedioPago
+     * @return Detraction
+     */
+    public function setCodMedioPago($codMedioPago)
+    {
+        $this->codMedioPago = $codMedioPago;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCodBienDetraccion()
+    {
+        return $this->codBienDetraccion;
+    }
+
+    /**
+     * @param string $codBienDetraccion
+     * @return Detraction
+     */
+    public function setCodBienDetraccion($codBienDetraccion)
+    {
+        $this->codBienDetraccion = $codBienDetraccion;
+        return $this;
+    }
+
+    /**
      * @return float
      */
     public function getValueRef()
@@ -86,6 +155,7 @@ class Detraction
     /**
      * @param float $valueRef
      *
+     * @deprecated use UBL 2.1
      * @return Detraction
      */
     public function setValueRef($valueRef)

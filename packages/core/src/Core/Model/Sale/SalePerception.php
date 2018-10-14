@@ -21,6 +21,11 @@ class SalePerception
     /**
      * @var float
      */
+    private $porcentaje;
+
+    /**
+     * @var float
+     */
     private $mtoBase;
 
     /**
@@ -50,6 +55,24 @@ class SalePerception
     {
         $this->codReg = $codReg;
 
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPorcentaje()
+    {
+        return $this->porcentaje;
+    }
+
+    /**
+     * @param float $porcentaje
+     * @return SalePerception
+     */
+    public function setPorcentaje($porcentaje)
+    {
+        $this->porcentaje = $porcentaje;
         return $this;
     }
 

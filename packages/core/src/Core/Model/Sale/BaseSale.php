@@ -20,6 +20,11 @@ class BaseSale implements DocumentInterface
     /**
      * @var string
      */
+    protected $ublVersion = '2.0';
+
+    /**
+     * @var string
+     */
     protected $tipoDoc;
 
     /**
@@ -75,7 +80,17 @@ class BaseSale implements DocumentInterface
     /**
      * @var float
      */
+    protected $mtoOperExportacion;
+
+    /**
+     * @var float
+     */
     protected $mtoIGV;
+
+    /**
+     * @var float
+     */
+    protected $mtoBaseIsc;
 
     /**
      * @var float
@@ -85,7 +100,17 @@ class BaseSale implements DocumentInterface
     /**
      * @var float
      */
+    protected $mtoBaseOth;
+
+    /**
+     * @var float
+     */
     protected $mtoOtrosTributos;
+
+    /**
+     * @var float
+     */
+    protected $totalImpuestos;
 
     /**
      * Importe total de la venta, cesión en uso o del servicio prestado.
@@ -115,6 +140,13 @@ class BaseSale implements DocumentInterface
      * @var Document[]
      */
     protected $relDocs;
+
+    /**
+     * Orden de Compra relacionado.
+     *
+     * @var string
+     */
+    protected $compra;
 
     /**
      * @return string
@@ -237,7 +269,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTipoMoneda()
     {
@@ -245,7 +277,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @param mixed $tipoMoneda
+     * @param string $tipoMoneda
      *
      * @return $this
      */
@@ -257,7 +289,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getSumOtrosCargos()
     {
@@ -265,7 +297,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @param mixed $sumOtrosCargos
+     * @param float $sumOtrosCargos
      *
      * @return $this
      */
@@ -277,7 +309,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getMtoOperGravadas()
     {
@@ -285,7 +317,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @param mixed $mtoOperGravadas
+     * @param float $mtoOperGravadas
      *
      * @return $this
      */
@@ -297,7 +329,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getMtoOperInafectas()
     {
@@ -305,7 +337,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @param mixed $mtoOperInafectas
+     * @param float $mtoOperInafectas
      *
      * @return $this
      */
@@ -337,7 +369,25 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @return mixed
+     * @return float
+     */
+    public function getMtoOperExportacion()
+    {
+        return $this->mtoOperExportacion;
+    }
+
+    /**
+     * @param float $mtoOperExportacion
+     * @return $this
+     */
+    public function setMtoOperExportacion($mtoOperExportacion)
+    {
+        $this->mtoOperExportacion = $mtoOperExportacion;
+        return $this;
+    }
+
+    /**
+     * @return float
      */
     public function getMtoIGV()
     {
@@ -345,7 +395,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @param mixed $mtoIGV
+     * @param float $mtoIGV
      *
      * @return $this
      */
@@ -357,7 +407,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @return mixed
+     * @return float
      */
     public function getMtoISC()
     {
@@ -365,7 +415,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @param mixed $mtoISC
+     * @param float $mtoISC
      *
      * @return $this
      */
@@ -491,6 +541,102 @@ class BaseSale implements DocumentInterface
     {
         $this->relDocs = $relDocs;
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompra()
+    {
+        return $this->compra;
+    }
+
+    /**
+     * @param string $compra
+     *
+     * @return $this
+     */
+    public function setCompra($compra)
+    {
+        $this->compra = $compra;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoBaseIsc()
+    {
+        return $this->mtoBaseIsc;
+    }
+
+    /**
+     * Set Monto Base ISC.
+     *
+     * @param float $mtoBaseIsc
+     * @return $this
+     */
+    public function setMtoBaseIsc($mtoBaseIsc)
+    {
+        $this->mtoBaseIsc = $mtoBaseIsc;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoBaseOth()
+    {
+        return $this->mtoBaseOth;
+    }
+
+    /**
+     * Set Monto base otros tributos.
+     *
+     * @param float $mtoBaseOth
+     * @return $this
+     */
+    public function setMtoBaseOth($mtoBaseOth)
+    {
+        $this->mtoBaseOth = $mtoBaseOth;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotalImpuestos()
+    {
+        return $this->totalImpuestos;
+    }
+
+    /**
+     * @param float $totalImpuestos
+     * @return $this
+     */
+    public function setTotalImpuestos($totalImpuestos)
+    {
+        $this->totalImpuestos = $totalImpuestos;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUblVersion()
+    {
+        return $this->ublVersion;
+    }
+
+    /**
+     * @param string $ublVersion
+     * @return $this
+     */
+    public function setUblVersion($ublVersion)
+    {
+        $this->ublVersion = $ublVersion;
         return $this;
     }
 

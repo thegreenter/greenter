@@ -44,6 +44,21 @@ class Invoice extends BaseSale
     private $mtoDescuentos;
 
     /**
+     * @var Charge[]
+     */
+    private $descuentos;
+
+    /**
+     * @var Charge[]
+     */
+    private $cargos;
+
+    /**
+     * @var float
+     */
+    private $mtoCargos;
+
+    /**
      * @var float
      */
     private $totalAnticipos;
@@ -54,11 +69,11 @@ class Invoice extends BaseSale
     private $perception;
 
     /**
-     * Orden de Compra relacionado.
+     * Utilizado cuando se trata de una Factura Guia.
      *
-     * @var string
+     * @var EmbededDespatch
      */
-    private $compra;
+    private $guiaEmbebida;
 
     /**
      * @var Prepayment[]
@@ -71,16 +86,18 @@ class Invoice extends BaseSale
     private $detraccion;
 
     /**
-     * Utilizado cuando se trata de una Factura Guia.
-     *
-     * @var EmbededDespatch
-     */
-    private $guiaEmbebida;
-
-    /**
      * @var Client
      */
     private $seller;
+    /**
+     * @var Client
+     */
+    private $buyer;
+
+    /**
+     * @var float
+     */
+    private $valorVenta;
 
     /**
      * @return string
@@ -132,6 +149,7 @@ class Invoice extends BaseSale
 
     /**
      * @param float $sumDsctoGlobal
+     * @deprecated UBL 2.1
      *
      * @return Invoice
      */
@@ -223,21 +241,21 @@ class Invoice extends BaseSale
     }
 
     /**
-     * @return string
+     * @return EmbededDespatch
      */
-    public function getCompra()
+    public function getGuiaEmbebida()
     {
-        return $this->compra;
+        return $this->guiaEmbebida;
     }
 
     /**
-     * @param string $compra
+     * @param EmbededDespatch $guiaEmbebida
      *
      * @return Invoice
      */
-    public function setCompra($compra)
+    public function setGuiaEmbebida($guiaEmbebida)
     {
-        $this->compra = $compra;
+        $this->guiaEmbebida = $guiaEmbebida;
 
         return $this;
     }
@@ -283,26 +301,6 @@ class Invoice extends BaseSale
     }
 
     /**
-     * @return EmbededDespatch
-     */
-    public function getGuiaEmbebida()
-    {
-        return $this->guiaEmbebida;
-    }
-
-    /**
-     * @param EmbededDespatch $guiaEmbebida
-     *
-     * @return Invoice
-     */
-    public function setGuiaEmbebida($guiaEmbebida)
-    {
-        $this->guiaEmbebida = $guiaEmbebida;
-
-        return $this;
-    }
-
-    /**
      * @return Client
      */
     public function getSeller()
@@ -317,6 +315,98 @@ class Invoice extends BaseSale
     public function setSeller($seller)
     {
         $this->seller = $seller;
+        return $this;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getBuyer()
+    {
+        return $this->buyer;
+    }
+
+    /**
+     * Datos del comprador.
+     *
+     * @param Client $buyer
+     * @return Invoice
+     */
+    public function setBuyer($buyer)
+    {
+        $this->buyer = $buyer;
+        return $this;
+    }
+
+    /**
+     * @return Charge[]
+     */
+    public function getDescuentos()
+    {
+        return $this->descuentos;
+    }
+
+    /**
+     * @param Charge[] $descuentos
+     * @return Invoice
+     */
+    public function setDescuentos($descuentos)
+    {
+        $this->descuentos = $descuentos;
+        return $this;
+    }
+
+    /**
+     * @return Charge[]
+     */
+    public function getCargos()
+    {
+        return $this->cargos;
+    }
+
+    /**
+     * @param Charge[] $cargos
+     * @return Invoice
+     */
+    public function setCargos($cargos)
+    {
+        $this->cargos = $cargos;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoCargos()
+    {
+        return $this->mtoCargos;
+    }
+
+    /**
+     * @param float $mtoCargos
+     * @return Invoice
+     */
+    public function setMtoCargos($mtoCargos)
+    {
+        $this->mtoCargos = $mtoCargos;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getValorVenta()
+    {
+        return $this->valorVenta;
+    }
+
+    /**
+     * @param float $valorVenta
+     * @return Invoice
+     */
+    public function setValorVenta($valorVenta)
+    {
+        $this->valorVenta = $valorVenta;
         return $this;
     }
 }

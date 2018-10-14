@@ -49,6 +49,13 @@ class Address
     private $direccion;
 
     /**
+     * Codigo Local Anexo
+     *
+     * @var string
+     */
+    private $codLocal = '0000';
+
+    /**
      * @return string
      */
     public function getUbigueo()
@@ -185,6 +192,24 @@ class Address
     {
         $this->direccion = $direccion;
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCodLocal()
+    {
+        return $this->codLocal;
+    }
+
+    /**
+     * @param string $codLocal
+     * @return Address
+     */
+    public function setCodLocal($codLocal)
+    {
+        $this->codLocal = $codLocal;
         return $this;
     }
 }
