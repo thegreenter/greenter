@@ -22,6 +22,7 @@ use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Retention\RetentionDetail;
+use Greenter\Model\Sale\Charge;
 use Greenter\Model\Sale\Detraction;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\EmbededDespatch;
@@ -46,8 +47,9 @@ trait StoreTrait
     public function getInvoice()
     {
         $perc = new SalePerception();
-        $perc->setCodReg('01')
+        $perc->setCodReg('01') // 51 on UBL2.1 - Catalog 53
             ->setMto(2)
+            ->setPorcentaje(2.00)
             ->setMtoBase(3)
             ->setMtoTotal(4);
 
@@ -77,10 +79,12 @@ trait StoreTrait
             ->setFechaEmision(new \DateTime())
             ->setTipoMoneda('PEN')
             ->setClient($this->getClient())
+            ->setBuyer($this->getClient())
             ->setMtoOperGravadas(200)
             ->setMtoOperExoneradas(0)
             ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
+            ->setTotalImpuestos(38)
             ->setMtoISC(2)
             ->setMtoImpVenta(236)
             ->setGuias([(new Document())
@@ -96,9 +100,14 @@ trait StoreTrait
             ->setUnidad('NIU')
             ->setCantidad(2)
             ->setDescripcion('PRODUCTO 1')
+            ->setMtoBaseIgv(100.00)
+            ->setPorcentajeIgv(18.0)
             ->setIgv(18)
+            ->setMtoBaseIsc(10)
+            ->setPorcentajeIsc(0.50)
             ->setIsc(3)
-            ->setTipSisIsc('3')
+            ->setTipSisIsc('03')
+            ->setTotalImpuestos(21)
             ->setMtoValorGratuito(12)
             ->setTipAfeIgv('10')
             ->setMtoValorVenta(100)
@@ -111,8 +120,18 @@ trait StoreTrait
             ->setCantidad(2)
             ->setDescripcion('PRODUCTO 2')
             ->setDescuento(1)
+            ->setDescuentos([
+                (new Charge())
+                ->setCodTipo('00')
+                ->setFactor(5.00)
+                ->setMontoBase(100)
+                ->setMonto(5)
+            ])
+            ->setMtoBaseIgv(100)
+            ->setPorcentajeIgv(18.0)
             ->setIgv(18)
             ->setTipAfeIgv('10')
+            ->setTotalImpuestos(18)
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(10)
             ->setMtoValorGratuito(2)
@@ -148,6 +167,7 @@ trait StoreTrait
             ->setTipoOperacion('2')
             ->setPerception((new SalePerception())
                 ->setCodReg('01')
+                ->setPorcentaje(2.00)
                 ->setMto(2)
                 ->setMtoBase(3)
                 ->setMtoTotal(4)
@@ -198,6 +218,8 @@ trait StoreTrait
             ->setMtoISC(2)
             ->setSumOtrosCargos(12)
             ->setMtoOtrosTributos(1)
+            ->setTotalImpuestos(39)
+            ->setValorVenta(200)
             ->setMtoImpVenta(236)
             ->setCompany($this->getCompany())
             ->setDetails([(new SaleDetail())
@@ -205,11 +227,16 @@ trait StoreTrait
                 ->setUnidad('NIU')
                 ->setCantidad(2)
                 ->setDescripcion('PROD 1')
+                ->setMtoBaseIgv(100)
+                ->setPorcentajeIgv(18.0)
                 ->setIgv(18)
+                ->setMtoBaseIsc(60)
+                ->setPorcentajeIsc(0.50)
                 ->setIsc(3)
                 ->setTipSisIsc('3')
                 ->setMtoValorGratuito(12)
                 ->setTipAfeIgv('10')
+                ->setTotalImpuestos(21)
                 ->setMtoValorVenta(100)
                 ->setMtoValorUnitario(50)
                 ->setMtoPrecioUnitario(56)
@@ -220,9 +247,17 @@ trait StoreTrait
                     ->setCantidad(2)
                     ->setDescripcion('PROD 2')
                     ->setDescuento(1)
-                    ->setTipSisIsc('3')
-                    ->setIsc(1)
+                    ->setDescuentos([
+                        (new Charge())
+                            ->setCodTipo('00')
+                            ->setFactor(5.00)
+                            ->setMontoBase(100)
+                            ->setMonto(5)
+                    ])
+                    ->setMtoBaseIgv(100)
+                    ->setPorcentajeIgv(18)
                     ->setIgv(18)
+                    ->setTotalImpuestos(18)
                     ->setTipAfeIgv('10')
                     ->setMtoValorVenta(100)
                     ->setMtoValorUnitario(10)
@@ -255,16 +290,24 @@ trait StoreTrait
             ->setMtoOperExoneradas(0)
             ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
+            ->setTotalImpuestos(36)
             ->setMtoImpVenta(236)
-            ->setCompany($this->getCompany());
+            ->setCompany($this->getCompany())
+            ->setGuias([(new Document())
+                ->setTipoDoc('09')
+                ->setNroDoc('T001-213')
+            ]);
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')
             ->setUnidad('NIU')
             ->setCantidad(2)
             ->setDescripcion('PROD 1')
+            ->setMtoBaseIgv(100.00)
+            ->setPorcentajeIgv(18.0)
             ->setIgv(18)
             ->setTipAfeIgv('10')
+            ->setTotalImpuestos(18)
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
             ->setMtoPrecioUnitario(56);
@@ -545,7 +588,13 @@ trait StoreTrait
             ->setNombreComercial('GREENTER')
             ->setRazonSocial('GREENTER S.A.C')
             ->setAddress((new Address())
-                ->setDireccion('AV LOS GERANIOS 321 - LIMA - LIMA - PERU'));
+                ->setUbigueo('150101')
+                ->setDistrito('LIMA')
+                ->setProvincia('LIMA')
+                ->setDepartamento('LIMA')
+                ->setUrbanizacion('-')
+                ->setCodLocal('0000')
+                ->setDireccion('AV LOS GERANIOS 321'));
     }
 
     public function getClient()
