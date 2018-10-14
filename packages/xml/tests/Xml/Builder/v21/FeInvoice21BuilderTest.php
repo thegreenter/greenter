@@ -19,11 +19,12 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
     public function testGenerate()
     {
         $invoice = $this->getFullInvoice();
+        $invoice->setUblVersion('2.1');
 
-        $xml = $this->build($invoice, '2.1');
+        $xml = $this->build($invoice);
 
 //        file_put_contents('x.xml', $xml);
         $this->assertNotEmpty($xml);
-        $this->assertSchemaV21($xml);
+        $this->assertSchema($xml);
     }
 }

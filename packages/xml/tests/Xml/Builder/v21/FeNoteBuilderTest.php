@@ -23,23 +23,25 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
     public function testCreateXmlCreditNote()
     {
         $note = $this->getNote();
+        $note->setUblVersion('2.1');
 
-        $xml = $this->build($note, '2.1');
+        $xml = $this->build($note);
 
 //        file_put_contents('notecr.xml', $xml);
         $this->assertNotEmpty($xml);
-        $this->assertSchemaV21($xml);
+        $this->assertSchema($xml);
     }
 
     public function testCreateXmlDebitNote()
     {
         $note = $this->getNote();
         $note->setTipoDoc('08');
+        $note->setUblVersion('2.1');
 
-        $xml = $this->build($note, '2.1');
+        $xml = $this->build($note);
 
 //        file_put_contents('notedb.xml', $xml);
         $this->assertNotEmpty($xml);
-        $this->assertSchemaV21($xml);
+        $this->assertSchema($xml);
     }
 }
