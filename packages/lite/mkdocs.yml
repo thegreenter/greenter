@@ -11,6 +11,13 @@ pages:
     - Greenter: index.md
     - Primeros Pasos: starter.md
     - 'Documentación|https://giansalex.github.io/greenter-apidoc/': apidoc.md
+    - Migrar a UBL 2.1: migrate2.1.md
+    - F. Exonerada: examples/exonerada.md
+    - F. Gratuita: examples/gratuita.md
+    - F. Descuentos: examples/descuento-linea.md
+    - F. Percepción: examples/percepcion.md
+    - F. Anticipos: examples/anticipo.md
+    - F. Detracción: examples/detraccion.md
     - News:
       - Start: news/index.md
 
@@ -27,11 +34,7 @@ theme:
     primary: 'Green'
     accent: 'Indigo'
 
-extra_css:
-  - 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/themes/prism-okaidia.min.css'
 extra_javascript:
-  - 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/prism.min.js'
-  - 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-php.min.js'
   - js/ext_link.js
 
 extra:
@@ -50,9 +53,6 @@ google_analytics:
 # Extensions
 markdown_extensions:
   - admonition
-  - codehilite:
-      css_class: code
-      use_pygments: false
-      guess_lang: false
+  - codehilite
   - toc:
       permalink: true
