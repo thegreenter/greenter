@@ -59,13 +59,4 @@ trait CeBuilderTrait
 
         return $generator->build($document);
     }
-
-    private function createExtensionContent(\DOMDocument $document)
-    {
-        $childs = $document->documentElement->getElementsByTagNameNS('urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2','ExtensionContent');
-        if ($childs->length > 0) {
-            $element = $document->createElementNS('urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2','cbc:AccountID', 1);
-            $childs->item(0)->appendChild($element);
-        }
-    }
 }

@@ -26,8 +26,8 @@ class NoteBuilder extends TwigBuilder implements BuilderInterface
     public function build(DocumentInterface $document)
     {
         /**@var $document \Greenter\Model\Sale\Note */
-        $template = $document->getTipoDoc() === '07'
-            ? 'notacr.xml.twig' : 'notadb.xml.twig';
+        $prefix = $document->getTipoDoc() === '07' ? 'notacr' : 'notadb';
+        $template = $prefix.$document->getUblVersion().'.xml.twig';
 
         return $this->render($template, $document);
     }

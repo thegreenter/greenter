@@ -48,8 +48,10 @@ class TwigBuilder
         $numFilter = new \Twig_SimpleFilter('n_format', function ($number, $decimals = 2) {
             return number_format($number, $decimals, '.', '');
         });
+
         $twig = new \Twig_Environment($loader, $options);
         $twig->addFilter($numFilter);
+        $twig->addFunction(new \Twig_SimpleFunction('getTributoAfect', ['Greenter\Xml\Filter\TributoFunction', 'getByAfectacion']));
 
         $this->twig = $twig;
     }

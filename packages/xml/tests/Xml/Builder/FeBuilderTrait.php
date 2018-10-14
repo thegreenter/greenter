@@ -30,20 +30,21 @@ trait FeBuilderTrait
 {
     use StoreTrait;
 
+    private $builders = [
+        Invoice::class => InvoiceBuilder::class,
+        Note::class => NoteBuilder::class,
+        Summary::class => SummaryBuilder::class,
+        Voided::class => VoidedBuilder::class,
+        Summary::class => SummaryBuilder::class,
+    ];
+
     /**
      * @param $className
      * @return BuilderInterface
      */
     private function getGenerator($className)
     {
-        $builders = [
-          Invoice::class => InvoiceBuilder::class,
-          Note::class => NoteBuilder::class,
-          Summary::class => SummaryBuilder::class,
-          Voided::class => VoidedBuilder::class,
-          Summary::class => SummaryBuilder::class,
-        ];
-        $builder = new $builders[$className]([
+        $builder = new $this->builders[$className]([
             'cache' => false,
             'strict_variables' => true,
             'autoescape' => false,

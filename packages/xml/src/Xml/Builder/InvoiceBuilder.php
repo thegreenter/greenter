@@ -10,6 +10,7 @@ namespace Greenter\Xml\Builder;
 
 use Greenter\Builder\BuilderInterface;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Sale\Invoice;
 
 /**
  * Class InvoiceBuilder
@@ -23,9 +24,13 @@ class InvoiceBuilder extends TwigBuilder implements BuilderInterface
      *
      * @param DocumentInterface $document
      * @return string
+     * @throws \Exception
      */
     public function build(DocumentInterface $document)
     {
-        return $this->render('invoice.xml.twig', $document);
+        /**@var $document Invoice */
+        $template = 'invoice'.$document->getUblVersion().'.xml.twig';
+
+        return $this->render($template, $document);
     }
 }
