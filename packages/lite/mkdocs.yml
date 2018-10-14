@@ -11,6 +11,7 @@ pages:
     - Greenter: index.md
     - Primeros Pasos: starter.md
     - 'Documentación|https://giansalex.github.io/greenter-apidoc/': apidoc.md
+    - UBL 2.1: migrate2.1.md
     - News:
       - Start: news/index.md
 
