@@ -15,7 +15,7 @@
 	    "php": ">=5.5.9",
         "ext-zip": "*",
 	    "ext-soap": "*",
-        "greenter/core": "^1.2"
+        "greenter/core": "^2.1"
     },
 	"require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"
