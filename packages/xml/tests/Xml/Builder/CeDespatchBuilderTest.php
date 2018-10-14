@@ -25,12 +25,9 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
 
         $xml = $this->build($despatch);
 
-        $doc = new \DOMDocument();
-        $doc->loadXML($xml);
-        $this->createExtensionContent($doc);
+        //         file_put_contents('guia.xml', $xml);
+        $this->assertSchema($xml);
 
-        $this->assertSchema($doc, '2.1');
-//         file_put_contents('guia.xml', $xml);
     }
 
     public function testDespatchFilename()
