@@ -23,6 +23,11 @@
         <cbc:ResponseCode>{{ doc.codMotivo }}</cbc:ResponseCode>
         <cbc:Description>{{ doc.desMotivo }}</cbc:Description>
     </cac:DiscrepancyResponse>
+    {% if doc.compra -%}
+    <cac:OrderReference>
+        <cbc:ID>{{ doc.compra }}</cbc:ID>
+    </cac:OrderReference>
+    {% endif -%}
     <cac:BillingReference>
         <cac:InvoiceDocumentReference>
             <cbc:ID>{{ doc.numDocfectado }}</cbc:ID>

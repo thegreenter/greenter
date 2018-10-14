@@ -23,12 +23,25 @@
         <cbc:ResponseCode>{{ doc.codMotivo }}</cbc:ResponseCode>
         <cbc:Description>{{ doc.desMotivo }}</cbc:Description>
     </cac:DiscrepancyResponse>
+    {% if doc.compra -%}
+    <cac:OrderReference>
+        <cbc:ID>{{ doc.compra }}</cbc:ID>
+    </cac:OrderReference>
+    {% endif -%}
     <cac:BillingReference>
         <cac:InvoiceDocumentReference>
             <cbc:ID>{{ doc.numDocfectado }}</cbc:ID>
             <cbc:DocumentTypeCode>{{ doc.tipDocAfectado }}</cbc:DocumentTypeCode>
         </cac:InvoiceDocumentReference>
     </cac:BillingReference>
+    {% if doc.guias -%}
+    {% for guia in doc.guias -%}
+    <cac:DespatchDocumentReference>
+        <cbc:ID>{{ guia.nroDoc }}</cbc:ID>
+        <cbc:DocumentTypeCode>{{ guia.tipoDoc }}</cbc:DocumentTypeCode>
+    </cac:DespatchDocumentReference>
+    {% endfor -%}
+    {% endif -%}
     {% if doc.relDocs -%}
     {% for rel in doc.relDocs -%}
     <cac:AdditionalDocumentReference>
