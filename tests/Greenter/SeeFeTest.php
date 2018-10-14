@@ -11,6 +11,7 @@ namespace Tests\Greenter;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
+use Greenter\Model\Sale\BaseSale;
 use Greenter\Model\Sale\Invoice;
 use Greenter\See;
 use Greenter\Validator\ErrorCodeProviderInterface;
@@ -102,6 +103,38 @@ class SeeFeTest extends FeFactoryBase
         $result = $see->sendXml(Invoice::class, $invoice->getName(), $xmlSigned);
 
         $this->assertTrue($result->isSuccess());
+    }
+
+    /**
+     * @dataProvider providerInvoiceDocsv21
+     * @param DocumentInterface $doc
+     */
+    public function testSendInvoiceV21(DocumentInterface $doc)
+    {
+        /**@var $doc BaseSale */
+        $doc->setUblVersion('2.1');
+        /**@var $result BillResult*/
+        $see = $this->getSee();
+        $this->assertNotNull($see->getFactory());
+
+        $result = $see->send($doc);
+//        file_put_contents($doc->getName().'.xml', $see->getFactory()->getLastXml());
+
+        $this->assertTrue($result->isSuccess());
+        $this->assertNotNull($result->getCdrResponse());
+        $this->assertContains(
+            'aceptada',
+            $result->getCdrResponse()->getDescription()
+        );
+    }
+
+    public function providerInvoiceDocsV21()
+    {
+        return [
+            [$this->getInvoiceV21()],
+            [$this->getCreditNoteV21()],
+            [$this->getDebitNoteV21()],
+        ];
     }
 
     public function providerInvoiceDocs()
