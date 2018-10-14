@@ -231,7 +231,7 @@
                     <cac:TaxScheme>
                         <cbc:ID>9999</cbc:ID>
                         <cbc:Name>OTROS</cbc:Name>
-                        <cbc:TaxTypeCode>>OTH</cbc:TaxTypeCode>
+                        <cbc:TaxTypeCode>OTH</cbc:TaxTypeCode>
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
@@ -247,7 +247,7 @@
     <cac:CreditNoteLine>
         <cbc:ID>{{ loop.index }}</cbc:ID>
         <cbc:CreditedQuantity unitCode="{{ detail.unidad }}">{{ detail.cantidad }}</cbc:CreditedQuantity>
-        <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta }}</cbc:LineExtensionAmount>
+        <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|n_format }}</cbc:LineExtensionAmount>
         <cac:PricingReference>
             {% if detail.mtoPrecioUnitario -%}
             <cac:AlternativeConditionPrice>
@@ -302,7 +302,7 @@
                     <cac:TaxScheme>
                         <cbc:ID>9999</cbc:ID>
                         <cbc:Name>OTROS</cbc:Name>
-                        <cbc:TaxTypeCode>>OTH</cbc:TaxTypeCode>
+                        <cbc:TaxTypeCode>OTH</cbc:TaxTypeCode>
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
