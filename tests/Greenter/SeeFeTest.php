@@ -11,6 +11,7 @@ namespace Tests\Greenter;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
+use Greenter\Model\Sale\BaseSale;
 use Greenter\Model\Sale\Invoice;
 use Greenter\See;
 use Greenter\Validator\ErrorCodeProviderInterface;
@@ -110,9 +111,10 @@ class SeeFeTest extends FeFactoryBase
      */
     public function testSendInvoiceV21(DocumentInterface $doc)
     {
+        /**@var $doc BaseSale */
+        $doc->setUblVersion('2.1');
         /**@var $result BillResult*/
         $see = $this->getSee();
-        $see->setUblVersion('2.1');
         $this->assertNotNull($see->getFactory());
 
         $result = $see->send($doc);

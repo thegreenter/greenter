@@ -45,11 +45,6 @@ class See
     private $builders;
 
     /**
-     * @var string
-     */
-    private $ublVersion = '2.0';
-
-    /**
      * @var array
      */
     private $summarys;
@@ -80,21 +75,14 @@ class See
         $this->wsClient = new SoapClient();
         $this->signer = new SignedXml();
         $this->builders = [
-            '2.0' => [
-                Model\Sale\Invoice::class => Xml\Builder\InvoiceBuilder::class,
-                Model\Sale\Note::class => Xml\Builder\NoteBuilder::class,
-                Model\Summary\Summary::class => Xml\Builder\SummaryBuilder::class,
-                Model\Voided\Voided::class => Xml\Builder\VoidedBuilder::class,
-                Model\Despatch\Despatch::class => Xml\Builder\DespatchBuilder::class,
-                Model\Retention\Retention::class => Xml\Builder\RetentionBuilder::class,
-                Model\Perception\Perception::class => Xml\Builder\PerceptionBuilder::class,
-                Model\Voided\Reversion::class => Xml\Builder\VoidedBuilder::class,
-            ],
-            '2.1' => [
-                Model\Sale\Invoice::class => Xml\Builder\v21\InvoiceBuilder::class,
-                Model\Sale\Note::class => Xml\Builder\v21\NoteBuilder::class,
-                Model\Despatch\Despatch::class => Xml\Builder\DespatchBuilder::class,
-            ]
+            Model\Sale\Invoice::class => Xml\Builder\InvoiceBuilder::class,
+            Model\Sale\Note::class => Xml\Builder\NoteBuilder::class,
+            Model\Summary\Summary::class => Xml\Builder\SummaryBuilder::class,
+            Model\Voided\Voided::class => Xml\Builder\VoidedBuilder::class,
+            Model\Despatch\Despatch::class => Xml\Builder\DespatchBuilder::class,
+            Model\Retention\Retention::class => Xml\Builder\RetentionBuilder::class,
+            Model\Perception\Perception::class => Xml\Builder\PerceptionBuilder::class,
+            Model\Voided\Reversion::class => Xml\Builder\VoidedBuilder::class,
         ];
         $this->summarys = [Summary::class, Summary::class, Voided::class, Reversion::class];
         $this->factory->setSigner($this->signer);
@@ -231,7 +219,7 @@ class See
      */
     private function getBuilder($class)
     {
-        $builder = $this->builders[$this->ublVersion][$class];
+        $builder = $this->builders[$class];
 
         return new $builder($this->options);
     }
@@ -250,15 +238,5 @@ class See
         }
 
         return $sender;
-    }
-
-    /**
-     * Set UBL version.
-     *
-     * @param string $ublVersion
-     */
-    public function setUblVersion($ublVersion)
-    {
-        $this->ublVersion = $ublVersion;
     }
 }
