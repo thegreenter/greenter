@@ -123,7 +123,7 @@ trait StoreTrait
             ->setDescuentos([
                 (new Charge())
                 ->setCodTipo('00')
-                ->setPorcentaje(5.00)
+                ->setFactor(5.00)
                 ->setMontoBase(100)
                 ->setMonto(5)
             ])
@@ -250,7 +250,7 @@ trait StoreTrait
                     ->setDescuentos([
                         (new Charge())
                             ->setCodTipo('00')
-                            ->setPorcentaje(5.00)
+                            ->setFactor(5.00)
                             ->setMontoBase(100)
                             ->setMonto(5)
                     ])
