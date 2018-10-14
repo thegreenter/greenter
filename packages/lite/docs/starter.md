@@ -17,6 +17,7 @@ credenciales por defecto, user `20000000001MODDATOS`, password `moddatos`.
     
 Crearemos el archivo `config.php` y agregaremos lo siguiente:
 ```php
+<?php
 use Greenter\Ws\Services\SunatEndpoints;
 
 $see = new \Greenter\See();
@@ -30,8 +31,8 @@ return $see;
 ## Factura Electrónica
 
 Elaboraremos nuestra primera factura electrónica, para ello creamos el archivo `factura.php` y agregaremos el siguiente código:
-```php
-
+```php hl_lines="68"
+<?php
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
 use Greenter\Model\Company\Address;

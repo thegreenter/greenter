@@ -27,11 +27,7 @@ theme:
     primary: 'Green'
     accent: 'Indigo'
 
-extra_css:
-  - 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/themes/prism-okaidia.min.css'
 extra_javascript:
-  - 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/prism.min.js'
-  - 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.10.0/components/prism-php.min.js'
   - js/ext_link.js
 
 extra:
@@ -50,9 +46,6 @@ google_analytics:
 # Extensions
 markdown_extensions:
   - admonition
-  - codehilite:
-      css_class: code
-      use_pygments: false
-      guess_lang: false
+  - codehilite
   - toc:
       permalink: true
