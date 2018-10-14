@@ -587,9 +587,14 @@ trait StoreTrait
             ->setRuc('20123456789')
             ->setNombreComercial('GREENTER')
             ->setRazonSocial('GREENTER S.A.C')
-            ->setLocalAnexoCode('0000')
             ->setAddress((new Address())
-                ->setDireccion('AV LOS GERANIOS 321 - LIMA - LIMA - PERU'));
+                ->setUbigueo('150101')
+                ->setDistrito('LIMA')
+                ->setProvincia('LIMA')
+                ->setDepartamento('LIMA')
+                ->setUrbanizacion('-')
+                ->setCodLocal('0000')
+                ->setDireccion('AV LOS GERANIOS 321'));
     }
 
     public function getClient()

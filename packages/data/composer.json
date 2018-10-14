@@ -12,7 +12,7 @@
     "homepage": "https://github.com/giansalex/greenter-data",
     "type": "library",
     "require": {
-        "greenter/core": "dev-feature/UBL-2.1"
+        "greenter/core": "^2.1"
     },
 	"autoload": {
         "psr-4": {
