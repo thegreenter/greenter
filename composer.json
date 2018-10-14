@@ -14,9 +14,9 @@
     "require": {
 		"php": ">=5.5.9",
         "greenter/xmldsig": "^5.0",
-        "greenter/core": "^1.3",
-        "greenter/ws": "^1.2",
-        "greenter/xml": "^1.2"
+        "greenter/core": "dev-feature/UBL-2.1",
+        "greenter/ws": "dev-UBL-2.1",
+        "greenter/xml": "dev-feature/UBL-2.1"
     },
 	"require-dev": {
         "phpunit/phpunit": ">=4.8 < 6.0"
