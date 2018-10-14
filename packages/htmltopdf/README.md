@@ -65,7 +65,7 @@ file_put_contents('invoice.pdf', $pdf);
 ```
 
 ## Preview
-Representacion Impresa de la Factura Electrónica.
+Representacion Impresa de una Factura Electrónica.
 
 ![Factura Impresa](docs/factura.png)
 
