@@ -16,9 +16,16 @@ use Greenter\Ubl\SchemaValidatorInterface;
  */
 trait XsdValidatorTrait
 {
+    private $CbcNs = 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2';
+    private $ExtNs = 'urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2';
 
-    public function assertSchema($xml, $version = '2.0')
+    public function assertSchema($xml)
     {
+        $version = $this->getUblVersion($xml);
+        if ($version === '2.1') {
+            $xml = $this->getFillSignNode($xml);
+        }
+
         $validator = $this->getValidator($version);
 
         $success = $validator->validate($xml);
@@ -30,19 +37,19 @@ trait XsdValidatorTrait
         $this->assertTrue($success);
     }
 
-    public function assertSchemaV21($xml)
+    public function getFillSignNode($xml)
     {
         $doc = new \DOMDocument();
         $doc->loadXML($xml);
-        $items = $doc->getElementsByTagNameNS('urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2','ExtensionContent');
+        $items = $doc->getElementsByTagNameNS($this->ExtNs,'ExtensionContent');
 
-        if ($items->length > 0) {
-            $node = $doc->createElement('sign', '');
-            $items->item(0)->appendChild($node);
-            $xml = $doc->saveXML();
+        if ($items->length === 0) {
+            return $xml;
         }
 
-        $this->assertSchema($xml, '2.1');
+        $node = $doc->createElement('sign', '');
+        $items->item(0)->appendChild($node);
+        return $doc->saveXML();
     }
 
     /**
@@ -55,5 +62,14 @@ trait XsdValidatorTrait
         $validator->setVersion($version);
 
         return $validator;
+    }
+
+    private function getUblVersion($xml)
+    {
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $items = $doc->getElementsByTagNameNS($this->CbcNs,'UBLVersionID');
+
+        return $items->length === 0 ? '2.0' : $items->item(0)->textContent;
     }
 }
