@@ -12,10 +12,10 @@ composer require greenter/xml
 
 ### Documentos Soportados.
 
-* Factura Electrónica v2.0
-* Boleta Electrónica v2.0
-* Nota de Crédito Electrónica v2.0
-* Nota de Débito Electrónica v2.0
+* Factura Electrónica v2.0, v2.1
+* Boleta Electrónica v2.0, v2.1
+* Nota de Crédito Electrónica v2.0, v2.1
+* Nota de Débito Electrónica v2.0, v2.1
 * Resumen Diario de Boletas v2.1
 * Comunicación de Bajas v2.0
 * Guia Remisión Electrónica v2.1
