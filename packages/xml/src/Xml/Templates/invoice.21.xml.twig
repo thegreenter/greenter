@@ -220,7 +220,7 @@
     <cac:AllowanceCharge>
         <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ cargo.codTipo }}</cbc:AllowanceChargeReasonCode>
-        <cbc:MultiplierFactorNumeric>{{ cargo.porcentaje }}</cbc:MultiplierFactorNumeric>
+        <cbc:MultiplierFactorNumeric>{{ cargo.factor }}</cbc:MultiplierFactorNumeric>
         <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ cargo.monto|n_format }}</cbc:Amount>
         <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ cargo.montoBase|n_format }}</cbc:BaseAmount>
     </cac:AllowanceCharge>
@@ -231,7 +231,7 @@
     <cac:AllowanceCharge>
         <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ desc.codTipo }}</cbc:AllowanceChargeReasonCode>
-        <cbc:MultiplierFactorNumeric>{{ desc.porcentaje }}</cbc:MultiplierFactorNumeric>
+        <cbc:MultiplierFactorNumeric>{{ desc.factor }}</cbc:MultiplierFactorNumeric>
         <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ desc.monto|n_format }}</cbc:Amount>
         <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ desc.montoBase|n_format }}</cbc:BaseAmount>
     </cac:AllowanceCharge>
@@ -378,7 +378,7 @@
         <cac:AllowanceCharge>
             <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
             <cbc:AllowanceChargeReasonCode>{{ cargo.codTipo }}</cbc:AllowanceChargeReasonCode>
-            <cbc:MultiplierFactorNumeric>{{ cargo.porcentaje }}</cbc:MultiplierFactorNumeric>
+            <cbc:MultiplierFactorNumeric>{{ cargo.factor }}</cbc:MultiplierFactorNumeric>
             <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ cargo.monto }}</cbc:Amount>
             <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ cargo.montoBase }}</cbc:BaseAmount>
         </cac:AllowanceCharge>
@@ -389,7 +389,7 @@
         <cac:AllowanceCharge>
             <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
             <cbc:AllowanceChargeReasonCode>{{ desc.codTipo }}</cbc:AllowanceChargeReasonCode>
-            <cbc:MultiplierFactorNumeric>{{ desc.porcentaje }}</cbc:MultiplierFactorNumeric>
+            <cbc:MultiplierFactorNumeric>{{ desc.factor }}</cbc:MultiplierFactorNumeric>
             <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ desc.monto }}</cbc:Amount>
             <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ desc.montoBase }}</cbc:BaseAmount>
         </cac:AllowanceCharge>
@@ -412,7 +412,6 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
             {% endif -%}
-            {% if detail.igv -%}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoBaseIgv|n_format }}</cbc:TaxableAmount>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.igv|n_format }}</cbc:TaxAmount>
@@ -427,7 +426,6 @@
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
-            {% endif -%}
             {% if detail.otroTributo -%}
                 <cac:TaxSubtotal>
                     <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoBaseOth|n_format }}</cbc:TaxableAmount>

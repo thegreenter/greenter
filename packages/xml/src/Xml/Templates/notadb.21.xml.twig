@@ -252,49 +252,47 @@
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.totalImpuestos|n_format }}</cbc:TaxAmount>
             {% if detail.isc -%}
-                <cac:TaxSubtotal>
-                    <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoBaseIsc|n_format }}</cbc:TaxableAmount>
-                    <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.isc|n_format }}</cbc:TaxAmount>
-                    <cac:TaxCategory>
-                        <cbc:Percent>{{ detail.porcentajeIsc }}</cbc:Percent>
-                        <cbc:TierRange>{{ detail.tipSisIsc }}</cbc:TierRange>
-                        <cac:TaxScheme>
-                            <cbc:ID>2000</cbc:ID>
-                            <cbc:Name>ISC</cbc:Name>
-                            <cbc:TaxTypeCode>EXC</cbc:TaxTypeCode>
-                        </cac:TaxScheme>
-                    </cac:TaxCategory>
-                </cac:TaxSubtotal>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoBaseIsc|n_format }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.isc|n_format }}</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:Percent>{{ detail.porcentajeIsc }}</cbc:Percent>
+                    <cbc:TierRange>{{ detail.tipSisIsc }}</cbc:TierRange>
+                    <cac:TaxScheme>
+                        <cbc:ID>2000</cbc:ID>
+                        <cbc:Name>ISC</cbc:Name>
+                        <cbc:TaxTypeCode>EXC</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
             {% endif -%}
-            {% if detail.igv -%}
-                <cac:TaxSubtotal>
-                    <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoBaseIgv|n_format }}</cbc:TaxableAmount>
-                    <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.igv|n_format }}</cbc:TaxAmount>
-                    <cac:TaxCategory>
-                        <cbc:Percent>{{ detail.porcentajeIgv }}</cbc:Percent>
-                        <cbc:TaxExemptionReasonCode>{{ detail.tipAfeIgv }}</cbc:TaxExemptionReasonCode>
-                        {% set afect = getTributoAfect(detail.tipAfeIgv) -%}
-                        <cac:TaxScheme>
-                            <cbc:ID>{{ afect.id }}</cbc:ID>
-                            <cbc:Name>{{ afect.name }}</cbc:Name>
-                            <cbc:TaxTypeCode>{{ afect.code }}</cbc:TaxTypeCode>
-                        </cac:TaxScheme>
-                    </cac:TaxCategory>
-                </cac:TaxSubtotal>
-            {% endif -%}
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoBaseIgv|n_format }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.igv|n_format }}</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:Percent>{{ detail.porcentajeIgv }}</cbc:Percent>
+                    <cbc:TaxExemptionReasonCode>{{ detail.tipAfeIgv }}</cbc:TaxExemptionReasonCode>
+                    {% set afect = getTributoAfect(detail.tipAfeIgv) -%}
+                    <cac:TaxScheme>
+                        <cbc:ID>{{ afect.id }}</cbc:ID>
+                        <cbc:Name>{{ afect.name }}</cbc:Name>
+                        <cbc:TaxTypeCode>{{ afect.code }}</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
             {% if detail.otroTributo -%}
-                <cac:TaxSubtotal>
-                    <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoBaseOth|n_format }}</cbc:TaxableAmount>
-                    <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.otroTributo|n_format }}</cbc:TaxAmount>
-                    <cac:TaxCategory>
-                        <cbc:Percent>{{ detail.porcentajeOth }}</cbc:Percent>
-                        <cac:TaxScheme>
-                            <cbc:ID>9999</cbc:ID>
-                            <cbc:Name>OTROS</cbc:Name>
-                            <cbc:TaxTypeCode>>OTH</cbc:TaxTypeCode>
-                        </cac:TaxScheme>
-                    </cac:TaxCategory>
-                </cac:TaxSubtotal>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoBaseOth|n_format }}</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.otroTributo|n_format }}</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:Percent>{{ detail.porcentajeOth }}</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>9999</cbc:ID>
+                        <cbc:Name>OTROS</cbc:Name>
+                        <cbc:TaxTypeCode>>OTH</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
             {% endif -%}
         </cac:TaxTotal>
         <cac:Item>
