@@ -26,7 +26,6 @@ use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
-use Greenter\Validator\DocumentValidatorInterface;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Services\SenderInterface;
@@ -113,18 +112,6 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             'cache' => false,
             'strict_variables' => true,
         ]);
-    }
-
-    protected function getValidator($errors)
-    {
-        $stub = $this->getMockBuilder(DocumentValidatorInterface::class)
-            ->getMock();
-
-        $stub->method('validate')
-            ->will($this->returnValue($errors));
-
-        /**@var $stub DocumentValidatorInterface */
-        return $stub;
     }
 
     /**
@@ -229,7 +216,7 @@ class FeFactoryBase extends \PHPUnit_Framework_TestCase
             ->setDescuentos([
                 (new Charge())
                 ->setCodTipo('00')
-                ->setPorcentaje(1.00)
+                ->setFactor(1.00)
                 ->setMontoBase(100.00)
                 ->setMonto(1.00)
             ])
