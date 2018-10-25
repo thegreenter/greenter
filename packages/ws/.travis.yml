@@ -9,7 +9,7 @@ before_script:
   - composer install --prefer-source --no-interaction
 
 install:
-  - composer require satooshi/php-coveralls
+  - composer require php-coveralls/php-coveralls
   - |
     if [ $(phpenv version-name) = "7.1" ]; then
     composer require --dev phpstan/phpstan;
@@ -23,4 +23,4 @@ script:
   - vendor/bin/phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
 
 after_success:
-  - travis_retry php vendor/bin/coveralls -v
+  - travis_retry php vendor/bin/php-coveralls -v
