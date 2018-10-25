@@ -43,7 +43,14 @@ class ExtService extends BaseSunat
                 $result
                     ->setCdrResponse($this->extractResponse($cdrZip))
                     ->setCdrZip($cdrZip);
+
+                $code = $result->getCdrResponse()->getCode();
             }
+
+            if ($this->isExceptionCode($code)) {
+                $this->loadErrorByCode($result, $code);
+            }
+
         } catch (\SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
         }
