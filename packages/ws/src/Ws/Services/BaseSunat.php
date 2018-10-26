@@ -8,6 +8,7 @@
 
 namespace Greenter\Ws\Services;
 
+use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\Error;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Reader\CdrReaderInterface;
@@ -174,7 +175,7 @@ class BaseSunat
         return $value >= 100 && $value <= 1999;
     }
 
-    protected function loadErrorByCode($result, $code)
+    protected function loadErrorByCode(BillResult $result, $code)
     {
         $error = $this->getErrorByCode($code);
 
