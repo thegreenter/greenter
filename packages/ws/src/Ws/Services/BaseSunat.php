@@ -8,6 +8,7 @@
 
 namespace Greenter\Ws\Services;
 
+use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\Error;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Reader\CdrReaderInterface;
@@ -167,6 +168,26 @@ class BaseSunat
         return $this->codeProvider->getValue($code);
     }
 
+    protected function isExceptionCode($code)
+    {
+        $value = intval($code);
+
+        return $value >= 100 && $value <= 1999;
+    }
+
+    protected function loadErrorByCode(BillResult $result, $code)
+    {
+        $error = $this->getErrorByCode($code);
+
+        if (empty($error->getMessage()) && $result->getCdrResponse()) {
+            $error->setMessage($result->getCdrResponse()->getDescription());
+        }
+
+        $result
+            ->setSuccess(false)
+            ->setError($error);
+    }
+
     private function getXmlResponse($content)
     {
         $filter = function ($filename) {
@@ -186,4 +207,5 @@ class BaseSunat
 
         return substr($filename, $lastDotPos + 1);
     }
+
 }

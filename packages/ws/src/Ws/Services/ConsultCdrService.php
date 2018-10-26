@@ -81,24 +81,4 @@ class ConsultCdrService extends BaseSunat
 
         return $result;
     }
-
-    private function isExceptionCode($code)
-    {
-        $value = intval($code);
-
-        return $value >= 100 && $value <= 1999;
-    }
-
-    private function loadErrorByCode(StatusCdrResult $result, $code)
-    {
-        $error = $this->getErrorByCode($code);
-
-        if (empty($error->getMessage()) && $result->getCdrResponse()) {
-            $error->setMessage($result->getCdrResponse()->getDescription());
-        }
-
-        $result
-            ->setSuccess(false)
-            ->setError($error);
-    }
 }

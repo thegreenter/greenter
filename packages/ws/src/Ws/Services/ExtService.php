@@ -43,47 +43,14 @@ class ExtService extends BaseSunat
                 $result
                     ->setCdrResponse($this->extractResponse($cdrZip))
                     ->setCdrZip($cdrZip);
+
+                $code = $result->getCdrResponse()->getCode();
             }
-        } catch (\SoapFault $e) {
-            $result->setError($this->getErrorFromFault($e));
-        }
 
-        return $result;
-    }
-
-    /**
-     * @deprecated Use instead \Greenter\Ws\Services\ConsultCdrService
-     *
-     * @param string $ruc
-     * @param string $tipo
-     * @param string $serie
-     * @param int $numero
-     *
-     * @return StatusCdrResult
-     */
-    public function getCdrStatus($ruc, $tipo, $serie, $numero)
-    {
-        $client = $this->getClient();
-        $result = new StatusCdrResult();
-
-        try {
-            $params = [
-                'rucComprobante' => $ruc,
-                'tipoComprobante' => $tipo,
-                'serieComprobante' => $serie,
-                'numeroComprobante' => $numero,
-            ];
-            $response = $client->call('getStatusCdr', ['parameters' => $params]);
-            $statusCdr = $response->statusCdr;
-
-            $result->setCode($statusCdr->statusCode)
-                ->setMessage($statusCdr->statusMessage)
-                ->setCdrZip($statusCdr->content)
-                ->setSuccess(true);
-
-            if ($statusCdr->content) {
-                $result->setCdrResponse($this->extractResponse($statusCdr->content));
+            if ($this->isExceptionCode($code)) {
+                $this->loadErrorByCode($result, $code);
             }
+
         } catch (\SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
         }
