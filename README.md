@@ -67,4 +67,5 @@ API REST with [Lycet](https://github.com/giansalex/lycet) based on Symfony.
 ### Otras Paquetes de interés
 - [greenter/report](https://github.com/giansalex/greenter-report)
 - [greenter/htmltopdf](https://github.com/giansalex/greenter-htmltopdf)
-- [greenter/validation](https://github.com/giansalex/greenter-validation)
+- [greenter/validator](https://github.com/giansalex/greenter-validator)
+- [greenter/ubl-validator](https://github.com/giansalex/ubl-validator)
