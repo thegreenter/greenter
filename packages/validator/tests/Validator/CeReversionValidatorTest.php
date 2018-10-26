@@ -51,7 +51,7 @@ class CeReversionValidatorTest extends \PHPUnit_Framework_TestCase
         $reversion = new Reversion();
         $reversion->setCorrelativo('001')
             ->setFecComunicacion(new \DateTime())
-            ->setFecGeneracion(new \DateTime())
+            ->setFecGeneracion(new \DateTime('-1days'))
             ->setCompany($this->getCompany())
             ->setDetails([$detial1, $detial2]);
 
