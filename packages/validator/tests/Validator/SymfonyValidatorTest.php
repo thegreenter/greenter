@@ -189,8 +189,8 @@ class SymfonyValidatorTest extends \PHPUnit_Framework_TestCase
 
         $reversion = new Reversion();
         $reversion->setCorrelativo('001')
-            ->setFecComunicacion(new \DateTime())
             ->setFecGeneracion(new \DateTime())
+            ->setFecComunicacion(new \DateTime())
             ->setCompany($this->getCompany())
             ->setDetails([$detial1, $detial2]);
 
