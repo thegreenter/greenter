@@ -50,8 +50,8 @@ class FeVoidedValidatorTest extends \PHPUnit_Framework_TestCase
 
         $voided = new Voided();
         $voided->setCorrelativo('001')
-            ->setFecComunicacion(new \DateTime())
             ->setFecGeneracion(new \DateTime())
+            ->setFecComunicacion(new \DateTime())
             ->setCompany($this->getCompany())
             ->setDetails([$detial1, $detial2]);
 
