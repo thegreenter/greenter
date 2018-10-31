@@ -79,7 +79,7 @@ trait StoreTrait
             ->setFechaEmision(new \DateTime())
             ->setTipoMoneda('PEN')
             ->setClient($this->getClient())
-            ->setBuyer($this->getClient())
+            ->setSeller($this->getSeller())
             ->setMtoOperGravadas(200)
             ->setMtoOperExoneradas(0)
             ->setMtoOperInafectas(0)
@@ -605,6 +605,18 @@ trait StoreTrait
             ->setRznSocial('EMPRESA 1')
             ->setAddress((new Address())
                 ->setDireccion('JR. NIQUEL MZA. F LOTE. 3 URB.  INDUSTRIAL INFANTAS - LIMA - LIMA -PERU'));
+
+        return $client;
+    }
+
+    public function getSeller()
+    {
+        $client = new Client();
+        $client->setTipoDoc('1')
+            ->setNumDoc('44556677')
+            ->setRznSocial('VENDEDOR 1')
+            ->setAddress((new Address())
+                ->setDireccion('AV INFINITE - LIMA - LIMA - PERU'));
 
         return $client;
     }
