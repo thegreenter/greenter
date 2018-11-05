@@ -1,5 +1,15 @@
 # Greenter Changes
 
+## Nov 2018-11-05 Core
+**Summary**
+- Se agregó `Moneda`.
+
+**Summary Detail**
+- Se agrego `MtoIvap`
+
+**CdrResponse**
+- Se agregó `isAccepted()`, indica cuando un cdr es aceptado. 
+
 ## Oct 2018-10-14 UBL 2.1
 
 **Invoice**
