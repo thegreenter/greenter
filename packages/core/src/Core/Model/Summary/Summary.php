@@ -36,6 +36,11 @@ class Summary implements DocumentInterface
     protected $fecResumen;
 
     /**
+     * @var string
+     */
+    protected $moneda = 'PEN';
+
+    /**
      * @var Company
      */
     protected $company;
@@ -102,6 +107,24 @@ class Summary implements DocumentInterface
     {
         $this->fecResumen = $fecResumen;
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMoneda()
+    {
+        return $this->moneda;
+    }
+
+    /**
+     * @param string $moneda
+     * @return Summary
+     */
+    public function setMoneda($moneda)
+    {
+        $this->moneda = $moneda;
         return $this;
     }
 

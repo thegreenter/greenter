@@ -101,6 +101,11 @@ class SummaryDetail
     /**
      * @var float
      */
+    private $mtoIvap;
+
+    /**
+     * @var float
+     */
     private $mtoISC;
 
     /**
@@ -404,6 +409,24 @@ class SummaryDetail
     {
         $this->mtoIGV = $mtoIGV;
 
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoIvap()
+    {
+        return $this->mtoIvap;
+    }
+
+    /**
+     * @param float $mtoIvap
+     * @return SummaryDetail
+     */
+    public function setMtoIvap($mtoIvap)
+    {
+        $this->mtoIvap = $mtoIvap;
         return $this;
     }
 
