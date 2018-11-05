@@ -14,6 +14,7 @@
     "require": {
 	    "php": ">=5.5.9",
         "ext-zip": "*",
+	    "ext-zlib": "*",
 	    "ext-soap": "*",
         "greenter/core": "^2.1"
     },
