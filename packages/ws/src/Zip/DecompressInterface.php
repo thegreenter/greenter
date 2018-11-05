@@ -3,13 +3,13 @@
  * Created by PhpStorm.
  * User: LPALQUILER-11
  * Date: 24/08/2018
- * Time: 17:40
+ * Time: 17:40.
  */
 
 namespace Greenter\Zip;
 
 /**
- * Interface DecompressInterface
+ * Interface DecompressInterface.
  */
 interface DecompressInterface
 {
@@ -18,6 +18,7 @@ interface DecompressInterface
      *
      * @param string        $content
      * @param callable|null $filter
+     *
      * @return array
      */
     public function decompress($content, callable $filter = null);

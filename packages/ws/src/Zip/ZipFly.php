@@ -58,7 +58,7 @@ class ZipFly implements CompressInterface, DecompressInterface
      */
     public function unix2DosTime($unixtime = 0)
     {
-        $timearray = ($unixtime == 0) ? getdate() : getdate($unixtime);
+        $timearray = (0 == $unixtime) ? getdate() : getdate($unixtime);
         if ($timearray['year'] < 1980) {
             $timearray['year'] = 1980;
             $timearray['mon'] = 1;
@@ -185,8 +185,9 @@ class ZipFly implements CompressInterface, DecompressInterface
     /**
      * Extract files.
      *
-     * @param string $content
+     * @param string        $content
      * @param callable|null $filter
+     *
      * @return array
      */
     public function decompress($content, callable $filter = null)
@@ -210,7 +211,7 @@ class ZipFly implements CompressInterface, DecompressInterface
             if (!$filter || $filter($filename)) {
                 $result[] = [
                     'filename' => $filename,
-                    'content'  => gzinflate(substr($content, $start + $count, $head['csize']))
+                    'content' => gzinflate(substr($content, $start + $count, $head['csize'])),
                 ];
             }
 

@@ -8,7 +8,6 @@
 
 namespace Greenter\Ws\Services;
 
-use Greenter\Model\Response\StatusCdrResult;
 use Greenter\Model\Response\StatusResult;
 
 /**
@@ -39,7 +38,7 @@ class ExtService extends BaseSunat
                 ->setCode($code)
                 ->setSuccess(true);
 
-            if ($code == '0' || $code == '99') {
+            if ('0' == $code || '99' == $code) {
                 $result
                     ->setCdrResponse($this->extractResponse($cdrZip))
                     ->setCdrZip($cdrZip);
@@ -50,7 +49,6 @@ class ExtService extends BaseSunat
             if ($this->isExceptionCode($code)) {
                 $this->loadErrorByCode($result, $code);
             }
-
         } catch (\SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
         }

@@ -110,6 +110,7 @@ class BaseSunat
     /**
      * @param string $code
      * @param string $optional Intenta obtener el codigo de este parametro sino $codigo no es válido.
+     *
      * @return Error
      */
     protected function getErrorByCode($code, $optional = '')
@@ -130,7 +131,7 @@ class BaseSunat
 
         return $error->setMessage($message);
     }
-    
+
     /**
      * @param string $filename
      * @param string $xml
@@ -191,11 +192,11 @@ class BaseSunat
     private function getXmlResponse($content)
     {
         $filter = function ($filename) {
-            return strtolower($this->getFileExtension($filename)) === 'xml';
+            return 'xml' === strtolower($this->getFileExtension($filename));
         };
         $files = $this->decompressor->decompress($content, $filter);
 
-        return count($files) === 0 ? '' : $files[0]['content'];
+        return 0 === count($files) ? '' : $files[0]['content'];
     }
 
     private function getFileExtension($filename)
@@ -207,5 +208,4 @@ class BaseSunat
 
         return substr($filename, $lastDotPos + 1);
     }
-
 }

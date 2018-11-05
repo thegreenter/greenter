@@ -21,7 +21,7 @@ class ConsultCdrService extends BaseSunat
      * @param string $ruc
      * @param string $tipo
      * @param string $serie
-     * @param int $numero
+     * @param int    $numero
      *
      * @return StatusCdrResult
      */
@@ -36,7 +36,7 @@ class ConsultCdrService extends BaseSunat
      * @param string $ruc
      * @param string $tipo
      * @param string $serie
-     * @param int $numero
+     * @param int    $numero
      *
      * @return StatusCdrResult
      */
@@ -74,7 +74,6 @@ class ConsultCdrService extends BaseSunat
             if ($this->isExceptionCode($code)) {
                 $this->loadErrorByCode($result, $code);
             }
-
         } catch (\SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
         }

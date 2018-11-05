@@ -34,7 +34,7 @@ final class SunatEndpoints
     const RETENCION_PRODUCCION = 'https://e-factura.sunat.gob.pe/ol-ti-itemision-otroscpe-gem/billService';
 
     /**
-     * WSDL Uri
+     * WSDL Uri.
      */
     const WSDL_ENDPOINT = 'https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl';
 }
