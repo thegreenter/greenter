@@ -34,6 +34,16 @@ class CdrResponse
     protected $notes;
 
     /**
+     * @return bool
+     */
+    public function isAccepted()
+    {
+        $code = intval($this->getCode());
+
+        return $code === 0 && $code >= 4000;
+    }
+
+    /**
      * @return string
      */
     public function getId()
