@@ -40,7 +40,7 @@ class CdrResponse
     {
         $code = intval($this->getCode());
 
-        return $code === 0 && $code >= 4000;
+        return $code === 0 || $code >= 4000;
     }
 
     /**

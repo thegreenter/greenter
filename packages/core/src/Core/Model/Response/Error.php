@@ -24,6 +24,17 @@ class Error
     protected $message;
 
     /**
+     * Error constructor.
+     * @param string $code
+     * @param string $message
+     */
+    public function __construct($code = '', $message = '')
+    {
+        $this->code = $code;
+        $this->message = $message;
+    }
+
+    /**
      * @return string
      */
     public function getCode()
