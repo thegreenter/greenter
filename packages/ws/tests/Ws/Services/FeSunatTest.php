@@ -133,6 +133,18 @@ class FeSunatTest extends FeSunatTestBase
         $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
     }
 
+    public function testGetStatusPending()
+    {
+        $service = $this->getExtServicePendingProcess();
+
+        $result = $service->getStatus('223123123213');
+
+        $this->assertFalse($result->isSuccess());
+        $this->assertNull($result->getCdrResponse());
+        $this->assertNotNull($result->getError());
+        $this->assertNotEmpty($result->getError()->getMessage());
+    }
+
     /**
      * @dataProvider codeProvider
      * @param $code
