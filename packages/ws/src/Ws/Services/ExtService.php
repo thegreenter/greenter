@@ -32,21 +32,20 @@ class ExtService extends BaseSunat
             ];
             $response = $client->call('getStatus', ['parameters' => $params]);
             $status = $response->status;
-            $cdrZip = $status->content;
             $code = $status->statusCode;
 
-            $result
-                ->setCode($code)
-                ->setSuccess(true);
+            $result->setCode($code);
 
             if ($this->isPending($code)) {
-                $this->loadCustomError($code, $result);
+                $result->setError($this->getCustomError($code));
 
                 return $result;
             }
 
             if ($this->isProcessed($code)) {
+                $cdrZip = $status->content;
                 $result
+                    ->setSuccess(true)
                     ->setCdrResponse($this->extractResponse($cdrZip))
                     ->setCdrZip($cdrZip);
 
@@ -65,17 +64,15 @@ class ExtService extends BaseSunat
 
     /**
      * @param string $code
-     * @param StatusResult $result
+     * @return Error
      */
-    private function loadCustomError($code, StatusResult $result)
+    private function getCustomError($code)
     {
         $error = new Error();
         $error->setCode($code)
             ->setMessage('El procesamiento del comprobante aún no ha terminado');
 
-        $result
-            ->setSuccess(false)
-            ->setError($error);
+        return $error;
     }
 
     private function isProcessed($code)
@@ -87,5 +84,4 @@ class ExtService extends BaseSunat
     {
         return '98' == $code;
     }
-
 }
