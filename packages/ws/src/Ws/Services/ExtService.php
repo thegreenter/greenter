@@ -8,6 +8,7 @@
 
 namespace Greenter\Ws\Services;
 
+use Greenter\Model\Response\Error;
 use Greenter\Model\Response\StatusResult;
 
 /**
@@ -44,6 +45,14 @@ class ExtService extends BaseSunat
                     ->setCdrZip($cdrZip);
 
                 $code = $result->getCdrResponse()->getCode();
+            } else if ('98' == $code) {
+                $error = new Error();
+                $error->setCode($code)
+                      ->setMessage('El procesamiento del comprobante aún no ha terminado');
+
+                $result
+                    ->setSuccess(false)
+                    ->setError($error);
             }
 
             if ($this->isExceptionCode($code)) {
