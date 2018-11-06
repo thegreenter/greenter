@@ -41,9 +41,6 @@ class ZipFileDecompress implements DecompressInterface
         $total = $zip->numFiles;
         for ($i = 0; $i < $total; ++$i) {
             $name = $zip->getNameIndex($i);
-            if (false === $name) {
-                continue;
-            }
 
             if (!$filter || $filter($name)) {
                 yield [
