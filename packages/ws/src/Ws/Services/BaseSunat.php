@@ -26,21 +26,6 @@ class BaseSunat
     const NUMBER_PATTERN = '/[^0-9]+/';
 
     /**
-     * @var CompressInterface
-     */
-    private $compressor;
-
-    /**
-     * @var DecompressInterface
-     */
-    private $decompressor;
-
-    /**
-     * @var CdrReaderInterface
-     */
-    private $cdrReader;
-
-    /**
      * @var WsClientInterface
      */
     private $client;
@@ -51,22 +36,26 @@ class BaseSunat
     private $codeProvider;
 
     /**
+     * @var CompressInterface
+     */
+    public $compressor;
+
+    /**
+     * @var DecompressInterface
+     */
+    public $decompressor;
+
+    /**
+     * @var CdrReaderInterface
+     */
+    public $cdrReader;
+
+    /**
      * @param ErrorCodeProviderInterface $codeProvider
      */
     public function setCodeProvider(ErrorCodeProviderInterface $codeProvider)
     {
         $this->codeProvider = $codeProvider;
-    }
-
-    /**
-     * BaseSunat constructor.
-     */
-    public function __construct()
-    {
-        //TODO: Inject
-        $this->compressor = new ZipFly();
-        $this->decompressor = new ZipFileDecompress();
-        $this->cdrReader = new DomCdrReader();
     }
 
     /**
@@ -109,7 +98,7 @@ class BaseSunat
 
     /**
      * @param string $code
-     * @param string $optional Intenta obtener el codigo de este parametro sino $codigo no es válido.
+     * @param string $optional intenta obtener el codigo de este parametro sino $codigo no es válido
      *
      * @return Error
      */
@@ -140,6 +129,10 @@ class BaseSunat
      */
     protected function compress($filename, $xml)
     {
+        if (!$this->compressor) {
+            $this->compressor = new ZipFly();
+        }
+
         return $this->compressor->compress($filename, $xml);
     }
 
@@ -150,6 +143,10 @@ class BaseSunat
      */
     protected function extractResponse($zipContent)
     {
+        if (!$this->cdrReader) {
+            $this->cdrReader = new DomCdrReader();
+        }
+
         $xml = $this->getXmlResponse($zipContent);
 
         return $this->cdrReader->getCdrResponse($xml);
@@ -191,6 +188,10 @@ class BaseSunat
 
     private function getXmlResponse($content)
     {
+        if (!$this->decompressor) {
+            $this->decompressor = new ZipFileDecompress();
+        }
+
         $filter = function ($filename) {
             return 'xml' === strtolower($this->getFileExtension($filename));
         };
