@@ -8,6 +8,7 @@
 
 namespace Greenter\Ws\Services;
 
+use Greenter\Model\Response\Error;
 use Greenter\Model\Response\StatusResult;
 
 /**
@@ -31,15 +32,20 @@ class ExtService extends BaseSunat
             ];
             $response = $client->call('getStatus', ['parameters' => $params]);
             $status = $response->status;
-            $cdrZip = $status->content;
             $code = $status->statusCode;
 
-            $result
-                ->setCode($code)
-                ->setSuccess(true);
+            $result->setCode($code);
 
-            if ('0' == $code || '99' == $code) {
+            if ($this->isPending($code)) {
+                $result->setError($this->getCustomError($code));
+
+                return $result;
+            }
+
+            if ($this->isProcessed($code)) {
+                $cdrZip = $status->content;
                 $result
+                    ->setSuccess(true)
                     ->setCdrResponse($this->extractResponse($cdrZip))
                     ->setCdrZip($cdrZip);
 
@@ -54,5 +60,28 @@ class ExtService extends BaseSunat
         }
 
         return $result;
+    }
+
+    /**
+     * @param string $code
+     * @return Error
+     */
+    private function getCustomError($code)
+    {
+        $error = new Error();
+        $error->setCode($code)
+            ->setMessage('El procesamiento del comprobante aún no ha terminado');
+
+        return $error;
+    }
+
+    private function isProcessed($code)
+    {
+        return '0' == $code || '99' == $code;
+    }
+
+    private function isPending($code)
+    {
+        return '98' == $code;
     }
 }
