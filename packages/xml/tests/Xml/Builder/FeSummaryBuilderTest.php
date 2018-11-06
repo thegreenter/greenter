@@ -25,11 +25,22 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
         $summary->getDetails()[0]->setMtoOperExportacion(10);
 
         $xml = $this->build($summary);
-        $this->assertNotEmpty($xml);
 
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
     }
+
+    public function testCreateXmlSummaryOtherMoney()
+    {
+        $summary = $this->getSummary();
+        $summary->setMoneda('USD');
+
+        $xml = $this->build($summary);
+
+        $this->assertNotEmpty($xml);
+        $this->assertSchema($xml);
+    }
+
 
     public function testSummaryFilename()
     {

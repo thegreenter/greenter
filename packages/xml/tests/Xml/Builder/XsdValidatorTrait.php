@@ -7,8 +7,10 @@
  */
 
 namespace Tests\Greenter\Xml\Builder;
-use Greenter\Ubl\SchemaValidator;
-use Greenter\Ubl\SchemaValidatorInterface;
+
+use Greenter\Ubl\Resolver\UblPathResolver;
+use Greenter\Ubl\UblValidator;
+use Greenter\Ubl\UblValidatorInterface;
 
 /**
  * Trait XsdValidatorTrait
@@ -30,11 +32,10 @@ trait XsdValidatorTrait
         }
 
         $validator = $this->getValidator($version);
-
-        $success = $validator->validate($xml);
+        $success = $validator->isValid($xml);
 
         if ($success === false) {
-            echo $validator->getMessage().PHP_EOL;
+            echo $validator->getError().PHP_EOL;
         }
 
         $this->assertTrue($success);
@@ -98,12 +99,13 @@ trait XsdValidatorTrait
 
     /**
      * @param string $version
-     * @return SchemaValidatorInterface
+     * @return UblValidatorInterface
      */
-    private function getValidator($version = '2.0')
+    private function getValidator($version)
     {
-        $validator = new SchemaValidator();
-        $validator->setVersion($version);
+        $validator = new UblValidator();
+        $validator->pathResolver = new UblPathResolver();
+        $validator->pathResolver->version = $version;
 
         return $validator;
     }
