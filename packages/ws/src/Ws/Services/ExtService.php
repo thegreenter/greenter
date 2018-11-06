@@ -23,40 +23,47 @@ class ExtService extends BaseSunat
      */
     public function getStatus($ticket)
     {
-        $client = $this->getClient();
-        $result = new StatusResult();
-
         try {
-            $params = [
-                'ticket' => $ticket,
-            ];
-            $response = $client->call('getStatus', ['parameters' => $params]);
-            $status = $response->status;
-            $code = $status->statusCode;
-
-            $result->setCode($code);
-
-            if ($this->isPending($code)) {
-                $result->setError($this->getCustomError($code));
-
-                return $result;
-            }
-
-            if ($this->isProcessed($code)) {
-                $cdrZip = $status->content;
-                $result
-                    ->setSuccess(true)
-                    ->setCdrResponse($this->extractResponse($cdrZip))
-                    ->setCdrZip($cdrZip);
-
-                $code = $result->getCdrResponse()->getCode();
-            }
-
-            if ($this->isExceptionCode($code)) {
-                $this->loadErrorByCode($result, $code);
-            }
+            return $this->getStatusInternal($ticket);
         } catch (\SoapFault $e) {
+            $result = new StatusResult();
             $result->setError($this->getErrorFromFault($e));
+
+            return $result;
+        }
+    }
+
+    private function getStatusInternal($ticket)
+    {
+        $params = [
+            'ticket' => $ticket,
+        ];
+
+        $response = $this->getClient()->call('getStatus', ['parameters' => $params]);
+        $status = $response->status;
+        $code = $status->statusCode;
+
+        $result = new StatusResult();
+        $result->setCode($code);
+
+        if ($this->isPending($code)) {
+            $result->setError($this->getCustomError($code));
+
+            return $result;
+        }
+
+        if ($this->isProcessed($code)) {
+            $cdrZip = $status->content;
+            $result
+                ->setSuccess(true)
+                ->setCdrResponse($this->extractResponse($cdrZip))
+                ->setCdrZip($cdrZip);
+
+            $code = $result->getCdrResponse()->getCode();
+        }
+
+        if ($this->isExceptionCode($code)) {
+            $this->loadErrorByCode($result, $code);
         }
 
         return $result;
@@ -64,6 +71,7 @@ class ExtService extends BaseSunat
 
     /**
      * @param string $code
+     *
      * @return Error
      */
     private function getCustomError($code)

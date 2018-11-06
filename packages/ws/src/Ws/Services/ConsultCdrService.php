@@ -47,37 +47,41 @@ class ConsultCdrService extends BaseSunat
 
     private function getStatusResult($method, $resultName, $ruc, $tipo, $serie, $numero)
     {
-        $client = $this->getClient();
         $result = new StatusCdrResult();
 
         try {
             $params = [
-                'rucComprobante' => $ruc,
-                'tipoComprobante' => $tipo,
-                'serieComprobante' => $serie,
+                'rucComprobante'    => $ruc,
+                'tipoComprobante'   => $tipo,
+                'serieComprobante'  => $serie,
                 'numeroComprobante' => $numero,
             ];
-            $response = $client->call($method, ['parameters' => $params]);
+            $response = $this->getClient()->call($method, ['parameters' => $params]);
             $statusCdr = $response->{$resultName};
+            $this->loadFromResponse($result, $statusCdr);
 
-            $code = $statusCdr->statusCode;
-            $result->setCode($code)
-                ->setMessage($statusCdr->statusMessage)
-                ->setSuccess(true);
-
-            if (isset($statusCdr->content)) {
-                $result->setCdrZip($statusCdr->content)
-                       ->setCdrResponse($this->extractResponse($statusCdr->content));
-                $code = $result->getCdrResponse()->getCode();
-            }
-
-            if ($this->isExceptionCode($code)) {
-                $this->loadErrorByCode($result, $code);
-            }
         } catch (\SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
         }
 
         return $result;
+    }
+
+    private function loadFromResponse(StatusCdrResult $result, $statusCdr)
+    {
+        $code = $statusCdr->statusCode;
+        $result->setCode($code)
+            ->setMessage($statusCdr->statusMessage)
+            ->setSuccess(true);
+
+        if (isset($statusCdr->content)) {
+            $result->setCdrZip($statusCdr->content)
+                ->setCdrResponse($this->extractResponse($statusCdr->content));
+            $code = $result->getCdrResponse()->getCode();
+        }
+
+        if ($this->isExceptionCode($code)) {
+            $this->loadErrorByCode($result, $code);
+        }
     }
 }
