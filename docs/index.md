@@ -6,7 +6,7 @@
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/giansalex/greenter.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/giansalex/greenter/?branch=master)
 [![Build Status](https://img.shields.io/scrutinizer/build/g/giansalex/greenter.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/giansalex/greenter/build-status/master)
 [![Packagist](https://img.shields.io/packagist/v/greenter/greenter.svg?style=flat-square)](https://packagist.org/packages/greenter/greenter)     
-PHP Implementación de la Facturación Electrónica en Perú, rigiéndose en el estándar UBL versión 2.0 y 2.1   
+PHP Implementación de la Facturación Electrónica en Perú, respetando el estándar UBL versión 2.0 y 2.1   
 
 <p align="center">
   <img alt="Sunat Facturacion Electronica" src="https://github.com/giansalex/greenter/raw/master/docs/img/logo.png">
@@ -15,6 +15,10 @@ PHP Implementación de la Facturación Electrónica en Perú, rigiéndose en el 
 !!! info "API REST empleando Greenter"
 
     Para usuarios finales, puede hacer uso de [Lycet](https://github.com/giansalex/lycet). 
+
+# Requerimientos
+- PHP 5.6 o superior
+- Extensiones PHP Activadas: `soap`, `dom`, `zip`, `zlib`, `openssl`.
 
 # Install
 ```bash
