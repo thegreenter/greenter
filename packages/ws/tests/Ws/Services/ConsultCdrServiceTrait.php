@@ -12,6 +12,7 @@ use Greenter\Ws\Services\ConsultCdrService;
 use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Ws\Services\WsClientInterface;
+use Greenter\Ws\Services\WsdlProvider;
 
 /**
  * Trait ConsultCdrServiceTrait
@@ -25,7 +26,7 @@ trait ConsultCdrServiceTrait
      */
     private function getConsultService()
     {
-        $client = new SoapClient(__DIR__.'/../../../src/Resources/wsdl/billConsultService.wsdl');
+        $client = new SoapClient(WsdlProvider::getConsultPath());
         $client->setService(SunatEndpoints::FE_CONSULTA_CDR);
         $client->setCredentials('20000000001MODATOS', 'modatos');
 

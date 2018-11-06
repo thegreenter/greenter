@@ -26,7 +26,7 @@ class SoapClient implements WsClientInterface
     public function __construct($wsdl = '', $parameters = [])
     {
         if (empty($wsdl)) {
-            $wsdl = __DIR__.'/../../Resources/wsdl/billService.wsdl';
+            $wsdl = WsdlProvider::getBillPath();
         }
         $this->client = new \SoapClient($wsdl, $parameters);
     }
