@@ -76,9 +76,7 @@ class ExtService extends BaseSunat
      */
     private function getCustomError($code)
     {
-        $error = new Error();
-        $error->setCode($code)
-            ->setMessage('El procesamiento del comprobante aún no ha terminado');
+        $error = new Error($code, 'El procesamiento del comprobante aún no ha terminado');
 
         return $error;
     }

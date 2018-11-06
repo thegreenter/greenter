@@ -104,8 +104,7 @@ class BaseSunat
      */
     protected function getErrorByCode($code, $optional = '')
     {
-        $error = new Error();
-        $error->setCode($code);
+        $error = new Error($code);
         $code = preg_replace(self::NUMBER_PATTERN, '', $code);
         $message = '';
 
