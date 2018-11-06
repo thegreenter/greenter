@@ -20,7 +20,7 @@ class BillSender extends BaseSunat implements SenderInterface
      * @param string $filename
      * @param string $content
      *
-     * @return mixed
+     * @return BillResult
      */
     public function send($filename, $content)
     {
