@@ -50,7 +50,7 @@ Puede ver una demostración en [giansalex/greenter-sample](https://github.com/gi
 
 
 ### Detalles
-- XML según estándar UBL v2.0, v2.1
+- XML estándar UBL v2.0, v2.1
 - Consulta de tickets
 - Consulta de CDR
 
@@ -67,3 +67,4 @@ Siéntase en la libertad de hacer un fork de los diferentes repositorios, correg
 - [UBL Validator](https://github.com/giansalex/ubl-validator-cli) 
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/giansalex)
+También puede contactarse vía correo.
