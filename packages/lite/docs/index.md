@@ -5,7 +5,9 @@
 [![Codacy Badge](https://img.shields.io/codacy/grade/eccd5a16d035464cbe40b1cf9d0f9f43.svg?style=flat-square)](https://www.codacy.com/app/giansalex/greenter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=giansalex/greenter&amp;utm_campaign=Badge_Grade)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/giansalex/greenter.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/giansalex/greenter/?branch=master)
 [![Build Status](https://img.shields.io/scrutinizer/build/g/giansalex/greenter.svg?branch=master&style=flat-square)](https://scrutinizer-ci.com/g/giansalex/greenter/build-status/master)
-[![Packagist](https://img.shields.io/packagist/v/greenter/greenter.svg?style=flat-square)](https://packagist.org/packages/greenter/greenter)     
+[![Packagist](https://img.shields.io/packagist/v/greenter/greenter.svg?style=flat-square)](https://packagist.org/packages/greenter/greenter)
+
+     
 Esta libreria le permite realizar la implementación de la **Facturación Electrónica** en Perú, desde los sistemas desarrollados por el 
 contribuyente, la cual esta normado por SUNAT.   
 Greenter realiza la mayoria de tareas del proceso, genera el XML según el estándar UBL, firma con el certificado digital que sunat exige,
@@ -20,11 +22,11 @@ comprime el archivo XML en formato zip, conexión al webservice de SUNAT y proce
 
     Para usuarios finales, puede hacer uso de [Lycet](https://github.com/giansalex/lycet). 
 
-# Requerimientos
+## Requerimientos
 - PHP 5.6 o superior
 - Extensiones PHP Activadas: `soap`, `dom`, `zip`, `zlib`, `openssl`.
 
-# Instalación
+## Instalación
 Instala [Composer](https://getcomposer.org/download/) y ejecuta el siguiente comando para obtener la última versión:
 
 ```bash
@@ -33,7 +35,7 @@ composer require greenter/greenter
 
 Puede ver una demostración en [giansalex/greenter-sample](https://github.com/giansalex/greenter-sample).
 
-# Caracteristicas
+## Caracteristicas
 
 ### Comprobantes Soportados
 
@@ -54,10 +56,10 @@ Puede ver una demostración en [giansalex/greenter-sample](https://github.com/gi
 - Consulta de tickets
 - Consulta de CDR
 
-# Contribución
+## Contribución
 Siéntase en la libertad de hacer un fork de los diferentes repositorios, corregir o aportar mejoras, todo pull request será bienvenido.
 
-# Notas de Interes
+## Notas de Interes
 
 ### Representación Impresa
 - Generación de [HTML Report](https://github.com/giansalex/greenter-report)
