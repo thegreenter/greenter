@@ -10,16 +10,15 @@ repo_url: 'https://github.com/giansalex/greenter'
 pages:
     - Greenter: index.md
     - Primeros Pasos: starter.md
-    - 'Documentación|https://giansalex.github.io/greenter-apidoc/': apidoc.md
     - Migrar a UBL 2.1: migrate2.1.md
+    - Paso a Producción: production.md
     - F. Exonerada: examples/exonerada.md
     - F. Gratuita: examples/gratuita.md
     - F. Descuentos: examples/descuento-linea.md
     - F. Percepción: examples/percepcion.md
     - F. Anticipos: examples/anticipo.md
     - F. Detracción: examples/detraccion.md
-    - News:
-      - Start: news/index.md
+    - 'API Referencia|https://giansalex.github.io/greenter-apidoc/': apidoc.md
 
 # Configuration
 theme:
