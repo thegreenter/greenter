@@ -18,9 +18,9 @@ comprime el archivo XML en formato zip, conexión al webservice de SUNAT y proce
   <img alt="Sunat Facturacion Electronica" src="https://github.com/giansalex/greenter/raw/master/docs/img/logo.png">
 </p>
 
-!!! info "API REST empleando Greenter"
+!!! info "API REST"
 
-    Para usuarios finales, puede hacer uso de [Lycet](https://github.com/giansalex/lycet). 
+    Puede hacer uso de [Lycet](https://github.com/giansalex/lycet), un API REST basado en Greenter.
 
 ## Requerimientos
 - PHP 5.6 o superior
@@ -52,7 +52,7 @@ Puede ver una demostración en [giansalex/greenter-sample](https://github.com/gi
 
 
 ### Detalles
-- XML estándar UBL v2.0, v2.1
+- XML estándar ==UBL v2.0, v2.1==
 - Consulta de tickets
 - Consulta de CDR
 
