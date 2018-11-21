@@ -5,7 +5,7 @@ Para este ejemplo se usará la version **UBL 2.1**.
 > Las línas resaltadas en el código son los nuevos campos requeridos en el UBL 2.1
 
 ## Requerimientos
-- Conocimientos en el proceso de Facturación Electrónica, puede revisar la [página web](http://cpe.sunat.gob.pe/) creada por Sunat
+- ==Conocimientos en el proceso de Facturación Electrónica, puede revisar la [página web](http://cpe.sunat.gob.pe/) creada por Sunat==
 - Certificado en formato PEM
 - Credenciales Clave SOL
 
