@@ -87,6 +87,7 @@
                     <tr>
                         <td width="60%" align="left">
                             <strong>Fecha Emisión: </strong>  {{ doc.fechaEmision|date('d/m/Y') }}
+                            {% if doc.fechaEmision|date('H:i:s') != '00:00:00' %} {{ doc.fechaEmision|date('H:i:s') }} {% endif %}
                             {% if doc.fecVencimiento is defined and doc.fecVencimiento %}
                             <br><br><strong>Fecha Vencimiento: </strong>  {{ doc.fecVencimiento|date('d/m/Y') }}
                             {% endif %}
