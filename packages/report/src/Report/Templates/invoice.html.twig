@@ -264,12 +264,12 @@
                             </tr>
                             {% endif %}
                             <tr>
-                                <td align="right"><strong>IGV:</strong></td>
+                                <td align="right"><strong>I.G.V. {% if doc.numIGV is defined and doc.numIGV %} {{ doc.numIGV }}{% endif %}%:</strong></td>
                                 <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoIGV|n_format }}</span></td>
                             </tr>
                             {% if doc.mtoISC %}
                             <tr>
-                                <td align="right"><strong>ISC:</strong></td>
+                                <td align="right"><strong>I.S.C.:</strong></td>
                                 <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoISC|n_format }}</span></td>
                             </tr>
                             {% endif %}
