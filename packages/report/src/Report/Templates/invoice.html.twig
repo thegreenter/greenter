@@ -264,7 +264,7 @@
                             </tr>
                             {% endif %}
                             <tr>
-                                <td align="right"><strong>I.G.V. {% if doc.numIGV is defined and doc.numIGV %} {{ doc.numIGV }}{% endif %}%:</strong></td>
+                                <td align="right"><strong>I.G.V. {% if params.user.numIGV is defined %} {{ params.user.numIGV }}{% endif %}%:</strong></td>
                                 <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoIGV|n_format }}</span></td>
                             </tr>
                             {% if doc.mtoISC %}
