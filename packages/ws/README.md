@@ -27,4 +27,4 @@ composer require greenter/ws
 | Factura                | https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService?wsdl                 |
 | Guia                   | https://e-guiaremision.sunat.gob.pe/ol-ti-itemision-guia-gem/billService?wsdl   |
 | Retención y Percepción | https://e-factura.sunat.gob.pe/ol-ti-itemision-otroscpe-gem/billService?wsdl    |
-| Consulta CDR           | https://e-factura.sunat.gob.pe/ol-it-wsconsvalidcpe/billValidService?wsdl       |
+| Consulta CDR           | https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService?wsdl       |
