@@ -9,11 +9,10 @@
 namespace Tests\Greenter\Ws\Services;
 
 use Greenter\Ws\Services\BillSender;
-use Greenter\Ws\Services\ConsultCdrService;
 use Greenter\Ws\Services\ExtService;
-use Greenter\Ws\Services\ServiceBuilder;
+use Greenter\Ws\Builder\ServiceBuilder;
 use Greenter\Ws\Services\SunatEndpoints;
-use Greenter\Ws\Services\WsdlProvider;
+use Greenter\Ws\Services\WsClientInterface;
 
 /**
  * Class ServiceBuilderTest
@@ -21,17 +20,18 @@ use Greenter\Ws\Services\WsdlProvider;
 class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    private $client;
+    /**
      * @var ServiceBuilder
      */
     private $builder;
 
     protected function setUp()
     {
+        $this->client = $this->getMockBuilder(WsClientInterface::class)->getMock();
         $this->builder = new ServiceBuilder();
-        $this->builder
-            ->setUrl(SunatEndpoints::FE_BETA)
-            ->setUser('20123456789MODDATOS')
-            ->setPassword('moddatos');
     }
 
     /**
@@ -39,6 +39,7 @@ class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateBillService()
     {
+        $this->builder->setClient($this->getSenderClientMock());
         /**@var $service BillSender */
         $service = $this->builder->build(BillSender::class);
 
@@ -50,7 +51,7 @@ class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
         $result = $service->send($nameXml, $xml);
 
         $this->assertTrue($result->isSuccess());
-        $this->assertTrue($result->getCdrResponse()->isAccepted());
+        $this->assertFalse($result->getCdrResponse()->isAccepted());
     }
 
     /**
@@ -66,6 +67,7 @@ class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateExtService()
     {
+        $this->builder->setClient($this->getExtClientMock());
         /**@var $service ExtService */
         $service = $this->builder->build(ExtService::class);
 
@@ -78,25 +80,39 @@ class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @throws \Exception
+     * @return WsClientInterface
      */
-    public function testCreateConsultService()
+    private function getSenderClientMock()
     {
-        $builder = new ServiceBuilder();
-        $service = $builder
-            ->setUrl(SunatEndpoints::FE_CONSULTA_CDR)
-            ->setWsdl(WsdlProvider::getConsultPath())
-            ->setWsdlParams([])
-            ->setUser('20123456789MODDATOS')
-            ->setPassword('moddatos')
-            ->build(ConsultCdrService::class);
+        $client = $this->client;
+        $client->method('call')
+            ->will($this->returnCallback(function () {
+                $zipContent = file_get_contents(__DIR__.'/../../Resources/cdr-rechazo.zip');
+                $obj = new \stdClass();
+                $obj->applicationResponse = $zipContent;
 
-        /**@var $service ConsultCdrService */
-        $this->assertInstanceOf(ConsultCdrService::class, $service);
+                return $obj;
+            }));
 
-        $result = $service->getStatus('20123456789', '01', 'F001', 1);
+        /**@var $client WsClientInterface */
+        return $client;
+    }
 
-        $this->assertFalse($result->isSuccess());
-        $this->assertNull($result->getCdrResponse());
+    /**
+     * @return WsClientInterface
+     */
+    private function getExtClientMock()
+    {
+        $client = $this->client;
+        $client->method('call')->willReturnCallback(function () {
+            $obj = new \stdClass();
+            $obj->status = new \stdClass();
+            $obj->status->statusCode = '98';
+
+            return $obj;
+        });
+
+        /**@var $client WsClientInterface */
+        return $client;
     }
 }
