@@ -23,7 +23,7 @@ class SoapClient implements WsClientInterface
      * @param string $wsdl       Url of WSDL
      * @param array  $parameters Soap's parameters
      */
-    public function __construct($wsdl = '', $parameters = [])
+    public function __construct($wsdl = '', array $parameters = null)
     {
         if (empty($wsdl)) {
             $wsdl = WsdlProvider::getBillPath();
@@ -48,6 +48,14 @@ class SoapClient implements WsClientInterface
     public function setService($url)
     {
         $this->client->__setLocation($url);
+    }
+
+    /**
+     * @return \SoapClient
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 
     /**
