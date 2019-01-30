@@ -68,11 +68,23 @@ class XmlReader
     }
 
     /**
-     * Init Xpath.
+     * Init XPath.
+     *
+     * @param \DOMDocument|string $value
+     */
+    public function loadXpath($value)
+    {
+        $doc = $this->parseToDocument($value);
+
+        $this->loadXpathFromDoc($doc);
+    }
+
+    /**
+     * Init XPath from document.
      *
      * @param \DOMDocument $doc
      */
-    public function loadXpath(\DOMDocument $doc)
+    public function loadXpathFromDoc(\DOMDocument $doc)
     {
         $docName = $doc->documentElement->nodeName;
         $this->rootNs = '/'.self::ROOT_PREFIX.':'.$docName;
