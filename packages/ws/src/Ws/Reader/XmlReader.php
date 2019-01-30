@@ -22,6 +22,20 @@ class XmlReader
      * @var \DOMXPath
      */
     private $xpath;
+    /**
+     * @var string
+     */
+    private $root;
+
+    /**
+     * Get Root Prefix.
+     *
+     * @return string
+     */
+    public function getRoot()
+    {
+        return $this->root;
+    }
 
     /**
      * @return \DOMXPath
@@ -30,11 +44,6 @@ class XmlReader
     {
         return $this->xpath;
     }
-
-    /**
-     * @var string
-     */
-    private $rootNs;
 
     /**
      * Load document from XML.
@@ -87,20 +96,20 @@ class XmlReader
     public function loadXpathFromDoc(\DOMDocument $doc)
     {
         $docName = $doc->documentElement->nodeName;
-        $this->rootNs = '/'.self::ROOT_PREFIX.':'.$docName;
+        $this->root = '/'.self::ROOT_PREFIX.':'.$docName;
         $this->xpath = new \DOMXPath($doc);
         $this->xpath->registerNamespace(self::ROOT_PREFIX, $doc->documentElement->namespaceURI);
     }
 
     /***
-     * Obtiene el primer valor del nodo.
+     * Get value from first node result.
      *
-     * @param string $query Relativo al root namespace
+     * @param string $query relative to root namespace
      * @return null|string
      */
     public function getValue($query)
     {
-        $nodes = $this->xpath->query($this->rootNs.'/'.$query);
+        $nodes = $this->xpath->query($this->root.'/'.$query);
         if ($nodes->length > 0) {
             return $nodes->item(0)->nodeValue;
         }
