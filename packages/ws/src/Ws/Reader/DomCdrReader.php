@@ -16,90 +16,61 @@ use Greenter\Model\Response\CdrResponse;
 class DomCdrReader implements CdrReaderInterface
 {
     /**
+     * @var XmlReader
+     */
+    private $reader;
+
+    /**
+     * DomCdrReader constructor.
+     * @param XmlReader $reader
+     */
+    public function __construct(XmlReader $reader)
+    {
+        $this->reader = $reader;
+    }
+
+    /**
      * Get Cdr using DomDocument.
      *
      * @param string $xml
      *
      * @return CdrResponse
-     *
-     * @throws \Exception
      */
     public function getCdrResponse($xml)
     {
-        $xpt = $this->getXpath($xml);
+        $this->reader->loadXpath($xml);
 
-        $cdr = $this->getResponseByXpath($xpt);
-        if (!$cdr) {
-            throw new \Exception('Not found cdr response in xml');
-        }
-        $cdr->setNotes($this->getNotes($xpt));
+        $cdr = $this->createCdr();
 
         return $cdr;
     }
 
     /**
-     * Get Xpath from xml content.
-     *
-     * @param string $xmlContent
-     *
-     * @return \DOMXPath
-     */
-    private function getXpath($xmlContent)
-    {
-        $doc = new \DOMDocument();
-        $doc->loadXML($xmlContent);
-        $xpt = new \DOMXPath($doc);
-        $xpt->registerNamespace('x', $doc->documentElement->namespaceURI);
-
-        return $xpt;
-    }
-
-    /**
-     * @param \DOMXPath $xpath
-     *
      * @return CdrResponse
      */
-    private function getResponseByXpath(\DOMXPath $xpath)
+    private function createCdr()
     {
-        $resp = $xpath->query('/x:ApplicationResponse/cac:DocumentResponse/cac:Response');
-
-        if ($resp->length !== 1) {
-            return null;
-        }
-        $obj = $resp[0];
+        $nodePrefix = 'cac:DocumentResponse/cac:Response/';
 
         $cdr = new CdrResponse();
-        $cdr->setId($this->getValueByName($obj, 'ReferenceID'))
-            ->setCode($this->getValueByName($obj, 'ResponseCode'))
-            ->setDescription($this->getValueByName($obj, 'Description'));
+        $cdr->setId($this->reader->getValue($nodePrefix.'cbc:ReferenceID'))
+            ->setCode($this->reader->getValue($nodePrefix.'cbc:ResponseCode'))
+            ->setDescription($this->reader->getValue($nodePrefix.'cbc:Description'))
+            ->setNotes($this->getNotes());
 
         return $cdr;
     }
 
     /**
-     * @param \DOMElement $node
-     * @param string      $name
-     *
-     * @return string
-     */
-    private function getValueByName(\DOMElement $node, $name)
-    {
-        $values = $node->getElementsByTagName($name);
-        if ($values->length !== 1) {
-            return '';
-        }
-
-        return $values[0]->nodeValue;
-    }
-
-    /**
-     * @param \DOMXPath $xpath
+     * Get Notes if exist.
      *
      * @return string[]
      */
-    private function getNotes(\DOMXPath $xpath)
+    private function getNotes()
     {
-        $nodes = $xpath->query('/x:ApplicationResponse/cbc:Note');
+        $xpath = $this->reader->getXpath();
+
+        $nodes = $xpath->query($this->reader->getRoot().'/cbc:Note');
         $notes = [];
         if ($nodes->length === 0) {
             return $notes;

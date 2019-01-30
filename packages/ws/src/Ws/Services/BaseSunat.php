@@ -13,6 +13,7 @@ use Greenter\Model\Response\Error;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Reader\CdrReaderInterface;
 use Greenter\Ws\Reader\DomCdrReader;
+use Greenter\Ws\Reader\XmlReader;
 use Greenter\Zip\CompressInterface;
 use Greenter\Zip\DecompressInterface;
 use Greenter\Zip\ZipFileDecompress;
@@ -143,7 +144,7 @@ class BaseSunat
     protected function extractResponse($zipContent)
     {
         if (!$this->cdrReader) {
-            $this->cdrReader = new DomCdrReader();
+            $this->cdrReader = new DomCdrReader(new XmlReader());
         }
 
         $xml = $this->getXmlResponse($zipContent);
