@@ -15,6 +15,7 @@ use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\Voided;
+use Greenter\Ws\Reader\XmlReader;
 use Greenter\Ws\Resolver\TypeResolverInterface;
 use Greenter\Ws\Resolver\XmlTypeResolver;
 
@@ -27,7 +28,7 @@ class TypeResolverTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->resolver = new XmlTypeResolver();
+        $this->resolver = new XmlTypeResolver(new XmlReader());
     }
 
     /**

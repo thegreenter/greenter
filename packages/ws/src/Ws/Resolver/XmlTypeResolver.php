@@ -9,19 +9,33 @@ use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\Voided;
+use Greenter\Ws\Reader\XmlReader;
 
 class XmlTypeResolver implements TypeResolverInterface
 {
-    const ROOT_PREFIX = 'x';
-    private $rootNs;
+    /**
+     * @var XmlReader
+     */
+    private $reader;
+
+    /**
+     * XmlTypeResolver constructor.
+     *
+     * @param XmlReader $reader
+     */
+    public function __construct(XmlReader $reader)
+    {
+        $this->reader = $reader;
+    }
 
     /**
      * @param \DOMDocument|string $value
+     *
      * @return string
      */
-    function getType($value)
+    public function getType($value)
     {
-        $doc = $this->getDoc($value);
+        $doc = $this->reader->parseToDocument($value);
         $name = $doc->documentElement->nodeName;
 
         switch ($name) {
@@ -37,42 +51,12 @@ class XmlTypeResolver implements TypeResolverInterface
             case 'SummaryDocuments':
                 return Summary::class;
             case 'VoidedDocuments':
-                $xpath = $this->getXPath($doc);
-                $id = $this->getValue($xpath,'cbc:ID');
-                return substr($id,0, 2) === 'RA' ? Voided::class : Reversion::class;
+                $this->reader->loadXpathFromDoc($doc);
+                $id = $this->reader->getValue('cbc:ID');
+
+                return 'RA' === substr($id, 0, 2) ? Voided::class : Reversion::class;
         }
 
         return '';
-    }
-
-    public function getDoc($value)
-    {
-        if ($value instanceof \DOMDocument) {
-            return $value;
-        }
-
-        $doc = new \DOMDocument();
-        $doc->loadXML($value);
-
-        return $doc;
-    }
-
-    public function getXPath(\DOMDocument $document)
-    {
-        $xpath = new \DOMXPath($document);
-        $docName = $document->documentElement->nodeName;
-        $this->rootNs = '/' . self::ROOT_PREFIX . ':' . $docName;
-        $xpath->registerNamespace(self::ROOT_PREFIX, $document->documentElement->namespaceURI);
-
-        return $xpath;
-    }
-
-    private function getValue(\DOMXPath $xpath, $query)
-    {
-        $nodes = $xpath->query($this->rootNs . '/' . $query);
-        if ($nodes->length > 0) {
-            return $nodes->item(0)->nodeValue;
-        }
-        return null;
     }
 }
