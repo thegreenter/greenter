@@ -10,6 +10,7 @@ namespace Tests\Greenter\Ws\Reader;
 
 use Greenter\Ws\Reader\FilenameExtractorInterface;
 use Greenter\Ws\Reader\XmlFilenameExtractor;
+use Greenter\Ws\Reader\XmlReader;
 
 class XmlFilenameExtractorTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +23,7 @@ class XmlFilenameExtractorTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
-        $this->extractor = new XmlFilenameExtractor();
+        $this->extractor = new XmlFilenameExtractor(new XmlReader());
     }
 
     /**
