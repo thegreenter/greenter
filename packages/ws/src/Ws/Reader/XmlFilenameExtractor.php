@@ -42,7 +42,7 @@ class XmlFilenameExtractor implements FilenameExtractorInterface
         $doc = $this->reader->parseToDocument($content);
         $this->reader->loadXpathFromDoc($doc);
 
-        $nameType = $doc->documentElement->nodeName;
+        $nameType = $doc->documentElement->localName;
         $ruc = $this->getRuc($nameType);
         $document = $this->reader->getValue('cbc:ID');
 

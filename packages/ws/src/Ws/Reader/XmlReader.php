@@ -95,7 +95,7 @@ class XmlReader
      */
     public function loadXpathFromDoc(\DOMDocument $doc)
     {
-        $docName = $doc->documentElement->nodeName;
+        $docName = $doc->documentElement->localName;
         $this->root = '/'.self::ROOT_PREFIX.':'.$docName;
         $this->xpath = new \DOMXPath($doc);
         $this->xpath->registerNamespace(self::ROOT_PREFIX, $doc->documentElement->namespaceURI);

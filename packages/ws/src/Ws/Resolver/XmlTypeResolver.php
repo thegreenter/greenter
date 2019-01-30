@@ -36,7 +36,7 @@ class XmlTypeResolver implements TypeResolverInterface
     public function getType($value)
     {
         $doc = $this->reader->parseToDocument($value);
-        $name = $doc->documentElement->nodeName;
+        $name = $doc->documentElement->localName;
 
         switch ($name) {
             case 'Invoice':
