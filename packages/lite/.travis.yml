@@ -13,6 +13,7 @@ install:
   - |
     if [ $(phpenv version-name) = "7.1" ]; then
     composer require php-coveralls/php-coveralls;
+    composer require bmitch/churn-php;
     fi
 
 script:
