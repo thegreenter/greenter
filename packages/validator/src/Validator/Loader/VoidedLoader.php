@@ -46,7 +46,7 @@ class VoidedLoader implements LoaderMetadataInterface
         /**@var $object Voided */
         if ($object->getFecComunicacion() > new \DateTime()) {
             $context->buildViolation('2301')
-                ->atPath('fecResumen')
+                ->atPath('fecComunicacion')
                 ->addViolation();
             return;
         }
