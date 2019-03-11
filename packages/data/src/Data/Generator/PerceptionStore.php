@@ -65,7 +65,17 @@ class PerceptionStore implements DocumentGeneratorInterface
             ->setCobros([$pay])
             ->setTipoCambio($cambio);
 
-        $perception->setDetails([$detail]);
+        $detail2 = new PerceptionDetail();
+        $detail2->setTipoDoc('01')
+            ->setNumDoc('F001-2')
+            ->setFechaEmision(new \DateTime())
+            ->setFechaPercepcion(new \DateTime())
+            ->setMoneda('PEN')
+            ->setImpTotal(20)
+            ->setImpCobrar(21)
+            ->setImpPercibido(1);
+
+        $perception->setDetails([$detail, $detail2]);
 
         return $perception;
     }

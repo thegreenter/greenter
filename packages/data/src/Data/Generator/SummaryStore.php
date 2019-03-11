@@ -39,6 +39,7 @@ class SummaryStore implements DocumentGeneratorInterface
             ->setMtoOperGravadas(20.555)
             ->setMtoOperInafectas(24.4)
             ->setMtoOperExoneradas(50)
+            ->setMtoOperExportacion(10)
             ->setMtoOtrosCargos(21)
             ->setMtoIGV(3.6);
 
