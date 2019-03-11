@@ -6,8 +6,10 @@
  * Time: 21:44
  */
 
-namespace Greenter\Data;
+namespace Greenter\Data\Generator;
 
+use Greenter\Data\DocumentGeneratorInterface;
+use Greenter\Data\SharedStore;
 use Greenter\Model\Sale\Charge;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Invoice;

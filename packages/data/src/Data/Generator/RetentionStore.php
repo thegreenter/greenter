@@ -6,14 +6,16 @@
  * Time: 21:59
  */
 
-namespace Greenter\Data;
+namespace Greenter\Data\Generator;
 
-use Greenter\Model\Perception\Perception;
-use Greenter\Model\Perception\PerceptionDetail;
+use Greenter\Data\DocumentGeneratorInterface;
+use Greenter\Data\SharedStore;
 use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
+use Greenter\Model\Retention\Retention;
+use Greenter\Model\Retention\RetentionDetail;
 
-class PerceptionStore implements DocumentGeneratorInterface
+class RetentionStore implements DocumentGeneratorInterface
 {
     /**
      * @var SharedStore
@@ -27,18 +29,18 @@ class PerceptionStore implements DocumentGeneratorInterface
 
     public function create()
     {
-        $perception = new Perception();
-        $perception
-            ->setSerie('P001')
+        $retention = new Retention();
+        $retention
+            ->setSerie('R001')
             ->setCorrelativo('123')
             ->setFechaEmision(new \DateTime())
-            ->setObservacion('NOTA EXTRA')
             ->setCompany($this->shared->getCompany())
             ->setProveedor($this->shared->getClient())
-            ->setImpPercibido(10)
-            ->setImpCobrado(210)
+            ->setObservacion('NOTA EXTRA')
+            ->setImpRetenido(10)
+            ->setImpPagado(200)
             ->setRegimen('01')
-            ->setTasa(2);
+            ->setTasa(3);
 
         $pay = new Payment();
         $pay->setMoneda('PEN')
@@ -51,20 +53,20 @@ class PerceptionStore implements DocumentGeneratorInterface
             ->setMonedaObj('PEN')
             ->setMonedaRef('PEN');
 
-        $detail = new PerceptionDetail();
+        $detail = new RetentionDetail();
         $detail->setTipoDoc('01')
             ->setNumDoc('F001-1')
             ->setFechaEmision(new \DateTime())
-            ->setFechaPercepcion(new \DateTime())
+            ->setFechaRetencion(new \DateTime())
             ->setMoneda('PEN')
-            ->setImpTotal(200)
-            ->setImpCobrar(210)
-            ->setImpPercibido(10)
-            ->setCobros([$pay])
+            ->setImpTotal(210)
+            ->setImpPagar(200)
+            ->setImpRetenido(10)
+            ->setPagos([$pay])
             ->setTipoCambio($cambio);
 
-        $perception->setDetails([$detail]);
+        $retention->setDetails([$detail]);
 
-        return $perception;
+        return $retention;
     }
 }

@@ -6,8 +6,10 @@
  * Time: 22:14
  */
 
-namespace Greenter\Data;
+namespace Greenter\Data\Generator;
 
+use Greenter\Data\DocumentGeneratorInterface;
+use Greenter\Data\SharedStore;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
 

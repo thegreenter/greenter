@@ -6,8 +6,10 @@
  * Time: 22:00
  */
 
-namespace Greenter\Data;
+namespace Greenter\Data\Generator;
 
+use Greenter\Data\DocumentGeneratorInterface;
+use Greenter\Data\SharedStore;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\Despatch\DespatchDetail;
