@@ -13,7 +13,7 @@ use Greenter\Model\Retention\Payment;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Retention\RetentionDetail;
 
-class RetentionStore
+class RetentionStore implements DocumentGeneratorInterface
 {
     /**
      * @var SharedStore
@@ -25,7 +25,7 @@ class RetentionStore
         $this->shared = $shared;
     }
 
-    public function getRetention()
+    public function create()
     {
         $retention = new Retention();
         $retention

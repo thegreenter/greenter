@@ -16,7 +16,7 @@ use Greenter\Model\Despatch\Shipment;
 use Greenter\Model\Despatch\Transportist;
 use Greenter\Model\Sale\Document;
 
-class DespatchStore
+class DespatchStore implements DocumentGeneratorInterface
 {
     /**
      * @var SharedStore
@@ -28,7 +28,7 @@ class DespatchStore
         $this->shared = $shared;
     }
 
-    public function getDespatch()
+    public function create()
     {
         $baja = new Document();
         $baja->setTipoDoc('09')

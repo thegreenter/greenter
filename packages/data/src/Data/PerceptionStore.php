@@ -13,7 +13,7 @@ use Greenter\Model\Perception\PerceptionDetail;
 use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
 
-class PerceptionStore
+class PerceptionStore implements DocumentGeneratorInterface
 {
     /**
      * @var SharedStore
@@ -25,7 +25,7 @@ class PerceptionStore
         $this->shared = $shared;
     }
 
-    public function getPerception()
+    public function create()
     {
         $perception = new Perception();
         $perception

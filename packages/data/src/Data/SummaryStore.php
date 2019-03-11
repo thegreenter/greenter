@@ -13,7 +13,7 @@ use Greenter\Model\Summary\Summary;
 use Greenter\Model\Summary\SummaryDetail;
 use Greenter\Model\Summary\SummaryPerception;
 
-class SummaryStore
+class SummaryStore implements DocumentGeneratorInterface
 {
     /**
      * @var SharedStore
@@ -25,7 +25,7 @@ class SummaryStore
         $this->shared = $shared;
     }
 
-    public function getSummary()
+    public function create()
     {
         $detiail1 = new SummaryDetail();
         $detiail1->setTipoDoc('03')

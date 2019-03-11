@@ -14,7 +14,7 @@ use Greenter\Model\Sale\Note;
 use Greenter\Model\Sale\SaleDetail;
 
 
-class NoteStore
+class NoteStore implements DocumentGeneratorInterface
 {
     /**
      * @var SharedStore
@@ -26,7 +26,7 @@ class NoteStore
         $this->shared = $shared;
     }
 
-    public function getNote($tipo = '07')
+    public function create()
     {
         $note = new Note();
         $note
@@ -34,7 +34,7 @@ class NoteStore
             ->setNumDocfectado('F001-111')
             ->setCodMotivo('07')
             ->setDesMotivo('DEVOLUCION POR ITEM')
-            ->setTipoDoc($tipo)
+            ->setTipoDoc('07')
             ->setSerie('FF01')
             ->setFechaEmision(new \DateTime())
             ->setCorrelativo('123')
