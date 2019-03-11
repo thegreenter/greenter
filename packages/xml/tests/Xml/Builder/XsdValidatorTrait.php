@@ -62,41 +62,6 @@ trait XsdValidatorTrait
         }
     }
 
-    public function getFillSignNode(\DOMDocument $doc)
-    {
-        $items = $doc->getElementsByTagNameNS($this->ExtNs,'ExtensionContent');
-
-        if ($items->length === 0) {
-            return $doc->saveXML();
-        }
-
-        $node = $doc->createElementNS($this->DsNs,'Signature');
-        $signInfo = $doc->createElementNS($this->DsNs,'SignedInfo');
-        $can = $doc->createElementNS($this->DsNs,'CanonicalizationMethod');
-        $can->setAttribute('Algorithm', 'http://www.w3.org/2000/09/xmldsig#rsa-sha1');
-        $sigMet = $doc->createElementNS($this->DsNs,'SignatureMethod');
-        $sigMet->setAttribute('Algorithm', 'http://www.w3.org/2000/09/xmldsig#rsa-sha1');
-        $tran = $doc->createElementNS($this->DsNs, 'Transform');
-        $tran->setAttribute('Algorithm', 'http://www.w3.org/2000/09/xmldsig#enveloped-signature');
-        $tranf = $doc->createElementNS($this->DsNs, 'Transforms');
-        $tranf->appendChild($tran);
-        $ref = $doc->createElementNS($this->DsNs,'Reference');
-        $digMet = $doc->createElementNS($this->DsNs,'DigestMethod');
-        $digMet->setAttribute('Algorithm', 'http://www.w3.org/2000/09/xmldsig#sha1');
-        $ref->appendChild($tranf);
-        $ref->appendChild($digMet);
-        $ref->appendChild($doc->createElementNS($this->DsNs, 'DigestValue'));
-        $signInfo->appendChild($can);
-        $signInfo->appendChild($sigMet);
-        $signInfo->appendChild($ref);
-
-        $node->appendChild($signInfo);
-        $node->appendChild($doc->createElementNS($this->DsNs,'SignatureValue'));
-
-        $items->item(0)->appendChild($node);
-        return $doc->saveXML();
-    }
-
     /**
      * @param string $version
      * @return UblValidatorInterface
