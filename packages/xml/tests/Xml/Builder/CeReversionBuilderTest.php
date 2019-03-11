@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Data\Generator\ReversionStore;
 use Greenter\Model\Voided\Reversion;
 
 /**
@@ -21,7 +22,7 @@ class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateXmlReversion()
     {
-        $reversion = $this->getReversion();
+        $reversion = $this->createDocument(ReversionStore::class);
 
         $xml = $this->build($reversion);
 
@@ -31,7 +32,8 @@ class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testReversionFilename()
     {
-        $reversion = $this->getReversion();
+        /**@var $reversion Reversion */
+        $reversion = $this->createDocument(ReversionStore::class);
         $filename = $reversion->getName();
 
         $this->assertEquals($this->getFilename($reversion), $filename);

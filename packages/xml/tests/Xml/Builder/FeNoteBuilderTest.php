@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Data\Generator\NoteStore;
 use Greenter\Model\Sale\Note;
 
 /**
@@ -21,30 +22,30 @@ class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateXmlCreditNote()
     {
-        $note = $this->getNote();
+        $note = $this->createDocument(NoteStore::class);
 
         $xml = $this->build($note);
 
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
-//         file_put_contents('notecr.xml', $xml);
     }
 
     public function testCreateXmlDebitNote()
     {
-        $note = $this->getNote();
+        /**@var $note Note*/
+        $note = $this->createDocument(NoteStore::class);
         $note->setTipoDoc('08');
 
         $xml = $this->build($note);
 
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
-        // file_put_contents('notedb.xml', $xml);
     }
 
     public function testNoteFilename()
     {
-        $note = $this->getNote();
+        /**@var $note Note*/
+        $note = $this->createDocument(NoteStore::class);
         $filename = $note->getName();
 
         $this->assertEquals($this->getFilename($note), $filename);

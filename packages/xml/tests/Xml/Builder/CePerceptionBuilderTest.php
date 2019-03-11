@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Data\Generator\PerceptionStore;
 use Greenter\Model\Perception\Perception;
 
 /**
@@ -21,35 +22,27 @@ class CePerceptionBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateXmlPerception()
     {
-        $perception = $this->getPerception();
+        $perception = $this->createDocument(PerceptionStore::class);
         $xml = $this->build($perception);
 
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
-        //file_put_contents('percep.xml', $xml);
     }
 
     public function testCreateXmlPerceptionWithoutInformation()
     {
-        $perception = $this->getPerception();
-        foreach ($perception->getDetails() as $per)
-        {
-            $per->setImpCobrar(0)
-                ->setCobros(null)
-                ->setImpPercibido(0);
-
-        }
+        $perception = $this->createDocument(PerceptionStore::class);
 
         $xml = $this->build($perception);
 
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
-         //file_put_contents('percep.xml', $xml);
     }
 
     public function testPerceptionFilename()
     {
-        $perception = $this->getPerception();
+        /**@var $perception Perception*/
+        $perception = $this->createDocument(PerceptionStore::class);
         $filename = $perception->getName();
 
         $this->assertEquals($this->getFilename($perception), $filename);

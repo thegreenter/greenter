@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Data\Generator\SummaryStore;
 use Greenter\Model\Summary\Summary;
 
 /**
@@ -21,8 +22,7 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateXmlSummary()
     {
-        $summary = $this->getSummary();
-        $summary->getDetails()[0]->setMtoOperExportacion(10);
+        $summary = $this->createDocument(SummaryStore::class);
 
         $xml = $this->build($summary);
 
@@ -32,7 +32,8 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateXmlSummaryOtherMoney()
     {
-        $summary = $this->getSummary();
+        /**@var $summary Summary*/
+        $summary = $this->createDocument(SummaryStore::class);
         $summary->setMoneda('USD');
 
         $xml = $this->build($summary);
@@ -44,7 +45,8 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testSummaryFilename()
     {
-        $summary = $this->getSummary();
+        /**@var $summary Summary*/
+        $summary = $this->createDocument(SummaryStore::class);
         $filename = $summary->getName();
 
         $this->assertEquals($this->getFilename($summary), $filename);

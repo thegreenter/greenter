@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Data\Generator\RetentionStore;
 use Greenter\Model\Retention\Retention;
 
 /**
@@ -21,55 +22,28 @@ class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateXmlRetention()
     {
-        $retention = $this->getRetention();
+        $retention = $this->createDocument(RetentionStore::class);
 
-        foreach ($retention->getDetails() as $per)
-        {
-            $per->setImpPagar(0)
-                ->setPagos(null)
-                ->setImpRetenido(0);
-
-        }
         $xml = $this->build($retention);
 
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
-        // file_put_contents('reten.xml', $xml);
     }
 
     public function testCreateXmlRetentionWithoutInformation()
     {
-        $retention = $this->getRetention();
+        $retention = $this->createDocument(RetentionStore::class);
 
-        foreach ($retention->getDetails() as $per)
-        {
-            $per->setImpPagar(0)
-                ->setPagos(null)
-                ->setImpRetenido(0);
-
-        }
         $xml = $this->build($retention);
 
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
-        // file_put_contents('reten.xml', $xml);
-    }
-
-    public function testCreateXmlRetentionWihtoutExchange()
-    {
-        $retention = $this->getRetention();
-
-        foreach ($retention->getDetails() as $detail) {
-            $detail->setTipoCambio(null);
-        }
-        $xml = $this->build($retention);
-
-        $this->assertNotEmpty($xml);
     }
 
     public function testRetentionFilename()
     {
-        $retention = $this->getRetention();
+        /**@var $retention Retention*/
+        $retention = $this->createDocument(RetentionStore::class);
         $filename = $retention->getName();
 
         $this->assertEquals($this->getFilename($retention), $filename);

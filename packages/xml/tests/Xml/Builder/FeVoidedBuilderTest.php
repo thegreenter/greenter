@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Data\Generator\VoidedStore;
 use Greenter\Model\Voided\Voided;
 
 /**
@@ -21,7 +22,7 @@ class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateXmlVoided()
     {
-        $voided = $this->getVoided();
+        $voided = $this->createDocument(VoidedStore::class);
 
         $xml = $this->build($voided);
 
@@ -31,7 +32,8 @@ class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testVoidedFilename()
     {
-        $voided = $this->getVoided();
+        /**@var $voided Voided */
+        $voided = $this->createDocument(VoidedStore::class);
         $filename = $voided->getName();
 
         $this->assertEquals($this->getFilename($voided), $filename);

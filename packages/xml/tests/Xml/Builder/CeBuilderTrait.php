@@ -8,7 +8,6 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
-use Greenter\Data\StoreTrait;
 use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Perception\Perception;
@@ -26,7 +25,7 @@ use Greenter\Xml\Builder\VoidedBuilder;
  */
 trait CeBuilderTrait
 {
-    use StoreTrait;
+    use SharedBuilderTrait;
 
     /**
      * @param string $className

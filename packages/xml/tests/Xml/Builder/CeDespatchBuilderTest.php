@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Data\Generator\DespatchStore;
 use Greenter\Model\Despatch\Despatch;
 
 /**
@@ -21,18 +22,17 @@ class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testCreateXmlDespatch()
     {
-        $despatch = $this->getDespatch();
+        $despatch = $this->createDocument(DespatchStore::class);
 
         $xml = $this->build($despatch);
 
-        //         file_put_contents('guia.xml', $xml);
         $this->assertSchema($xml);
-
     }
 
     public function testDespatchFilename()
     {
-        $despatch = $this->getDespatch();
+        /**@var $despatch Despatch*/
+        $despatch= $this->createDocument(DespatchStore::class);
         $filename = $despatch->getName();
 
         $this->assertEquals($this->getFilename($despatch), $filename);
