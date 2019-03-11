@@ -210,21 +210,19 @@
         <cbc:ID>{{ loop.index }}</cbc:ID>
         <cbc:CreditedQuantity unitCode="{{ detail.unidad }}">{{ detail.cantidad }}</cbc:CreditedQuantity>
         <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|n_format }}</cbc:LineExtensionAmount>
-        {% if detail.mtoPrecioUnitario > 0 -%}
         <cac:PricingReference>
-            <cac:AlternativeConditionPrice>
-                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|n_format }}</cbc:PriceAmount>
-                <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
-            </cac:AlternativeConditionPrice>
-        </cac:PricingReference>
-        {% else -%}
-        <cac:PricingReference>
+            {% if detail.mtoValorGratuito -%}
             <cac:AlternativeConditionPrice>
                 <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito|n_format }}</cbc:PriceAmount>
                 <cbc:PriceTypeCode>02</cbc:PriceTypeCode>
             </cac:AlternativeConditionPrice>
+            {% else -%}
+            <cac:AlternativeConditionPrice>
+                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|n_format }}</cbc:PriceAmount>
+                <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+            </cac:AlternativeConditionPrice>
+            {% endif -%}
         </cac:PricingReference>
-        {% endif -%}
         {% if detail.isc -%}
         {% set isc = detail.isc|n_format -%}
         <cac:TaxTotal>

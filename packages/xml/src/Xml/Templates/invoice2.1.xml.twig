@@ -360,16 +360,15 @@
         <cbc:InvoicedQuantity unitCode="{{ detail.unidad }}">{{ detail.cantidad }}</cbc:InvoicedQuantity>
         <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|n_format }}</cbc:LineExtensionAmount>
         <cac:PricingReference>
-            {% if detail.mtoPrecioUnitario -%}
-            <cac:AlternativeConditionPrice>
-                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|n_format(6) }}</cbc:PriceAmount>
-                <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
-            </cac:AlternativeConditionPrice>
-            {% endif -%}
             {% if detail.mtoValorGratuito -%}
             <cac:AlternativeConditionPrice>
                 <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito|n_format(6) }}</cbc:PriceAmount>
                 <cbc:PriceTypeCode>02</cbc:PriceTypeCode>
+            </cac:AlternativeConditionPrice>
+            {% else -%}
+            <cac:AlternativeConditionPrice>
+                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|n_format(6) }}</cbc:PriceAmount>
+                <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
             </cac:AlternativeConditionPrice>
             {% endif -%}
         </cac:PricingReference>
