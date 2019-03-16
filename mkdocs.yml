@@ -34,16 +34,14 @@ theme:
     primary: 'Green'
     accent: 'Indigo'
 
-extra_javascript:
-  - js/ext_link.js
-
 extra:
+  manifest: 'manifest.json'
   social:
     - type: 'github'
       link: 'https://github.com/giansalex'
-  author:
-    github: giansalex
   disqus: 'greenter'
+  search:
+    language: 'es'
 
 # Google Analytics
 google_analytics:
