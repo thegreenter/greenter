@@ -7,7 +7,7 @@ site_author: 'Giancarlos Salas'
 repo_name: 'giansalex/greenter'
 repo_url: 'https://github.com/giansalex/greenter'
 
-pages:
+nav:
     - Greenter: index.md
     - Primeros Pasos: starter.md
     - Migrar a UBL 2.1: migrate2.1.md
@@ -19,7 +19,7 @@ pages:
     - F. Anticipos: examples/anticipo.md
     - F. Detracción: examples/detraccion.md
     - Contingencia: examples/contingencia.md
-    - 'API Referencia|https://giansalex.github.io/greenter-apidoc/': apidoc.md
+    - 'API Referencia': https://giansalex.github.io/greenter-apidoc/
 
 # Configuration
 theme:
