@@ -2,7 +2,7 @@ version: 2
 jobs:
   docs_deploy:
     docker:
-      - image: circleci/python:3.4.6
+      - image: circleci/python:3.7.2
     steps:
       - checkout
       - restore_cache:
