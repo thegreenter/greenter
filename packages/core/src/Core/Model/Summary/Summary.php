@@ -146,19 +146,28 @@ class Summary implements DocumentInterface
     }
 
     /**
-     * Get FileName without extension.
+     * Get Id XML.
      *
      * @return string
      */
-    public function getName()
+    public function getXmlId()
     {
         $parts = [
-            $this->company->getRuc(),
             'RC',
             $this->getFecResumen()->format('Ymd'),
             $this->getCorrelativo(),
         ];
 
         return join('-', $parts);
+    }
+
+    /**
+     * Get FileName without extension.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->company->getRuc().'-'.$this->getXmlId();
     }
 }
