@@ -1,5 +1,15 @@
 # Greenter Changes
 
+## Nov 2018-11-05 Core
+**Summary**
+- Se agregó `Moneda`.
+
+**Summary Detail**
+- Se agrego `MtoIvap`
+
+**CdrResponse**
+- Se agregó `isAccepted()`, indica cuando un cdr es aceptado. 
+
 ## Oct 2018-10-14 UBL 2.1
 
 **Invoice**
@@ -9,8 +19,11 @@
 - Se agregó `TotalImpuestos` es requerido.
 - Se agregó `ValorVenta` es requerido.
 - Se agregó `MtoBaseIsc`.
+- Se agregó `MtoBaseOth`.
+- Se agregó `MtoOperExportacion`.
 - Se agrego `Cargos`.
 - Se agrego `Descuentos`.
+- Se agrego `Compra`.
 
 **Invoice Detail**
 - Se agregó `TotalImpuestos` es requerido.
@@ -26,6 +39,9 @@
 - `Legends` ahora se toma del catálogo 52.
 - Se agregó `TotalImpuestos` es requerido.
 - Se agregó `MtoBaseIsc`.
+- Se agregó `MtoBaseOth`.
+- Se agregó `MtoOperExportacion`.
+- Se agrego `Compra`.
 
 **Address**
 - Se agregó `CodLocal`, código asignado por SUNAT para el establecimiento anexo declarado en el RUC (opcional).

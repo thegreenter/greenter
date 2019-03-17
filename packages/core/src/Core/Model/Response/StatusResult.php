@@ -11,7 +11,7 @@ namespace Greenter\Model\Response;
 /**
  * Class StatusResult.
  */
-class StatusResult extends BaseResult
+class StatusResult extends BillResult
 {
     /**
      * StatusCode enviado por Sunat.
@@ -25,16 +25,6 @@ class StatusResult extends BaseResult
     protected $code;
 
     /**
-     * @var string
-     */
-    protected $cdrZip;
-
-    /**
-     * @var CdrResponse
-     */
-    protected $cdrResponse;
-
-    /**
      * @return string
      */
     public function getCode()
@@ -45,51 +35,11 @@ class StatusResult extends BaseResult
     /**
      * @param string $code
      *
-     * @return StatusResult
+     * @return $this
      */
     public function setCode($code)
     {
         $this->code = $code;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCdrZip()
-    {
-        return $this->cdrZip;
-    }
-
-    /**
-     * @param string $cdrZip
-     *
-     * @return StatusResult
-     */
-    public function setCdrZip($cdrZip)
-    {
-        $this->cdrZip = $cdrZip;
-
-        return $this;
-    }
-
-    /**
-     * @return CdrResponse
-     */
-    public function getCdrResponse()
-    {
-        return $this->cdrResponse;
-    }
-
-    /**
-     * @param CdrResponse $cdrResponse
-     *
-     * @return StatusResult
-     */
-    public function setCdrResponse($cdrResponse)
-    {
-        $this->cdrResponse = $cdrResponse;
 
         return $this;
     }
