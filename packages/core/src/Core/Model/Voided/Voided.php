@@ -45,11 +45,6 @@ class Voided implements DocumentInterface
      */
     protected $details;
 
-    public function __construct()
-    {
-        $this->fecGeneracion = new \DateTime();
-    }
-
     /**
      * @return string
      */
@@ -151,16 +146,6 @@ class Voided implements DocumentInterface
     }
 
     /**
-     * Get FileName without extension.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->company->getRuc().'-'.$this->getXmlId();
-    }
-
-    /**
      * Get Id XML.
      *
      * @return string
@@ -174,5 +159,15 @@ class Voided implements DocumentInterface
         ];
 
         return join('-', $parts);
+    }
+
+    /**
+     * Get FileName without extension.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->company->getRuc().'-'.$this->getXmlId();
     }
 }
