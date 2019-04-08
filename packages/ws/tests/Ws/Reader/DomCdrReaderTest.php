@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 22/07/2017
- * Time: 16:29
+ * Time: 16:29.
  */
 
 namespace Tests\Greenter\Ws\Reader;
@@ -12,8 +12,7 @@ use Greenter\Ws\Reader\DomCdrReader;
 use Greenter\Ws\Reader\XmlReader;
 
 /**
- * Class DomCdrReaderTest
- * @package Tests\Greenter\Ws\Reader
+ * Class DomCdrReaderTest.
  */
 class DomCdrReaderTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,7 +21,7 @@ class DomCdrReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetResponse()
     {
-        $path = __DIR__ . '/../../Resources/R-20600995805-01-F001-1.xml';
+        $path = __DIR__.'/../../Resources/R-20600995805-01-F001-1.xml';
         $xml = file_get_contents($path);
         $reader = $this->getCdrReader();
         $cdr = $reader->getCdrResponse($xml);
@@ -39,7 +38,7 @@ class DomCdrReaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetResponseWithNotes()
     {
-        $path = __DIR__ . '/../../Resources/R-20600995805-01-F001-3.xml';
+        $path = __DIR__.'/../../Resources/R-20600995805-01-F001-3.xml';
         $xml = file_get_contents($path);
         $reader = $this->getCdrReader();
         $cdr = $reader->getCdrResponse($xml);
@@ -73,7 +72,7 @@ XML;
     public function testEmptyNodes()
     {
         $doc = new \DOMDocument();
-        $doc->load(__DIR__ . '/../../Resources/R-20600995805-01-F001-3.xml');
+        $doc->load(__DIR__.'/../../Resources/R-20600995805-01-F001-3.xml');
         $referenceId = $doc->documentElement
                         ->childNodes->item(27)
                         ->childNodes->item(1)

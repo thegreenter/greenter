@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Soporte
  * Date: 23/01/2019
- * Time: 17:42
+ * Time: 17:42.
  */
 
 namespace Tests\Greenter\Ws\Builder;

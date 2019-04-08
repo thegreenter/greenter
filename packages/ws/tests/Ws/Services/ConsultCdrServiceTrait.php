@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 09/09/2018
- * Time: 15:19
+ * Time: 15:19.
  */
 
 namespace Tests\Greenter\Ws\Services;
@@ -16,7 +16,7 @@ use Greenter\Ws\Services\WsdlProvider;
 use Mockery;
 
 /**
- * Trait ConsultCdrServiceTrait
+ * Trait ConsultCdrServiceTrait.
  */
 trait ConsultCdrServiceTrait
 {
@@ -56,12 +56,11 @@ trait ConsultCdrServiceTrait
                 $obj = new \stdClass();
                 $obj->statusCdr = new \stdClass();
 
-                if ($ruc === '20000000001') {
+                if ('20000000001' === $ruc) {
                     $obj->statusCdr->statusCode = '0';
                     $obj->statusCdr->statusMessage = 'ACEPTADA';
                     $obj->statusCdr->content = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
-                }
-                else {
+                } else {
                     $obj->statusCdr->statusCode = '004';
                     $obj->statusCdr->statusMessage = 'Constancia Existe';
                     $obj->statusCdr->content = file_get_contents(__DIR__.'/../../Resources/cdr-rechazo.zip');

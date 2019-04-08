@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 09/09/2018
- * Time: 15:16
+ * Time: 15:16.
  */
 
 namespace Tests\Greenter\Ws\Services;
@@ -16,7 +16,7 @@ class ConsultCdrServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = $this->getConsultService();
 
-        $result = $service->getStatus('20000000001', '01','F001', 1);
+        $result = $service->getStatus('20000000001', '01', 'F001', 1);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
@@ -27,7 +27,7 @@ class ConsultCdrServiceTest extends \PHPUnit_Framework_TestCase
     {
         $service = $this->getConsultService();
 
-        $result = $service->getStatusCdr('20000000001', '01','F001', 1);
+        $result = $service->getStatusCdr('20000000001', '01', 'F001', 1);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNull($result->getCdrZip());

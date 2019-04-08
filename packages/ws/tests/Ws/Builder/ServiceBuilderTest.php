@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Soporte
  * Date: 6/11/2018
- * Time: 12:25
+ * Time: 12:25.
  */
 
 namespace Tests\Greenter\Ws\Services;
@@ -16,7 +16,7 @@ use Greenter\Ws\Services\WsClientInterface;
 use Mockery;
 
 /**
- * Class ServiceBuilderTest
+ * Class ServiceBuilderTest.
  */
 class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
 {
@@ -36,7 +36,7 @@ class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
     public function testCreateBillService()
     {
         $this->builder->setClient($this->getClientMock());
-        /**@var $service BillSender */
+        /** @var $service BillSender */
         $service = $this->builder->build(BillSender::class);
 
         $this->assertInstanceOf(BillSender::class, $service);

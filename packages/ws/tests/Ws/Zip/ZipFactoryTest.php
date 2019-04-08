@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 16/07/2017
- * Time: 13:48
+ * Time: 13:48.
  */
 
 namespace Tests\Greenter\Zip;
@@ -11,8 +11,7 @@ namespace Tests\Greenter\Zip;
 use Greenter\Zip\ZipFly;
 
 /**
- * Class ZipFactoryTest
- * @package Tests\Greenter\Zip\ZipFactory
+ * Class ZipFactoryTest.
  */
 class ZipFactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -85,11 +84,11 @@ class ZipFactoryTest extends \PHPUnit_Framework_TestCase
     private function getXmlResponse(ZipFly $zipper, $content)
     {
         $filter = function ($filename) {
-            return strtolower($this->getFileExtension($filename)) === 'xml';
+            return 'xml' === strtolower($this->getFileExtension($filename));
         };
         $files = $zipper->decompress($content, $filter);
 
-        return count($files) === 0 ? '' : $files[0]['content'];
+        return 0 === count($files) ? '' : $files[0]['content'];
     }
 
     private function getFileExtension($filename)

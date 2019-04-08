@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Soporte
  * Date: 29/01/2019
- * Time: 17:42
+ * Time: 17:42.
  */
 
 namespace Tests\Greenter\Ws\Resolver;
@@ -33,6 +33,7 @@ class TypeResolverTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getFilesTypeExpected
+     *
      * @param string $expectedType
      * @param string $file
      */
@@ -69,9 +70,9 @@ XML;
             [Note::class, __DIR__.'/../../Resources/Name/20123456789-08-FF01-123.xml'],
             [Retention::class, __DIR__.'/../../Resources/Name/20123456789-20-R001-123.xml'],
             [Perception::class, __DIR__.'/../../Resources/Name/20123456789-40-P001-123.xml'],
-            [Summary::class,__DIR__.'/../../Resources/20000000001-RC-20171119-001.xml'],
-            [Voided::class,__DIR__.'/../../Resources/20600995805-RA-20170719-01.xml'],
-            [Reversion::class,__DIR__.'/../../Resources/Name/20123456789-RR-20190122-00111.xml'],
+            [Summary::class, __DIR__.'/../../Resources/20000000001-RC-20171119-001.xml'],
+            [Voided::class, __DIR__.'/../../Resources/20600995805-RA-20170719-01.xml'],
+            [Reversion::class, __DIR__.'/../../Resources/Name/20123456789-RR-20190122-00111.xml'],
         ];
 
         return $params;

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 19/07/2017
- * Time: 21:16
+ * Time: 21:16.
  */
 
 namespace Tests\Greenter\Ws\Services;
@@ -21,8 +21,7 @@ use Greenter\Ws\Services\WsClientInterface;
 use Mockery;
 
 /**
- * trait FeSunatTestTrait
- * @package Tests\Greenter\Ws\Services
+ * trait FeSunatTestTrait.
  */
 trait FeSunatTestTrait
 {
@@ -40,6 +39,7 @@ trait FeSunatTestTrait
 
     /**
      * @param string $code
+     *
      * @return SenderInterface
      */
     private function getBillSenderThrow($code)
@@ -68,7 +68,8 @@ trait FeSunatTestTrait
     private function getBillSenderMock()
     {
         $sender = Mockery::mock(SenderInterface::class);
-        $sender->shouldReceive('send')->andReturn((new BillResult())
+        $sender->shouldReceive('send')->andReturn(
+            (new BillResult())
             ->setCdrResponse((new CdrResponse())
                 ->setCode('0')
                 ->setDescription('La Factura numero F001-00000001, ha sido aceptada')
@@ -98,6 +99,7 @@ trait FeSunatTestTrait
 
     /**
      * @param string $code
+     *
      * @return SenderInterface
      */
     private function getSummarySenderThrow($code)
@@ -110,6 +112,7 @@ trait FeSunatTestTrait
 
     /**
      * @param string $code FaultCode
+     *
      * @return ExtService
      */
     private function getExtServiceForFault($code)
@@ -135,6 +138,7 @@ trait FeSunatTestTrait
 
     /**
      * @param $code
+     *
      * @return WsClientInterface
      */
     private function getClientThrowMock($code)
@@ -151,12 +155,12 @@ trait FeSunatTestTrait
         $provider = Mockery::mock(ErrorCodeProviderInterface::class);
         $provider->shouldReceive('getValue')
             ->andReturnUsing(function ($err) {
-            $items = [
+                $items = [
               '0156' => 'El archivo ZIP esta corrupto',
             ];
 
-            return $items[$err];
-        });
+                return $items[$err];
+            });
 
         return $provider;
     }
@@ -175,7 +179,7 @@ trait FeSunatTestTrait
                 $obj = new \stdClass();
                 $obj->status = new \stdClass();
 
-                if ($ticket === '223123123213') {
+                if ('223123123213' === $ticket) {
                     $obj->status->statusCode = '98';
                 } else {
                     $obj->status->statusCode = '0';
@@ -185,7 +189,7 @@ trait FeSunatTestTrait
                 return $obj;
             });
 
-        /**@var $stub WsClientInterface */
+        /** @var $stub WsClientInterface */
         $service = new ExtService();
         $service->setClient($client);
 

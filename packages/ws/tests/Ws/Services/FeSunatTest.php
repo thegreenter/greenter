@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Administrador
  * Date: 17/07/2017
- * Time: 05:18 PM
+ * Time: 05:18 PM.
  */
 
 namespace Tests\Greenter\Ws\Services;
@@ -12,8 +12,7 @@ use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
 
 /**
- * Class FeSunatTest
- * @package TgetExtSunatests\Greenter\Ws\Services
+ * Class FeSunatTest.
  */
 class FeSunatTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,11 +26,13 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         $wss = $this->getBillSenderMock();
         $response = $wss->send($nameXml, $xml);
 
-        /**@var $response BillResult */
+        /** @var $response BillResult */
         $this->assertTrue($response->isSuccess());
         $this->assertNotNull($response->getCdrResponse());
-        $this->assertContains('La Factura numero F001-00000001, ha sido aceptada',
-            $response->getCdrResponse()->getDescription());
+        $this->assertContains(
+            'La Factura numero F001-00000001, ha sido aceptada',
+            $response->getCdrResponse()->getDescription()
+        );
     }
 
     public function testSendInvoiceBillSender()
@@ -42,11 +43,13 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         $wss = $this->getBillSender();
         $response = $wss->send($nameXml, $xml);
 
-        /**@var $response BillResult */
+        /** @var $response BillResult */
         $this->assertTrue($response->isSuccess());
         $this->assertNotNull($response->getCdrResponse());
-        $this->assertContains('La Factura numero F001-00000001, ha sido aceptada',
-            $response->getCdrResponse()->getDescription());
+        $this->assertContains(
+            'La Factura numero F001-00000001, ha sido aceptada',
+            $response->getCdrResponse()->getDescription()
+        );
     }
 
     public function testSendInvalidInvoice()
@@ -57,7 +60,7 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         $wss = $this->getBillSenderThrow('0156');
         $response = $wss->send($nameXml, $xml);
 
-        /**@var $response BillResult */
+        /** @var $response BillResult */
         $this->assertFalse($response->isSuccess());
         $this->assertEquals('0156', $response->getError()->getCode());
         $this->assertEquals('El archivo ZIP esta corrupto', $response->getError()->getMessage());
@@ -71,7 +74,7 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         $wss = $this->getSummarySenderMock();
         $result = $wss->send($nameXml, $xml);
 
-        /**@var $result SummaryResult */
+        /** @var $result SummaryResult */
         $this->assertNotNull($result);
         $this->assertTrue($result->isSuccess());
         $this->assertEquals(13, strlen($result->getTicket()));
@@ -89,7 +92,7 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        /**@var $result SummaryResult */
+        /** @var $result SummaryResult */
         $this->assertNotNull($result);
         $this->assertTrue($result->isSuccess());
         $this->assertEquals(13, strlen($result->getTicket()));
@@ -103,7 +106,7 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         $wss = $this->getSummarySenderThrow('2001');
         $result = $wss->send($nameXml, $xml);
 
-        /**@var $result SummaryResult */
+        /** @var $result SummaryResult */
         $this->assertNotNull($result);
         $this->assertFalse($result->isSuccess());
         $this->assertEquals('2001', $result->getError()->getCode());
@@ -117,7 +120,7 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         $wss = $this->getSummarySender();
         $result = $wss->send($nameXml, $xml);
 
-        /**@var $result SummaryResult */
+        /** @var $result SummaryResult */
         $this->assertNotNull($result);
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
@@ -149,6 +152,7 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider codeProvider
+     *
      * @param $code
      */
     public function testFaultError($code)
@@ -163,7 +167,7 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
     {
         return [
           ['NO CODE'],
-          ['111111111']
+          ['111111111'],
         ];
     }
 }

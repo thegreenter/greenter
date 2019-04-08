@@ -3,16 +3,17 @@
  * Created by PhpStorm.
  * User: LPALQUILER-11
  * Date: 29/08/2018
- * Time: 17:41
+ * Time: 17:41.
  */
 
 namespace Tests\Greenter\Ws\Zip;
+
 use Greenter\Zip\DecompressInterface;
 use Greenter\Zip\ZipFileDecompress;
 use Greenter\Zip\ZipFly;
 
 /**
- * Class ZipFileDecompressTest
+ * Class ZipFileDecompressTest.
  */
 class ZipFileDecompressTest extends \PHPUnit_Framework_TestCase
 {

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: Soporte
  * Date: 28/01/2019
- * Time: 16:32
+ * Time: 16:32.
  */
 
 namespace Tests\Greenter\Ws\Reader;
@@ -28,6 +28,7 @@ class XmlFilenameExtractorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getFiles
+     *
      * @param string $filename
      */
     public function testGetName($filename)
