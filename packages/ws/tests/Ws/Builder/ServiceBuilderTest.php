@@ -79,20 +79,24 @@ class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
      */
     private function getClientMock()
     {
-        $obj = new \stdClass();
-        $obj->status = new \stdClass();
-        $obj->status->statusCode = '98';
-
-        $obj2 = new \stdClass();
-        $obj2->applicationResponse = file_get_contents(__DIR__.'/../../Resources/cdr-rechazo.zip');
-
         $client = Mockery::mock(WsClientInterface::class);
         $client->shouldReceive('call')
                 ->with('getStatus', Mockery::type('array'))
-                ->andReturn($obj);
+                ->andReturnUsing(function () {
+                    $obj = new \stdClass();
+                    $obj->status = new \stdClass();
+                    $obj->status->statusCode = '98';
+
+                    return $obj;
+                });
         $client->shouldReceive('call')
                 ->with('sendBill', Mockery::type('array'))
-                ->andReturn($obj2);
+                ->andReturnUsing(function () {
+                    $obj = new \stdClass();
+                    $obj->applicationResponse = file_get_contents(__DIR__.'/../../Resources/cdr-rechazo.zip');
+
+                    return $obj;
+                });
 
         return $client;
     }
