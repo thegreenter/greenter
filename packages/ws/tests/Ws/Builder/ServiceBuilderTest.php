@@ -13,6 +13,7 @@ use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Builder\ServiceBuilder;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Ws\Services\WsClientInterface;
+use Mockery;
 
 /**
  * Class ServiceBuilderTest
@@ -20,17 +21,12 @@ use Greenter\Ws\Services\WsClientInterface;
 class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $client;
-    /**
      * @var ServiceBuilder
      */
     private $builder;
 
     protected function setUp()
     {
-        $this->client = $this->getMockBuilder(WsClientInterface::class)->getMock();
         $this->builder = new ServiceBuilder();
     }
 
@@ -39,7 +35,7 @@ class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateBillService()
     {
-        $this->builder->setClient($this->getSenderClientMock());
+        $this->builder->setClient($this->getClientMock());
         /**@var $service BillSender */
         $service = $this->builder->build(BillSender::class);
 
@@ -67,8 +63,7 @@ class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateExtService()
     {
-        $this->builder->setClient($this->getExtClientMock());
-        /**@var $service ExtService */
+        $this->builder->setClient($this->getClientMock());
         $service = $this->builder->build(ExtService::class);
 
         $this->assertInstanceOf(ExtService::class, $service);
@@ -82,37 +77,23 @@ class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * @return WsClientInterface
      */
-    private function getSenderClientMock()
+    private function getClientMock()
     {
-        $client = $this->client;
-        $client->method('call')
-            ->will($this->returnCallback(function () {
-                $zipContent = file_get_contents(__DIR__.'/../../Resources/cdr-rechazo.zip');
-                $obj = new \stdClass();
-                $obj->applicationResponse = $zipContent;
+        $obj = new \stdClass();
+        $obj->status = new \stdClass();
+        $obj->status->statusCode = '98';
 
-                return $obj;
-            }));
+        $obj2 = new \stdClass();
+        $obj2->applicationResponse = file_get_contents(__DIR__.'/../../Resources/cdr-rechazo.zip');
 
-        /**@var $client WsClientInterface */
-        return $client;
-    }
+        $client = Mockery::mock(WsClientInterface::class);
+        $client->shouldReceive('call')
+                ->with('getStatus', Mockery::type('array'))
+                ->andReturn($obj);
+        $client->shouldReceive('call')
+                ->with('sendBill', Mockery::type('array'))
+                ->andReturn($obj2);
 
-    /**
-     * @return WsClientInterface
-     */
-    private function getExtClientMock()
-    {
-        $client = $this->client;
-        $client->method('call')->willReturnCallback(function () {
-            $obj = new \stdClass();
-            $obj->status = new \stdClass();
-            $obj->status->statusCode = '98';
-
-            return $obj;
-        });
-
-        /**@var $client WsClientInterface */
         return $client;
     }
 }
