@@ -36,7 +36,7 @@ class ServiceBuilder
     /**
      * @param string $type Service Class
      *
-     * @return mixed
+     * @return object
      *
      * @throws \Exception
      */

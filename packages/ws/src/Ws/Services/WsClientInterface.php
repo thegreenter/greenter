@@ -14,8 +14,8 @@ namespace Greenter\Ws\Services;
 interface WsClientInterface
 {
     /**
-     * @param $function
-     * @param $arguments
+     * @param string $function
+     * @param mixed $arguments
      *
      * @return mixed
      */
