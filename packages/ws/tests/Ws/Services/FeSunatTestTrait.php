@@ -21,28 +21,15 @@ use Greenter\Ws\Services\WsClientInterface;
 use Mockery;
 
 /**
- * Class FeSunatTestBase
+ * trait FeSunatTestTrait
  * @package Tests\Greenter\Ws\Services
  */
-abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
+trait FeSunatTestTrait
 {
-    /**
-     * @return ExtService
-     */
-    public function getExtSunat()
-    {
-        $client = new SoapClient(SunatEndpoints::FE_CONSULTA_CDR . '?wsdl');
-        $client->setCredentials('20000000001MODDATOS', 'moddatos');
-        $service = new ExtService();
-        $service->setClient($client);
-
-        return $service;
-    }
-
     /**
      * @return SenderInterface
      */
-    protected function getBillSender()
+    private function getBillSender()
     {
         $sender = new BillSender();
         $sender->setCodeProvider($this->getErrorCodeProviderMock());
@@ -55,7 +42,7 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
      * @param string $code
      * @return SenderInterface
      */
-    protected function getBillSenderThrow($code)
+    private function getBillSenderThrow($code)
     {
         $sender = new BillSender();
         $sender->setCodeProvider($this->getErrorCodeProviderMock());
@@ -67,26 +54,7 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
     /**
      * @return SenderInterface
      */
-    protected function getBillSenderMock()
-    {
-        $stub = $this->getMockBuilder(SenderInterface::class)
-            ->getMock();
-        $stub->method('send')->will($this->returnValue((new BillResult())
-            ->setCdrResponse((new CdrResponse())
-                ->setCode('0')
-                ->setDescription('La Factura numero F001-00000001, ha sido aceptada')
-                ->setId('F001-00000001'))
-            ->setSuccess(true)
-        ));
-
-        /**@var $stub SenderInterface*/
-        return $stub;
-    }
-
-    /**
-     * @return SenderInterface
-     */
-    protected function getSummarySender()
+    private function getSummarySender()
     {
         $sender = new SummarySender();
         $sender->setClient($this->getClient());
@@ -97,19 +65,34 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
     /**
      * @return SenderInterface
      */
-    protected function getSummarySenderMock()
+    private function getBillSenderMock()
     {
-        $stub = $this->getMockBuilder(WsClientInterface::class)
-            ->getMock();
-        $stub->method('call')->will($this->returnCallback(function (){
-            $obj = new \stdClass();
-            $obj->ticket = '1500523236696';
-            return $obj;
-        }));
+        $sender = Mockery::mock(SenderInterface::class);
+        $sender->shouldReceive('send')->andReturn((new BillResult())
+            ->setCdrResponse((new CdrResponse())
+                ->setCode('0')
+                ->setDescription('La Factura numero F001-00000001, ha sido aceptada')
+                ->setId('F001-00000001'))
+            ->setSuccess(true)
+        );
 
-        /**@var $stub WsClientInterface*/
+        return $sender;
+    }
+
+    /**
+     * @return SenderInterface
+     */
+    private function getSummarySenderMock()
+    {
+        $obj = new \stdClass();
+        $obj->ticket = '1500523236696';
+
+        $client = Mockery::mock(WsClientInterface::class);
+        $client->shouldReceive('call')->andReturn($obj);
+
         $sender = new SummarySender();
-        $sender->setClient($stub);
+        $sender->setClient($client);
+
         return $sender;
     }
 
@@ -117,7 +100,7 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
      * @param string $code
      * @return SenderInterface
      */
-    protected function getSummarySenderThrow($code)
+    private function getSummarySenderThrow($code)
     {
         $sender = new SummarySender();
         $sender->setClient($this->getClientThrowMock($code));
@@ -129,7 +112,7 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
      * @param string $code FaultCode
      * @return ExtService
      */
-    protected function getExtServiceForFault($code)
+    private function getExtServiceForFault($code)
     {
         $client = $this->getClientThrowMock($code);
         $service = new ExtService();
@@ -181,7 +164,7 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
     /**
      * @return ExtService
      */
-    protected function getExtServiceMock()
+    private function getExtServiceMock()
     {
         $client = Mockery::mock(WsClientInterface::class);
         $client->shouldReceive('call')

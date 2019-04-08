@@ -13,10 +13,12 @@ use Greenter\Model\Response\SummaryResult;
 
 /**
  * Class FeSunatTest
- * @package Tests\Greenter\Ws\Services
+ * @package TgetExtSunatests\Greenter\Ws\Services
  */
-class FeSunatTest extends FeSunatTestBase
+class FeSunatTest extends \PHPUnit_Framework_TestCase
 {
+    use FeSunatTestTrait;
+
     public function testSendInvoice()
     {
         $nameXml = '20600055519-01-F001-00000001';
