@@ -13,11 +13,10 @@ use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Ws\Services\WsClientInterface;
 use Greenter\Ws\Services\WsdlProvider;
+use Mockery;
 
 /**
  * Trait ConsultCdrServiceTrait
- *
- * @method \PHPUnit_Framework_MockObject_MockBuilder getMockBuilder($className)
  */
 trait ConsultCdrServiceTrait
 {
@@ -36,60 +35,44 @@ trait ConsultCdrServiceTrait
         return $sunat;
     }
 
-    /**
-     * @return ConsultCdrService
-     */
-    private function getConsultSender()
+    private function getConsultServiceMock()
     {
-        return $this->getMockConsultService(function ($action) {
-            $obj = new \stdClass();
-            if ($action == 'getStatus') {
+        $client = Mockery::mock(WsClientInterface::class);
+        $client->shouldReceive('call')
+            ->with('getStatus', Mockery::type('array'))
+            ->andReturnUsing(function () {
+                $obj = new \stdClass();
                 $obj->status = new \stdClass();
                 $obj->status->statusCode = '0';
                 $obj->status->statusMessage = 'ACEPTADA';
-//                    $obj->status->content = null;
-            } elseif ($action == 'getStatusCdr') {
-                $zipContent = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
+
+                return $obj;
+            });
+
+        $client->shouldReceive('call')
+            ->with('getStatusCdr', Mockery::type('array'))
+            ->andReturnUsing(function ($_, array $params) {
+                $ruc = $params['parameters']['rucComprobante'];
+                $obj = new \stdClass();
                 $obj->statusCdr = new \stdClass();
-                $obj->statusCdr->statusCode = '0';
-                $obj->statusCdr->statusMessage = 'ACEPTADA';
-                $obj->statusCdr->content = $zipContent;
-            }
 
-            return $obj;
-        });
-    }
+                if ($ruc === '20000000001') {
+                    $obj->statusCdr->statusCode = '0';
+                    $obj->statusCdr->statusMessage = 'ACEPTADA';
+                    $obj->statusCdr->content = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
+                }
+                else {
+                    $obj->statusCdr->statusCode = '004';
+                    $obj->statusCdr->statusMessage = 'Constancia Existe';
+                    $obj->statusCdr->content = file_get_contents(__DIR__.'/../../Resources/cdr-rechazo.zip');
+                }
 
-    /**
-     * @return ConsultCdrService
-     */
-    private function getConsultServiceWithCdr()
-    {
-        return $this->getMockConsultService(function () {
-            $zipContent = file_get_contents(__DIR__.'/../../Resources/cdr-rechazo.zip');
+                return $obj;
+            });
 
-            $obj = new \stdClass();
-            $obj->statusCdr = new \stdClass();
-            $obj->statusCdr->statusCode = '004';
-            $obj->statusCdr->statusMessage = 'Constancia Existe';
-            $obj->statusCdr->content = $zipContent;
+        $service = new ConsultCdrService();
+        $service->setClient($client);
 
-            return $obj;
-        });
-    }
-
-    private function getMockConsultService($function)
-    {
-        $stub = $this->getMockBuilder(WsClientInterface::class)
-            ->getMock();
-
-        $stub->method('call')
-            ->will($this->returnCallback($function));
-
-        /**@var $stub WsClientInterface */
-        $sunat = new ConsultCdrService();
-        $sunat->setClient($stub);
-
-        return $sunat;
+        return $service;
     }
 }

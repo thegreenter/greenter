@@ -37,7 +37,7 @@ class ConsultCdrServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testGetStatus()
     {
-        $wss = $this->getConsultSender();
+        $wss = $this->getConsultServiceMock();
         $result = $wss->getStatus('20000000001', '01', 'F001', '1');
 
         $this->assertTrue($result->isSuccess());
@@ -49,7 +49,7 @@ class ConsultCdrServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testGetCdrStatus()
     {
-        $wss = $this->getConsultSender();
+        $wss = $this->getConsultServiceMock();
         $result = $wss->getStatusCdr('20000000001', '01', 'F001', '1');
 
         $this->assertTrue($result->isSuccess());
@@ -61,7 +61,7 @@ class ConsultCdrServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testGetErrorCodeFromCdr()
     {
-        $wss = $this->getConsultServiceWithCdr();
+        $wss = $this->getConsultServiceMock();
         $result = $wss->getStatusCdr('20600995805', '01', 'F001', '2');
 
         $this->assertFalse($result->isSuccess());
