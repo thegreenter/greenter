@@ -124,7 +124,7 @@ class FeSunatTest extends FeSunatTestBase
 
     public function testGetStatus()
     {
-        $wss = $this->getExtSender();
+        $wss = $this->getExtServiceMock();
         $result = $wss->getStatus('1500523236696');
 
         $this->assertTrue($result->isSuccess());
@@ -135,7 +135,7 @@ class FeSunatTest extends FeSunatTestBase
 
     public function testGetStatusPending()
     {
-        $service = $this->getExtServicePendingProcess();
+        $service = $this->getExtServiceMock();
 
         $result = $service->getStatus('223123123213');
 

@@ -18,6 +18,7 @@ use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SummarySender;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Ws\Services\WsClientInterface;
+use Mockery;
 
 /**
  * Class FeSunatTestBase
@@ -28,41 +29,14 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
     /**
      * @return ExtService
      */
-    protected function getExtSender()
-    {
-        $stub = $this->getMockBuilder(WsClientInterface::class)
-                    ->getMock();
-
-        $stub->method('call')
-                ->will($this->returnCallback(function () {
-                    $zipContent = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
-                    $obj = new \stdClass();
-                    $obj->status = new \stdClass();
-                    $obj->status->statusCode = '0';
-                    $obj->status->content = $zipContent;
-
-                    return $obj;
-                }));
-
-        /**@var $stub WsClientInterface */
-        $sunat = new ExtService();
-        $sunat->setClient($stub);
-
-        return $sunat;
-    }
-
-    /**
-     * @return ExtService
-     */
     public function getExtSunat()
     {
         $client = new SoapClient(SunatEndpoints::FE_CONSULTA_CDR . '?wsdl');
         $client->setCredentials('20000000001MODDATOS', 'moddatos');
-        $client->setService(SunatEndpoints::FE_CONSULTA_CDR);
-        $sunat = new ExtService();
-        $sunat->setClient($client);
+        $service = new ExtService();
+        $service->setClient($client);
 
-        return $sunat;
+        return $service;
     }
 
     /**
@@ -71,7 +45,7 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
     protected function getBillSender()
     {
         $sender = new BillSender();
-        $sender->setCodeProvider($this->getErrorCodeProvider());
+        $sender->setCodeProvider($this->getErrorCodeProviderMock());
         $sender->setClient($this->getClient());
 
         return $sender;
@@ -84,8 +58,8 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
     protected function getBillSenderThrow($code)
     {
         $sender = new BillSender();
-        $sender->setCodeProvider($this->getErrorCodeProvider());
-        $sender->setClient($this->getClientMock($code));
+        $sender->setCodeProvider($this->getErrorCodeProviderMock());
+        $sender->setClient($this->getClientThrowMock($code));
 
         return $sender;
     }
@@ -146,7 +120,7 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
     protected function getSummarySenderThrow($code)
     {
         $sender = new SummarySender();
-        $sender->setClient($this->getClientMock($code));
+        $sender->setClient($this->getClientThrowMock($code));
 
         return $sender;
     }
@@ -157,11 +131,11 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
      */
     protected function getExtServiceForFault($code)
     {
-        $client = $this->getClientMock($code);
-        $sunat = new ExtService();
-        $sunat->setClient($client);
+        $client = $this->getClientThrowMock($code);
+        $service = new ExtService();
+        $service->setClient($client);
 
-        return $sunat;
+        return $service;
     }
 
     /**
@@ -180,21 +154,20 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
      * @param $code
      * @return WsClientInterface
      */
-    private function getClientMock($code)
+    private function getClientThrowMock($code)
     {
-        $stub = $this->getMockBuilder(WsClientInterface::class)
-            ->getMock();
-        $stub->method('call')->will($this->throwException(new \SoapFault($code, 'ERROR TEST')));
+        $client = Mockery::mock(WsClientInterface::class);
+        $client->shouldReceive('call')
+            ->andThrowExceptions([new \SoapFault($code, 'ERROR TEST')]);
 
-        /**@var $stub WsClientInterface */
-        return $stub;
+        return $client;
     }
 
-    private function getErrorCodeProvider()
+    private function getErrorCodeProviderMock()
     {
-        $stub = $this->getMockBuilder(ErrorCodeProviderInterface::class)
-            ->getMock();
-        $stub->method('getValue')->willReturnCallback(function ($err) {
+        $provider = Mockery::mock(ErrorCodeProviderInterface::class);
+        $provider->shouldReceive('getValue')
+            ->andReturnUsing(function ($err) {
             $items = [
               '0156' => 'El archivo ZIP esta corrupto',
             ];
@@ -202,28 +175,37 @@ abstract class FeSunatTestBase extends \PHPUnit_Framework_TestCase
             return $items[$err];
         });
 
-        /**@var $stub ErrorCodeProviderInterface */
-        return $stub;
+        return $provider;
     }
 
     /**
      * @return ExtService
      */
-    protected function getExtServicePendingProcess()
+    protected function getExtServiceMock()
     {
-        $stub = $this->getMockBuilder(WsClientInterface::class)
-            ->getMock();
-        $obj = new \stdClass();
-        $obj->status = new \stdClass();
-        $obj->status->statusCode = '98';
+        $client = Mockery::mock(WsClientInterface::class);
+        $client->shouldReceive('call')
+            ->with('getStatus', Mockery::type('array'))
+            ->andReturnUsing(function ($_, $args) {
+                $ticket = $args['parameters']['ticket'];
 
-        $stub->method('call')
-            ->willReturn($obj);
+                $obj = new \stdClass();
+                $obj->status = new \stdClass();
+
+                if ($ticket === '223123123213') {
+                    $obj->status->statusCode = '98';
+                } else {
+                    $obj->status->statusCode = '0';
+                    $obj->status->content = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
+                }
+
+                return $obj;
+            });
 
         /**@var $stub WsClientInterface */
-        $sunat = new ExtService();
-        $sunat->setClient($stub);
+        $service = new ExtService();
+        $service->setClient($client);
 
-        return $sunat;
+        return $service;
     }
 }
