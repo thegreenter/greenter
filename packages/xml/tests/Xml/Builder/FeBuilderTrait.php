@@ -31,7 +31,6 @@ trait FeBuilderTrait
         Note::class => NoteBuilder::class,
         Summary::class => SummaryBuilder::class,
         Voided::class => VoidedBuilder::class,
-        Summary::class => SummaryBuilder::class,
     ];
 
     /**
