@@ -13,13 +13,13 @@
     "type": "library",
     "require": {
 		"php": ">=5.5.9",
-        "twig/twig": "~1.0",
-        "greenter/core": "^2.1"
+        "greenter/core": "^2.1",
+        "twig/twig": "~1.0"
     },
 	"require-dev": {
-        "phpunit/phpunit": ">=4.8 < 6.0",
+        "greenter/data": "dev-master",
         "greenter/ubl-validator": "^2.0",
-        "greenter/data": "dev-master"
+        "phpunit/phpunit": ">=4.8 < 6.0"
     },
 	"autoload": {
         "psr-4": {
