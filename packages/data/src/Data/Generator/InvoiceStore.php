@@ -104,7 +104,7 @@ class InvoiceStore implements DocumentGeneratorInterface
         $detail2->setCodProducto('C21')
             ->setUnidad('ZZ')
             ->setCantidad(2)
-            ->setDescripcion('PRODUCTO 2')
+            ->setDescripcion('PRODUCTO ÁÍ 2')
             ->setDescuento(1)
             ->setDescuentos([
                 (new Charge())

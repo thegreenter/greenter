@@ -27,7 +27,7 @@ class SharedStore
                 ->setDepartamento('LIMA')
                 ->setUrbanizacion('CASUARINAS')
                 ->setCodLocal('0000')
-                ->setDireccion('AV NEW DEAL 123'))
+                ->setDireccion('AV NEW DEÁL 123'))
             ->setEmail('admin@greenter.com')
             ->setTelephone('01-234455');
     }
@@ -39,7 +39,7 @@ class SharedStore
             ->setNumDoc('20000000001')
             ->setRznSocial('EMPRESA 1 S.A.C.')
             ->setAddress((new Address())
-                ->setDireccion('JR. NIQUEL MZA. F LOTE. 3 URB.  INDUSTRIAL INFANTAS - LIMA - LIMA -PERU'))
+                ->setDireccion('JR. NIQUEL MZA. F LOTE. 3 URB.  INDUSTRIAL INFAÑTAS - LIMA - LIMA -PERU'))
             ->setEmail('client@corp.com')
             ->setTelephone('01-445566');
 
@@ -53,7 +53,7 @@ class SharedStore
             ->setNumDoc('48285071')
             ->setRznSocial('NIPAO GUVI')
             ->setAddress((new Address())
-                ->setDireccion('Calle Geranios 453, SAN MIGUEL - LIMA - PERU'));
+                ->setDireccion('Calle fusión 453, SAN MIGUEL - LIMA - PERU'));
 
         return $client;
     }

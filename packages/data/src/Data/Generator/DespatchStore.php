@@ -51,7 +51,7 @@ class DespatchStore implements DocumentGeneratorInterface
         $envio = new Shipment();
         $envio->setModTraslado('01')
             ->setCodTraslado('01')
-            ->setDesTraslado('VENTA')
+            ->setDesTraslado('VENTA ÚX')
             ->setFecTraslado(new \DateTime())
             ->setCodPuerto('123')
             ->setIndTransbordo(false)

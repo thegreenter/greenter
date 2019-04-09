@@ -31,7 +31,7 @@ class VoidedStore implements DocumentGeneratorInterface
         $detial1->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('02132132')
-            ->setDesMotivoBaja('ERROR DE SISTEMA');
+            ->setDesMotivoBaja('ERROR DE SISTEMÁ');
 
         $detial2 = new VoidedDetail();
         $detial2->setTipoDoc('07')
