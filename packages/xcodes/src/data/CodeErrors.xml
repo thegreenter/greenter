@@ -134,7 +134,6 @@
 <error code="1075">cac:Shipment - El XML no contiene o no existe información en punto de partida (cac:OriginAddress).</error>
 <error code="1076">El XML no contiene el atributo o no existe información de sustento de traslado de mercaderias para el tipo de operación.</error>
 <error code="1077">El XML contiene el tag de sustento de traslado de mercaderias que no corresponde al tipo de operación.</error>
-<error code="2104">ElNumero de RUC del emisor no existe</error>
 <error code="2010">El contribuyente no esta activo</error>
 <error code="2011">El contribuyente no esta habido</error>
 <error code="2012">El contribuyente no está autorizado a emitir comprobantes electrónicos</error>
