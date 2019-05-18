@@ -65,7 +65,7 @@ class NoteStore implements DocumentGeneratorInterface
             ->setTipAfeIgv('10')
             ->setTotalImpuestos(18)
             ->setMtoValorVenta(100)
-            ->setMtoValorUnitario(50)
+            ->setMtoValorUnitario(50.2211133332222)
             ->setMtoPrecioUnitario(56);
 
         $legend = new Legend();
