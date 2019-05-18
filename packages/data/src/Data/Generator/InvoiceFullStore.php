@@ -139,7 +139,7 @@ class InvoiceFullStore implements DocumentGeneratorInterface
                     ->setTipAfeIgv('10')
                     ->setMtoValorVenta(100)
                     ->setMtoValorGratuito(2.32)
-                    ->setMtoPrecioUnitario(0)
+                    ->setMtoValorUnitario(50.777777)
             ])->setLegends([
                 (new Legend())
                     ->setCode('1000')
