@@ -4,6 +4,7 @@ namespace Greenter\Xml\Filter;
 
 /**
  * Class FormatFilter.
+ * @internal
  */
 class FormatFilter
 {

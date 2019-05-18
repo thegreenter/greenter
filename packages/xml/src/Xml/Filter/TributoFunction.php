@@ -10,6 +10,7 @@ namespace Greenter\Xml\Filter;
 
 /**
  * Class TributoFunction
+ * @internal
  */
 class TributoFunction
 {
