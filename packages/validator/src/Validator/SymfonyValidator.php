@@ -10,7 +10,9 @@ namespace Greenter\Validator;
 
 use Greenter\Model\DocumentInterface;
 use Greenter\Validator\Metadata\CustomMetadataFactory;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class SymfonyValidator.
@@ -43,7 +45,7 @@ class SymfonyValidator implements DocumentValidatorInterface
     /**
      * @param DocumentInterface $document
      *
-     * @return \Symfony\Component\Validator\ConstraintViolationListInterface
+     * @return ConstraintViolationListInterface
      */
     public function validate(DocumentInterface $document)
     {
@@ -51,7 +53,17 @@ class SymfonyValidator implements DocumentValidatorInterface
     }
 
     /**
-     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+     * Set UBL Version preference.
+     *
+     * @param string $version
+     */
+    public function setVersion($version)
+    {
+        $this->factory->setVersion($version);
+    }
+
+    /**
+     * @return ValidatorInterface
      */
     public function getValidator()
     {

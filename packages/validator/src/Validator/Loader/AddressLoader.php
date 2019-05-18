@@ -29,5 +29,6 @@ class AddressLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraint('distrito', new Assert\Length(['max' => 100]));
         $metadata->addPropertyConstraint('urbanizacion', new Assert\Length(['max' => 25]));
         $metadata->addPropertyConstraint('direccion', new Assert\Length(['max' => 100]));
+        $metadata->addPropertyConstraint('codLocal', new Assert\NotBlank());
     }
 }

@@ -18,10 +18,20 @@ use Symfony\Component\Validator\Mapping\MetadataInterface;
  */
 class CustomMetadataFactory implements MetadataFactoryInterface
 {
+    private $version;
+
     /**
      * @var LoaderListenerInterface
      */
     private $listener;
+
+    /**
+     * @param string $version
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+    }
 
     /**
      * @param LoaderListenerInterface $listener
@@ -80,6 +90,14 @@ class CustomMetadataFactory implements MetadataFactoryInterface
     {
         $classModel = get_class($value);
         $className = substr(strrchr($classModel, '\\'), 1);
+        $version = $this->getFormatVersion();
+        if (!empty($version)) {
+            $fullClass = 'Greenter\\Validator\\Loader\\'.$version.'\\'.$className.'Loader';
+            if (class_exists($fullClass)) {
+                return $fullClass;
+            }
+        }
+
         $fullClass = 'Greenter\\Validator\\Loader\\'.$className.'Loader';
 
         if (!class_exists($fullClass)) {
@@ -87,5 +105,14 @@ class CustomMetadataFactory implements MetadataFactoryInterface
         }
 
         return $fullClass;
+    }
+
+    private function getFormatVersion()
+    {
+        if (empty($this->version)) {
+            return '';
+        }
+
+        return 'v'.str_replace('.', '', $this->version);
     }
 }

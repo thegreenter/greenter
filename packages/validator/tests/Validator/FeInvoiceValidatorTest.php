@@ -26,9 +26,6 @@ class FeInvoiceValidatorTest extends \PHPUnit_Framework_TestCase
 {
     use ValidatorTrait;
 
-    /**
-     * @after testCompanyValidate
-     */
     public function testValidateInvoice()
     {
         $invoice = $this->getInvoice();
