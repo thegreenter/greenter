@@ -21,6 +21,7 @@ class SymfonyValidator implements DocumentValidatorInterface
 {
     private $validator;
     private $factory;
+    private $version;
 
     /**
      * SymfonyValidator constructor.
@@ -50,6 +51,16 @@ class SymfonyValidator implements DocumentValidatorInterface
     public function validate(DocumentInterface $document)
     {
         return $this->validator->validate($document);
+    }
+
+    /**
+     * Set UBL Version preference.
+     *
+     * @param string $version
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
     }
 
     /**
