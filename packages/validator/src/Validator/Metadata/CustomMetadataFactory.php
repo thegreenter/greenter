@@ -90,8 +90,9 @@ class CustomMetadataFactory implements MetadataFactoryInterface
     {
         $classModel = get_class($value);
         $className = substr(strrchr($classModel, '\\'), 1);
-        if (!empty($this->version)) {
-            $fullClass = 'Greenter\\Validator\\Loader\\'.$this->version.'\\'.$className.'Loader';
+        $version = $this->getFormatVersion();
+        if (!empty($version)) {
+            $fullClass = 'Greenter\\Validator\\Loader\\'.$version.'\\'.$className.'Loader';
             if (class_exists($fullClass)) {
                 return $fullClass;
             }
@@ -104,5 +105,14 @@ class CustomMetadataFactory implements MetadataFactoryInterface
         }
 
         return $fullClass;
+    }
+
+    private function getFormatVersion()
+    {
+        if (empty($this->version)) {
+            return '';
+        }
+
+        return 'v'.str_replace('.', '', $this->version);
     }
 }
