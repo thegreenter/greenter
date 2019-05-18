@@ -251,12 +251,12 @@
         <cac:PricingReference>
             {% if detail.mtoValorGratuito -%}
             <cac:AlternativeConditionPrice>
-                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito|n_format(6) }}</cbc:PriceAmount>
+                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito|n_format_limit(10) }}</cbc:PriceAmount>
                 <cbc:PriceTypeCode>02</cbc:PriceTypeCode>
             </cac:AlternativeConditionPrice>
             {% else -%}
             <cac:AlternativeConditionPrice>
-                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|n_format(6) }}</cbc:PriceAmount>
+                <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|n_format_limit(10) }}</cbc:PriceAmount>
                 <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
             </cac:AlternativeConditionPrice>
             {% endif -%}
@@ -350,7 +350,7 @@
             {% endif -%}
         </cac:Item>
         <cac:Price>
-            <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario|n_format(6) }}</cbc:PriceAmount>
+            <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario|n_format_limit(10) }}</cbc:PriceAmount>
         </cac:Price>
     </cac:DebitNoteLine>
    {% endfor -%}
