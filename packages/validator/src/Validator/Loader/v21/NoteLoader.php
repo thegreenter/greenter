@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Giansalex
+ * Date: 18/07/2017
+ * Time: 22:27.
+ */
 
 namespace Greenter\Validator\Loader\v21;
 
@@ -7,13 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Greenter\Validator\Constraint as MyAssert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
-class InvoiceLoader implements LoaderMetadataInterface
+class NoteLoader implements LoaderMetadataInterface
 {
     public function load(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraints('tipoOperacion', [
-            new Assert\NotBlank(),
-        ]);
         $metadata->addPropertyConstraints('tipoDoc', [
             new Assert\NotBlank(),
         ]);
@@ -29,10 +32,16 @@ class InvoiceLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\DateTime(),
         ]);
-        $metadata->addPropertyConstraint('fecVencimiento', new Assert\DateTime());
         $metadata->addPropertyConstraints('tipoMoneda', [
             new Assert\NotBlank(),
             new MyAssert\Currency(),
+        ]);
+        $metadata->addPropertyConstraint('codMotivo', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('tipDocAfectado', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('numDocfectado', new Assert\NotBlank());
+        $metadata->addPropertyConstraints('desMotivo', [
+            new Assert\NotBlank(),
+            new Assert\Length(['max' => 500]),
         ]);
         $metadata->addPropertyConstraints('mtoOperGravadas', [
             new Assert\Type(['type' => 'numeric']),
@@ -49,19 +58,7 @@ class InvoiceLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraints('mtoOperExportacion', [
             new Assert\Type(['type' => 'numeric']),
         ]);
-        $metadata->addPropertyConstraint('mtoIGV', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('mtoISC', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('mtoBaseIsc', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('mtoOtrosTributos', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('mtoBaseOth', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('mtoDescuentos', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('sumOtrosCargos', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('totalAnticipos', new Assert\Type(['type' => 'numeric']));
         $metadata->addPropertyConstraints('totalImpuestos', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
-        ]);
-        $metadata->addPropertyConstraints('valorVenta', [
             new Assert\NotBlank(),
             new Assert\Type(['type' => 'numeric']),
         ]);
@@ -77,15 +74,16 @@ class InvoiceLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\Valid(),
         ]);
-        $metadata->addPropertyConstraint('seller', new Assert\Valid());
+        $metadata->addPropertyConstraint('mtoIGV', new Assert\Type(['type' => 'numeric']));
+        $metadata->addPropertyConstraint('mtoISC', new Assert\Type(['type' => 'numeric']));
+        $metadata->addPropertyConstraint('mtoBaseIsc', new Assert\Type(['type' => 'numeric']));
+        $metadata->addPropertyConstraint('mtoOtrosTributos', new Assert\Type(['type' => 'numeric']));
+        $metadata->addPropertyConstraint('mtoBaseOth', new Assert\Type(['type' => 'numeric']));
+        $metadata->addPropertyConstraint('sumOtrosCargos', new Assert\Type(['type' => 'numeric']));
         $metadata->addPropertyConstraint('details', new Assert\Valid());
         $metadata->addPropertyConstraint('legends', new Assert\Valid());
         $metadata->addPropertyConstraint('guias', new Assert\Valid());
-        $metadata->addPropertyConstraint('anticipos', new Assert\Valid());
-        $metadata->addPropertyConstraint('detraccion', new Assert\Valid());
         $metadata->addPropertyConstraint('relDocs', new Assert\Valid());
         $metadata->addPropertyConstraint('perception', new Assert\Valid());
-        $metadata->addPropertyConstraint('cargos', new Assert\Valid());
-        $metadata->addPropertyConstraint('descuentos', new Assert\Valid());
     }
 }
