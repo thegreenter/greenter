@@ -22,7 +22,6 @@ class SalePerceptionLoader implements LoaderMetadataInterface
                 'choices' => ['01', '02', '03'],
             ]),
         ]);
-//        $metadata->addPropertyConstraint('tasa', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoBase', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mto', new Assert\NotBlank());
         $metadata->addPropertyConstraint('mtoTotal', new Assert\NotBlank());
