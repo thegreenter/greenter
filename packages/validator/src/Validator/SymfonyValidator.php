@@ -21,7 +21,6 @@ class SymfonyValidator implements DocumentValidatorInterface
 {
     private $validator;
     private $factory;
-    private $version;
 
     /**
      * SymfonyValidator constructor.
@@ -60,7 +59,7 @@ class SymfonyValidator implements DocumentValidatorInterface
      */
     public function setVersion($version)
     {
-        $this->version = $version;
+        $this->factory->setVersion($version);
     }
 
     /**
