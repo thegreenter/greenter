@@ -18,7 +18,7 @@ class Charge
      */
     private $codTipo;
     /**
-     * @var string
+     * @var float
      */
     private $factor;
     /**
@@ -49,7 +49,7 @@ class Charge
     }
 
     /**
-     * @return string
+     * @return float
      */
     public function getFactor()
     {
@@ -57,7 +57,7 @@ class Charge
     }
 
     /**
-     * @param string $factor
+     * @param float $factor
      * @return Charge
      */
     public function setFactor($factor)
