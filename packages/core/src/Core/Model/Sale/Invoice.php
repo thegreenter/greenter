@@ -96,6 +96,11 @@ class Invoice extends BaseSale
     private $valorVenta;
 
     /**
+     * @var string
+     */
+    private $observacion;
+
+    /**
      * @return string
      */
     public function getTipoOperacion()
@@ -384,5 +389,23 @@ class Invoice extends BaseSale
     {
         $this->valorVenta = $valorVenta;
         return $this;
+    }
+
+    /**
+    * @return string
+    */
+    public function getObservacion()
+    {
+	return $this->observacion;
+    }
+
+    /**
+    * @param string $observacion
+    * @return Invoice
+    */
+    public function setObservacion($observacion)
+    {
+	$this->observacion = $observacion;
+	return $this;
     }
 }
