@@ -22,8 +22,9 @@ Crearemos el archivo `config.php` y agregaremos lo siguiente:
 ```php
 <?php
 use Greenter\Ws\Services\SunatEndpoints;
+use Greenter\See;
 
-$see = new \Greenter\See();
+$see = new See();
 $see->setService(SunatEndpoints::FE_BETA);
 $see->setCertificate(file_get_contents(__DIR__.'/certificate.pem'));
 $see->setCredentials('20000000001MODDATOS', 'moddatos');
@@ -98,7 +99,7 @@ $item = (new SaleDetail())
     ->setTotalImpuestos(18.00)
     ->setMtoValorVenta(100.00)
     ->setMtoValorUnitario(50.00)
-    ->setMtoPrecioUnitario(56.00);
+    ->setMtoPrecioUnitario(59.00);
 
 $legend = (new Legend())
     ->setCode('1000')
@@ -109,11 +110,17 @@ $invoice->setDetails([$item])
 
 $result = $see->send($invoice);
 
-if ($result->isSuccess()) {
-    echo $result->getCdrResponse()->getDescription();
-} else {
+// Guardar XML
+file_put_contents($invoice->getName().'.xml',
+                  $see->getFactory()->getLastXml());
+if (!$result->isSuccess()) {
     var_dump($result->getError());
+    exit();
 }
+
+echo $result->getCdrResponse()->getDescription();
+// Guardar CDR
+file_put_contents('R-'.$invoice->getName().'.zip', $result->getCdrZip());
 ```
 
 Estructura del proyecto
