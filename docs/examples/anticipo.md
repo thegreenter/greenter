@@ -22,9 +22,16 @@ $invoice
     ->setTipoMoneda('PEN')
     ->setClient($this->getClient())
     ->setCompany($this->getCompany())
+    ->setDescuentos([(
+        new Charge())
+        ->setCodTipo('04') // catalog. 53
+        ->setFactor(1)
+        ->setMonto(100) // anticipo
+        ->setMontoBase(100)
+    ])
     ->setMtoOperGravadas(100)
     ->setMtoIGV(18)
-    ->setValorVenta(100)
+    ->setValorVenta(200)
     ->setTotalImpuestos(18)
     ->setMtoImpVenta(118)
     ->setAnticipos([
