@@ -1,3 +1,4 @@
+{% spaceless %}
 <?xml version="1.0" encoding="utf-8"?>
 <SummaryDocuments
         xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:SummaryDocuments-1"
@@ -17,7 +18,7 @@
     <cbc:ID>{{ doc.xmlId }}</cbc:ID>
     <cbc:ReferenceDate>{{ doc.fecGeneracion|date('Y-m-d') }}</cbc:ReferenceDate>
     <cbc:IssueDate>{{ doc.fecResumen|date('Y-m-d') }}</cbc:IssueDate>
-    {% set emp = doc.company -%}
+    {% set emp = doc.company %}
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
         <cac:SignatoryParty>
@@ -43,7 +44,7 @@
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
-    {% for det in doc.details -%}
+    {% for det in doc.details %}
     <sac:SummaryDocumentsLine>
         <cbc:LineID>{{ loop.index }}</cbc:LineID>
         <cbc:DocumentTypeCode>{{ det.tipoDoc }}</cbc:DocumentTypeCode>
@@ -52,16 +53,16 @@
             <cbc:CustomerAssignedAccountID>{{ det.clienteNro }}</cbc:CustomerAssignedAccountID>
             <cbc:AdditionalAccountID>{{ det.clienteTipo }}</cbc:AdditionalAccountID>
         </cac:AccountingCustomerParty>
-        {% if det.docReferencia -%}
+        {% if det.docReferencia %}
         <cac:BillingReference>
             <cac:InvoiceDocumentReference>
                 <cbc:ID>{{ det.docReferencia.nroDoc }}</cbc:ID>
                 <cbc:DocumentTypeCode>{{ det.docReferencia.tipoDoc }}</cbc:DocumentTypeCode>
             </cac:InvoiceDocumentReference>
         </cac:BillingReference>
-        {% endif -%}
-        {% if det.percepcion -%}
-        {% set perc = det.percepcion -%}
+        {% endif %}
+        {% if det.percepcion %}
+        {% set perc = det.percepcion %}
         <sac:SUNATPerceptionSummaryDocumentReference>
             <sac:SUNATPerceptionSystemCode>{{ perc.codReg }}</sac:SUNATPerceptionSystemCode>
             <sac:SUNATPerceptionPercent>{{ perc.tasa|n_format }}</sac:SUNATPerceptionPercent>
@@ -69,49 +70,49 @@
             <sac:SUNATTotalCashed currencyID="PEN">{{ perc.mtoTotal|n_format }}</sac:SUNATTotalCashed>
             <cbc:TaxableAmount currencyID="PEN">{{ perc.mtoBase|n_format }}</cbc:TaxableAmount>
         </sac:SUNATPerceptionSummaryDocumentReference>
-        {% endif -%}
+        {% endif %}
         <cac:Status>
             <cbc:ConditionCode>{{ det.estado }}</cbc:ConditionCode>
         </cac:Status>
         <sac:TotalAmount currencyID="{{ doc.moneda }}">{{ det.total|n_format }}</sac:TotalAmount>
-        {% if det.mtoOperGravadas -%}
+        {% if det.mtoOperGravadas %}
         <sac:BillingPayment>
             <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ det.mtoOperGravadas|n_format }}</cbc:PaidAmount>
             <cbc:InstructionID>01</cbc:InstructionID>
         </sac:BillingPayment>
-        {% endif -%}
-        {% if det.mtoOperExoneradas -%}
+        {% endif %}
+        {% if det.mtoOperExoneradas %}
         <sac:BillingPayment>
             <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ det.mtoOperExoneradas|n_format }}</cbc:PaidAmount>
             <cbc:InstructionID>02</cbc:InstructionID>
         </sac:BillingPayment>
-        {% endif -%}
-        {% if det.mtoOperInafectas -%}
+        {% endif %}
+        {% if det.mtoOperInafectas %}
         <sac:BillingPayment>
             <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ det.mtoOperInafectas|n_format }}</cbc:PaidAmount>
             <cbc:InstructionID>03</cbc:InstructionID>
         </sac:BillingPayment>
-        {% endif -%}
-        {% if det.mtoOperExportacion -%}
+        {% endif %}
+        {% if det.mtoOperExportacion %}
         <sac:BillingPayment>
             <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ det.mtoOperExportacion|n_format }}</cbc:PaidAmount>
             <cbc:InstructionID>04</cbc:InstructionID>
         </sac:BillingPayment>
-        {% endif -%}
-        {% if det.mtoOperGratuitas -%}
+        {% endif %}
+        {% if det.mtoOperGratuitas %}
         <sac:BillingPayment>
             <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ det.mtoOperGratuitas|n_format }}</cbc:PaidAmount>
             <cbc:InstructionID>05</cbc:InstructionID>
         </sac:BillingPayment>
-        {% endif -%}
-        {% if det.mtoOtrosCargos -%}
+        {% endif %}
+        {% if det.mtoOtrosCargos %}
         <cac:AllowanceCharge>
             <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
             <cbc:Amount currencyID="{{ doc.moneda }}">{{ det.mtoOtrosCargos|n_format }}</cbc:Amount>
         </cac:AllowanceCharge>
-        {% endif -%}
-        {% if det.mtoIvap -%}
-        {% set ivap = det.mtoIvap|n_format -%}
+        {% endif %}
+        {% if det.mtoIvap %}
+        {% set ivap = det.mtoIvap|n_format %}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ ivap }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
@@ -125,8 +126,8 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         </cac:TaxTotal>
-        {% else -%}
-        {% set igv = det.mtoIGV|n_format -%}
+        {% else %}
+        {% set igv = det.mtoIGV|n_format %}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ igv }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
@@ -140,9 +141,9 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         </cac:TaxTotal>
-        {% endif -%}
-        {% if det.mtoISC -%}
-        {% set isc = det.mtoISC|n_format -%}
+        {% endif %}
+        {% if det.mtoISC %}
+        {% set isc = det.mtoISC|n_format %}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ isc }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
@@ -157,8 +158,8 @@
             </cac:TaxSubtotal>
         </cac:TaxTotal>
         {% endif %}
-        {% if det.mtoOtrosTributos -%}
-        {% set oth = det.mtoOtrosTributos|n_format -%}
+        {% if det.mtoOtrosTributos %}
+        {% set oth = det.mtoOtrosTributos|n_format %}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ oth }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
@@ -172,7 +173,8 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         </cac:TaxTotal>
-        {% endif -%}
+        {% endif %}
     </sac:SummaryDocumentsLine>
-    {% endfor -%}
+    {% endfor %}
 </SummaryDocuments>
+{% endspaceless %}

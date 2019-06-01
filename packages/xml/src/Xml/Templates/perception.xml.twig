@@ -1,3 +1,4 @@
+{% spaceless %}
 <?xml version="1.0" encoding="utf-8"?>
 <Perception xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:Perception-1"
 			xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
@@ -12,7 +13,7 @@
 	</ext:UBLExtensions>
 	<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
 	<cbc:CustomizationID>1.0</cbc:CustomizationID>
-    {% set emp = doc.company -%}
+    {% set emp = doc.company %}
 	<cac:Signature>
 		<cbc:ID>{{ emp.ruc }}</cbc:ID>
 		<cbc:Note>GREENTER Builder</cbc:Note>
@@ -40,7 +41,7 @@
 		<cac:PartyName>
 			<cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
 		</cac:PartyName>
-        {% set addr = emp.address -%}
+        {% set addr = emp.address %}
 		<cac:PostalAddress>
 			<cbc:ID>{{ addr.ubigueo }}</cbc:ID>
 			<cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
@@ -65,40 +66,41 @@
 	</cac:ReceiverParty>
 	<sac:SUNATPerceptionSystemCode>{{ doc.regimen }}</sac:SUNATPerceptionSystemCode>
 	<sac:SUNATPerceptionPercent>{{ doc.tasa|n_format }}</sac:SUNATPerceptionPercent>
-    {% if doc.observacion -%}
+    {% if doc.observacion %}
 	<cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
-	{% endif -%}
+	{% endif %}
 	<cbc:TotalInvoiceAmount currencyID="PEN">{{ doc.impPercibido|n_format }}</cbc:TotalInvoiceAmount>
 	<sac:SUNATTotalCashed currencyID="PEN">{{ doc.impCobrado|n_format }}</sac:SUNATTotalCashed>
-	{% for det in doc.details -%}
+	{% for det in doc.details %}
 	<sac:SUNATPerceptionDocumentReference>
 		<cbc:ID schemeID="{{ det.tipoDoc }}">{{ det.numDoc }}</cbc:ID>
 		<cbc:IssueDate>{{ det.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
 		<cbc:TotalInvoiceAmount currencyID="{{ det.moneda }}">{{ det.impTotal|n_format }}</cbc:TotalInvoiceAmount>
-		{% if det.cobros -%}
-        {% for cob in det.cobros -%}
+		{% if det.cobros %}
+        {% for cob in det.cobros %}
 		<cac:Payment>
 			<cbc:ID>{{ loop.index }}</cbc:ID>
 			<cbc:PaidAmount currencyID="{{ cob.moneda }}">{{ cob.importe|n_format }}</cbc:PaidAmount>
 			<cbc:PaidDate>{{ cob.fecha|date('Y-m-d') }}</cbc:PaidDate>
 		</cac:Payment>
-        {% endfor -%}
-		{% endif -%}
-		{% if det.impPercibido and det.impCobrar and det.fechaPercepcion -%}
+        {% endfor %}
+		{% endif %}
+		{% if det.impPercibido and det.impCobrar and det.fechaPercepcion %}
 		<sac:SUNATPerceptionInformation>
 			<sac:SUNATPerceptionAmount currencyID="PEN">{{ det.impPercibido|n_format }}</sac:SUNATPerceptionAmount>
 			<sac:SUNATPerceptionDate>{{ det.fechaPercepcion|date('Y-m-d') }}</sac:SUNATPerceptionDate>
 			<sac:SUNATNetTotalCashed currencyID="PEN">{{ det.impCobrar|n_format }}</sac:SUNATNetTotalCashed>
-            {% if det.tipoCambio -%}
+            {% if det.tipoCambio %}
 			<cac:ExchangeRate>
 				<cbc:SourceCurrencyCode>{{ det.tipoCambio.monedaRef }}</cbc:SourceCurrencyCode>
 				<cbc:TargetCurrencyCode>{{ det.tipoCambio.monedaObj }}</cbc:TargetCurrencyCode>
 				<cbc:CalculationRate>{{ det.tipoCambio.factor|n_format(6)}}</cbc:CalculationRate>
 				<cbc:Date>{{ det.tipoCambio.fecha|date('Y-m-d') }}</cbc:Date>
 			</cac:ExchangeRate>
-            {% endif -%}
+            {% endif %}
 		</sac:SUNATPerceptionInformation>
-		{% endif -%}
+		{% endif %}
 	</sac:SUNATPerceptionDocumentReference>
-	{% endfor -%}
+	{% endfor %}
 </Perception>
+{% endspaceless %}
