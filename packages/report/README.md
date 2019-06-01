@@ -9,14 +9,16 @@ Representación en formato HTML del comprobante electrónico empleado en la fact
 > Para generar el PDF puede utilizar [wkhtmltopdf](https://wkhtmltopdf.org/) y/o [greenter/htmltopdf](https://github.com/giansalex/greenter-htmltopdf).
 
 ## Install
-Via Composer from [packagist.org](https://packagist.org/packages/greenter/report)
+Via Composer desde [packagist.org](https://packagist.org/packages/greenter/report)
 ```bash
 composer require greenter/report
 ```
 
 ## Example
 ```php
-$invoice = createInvoice();
+$invoice = new Invoice();
+// $invoice->set...
+
 $report = new HtmlReport();
 
 $report->setTemplate('invoice.html.twig');
