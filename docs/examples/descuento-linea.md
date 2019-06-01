@@ -4,7 +4,7 @@
 
 ## Código
 
-```php hl_lines="19 30 31 32 33 34 35 36"
+```php hl_lines="29 30 31 32 33 34 35"
 <?php
 use Greenter\Model\Sale\Charge;
 use Greenter\Model\Sale\Invoice;
@@ -23,7 +23,6 @@ $invoice->setUblVersion('2.1')
     ->setCompany($this->getCompany())
     ->setMtoOperGravadas(180)
     ->setMtoIGV(32.40)
-    ->setMtoDescuentos(20)
     ->setTotalImpuestos(32.40)
     ->setValorVenta(180)
     ->setMtoImpVenta(212.40);
@@ -47,7 +46,7 @@ $detail->setCodProducto('P001')
     ->setIgv(32.40)
     ->setTipAfeIgv('10')
     ->setTotalImpuestos(32.40)
-    ->setMtoPrecioUnitario(118)
+    ->setMtoPrecioUnitario(106.3)
 ;
 
 $invoice->setDetails([$detail])
