@@ -4,7 +4,7 @@
 
 ## Código
 
-```php hl_lines="24 25 26 27 29"
+```php hl_lines="18 19 20 21 22 23 24 30 31 32 33 34 35 36"
 <?php
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;

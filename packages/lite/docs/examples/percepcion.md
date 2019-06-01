@@ -4,7 +4,7 @@
 
 ## Código
 
-```php hl_lines="9 22 23 24 25 26 27 49 50"
+```php hl_lines="9 22 23 24 25 26 27 28 51 52"
 <?php
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
@@ -31,7 +31,9 @@ $invoice->setUblVersion('2.1')
         ->setPorcentaje(0.02)
         ->setMtoBase(200)
         ->setMto(4.00)
-        ->setMtoTotal(204.00));
+        ->setMtoTotal(204.00))
+    ->setSumOtrosCargos(4.00);
+
 $detail = new SaleDetail();
 $detail->setCodProducto('P001')
     ->setUnidad('NIU')
