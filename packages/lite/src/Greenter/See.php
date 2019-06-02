@@ -8,6 +8,8 @@
 
 namespace Greenter;
 
+use DOMDocument;
+use Exception;
 use Greenter\Builder\BuilderInterface;
 use Greenter\Factory\FeFactory;
 use Greenter\Model\DocumentInterface;
@@ -16,6 +18,9 @@ use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\Voided;
 use Greenter\Services\SenderInterface;
 use Greenter\Validator\ErrorCodeProviderInterface;
+use Greenter\Ws\Reader\XmlFilenameExtractor;
+use Greenter\Ws\Reader\XmlReader;
+use Greenter\Ws\Resolver\XmlTypeResolver;
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SoapClient;
@@ -179,7 +184,8 @@ class See
      *
      * @param string $type Document Type
      * @param string $name Xml Name
-     * @param string $xml Xml Content
+     * @param string $xml  Xml Content
+     *
      * @return Model\Response\BaseResult
      */
     public function sendXml($type, $name, $xml)
@@ -189,6 +195,30 @@ class See
             ->setSender($this->getSender($type));
 
         return $this->factory->sendXml($name, $xml);
+    }
+
+    /**
+     * Envia XML generado previamente.
+     *
+     * @param string $xmlContent
+     *
+     * @return Model\Response\BaseResult
+     *
+     * @throws Exception
+     */
+    public function sendXmlFile($xmlContent)
+    {
+        $doc = new DOMDocument();
+        $doc->loadXML($xmlContent);
+
+        $reader = new XmlReader();
+        $resolver = new XmlTypeResolver($reader);
+        $type = $resolver->getType($doc);
+
+        $extractor = new XmlFilenameExtractor($reader);
+        $name = $extractor->getFilename($doc);
+
+        return $this->sendXml($type, $name, $xmlContent);
     }
 
     /**
