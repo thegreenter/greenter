@@ -106,6 +106,20 @@ class SeeFeTest extends FeFactoryBase
     }
 
     /**
+     * @throws \Exception
+     */
+    public function testSendXmlFile()
+    {
+        $see = $this->getSee();
+        $invoice = $this->getInvoice();
+        $xmlSigned = $see->getXmlSigned($invoice);
+
+        $result = $see->sendXmlFile($xmlSigned);
+
+        $this->assertTrue($result->isSuccess());
+    }
+
+    /**
      * @dataProvider providerInvoiceDocsv21
      * @param DocumentInterface $doc
      */
