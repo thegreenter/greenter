@@ -13,6 +13,7 @@
     "type": "library",
     "require": {
 		"php": ">=5.5.9",
+        "ext-dom": "*",
         "greenter/xmldsig": "^5.0",
         "greenter/core": "^2.1",
         "greenter/ws": "^2.1",
