@@ -1,5 +1,8 @@
 language: php
 
+git:
+  depth: 1
+
 matrix:
   include:
     - php: '5.6'
