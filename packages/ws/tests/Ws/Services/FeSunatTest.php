@@ -35,6 +35,9 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @group manual
+     */
     public function testSendInvoiceBillSender()
     {
         $nameXml = '20600055519-01-F001-00000001';
@@ -112,6 +115,9 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2001', $result->getError()->getCode());
     }
 
+    /**
+     * @group manual
+     */
     public function testSendSummaryV2()
     {
         $nameXml = '20000000001-RC-20171119-001';
