@@ -35,6 +35,9 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @group manual
+     */
     public function testSendInvoiceBillSender()
     {
         $nameXml = '20600055519-01-F001-00000001';
@@ -112,6 +115,9 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2001', $result->getError()->getCode());
     }
 
+    /**
+     * @group manual
+     */
     public function testSendSummaryV2()
     {
         $nameXml = '20000000001-RC-20171119-001';
@@ -136,6 +142,17 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($result->getCdrResponse());
         $this->assertEquals('0', $result->getCode());
         $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
+    }
+
+    public function testGetStatusWithExceptionCode()
+    {
+        $wss = $this->getExtServiceMock();
+        $result = $wss->getStatus('667123123214');
+
+        $this->assertFalse($result->isSuccess());
+        $this->assertNull($result->getCdrResponse());
+        $this->assertGreaterThanOrEqual(100, intval($result->getCode()));
+        $this->assertLessThanOrEqual(1999, intval($result->getCode()));
     }
 
     public function testGetStatusPending()
