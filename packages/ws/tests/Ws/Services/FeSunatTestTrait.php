@@ -181,6 +181,9 @@ trait FeSunatTestTrait
 
                 if ('223123123213' === $ticket) {
                     $obj->status->statusCode = '98';
+                } elseif ('667123123214' === $ticket){
+                    $obj->status->statusCode = '1002';
+                    $obj->status->statusMessage = 'ERROR Z';
                 } else {
                     $obj->status->statusCode = '0';
                     $obj->status->content = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
