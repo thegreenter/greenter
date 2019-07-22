@@ -8,10 +8,12 @@
 
 namespace Greenter\Report\Extension;
 
+use Twig\RuntimeLoader\RuntimeLoaderInterface;
+
 /**
  * Class RuntimeLoader.
  */
-class RuntimeLoader implements \Twig_RuntimeLoaderInterface
+class RuntimeLoader implements RuntimeLoaderInterface
 {
     public function load($class)
     {

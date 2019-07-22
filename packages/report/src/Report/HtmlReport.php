@@ -11,6 +11,8 @@ namespace Greenter\Report;
 use Greenter\Model\DocumentInterface;
 use Greenter\Report\Extension\ReportTwigExtension;
 use Greenter\Report\Extension\RuntimeLoader;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * Class HtmlReport.
@@ -18,7 +20,7 @@ use Greenter\Report\Extension\RuntimeLoader;
 class HtmlReport implements ReportInterface
 {
     /**
-     * @var \Twig_Environment
+     * @var Environment
      */
     private $twig;
 
@@ -46,13 +48,13 @@ class HtmlReport implements ReportInterface
      * Build html report.
      *
      * @param DocumentInterface $document
-     * @param array             $parameters
+     * @param array $parameters
      *
      * @return mixed
      *
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
     public function render(DocumentInterface $document, $parameters = [])
     {
@@ -75,7 +77,7 @@ class HtmlReport implements ReportInterface
     }
 
     /**
-     * @return \Twig_Environment
+     * @return Environment
      */
     public function getTwig()
     {
@@ -86,14 +88,14 @@ class HtmlReport implements ReportInterface
      * @param $directory
      * @param $options
      *
-     * @return \Twig_Environment
+     * @return Environment
      */
     private function buildTwig($directory, $options)
     {
         $dirs = $this->getDirectories($directory);
 
-        $loader = new \Twig_Loader_Filesystem($dirs);
-        $twig = new \Twig_Environment($loader, $options);
+        $loader = new FilesystemLoader($dirs);
+        $twig = new Environment($loader, $options);
 
         $twig->addRuntimeLoader(new RuntimeLoader());
         $twig->addExtension(new ReportTwigExtension());
