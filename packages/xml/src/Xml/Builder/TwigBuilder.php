@@ -10,13 +10,10 @@ namespace Greenter\Xml\Builder;
 
 use Greenter\Xml\Filter\FormatFilter;
 use Greenter\Xml\Filter\TributoFunction;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
-use Twig_Environment;
-use Twig_Loader_Filesystem;
-use Twig_SimpleFilter;
-use Twig_SimpleFunction;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 /**
  * Class TwigBuilder.
@@ -24,7 +21,7 @@ use Twig_SimpleFunction;
 class TwigBuilder
 {
     /**
-     * @var Twig_Environment
+     * @var Environment
      */
     protected $twig;
 
@@ -45,10 +42,6 @@ class TwigBuilder
      * @param object $doc
      *
      * @return string
-     *
-     * @throws LoaderError
-     * @throws RuntimeError
-     * @throws SyntaxError
      */
     public function render($template, $doc)
     {
@@ -59,23 +52,23 @@ class TwigBuilder
 
     private function initTwig($options)
     {
-        $loader = new Twig_Loader_Filesystem(__DIR__.'/../Templates');
+        $loader = new FilesystemLoader(__DIR__.'/../Templates');
 
-        $twig = new Twig_Environment($loader, $options);
+        $twig = new Environment($loader, $options);
         $this->LoadFilterAndFunctions($twig);
 
         $this->twig = $twig;
     }
 
     /**
-     * @param Twig_Environment $twig
+     * @param Environment $twig
      */
-    private function LoadFilterAndFunctions(Twig_Environment $twig)
+    private function LoadFilterAndFunctions(Environment $twig)
     {
         $formatFilter = new FormatFilter();
 
-        $twig->addFilter(new Twig_SimpleFilter('n_format', [$formatFilter, 'number']));
-        $twig->addFilter(new Twig_SimpleFilter('n_format_limit', [$formatFilter, 'numberLimit']));
-        $twig->addFunction(new Twig_SimpleFunction('getTributoAfect', [TributoFunction::class, 'getByAfectacion']));
+        $twig->addFilter(new TwigFilter('n_format', [$formatFilter, 'number']));
+        $twig->addFilter(new TwigFilter('n_format_limit', [$formatFilter, 'numberLimit']));
+        $twig->addFunction(new TwigFunction('getTributoAfect', [TributoFunction::class, 'getByAfectacion']));
     }
 }
