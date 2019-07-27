@@ -41,7 +41,7 @@ class ExtService extends BaseSunat
 
         $response = $this->getClient()->call('getStatus', ['parameters' => $params]);
         $status = $response->status;
-        $code = $status->statusCode;
+        $code = intval($status->statusCode);
 
         $result = new StatusResult();
         $result->setCode($code);
