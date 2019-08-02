@@ -9,11 +9,9 @@
 namespace Greenter\Xml\Builder;
 
 use Greenter\Xml\Filter\FormatFilter;
-use Greenter\Xml\Filter\TributoFunction;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
 
 /**
  * Class TwigBuilder.
@@ -69,6 +67,5 @@ class TwigBuilder
 
         $twig->addFilter(new TwigFilter('n_format', [$formatFilter, 'number']));
         $twig->addFilter(new TwigFilter('n_format_limit', [$formatFilter, 'numberLimit']));
-        $twig->addFunction(new TwigFunction('getTributoAfect', [TributoFunction::class, 'getByAfectacion']));
     }
 }
