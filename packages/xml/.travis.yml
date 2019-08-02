@@ -1,9 +1,4 @@
 language: php
-
-cache:
-  directories:
-    - vendor
-    - $HOME/.composer/cache
     
 git:
   depth: 2
