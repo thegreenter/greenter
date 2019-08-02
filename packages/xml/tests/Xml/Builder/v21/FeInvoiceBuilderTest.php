@@ -10,6 +10,7 @@ namespace Tests\Greenter\Xml\Builder\v21;
 
 use Greenter\Data\Generator\InvoiceDiscountStore;
 use Greenter\Data\Generator\InvoiceFullStore;
+use Greenter\Data\Generator\InvoiceIvapStore;
 use Greenter\Model\Sale\Invoice;
 use Tests\Greenter\Xml\Builder\FeBuilderTrait;
 use Tests\Greenter\Xml\Builder\XsdValidatorTrait;
@@ -37,7 +38,15 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         $invoice = $this->createDocument(InvoiceDiscountStore::class);
 
         $xml = $this->build($invoice);
-        //        file_put_contents('x.xml', $xml);
+        $this->assertNotEmpty($xml);
+        $this->assertSchema($xml);
+    }
+
+    public function testInvoiceIvap()
+    {
+        $invoice = $this->createDocument(InvoiceIvapStore::class);
+
+        $xml = $this->build($invoice);
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
     }
