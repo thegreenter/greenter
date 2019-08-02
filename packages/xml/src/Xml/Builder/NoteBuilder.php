@@ -26,6 +26,7 @@ class NoteBuilder extends TwigBuilder implements BuilderInterface
         parent::__construct($options);
 
         $this->twig->addFunction(new TwigFunction('getTributoAfect', [TributoFunction::class, 'getByAfectacion']));
+        $this->twig->addFunction(new TwigFunction('hasIvap', [TributoFunction::class, 'hasIvap']));
     }
 
     /**
