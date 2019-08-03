@@ -43,9 +43,6 @@ Puede ver una demostración en [Greenter Sampple](https://github.com/giansalex/g
 * Percepción Electrónica
 * Resumen de Reversiones
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/giansalex)   
-> También puedes contactarte vía correo.
-
 ### API
 - [Api Reference](https://giansalex.github.io/greenter-apidoc/)
 
