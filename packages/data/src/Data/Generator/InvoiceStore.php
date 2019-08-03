@@ -10,6 +10,7 @@ namespace Greenter\Data\Generator;
 
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
+use Greenter\Model\Company\Address;
 use Greenter\Model\Sale\Charge;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Invoice;
@@ -79,7 +80,13 @@ class InvoiceStore implements DocumentGeneratorInterface
                 (new Document())
                     ->setTipoDoc('09')
                     ->setNroDoc('001-442'),
-            ]);
+            ])->setDireccionEntrega((new Address())
+                ->setUbigueo('150101')
+                ->setDistrito('LIMA')
+                ->setProvincia('LIMA')
+                ->setDepartamento('LIMA')
+                ->setUrbanizacion('ASINC')
+                ->setDireccion('ALGARROBOS 1650'));
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')
