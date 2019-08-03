@@ -68,5 +68,5 @@ Siéntase en la libertad de hacer un fork de los diferentes repositorios, correg
 ### Tools
 - [UBL Validator](https://github.com/giansalex/ubl-validator-cli) 
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/giansalex)
-También puede contactarse vía correo.
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/giansalex)  
+También puedes contactarme por correo.
