@@ -188,6 +188,28 @@
         </cac:Party>
     </cac:SellerSupplierParty>
     {% endif %}
+    {% if doc.direccionEntrega %}
+        {% set addr = doc.direccionEntrega %}
+        <cac:Delivery>
+            <cac:DeliveryLocation>
+                <cac:Address>
+                    <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
+                    {% if addr.urbanizacion %}
+                    <cbc:CitySubdivisionName>{{ addr.urbanizacion }}</cbc:CitySubdivisionName>
+                    {% endif %}
+                    <cbc:CityName>{{ addr.provincia }}</cbc:CityName>
+                    <cbc:CountrySubentity>{{ addr.departamento }}</cbc:CountrySubentity>
+                    <cbc:District>{{ addr.distrito }}</cbc:District>
+                    <cac:AddressLine>
+                        <cbc:Line><![CDATA[{{ addr.direccion|raw }}]]></cbc:Line>
+                    </cac:AddressLine>
+                    <cac:Country>
+                        <cbc:IdentificationCode listID="ISO 3166-1" listAgencyName="United Nations Economic Commission for Europe" listName="Country">{{ addr.codigoPais }}</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:Address>
+            </cac:DeliveryLocation>
+        </cac:Delivery>
+    {% endif %}
     {% if doc.detraccion %}
     {% set detr = doc.detraccion %}
     <cac:PaymentMeans>
