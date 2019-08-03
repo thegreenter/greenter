@@ -1,6 +1,6 @@
 # Empezando con Greenter
 
-Después de [instalar greenter](https://giansalex.github.io/greenter/#instalacion) podrá empezar a emitir comprobantes electrónicos.  
+Después de [instalar greenter](/#instalacion) podrá empezar a emitir comprobantes electrónicos.  
 Para este ejemplo se usará la version **UBL 2.1**.
 > Las línas resaltadas en el código son los nuevos campos requeridos en el UBL 2.1
 
