@@ -154,4 +154,4 @@ y si todo sale bien obtendremos como respuesta.
 
 Esta ejemplo puede encontrarlo en [@giansalex/greenter-firststeps](https://github.com/giansalex/greenter-firststeps).
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=WSYJNMDD6D79W)
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/giansalex)
