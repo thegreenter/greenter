@@ -9,6 +9,7 @@
 namespace Greenter\Model\Sale;
 
 use Greenter\Model\Client\Client;
+use Greenter\Model\Company\Address;
 
 /**
  * Invoice 2.1.
@@ -100,6 +101,11 @@ class Invoice extends BaseSale
      * @var string
      */
     private $observacion;
+
+    /**
+     * @var Address
+     */
+    private $direccionEntrega;
 
     /**
      * @return string
@@ -419,6 +425,28 @@ class Invoice extends BaseSale
     public function setObservacion($observacion)
     {
         $this->observacion = $observacion;
+
+        return $this;
+    }
+
+    /**
+     * @return Address
+     */
+    public function getDireccionEntrega()
+    {
+        return $this->direccionEntrega;
+    }
+
+    /**
+     * Direccion Entrega utilizada en ventas itinerantes.
+     *
+     * @param Address $direccionEntrega
+     *
+     * @return Invoice
+     */
+    public function setDireccionEntrega($direccionEntrega)
+    {
+        $this->direccionEntrega = $direccionEntrega;
 
         return $this;
     }
