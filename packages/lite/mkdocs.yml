@@ -20,6 +20,7 @@ nav:
     - F. Detracción: examples/detraccion.md
     - F. Exportación: examples/exportacion.md
     - Contingencia: examples/contingencia.md
+    - 'Preguntas Frecuentes': faq.md
     - 'API Referencia': https://giansalex.github.io/greenter-apidoc/
 
 # Configuration
@@ -54,5 +55,6 @@ markdown_extensions:
   - admonition
   - codehilite
   - pymdownx.mark
+  - pymdownx.details
   - toc:
       permalink: true
