@@ -18,19 +18,25 @@ credenciales por defecto, user `20000000001MODDATOS`, password `moddatos`.
     Si cuenta con un certificado .PFX, para convertirlo a formato .PEM necesita
     la clave y seguir el siguiente [ejemplo](https://github.com/giansalex/xmldsig/blob/master/CONVERT.md#convert-to-pem)
     
-Crearemos el archivo `config.php` y agregaremos lo siguiente:
+Crearemos el archivo `config.php` donde configuraremos la ruta del servicio, el certificado digital y las credenciales (Clave SOL) para conectarse al servicio:
 ```php
 <?php
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\See;
 
+// CLAVE SOL utilizada.
+// Ruc: 20000000001
+// Usuario: MODDATOS
+// Contraseña: moddatos
+
 $see = new See();
 $see->setService(SunatEndpoints::FE_BETA);
 $see->setCertificate(file_get_contents(__DIR__.'/certificate.pem'));
-$see->setCredentials('20000000001MODDATOS', 'moddatos');
+$see->setCredentials('20000000001MODDATOS'/*ruc+usuario*/, 'moddatos');
 
 return $see;
 ```
+> En el ambiente de producción lo recomendable es crear un usuario secundario con solo permisos para comprobantes electrónicos.
 
 ## Factura Electrónica
 
