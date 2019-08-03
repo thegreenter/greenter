@@ -7,6 +7,7 @@
  */
 
 namespace Greenter\Model\Sale;
+
 use Greenter\Model\Client\Client;
 
 /**
@@ -150,6 +151,7 @@ class Invoice extends BaseSale
 
     /**
      * @param float $sumDsctoGlobal
+     *
      * @deprecated UBL 2.1
      *
      * @return Invoice
@@ -311,11 +313,13 @@ class Invoice extends BaseSale
 
     /**
      * @param Client $seller
+     *
      * @return Invoice
      */
     public function setSeller($seller)
     {
         $this->seller = $seller;
+
         return $this;
     }
 
@@ -329,11 +333,13 @@ class Invoice extends BaseSale
 
     /**
      * @param Charge[] $descuentos
+     *
      * @return Invoice
      */
     public function setDescuentos($descuentos)
     {
         $this->descuentos = $descuentos;
+
         return $this;
     }
 
@@ -347,11 +353,13 @@ class Invoice extends BaseSale
 
     /**
      * @param Charge[] $cargos
+     *
      * @return Invoice
      */
     public function setCargos($cargos)
     {
         $this->cargos = $cargos;
+
         return $this;
     }
 
@@ -365,11 +373,13 @@ class Invoice extends BaseSale
 
     /**
      * @param float $mtoCargos
+     *
      * @return Invoice
      */
     public function setMtoCargos($mtoCargos)
     {
         $this->mtoCargos = $mtoCargos;
+
         return $this;
     }
 
@@ -383,29 +393,33 @@ class Invoice extends BaseSale
 
     /**
      * @param float $valorVenta
+     *
      * @return Invoice
      */
     public function setValorVenta($valorVenta)
     {
         $this->valorVenta = $valorVenta;
+
         return $this;
     }
 
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function getObservacion()
     {
-	return $this->observacion;
+        return $this->observacion;
     }
 
     /**
-    * @param string $observacion
-    * @return Invoice
-    */
+     * @param string $observacion
+     *
+     * @return Invoice
+     */
     public function setObservacion($observacion)
     {
-	$this->observacion = $observacion;
-	return $this;
+        $this->observacion = $observacion;
+
+        return $this;
     }
 }
