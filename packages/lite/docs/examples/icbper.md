@@ -4,7 +4,7 @@
 
 ## Código
 
-```php hl_lines="19 51"
+```php hl_lines="19 51 52"
 <?php
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
@@ -56,6 +56,7 @@ $invoice->setFecVencimiento(new \DateTime())
         ->setPorcentajeIgv(18.0)
         ->setIgv(0.236)
         ->setIcbper(0.40) // (cantidad)*(factor ICBPER)
+        ->setFactorIcbper(0.10)
         ->setTotalImpuestos(36)
     ;
 
@@ -66,9 +67,6 @@ $invoice->setDetails([$detail, $bolsa])
             ->setValue('SON DOSCIENTOS TREINTA Y SEIS CON 64/100 SOLES')
     ]);
 ```
-
-!!! tip "Factor ICBPER"
-    Puedes cambiar el factor ICBPER usando el campo `$bolsa->setFactorIcbper(0.10)`
 
 
 ## Monto ICBPER
