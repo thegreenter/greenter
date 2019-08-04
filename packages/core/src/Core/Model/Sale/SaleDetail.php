@@ -126,6 +126,14 @@ class SaleDetail
     /**
      * @var float
      */
+    private $icbper;
+    /**
+     * @var float
+     */
+    private $factorIcbper = 0.10;
+    /**
+     * @var float
+     */
     private $totalImpuestos;
 
     /**
@@ -244,11 +252,13 @@ class SaleDetail
 
     /**
      * @param string $codProdGS1
+     *
      * @return SaleDetail
      */
     public function setCodProdGS1($codProdGS1)
     {
         $this->codProdGS1 = $codProdGS1;
+
         return $this;
     }
 
@@ -302,6 +312,7 @@ class SaleDetail
 
     /**
      * @deprecated UBL 2.1
+     *
      * @param float $descuento
      *
      * @return SaleDetail
@@ -403,11 +414,53 @@ class SaleDetail
 
     /**
      * @param float $totalImpuestos
+     *
      * @return SaleDetail
      */
     public function setTotalImpuestos($totalImpuestos)
     {
         $this->totalImpuestos = $totalImpuestos;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getIcbper()
+    {
+        return $this->icbper;
+    }
+
+    /**
+     * @param float $icbper
+     *
+     * @return SaleDetail
+     */
+    public function setIcbper($icbper)
+    {
+        $this->icbper = $icbper;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getFactorIcbper()
+    {
+        return $this->factorIcbper;
+    }
+
+    /**
+     * @param float $factorIcbper
+     *
+     * @return SaleDetail
+     */
+    public function setFactorIcbper($factorIcbper)
+    {
+        $this->factorIcbper = $factorIcbper;
+
         return $this;
     }
 
@@ -481,11 +534,13 @@ class SaleDetail
 
     /**
      * @param float $mtoBaseIgv
+     *
      * @return SaleDetail
      */
     public function setMtoBaseIgv($mtoBaseIgv)
     {
         $this->mtoBaseIgv = $mtoBaseIgv;
+
         return $this;
     }
 
@@ -499,11 +554,13 @@ class SaleDetail
 
     /**
      * @param float $porcentajeIgv
+     *
      * @return SaleDetail
      */
     public function setPorcentajeIgv($porcentajeIgv)
     {
         $this->porcentajeIgv = $porcentajeIgv;
+
         return $this;
     }
 
@@ -517,11 +574,13 @@ class SaleDetail
 
     /**
      * @param float $mtoBaseIsc
+     *
      * @return SaleDetail
      */
     public function setMtoBaseIsc($mtoBaseIsc)
     {
         $this->mtoBaseIsc = $mtoBaseIsc;
+
         return $this;
     }
 
@@ -535,11 +594,13 @@ class SaleDetail
 
     /**
      * @param float $porcentajeIsc
+     *
      * @return SaleDetail
      */
     public function setPorcentajeIsc($porcentajeIsc)
     {
         $this->porcentajeIsc = $porcentajeIsc;
+
         return $this;
     }
 
@@ -553,11 +614,13 @@ class SaleDetail
 
     /**
      * @param float $mtoBaseOth
+     *
      * @return SaleDetail
      */
     public function setMtoBaseOth($mtoBaseOth)
     {
         $this->mtoBaseOth = $mtoBaseOth;
+
         return $this;
     }
 
@@ -571,11 +634,13 @@ class SaleDetail
 
     /**
      * @param float $porcentajeOth
+     *
      * @return SaleDetail
      */
     public function setPorcentajeOth($porcentajeOth)
     {
         $this->porcentajeOth = $porcentajeOth;
+
         return $this;
     }
 
@@ -589,11 +654,13 @@ class SaleDetail
 
     /**
      * @param float $otroTributo
+     *
      * @return SaleDetail
      */
     public function setOtroTributo($otroTributo)
     {
         $this->otroTributo = $otroTributo;
+
         return $this;
     }
 
@@ -607,11 +674,13 @@ class SaleDetail
 
     /**
      * @param Charge[] $cargos
+     *
      * @return SaleDetail
      */
     public function setCargos($cargos)
     {
         $this->cargos = $cargos;
+
         return $this;
     }
 
@@ -625,11 +694,13 @@ class SaleDetail
 
     /**
      * @param Charge[] $descuentos
+     *
      * @return SaleDetail
      */
     public function setDescuentos($descuentos)
     {
         $this->descuentos = $descuentos;
+
         return $this;
     }
 
@@ -643,11 +714,13 @@ class SaleDetail
 
     /**
      * @param DetailAttribute[] $atributos
+     *
      * @return SaleDetail
      */
     public function setAtributos($atributos)
     {
         $this->atributos = $atributos;
+
         return $this;
     }
 }

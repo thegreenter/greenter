@@ -8,6 +8,7 @@
 
 namespace Greenter\Model\Sale;
 
+use DateTimeInterface;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
@@ -38,7 +39,7 @@ class BaseSale implements DocumentInterface
     protected $correlativo;
 
     /**
-     * @var \DateTimeInterface
+     * @var DateTimeInterface
      */
     protected $fechaEmision;
 
@@ -106,6 +107,11 @@ class BaseSale implements DocumentInterface
      * @var float
      */
     protected $mtoOtrosTributos;
+
+    /**
+     * @var float
+     */
+    protected $icbper;
 
     /**
      * @var float
@@ -209,7 +215,7 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return DateTimeInterface
      */
     public function getFechaEmision()
     {
@@ -217,11 +223,11 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @param \DateTimeInterface $fechaEmision
+     * @param DateTimeInterface $fechaEmision
      *
      * @return $this
      */
-    public function setFechaEmision(\DateTimeInterface $fechaEmision)
+    public function setFechaEmision(DateTimeInterface $fechaEmision)
     {
         $this->fechaEmision = $fechaEmision;
 
@@ -378,11 +384,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param float $mtoOperExportacion
+     *
      * @return $this
      */
     public function setMtoOperExportacion($mtoOperExportacion)
     {
         $this->mtoOperExportacion = $mtoOperExportacion;
+
         return $this;
     }
 
@@ -442,6 +450,26 @@ class BaseSale implements DocumentInterface
     public function setMtoOtrosTributos($mtoOtrosTributos)
     {
         $this->mtoOtrosTributos = $mtoOtrosTributos;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getIcbper()
+    {
+        return $this->icbper;
+    }
+
+    /**
+     * @param float $icbper
+     *
+     * @return $this
+     */
+    public function setIcbper($icbper)
+    {
+        $this->icbper = $icbper;
 
         return $this;
     }
@@ -516,11 +544,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param Document[] $guias
+     *
      * @return $this
      */
     public function setGuias($guias)
     {
         $this->guias = $guias;
+
         return $this;
     }
 
@@ -576,11 +606,13 @@ class BaseSale implements DocumentInterface
      * Set Monto Base ISC.
      *
      * @param float $mtoBaseIsc
+     *
      * @return $this
      */
     public function setMtoBaseIsc($mtoBaseIsc)
     {
         $this->mtoBaseIsc = $mtoBaseIsc;
+
         return $this;
     }
 
@@ -596,11 +628,13 @@ class BaseSale implements DocumentInterface
      * Set Monto base otros tributos.
      *
      * @param float $mtoBaseOth
+     *
      * @return $this
      */
     public function setMtoBaseOth($mtoBaseOth)
     {
         $this->mtoBaseOth = $mtoBaseOth;
+
         return $this;
     }
 
@@ -614,11 +648,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param float $totalImpuestos
+     *
      * @return $this
      */
     public function setTotalImpuestos($totalImpuestos)
     {
         $this->totalImpuestos = $totalImpuestos;
+
         return $this;
     }
 
@@ -632,11 +668,13 @@ class BaseSale implements DocumentInterface
 
     /**
      * @param string $ublVersion
+     *
      * @return $this
      */
     public function setUblVersion($ublVersion)
     {
         $this->ublVersion = $ublVersion;
+
         return $this;
     }
 
