@@ -9,7 +9,7 @@ use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\SaleDetail;
 
-class InvoIcbperStore implements DocumentGeneratorInterface
+class InvoiceIcbperStore implements DocumentGeneratorInterface
 {
     /**
      * @var SharedStore
