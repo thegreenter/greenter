@@ -26,9 +26,6 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider provideDocs
      * @param DocumentInterface $document
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
      */
     public function testGenInvoiceReport(DocumentInterface $document)
     {
@@ -71,11 +68,6 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
         $this->showResult($document->getName(), $html);
     }
 
-    /**
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
     public function testGenReversionReport()
     {
         $report = $this->getReporter();
@@ -87,11 +79,6 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
         $this->showResult($document->getName(), $html);
     }
 
-    /**
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
     public function testGenSummaryReport()
     {
         $report = $this->getReporter();
@@ -103,11 +90,6 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
         $this->showResult($document->getName(), $html);
     }
 
-    /**
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
     public function testGenRetentionReport()
     {
         $report = $this->getReporter();
@@ -119,11 +101,6 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
         $this->showResult($document->getName(), $html);
     }
 
-    /**
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
     public function testGenPerceptionReport()
     {
         $report = $this->getReporter();
@@ -135,11 +112,6 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
         $this->showResult($document->getName(), $html);
     }
 
-    /**
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
     public function testGenDespatchReport()
     {
         $report = $this->getReporter();
