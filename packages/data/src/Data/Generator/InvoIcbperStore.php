@@ -1,0 +1,85 @@
+<?php
+
+namespace Greenter\Data\Generator;
+
+use DateTime;
+use Greenter\Data\DocumentGeneratorInterface;
+use Greenter\Data\SharedStore;
+use Greenter\Model\Sale\Invoice;
+use Greenter\Model\Sale\Legend;
+use Greenter\Model\Sale\SaleDetail;
+
+class InvoIcbperStore implements DocumentGeneratorInterface
+{
+    /**
+     * @var SharedStore
+     */
+    private $shared;
+
+    public function __construct(SharedStore $shared)
+    {
+        $this->shared = $shared;
+    }
+
+    public function create()
+    {
+        $invoice = new Invoice();
+        $invoice
+            ->setUblVersion('2.1')
+            ->setTipoOperacion('0101')
+            ->setTipoDoc('01')
+            ->setSerie('F001')
+            ->setCorrelativo('124')
+            ->setCompany($this->shared->getCompany())
+            ->setFechaEmision(new DateTime())
+            ->setTipoMoneda('PEN')
+            ->setClient($this->shared->getClient())
+            ->setMtoOperGravadas(200.20)
+            ->setMtoIGV(36.24)
+            ->setIcbper(0.40)
+            ->setTotalImpuestos(36.64)
+            ->setMtoImpVenta(236.64);
+
+        $detail = new SaleDetail();
+        $detail
+            ->setCodProducto('P001')
+            ->setUnidad('NIU')
+            ->setCantidad(2)
+            ->setDescripcion('PRODUCTO 1')
+            ->setMtoBaseIgv(200.00)
+            ->setPorcentajeIgv(18.0)
+            ->setIgv(36)
+            ->setTotalImpuestos(36)
+            ->setTipAfeIgv('10')
+            ->setMtoValorVenta(200)
+            ->setMtoValorUnitario(100)
+            ->setMtoPrecioUnitario(118);
+
+        $detailBolsa = new SaleDetail();
+        $detailBolsa
+            ->setCodProducto('P002')
+            ->setUnidad('NIU')
+            ->setCantidad(4)
+            ->setDescripcion('BOLSA DE PLASTICO')
+            ->setMtoValorUnitario(0.05)
+            ->setMtoPrecioUnitario(0.059)
+            ->setMtoValorVenta(0.20)
+            ->setTipAfeIgv('10')
+            ->setMtoBaseIgv(0.20)
+            ->setPorcentajeIgv(18.0)
+            ->setIgv(0.236)
+            ->setTotalImpuestos(36)
+            ->setIcbper(0.40) // (cantidad)*(factor ICBPER)
+            ->setFactorIcbper(0.10)
+        ;
+
+        $legend = new Legend();
+        $legend->setCode('1000')
+            ->setValue('SON DOSCIENTOS TREINTA Y SEIS CON 64/100 SOLES');
+
+        $invoice->setDetails([$detail])
+            ->setLegends([$legend]);
+
+        return $invoice;
+    }
+}
