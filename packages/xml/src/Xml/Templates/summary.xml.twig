@@ -173,6 +173,22 @@
             </cac:TaxSubtotal>
         </cac:TaxTotal>
         {% endif %}
+        {% if det.mtoIcbper %}
+            {% set icbper = det.mtoIcbper|n_format %}
+            <cac:TaxTotal>
+                <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ icbper }}</cbc:TaxAmount>
+                <cac:TaxSubtotal>
+                    <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ icbper }}</cbc:TaxAmount>
+                    <cac:TaxCategory>
+                        <cac:TaxScheme>
+                            <cbc:ID>7152</cbc:ID>
+                            <cbc:Name>ICBPER</cbc:Name>
+                            <cbc:TaxTypeCode>OTH</cbc:TaxTypeCode>
+                        </cac:TaxScheme>
+                    </cac:TaxCategory>
+                </cac:TaxSubtotal>
+            </cac:TaxTotal>
+        {% endif %}
     </sac:SummaryDocumentsLine>
     {% endfor %}
 </SummaryDocuments>

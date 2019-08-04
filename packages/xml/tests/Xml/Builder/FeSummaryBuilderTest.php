@@ -8,6 +8,7 @@
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Data\Generator\SummaryIcbperStore;
 use Greenter\Data\Generator\SummaryStore;
 use Greenter\Model\Summary\Summary;
 
@@ -20,12 +21,14 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
     use FeBuilderTrait;
     use XsdValidatorTrait;
 
-    public function testCreateXmlSummary()
+    /**
+     * @dataProvider storeProvider
+     */
+    public function testCreateXmlSummary($summaryClass)
     {
-        $summary = $this->createDocument(SummaryStore::class);
+        $summary = $this->createDocument($summaryClass);
 
         $xml = $this->build($summary);
-
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
     }
@@ -50,6 +53,14 @@ class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
         $filename = $summary->getName();
 
         $this->assertEquals($this->getFilename($summary), $filename);
+    }
+
+    public function storeProvider()
+    {
+        return [
+          [SummaryStore::class],
+          [SummaryIcbperStore::class]
+        ];
     }
 
     private function getFileName(Summary $summary)
