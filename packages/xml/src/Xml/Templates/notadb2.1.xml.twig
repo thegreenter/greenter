@@ -50,7 +50,6 @@
     {% set emp = doc.company %}
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
-        <cbc:Note>GREENTER</cbc:Note>
         <cac:SignatoryParty>
             <cac:PartyIdentification>
                 <cbc:ID>{{ emp.ruc }}</cbc:ID>
@@ -61,7 +60,7 @@
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
             <cac:ExternalReference>
-                <cbc:URI>#SIGN-GREEN</cbc:URI>
+                <cbc:URI>#GREENTER-SIGN</cbc:URI>
             </cac:ExternalReference>
         </cac:DigitalSignatureAttachment>
     </cac:Signature>
