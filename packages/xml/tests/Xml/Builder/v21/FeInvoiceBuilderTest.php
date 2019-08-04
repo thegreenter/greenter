@@ -10,6 +10,7 @@ namespace Tests\Greenter\Xml\Builder\v21;
 
 use Greenter\Data\Generator\InvoiceDiscountStore;
 use Greenter\Data\Generator\InvoiceFullStore;
+use Greenter\Data\Generator\InvoiceIcbperStore;
 use Greenter\Data\Generator\InvoiceIvapStore;
 use Greenter\Model\Sale\Invoice;
 use Tests\Greenter\Xml\Builder\FeBuilderTrait;
@@ -33,21 +34,24 @@ class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertSchema($xml);
     }
 
-    public function testInvoiceWithDiscount()
+    /**
+     * @dataProvider storeProvider
+     */
+    public function testBuilder($invoiceClass)
     {
-        $invoice = $this->createDocument(InvoiceDiscountStore::class);
+        $invoice = $this->createDocument($invoiceClass);
 
         $xml = $this->build($invoice);
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
     }
 
-    public function testInvoiceIvap()
+    public function storeProvider()
     {
-        $invoice = $this->createDocument(InvoiceIvapStore::class);
-
-        $xml = $this->build($invoice);
-        $this->assertNotEmpty($xml);
-        $this->assertSchema($xml);
+        return [
+          [InvoiceDiscountStore::class],
+          [InvoiceIvapStore::class],
+          [InvoiceIcbperStore::class]
+        ];
     }
 }
