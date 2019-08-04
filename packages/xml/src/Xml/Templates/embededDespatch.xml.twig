@@ -1,4 +1,3 @@
-{% spaceless %}
 <sac:SUNATEmbededDespatchAdvice>
     <cac:DeliveryAddress>
         <cbc:ID>{{ desp.llegada.ubigueo }}</cbc:ID>
@@ -32,4 +31,3 @@
     <cbc:TransportModeCode>{{ desp.modTraslado }}</cbc:TransportModeCode>
     <cbc:GrossWeightMeasure unitCode="{{ desp.undPesoBruto }}">{{ desp.pesoBruto|n_format }}</cbc:GrossWeightMeasure>
 </sac:SUNATEmbededDespatchAdvice>
-{% endspaceless %}
