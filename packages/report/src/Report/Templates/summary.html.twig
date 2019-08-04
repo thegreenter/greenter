@@ -108,11 +108,14 @@
                                 {% if det.mtoISC %}
                                 <p class="nmarg"><strong>ISC</strong>  {{ det.mtoISC|n_format }}</p>
                                 {% endif %}
+                                {% if det.mtoIcbper %}
+                                <p class="nmarg"><strong>ICBPER</strong>  {{ det.mtoIcbper|n_format }}</p>
+                                {% endif %}
                                 {% if det.mtoOtrosTributos %}
-                                <p class="nmarg"><strong>Otros Tributos</strong>  {{ det.mtoOtrosTributos }}</p>
+                                <p class="nmarg"><strong>Otros Tributos</strong>  {{ det.mtoOtrosTributos|n_format }}</p>
                                 {% endif %}
                                 {% if det.mtoOtrosCargos %}
-                                <p class="nmarg"><strong>Otros Cargos</strong>  {{ det.mtoOtrosCargos }}</p>
+                                <p class="nmarg"><strong>Otros Cargos</strong>  {{ det.mtoOtrosCargos|n_format }}</p>
                                 {% endif %}
                             </td>
                             <td>

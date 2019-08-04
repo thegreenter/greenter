@@ -264,7 +264,7 @@
                             </tr>
                             {% endif %}
                             <tr>
-                                <td align="right"><strong>I.G.V. {% if params.user.numIGV is defined %} {{ params.user.numIGV }}{% endif %}%:</strong></td>
+                                <td align="right"><strong>I.G.V.{% if params.user.numIGV is defined %} {{ params.user.numIGV }}%{% endif %}:</strong></td>
                                 <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoIGV|n_format }}</span></td>
                             </tr>
                             {% if doc.mtoISC %}
@@ -277,6 +277,12 @@
                                 <tr>
                                     <td align="right"><strong>Otros Cargos:</strong></td>
                                     <td width="120" align="right"><span>{{ moneda }}  {{ doc.sumOtrosCargos|n_format }}</span></td>
+                                </tr>
+                            {% endif %}
+                            {% if doc.icbper %}
+                                <tr>
+                                    <td align="right"><strong>I.C.B.P.E.R.:</strong></td>
+                                    <td width="120" align="right"><span>{{ moneda }}  {{ doc.icbper|n_format }}</span></td>
                                 </tr>
                             {% endif %}
                             {% if doc.mtoOtrosTributos %}
