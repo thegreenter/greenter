@@ -1,29 +1,28 @@
 language: php
+    
+git:
+  depth: 2
 
-php:
-  - 5.6
-  - 7.1
+matrix:
+  include:
+    - php: '5.6'
+    - php: '7.1'
+      env: COVERAGE=true
 
 before_script:
-  - composer self-update
   - composer install --prefer-source --no-interaction
 
 install:
-  - |
-    if [ $(phpenv version-name) = "7.1" ]; then
-    composer require php-coveralls/php-coveralls;
-    fi
+  - if [ $COVERAGE ]; then composer require php-coveralls/php-coveralls; fi
+  - if [ $COVERAGE ]; then PHPUNIT_FLAGS="--coverage-clover build/logs/clover.xml"; fi
   - composer require jakub-onderka/php-parallel-lint
 
 script:
   - mkdir -p build/logs
   - vendor/bin/parallel-lint --exclude vendor .
-  - vendor/bin/phpunit --configuration phpunit.xml --coverage-clover build/logs/clover.xml
+  - vendor/bin/phpunit $PHPUNIT_FLAGS
 
 after_success:
-  - |
-    if [ $(phpenv version-name) = "7.1" ]; then
-    travis_retry php vendor/bin/php-coveralls -v;
-    fi
+  - if [ $COVERAGE ]; then travis_retry php vendor/bin/php-coveralls -v; fi
 
 

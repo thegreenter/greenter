@@ -1,3 +1,4 @@
+{% spaceless %}
 <?xml version="1.0" encoding="utf-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
          xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2"
@@ -9,18 +10,18 @@
         <ext:UBLExtension>
             <ext:ExtensionContent>
                 <sac:AdditionalInformation>
-                    {% if doc.mtoDescuentos -%}
+                    {% if doc.mtoDescuentos %}
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>2005</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoDescuentos|n_format }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
-                    {% endif -%}
-                    {% if doc.mtoOperGravadas -%}
+                    {% endif %}
+                    {% if doc.mtoOperGravadas %}
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>1001</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|n_format }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
-                    {% endif -%}
+                    {% endif %}
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>1002</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|n_format }}</cbc:PayableAmount>
@@ -29,25 +30,25 @@
                         <cbc:ID>1003</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
-                    {% if doc.mtoOperGratuitas -%}
+                    {% if doc.mtoOperGratuitas %}
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>1004</cbc:ID>
                         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGratuitas|n_format }}</cbc:PayableAmount>
                     </sac:AdditionalMonetaryTotal>
-                    {% endif -%}
-                    {% if doc.detraccion -%}
-                    {% set detr = doc.detraccion -%}
+                    {% endif %}
+                    {% if doc.detraccion %}
+                    {% set detr = doc.detraccion %}
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID>2003</cbc:ID>
-                        {% if detr.valueRef -%}
+                        {% if detr.valueRef %}
                          <cbc:ReferenceAmount currencyID="PEN">{{ detr.valueRef|n_format }}</cbc:ReferenceAmount>
-                        {% endif -%}
+                        {% endif %}
                         <cbc:PayableAmount currencyID="PEN">{{ detr.mount|n_format }}</cbc:PayableAmount>
                         <cbc:Percent>{{ detr.percent|n_format }}</cbc:Percent>
                     </sac:AdditionalMonetaryTotal>
-                    {% endif -%}
-                    {% if doc.perception -%}
-                    {% set perc = doc.perception -%}
+                    {% endif %}
+                    {% if doc.perception %}
+                    {% set perc = doc.perception %}
                     <sac:AdditionalMonetaryTotal>
                         <cbc:ID schemeID="{{ perc.codReg }}">2001</cbc:ID>
                         <sac:ReferenceAmount currencyID="PEN">{{ perc.mtoBase|n_format }}</sac:ReferenceAmount>
@@ -58,21 +59,21 @@
                         <cbc:ID>2000</cbc:ID>
                         <cbc:Value>COMPROBANTE DE PERCEPCION</cbc:Value>
                     </sac:AdditionalProperty>
-                    {% endif -%}
-                    {% for leg in doc.legends -%}
+                    {% endif %}
+                    {% for leg in doc.legends %}
                     <sac:AdditionalProperty>
                         <cbc:ID>{{ leg.code }}</cbc:ID>
                         <cbc:Value>{{ leg.value }}</cbc:Value>
                     </sac:AdditionalProperty>
-                    {% endfor -%}
-                    {% if doc.guiaEmbebida -%}
+                    {% endfor %}
+                    {% if doc.guiaEmbebida %}
                     {% include 'embededDespatch.xml.twig' with {'desp': doc.guiaEmbebida} only %}
-                    {% endif -%}
-                    {% if doc.tipoOperacion -%}
+                    {% endif %}
+                    {% if doc.tipoOperacion %}
                     <sac:SUNATTransaction>
                         <cbc:ID>{{ doc.tipoOperacion }}</cbc:ID>
                     </sac:SUNATTransaction>
-                    {% endif -%}
+                    {% endif %}
                 </sac:AdditionalInformation>
             </ext:ExtensionContent>
         </ext:UBLExtension>
@@ -87,28 +88,28 @@
     <cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>
     <cbc:InvoiceTypeCode>{{ doc.tipoDoc }}</cbc:InvoiceTypeCode>
     <cbc:DocumentCurrencyCode>{{ doc.tipoMoneda }}</cbc:DocumentCurrencyCode>
-    {% if doc.compra -%}
+    {% if doc.compra %}
     <cac:OrderReference>
         <cbc:ID>{{ doc.compra }}</cbc:ID>
     </cac:OrderReference>
-    {% endif -%}
-    {% if doc.guias -%}
-    {% for guia in doc.guias -%}
+    {% endif %}
+    {% if doc.guias %}
+    {% for guia in doc.guias %}
     <cac:DespatchDocumentReference>
         <cbc:ID>{{ guia.nroDoc }}</cbc:ID>
         <cbc:DocumentTypeCode>{{ guia.tipoDoc }}</cbc:DocumentTypeCode>
     </cac:DespatchDocumentReference>
-    {% endfor -%}
-    {% endif -%}
-    {% if doc.relDocs -%}
-    {% for rel in doc.relDocs -%}
+    {% endfor %}
+    {% endif %}
+    {% if doc.relDocs %}
+    {% for rel in doc.relDocs %}
     <cac:AdditionalDocumentReference>
         <cbc:ID>{{ rel.nroDoc }}</cbc:ID>
         <cbc:DocumentTypeCode>{{ rel.tipoDoc }}</cbc:DocumentTypeCode>
     </cac:AdditionalDocumentReference>
-    {% endfor -%}
-    {% endif -%}
-    {% set emp = doc.company -%}
+    {% endfor %}
+    {% endif %}
+    {% set emp = doc.company %}
     <cac:Signature>
         <cbc:ID>{{ emp.ruc }}</cbc:ID>
         <cbc:Note>GREENTER Builder</cbc:Note>
@@ -133,7 +134,7 @@
             <cac:PartyName>
                 <cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
             </cac:PartyName>
-            {% set addr = emp.address -%}
+            {% set addr = emp.address %}
             <cac:PostalAddress>
                 <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
                 <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
@@ -147,101 +148,101 @@
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
-            {% if emp.email or emp.telephone -%}
+            {% if emp.email or emp.telephone %}
             <cac:Contact>
-                {% if emp.telephone -%}
+                {% if emp.telephone %}
                 <cbc:Telephone>{{ emp.telephone }}</cbc:Telephone>
-                {% endif -%}
-                {% if emp.email -%}
+                {% endif %}
+                {% if emp.email %}
                 <cbc:ElectronicMail>{{ emp.email }}</cbc:ElectronicMail>
-                {% endif -%}
+                {% endif %}
             </cac:Contact>
-            {% endif -%}
+            {% endif %}
         </cac:Party>
     </cac:AccountingSupplierParty>
-    {% set client = doc.client -%}
+    {% set client = doc.client %}
     <cac:AccountingCustomerParty>
         <cbc:CustomerAssignedAccountID>{{ client.numDoc }}</cbc:CustomerAssignedAccountID>
         <cbc:AdditionalAccountID>{{ client.tipoDoc }}</cbc:AdditionalAccountID>
         <cac:Party>
-            {% if client.address -%}
-            {% set addr = client.address -%}
+            {% if client.address %}
+            {% set addr = client.address %}
             <cac:PostalAddress>
-                {% if addr.ubigueo -%}
+                {% if addr.ubigueo %}
                 <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
-                {% endif -%}
+                {% endif %}
                 <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
                 <cac:Country>
                     <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
-            {% endif -%}
+            {% endif %}
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName><![CDATA[{{ client.rznSocial|raw }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
-            {% if client.email or client.telephone -%}
+            {% if client.email or client.telephone %}
             <cac:Contact>
-                {% if client.telephone -%}
+                {% if client.telephone %}
                 <cbc:Telephone>{{ client.telephone }}</cbc:Telephone>
-                {% endif -%}
-                {% if client.email -%}
+                {% endif %}
+                {% if client.email %}
                 <cbc:ElectronicMail>{{ client.email }}</cbc:ElectronicMail>
-                {% endif -%}
+                {% endif %}
             </cac:Contact>
-            {% endif -%}
+            {% endif %}
         </cac:Party>
     </cac:AccountingCustomerParty>
-    {% set seller = doc.seller -%}
-    {% if seller -%}
+    {% set seller = doc.seller %}
+    {% if seller %}
     <cac:SellerSupplierParty>
         <cbc:CustomerAssignedAccountID>{{ seller.numDoc }}</cbc:CustomerAssignedAccountID>
         <cbc:AdditionalAccountID>{{ seller.tipoDoc }}</cbc:AdditionalAccountID>
         <cac:Party>
-            {% if seller.address -%}
-            {% set addr = seller.address -%}
+            {% if seller.address %}
+            {% set addr = seller.address %}
             <cac:PostalAddress>
-                {% if addr.ubigueo -%}
+                {% if addr.ubigueo %}
                 <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
-                {% endif -%}
+                {% endif %}
                 <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
                 <cac:Country>
                     <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
-            {% endif -%}
+            {% endif %}
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName><![CDATA[{{ seller.rznSocial|raw }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
-            {% if seller.email or seller.telephone -%}
+            {% if seller.email or seller.telephone %}
             <cac:Contact>
-                {% if seller.telephone -%}
+                {% if seller.telephone %}
                 <cbc:Telephone>{{ seller.telephone }}</cbc:Telephone>
-                {% endif -%}
-                {% if seller.email -%}
+                {% endif %}
+                {% if seller.email %}
                 <cbc:ElectronicMail>{{ seller.email }}</cbc:ElectronicMail>
-                {% endif -%}
+                {% endif %}
             </cac:Contact>
-            {% endif -%}
+            {% endif %}
         </cac:Party>
     </cac:SellerSupplierParty>
-    {% endif -%}
-    {% if doc.fecVencimiento -%}
+    {% endif %}
+    {% if doc.fecVencimiento %}
     <cac:PaymentMeans>
         <cbc:PaymentMeansCode>-</cbc:PaymentMeansCode>
         <cbc:PaymentDueDate>{{ doc.fecVencimiento|date('Y-m-d') }}</cbc:PaymentDueDate>
     </cac:PaymentMeans>
-    {% endif -%}
-    {% if doc.anticipos -%}
-    {% for ant in doc.anticipos -%}
+    {% endif %}
+    {% if doc.anticipos %}
+    {% for ant in doc.anticipos %}
     <cac:PrepaidPayment>
         <cbc:ID schemeID="{{ ant.tipoDocRel }}">{{ ant.nroDocRel }}</cbc:ID>
         <cbc:PaidAmount currencyID="{{ doc.tipoMoneda }}">{{ ant.total|n_format }}</cbc:PaidAmount>
         <cbc:InstructionID schemeID="6">{{ emp.ruc }}</cbc:InstructionID>
     </cac:PrepaidPayment>
-    {% endfor -%}
-    {% endif -%}
-    {% if doc.mtoISC -%}
-    {% set iscT = doc.mtoISC|n_format -%}
+    {% endfor %}
+    {% endif %}
+    {% if doc.mtoISC %}
+    {% set iscT = doc.mtoISC|n_format %}
     <cac:TaxTotal>
         <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ iscT }}</cbc:TaxAmount>
         <cac:TaxSubtotal>
@@ -255,8 +256,8 @@
             </cac:TaxCategory>
         </cac:TaxSubtotal>
     </cac:TaxTotal>
-    {% endif -%}
-    {% set igvT = doc.mtoIGV|default(0)|n_format -%}
+    {% endif %}
+    {% set igvT = doc.mtoIGV|default(0)|n_format %}
     <cac:TaxTotal>
         <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igvT }}</cbc:TaxAmount>
         <cac:TaxSubtotal>
@@ -270,8 +271,8 @@
             </cac:TaxCategory>
         </cac:TaxSubtotal>
     </cac:TaxTotal>
-    {% if doc.sumOtrosCargos -%}
-    {% set othT = doc.sumOtrosCargos|n_format -%}
+    {% if doc.sumOtrosCargos %}
+    {% set othT = doc.sumOtrosCargos|n_format %}
     <cac:TaxTotal>
         <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ othT }}</cbc:TaxAmount>
         <cac:TaxSubtotal>
@@ -285,40 +286,40 @@
             </cac:TaxCategory>
         </cac:TaxSubtotal>
     </cac:TaxTotal>
-    {% endif -%}
+    {% endif %}
     <cac:LegalMonetaryTotal>
         <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumDsctoGlobal|default(0)|n_format }}</cbc:AllowanceTotalAmount>
         <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0)|n_format }}</cbc:ChargeTotalAmount>
-        {% if doc.totalAnticipos -%}<cbc:PrepaidAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.totalAnticipos|n_format }}</cbc:PrepaidAmount>{% endif -%}
+        {% if doc.totalAnticipos %}<cbc:PrepaidAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.totalAnticipos|n_format }}</cbc:PrepaidAmount>{% endif %}
         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
-    {% for detail in doc.details -%}
+    {% for detail in doc.details %}
     <cac:InvoiceLine>
         <cbc:ID>{{ loop.index }}</cbc:ID>
         <cbc:InvoicedQuantity unitCode="{{ detail.unidad }}">{{ detail.cantidad }}</cbc:InvoicedQuantity>
         <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|n_format }}</cbc:LineExtensionAmount>
         <cac:PricingReference>
-            {% if detail.mtoValorGratuito -%}
+            {% if detail.mtoValorGratuito %}
             <cac:AlternativeConditionPrice>
                 <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{  detail.mtoValorGratuito|n_format }}</cbc:PriceAmount>
                 <cbc:PriceTypeCode>02</cbc:PriceTypeCode>
             </cac:AlternativeConditionPrice>
-            {% else -%}
+            {% else %}
             <cac:AlternativeConditionPrice>
                 <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoPrecioUnitario|n_format }}</cbc:PriceAmount>
                 <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
             </cac:AlternativeConditionPrice>
-            {% endif -%}
+            {% endif %}
         </cac:PricingReference>
-        {% if detail.descuento -%}
+        {% if detail.descuento %}
         <cac:AllowanceCharge>
             <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
             <cbc:AllowanceChargeReasonCode>00</cbc:AllowanceChargeReasonCode>
             <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ detail.descuento|n_format }}</cbc:Amount>
         </cac:AllowanceCharge>
-        {% endif -%}
-        {% if detail.isc -%}
-        {% set isc = detail.isc|n_format -%}
+        {% endif %}
+        {% if detail.isc %}
+        {% set isc = detail.isc|n_format %}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ isc }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
@@ -333,9 +334,9 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         </cac:TaxTotal>
-        {% endif -%}
-        {% if detail.igv -%}
-        {% set igv = detail.igv|n_format -%}
+        {% endif %}
+        {% if detail.igv %}
+        {% set igv = detail.igv|n_format %}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ igv }}</cbc:TaxAmount>
             <cac:TaxSubtotal>
@@ -351,21 +352,22 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         </cac:TaxTotal>
-        {% endif -%}
+        {% endif %}
         <cac:Item>
             <cbc:Description><![CDATA[{{ detail.descripcion|raw }}]]></cbc:Description>
             <cac:SellersItemIdentification>
                 <cbc:ID>{{ detail.codProducto }}</cbc:ID>
             </cac:SellersItemIdentification>
-            {% if detail.codProdSunat -%}
+            {% if detail.codProdSunat %}
             <cac:CommodityClassification>
                 <cbc:ItemClassificationCode listID="UNSPSC" listAgencyName="GS1 US" listName="Item Classification">{{ detail.codProdSunat }}</cbc:ItemClassificationCode>
             </cac:CommodityClassification>
-            {% endif -%}
+            {% endif %}
         </cac:Item>
         <cac:Price>
             <cbc:PriceAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorUnitario|n_format }}</cbc:PriceAmount>
         </cac:Price>
     </cac:InvoiceLine>
-    {% endfor -%}
+    {% endfor %}
 </Invoice>
+{% endspaceless %}

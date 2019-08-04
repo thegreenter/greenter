@@ -3,24 +3,29 @@
  * Created by PhpStorm.
  * User: Giansalex
  * Date: 09/08/2017
- * Time: 19:23
+ * Time: 19:23.
  */
 
 namespace Greenter\Xml\Builder;
 
+use Greenter\Xml\Filter\FormatFilter;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+use Twig\TwigFilter;
+
 /**
- * Class TwigBuilder
- * @package Greenter\Xml\Builder
+ * Class TwigBuilder.
  */
 class TwigBuilder
 {
     /**
-     * @var \Twig_Environment
+     * @var Environment
      */
     protected $twig;
 
     /**
      * TwigBuilder constructor.
+     *
      * @param array $options [optional] Recommended: 'cache' => '/dir/cache'
      */
     public function __construct($options = [])
@@ -33,26 +38,34 @@ class TwigBuilder
      *
      * @param string $template
      * @param object $doc
+     *
      * @return string
      */
     public function render($template, $doc)
     {
         return $this->twig->render($template, [
-            'doc' => $doc
+            'doc' => $doc,
         ]);
     }
 
     private function initTwig($options)
     {
-        $loader = new \Twig_Loader_Filesystem(__DIR__ . '/../Templates');
-        $numFilter = new \Twig_SimpleFilter('n_format', function ($number, $decimals = 2) {
-            return number_format($number, $decimals, '.', '');
-        });
+        $loader = new FilesystemLoader(__DIR__.'/../Templates');
 
-        $twig = new \Twig_Environment($loader, $options);
-        $twig->addFilter($numFilter);
-        $twig->addFunction(new \Twig_SimpleFunction('getTributoAfect', ['Greenter\Xml\Filter\TributoFunction', 'getByAfectacion']));
+        $twig = new Environment($loader, $options);
+        $this->LoadFilterAndFunctions($twig);
 
         $this->twig = $twig;
+    }
+
+    /**
+     * @param Environment $twig
+     */
+    private function LoadFilterAndFunctions(Environment $twig)
+    {
+        $formatFilter = new FormatFilter();
+
+        $twig->addFilter(new TwigFilter('n_format', [$formatFilter, 'number']));
+        $twig->addFilter(new TwigFilter('n_format_limit', [$formatFilter, 'numberLimit']));
     }
 }
