@@ -77,7 +77,7 @@ class InvoiceIcbperStore implements DocumentGeneratorInterface
         $legend->setCode('1000')
             ->setValue('SON DOSCIENTOS TREINTA Y SEIS CON 64/100 SOLES');
 
-        $invoice->setDetails([$detail])
+        $invoice->setDetails([$detail, $detailBolsa])
             ->setLegends([$legend]);
 
         return $invoice;
