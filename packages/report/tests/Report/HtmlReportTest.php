@@ -143,6 +143,7 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
                 'hash' => 'xkhakjjuui293/=33w',
             ],
             'user' => [
+                'numIGV' => 18,
                 'resolucion' => '212321',
                 'header' => 'Telf: <b>(056) 123375</b>',
                 'extras' => [
