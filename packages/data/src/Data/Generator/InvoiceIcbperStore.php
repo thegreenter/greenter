@@ -67,8 +67,8 @@ class InvoiceIcbperStore implements DocumentGeneratorInterface
             ->setTipAfeIgv('10')
             ->setMtoBaseIgv(0.20)
             ->setPorcentajeIgv(18.0)
-            ->setIgv(0.236)
-            ->setTotalImpuestos(36)
+            ->setIgv(0.24)
+            ->setTotalImpuestos(0.64)
             ->setIcbper(0.40) // (cantidad)*(factor ICBPER)
             ->setFactorIcbper(0.10)
         ;
