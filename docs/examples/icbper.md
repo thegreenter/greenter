@@ -54,10 +54,10 @@ $invoice->setFecVencimiento(new \DateTime())
         ->setTipAfeIgv('10')
         ->setMtoBaseIgv(0.20)
         ->setPorcentajeIgv(18.0)
-        ->setIgv(0.236)
+        ->setIgv(0.24)
         ->setIcbper(0.40) // (cantidad)*(factor ICBPER)
         ->setFactorIcbper(0.10)
-        ->setTotalImpuestos(36)
+        ->setTotalImpuestos(0.64)
     ;
 
 $invoice->setDetails([$detail, $bolsa])
