@@ -6,12 +6,13 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/812e64207e72fbbde6e4/maintainability)](https://codeclimate.com/github/giansalex/greenter-ws/maintainability)    
 Conexión con los servicios web de SUNAT.
 
-# Install
+## Install
 ```bash
 composer require greenter/ws
 ```
 
-### Conexiones Disponibles
+## Conexiones Disponibles
+
 **Beta**
 
 | Servicio               | Ruta                                                                            |
