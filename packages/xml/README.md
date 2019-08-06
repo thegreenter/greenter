@@ -10,18 +10,20 @@ Generador de XML basados en el estandar UBL v2.0, v2.1 para la eleaboración de 
 composer require greenter/xml
 ```
 
-### Documentos Soportados.
+### Lista de Comprobantes.
 
-* Factura Electrónica v2.0, v2.1
-* Boleta Electrónica v2.0, v2.1
-* Nota de Crédito Electrónica v2.0, v2.1
-* Nota de Débito Electrónica v2.0, v2.1
-* Resumen Diario de Boletas v2.1
-* Comunicación de Bajas v2.0
-* Guia Remisión Electrónica v2.1
-* Retención Electrónica v2.0
-* Percepción Electrónica v2.0
-* Resumen de Reversiones v2.0
+Comprobante                 |  UBL 2.0           | UBL 2.1            |
+----------------------------|:------------------:|:------------------:|
+Factura Electrónica         | :white_check_mark: | :white_check_mark: |
+Boleta Electrónica          | :white_check_mark: | :white_check_mark: |
+Nota de Crédito Electrónica | :white_check_mark: | :white_check_mark: |
+Nota de Débito Electrónica  | :white_check_mark: | :white_check_mark: |
+Resumen Diario de Boletas   | :white_check_mark: |                    |
+Comunicación de Bajas       | :white_check_mark: |                    |
+Guia Remisión Electrónica   |                    | :white_check_mark: |
+Retención Electrónica       | :white_check_mark: |                    |
+Percepción Electrónica      | :white_check_mark: |                    |
+Resumen de Reversiones      | :white_check_mark: |                    |
 
 ## Example
 
