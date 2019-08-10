@@ -58,7 +58,7 @@ class TributoFunction
     public static function hasIvap(array $details)
     {
         foreach ($details as $detail) {
-            if ($detail->getTipAfeIgv() === '17') {
+            if ($detail->getTipAfeIgv() === '1016') {
                 return true;
             }
         }
