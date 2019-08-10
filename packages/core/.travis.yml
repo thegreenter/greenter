@@ -1,14 +1,13 @@
 language: php
 
 php:
-  - 5.6
+  - '5.6'
 
 before_script:
-  - composer self-update
-  - composer install --prefer-source --no-interaction --dev
+  - composer install
 
 install:
-  - composer require jakub-onderka/php-parallel-lint
+  - composer require phpstan/phpstan
 
 script:
-  - vendor/bin/parallel-lint --exclude vendor .
+  - vendor/bin/phpstan analyse src --level 7
