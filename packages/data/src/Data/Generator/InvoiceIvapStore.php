@@ -40,6 +40,7 @@ class InvoiceIvapStore implements DocumentGeneratorInterface
             ->setMtoBaseIvap(200)
             ->setMtoIvap(8)
             ->setTotalImpuestos(44)
+            ->setValorVenta(400)
             ->setMtoImpVenta(444);
 
         $detail1 = new SaleDetail();
@@ -51,7 +52,7 @@ class InvoiceIvapStore implements DocumentGeneratorInterface
             ->setPorcentajeIgv(18.0)
             ->setIgv(36)
             ->setTotalImpuestos(36)
-            ->setTipAfeIgv('17') // IVAP
+            ->setTipAfeIgv('10')
             ->setMtoValorVenta(200)
             ->setMtoValorUnitario(100)
             ->setMtoPrecioUnitario(118);
