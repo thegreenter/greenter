@@ -91,6 +91,16 @@ class BaseSale implements DocumentInterface
     /**
      * @var float
      */
+    protected $mtoBaseIvap;
+
+    /**
+     * @var float
+     */
+    protected $mtoIvap;
+
+    /**
+     * @var float
+     */
     protected $mtoBaseIsc;
 
     /**
@@ -590,6 +600,46 @@ class BaseSale implements DocumentInterface
     public function setCompra($compra)
     {
         $this->compra = $compra;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoBaseIvap()
+    {
+        return $this->mtoBaseIvap;
+    }
+
+    /**
+     * @param float $mtoBaseIvap
+     *
+     * @return BaseSale
+     */
+    public function setMtoBaseIvap($mtoBaseIvap)
+    {
+        $this->mtoBaseIvap = $mtoBaseIvap;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoIvap()
+    {
+        return $this->mtoIvap;
+    }
+
+    /**
+     * @param float $mtoIvap
+     *
+     * @return BaseSale
+     */
+    public function setMtoIvap($mtoIvap)
+    {
+        $this->mtoIvap = $mtoIvap;
 
         return $this;
     }
