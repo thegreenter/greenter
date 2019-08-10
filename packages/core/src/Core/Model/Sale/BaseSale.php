@@ -615,7 +615,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoBaseIvap
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setMtoBaseIvap($mtoBaseIvap)
     {
@@ -635,7 +635,7 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoIvap
      *
-     * @return BaseSale
+     * @return $this
      */
     public function setMtoIvap($mtoIvap)
     {
