@@ -37,8 +37,10 @@ class InvoiceIvapStore implements DocumentGeneratorInterface
             ->setClient($this->shared->getClient())
             ->setMtoOperGravadas(200)
             ->setMtoIGV(36)
-            ->setTotalImpuestos(36)
-            ->setMtoImpVenta(236);
+            ->setMtoBaseIvap(200)
+            ->setMtoIvap(8)
+            ->setTotalImpuestos(44)
+            ->setMtoImpVenta(444);
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('P001')
@@ -54,9 +56,23 @@ class InvoiceIvapStore implements DocumentGeneratorInterface
             ->setMtoValorUnitario(100)
             ->setMtoPrecioUnitario(118);
 
+        $arroz = new SaleDetail();
+        $arroz->setCodProducto('P002')
+            ->setUnidad('NIU')
+            ->setCantidad(2)
+            ->setDescripcion('ARROZ PILADO')
+            ->setMtoBaseIgv(200.00)
+            ->setPorcentajeIgv(4.0)
+            ->setIgv(8)
+            ->setTotalImpuestos(8)
+            ->setTipAfeIgv('17') // IVAP
+            ->setMtoValorVenta(200)
+            ->setMtoValorUnitario(100)
+            ->setMtoPrecioUnitario(118);
+
         $legend = new Legend();
         $legend->setCode('1000')
-            ->setValue('SON DOSCIENTOS TREINTA Y SEIS CON 00/100 SOLES');
+            ->setValue('SON CUATROCIENTOS CUARENTA Y CUATRO CON 00/100 SOLES');
 
         $invoice->setDetails([$detail1])
             ->setLegends([$legend]);
