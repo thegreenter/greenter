@@ -1,5 +1,14 @@
 # Greenter Changes
 
+## Aug 2019-08-10 Core
+**Invoice**
+- Se agregó `MtoBaseIvap`
+- Se agregó `MtoIvap`
+
+**Note**
+- Se agregó `MtoBaseIvap`
+- Se agregó `MtoIvap`
+
 ## Nov 2018-11-05 Core
 **Summary**
 - Se agregó `Moneda`.
