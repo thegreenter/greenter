@@ -288,7 +288,7 @@
             <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|n_format }}</cbc:TaxableAmount>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoIGV|n_format }}</cbc:TaxAmount>
             <cac:TaxCategory>
-                {% if hasIvap(doc.details) %}
+                {% if '1016' in doc.details|map(d => "#{d.tipAfeIgv}") %}
                 <cac:TaxScheme>
                     <cbc:ID>1016</cbc:ID>
                     <cbc:Name>IVAP</cbc:Name>

@@ -55,7 +55,7 @@ class TributoFunction
      *
      * @return bool
      */
-    public static function hasIvap(array $details)
+    public static function isIvap(array $details)
     {
         foreach ($details as $detail) {
             if ($detail->getTipAfeIgv() === '1016') {
