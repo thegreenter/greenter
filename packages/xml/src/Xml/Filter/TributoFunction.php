@@ -3,16 +3,13 @@
  * Created by PhpStorm.
  * User: Soporte
  * Date: 11/10/2018
- * Time: 16:40.
+ * Time: 16:40
  */
 
 namespace Greenter\Xml\Filter;
 
-use Greenter\Model\Sale\SaleDetail;
-
 /**
- * Class TributoFunction.
- *
+ * Class TributoFunction
  * @internal
  */
 class TributoFunction
@@ -32,7 +29,6 @@ class TributoFunction
     {
         if (isset(self::$codigoTributos[$code])) {
             $values = self::$codigoTributos[$code];
-
             return [
               'id' => $code,
               'code' => $values[0],
@@ -50,41 +46,15 @@ class TributoFunction
         return self::getByTributo($code);
     }
 
-    /**
-     * @param SaleDetail[] $details
-     *
-     * @return bool
-     */
-    public static function isIvap(array $details)
-    {
-        foreach ($details as $detail) {
-            if ($detail->getTipAfeIgv() === '1016') {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     private static function getCode($afectacion)
     {
         $value = intval($afectacion);
 
-        if ($value === 10) {
-            return '1000';
-        }
-        if ($value === 17) {
-            return '1016';
-        }
-        if ($value === 20) {
-            return '9997';
-        }
-        if ($value === 30) {
-            return '9998';
-        }
-        if ($value === 40) {
-            return '9995';
-        }
+        if ($value === 10) return '1000';
+        if ($value === 17) return '1016';
+        if ($value === 20) return '9997';
+        if ($value === 30) return '9998';
+        if ($value === 40) return '9995';
 
         return '9996';
     }
