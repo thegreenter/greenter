@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: PHPStan
-      uses: docker://oskarstark/phpstan-ga
+      uses: OskarStark/phpstan-ga@0.11.15.2
       with:
         args: analyse src/ --level 7
 
