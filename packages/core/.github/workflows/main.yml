@@ -1,0 +1,19 @@
+name: 'Greenter Core - CI'
+
+on: [push]
+
+push:
+  branches:
+    - master 
+    
+jobs:
+  lint:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: PHPStan
+      uses: docker://oskarstark/phpstan-ga
+      with:
+        args: analyse src/ --level 7
+
