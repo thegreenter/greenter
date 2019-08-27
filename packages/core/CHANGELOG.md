@@ -2,19 +2,19 @@
 
 ## Aug 2019-08-10 Core
 **Invoice**
-- Se agregó `MtoBaseIvap`
-- Se agregó `MtoIvap`
+- Se agregó `MtoBaseIvap`.
+- Se agregó `MtoIvap`.
 
 **Note**
-- Se agregó `MtoBaseIvap`
-- Se agregó `MtoIvap`
+- Se agregó `MtoBaseIvap`.
+- Se agregó `MtoIvap`.
 
 ## Nov 2018-11-05 Core
 **Summary**
 - Se agregó `Moneda`.
 
 **Summary Detail**
-- Se agrego `MtoIvap`
+- Se agrego `MtoIvap`.
 
 **CdrResponse**
 - Se agregó `isAccepted()`, indica cuando un cdr es aceptado. 
