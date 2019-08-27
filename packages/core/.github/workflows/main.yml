@@ -1,10 +1,9 @@
 name: 'Greenter Core - CI'
 
-on: [push]
-
-push:
-  branches:
-    - master 
+on:
+  push:
+    branches:
+      - master
     
 jobs:
   lint:
