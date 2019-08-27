@@ -11,7 +11,9 @@ jobs:
     name: Run phpstan checker
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
     - name: PHPStan
       uses: OskarStark/phpstan-ga@0.11.15.2
       with:
