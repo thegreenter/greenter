@@ -17,7 +17,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@1.1.1
       with:
-        php-version: 5.6
+        php-version: '7.1'
     - name: Install PHPStan
       run: composer require phpstan/phpstan
     - run: vendor/bin/phpstan analyse src/ --level 7
