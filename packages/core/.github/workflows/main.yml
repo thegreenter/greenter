@@ -14,8 +14,10 @@ jobs:
     - uses: actions/checkout@v1
       with:
         fetch-depth: 1
-    - name: PHPStan
-      uses: OskarStark/phpstan-ga@0.11.15.2
+    - name: Setup PHP
+      uses: shivammathur/setup-php@1.1.1
       with:
-        args: analyse src/ --level 7
-
+        php-version: 5.6
+    - name: Install PHPStan
+      run: composer require phpstan/phpstan
+    - run: vendor/bin/phpstan analyse src/ --level 7
