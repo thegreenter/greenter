@@ -2,6 +2,7 @@
 
 ## Oct 2019-10-11
 - Se agregó campo para `subTotal`.
+- Se agregó campo para `redondeo`.
 
 ## Aug 2019-08-10
 **Invoice**
