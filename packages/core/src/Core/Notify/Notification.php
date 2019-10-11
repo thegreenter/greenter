@@ -40,7 +40,7 @@ class Notification
      *
      * @return Notification
      */
-    public function setFiles($files)
+    public function setFiles(array $files)
     {
         $this->files = $files;
 

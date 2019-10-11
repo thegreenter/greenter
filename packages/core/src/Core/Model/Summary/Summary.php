@@ -8,6 +8,7 @@
 
 namespace Greenter\Model\Summary;
 
+use DateTimeInterface;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 
@@ -24,14 +25,14 @@ class Summary implements DocumentInterface
     /**
      * Fecha de generación de los documentos a enviar en el resumen.
      *
-     * @var \DateTimeInterface
+     * @var DateTimeInterface
      */
     protected $fecGeneracion;
 
     /**
      * Fecha de generación del resumen.
      *
-     * @var \DateTimeInterface
+     * @var DateTimeInterface
      */
     protected $fecResumen;
 
@@ -71,7 +72,7 @@ class Summary implements DocumentInterface
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return DateTimeInterface
      */
     public function getFecGeneracion()
     {
@@ -79,11 +80,11 @@ class Summary implements DocumentInterface
     }
 
     /**
-     * @param \DateTimeInterface $fecGeneracion
+     * @param DateTimeInterface $fecGeneracion
      *
      * @return Summary
      */
-    public function setFecGeneracion(\DateTimeInterface $fecGeneracion)
+    public function setFecGeneracion(DateTimeInterface $fecGeneracion)
     {
         $this->fecGeneracion = $fecGeneracion;
 
@@ -91,7 +92,7 @@ class Summary implements DocumentInterface
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return DateTimeInterface
      */
     public function getFecResumen()
     {
@@ -99,11 +100,11 @@ class Summary implements DocumentInterface
     }
 
     /**
-     * @param \DateTimeInterface $fecResumen
+     * @param DateTimeInterface $fecResumen
      *
      * @return Summary
      */
-    public function setFecResumen(\DateTimeInterface $fecResumen)
+    public function setFecResumen(DateTimeInterface $fecResumen)
     {
         $this->fecResumen = $fecResumen;
 
@@ -120,6 +121,7 @@ class Summary implements DocumentInterface
 
     /**
      * @param string $moneda
+     *
      * @return Summary
      */
     public function setMoneda($moneda)

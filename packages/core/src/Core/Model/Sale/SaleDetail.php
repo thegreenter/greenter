@@ -151,7 +151,8 @@ class SaleDetail
     private $mtoValorVenta;
 
     /**
-     * Valor referencial unitario por ítem en operaciones no onerosas (gratuita).
+     * Valor referencial unitario por ítem en
+     * operaciones no onerosas (gratuita).
      *
      * @var float
      */

@@ -8,6 +8,8 @@
 
 namespace Greenter\Model\Sale;
 
+use DateTime;
+
 /**
  * Class DetailAttribute
  */
@@ -26,11 +28,11 @@ class DetailAttribute
      */
     private $value;
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $fecInicio;
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $fecFin;
     /**
@@ -86,14 +88,14 @@ class DetailAttribute
         return $this;
     }
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getFecInicio()
     {
         return $this->fecInicio;
     }
     /**
-     * @param \DateTime $fecInicio
+     * @param DateTime $fecInicio
      * @return DetailAttribute
      */
     public function setFecInicio($fecInicio)
@@ -102,14 +104,14 @@ class DetailAttribute
         return $this;
     }
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getFecFin()
     {
         return $this->fecFin;
     }
     /**
-     * @param \DateTime $fecFin
+     * @param DateTime $fecFin
      * @return DetailAttribute
      */
     public function setFecFin($fecFin)

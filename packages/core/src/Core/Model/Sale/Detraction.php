@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Administrador
- * Date: 28/09/2017
- * Time: 10:00 AM
- * Se reguiere añadir leyendas al documento, dirigase al manual Datos Tributarios Recomendados - SUNAT.
- */
 
 namespace Greenter\Model\Sale;
 
@@ -44,7 +37,8 @@ class Detraction
     private $codBienDetraccion;
 
     /**
-     * Valor referencial, en el caso de detracciones al transporte de bienes por vía terrestre.
+     * Valor referencial, en el caso de detracciones
+     * al transporte de bienes por vía terrestre.
      *
      * @var float
      */

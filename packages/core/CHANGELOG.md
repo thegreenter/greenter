@@ -1,6 +1,10 @@
 # Greenter Changes
 
-## Aug 2019-08-10 Core
+## Oct 2019-10-11
+- Se agregó campo para `subTotal`.
+- Se agregó campo para `redondeo`.
+
+## Aug 2019-08-10
 **Invoice**
 - Se agregó `MtoBaseIvap`.
 - Se agregó `MtoIvap`.
@@ -9,7 +13,7 @@
 - Se agregó `MtoBaseIvap`.
 - Se agregó `MtoIvap`.
 
-## Nov 2018-11-05 Core
+## Nov 2018-11-05
 **Summary**
 - Se agregó `Moneda`.
 
