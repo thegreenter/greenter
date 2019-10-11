@@ -51,7 +51,6 @@ class SummaryDetail
     /**
      * Estado del item (catalog: 19).
      *
-     *
      * @var string
      */
     private $estado;

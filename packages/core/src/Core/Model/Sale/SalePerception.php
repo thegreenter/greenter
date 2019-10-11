@@ -68,6 +68,7 @@ class SalePerception
 
     /**
      * @param float $porcentaje
+     *
      * @return SalePerception
      */
     public function setPorcentaje($porcentaje)
