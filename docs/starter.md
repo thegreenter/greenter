@@ -41,7 +41,7 @@ return $see;
 ## Factura Electrónica
 
 Elaboraremos nuestra primera factura electrónica, para ello creamos el archivo `factura.php` y agregaremos el siguiente código:
-```php hl_lines="37 38 47 48 57 58 61"
+```php hl_lines="37 38 47 48 58 59 62"
 <?php
 
 use Greenter\Model\Client\Client;
@@ -90,6 +90,7 @@ $invoice = (new Invoice())
     ->setMtoIGV(18.00)
     ->setTotalImpuestos(18.00)
     ->setValorVenta(100.00)
+    ->setSubTotal(118.00)
     ->setMtoImpVenta(118.00)
     ->setCompany($company);
 
