@@ -8,6 +8,7 @@
 
 namespace Greenter\Data\Generator;
 
+use DateTime;
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
 use Greenter\Model\DocumentInterface;
@@ -41,39 +42,43 @@ class InvoiceDiscountStore implements DocumentGeneratorInterface
             ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('124')
-            ->setFechaEmision(new \DateTime())
+            ->setFechaEmision(new DateTime())
             ->setTipoMoneda('PEN')
             ->setClient($this->shared->getClient())
-            ->setMtoDescuentos(30)
+            ->setMtoDescuentos(5) // Descuento Global que no afecta a la base imponible
             ->setMtoOperGravadas(70)
             ->setMtoIGV(12.6)
             ->setTotalImpuestos(12.6)
-            ->setMtoImpVenta(72.6);
+            ->setValorVenta(70)
+            ->setSubTotal(72.6)
+            ->setRedondeo(0.4)
+            ->setMtoImpVenta(68); // SubTotal - descuento global (no afecta base imp.) + redondeo
 
         $detail = new SaleDetail();
         $detail->setCodProducto('C024')
             ->setUnidad('NIU')
             ->setCantidad(1)
             ->setDescripcion('PRODUCTO 1')
-            ->setMtoBaseIgv(100.00)
+            ->setMtoBaseIgv(70.00) // valor venta + isc
             ->setPorcentajeIgv(18.0)
-            ->setIgv(18)
-            ->setTotalImpuestos(18)
+            ->setIgv(12.6)
+            ->setTotalImpuestos(12.6)
             ->setDescuentos([
                 (new Charge())
-                ->setCodTipo('00')
+                ->setCodTipo('00') // Afecta a la base imponible (catalogo 53)
                 ->setFactor(0.30)
                 ->setMontoBase(100)
                 ->setMonto(30)
             ])
             ->setTipAfeIgv('10')
-            ->setMtoValorVenta(100)
+            ->setMtoValorVenta(70) // (cantidad * valor unitario) - descuentos (cod: 00)
             ->setMtoValorUnitario(100)
-            ->setMtoPrecioUnitario(118);
+            ->setMtoPrecioUnitario(82.6);
+        // Precio Unitario (valor venta + total impuestos - descuentos (no afectan base) + cargos (no afectan base)) / cantidad
 
         $legend = new Legend();
         $legend->setCode('1000')
-            ->setValue('SON SETENTA Y DOS CON 60/100 SOLES');
+            ->setValue('SON SESENT Y OCHO CON 00/100 SOLES');
 
         $invoice->setDetails([$detail])
             ->setLegends([$legend]);
