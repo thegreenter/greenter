@@ -41,6 +41,7 @@ class InvoiceIvapStore implements DocumentGeneratorInterface
             ->setMtoIvap(8)
             ->setTotalImpuestos(44)
             ->setValorVenta(400)
+            ->setSubTotal(444)
             ->setMtoImpVenta(444);
 
         $detail1 = new SaleDetail();

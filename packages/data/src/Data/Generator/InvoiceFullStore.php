@@ -99,6 +99,8 @@ class InvoiceFullStore implements DocumentGeneratorInterface
             ->setMtoOtrosTributos(1)
             ->setTotalImpuestos(39)
             ->setValorVenta(200)
+            ->setSubTotal(236)
+            ->setRedondeo(0.02)
             ->setMtoImpVenta(236)
             ->setCompany($this->shared->getCompany())
             ->setDetails([(new SaleDetail())

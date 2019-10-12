@@ -38,6 +38,8 @@ class InvoiceIcbperStore implements DocumentGeneratorInterface
             ->setMtoIGV(36.24)
             ->setIcbper(0.40)
             ->setTotalImpuestos(36.64)
+            ->setValorVenta(200.20)
+            ->setSubTotal(236.64)
             ->setMtoImpVenta(236.64);
 
         $detail = new SaleDetail();

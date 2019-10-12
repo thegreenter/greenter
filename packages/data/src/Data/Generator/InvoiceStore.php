@@ -73,6 +73,8 @@ class InvoiceStore implements DocumentGeneratorInterface
             ->setMtoIGV(36)
             ->setTotalImpuestos(38)
             ->setMtoISC(2)
+            ->setValorVenta(200)
+            ->setSubTotal(236)
             ->setMtoImpVenta(236)
             ->setGuias([(new Document())
                 ->setTipoDoc('09')
