@@ -1,5 +1,7 @@
 # Empezando con Greenter
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/giansalex/greenter-firststeps)
+
 Después de [instalar greenter](/#instalacion) podrá empezar a emitir comprobantes electrónicos.  
 Para este ejemplo se usará la version **UBL 2.1**.
 > Las línas resaltadas en el código son los nuevos campos requeridos en el UBL 2.1
