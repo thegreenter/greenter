@@ -14,7 +14,7 @@
     "require": {
 		"php": ">=5.5.9",
         "greenter/core": "^2.1",
-        "twig/twig": "~1.0 || ~2.0"
+        "twig/twig": "~1.0 || ~2.0 || ~3.0"
     },
 	"require-dev": {
         "greenter/data": "dev-master",
