@@ -144,6 +144,15 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
     }
 
+    /**
+     * @expectedException \Exception
+     */
+    public function testGetStatusInvalidResponse()
+    {
+        $wss = $this->getExtServiceMock();
+        $wss->getStatus('1500523236600');
+    }
+
     public function testGetStatusWithExceptionCode()
     {
         $wss = $this->getExtServiceMock();

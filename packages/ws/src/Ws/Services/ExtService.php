@@ -8,6 +8,7 @@
 
 namespace Greenter\Ws\Services;
 
+use Exception;
 use Greenter\Model\Response\Error;
 use Greenter\Model\Response\StatusResult;
 
@@ -20,6 +21,7 @@ class ExtService extends BaseSunat
      * @param string $ticket
      *
      * @return StatusResult
+     * @throws Exception
      */
     public function getStatus($ticket)
     {
@@ -40,7 +42,15 @@ class ExtService extends BaseSunat
         ];
 
         $response = $this->getClient()->call('getStatus', ['parameters' => $params]);
-        $status = $response->status;
+        if (!isset($response->status)) {
+            throw new Exception('Invalid getStatus service response.');
+        }
+
+        return $this->processResponse($response->status);
+    }
+
+    private function processResponse($status)
+    {
         $code = intval($status->statusCode);
 
         $result = new StatusResult();

@@ -177,8 +177,9 @@ trait FeSunatTestTrait
                 $ticket = $args['parameters']['ticket'];
 
                 $obj = new \stdClass();
-                $obj->status = new \stdClass();
+                if ($ticket === '1500523236600') return $obj;
 
+                $obj->status = new \stdClass();
                 if ('223123123213' === $ticket) {
                     $obj->status->statusCode = '98';
                 } elseif ('667123123214' === $ticket){
