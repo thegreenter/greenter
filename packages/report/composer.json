@@ -13,7 +13,7 @@
     "type": "library",
     "require": {
 		"php": ">=5.5.9",
-        "twig/twig": "~1.0 || ~2.0",
+        "twig/twig": "~1.0 || ~2.0 || ~3.0",
         "greenter/core": "^2.1",
         "bacon/bacon-qr-code": "^1.0"
     },
