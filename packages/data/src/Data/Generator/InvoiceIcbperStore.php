@@ -35,9 +35,9 @@ class InvoiceIcbperStore implements DocumentGeneratorInterface
             ->setTipoMoneda('PEN')
             ->setClient($this->shared->getClient())
             ->setMtoOperGravadas(200.20)
-            ->setMtoIGV(36.24)
+            ->setMtoIGV(36.04)
             ->setIcbper(0.40)
-            ->setTotalImpuestos(36.64)
+            ->setTotalImpuestos(36.44)
             ->setValorVenta(200.20)
             ->setSubTotal(236.64)
             ->setMtoImpVenta(236.64);
@@ -69,8 +69,8 @@ class InvoiceIcbperStore implements DocumentGeneratorInterface
             ->setTipAfeIgv('10')
             ->setMtoBaseIgv(0.20)
             ->setPorcentajeIgv(18.0)
-            ->setIgv(0.24)
-            ->setTotalImpuestos(0.64)
+            ->setIgv(0.04)
+            ->setTotalImpuestos(0.44)
             ->setIcbper(0.40) // (cantidad)*(factor ICBPER)
             ->setFactorIcbper(0.10)
         ;
