@@ -352,15 +352,15 @@
                     <cbc:ID>{{ detail.codProducto }}</cbc:ID>
                 </cac:SellersItemIdentification>
             {% endif %}
-            {% if detail.codProdSunat %}
-                <cac:CommodityClassification>
-                    <cbc:ItemClassificationCode>{{ detail.codProdSunat }}</cbc:ItemClassificationCode>
-                </cac:CommodityClassification>
-            {% endif %}
             {% if detail.codProdGS1 %}
                 <cac:StandardItemIdentification>
                     <cbc:ID>{{ detail.codProdGS1 }}</cbc:ID>
                 </cac:StandardItemIdentification>
+            {% endif %}
+            {% if detail.codProdSunat %}
+                <cac:CommodityClassification>
+                    <cbc:ItemClassificationCode>{{ detail.codProdSunat }}</cbc:ItemClassificationCode>
+                </cac:CommodityClassification>
             {% endif %}
             {% if detail.atributos %}
                 {% for atr in detail.atributos %}
