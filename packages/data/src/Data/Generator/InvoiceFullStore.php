@@ -123,6 +123,7 @@ class InvoiceFullStore implements DocumentGeneratorInterface
                 , (new SaleDetail())
                     ->setCodProducto('C02')
                     ->setCodProdSunat('001')
+                    ->setCodProdGS1('123456789')
                     ->setUnidad('NIU')
                     ->setCantidad(2)
                     ->setDescripcion('PROD 2')
