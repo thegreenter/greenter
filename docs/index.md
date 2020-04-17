@@ -15,7 +15,7 @@ comprime el archivo XML en formato zip, conexión al webservice de SUNAT y proce
    
 
 <p align="center">
-  <img alt="Sunat Facturacion Electronica" src="https://github.com/giansalex/greenter/raw/master/docs/img/logo.png">
+  <img alt="Sunat Facturacion Electronica" width="256px" src="img/logo.svg">
 </p>
 
 !!! info "API REST"
