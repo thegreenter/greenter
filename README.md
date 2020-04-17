@@ -17,6 +17,9 @@ comprime el archivo XML en formato zip, conexión al webservice de SUNAT y proce
    
 [![Throughput Graph](https://graphs.waffle.io/giansalex/greenter/throughput.svg)](https://waffle.io/giansalex/greenter/metrics/throughput)     
 
+## Sobre la Libreria y su Desarrollo
+En este enlace podemos tener mas informacion sobre la libreria y su desarrllo.
+[Greenter Video](https://youtube.com/watch?v=u69SWWdiReQ)
 
 ## Requerimientos
 - PHP 5.6 o superior
