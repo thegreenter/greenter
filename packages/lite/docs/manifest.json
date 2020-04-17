@@ -3,8 +3,8 @@
   "name": "Greenter - Facturación Electrónica SUNAT - Perú",
   "icons": [
     {
-      "src": "img/logo.png",
-      "type": "image/png",
+      "src": "img/logo.svg",
+      "type": "image/svg+xml",
       "sizes": "170x170"
     }
   ],
