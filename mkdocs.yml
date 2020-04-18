@@ -1,8 +1,8 @@
 site_name: Greenter - Facturación Electrónica en Perú
 site_url: https://giansalex.github.io/greenter/
 site_description: |
-  Crear facturas electrónicas siguiendo el estándar UBL 2.0, 2.1 en Peru, 
-  siguiendo la normativa dispuesta por SUNAT.
+  Crea facturas electrónicas siguiendo el estándar UBL 2.0, 2.1 en Perú, 
+  bajo la normativa dispuesta por SUNAT
 site_author: 'Giancarlos Salas'
 
 # Repository
@@ -32,6 +32,7 @@ nav:
 # Configuration
 theme:
   name: 'material'
+  custom_dir: docs/overrides
   favicon: 'img/greenter.ico'
   logo: 'img/logo.svg'
   # Don't include MkDocs' JavaScript
@@ -71,6 +72,7 @@ plugins:
 markdown_extensions:
   - admonition
   - codehilite
+  - meta
   - pymdownx.mark
   - pymdownx.details
   - toc:
