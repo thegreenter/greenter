@@ -16,18 +16,19 @@ nav:
     - Primeros Pasos: starter.md
     - Migrar a UBL 2.1: migrate2.1.md
     - Paso a Producción: production.md
-    - F. Exonerada: examples/exonerada.md
-    - F. Gratuita: examples/gratuita.md
-    - F. Descuentos: examples/descuento-linea.md
-    - F. Percepción: examples/percepcion.md
-    - F. Anticipos: examples/anticipo.md
-    - F. Detracción: examples/detraccion.md
-    - F. Exportación: examples/exportacion.md
-    - F. ICBPER: examples/icbper.md
-    - 'Boleta de Venta': examples/boleta.md
-    - Contingencia: examples/contingencia.md
     - 'Preguntas Frecuentes': faq.md
     - 'API Referencia': https://giansalex.github.io/greenter-apidoc/
+    - Ejemplos:
+      - F. Exonerada: examples/exonerada.md
+      - F. Gratuita: examples/gratuita.md
+      - F. Descuentos: examples/descuento-linea.md
+      - F. Percepción: examples/percepcion.md
+      - F. Anticipos: examples/anticipo.md
+      - F. Detracción: examples/detraccion.md
+      - F. Exportación: examples/exportacion.md
+      - F. ICBPER: examples/icbper.md
+      - 'Boleta de Venta': examples/boleta.md
+      - Contingencia: examples/contingencia.md
 
 # Configuration
 theme:
