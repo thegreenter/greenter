@@ -2,9 +2,12 @@
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/giansalex/greenter-firststeps)
 
-Después de [instalar greenter](/#instalacion) podrá empezar a emitir comprobantes electrónicos.  
-Para este ejemplo se usará la version **UBL 2.1**.
-> Las línas resaltadas en el código son los nuevos campos requeridos en el UBL 2.1
+
+## Instalación
+La forma mas facil de instalar grenter es utilizando [composer](https://getcomposer.org/).
+```bash
+composer install greenter
+```
 
 ## Requerimientos
 - ==Conocimientos en el proceso de Facturación Electrónica, puede revisar la [página web](http://cpe.sunat.gob.pe/) creada por Sunat==
@@ -42,8 +45,10 @@ return $see;
 
 ## Factura Electrónica
 
+> Para este ejemplo se usará la version **UBL 2.1**.
+
 Elaboraremos nuestra primera factura electrónica, para ello creamos el archivo `factura.php` y agregaremos el siguiente código:
-```php hl_lines="37 38 47 48 58 59 62"
+```php
 <?php
 
 use Greenter\Model\Client\Client;
