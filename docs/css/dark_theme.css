@@ -1,0 +1,150 @@
+/*
+//////////////////
+// Main content //
+//////////////////
+*/
+
+/*
+Default text color
+and background color
+*/
+.md-main {
+  color: #F5F5F5 !important;
+  background-color: #212121 !important;
+}
+
+/*
+Main headlines
+*/
+.md-main h1 {
+  color: white !important;
+}
+
+/*
+Tables
+*/
+tbody {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: rgba(255,255,255,0.11) !important;
+}
+
+.md-typeset table:not([class]) tr:hover {
+  box-shadow: none !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+/*
+Blockquotes
+*/
+.md-typeset blockquote {
+  color: rgba(255,255,255,0.8) !important;
+  border-color: rgba(255,255,255,0.54) !important;
+}
+
+/*
+////////////////////
+// Navigation bar //
+////////////////////
+*/
+
+/*
+Left and right toc scrollbar
+*/
+.md-sidebar__scrollwrap::-webkit-scrollbar-thumb {
+  background-color: #E0E0E0 !important;
+}
+
+
+
+.md-nav {
+  color: #F5F5F5 !important;
+  background-color: #212121 !important;
+}
+
+/*
+Arrow Left Icon
+*/
+html .md-nav--primary .md-nav__title:before {
+  color: #FAFAFA !important;
+}
+
+.md-nav__title {
+  color: rgba(255,255,255,1) !important;
+  background-color: #212121 !important;
+}
+
+/*
+Arrow Right Icon
+*/
+.md-nav--primary .md-nav__link:after {
+  color: #FAFAFA !important;
+}
+
+.md-nav__list {
+  color: rgba(255,255,255,1) !important;
+  background-color: #212121 !important;
+}
+
+.md-nav__item {
+  color: rgba(255,255,255,1) !important;
+  background-color: #212121 !important;
+}
+
+.md-nav__link[data-md-state=blur] {
+  color: rgba(255,255,255,0.54) !important;
+}
+
+/*
+////////////
+// Search //
+////////////
+*/
+
+/*
+scroll bar
+
+attention:
+background is scroll handle color!
+*/
+.md-search__scrollwrap::-webkit-scrollbar-thumb {
+  background-color: #E0E0E0 !important;
+}
+/*
+scroll bar background color
+*/
+.md-search__scrollwrap {
+  background-color: #424242 !important;
+}
+
+/*
+Icon color
+*/
+.md-search-result__article--document:before {
+  color: #EEEEEE !important;
+}
+
+/*
+headline color and
+result list background
+*/
+.md-search-result__list {
+  color: #EEEEEE !important;
+  background-color: #212121 !important;
+}
+
+/*
+result info/count
+*/
+.md-search-result__meta {
+  background-color: #EEEEEE !important;
+}
+
+/*
+article preview text color
+*/
+.md-search-result__teaser {
+  color: #BDBDBD !important;
+}

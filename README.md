@@ -1,5 +1,3 @@
-![Greenter](docs/img/logo.png)
-<img src="https://raw.githubusercontent.com/giansalex/greenter/master/docs/img/sunat.ico" align=right>
 # Greenter - Facturación Electrónica
 
 [![Travis-CI](https://img.shields.io/travis/giansalex/greenter.svg?label=travis-ci&branch=master&style=flat-square)](https://travis-ci.org/giansalex/greenter)
@@ -14,8 +12,10 @@ Esta libreria le permite realizar la implementación de la **Facturación Electr
 contribuyente, la cual esta normado por SUNAT.   
 Greenter realiza la mayoria de tareas del proceso, genera el XML según el estándar UBL, firma con el certificado digital que sunat exige,
 comprime el archivo XML en formato zip, conexión al webservice de SUNAT y procesa el CDR (Comprobante de Recepción).
-   
-[![Throughput Graph](https://graphs.waffle.io/giansalex/greenter/throughput.svg)](https://waffle.io/giansalex/greenter/metrics/throughput)     
+
+<p align="center">
+  <img alt="Sunat Facturacion Electronica" width="256px" src="docs/img/logo.svg">
+</p>
 
 ## Sobre la Libreria y su Desarrollo
 En este enlace podemos tener mas informacion sobre la libreria y su desarrllo.
