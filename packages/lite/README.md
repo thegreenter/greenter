@@ -26,7 +26,7 @@ comprime el archivo XML en formato zip, conexión al webservice de SUNAT y proce
 ```bash
 composer require greenter/greenter
 ```
-Puede ver una demostración en [Greenter Sampple](https://github.com/giansalex/greenter-sample).
+Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/demo).
 
 ## Caracteristicas
 
@@ -43,9 +43,6 @@ Puede ver una demostración en [Greenter Sampple](https://github.com/giansalex/g
 * Percepción Electrónica
 * Resumen de Reversiones
 
-### API
-- [Api Reference](https://giansalex.github.io/greenter-apidoc/)
-
 ### Web Services
 - Envío y empaquetado de los comprobantes electrónicos
 - Consulta de tickets (Resumen diario, Comunicación de Bajas)
@@ -56,14 +53,14 @@ Puede ver una demostración en [Greenter Sampple](https://github.com/giansalex/g
 - Firma con certificado digital
 
 ### Representación Impresa.
-- Generación de [HTML Report](https://github.com/giansalex/greenter-report)
-- Generación de [PDF](https://github.com/giansalex/greenter-htmltopdf)
+- Generación de [HTML Report](https://github.com/thegreenter/report)
+- Generación de [PDF](https://github.com/thegreenter/htmltopdf)
 
 ### API REST
 API REST con [Lycet](https://github.com/giansalex/lycet) empleando Symfony Framework.
 
 ### Librerias Relacionadas
-- [greenter/report](https://github.com/giansalex/greenter-report)
-- [greenter/htmltopdf](https://github.com/giansalex/greenter-htmltopdf)
-- [greenter/validator](https://github.com/giansalex/greenter-validator)
-- [greenter/ubl-validator](https://github.com/giansalex/ubl-validator)
+- [greenter/report](https://github.com/thegreenter/report)
+- [greenter/htmltopdf](https://github.com/thegreenter/htmltopdf)
+- [greenter/validator](https://github.com/thegreenter/validator)
+- [greenter/ubl-validator](https://github.com/thegreenter/ubl-validator)
