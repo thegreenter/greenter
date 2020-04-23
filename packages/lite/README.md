@@ -14,7 +14,7 @@ Greenter realiza la mayoria de tareas del proceso, genera el XML según el está
 comprime el archivo XML en formato zip, conexión al webservice de SUNAT y procesa el CDR (Comprobante de Recepción).
 
 <p align="center">
-  <img alt="Sunat Facturacion Electronica" width="256px" src="docs/img/logo.svg">
+  <img alt="Sunat Facturacion Electronica" width="256px" src="https://greenter.dev/img/logo.svg">
 </p>
 
 
