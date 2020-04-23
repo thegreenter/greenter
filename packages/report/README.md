@@ -6,7 +6,7 @@
 [![Build Status](https://scrutinizer-ci.com/g/giansalex/greenter-report/badges/build.png?b=master)](https://scrutinizer-ci.com/g/giansalex/greenter-report/build-status/master)  
 
 Representación en formato HTML del comprobante electrónico empleado en la facturación electrónica - SUNAT - Perú.
-> Para generar el PDF puede utilizar [wkhtmltopdf](https://wkhtmltopdf.org/) y/o [greenter/htmltopdf](https://github.com/giansalex/greenter-htmltopdf).
+> Para generar el PDF puede utilizar [wkhtmltopdf](https://wkhtmltopdf.org/) y/o [greenter/htmltopdf](https://github.com/thegreenter/htmltopdf).
 
 ## Install
 Via Composer desde [packagist.org](https://packagist.org/packages/greenter/report)
