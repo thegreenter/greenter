@@ -3,7 +3,7 @@
 [![Travis-CI](https://img.shields.io/travis/giansalex/greenter-xml-parser.svg?branch=master&style=flat-square)](https://travis-ci.org/giansalex/greenter-xml-parser)
 [![Packagist](https://img.shields.io/packagist/v/greenter/xml-parser.svg?style=flat-square)](https://packagist.org/packages/greenter/xml-parser)
 
-Convierte XML a clases PHP definidas en [Greenter](https://github.com/giansalex/greenter).
+Convierte XML a clases PHP definidas en [Greenter](https://github.com/thegreenter/greenter).
 
 # Instalar
 Via composer desde [packagist.org](https://packagist.org/packages/greenter/xml-parser)
