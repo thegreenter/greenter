@@ -9,7 +9,7 @@
             "email": "giansalex@gmail.com"
         }
     ],
-    "homepage": "https://github.com/giansalex/greenter-xcodes",
+    "homepage": "https://github.com/thegreenter/xcodes",
     "type": "library",
     "require": {
 	    "php": ">=5.5.9",
