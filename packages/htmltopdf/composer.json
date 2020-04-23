@@ -9,7 +9,7 @@
             "email": "giansalex@gmail.com"
         }
     ],
-    "homepage": "https://github.com/giansalex/greenter-htmltopdf",
+    "homepage": "https://github.com/thegreenter/htmltopdf",
     "type": "library",
     "require": {
 	    "php": ">=5.5.9",
