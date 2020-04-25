@@ -15,7 +15,7 @@
 		"php": ">=5.5.9",
         "ext-dom": "*",
         "greenter/xmldsig": "^5.0",
-        "greenter/core": "^2.1",
+        "greenter/core": "^2.2",
         "greenter/ws": "^2.1",
         "greenter/xml": "^2.1"
     },
@@ -30,6 +30,11 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.0-dev"
         }
     }
 }

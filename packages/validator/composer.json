@@ -13,7 +13,7 @@
     "type": "library",
     "require": {
 		"php": ">=5.5.9",
-        "greenter/core": "^2.1",
+        "greenter/core": "^2.2",
         "symfony/validator": "^3.4"
     },
 	"require-dev": {
@@ -27,6 +27,11 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\Greenter\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.0-dev"
         }
     }
 }

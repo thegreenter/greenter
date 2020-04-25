@@ -1,0 +1,71 @@
+{
+    "name": "greenter/greenter",
+    "description": "Facturacion Electrónica SUNAT - Perú",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.5.9",
+        "ext-dom": "*",
+        "ext-soap": "*",
+        "ext-zip": "*",
+        "ext-zlib": "*",
+        "bacon/bacon-qr-code": "^1.0",
+        "greenter/core": "^2.1",
+        "greenter/ws": "^2.1",
+        "greenter/xml": "^2.1",
+        "greenter/xmldsig": "^5.0",
+        "mikehaertl/phpwkhtmltopdf": "^2.3",
+        "symfony/validator": "^3.4",
+        "twig/twig": "~1.0 || ~2.0 || ~3.0"
+    },
+    "require-dev": {
+        "greenter/ubl-validator": "^2.0",
+        "mockery/mockery": "^1.2",
+        "phpunit/phpunit": ">=4.8 < 6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Greenter\\": [
+                "src/Greenter/",
+                "src/Greenter/core/src/Core/",
+                "src/Greenter/data/src/",
+                "src/Greenter/htmltopdf/src/",
+                "src/Greenter/lite/src/Greenter/",
+                "src/Greenter/report/src/",
+                "src/Greenter/validator/src/",
+                "src/Greenter/ws/src/",
+                "src/Greenter/xcodes/src/",
+                "src/Greenter/xml/src/"
+            ],
+            "Greenter\\Xml\\": "src/Greenter/xml-parser/src/Greenter/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": [
+                "src/Greenter/lite/tests/",
+                "tests/"
+            ],
+            "Tests\\Greenter\\": [
+                "src/Greenter/htmltopdf/tests/",
+                "src/Greenter/report/tests/",
+                "src/Greenter/validator/tests/",
+                "src/Greenter/ws/tests/",
+                "src/Greenter/xcodes/tests/",
+                "src/Greenter/xml-parser/tests/",
+                "src/Greenter/xml/tests/"
+            ]
+        }
+    },
+    "replace": {
+        "greenter/core": "self.version",
+        "greenter/data": "self.version",
+        "greenter/greenter": "self.version",
+        "greenter/htmltopdf": "self.version",
+        "greenter/report": "self.version",
+        "greenter/validator": "self.version",
+        "greenter/ws": "self.version",
+        "greenter/xcodes": "self.version",
+        "greenter/xml": "self.version",
+        "greenter/xml-parser": "self.version"
+    }
+}

@@ -1,0 +1,16 @@
+parameters:
+    package_alias_format: '<major>.<minor>.x-dev'
+    package_directories:
+        - 'src/Greenter'
+
+    directories_to_repositories:
+        src/Greenter/core: 'https://github.com/thegreenter/core.git'
+        src/Greenter/data: 'https://github.com/thegreenter/data.git'
+        src/Greenter/htmltopdf: 'https://github.com/thegreenter/htmltopdf.git'
+        src/Greenter/lite: 'https://github.com/thegreenter/lite.git'
+        src/Greenter/report: 'https://github.com/thegreenter/report.git'
+        src/Greenter/validator: 'https://github.com/thegreenter/validator.git'
+        src/Greenter/ws: 'https://github.com/thegreenter/ws.git'
+        src/Greenter/xcodes: 'https://github.com/thegreenter/xcodes.git'
+        src/Greenter/xml: 'https://github.com/thegreenter/xml.git'
+        src/Greenter/xml-parser: 'https://github.com/thegreenter/xml-parser.git'

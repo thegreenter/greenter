@@ -13,7 +13,7 @@
     "type": "library",
     "require": {
 	    "php": ">=5.5.9",
-        "greenter/core": "^2.1",
+        "greenter/core": "^2.2",
         "mikehaertl/phpwkhtmltopdf": "^2.3"
     },
 	"require-dev": {
@@ -31,5 +31,10 @@
     },
     "suggest": {
         "greenter/report": "Html Reporter"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.0-dev"
+        }
     }
 }

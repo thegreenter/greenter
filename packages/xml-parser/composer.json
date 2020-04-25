@@ -14,7 +14,7 @@
     "require": {
 		"php": ">=5.5.9",
         "ext-dom": "*",
-        "greenter/core": "^1.2"
+        "greenter/core": "^2.2"
     },
     "autoload": {
         "psr-4": {
@@ -24,6 +24,11 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\Greenter\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.0-dev"
         }
     }
 }
