@@ -1,5 +1,8 @@
 parameters:
     package_alias_format: '<major>.<minor>.x-dev'
+    data_to_append:
+        require-dev:
+            phpstan/phpstan: '^0.12'
 
     directories_to_repositories:
         packages/core: 'https://github.com/thegreenter/core.git'

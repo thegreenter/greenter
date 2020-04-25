@@ -1,0 +1,13 @@
+parameters:
+    level: 1
+    paths:
+    - packages/core/src
+    - packages/data/src
+    - packages/htmltopdf/src
+    - packages/lite/src
+    - packages/report/src
+    - packages/validator/src
+    - packages/ws/src
+    - packages/xcodes/src
+    - packages/xml/src
+    - packages/xml-parser/src
