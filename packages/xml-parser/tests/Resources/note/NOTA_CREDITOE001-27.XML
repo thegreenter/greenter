@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><?xml-stylesheet type="text/xsl" href="notacredito2.0.xsl"?><CreditNote xmlns="urn:oasis:names:specification:ubl:schema:xsd:CreditNote-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ccts="urn:oasis:names:specification:ubl:schema:xsd:CoreComponentParameters-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:stat="urn:oasis:names:specification:ubl:schema:xsd:DocumentStatusCode-1.0" xmlns:udt="urn:un:unece:uncefact:data:draft:UnqualifiedDataTypesSchemaModule:2">
+
+ <ext:UBLExtensions>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <sac:AdditionalInformation>
+		
+			<sac:AdditionalProperty>
+				<cbc:ID>1000</cbc:ID>
+				<cbc:Name>Monto en Letras</cbc:Name>
+										<cbc:Value><![CDATA[ SON:  SEIS MIL SETECIENTOS VEINTITRES Y 64/100  SOLES ]]></cbc:Value>
+								</sac:AdditionalProperty> 
+	  
+									
+			<sac:AdditionalMonetaryTotal>
+                  <cbc:ID>1004</cbc:ID>
+				  <cbc:Name>Total valor de venta - Operaciones gratuitas</cbc:Name>
+                  <cbc:PayableAmount currencyID="PEN">0.00</cbc:PayableAmount>
+            </sac:AdditionalMonetaryTotal>
+			
+			            <sac:AdditionalMonetaryTotal>
+                 <cbc:ID>1005</cbc:ID>
+				 <cbc:Name>Sub total de ventas</cbc:Name>
+                 <cbc:PayableAmount currencyID="PEN">5698.00</cbc:PayableAmount>
+            </sac:AdditionalMonetaryTotal> 
+						
+        </sac:AdditionalInformation>                
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+  
+		<ext:UBLExtension>
+			<ext:ExtensionContent><ds:Signature Id="SignSUNAT"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><ds:Reference URI=""><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>6q2iYcQMMZOUDlmWdGqOKeYP3Uw=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>EEUf9Rs8pM9fbCuoGWq3OIWMBQ1y+NzTgsAdFWrIKTLWDynTGNhqgiMFI5cxhE9+ttBfJHVsgZWf
+GMVQJJxjRpw32qb5QuXBzbrEMtnslWTqfLyk02Ux2NmVMmV3L1wnwrCh4YmTAIcj4ZgL9i2WulmE
+z1YSaUxML8QVRcjDVq92VUb5/rj50yqU9z94zAbAFD118x/4mqonTVeK0lrh6HtBDbGai7xMtbG8
+dQWKbnGQwIMQAePu0F+xZOUDmP9Z0U3xJmSM3WaUhVB8PWtVSQrbdDUMezRFeT3YFN5bVtJgwm8z
+/5xamnNWQUVvwAolhG1F/QzEAhdg+ILphjYR/A==</ds:SignatureValue><ds:KeyInfo><ds:X509Data><ds:X509Certificate>MIIFDTCCA/WgAwIBAgIQcR21vYFHZBQpIpS4bSJITjANBgkqhkiG9w0BAQsFADB+MQswCQYDVQQG
+EwJVUzEdMBsGA1UEChMUU3ltYW50ZWMgQ29ycG9yYXRpb24xHzAdBgNVBAsTFlN5bWFudGVjIFRy
+dXN0IE5ldHdvcmsxLzAtBgNVBAMTJlN5bWFudGVjIENsYXNzIDMgU2VjdXJlIFNlcnZlciBDQSAt
+IEc0MB4XDTE1MDcwODAwMDAwMFoXDTE4MDgwNjIzNTk1OVowgY8xCzAJBgNVBAYTAlBFMQ0wCwYD
+VQQIEwRMaW1hMQ0wCwYDVQQHFARMaW1hMUcwRQYDVQQKFD5TVVBFUklOVEVOREVOQ0lBIE5BQyBE
+RSBBRFVBTkFTIFkgREUgQURNSU5JU1RSQUNJT04gVFJJQlVUQVJJQTEZMBcGA1UEAxQQd3d3LnN1
+bmF0LmdvYi5wZTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMHHsPBubtLaQx4K1s2z
+LVY84lPnhcM35CL9SrbX2pu7+NQaBrCxuNDyPljAm8+duqE4OENo9P234/kmo8gLr0mAVNtyM7jg
+p9Hg5yraO0ZiW7rvy+cXbAPX/dooxk1kdtaZk2VIIfFIbJYaYuYQqfvm+HJBbiDPYJ+HuTuS2tkf
+hcaLJ4ZKSsbC1Do2C7tw/HJLE23/EoX+5F4foGofr4mP8ZpU3jHPzRHzT+OnR2bzGylQKRaOx+qK
+/Ke1hQ6LpZ2bA/WGOB53iHLxVO9hTgjhMJRGJLhSAo4v3MrXsXwOZcZbyjq0QT/9oHSIDuKgcTdD
+Hfgj/FWoTLylzc9DUX0CAwEAAaOCAXMwggFvMCkGA1UdEQQiMCCCEHd3dy5zdW5hdC5nb2IucGWC
+DHN1bmF0LmdvYi5wZTAJBgNVHRMEAjAAMA4GA1UdDwEB/wQEAwIFoDBhBgNVHSAEWjBYMFYGBmeB
+DAECAjBMMCMGCCsGAQUFBwIBFhdodHRwczovL2Quc3ltY2IuY29tL2NwczAlBggrBgEFBQcCAjAZ
+DBdodHRwczovL2Quc3ltY2IuY29tL3JwYTArBgNVHR8EJDAiMCCgHqAchhpodHRwOi8vc3Muc3lt
+Y2IuY29tL3NzLmNybDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwHwYDVR0jBBgwFoAU
+X2DPYZBV34RDFIpgKrL1evRDGO8wVwYIKwYBBQUHAQEESzBJMB8GCCsGAQUFBzABhhNodHRwOi8v
+c3Muc3ltY2QuY29tMCYGCCsGAQUFBzAChhpodHRwOi8vc3Muc3ltY2IuY29tL3NzLmNydDANBgkq
+hkiG9w0BAQsFAAOCAQEAAV9RparWSV40OOHKa/XojkjhQpJMUsULfLc1rlVLhUHGPRcLlf+YBEPr
+QJL5Q/XI3oxEpwZB4dKSZNbJ1ksO/kdC+mPIWEt2j1KfNg3qT+cf7gjFAvxyaYVU2/lRoWgurwN0
+4GzvLNi6PhUm3OLX1D7A5fdBhS8Y9VNVcJ/6Jad8QGC5ozg41b4fZj2IZt450eBqQMNxW2S6aOnx
+/HGquwf9xPqeCE0f5J6yjwTlZN8kcf1uBZducgkuRkla6/WjmlAM29KnKAWrBCl+ss56rXsSl5H6
+Jp8G4oiWHEoDs4PGMmzRzpnV7/mnSaoNtEqf7usZpy5bIkhpH9Wtu+An6Q==</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature></ext:ExtensionContent>
+		</ext:UBLExtension>
+	</ext:UBLExtensions>
+  
+	<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+	<cbc:CustomizationID>2.0</cbc:CustomizationID>
+		
+	<cbc:ID>E001-27</cbc:ID>	
+	<cbc:IssueDate>2017-08-03</cbc:IssueDate>
+	<cbc:IssueTime>17:17:07.0Z</cbc:IssueTime>
+		<cbc:Note><![CDATA[ ERROR EN LA DESCRIPCION ]]></cbc:Note>
+		<cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>	
+
+	<cac:DiscrepancyResponse>
+		<cbc:ReferenceID>E001 - 170</cbc:ReferenceID>
+		<cbc:ResponseCode>01</cbc:ResponseCode>
+		<cbc:Description><![CDATA[ Anulación de la operación ]]></cbc:Description>
+	</cac:DiscrepancyResponse>
+		
+		<cac:BillingReference>
+		<cac:InvoiceDocumentReference>
+			<cbc:ID>E001 - 170</cbc:ID>
+			<cbc:IssueDate>2017-08-03</cbc:IssueDate>
+			<cbc:DocumentTypeCode>01</cbc:DocumentTypeCode>
+			<cbc:DocumentType><![CDATA[ FACTURA ELECTRONICA BASICA ]]></cbc:DocumentType>
+		</cac:InvoiceDocumentReference>
+	</cac:BillingReference>
+	
+	<cac:Signature>
+		<cbc:ID>E001-27</cbc:ID>
+		<cac:SignatoryParty>
+	  	<cac:PartyIdentification>
+	  	  <cbc:ID>20131312955</cbc:ID>
+	  	</cac:PartyIdentification>
+			<cac:PartyName>
+				<cbc:Name><![CDATA[ SUNAT ]]></cbc:Name>
+			</cac:PartyName>
+		</cac:SignatoryParty>
+		<cac:DigitalSignatureAttachment>
+			<cac:ExternalReference>
+				<cbc:URI>SignSUNAT</cbc:URI>
+			</cac:ExternalReference>
+		</cac:DigitalSignatureAttachment>
+	</cac:Signature>
+
+	<cac:AccountingSupplierParty>
+		<cbc:CustomerAssignedAccountID>20644055519</cbc:CustomerAssignedAccountID>
+		<cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+		<cac:Party>
+			<cac:PartyName>
+				<cbc:Name><![CDATA[    ]]></cbc:Name>
+			</cac:PartyName>		
+			
+			<cac:PostalAddress>
+				<cbc:ID>150121</cbc:ID>
+				<cbc:StreetName><![CDATA[  CAL. BERNARDO OHIGGINS 899 INT. 505 ZONA FRENTE METRO SUCRE      ]]></cbc:StreetName>				
+				<cbc:CityName>LIMA </cbc:CityName>
+				<cbc:CountrySubentity> LIMA </cbc:CountrySubentity>
+				<cbc:District>PUEBLO LIBRE (MAGDALENA VIEJA)</cbc:District>
+				<cac:Country>
+					<cbc:IdentificationCode>PE</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+			
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName><![CDATA[ NEGOCIOS S.A.C.                                                                    ]]></cbc:RegistrationName>
+			</cac:PartyLegalEntity>			
+			
+		</cac:Party>
+	</cac:AccountingSupplierParty>
+
+	<cac:AccountingCustomerParty>
+		<cbc:CustomerAssignedAccountID>20553044325</cbc:CustomerAssignedAccountID>
+				<cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+				<cac:Party>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName><![CDATA[  MENDOTZA SOLUTION SOCIEDAD ANONIMA CERRADA - MENDOTZA SOLUTION S.A.C.                                 ]]></cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:AccountingCustomerParty>
+	
+	<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+		<cac:TaxSubtotal>
+		  <cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+		  <cac:TaxCategory>
+			<cac:TaxScheme>
+			  <cbc:ID>2000</cbc:ID>
+			  <cbc:Name>ISC</cbc:Name>
+			  <cbc:TaxTypeCode>EXC</cbc:TaxTypeCode>
+			</cac:TaxScheme>
+		  </cac:TaxCategory>
+		</cac:TaxSubtotal>
+	</cac:TaxTotal>
+	
+	<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="PEN">1025.64</cbc:TaxAmount>
+		<cac:TaxSubtotal>
+		  <cbc:TaxAmount currencyID="PEN">1025.64</cbc:TaxAmount>
+		  <cac:TaxCategory>
+			<cac:TaxScheme>
+			  <cbc:ID>1000</cbc:ID>
+			  <cbc:Name>IGV</cbc:Name>
+			  <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+			</cac:TaxScheme>
+		  </cac:TaxCategory>
+		</cac:TaxSubtotal>
+	</cac:TaxTotal>
+		
+		<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+		<cac:TaxSubtotal>
+		  <cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+		  <cac:TaxCategory>
+			<cac:TaxScheme>
+			  <cbc:ID>9999</cbc:ID>
+			  <cbc:Name>OTROS TRIBUTOS</cbc:Name>
+			  <cbc:TaxTypeCode>OTH</cbc:TaxTypeCode>
+			</cac:TaxScheme>
+		  </cac:TaxCategory>
+		</cac:TaxSubtotal>
+	</cac:TaxTotal>	
+		     
+	<cac:LegalMonetaryTotal>
+		<cbc:LineExtensionAmount currencyID="PEN">5698.00</cbc:LineExtensionAmount>
+				<cbc:AllowanceTotalAmount currencyID="PEN">0.00</cbc:AllowanceTotalAmount>
+		<cbc:ChargeTotalAmount currencyID="PEN">0.00</cbc:ChargeTotalAmount>
+		  		  <cbc:PrepaidAmount currencyID="PEN">0.00</cbc:PrepaidAmount>
+		  		
+				<cbc:PayableAmount currencyID="PEN">6723.64</cbc:PayableAmount>
+	</cac:LegalMonetaryTotal>
+	
+		<cac:CreditNoteLine>
+		<cbc:ID>1</cbc:ID>
+		    	<cbc:CreditedQuantity unitCode="ZZ">1.00</cbc:CreditedQuantity>		
+		<cbc:LineExtensionAmount currencyID="PEN">5698.00</cbc:LineExtensionAmount>
+		
+		<cac:BillingReference>
+			<cac:BillingReferenceLine>
+				<cbc:ID>1</cbc:ID>
+			</cac:BillingReferenceLine>
+		</cac:BillingReference>
+		
+		<cac:TaxTotal>
+		  <cbc:TaxAmount currencyID="PEN">1025.64</cbc:TaxAmount>
+		  <cac:TaxSubtotal>
+			<cbc:TaxAmount currencyID="PEN">1025.64</cbc:TaxAmount>
+			<cbc:Percent>0.18</cbc:Percent>
+			<cac:TaxCategory>				
+			  <cbc:TaxExemptionReasonCode> </cbc:TaxExemptionReasonCode>				
+			  <cac:TaxScheme>
+				<cbc:ID>1000</cbc:ID>
+				<cbc:Name>IGV</cbc:Name>
+				<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+			  </cac:TaxScheme>
+			</cac:TaxCategory>
+		  </cac:TaxSubtotal>
+		</cac:TaxTotal>
+		
+		<cac:TaxTotal>
+		  <cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+		  <cac:TaxSubtotal>
+			<cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+			<cbc:Percent>0.00</cbc:Percent>
+			<cac:TaxCategory>
+			  <cbc:TierRange>020000</cbc:TierRange>
+			  <cac:TaxScheme>
+				<cbc:ID>2000</cbc:ID>
+				<cbc:Name>ISC</cbc:Name>
+				<cbc:TaxTypeCode>EXC</cbc:TaxTypeCode>
+			  </cac:TaxScheme>
+			</cac:TaxCategory>
+		  </cac:TaxSubtotal>
+		</cac:TaxTotal>
+		
+		<cac:TaxTotal>
+			<cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>			
+			<cac:TaxSubtotal>
+				<cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+				<cac:TaxCategory>
+					<cac:TaxScheme>
+						<cbc:Name>OTROS CARGOS</cbc:Name>
+					</cac:TaxScheme>
+				</cac:TaxCategory>
+			</cac:TaxSubtotal>	
+		</cac:TaxTotal>
+				<cac:Item>
+			<cbc:Description><![CDATA[  POR LICENCIAMIENTO EN SOFTWARE DE CONTABILIDAD CONTASOL SQL. CANCELACION(TC 3.242)  ]]></cbc:Description>			
+			<cac:SellersItemIdentification>
+						    				<cbc:ID>0</cbc:ID>
+										</cac:SellersItemIdentification>
+		</cac:Item>
+		
+		<cac:Price>
+			<cbc:PriceAmount currencyID="PEN">5698.00</cbc:PriceAmount>
+		</cac:Price>	
+		
+	</cac:CreditNoteLine>
+		
+</CreditNote>

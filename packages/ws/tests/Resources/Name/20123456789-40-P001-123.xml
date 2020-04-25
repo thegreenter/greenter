@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<Perception xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:Perception-1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+	<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+	<cbc:ID>P001-123</cbc:ID>
+	<cac:AgentParty>
+		<cac:PartyIdentification>
+			<cbc:ID schemeID="6">20123456789</cbc:ID>
+		</cac:PartyIdentification>
+	</cac:AgentParty>
+</Perception>

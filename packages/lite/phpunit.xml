@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.8/phpunit.xsd"
+        bootstrap="vendor/autoload.php"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        stopOnFailure="true">
+	<testsuites>
+		<testsuite name="Unit Tests">
+			<directory>tests</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">src</directory>
+			<exclude>
+				<directory>./tests</directory>
+				<directory>./vendor</directory>
+			</exclude>
+		</whitelist>
+	</filter>
+	<logging>
+		<log type="coverage-clover" target="build/logs/clover.xml"/>
+		<log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
+	</logging>
+</phpunit>

@@ -1,0 +1,50 @@
+{% apply spaceless %}
+<?xml version="1.0" encoding="utf-8"?>
+<VoidedDocuments xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:VoidedDocuments-1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionContent/>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+    <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+    <cbc:CustomizationID>1.0</cbc:CustomizationID>
+    <cbc:ID>{{ doc.xmlId }}</cbc:ID>
+    <cbc:ReferenceDate>{{ doc.fecGeneracion|date('Y-m-d') }}</cbc:ReferenceDate>
+    <cbc:IssueDate>{{ doc.fecComunicacion|date('Y-m-d') }}</cbc:IssueDate>
+    {% set emp = doc.company %}
+    <cac:Signature>
+        <cbc:ID>{{ emp.ruc }}</cbc:ID>
+        <cac:SignatoryParty>
+            <cac:PartyIdentification>
+                <cbc:ID>{{ emp.ruc }}</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
+            </cac:PartyName>
+        </cac:SignatoryParty>
+        <cac:DigitalSignatureAttachment>
+            <cac:ExternalReference>
+                <cbc:URI>#GREENTER-SIGN</cbc:URI>
+            </cac:ExternalReference>
+        </cac:DigitalSignatureAttachment>
+    </cac:Signature>
+    <cac:AccountingSupplierParty>
+        <cbc:CustomerAssignedAccountID>{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
+        <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+        <cac:Party>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+    {% for det in doc.details %}
+    <sac:VoidedDocumentsLine>
+        <cbc:LineID>{{ loop.index }}</cbc:LineID>
+        <cbc:DocumentTypeCode>{{ det.tipoDoc }}</cbc:DocumentTypeCode>
+        <sac:DocumentSerialID>{{ det.serie }}</sac:DocumentSerialID>
+        <sac:DocumentNumberID>{{ det.correlativo }}</sac:DocumentNumberID>
+        <sac:VoidReasonDescription><![CDATA[{{ det.desMotivoBaja|raw }}]]></sac:VoidReasonDescription>
+    </sac:VoidedDocumentsLine>
+    {% endfor %}
+</VoidedDocuments>
+{% endapply %}

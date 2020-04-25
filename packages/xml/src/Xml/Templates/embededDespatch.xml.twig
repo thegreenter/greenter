@@ -1,0 +1,33 @@
+<sac:SUNATEmbededDespatchAdvice>
+    <cac:DeliveryAddress>
+        <cbc:ID>{{ desp.llegada.ubigueo }}</cbc:ID>
+        <cbc:StreetName>{{ desp.llegada.direccion }}</cbc:StreetName>
+    </cac:DeliveryAddress>
+    <cac:OriginAddress>
+        <cbc:ID>{{ desp.partida.ubigueo }}</cbc:ID>
+        <cbc:StreetName>{{ desp.partida.direccion }}</cbc:StreetName>
+    </cac:OriginAddress>
+    <sac:SUNATCarrierParty>
+        <cbc:CustomerAssignedAccountID>{{ desp.transportista.numDoc }}</cbc:CustomerAssignedAccountID>
+        <cbc:AdditionalAccountID>{{ desp.transportista.tipoDoc }}</cbc:AdditionalAccountID>
+        <cac:Party>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName>{{ desp.transportista.rznSocial }}</cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </sac:SUNATCarrierParty>
+    <sac:DriverParty>
+        <cac:Party>
+            <cac:PartyIdentification>
+                <cbc:ID>{{ desp.nroLicencia }}</cbc:ID>
+            </cac:PartyIdentification>
+        </cac:Party>
+    </sac:DriverParty>
+    <sac:SUNATRoadTransport>
+        <cbc:LicensePlateID>{{ desp.transpPlaca }}</cbc:LicensePlateID>
+        <cbc:TransportAuthorizationCode>{{ desp.transpCodeAuth }}</cbc:TransportAuthorizationCode>
+        <cbc:BrandName>{{ desp.transpMarca }}</cbc:BrandName>
+    </sac:SUNATRoadTransport>
+    <cbc:TransportModeCode>{{ desp.modTraslado }}</cbc:TransportModeCode>
+    <cbc:GrossWeightMeasure unitCode="{{ desp.undPesoBruto }}">{{ desp.pesoBruto|n_format }}</cbc:GrossWeightMeasure>
+</sac:SUNATEmbededDespatchAdvice>

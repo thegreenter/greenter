@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:ns0="http://service.sunat.gob.pe" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://service.sunat.gob.pe">
+    <xsd:complexType name="getStatus">
+        <xsd:sequence>
+            <xsd:element name="rucComprobante" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="tipoComprobante" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="serieComprobante" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="numeroComprobante" type="xsd:int" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="getStatusResponse">
+        <xsd:sequence>
+            <xsd:element name="status" type="ns0:statusResponse" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="getStatusCdrResponse">
+        <xsd:sequence>
+            <xsd:element name="statusCdr" type="ns0:statusResponse" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="statusResponse">
+        <xsd:sequence>
+            <xsd:element name="content" type="xsd:base64Binary" minOccurs="0"/>
+            <xsd:element name="statusCode" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="statusMessage" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="getStatusCdr">
+        <xsd:sequence>
+            <xsd:element name="rucComprobante" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="tipoComprobante" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="serieComprobante" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="numeroComprobante" type="xsd:int" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="getStatus" type="ns0:getStatus"/>
+    <xsd:element name="getStatusResponse" type="ns0:getStatusResponse"/>
+    <xsd:element name="getStatusCdrResponse" type="ns0:getStatusCdrResponse"/>
+    <xsd:element name="getStatusCdr" type="ns0:getStatusCdr"/>
+</xsd:schema>

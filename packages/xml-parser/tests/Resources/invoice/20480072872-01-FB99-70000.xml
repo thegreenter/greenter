@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:schemaLocation="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2 ..\xsd\maindoc\UBLPE-Invoice-1.0.xsd" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2">
+  <ext:UBLExtensions>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <sac:AdditionalInformation>
+          <sac:AdditionalMonetaryTotal>
+            <cbc:ID>1001</cbc:ID>
+            <cbc:PayableAmount currencyID="PEN">28151.72</cbc:PayableAmount>
+          </sac:AdditionalMonetaryTotal>
+          <!--<sac:AdditionalMonetaryTotal>
+            <cbc:ID>1002</cbc:ID>
+            <cbc:PayableAmount currencyID="PEN">0.00</cbc:PayableAmount>
+          </sac:AdditionalMonetaryTotal>
+          <sac:AdditionalMonetaryTotal>
+            <cbc:ID>1003</cbc:ID>
+            <cbc:PayableAmount currencyID="PEN">0.00</cbc:PayableAmount>
+          </sac:AdditionalMonetaryTotal>-->
+        					<sac:SUNATTransaction>
+						<cbc:ID>04</cbc:ID>
+					</sac:SUNATTransaction>
+          <sac:AdditionalProperty>
+            <cbc:ID>1000</cbc:ID>
+            <cbc:Value>MONTO EN LETRAS</cbc:Value>
+          </sac:AdditionalProperty>
+		</sac:AdditionalInformation>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <cac:AdditionalInformationComex>
+          <cbc:ComexIndicator>0</cbc:ComexIndicator>
+          <cac:EstimatedDeliveryPeriod>
+            <cbc:StartDate>2017-03-16 00:00:00</cbc:StartDate>
+          </cac:EstimatedDeliveryPeriod>
+          <cac:GrossWT>
+            <cbc:UnitCode>D43</cbc:UnitCode>
+            <cbc:Value>0.00</cbc:Value>
+          </cac:GrossWT>
+        </cac:AdditionalInformationComex>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <cac:AdditionalTemplate>
+          <cac:TipoPlantilla>EST</cac:TipoPlantilla>
+        </cac:AdditionalTemplate>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <sac:FreeText>
+          <cbc:FreeText1>Conservas Frescomar</cbc:FreeText1>
+          <cbc:FreeText2>OVL 086 Comercial 2015</cbc:FreeText2>
+          <cbc:FreeText3>005-20373</cbc:FreeText3>
+        </sac:FreeText>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <cac:DocumentAlias>
+          <cac:Alias>1451938</cac:Alias>
+        </cac:DocumentAlias>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+    <ext:UBLExtension>
+      <ext:ExtensionContent>
+        <cac:AdditionalPaymentMeans>
+          <cac:PaymentMeans>0</cac:PaymentMeans>
+        </cac:AdditionalPaymentMeans>
+      </ext:ExtensionContent>
+    </ext:UBLExtension>
+    </ext:UBLExtensions>
+    <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+  <cbc:CustomizationID>1.0</cbc:CustomizationID>
+  <cbc:ID>FB99-70000</cbc:ID>
+  <cbc:IssueDate>2017-10-02</cbc:IssueDate>
+  <cbc:InvoiceTypeCode>01</cbc:InvoiceTypeCode>
+  <cbc:Note>Conservas Frescomar - OVL 086 Comercial 2015 - 005-20369</cbc:Note>
+  <cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
+  <cac:Signature>
+    <cbc:ID>IDSignKG</cbc:ID>
+    <cac:SignatoryParty>
+      <cac:PartyIdentification>
+        <cbc:ID>20480072872</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name><![CDATA[SUNAT]]></cbc:Name>
+      </cac:PartyName>
+    </cac:SignatoryParty>
+    <cac:DigitalSignatureAttachment>
+      <cac:ExternalReference>
+        <cbc:URI>signatureKG</cbc:URI>
+      </cac:ExternalReference>
+    </cac:DigitalSignatureAttachment>
+  </cac:Signature>
+  <cac:AccountingSupplierParty>
+    <cbc:CustomerAssignedAccountID>20480072872</cbc:CustomerAssignedAccountID>
+    <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+    <cac:Party>
+      <cac:PartyName>
+        <cbc:Name><![CDATA[PESQUERA DIAMANTE S.A.]]></cbc:Name>
+      </cac:PartyName>
+      <cac:PostalAddress>
+        <cbc:ID>150131</cbc:ID>
+        <cbc:StreetName>CAL. AMADOR MERINO REYNA NRO. 307 (EDIFICIO NACIONAL PISO 12 Y 13)</cbc:StreetName>
+        <cbc:CitySubdivisionName>SAN ISIDRO</cbc:CitySubdivisionName>
+        <cbc:CityName>LIMA</cbc:CityName>
+        <cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
+        <cbc:District>SAN ISIDRO</cbc:District>
+        <cac:Country>
+          <cbc:IdentificationCode>PE</cbc:IdentificationCode>
+        </cac:Country>
+      </cac:PostalAddress>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName><![CDATA[PESQUERA DIAMANTE S.A.]]></cbc:RegistrationName>
+      </cac:PartyLegalEntity>
+      <cac:Contact/>
+    </cac:Party>
+  </cac:AccountingSupplierParty>
+  <cac:AccountingCustomerParty>
+    <cbc:CustomerAssignedAccountID>20384203133</cbc:CustomerAssignedAccountID>
+    <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+    <cac:Party>
+      <cac:PostalAddress>
+        <cbc:StreetName>AV. SANTA ELVIRA MZA. E LOTE. 1 (VILLA SOL) - LOS OLIVOS LIMA LIMA PERU </cbc:StreetName>
+      </cac:PostalAddress>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName><![CDATA[ZV DISTRIBUIDORES S.A.C.]]></cbc:RegistrationName>
+      </cac:PartyLegalEntity>
+    </cac:Party>
+    <cac:AccountingContact>
+      <cbc:ElectronicMail>facturas@zvdistribuidores.com</cbc:ElectronicMail>
+    </cac:AccountingContact>
+  </cac:AccountingCustomerParty>
+  <cac:PaymentExchangeRate>
+    <cbc:SourceCurrencyCode>PEN</cbc:SourceCurrencyCode>
+    <cbc:TargetCurrencyCode>PEN</cbc:TargetCurrencyCode>
+    <cbc:CalculationRate>3.059</cbc:CalculationRate>
+  </cac:PaymentExchangeRate>
+  <cac:TaxTotal>
+    <cbc:TaxAmount currencyID="PEN">5067.31</cbc:TaxAmount>
+    <cac:TaxSubtotal>
+      <cbc:TaxAmount currencyID="PEN">5067.31</cbc:TaxAmount>
+      <cac:TaxCategory>
+        <cac:TaxScheme>
+          <cbc:ID>1000</cbc:ID>
+          <cbc:Name>IGV</cbc:Name>
+          <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+        </cac:TaxScheme>
+      </cac:TaxCategory>
+    </cac:TaxSubtotal>
+  </cac:TaxTotal>
+  <cac:LegalMonetaryTotal>
+    <cbc:AllowanceTotalAmount currencyID="PEN">0.00</cbc:AllowanceTotalAmount>
+    <cbc:ChargeTotalAmount currencyID="PEN">0.00</cbc:ChargeTotalAmount>
+    <cbc:PayableAmount currencyID="PEN">33219.03</cbc:PayableAmount>
+  </cac:LegalMonetaryTotal>
+  <cac:InvoiceLine>
+    <cbc:ID>1</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="D43">60.00</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="PEN">4677.97</cbc:LineExtensionAmount>
+    <cac:PricingReference>
+      <cac:AlternativeConditionPrice>
+        <cbc:PriceAmount currencyID="PEN">92.00</cbc:PriceAmount>
+        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+      </cac:AlternativeConditionPrice>
+    </cac:PricingReference>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="PEN">842.03</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxAmount currencyID="PEN">842.03</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+          <cac:TaxScheme>
+            <cbc:ID>1000</cbc:ID>
+            <cbc:Name>IGV</cbc:Name>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description><![CDATA[Grated *; Atun *; agua y sal *; 1/2 LB Tuna *; plana *; cja x 48 und *; ALM *;-Almirante]]></cbc:Description>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="PEN">77.9661</cbc:PriceAmount>
+    </cac:Price>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>2</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="D43">100.00</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="PEN">10313.56</cbc:LineExtensionAmount>
+    <cac:PricingReference>
+      <cac:AlternativeConditionPrice>
+        <cbc:PriceAmount currencyID="PEN">121.70</cbc:PriceAmount>
+        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+      </cac:AlternativeConditionPrice>
+    </cac:PricingReference>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="PEN">1856.44</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxAmount currencyID="PEN">1856.44</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+          <cac:TaxScheme>
+            <cbc:ID>1000</cbc:ID>
+            <cbc:Name>IGV</cbc:Name>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description><![CDATA[Trozos *; Jurel *; aceite vegetal *; 1/2 LB Tuna *; abre facil *; cja x 48 und *;-Frescomar]]></cbc:Description>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="PEN">103.1356</cbc:PriceAmount>
+    </cac:Price>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>3</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="D43">15.00</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="PEN">1894.07</cbc:LineExtensionAmount>
+    <cac:PricingReference>
+      <cac:AlternativeConditionPrice>
+        <cbc:PriceAmount currencyID="PEN">149.00</cbc:PriceAmount>
+        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+      </cac:AlternativeConditionPrice>
+    </cac:PricingReference>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="PEN">340.93</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxAmount currencyID="PEN">340.93</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+          <cac:TaxScheme>
+            <cbc:ID>1000</cbc:ID>
+            <cbc:Name>IGV</cbc:Name>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description><![CDATA[Trozos*; Atun *; aceite vegetal *; 1/2 LB Tuna *; abre facil *; cja x 48 und *; ALM *;-Almirante]]></cbc:Description>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="PEN">126.2712</cbc:PriceAmount>
+    </cac:Price>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>4</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="D43">5.00</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="PEN">602.54</cbc:LineExtensionAmount>
+    <cac:PricingReference>
+      <cac:AlternativeConditionPrice>
+        <cbc:PriceAmount currencyID="PEN">142.20</cbc:PriceAmount>
+        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+      </cac:AlternativeConditionPrice>
+    </cac:PricingReference>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="PEN">108.46</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxAmount currencyID="PEN">108.46</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+          <cac:TaxScheme>
+            <cbc:ID>1000</cbc:ID>
+            <cbc:Name>IGV</cbc:Name>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description><![CDATA[Filete *; Bonito *; aceite vegetal *; 1/2 LB Tuna *; abre facil *; cja x 48 und *;-Frescomar]]></cbc:Description>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="PEN">120.5085</cbc:PriceAmount>
+    </cac:Price>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>5</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="D43">15.00</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="PEN">1830.51</cbc:LineExtensionAmount>
+    <cac:PricingReference>
+      <cac:AlternativeConditionPrice>
+        <cbc:PriceAmount currencyID="PEN">144.00</cbc:PriceAmount>
+        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+      </cac:AlternativeConditionPrice>
+    </cac:PricingReference>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="PEN">329.49</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxAmount currencyID="PEN">329.49</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+          <cac:TaxScheme>
+            <cbc:ID>1000</cbc:ID>
+            <cbc:Name>IGV</cbc:Name>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description><![CDATA[Filete *; Caballa *; aceite vegetal *; 1/2 LB Tuna *; abre facil *; cja x 48 und *;-Frescomar]]></cbc:Description>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="PEN">122.0339</cbc:PriceAmount>
+    </cac:Price>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>6</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="D43">60.00</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="PEN">7983.05</cbc:LineExtensionAmount>
+    <cac:PricingReference>
+      <cac:AlternativeConditionPrice>
+        <cbc:PriceAmount currencyID="PEN">156.9999</cbc:PriceAmount>
+        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+      </cac:AlternativeConditionPrice>
+    </cac:PricingReference>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="PEN">1436.95</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxAmount currencyID="PEN">1436.95</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+          <cac:TaxScheme>
+            <cbc:ID>1000</cbc:ID>
+            <cbc:Name>IGV</cbc:Name>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description><![CDATA[Filete *; Caballa *; aceite girasol *; RO1000 *; plana *; cja x 12 und *;-Frescomar]]></cbc:Description>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="PEN">133.0508</cbc:PriceAmount>
+    </cac:Price>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>7</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="D43">8.00</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="PEN">542.37</cbc:LineExtensionAmount>
+    <cac:PricingReference>
+      <cac:AlternativeConditionPrice>
+        <cbc:PriceAmount currencyID="PEN">80.00</cbc:PriceAmount>
+        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+      </cac:AlternativeConditionPrice>
+    </cac:PricingReference>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="PEN">97.63</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxAmount currencyID="PEN">97.63</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+          <cac:TaxScheme>
+            <cbc:ID>1000</cbc:ID>
+            <cbc:Name>IGV</cbc:Name>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description><![CDATA[Entero *; Jurel *; salsa de tomate *; 1 LB Tall *; plana *; cja x 24 und *;-Frescomar]]></cbc:Description>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="PEN">67.7966</cbc:PriceAmount>
+    </cac:Price>
+  </cac:InvoiceLine>
+  <cac:InvoiceLine>
+    <cbc:ID>8</cbc:ID>
+    <cbc:InvoicedQuantity unitCode="D43">3.00</cbc:InvoicedQuantity>
+    <cbc:LineExtensionAmount currencyID="PEN">307.65</cbc:LineExtensionAmount>
+    <cac:PricingReference>
+      <cac:AlternativeConditionPrice>
+        <cbc:PriceAmount currencyID="PEN">121.0097</cbc:PriceAmount>
+        <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+      </cac:AlternativeConditionPrice>
+    </cac:PricingReference>
+    <cac:TaxTotal>
+      <cbc:TaxAmount currencyID="PEN">55.38</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+        <cbc:TaxAmount currencyID="PEN">55.38</cbc:TaxAmount>
+        <cac:TaxCategory>
+          <cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+          <cac:TaxScheme>
+            <cbc:ID>1000</cbc:ID>
+            <cbc:Name>IGV</cbc:Name>
+            <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+          </cac:TaxScheme>
+        </cac:TaxCategory>
+      </cac:TaxSubtotal>
+    </cac:TaxTotal>
+    <cac:Item>
+      <cbc:Description><![CDATA["Ganadores Expo" Sard. Crem.Roc / Jur.Hierb.And. 1/2 LB x 48 A/F*; pack x 6 *; Frescomar *;-Frescomar]]></cbc:Description>
+    </cac:Item>
+    <cac:Price>
+      <cbc:PriceAmount currencyID="PEN">102.5506</cbc:PriceAmount>
+    </cac:Price>
+  </cac:InvoiceLine>
+</Invoice>

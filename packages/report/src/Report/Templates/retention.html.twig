@@ -1,0 +1,193 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+        {% include 'assets/style.css' %}
+    </style>
+</head>
+<body class="white-bg">
+{% set cp = doc.company %}
+{% set name = '20'|catalog('01') %}
+<table width="100%">
+    <tbody><tr>
+        <td style="padding:30px; !important">
+            <table width="100%" height="200px" border="0" aling="center" cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                    <td width="50%" height="90" align="center">
+                        <span><img src="{{ params.system.logo|image_b64 }}" height="80" style="text-align:center" border="0"></span>
+                    </td>
+                    <td width="5%" height="40" align="center"></td>
+                    <td width="45%" rowspan="2" valign="bottom" style="padding-left:0">
+                        <div class="tabla_borde">
+                            <table width="100%" border="0" height="200" cellpadding="6" cellspacing="0">
+                                <tbody><tr>
+                                    <td align="center">
+                                        <span style="font-family:Tahoma, Geneva, sans-serif; font-size:29px" text-align="center">COMPROBANTE DE {{ name }}</span>
+                                        <br>
+                                        <span style="font-family:Tahoma, Geneva, sans-serif; font-size:19px" text-align="center">E L E C T R Ó N I C A</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <span style="font-size:15px" text-align="center">R.U.C.: {{ cp.ruc }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        No.: <span>{{ doc.serie }}-{{ doc.correlativo }}</span>
+                                    </td>
+                                </tr>
+                                {% if params.user.resolucion is defined %}
+                                <tr>
+                                    <td align="center">
+                                        Nro. R.I. Emisor: <span>{{ params.user.resolucion }}</span>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                </tbody></table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="bottom" style="padding-left:0">
+                        <div class="tabla_borde">
+                            <table width="96%" height="100%" border="0" border-radius="" cellpadding="9" cellspacing="0">
+                                <tbody><tr>
+                                    <td align="center">
+                                        <strong><span style="font-size:15px">{{ cp.razonSocial }}</span></strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <strong>Dirección: </strong>{{ cp.address.direccion }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        {{ params.user.header|raw }}
+                                    </td>
+                                </tr>
+                                </tbody></table>
+                        </div>
+                    </td>
+                </tr>
+                </tbody></table>
+            <div class="tabla_borde">
+                {% set cl = doc.proveedor %}
+                <table width="100%" border="0" cellpadding="5" cellspacing="0">
+                    <tbody><tr>
+                        <td width="60%" align="left"><strong>Razón Social:</strong>  {{ cl.rznSocial }}</td>
+                        <td width="40%" align="left"><strong>{{ cl.tipoDoc|catalog('06') }}:</strong>  {{ cl.numDoc }}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%" align="left">
+                            <strong>Fecha Emisión: </strong>  {{ doc.fechaEmision|date('d/m/Y') }}
+                        </td>
+                        <td width="40%" align="left"><strong>Dirección: </strong>  {% if cl.address %}{{ cl.address.direccion }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%" align="left"><strong>Régimen: </strong>  {{ doc.regimen }} </td>
+                        <td width="40%" align="left"><strong>Tasa: </strong>  {{ doc.tasa|n_format }}% </td>
+                    </tr>
+                    <tr>
+                        <td width="60%" align="left"><strong>Tipo Moneda: </strong>  {{ 'PEN'|catalog('021') }} </td>
+                        <td width="40%" align="left"></td>
+                    </tr>
+                    </tbody></table>
+            </div><br>
+            {% set moneda = 'PEN'|catalog('02') %}
+            <div class="tabla_borde">
+                <table width="100%" border="0" cellpadding="5" cellspacing="0">
+                    <tbody>
+                    <tr style="border: 2px">
+                        <td align="center" class="bold border_right" colspan="5">Comprobante</td>
+                        <td align="center" class="bold" colspan="2">Retención</td>
+                    </tr>
+                    <tr class="border_top">
+                        <td align="center" class="bold">Tipo</td>
+                        <td align="center" class="bold">Numero</td>
+                        <td align="center" class="bold">Fecha</td>
+                        <td align="center" class="bold">Moneda</td>
+                        <td align="center" class="bold">Total</td>
+                        <td align="center" class="bold">Total Retenido</td>
+                        <td align="center" class="bold">Total Pagado</td>
+                    </tr>
+                        {% for det in doc.details %}
+                        <tr class="border_top">
+                            <td align="center">{{ det.tipoDoc|catalog('01') }}</td>
+                            <td align="center">{{ det.numDoc }}</td>
+                            <td align="center">{{ det.fechaEmision|date('d/m/Y') }}</td>
+                            <td align="center">{{ det.moneda }}</td>
+                            <td align="center">{{ det.impTotal|n_format }}</td>
+                            <td align="center">{{ det.impRetenido|n_format }}</td>
+                            <td align="center">{{ det.impPagar|n_format }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table></div>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                    <td width="50%" valign="top">
+                        <table width="100%" border="0" cellpadding="5" cellspacing="0">
+                            <tbody>
+                            <tr>
+                                <td colspan="4">
+                                {% if doc.observacion %}
+                                    <br><br>
+                                    <span style="font-family:Tahoma, Geneva, sans-serif; font-size:12px" text-align="center"><strong>Observaciones</strong></span>
+                                    <br>
+                                    <p>{{ doc.observacion }}</p>
+                                {% endif %}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td width="50%" valign="top">
+                        <br>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table table-valores-totales">
+                            <tbody>
+                            <tr class="border_bottom">
+                                <td align="right"><strong>Total Retenido:</strong></td>
+                                <td width="120" align="right"><span>{{ moneda }}  {{ doc.impRetenido|n_format }}</span></td>
+                            </tr>
+                            <tr class="border_bottom">
+                                <td align="right"><strong>Total Pagado:</strong></td>
+                                <td width="120" align="right"><span>{{ moneda }}  {{ doc.impPagado|n_format }}</span></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody></table>
+            <br>
+            <br>
+            {% if max_items is defined and doc.details|length > max_items %}
+                <div style="page-break-after:always;"></div>
+            {% endif %}
+            <div>
+            <table>
+                <tbody>
+                <tr><td width="100%">
+                    <blockquote>
+                        {% if params.user.footer is defined %}
+                            {{ params.user.footer|raw }}
+                        {% endif %}
+                        {% if params.system.hash is defined and params.system.hash%}
+                            <strong>Resumen:</strong>   {{ params.system.hash }}<br>
+                        {% endif %}
+                        <span>Representación Impresa de la {{ name }} ELECTRÓNICA.</span>
+                    </blockquote>
+                    </td>
+                </tr>
+                </tbody></table>
+            </div>
+        </td>
+    </tr>
+    </tbody></table>
+</body></html>

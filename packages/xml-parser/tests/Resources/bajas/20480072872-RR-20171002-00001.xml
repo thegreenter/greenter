@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<VoidedDocuments xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:VoidedDocuments-1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!--xml valido base para la realizacion de las pruebas-->
+  <ext:UBLExtensions />
+  <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+  <cbc:CustomizationID>1.0</cbc:CustomizationID>
+  <cbc:ID>RR-20171002-00001</cbc:ID>
+  <cbc:ReferenceDate>2017-10-02</cbc:ReferenceDate>
+  <cbc:IssueDate>2017-10-02</cbc:IssueDate>
+  <cac:Signature>
+    <cbc:ID>IDSignKG</cbc:ID>
+    <cac:SignatoryParty>
+      <cac:PartyIdentification>
+        <cbc:ID>20480072872</cbc:ID>
+      </cac:PartyIdentification>
+      <cac:PartyName>
+        <cbc:Name><![CDATA[SUNAT]]></cbc:Name>
+      </cac:PartyName>
+    </cac:SignatoryParty>
+    <cac:DigitalSignatureAttachment>
+      <cac:ExternalReference>
+        <cbc:URI>signatureKG</cbc:URI>
+      </cac:ExternalReference>
+    </cac:DigitalSignatureAttachment>
+  </cac:Signature>
+  <cac:AccountingSupplierParty>
+    <cbc:CustomerAssignedAccountID>20480072872</cbc:CustomerAssignedAccountID>
+    <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+    <cac:Party>
+      <cac:PartyLegalEntity>
+        <cbc:RegistrationName><![CDATA[IMPORTACIONES HIRAOKA S.A.C.]]></cbc:RegistrationName>
+      </cac:PartyLegalEntity>
+    </cac:Party>
+  </cac:AccountingSupplierParty>
+  <sac:VoidedDocumentsLine>
+    <cbc:LineID>1</cbc:LineID>
+    <cbc:DocumentTypeCode>20</cbc:DocumentTypeCode>
+    <sac:DocumentSerialID>RB99</sac:DocumentSerialID>
+    <sac:DocumentNumberID>5000</sac:DocumentNumberID>
+    <sac:VoidReasonDescription>ANULACION RB99-05000</sac:VoidReasonDescription>
+  </sac:VoidedDocumentsLine>
+  <sac:VoidedDocumentsLine>
+    <cbc:LineID>2</cbc:LineID>
+    <cbc:DocumentTypeCode>40</cbc:DocumentTypeCode>
+    <sac:DocumentSerialID>PB99</sac:DocumentSerialID>
+    <sac:DocumentNumberID>5000</sac:DocumentNumberID>
+    <sac:VoidReasonDescription>ANULACION PB99-05000</sac:VoidReasonDescription>
+  </sac:VoidedDocumentsLine>
+</VoidedDocuments>

@@ -1,0 +1,160 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style type="text/css">
+        {% include 'assets/style.css' %}
+        .nmarg{margin: 0}
+    </style>
+</head>
+<body class="white-bg">
+{% set cp = doc.company %}
+{% set fecGen = doc.fecGeneracion|date('d/m/Y') %}
+<table width="100%">
+    <tbody><tr>
+        <td style="padding:30px; !important">
+            <table width="100%" height="200px" border="0" aling="center" cellpadding="0" cellspacing="0">
+                <tbody><tr>
+                    <td width="50%" height="90" align="center">
+                        <span><img src="{{ params.system.logo|image_b64 }}" height="80" style="text-align:center" border="0"></span>
+                    </td>
+                    <td width="5%" height="40" align="center"></td>
+                    <td width="45%" rowspan="2" valign="bottom" style="padding-left:0">
+                        <div class="tabla_borde">
+                            <table width="100%" border="0" height="200" cellpadding="6" cellspacing="0">
+                                <tbody><tr>
+                                    <td align="center">
+                                        <span style="font-family:Tahoma, Geneva, sans-serif; font-size:29px" text-align="center">RESUMEN DIARIO DE</span>
+                                        <br>
+                                        <span style="font-family:Tahoma, Geneva, sans-serif; font-size:19px" text-align="center">BOLETAS DE VENTA</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        &nbsp;
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <span style="font-size:15px" text-align="center">R.U.C.: {{ cp.ruc }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        No.: <span>{{ doc.correlativo }}</span>
+                                    </td>
+                                </tr>
+                                </tbody></table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="bottom" style="padding-left:0">
+                        <div class="tabla_borde">
+                            <table width="96%" height="100%" border="0" border-radius="" cellpadding="9" cellspacing="0">
+                                <tbody><tr>
+                                    <td align="center">
+                                        <strong><span style="font-size:15px">{{ cp.razonSocial }}</span></strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        <strong>Dirección: </strong>{{ cp.address.direccion }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        {{ params.user.header|raw }}
+                                    </td>
+                                </tr>
+                                </tbody></table>
+                        </div>
+                    </td>
+                </tr>
+                </tbody></table>
+            <div class="tabla_borde">
+                <table width="100%" border="0" cellpadding="5" cellspacing="0">
+                    <tbody><tr>
+                        <td width="60%" height="15" align="left"><strong>Fecha de Emisión del Resumen:</strong>  {{ doc.fecResumen|date('d/m/Y') }}</td>
+                        <td width="40%" height="15" align="left"><strong>Fecha de Generación:</strong>  {{ fecGen }}</td>
+                    </tr>
+                    <tr>
+                        <td width="60%" align="left"><strong>Moneda: </strong>  {{ 'PEN'|catalog('021') }} </td>
+                        <td width="40%" align="left"></td>
+                    </tr>
+                    </tbody></table>
+            </div><br>
+            <div class="tabla_borde">
+                <table width="100%" border="0" cellpadding="5" cellspacing="0">
+                    <tbody>
+                    <tr>
+                        <td align="center" class="bold">Documento</td>
+                        <td align="center" class="bold">Condición</td>
+                        <td align="center" class="bold">Impuestos</td>
+                        <td align="center" class="bold">Totales</td>
+                        <td align="center" class="bold">Imp. Total</td>
+                    </tr>
+                    {% for det in doc.details %}
+                        <tr class="border_top">
+                            <td>
+                                <p class="nmarg"><strong>{{ det.tipoDoc|catalog('01') }}</strong>  {{ det.serieNro }}</p>
+                                {% if det.docReferencia %}
+                                {% set ref = det.docReferencia %}
+                                <p class="nmarg"><strong>DOC. REF.</strong>  {{ ref.tipoDoc|catalog('01') }}  {{ ref.nroDoc }}</p>
+                                {% endif %}
+                            </td>
+                            <td align="center">{{ det.estado|catalog('19') }}</td>
+                            <td>
+                                <p class="nmarg"><strong>IGV</strong>  {{ det.mtoIGV|n_format }}</p>
+                                {% if det.mtoISC %}
+                                <p class="nmarg"><strong>ISC</strong>  {{ det.mtoISC|n_format }}</p>
+                                {% endif %}
+                                {% if det.mtoIcbper %}
+                                <p class="nmarg"><strong>ICBPER</strong>  {{ det.mtoIcbper|n_format }}</p>
+                                {% endif %}
+                                {% if det.mtoOtrosTributos %}
+                                <p class="nmarg"><strong>Otros Tributos</strong>  {{ det.mtoOtrosTributos|n_format }}</p>
+                                {% endif %}
+                                {% if det.mtoOtrosCargos %}
+                                <p class="nmarg"><strong>Otros Cargos</strong>  {{ det.mtoOtrosCargos|n_format }}</p>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if det.mtoOperGravadas %}
+                                <p class="nmarg"><strong>Gravadas</strong>  {{ det.mtoOperGravadas|n_format }}</p>
+                                {% endif %}
+                                {% if det.mtoOperInafectas %}
+                                <p class="nmarg"><strong>Inafectas</strong>  {{ det.mtoOperInafectas|n_format }}</p>
+                                {% endif %}
+                                {% if det.mtoOperExoneradas %}
+                                <p class="nmarg"><strong>Exoneradas</strong>  {{ det.mtoOperExoneradas|n_format }}</p>
+                                {% endif %}
+                                {% if det.mtoOperGratuitas %}
+                                <p class="nmarg"><strong>Gratuitas</strong>  {{ det.mtoOperGratuitas|n_format }}</p>
+                                {% endif %}
+                            </td>
+                            <td align="center">{{ det.total|n_format }}
+                                {% if det.percepcion and det.percepcion.mto %}
+                                    {% set perc = det.percepcion %}<br>
+                                    <p class="nmarg"><strong>Percepción</strong>  {{ perc.mto|n_format }}</p>
+                                    <p class="nmarg"><strong>Total Pagar</strong>  {{ perc.mtoTotal|n_format }}</p>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table></div>
+            <br>
+            {% if max_items is defined and doc.details|length > max_items %}
+                <div style="page-break-after:always;"></div>
+            {% endif %}
+            {% if params.system.hash is defined and params.system.hash%}
+                <div>
+                    <blockquote>
+                        <strong>Resumen:</strong>   {{ params.system.hash }}
+                    </blockquote>
+                </div>
+            {% endif %}
+        </td>
+    </tr>
+    </tbody></table>
+</body></html>

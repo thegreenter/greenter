@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<ext:UBLExtensions>
+		<ext:UBLExtension>
+			<ext:ExtensionContent>
+				<sac:AdditionalInformation>
+					<sac:AdditionalMonetaryTotal>
+						<cbc:ID>1001</cbc:ID>
+						<cbc:PayableAmount currencyID="PEN">22.88</cbc:PayableAmount>
+					</sac:AdditionalMonetaryTotal>
+					<sac:AdditionalProperty>
+						<cbc:ID>1000</cbc:ID>
+						<cbc:Value>VEINTISIETE CON 00/100</cbc:Value>
+					</sac:AdditionalProperty>
+				</sac:AdditionalInformation>
+			</ext:ExtensionContent>
+		</ext:UBLExtension>
+		<ext:UBLExtension>
+			<ext:ExtensionContent>
+				<ds:Signature Id="SignSUNAT">
+					<ds:SignedInfo>
+						<ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+						<ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+						<ds:Reference URI="">
+							<ds:Transforms>
+								<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+							</ds:Transforms>
+							<ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+							<ds:DigestValue>QopX8PilAQ07gETkbx8SN5NFvng=</ds:DigestValue>
+						</ds:Reference>
+					</ds:SignedInfo>
+					<ds:SignatureValue>hL713ARxmxQnzSZyTGi/NzpS80j6MqlUTRQUofca7mYTSQO74SDFJkKOGSZAPTS4LN0/g1wH+oOQ
+						O/nj8VuOLMI1ZvbZmt7ZoOT0ueghazdPb4zQZ4vw/+UFjEkdZOdvGyWvUS8LQm4YyTCPR5DILaDZ
+						5OuowUdiRahVyZ2vEThoRANBw9JetRwXUP7crKQi+EtKZ/WK9Ek4ZtV3dL41JeCahsYPCiRGm6//
+						l85rR2n0gQ88dmnNioTwyyOp7gleUCxU/0UhXQz/iSjB6GygdnGGKyUdY1vhnlmPQzTAKJYD3irv
+						fm7+EkV0qlFPLUtNowE+pjSPlA/iyN7u1WAWUw==</ds:SignatureValue>
+					<ds:KeyInfo>
+						<ds:X509Data>
+							<ds:X509Certificate>MIIDfTCCAmmgAwIBAgIQJbrTqETg571KUM7MXSMZIDAJBgUrDgMCHQUAMEIxJTAjBgNVBAsTHERO
+								SSA0MjgxOTk1NyBSVUMgMjA2MDA2OTU3NzExGTAXBgNVBAMTEEdJQU5DQVJMT1MgU0FMQVMwHhcN
+								MTYwOTI4MTcxMTU1WhcNMzkxMjMxMjM1OTU5WjBCMSUwIwYDVQQLExxETkkgNDI4MTk5NTcgUlVD
+								IDIwNjAwNjk1NzcxMRkwFwYDVQQDExBHSUFOQ0FSTE9TIFNBTEFTMIIBIjANBgkqhkiG9w0BAQEF
+								AAOCAQ8AMIIBCgKCAQEAlIw0A1u1u2fIyTZD7rECOR5ifynrdy/yJQPMEIfWUsmrzq5nyIwD4laR
+								9KqjjcOBPEvexC6TRfw8SYYVdyVzFFLxAJ6/MyjwzWKrfea0aj5no6MyAm4agAYlXCOsda+1doeV
+								8/s9TuxpLhy81a8h6xSYLKxcfDVoWLQpOreT5w5gHBLHPCPOxpXBxOkbB/kyWmyoCRWvr1Eyi0nc
+								lN/rxekK0wNY2LbzmVJM/M7Noutd1e4M5NAcI4JpIygP8TYxAMOxBKGDRMW6pVVw5IuRhLyoIflO
+								+hZ4J6Au3Vg8wh8Rc8Ls+H+21H0bYxuMiUsgcquvjYCv3CVlznStVCkT5QIDAQABo3cwdTBzBgNV
+								HQEEbDBqgBAcQ0FWQsKFrd5zUIKuU72HoUQwQjElMCMGA1UECxMcRE5JIDQyODE5OTU3IFJVQyAy
+								MDYwMDY5NTc3MTEZMBcGA1UEAxMQR0lBTkNBUkxPUyBTQUxBU4IQJbrTqETg571KUM7MXSMZIDAJ
+								BgUrDgMCHQUAA4IBAQAmvUJBz4PvvQUZ8Q8h/hgxMjZl1oRSOA9syO34F64YnyVL8XVRyy7CQtLb
+								ZqTQFuPefElj7em1mOfZHpQaUw1ScjTlEnHXwHNW6IC9sOInUy6DekPh4RESpVidWscuq9uR+8ev
+								CouEFkPuLmc3x9lC7f02FWKIvjAVPEXR3eSvu+QylDTJ/iUg1fB+YzBKJ7a6kOVefxNZyTAVcKv+
+								bJUv2t4axpJdWDZ1sL4z7VBf/7Fk09iPKT4ZaI+7pShGrbCl1CXWb1SPnNrqJVJ6aDaDe8DCZuFt
+								Nn1GYuYtzdeTI6JP3byzZMaYrM6sCi8En3fvQ5PniL+jsDs0cfCvc9jk</ds:X509Certificate>
+						</ds:X509Data>
+					</ds:KeyInfo>
+				</ds:Signature>
+			</ext:ExtensionContent>
+		</ext:UBLExtension>
+	</ext:UBLExtensions>
+	<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+	<cbc:CustomizationID>1.0</cbc:CustomizationID>
+	<cbc:ID>F001-00019772</cbc:ID>
+	<cbc:IssueDate>2016-10-14</cbc:IssueDate>
+	<cbc:InvoiceTypeCode>01</cbc:InvoiceTypeCode>
+	<cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
+	<cac:Signature>
+		<cbc:ID>IDSignSP</cbc:ID>
+		<cac:SignatoryParty>
+			<cac:PartyIdentification>
+				<cbc:ID>20505310072</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyName>
+				<cbc:Name>MANGUIFAJAS INDUSTRIALES</cbc:Name>
+			</cac:PartyName>
+		</cac:SignatoryParty>
+		<cac:DigitalSignatureAttachment>
+			<cac:ExternalReference>
+				<cbc:URI>#SignatureSP</cbc:URI>
+			</cac:ExternalReference>
+		</cac:DigitalSignatureAttachment>
+	</cac:Signature>
+	<cac:AccountingSupplierParty>
+		<cbc:CustomerAssignedAccountID>20505310072</cbc:CustomerAssignedAccountID>
+		<cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+		<cac:Party>
+			<cac:PartyName>
+				<cbc:Name>MANGUIFAJAS INDUSTRIALES</cbc:Name>
+			</cac:PartyName>
+			<cac:PostalAddress>
+				<cbc:ID>150133</cbc:ID>
+				<cbc:StreetName>AV. PANAMERICANA SUR MZA. P1 LOTE. 23 COO.</cbc:StreetName>
+				<cbc:CitySubdivisionName>VIVIENDA AMERICA</cbc:CitySubdivisionName>
+				<cbc:CityName>LIMA</cbc:CityName>
+				<cbc:CountrySubentity>LIMA</cbc:CountrySubentity>
+				<cbc:District>SAN JUAN DE MIRAFLOR</cbc:District>
+				<cac:Country>
+					<cbc:IdentificationCode>PE</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:PostalAddress>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>MANGUIFAJAS INDUSTRIALES S.A.C.</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:AccountingSupplierParty>
+	<cac:AccountingCustomerParty>
+		<cbc:CustomerAssignedAccountID>20535773425</cbc:CustomerAssignedAccountID>
+		<cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+		<cac:Party>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName>ACORSA SOCIEDAD ANONIMA CERRADA - ACORSA S.A.C.</cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:AccountingCustomerParty>
+	<cac:TaxTotal>
+		<cbc:TaxAmount currencyID="PEN">4.12</cbc:TaxAmount>
+		<cac:TaxSubtotal>
+			<cbc:TaxAmount currencyID="PEN">4.12</cbc:TaxAmount>
+			<cac:TaxCategory>
+				<cac:TaxScheme>
+					<cbc:ID>1000</cbc:ID>
+					<cbc:Name>IGV</cbc:Name>
+					<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+				</cac:TaxScheme>
+			</cac:TaxCategory>
+		</cac:TaxSubtotal>
+	</cac:TaxTotal>
+	<cac:LegalMonetaryTotal>
+		<cbc:PayableAmount currencyID="PEN">27.00</cbc:PayableAmount>
+	</cac:LegalMonetaryTotal>
+	<cac:InvoiceLine>
+		<cbc:ID>1</cbc:ID>
+		<cbc:InvoicedQuantity unitCode="NIU">3.000</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="PEN">12.71</cbc:LineExtensionAmount>
+		<cac:PricingReference>
+			<cac:AlternativeConditionPrice>
+				<cbc:PriceAmount currencyID="PEN">5.00</cbc:PriceAmount>
+				<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+			</cac:AlternativeConditionPrice>
+		</cac:PricingReference>
+		<cac:TaxTotal>
+			<cbc:TaxAmount currencyID="PEN">2.29</cbc:TaxAmount>
+			<cac:TaxSubtotal>
+				<cbc:TaxAmount currencyID="PEN">2.29</cbc:TaxAmount>
+				<cac:TaxCategory>
+					<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+					<cac:TaxScheme>
+						<cbc:ID>1000</cbc:ID>
+						<cbc:Name>IGV</cbc:Name>
+						<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+					</cac:TaxScheme>
+				</cac:TaxCategory>
+			</cac:TaxSubtotal>
+		</cac:TaxTotal>
+		<cac:Item>
+			<cbc:Description>AJUARES  ABEJITAS MOL BLANCO 1</cbc:Description>
+			<cac:SellersItemIdentification>
+				<cbc:ID>N001-PE000023775</cbc:ID>
+			</cac:SellersItemIdentification>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="PEN">4.24</cbc:PriceAmount>
+		</cac:Price>
+	</cac:InvoiceLine>
+	<cac:InvoiceLine>
+		<cbc:ID>2</cbc:ID>
+		<cbc:InvoicedQuantity unitCode="NIU">2.000</cbc:InvoicedQuantity>
+		<cbc:LineExtensionAmount currencyID="PEN">10.17</cbc:LineExtensionAmount>
+		<cac:PricingReference>
+			<cac:AlternativeConditionPrice>
+				<cbc:PriceAmount currencyID="PEN">6.00</cbc:PriceAmount>
+				<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+			</cac:AlternativeConditionPrice>
+		</cac:PricingReference>
+		<cac:TaxTotal>
+			<cbc:TaxAmount currencyID="PEN">1.83</cbc:TaxAmount>
+			<cac:TaxSubtotal>
+				<cbc:TaxAmount currencyID="PEN">1.83</cbc:TaxAmount>
+				<cac:TaxCategory>
+					<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+					<cac:TaxScheme>
+						<cbc:ID>1000</cbc:ID>
+						<cbc:Name>IGV</cbc:Name>
+						<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+					</cac:TaxScheme>
+				</cac:TaxCategory>
+			</cac:TaxSubtotal>
+		</cac:TaxTotal>
+		<cac:Item>
+			<cbc:Description>AJUARES  ABEJITAS MOL BLANCO 2</cbc:Description>
+			<cac:SellersItemIdentification>
+				<cbc:ID>N001-PE000023776</cbc:ID>
+			</cac:SellersItemIdentification>
+		</cac:Item>
+		<cac:Price>
+			<cbc:PriceAmount currencyID="PEN">5.08</cbc:PriceAmount>
+		</cac:Price>
+	</cac:InvoiceLine>
+</Invoice>

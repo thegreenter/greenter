@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<VoidedDocuments xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:VoidedDocuments-1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2">
+    <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+    <cbc:ID>RR-20190122-00111</cbc:ID>
+    <cac:AccountingSupplierParty>
+        <cbc:CustomerAssignedAccountID>20123456789</cbc:CustomerAssignedAccountID>
+    </cac:AccountingSupplierParty>
+</VoidedDocuments>

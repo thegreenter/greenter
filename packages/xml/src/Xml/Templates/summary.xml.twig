@@ -1,0 +1,189 @@
+{% apply spaceless %}
+<?xml version="1.0" encoding="utf-8"?>
+<SummaryDocuments xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:SummaryDocuments-1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1">
+    <ext:UBLExtensions>
+        <ext:UBLExtension>
+            <ext:ExtensionContent/>
+        </ext:UBLExtension>
+    </ext:UBLExtensions>
+    <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+    <cbc:CustomizationID>1.1</cbc:CustomizationID>
+    <cbc:ID>{{ doc.xmlId }}</cbc:ID>
+    <cbc:ReferenceDate>{{ doc.fecGeneracion|date('Y-m-d') }}</cbc:ReferenceDate>
+    <cbc:IssueDate>{{ doc.fecResumen|date('Y-m-d') }}</cbc:IssueDate>
+    {% set emp = doc.company %}
+    <cac:Signature>
+        <cbc:ID>{{ emp.ruc }}</cbc:ID>
+        <cac:SignatoryParty>
+            <cac:PartyIdentification>
+                <cbc:ID>{{ emp.ruc }}</cbc:ID>
+            </cac:PartyIdentification>
+            <cac:PartyName>
+                <cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
+            </cac:PartyName>
+        </cac:SignatoryParty>
+        <cac:DigitalSignatureAttachment>
+            <cac:ExternalReference>
+                <cbc:URI>#GREENTER-SIGN</cbc:URI>
+            </cac:ExternalReference>
+        </cac:DigitalSignatureAttachment>
+    </cac:Signature>
+    <cac:AccountingSupplierParty>
+        <cbc:CustomerAssignedAccountID>{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
+        <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+        <cac:Party>
+            <cac:PartyLegalEntity>
+                <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
+            </cac:PartyLegalEntity>
+        </cac:Party>
+    </cac:AccountingSupplierParty>
+    {% for det in doc.details %}
+    <sac:SummaryDocumentsLine>
+        <cbc:LineID>{{ loop.index }}</cbc:LineID>
+        <cbc:DocumentTypeCode>{{ det.tipoDoc }}</cbc:DocumentTypeCode>
+        <cbc:ID>{{ det.serieNro }}</cbc:ID>
+        <cac:AccountingCustomerParty>
+            <cbc:CustomerAssignedAccountID>{{ det.clienteNro }}</cbc:CustomerAssignedAccountID>
+            <cbc:AdditionalAccountID>{{ det.clienteTipo }}</cbc:AdditionalAccountID>
+        </cac:AccountingCustomerParty>
+        {% if det.docReferencia %}
+        <cac:BillingReference>
+            <cac:InvoiceDocumentReference>
+                <cbc:ID>{{ det.docReferencia.nroDoc }}</cbc:ID>
+                <cbc:DocumentTypeCode>{{ det.docReferencia.tipoDoc }}</cbc:DocumentTypeCode>
+            </cac:InvoiceDocumentReference>
+        </cac:BillingReference>
+        {% endif %}
+        {% if det.percepcion %}
+        {% set perc = det.percepcion %}
+        <sac:SUNATPerceptionSummaryDocumentReference>
+            <sac:SUNATPerceptionSystemCode>{{ perc.codReg }}</sac:SUNATPerceptionSystemCode>
+            <sac:SUNATPerceptionPercent>{{ perc.tasa|n_format }}</sac:SUNATPerceptionPercent>
+            <cbc:TotalInvoiceAmount currencyID="PEN">{{ perc.mto|n_format }}</cbc:TotalInvoiceAmount>
+            <sac:SUNATTotalCashed currencyID="PEN">{{ perc.mtoTotal|n_format }}</sac:SUNATTotalCashed>
+            <cbc:TaxableAmount currencyID="PEN">{{ perc.mtoBase|n_format }}</cbc:TaxableAmount>
+        </sac:SUNATPerceptionSummaryDocumentReference>
+        {% endif %}
+        <cac:Status>
+            <cbc:ConditionCode>{{ det.estado }}</cbc:ConditionCode>
+        </cac:Status>
+        <sac:TotalAmount currencyID="{{ doc.moneda }}">{{ det.total|n_format }}</sac:TotalAmount>
+        {% if det.mtoOperGravadas %}
+        <sac:BillingPayment>
+            <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ det.mtoOperGravadas|n_format }}</cbc:PaidAmount>
+            <cbc:InstructionID>01</cbc:InstructionID>
+        </sac:BillingPayment>
+        {% endif %}
+        {% if det.mtoOperExoneradas %}
+        <sac:BillingPayment>
+            <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ det.mtoOperExoneradas|n_format }}</cbc:PaidAmount>
+            <cbc:InstructionID>02</cbc:InstructionID>
+        </sac:BillingPayment>
+        {% endif %}
+        {% if det.mtoOperInafectas %}
+        <sac:BillingPayment>
+            <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ det.mtoOperInafectas|n_format }}</cbc:PaidAmount>
+            <cbc:InstructionID>03</cbc:InstructionID>
+        </sac:BillingPayment>
+        {% endif %}
+        {% if det.mtoOperExportacion %}
+        <sac:BillingPayment>
+            <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ det.mtoOperExportacion|n_format }}</cbc:PaidAmount>
+            <cbc:InstructionID>04</cbc:InstructionID>
+        </sac:BillingPayment>
+        {% endif %}
+        {% if det.mtoOperGratuitas %}
+        <sac:BillingPayment>
+            <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ det.mtoOperGratuitas|n_format }}</cbc:PaidAmount>
+            <cbc:InstructionID>05</cbc:InstructionID>
+        </sac:BillingPayment>
+        {% endif %}
+        {% if det.mtoOtrosCargos %}
+        <cac:AllowanceCharge>
+            <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
+            <cbc:Amount currencyID="{{ doc.moneda }}">{{ det.mtoOtrosCargos|n_format }}</cbc:Amount>
+        </cac:AllowanceCharge>
+        {% endif %}
+        {% if det.mtoIvap %}
+        {% set ivap = det.mtoIvap|n_format %}
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ ivap }}</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ ivap }}</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>1016</cbc:ID>
+                        <cbc:Name>IVAP</cbc:Name>
+                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        {% else %}
+        {% set igv = det.mtoIGV|n_format %}
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ igv }}</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ igv }}</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>1000</cbc:ID>
+                        <cbc:Name>IGV</cbc:Name>
+                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        {% endif %}
+        {% if det.mtoISC %}
+        {% set isc = det.mtoISC|n_format %}
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ isc }}</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{isc }}</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>2000</cbc:ID>
+                        <cbc:Name>ISC</cbc:Name>
+                        <cbc:TaxTypeCode>EXC</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        {% endif %}
+        {% if det.mtoOtrosTributos %}
+        {% set oth = det.mtoOtrosTributos|n_format %}
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ oth }}</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ oth }}</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cac:TaxScheme>
+                        <cbc:ID>9999</cbc:ID>
+                        <cbc:Name>OTROS</cbc:Name>
+                        <cbc:TaxTypeCode>OTH</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        {% endif %}
+        {% if det.mtoIcbper %}
+            {% set icbper = det.mtoIcbper|n_format %}
+            <cac:TaxTotal>
+                <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ icbper }}</cbc:TaxAmount>
+                <cac:TaxSubtotal>
+                    <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ icbper }}</cbc:TaxAmount>
+                    <cac:TaxCategory>
+                        <cac:TaxScheme>
+                            <cbc:ID>7152</cbc:ID>
+                            <cbc:Name>ICBPER</cbc:Name>
+                            <cbc:TaxTypeCode>OTH</cbc:TaxTypeCode>
+                        </cac:TaxScheme>
+                    </cac:TaxCategory>
+                </cac:TaxSubtotal>
+            </cac:TaxTotal>
+        {% endif %}
+    </sac:SummaryDocumentsLine>
+    {% endfor %}
+</SummaryDocuments>
+{% endapply %}

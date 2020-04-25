@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by izegarrav (EMBRACE) -->
+<DespatchAdvice xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+	<ext:UBLExtensions>    
+  </ext:UBLExtensions>
+	<cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+	<cbc:CustomizationID>1.0</cbc:CustomizationID>
+	<cbc:ID>T002-163</cbc:ID>
+	<cbc:IssueDate>2017-09-08</cbc:IssueDate>
+	<cbc:DespatchAdviceTypeCode>09</cbc:DespatchAdviceTypeCode>
+	<cbc:Note><![CDATA[OBSER TOTAL]]></cbc:Note>
+	<cac:AdditionalDocumentReference>
+		<cbc:ID>2ABcdet1234567891234</cbc:ID>
+		<cbc:DocumentTypeCode>06</cbc:DocumentTypeCode>
+	</cac:AdditionalDocumentReference>
+	<cac:AdditionalDocumentReference>
+		<cbc:ID>2017-118-0001</cbc:ID>
+		<cbc:DocumentTypeCode>03</cbc:DocumentTypeCode>
+	</cac:AdditionalDocumentReference>
+	<cac:Signature>
+		<cbc:ID>IDSignCF</cbc:ID>
+		<cac:SignatoryParty>
+			<cac:PartyIdentification>
+				<cbc:ID>20338570041</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyName>
+				<cbc:Name><![CDATA[COMECO MAQUINARIA Y REPRESENTACIONES SAC]]></cbc:Name>
+			</cac:PartyName>
+		</cac:SignatoryParty>
+		<cac:DigitalSignatureAttachment>
+			<cac:ExternalReference>
+				<cbc:URI>#SignatureCF</cbc:URI>
+			</cac:ExternalReference>
+		</cac:DigitalSignatureAttachment>
+	</cac:Signature>
+	<cac:DespatchSupplierParty>
+		<cbc:CustomerAssignedAccountID schemeID="6">20338570041</cbc:CustomerAssignedAccountID>
+		<cac:Party>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName><![CDATA[COMECO MAQUINARIA Y REPRESENTACIONES SAC COMECO MAQUINARIA Y REPRESENTACIONES SAC COMECO MAQUINARIA]]></cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:DespatchSupplierParty>
+	<cac:DeliveryCustomerParty>
+		<cbc:CustomerAssignedAccountID schemeID="A">201002553251123</cbc:CustomerAssignedAccountID>
+		<cac:Party>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName><![CDATA[SERV TURISTICOS GENERALES SA]]></cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:DeliveryCustomerParty>
+	<cac:Shipment>
+		<cbc:ID>1</cbc:ID>
+		<cbc:HandlingCode>01</cbc:HandlingCode>
+		<cbc:Information><![CDATA[SALIDA / VENTAS]]></cbc:Information><cbc:GrossWeightMeasure unitCode="KGM">1000.001</cbc:GrossWeightMeasure>
+		<cbc:SplitConsignmentIndicator>false</cbc:SplitConsignmentIndicator>
+		<cac:ShipmentStage>
+			<cbc:TransportModeCode>01</cbc:TransportModeCode>
+			<cac:TransitPeriod>
+				<cbc:StartDate>2017-09-01</cbc:StartDate>
+			</cac:TransitPeriod>
+			<cac:CarrierParty>
+				<cac:PartyIdentification>
+					<cbc:ID>20338570041</cbc:ID>
+				</cac:PartyIdentification>
+				<cac:PartyName>
+					<cbc:Name>PERU QUIMICOS S.A.C.</cbc:Name>
+				</cac:PartyName>
+			</cac:CarrierParty>
+			<cac:TransportMeans>
+				<cac:RoadTransport>
+					<cbc:LicensePlateID>COW-414</cbc:LicensePlateID>
+				</cac:RoadTransport>
+			</cac:TransportMeans><cac:DriverPerson>
+				<cbc:ID schemeID="1">07976340</cbc:ID>
+			</cac:DriverPerson>
+			
+		</cac:ShipmentStage>
+		<cac:Delivery>
+			<cac:DeliveryAddress>
+				<cbc:ID>150114</cbc:ID>
+				<cbc:StreetName><![CDATA[CUZCO]]></cbc:StreetName>
+				<cac:Country>
+					<cbc:IdentificationCode>PE</cbc:IdentificationCode>
+				</cac:Country>
+			</cac:DeliveryAddress>
+		</cac:Delivery>
+		<cac:OriginAddress>
+			<cbc:ID>150110</cbc:ID>
+			<cbc:StreetName><![CDATA[Car. Panamericana Sur Mzna. B Int. 13B - Villa El Salvador - KM. 17.5]]></cbc:StreetName>
+			<cac:Country>
+				<cbc:IdentificationCode>PE</cbc:IdentificationCode>
+			</cac:Country>
+		</cac:OriginAddress>
+	</cac:Shipment>
+	<cac:DespatchLine>
+		<cbc:ID>1</cbc:ID>
+		<cbc:DeliveredQuantity unitCode="NIU">1</cbc:DeliveredQuantity>
+		<cac:OrderLineReference>
+			<cbc:LineID>1</cbc:LineID>
+		</cac:OrderLineReference>
+		<cac:Item>
+			<cbc:Name><![CDATA[BIDON DE AGUA]]></cbc:Name>
+			<cac:SellersItemIdentification>
+				<cbc:ID>0000006532</cbc:ID>
+			</cac:SellersItemIdentification>
+		</cac:Item>
+	</cac:DespatchLine>
+</DespatchAdvice>

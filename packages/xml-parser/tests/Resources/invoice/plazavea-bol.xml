@@ -1,0 +1,1605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:udt="urn:un:unece:uncefact:data:specification:UnqualifiedDataTypesSchemaModule:2" xmlns:ccts="urn:un:unece:uncefact:documentation:2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:qdt="urn:oasis:names:specification:ubl:schema:xsd:QualifiedDatatypes-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ext:UBLExtensions>
+<ext:UBLExtension>
+<ext:ExtensionContent>
+<ds:Signature Id="#SBA25-3027493"></ds:Signature></ext:ExtensionContent>
+</ext:UBLExtension>
+<ext:UBLExtension>
+<ext:ExtensionContent>
+<sac:AdditionalInformation>
+<sac:AdditionalMonetaryTotal>
+<cbc:ID>1001</cbc:ID>
+<cbc:PayableAmount currencyID="PEN">105.46</cbc:PayableAmount>
+</sac:AdditionalMonetaryTotal>
+<sac:AdditionalMonetaryTotal>
+<cbc:ID>1002</cbc:ID>
+<cbc:PayableAmount currencyID="PEN">56.41</cbc:PayableAmount>
+</sac:AdditionalMonetaryTotal>
+<sac:AdditionalMonetaryTotal>
+<cbc:ID>2005</cbc:ID>
+<cbc:PayableAmount currencyID="PEN">30.83</cbc:PayableAmount>
+</sac:AdditionalMonetaryTotal>
+<sac:AdditionalProperty>
+<cbc:ID>1000</cbc:ID>
+<cbc:Value><![CDATA[CIENTO OCHENTA Y 85/100 NUEVOS SOLES]]></cbc:Value>
+</sac:AdditionalProperty>
+</sac:AdditionalInformation>
+</ext:ExtensionContent>
+</ext:UBLExtension>
+</ext:UBLExtensions>
+<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+<cbc:CustomizationID>1.0</cbc:CustomizationID>
+<cbc:ID>BA25-3027493</cbc:ID>
+<cbc:IssueDate>2016-07-06</cbc:IssueDate>
+<cbc:InvoiceTypeCode>03</cbc:InvoiceTypeCode>
+<cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
+<cac:Signature>
+<cbc:ID>SBA25-3027493</cbc:ID>
+<cac:SignatoryParty>
+<cac:PartyIdentification>
+<cbc:ID>20100070970</cbc:ID>
+</cac:PartyIdentification>
+<cac:PartyName>
+<cbc:Name><![CDATA[SUNAT]]></cbc:Name>
+</cac:PartyName>
+</cac:SignatoryParty>
+<cac:DigitalSignatureAttachment>
+<cac:ExternalReference>
+<cbc:URI>#SBA25-3027493</cbc:URI>
+</cac:ExternalReference>
+</cac:DigitalSignatureAttachment>
+</cac:Signature>
+<cac:AccountingSupplierParty>
+<cbc:CustomerAssignedAccountID>20100070970</cbc:CustomerAssignedAccountID>
+<cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
+<cac:Party>
+<cac:PartyName>
+<cbc:Name><![CDATA[VIVANDA]]></cbc:Name>
+</cac:PartyName>
+<cac:PostalAddress>
+<cbc:ID>150130</cbc:ID>
+<cbc:StreetName><![CDATA[CAL. MORELLI NRO. 181 INT. P-2 LIMA]]></cbc:StreetName>
+<cbc:CitySubdivisionName></cbc:CitySubdivisionName>
+<cbc:CityName>Lima</cbc:CityName>
+<cbc:CountrySubentity>Lima</cbc:CountrySubentity>
+<cbc:District>San Borja</cbc:District>
+<cac:Country>
+<cbc:IdentificationCode>PE</cbc:IdentificationCode>
+</cac:Country>
+</cac:PostalAddress>
+<cac:PartyLegalEntity>
+<cbc:RegistrationName><![CDATA[SUPERMERCADOS PERUANOS S.A.]]></cbc:RegistrationName>
+</cac:PartyLegalEntity>
+</cac:Party>
+</cac:AccountingSupplierParty>
+<cac:AccountingCustomerParty>
+<cbc:CustomerAssignedAccountID>-</cbc:CustomerAssignedAccountID>
+<cbc:AdditionalAccountID>0</cbc:AdditionalAccountID>
+<cac:Party>
+<cac:PartyLegalEntity>
+<cbc:RegistrationName><![CDATA[-]]></cbc:RegistrationName>
+<cac:RegistrationAddress>
+<cbc:StreetName><![CDATA[]]></cbc:StreetName>
+<cac:Country>
+<cbc:IdentificationCode>PE</cbc:IdentificationCode>
+</cac:Country>
+</cac:RegistrationAddress>
+</cac:PartyLegalEntity>
+</cac:Party>
+</cac:AccountingCustomerParty>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">18.98</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxAmount currencyID="PEN">18.98</cbc:TaxAmount>
+<cac:TaxCategory>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:LegalMonetaryTotal>
+<cbc:LineExtensionAmount currencyID="PEN">161.87</cbc:LineExtensionAmount>
+<cbc:TaxExclusiveAmount currencyID="PEN">18.98</cbc:TaxExclusiveAmount>
+<cbc:PayableAmount currencyID="PEN">180.85</cbc:PayableAmount>
+</cac:LegalMonetaryTotal>
+<cac:InvoiceLine>
+<cbc:ID>1</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">3.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">4.41</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">1.73</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">2.6</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.79</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">4.41</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.79</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7752285575683@@KNORR PURE@@ 3 X    2.60]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07752285575683</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">1.47</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>2</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">1.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">1.69</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">1.99</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.3</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">1.69</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.3</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7750020541177@@BELLS SALAD@@ 1 X    1.99]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07750020541177</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">1.69</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>3</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">1.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">5.75</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">5.75</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7750020717671@@BELLS PALLAR@@ 1 X    5.75]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07750020717671</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">5.75</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>4</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">3.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">5.06</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">1.99</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.91</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">5.06</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.91</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[0000009311091@@SALAD CAPRES@@ 3 X    1.99]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000009311091</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">1.69</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>5</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">1.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">3.05</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">3.05</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7750020717718@@BELLS ARVEJA@@ 1 X    3.05]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07750020717718</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">3.05</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>6</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">2.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">5.98</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">2.99</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7752662000197@@R.OLLA.SUP.PREMIUN X@@ 2 X    2.99]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07752662000197</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">2.99</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>7</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">1.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">13.99</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">13.99</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">4.0</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7752662000029@@ROMPE O.ARRO@@ 1 X   17.99]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07752662000029</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">13.99</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>8</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">1.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">1.78</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">2.1</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.32</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">1.78</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.32</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7702024002826@@NESTLE CONDE@@ 1 X    2.10]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07702024002826</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">1.78</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>9</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">2.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">16.1</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">9.5</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">2.9</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">16.1</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">2.9</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7751271003377@@GLORIA 170GR@@ 2 X    9.50]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07751271003377</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">8.05</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>10</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">1.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">2.87</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">3.39</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.52</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">2.87</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.52</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7750341000599@@WATTS NARANJ@@ 1 X    3.39]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07750341000599</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">2.87</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>11</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">1.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">2.87</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">3.39</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.52</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">2.87</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.52</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7750341000612@@WATTS PINA@@ 1 X    3.39]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07750341000612</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">2.87</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>12</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">1.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">0.0</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">0.0</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">3.39</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7750341000575@@WATTS MARAC@@ 1 X    3.39]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07750341000575</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">0.0</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>13</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">0.39</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">1.62</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">4.9</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.29</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">1.62</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.29</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[0000000132541@@GRAN.ORO AVE@@ 0.390 X    4.90]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000132541</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">4.15</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>14</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">0.41</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">1.23</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">3.0</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">0.61</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[4503@@ZANAHOR X KG@@ 0.410 X    4.49]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000004503</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">3.0</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>15</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">1.47</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">3.66</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">2.49</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[168311@@MAND W MURC@@ 1.470 X    2.49]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000168311</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">2.49</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>16</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">0.57</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">3.41</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">5.99</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">0.17</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[180542@@IMP.PERA.PAC@@ 0.570 X    6.29]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000180542</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">5.99</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>17</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">0.5</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">1.84</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">3.69</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[0212686005006@@PINA G BABY@@ 0.500 X    3.69]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000126861</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">3.69</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>18</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">0.97</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">3.28</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">3.39</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[2493@@PAPA PERUANI@@ 0.970 X    3.39]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000002493</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">3.39</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>19</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">1.43</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">4.84</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">3.39</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[2493@@PAPA PERUANI@@ 1.430 X    3.39]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000002493</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">3.39</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>20</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">1.24</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">2.84</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">2.3</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">0.86</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[1403@@CEBOLLA ROJA@@ 1.240 X    2.99]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000001403</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">2.3</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>21</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">0.36</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">0.54</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">1.52</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">0.6</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[2288@@LIMON ACIDO@@ 0.360 X    3.19]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000002288</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">1.52</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>22</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">1.485</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">3.69</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">2.49</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[168311@@MAND W MURC@@ 1.485 X    2.49]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000168311</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">2.49</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>23</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">2.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">2.92</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">1.73</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">1.15</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.53</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">2.92</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.53</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7750243048392@@BOLIVAR@@ 2 X    2.30]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07750243048392</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">1.47</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>24</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">2.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">10.59</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">6.25</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">1.91</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">10.59</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">1.91</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[0000009589773@@BELLS DURAZN@@ 2 X    6.25]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000009589773</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">5.3</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>25</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">0.47</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">2.25</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">5.65</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.4</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">2.25</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.4</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[0210310004708@@PAN GRANEL@@ 0.470 X    5.65]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000103107</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">4.79</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>26</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">0.295</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">1.86</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">7.49</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.34</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">1.86</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.34</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[0214920002956@@PAN COCK PRD@@ 0.295 X    7.49]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000149204</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">6.35</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>27</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">1.175</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">9.94</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">9.99</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">1.79</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">9.94</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">1.79</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[0218641011754@@KARAMAN@@ 1.175 X    9.99]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000186414</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">8.47</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>28</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">1.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">2.2</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">2.6</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.4</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">2.2</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.4</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7613032586683@@MAGG.SALSATI@@ 1 X    2.60]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07613032586683</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">2.2</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>29</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">4.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">1.68</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">0.5</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">1.98</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.3</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">1.68</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.3</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7754487001670@@AJINOMEN@@ 4 X    0.99]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07754487001670</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">0.42</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>30</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">1.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">1.1</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">1.3</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.2</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">1.1</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.2</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[0070662010013@@TOP R.ORIENT@@ 1 X    1.30]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00070662010013</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">1.1</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>31</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">2.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">2.2</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">1.3</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.4</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">2.2</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.4</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7754487001779@@AJINOMEN@@ 2 X    1.30]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07754487001779</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">1.1</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>32</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">6.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">19.97</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">3.93</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">11.78</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">3.59</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">19.97</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">3.59</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7750946002660@@SAN FERNANDO@@ 6 X    5.89]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07750946002660</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">3.33</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>33</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">2.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">1.68</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">0.99</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.3</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">1.68</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.3</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7754487001663@@AJINOMEN@@ 2 X    0.99]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07754487001663</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">0.84</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>34</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">2.335</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">2.31</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">0.99</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">0.49</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">0.0</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.0</cbc:TaxAmount>
+<cbc:Percent>0.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>30</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[5852@@PAPA BL YUNG@@ 2.335 X    1.20]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000005852</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">0.99</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>35</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">4.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">3.36</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">0.99</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.6</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">3.36</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.6</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7754487001687@@AJINOMEN@@ 4 X    0.99]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07754487001687</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">0.84</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>36</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">2.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">1.68</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">0.99</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.3</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">1.68</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.3</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7754487001656@@AJINOMEN@@ 2 X    0.99]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07754487001656</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">0.84</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>37</cbc:ID>
+<cbc:InvoicedQuantity unitCode="NIU">1.0</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">2.27</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">2.68</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">1.32</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.41</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">2.27</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.41</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[7750243040525@@OPAL DT 360G@@ 1 X    4.00]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>07750243040525</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">2.27</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+<cac:InvoiceLine>
+<cbc:ID>38</cbc:ID>
+<cbc:InvoicedQuantity unitCode="KGM">0.235</cbc:InvoicedQuantity>
+<cbc:LineExtensionAmount currencyID="PEN">5.36</cbc:LineExtensionAmount>
+<cac:PricingReference>
+<cac:AlternativeConditionPrice>
+<cbc:PriceAmount currencyID="PEN">26.9</cbc:PriceAmount>
+<cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+</cac:AlternativeConditionPrice>
+</cac:PricingReference>
+<cac:AllowanceCharge>
+<cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+<cbc:Amount currencyID="PEN">1.88</cbc:Amount>
+</cac:AllowanceCharge>
+<cac:TaxTotal>
+<cbc:TaxAmount currencyID="PEN">0.96</cbc:TaxAmount>
+<cac:TaxSubtotal>
+<cbc:TaxableAmount currencyID="PEN">5.36</cbc:TaxableAmount>
+<cbc:TaxAmount currencyID="PEN">0.96</cbc:TaxAmount>
+<cbc:Percent>18.0</cbc:Percent>
+<cac:TaxCategory>
+<cbc:ID>VAT</cbc:ID>
+<cbc:TaxExemptionReasonCode>10</cbc:TaxExemptionReasonCode>
+<cbc:TierRange>00</cbc:TierRange>
+<cac:TaxScheme>
+<cbc:ID>1000</cbc:ID>
+<cbc:Name>IGV</cbc:Name>
+<cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+</cac:TaxScheme>
+</cac:TaxCategory>
+</cac:TaxSubtotal>
+</cac:TaxTotal>
+<cac:Item>
+<cbc:Description><![CDATA[0217692002353@@BISTEC APANADO@@ 0.235 X   34.90]]></cbc:Description>
+<cac:SellersItemIdentification>
+<cbc:ID>00000000176927</cbc:ID>
+</cac:SellersItemIdentification>
+</cac:Item>
+<cac:Price>
+<cbc:PriceAmount currencyID="PEN">22.8</cbc:PriceAmount>
+</cac:Price>
+</cac:InvoiceLine>
+</Invoice>

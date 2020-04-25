@@ -1,0 +1,34 @@
+{
+    "name": "greenter/report",
+    "description": "Representacion Impresa para Facturacion Electrónica SUNAT - Perú",
+    "keywords": ["sunat", "pdf", "greenter", "facturacion electronica"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Giancarlos Salas",
+            "email": "giansalex@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/thegreenter/report",
+    "type": "library",
+    "require": {
+		"php": ">=5.5.9",
+        "twig/twig": "~1.0 || ~2.0 || ~3.0",
+        "greenter/core": "^2.1",
+        "bacon/bacon-qr-code": "^1.0"
+    },
+	"require-dev": {
+        "phpunit/phpunit": ">=4.8 < 6.0",
+        "greenter/data": "dev-master"
+    },
+	"autoload": {
+        "psr-4": {
+            "Greenter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Greenter\\": "tests/"
+        }
+    }
+}

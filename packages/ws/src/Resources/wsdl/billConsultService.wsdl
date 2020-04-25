@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://service.ws.consulta.comppago.electronico.registro.servicio2.sunat.gob.pe/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://service.ws.consulta.comppago.electronico.registro.servicio2.sunat.gob.pe/" name="billConsultService">
+    <import namespace="http://service.sunat.gob.pe" location="billConsultService.ns1.wsdl"/>
+    <binding xmlns:ns1="http://service.sunat.gob.pe" name="BillConsultServicePortBinding" type="ns1:billService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="getStatusCdr">
+            <soap:operation soapAction="urn:getStatusCdr"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="getStatus">
+            <soap:operation soapAction="urn:getStatus"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="billConsultService">
+        <port name="BillConsultServicePort" binding="tns:BillConsultServicePortBinding">
+            <soap:address location="https://e-factura.sunat.gob.pe/ol-it-wsconscpegem/billConsultService"/>
+        </port>
+    </service>
+</definitions>
