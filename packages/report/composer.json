@@ -12,7 +12,7 @@
     "homepage": "https://github.com/thegreenter/report",
     "type": "library",
     "require": {
-		"php": ">=5.5.9",
+		"php": "^7.2",
         "twig/twig": "~1.0 || ~2.0 || ~3.0",
         "greenter/core": "^2.2",
         "bacon/bacon-qr-code": "^1.0"

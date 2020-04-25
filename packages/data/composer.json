@@ -12,6 +12,7 @@
     "homepage": "https://github.com/thegreenter/data",
     "type": "library",
     "require": {
+        "php": "^7.2",
         "greenter/core": "^2.2"
     },
 	"autoload": {
