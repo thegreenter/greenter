@@ -1,7 +1,7 @@
 {
     "name": "greenter/htmltopdf",
     "description": "Greenter Html Report to Pdf using wkhtmltopdf",
-    "keywords": ["greenter", "wkhtmltodf", "representacion-impresa", "facturacion electronica"],
+    "keywords": ["greenter", "sunat", "facturacion electronica"],
     "license": "MIT",
     "authors": [
         {

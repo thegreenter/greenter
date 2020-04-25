@@ -25,34 +25,33 @@
     "autoload": {
         "psr-4": {
             "Greenter\\": [
-                "src/Greenter/",
-                "src/Greenter/core/src/Core/",
-                "src/Greenter/data/src/",
-                "src/Greenter/htmltopdf/src/",
-                "src/Greenter/lite/src/Greenter/",
-                "src/Greenter/report/src/",
-                "src/Greenter/validator/src/",
-                "src/Greenter/ws/src/",
-                "src/Greenter/xcodes/src/",
-                "src/Greenter/xml/src/"
-            ],
-            "Greenter\\Xml\\": "src/Greenter/xml-parser/src/Greenter/"
+                "packages/core/src/Core/",
+                "packages/data/src/",
+                "packages/htmltopdf/src/",
+                "packages/lite/src/Greenter/",
+                "packages/report/src/",
+                "packages/validator/src/",
+                "packages/ws/src/",
+                "packages/xcodes/src/",
+                "packages/xml-parser/src/",
+                "packages/xml/src/"
+            ]
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": [
-                "src/Greenter/lite/tests/",
+                "packages/lite/tests/",
                 "tests/"
             ],
             "Tests\\Greenter\\": [
-                "src/Greenter/htmltopdf/tests/",
-                "src/Greenter/report/tests/",
-                "src/Greenter/validator/tests/",
-                "src/Greenter/ws/tests/",
-                "src/Greenter/xcodes/tests/",
-                "src/Greenter/xml-parser/tests/",
-                "src/Greenter/xml/tests/"
+                "packages/htmltopdf/tests/",
+                "packages/report/tests/",
+                "packages/validator/tests/",
+                "packages/ws/tests/",
+                "packages/xcodes/tests/",
+                "packages/xml-parser/tests/",
+                "packages/xml/tests/"
             ]
         }
     },
