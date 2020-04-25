@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: Giansalex
@@ -49,7 +51,7 @@ class Address
     private $direccion;
 
     /**
-     * Codigo Local Anexo
+     * Codigo Local Anexo.
      *
      * @var string
      */
@@ -58,7 +60,7 @@ class Address
     /**
      * @return string
      */
-    public function getUbigueo()
+    public function getUbigueo(): ?string
     {
         return $this->ubigueo;
     }
@@ -68,7 +70,7 @@ class Address
      *
      * @return Address
      */
-    public function setUbigueo($ubigueo)
+    public function setUbigueo(?string $ubigueo): Address
     {
         $this->ubigueo = $ubigueo;
 
@@ -78,7 +80,7 @@ class Address
     /**
      * @return string
      */
-    public function getCodigoPais()
+    public function getCodigoPais(): ?string
     {
         return $this->codigoPais;
     }
@@ -88,7 +90,7 @@ class Address
      *
      * @return Address
      */
-    public function setCodigoPais($codigoPais)
+    public function setCodigoPais(?string $codigoPais): Address
     {
         $this->codigoPais = $codigoPais;
 
@@ -98,7 +100,7 @@ class Address
     /**
      * @return string
      */
-    public function getDepartamento()
+    public function getDepartamento(): ?string
     {
         return $this->departamento;
     }
@@ -108,7 +110,7 @@ class Address
      *
      * @return Address
      */
-    public function setDepartamento($departamento)
+    public function setDepartamento(?string $departamento): Address
     {
         $this->departamento = $departamento;
 
@@ -118,7 +120,7 @@ class Address
     /**
      * @return string
      */
-    public function getProvincia()
+    public function getProvincia(): ?string
     {
         return $this->provincia;
     }
@@ -128,7 +130,7 @@ class Address
      *
      * @return Address
      */
-    public function setProvincia($provincia)
+    public function setProvincia(?string $provincia): Address
     {
         $this->provincia = $provincia;
 
@@ -138,7 +140,7 @@ class Address
     /**
      * @return string
      */
-    public function getDistrito()
+    public function getDistrito(): ?string
     {
         return $this->distrito;
     }
@@ -148,7 +150,7 @@ class Address
      *
      * @return Address
      */
-    public function setDistrito($distrito)
+    public function setDistrito(?string $distrito): Address
     {
         $this->distrito = $distrito;
 
@@ -158,7 +160,7 @@ class Address
     /**
      * @return string
      */
-    public function getUrbanizacion()
+    public function getUrbanizacion(): ?string
     {
         return $this->urbanizacion;
     }
@@ -168,7 +170,7 @@ class Address
      *
      * @return Address
      */
-    public function setUrbanizacion($urbanizacion)
+    public function setUrbanizacion(?string $urbanizacion): Address
     {
         $this->urbanizacion = $urbanizacion;
 
@@ -178,7 +180,7 @@ class Address
     /**
      * @return string
      */
-    public function getDireccion()
+    public function getDireccion(): ?string
     {
         return $this->direccion;
     }
@@ -188,7 +190,7 @@ class Address
      *
      * @return Address
      */
-    public function setDireccion($direccion)
+    public function setDireccion(?string $direccion): Address
     {
         $this->direccion = $direccion;
 
@@ -198,18 +200,20 @@ class Address
     /**
      * @return string
      */
-    public function getCodLocal()
+    public function getCodLocal(): ?string
     {
         return $this->codLocal;
     }
 
     /**
      * @param string $codLocal
+     *
      * @return Address
      */
-    public function setCodLocal($codLocal)
+    public function setCodLocal(?string $codLocal): Address
     {
         $this->codLocal = $codLocal;
+
         return $this;
     }
 }
