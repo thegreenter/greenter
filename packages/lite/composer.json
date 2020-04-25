@@ -1,6 +1,6 @@
 {
-    "name": "greenter/greenter",
-    "description": "Implementación de la Facturacion Electrónica SUNAT - Perú",
+    "name": "greenter/lite",
+    "description": "Greenter lite version",
     "keywords": ["greenter", "sunat", "xml", "facturacion electronica", "ubl21", "ubl20"],
     "license": "MIT",
     "authors": [
@@ -9,7 +9,7 @@
             "email": "giansalex@gmail.com"
         }
     ],
-    "homepage": "https://github.com/thegreenter/greenter",
+    "homepage": "https://github.com/thegreenter/lite",
     "type": "library",
     "require": {
 		"php": "^7.2",
