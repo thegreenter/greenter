@@ -13,7 +13,7 @@ comprime el archivo XML en formato zip, conexión al webservice de SUNAT y proce
 
 
 ## Requerimientos
-- PHP 5.6 o superior
+- PHP 7.2 o superior
 - Extensiones PHP Activadas: `soap`, `dom`, `zip`, `zlib`, `openssl`.
 
 ## Instalar
@@ -52,12 +52,6 @@ Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/d
 
 ### API REST
 API REST con [Lycet](https://github.com/giansalex/lycet) empleando Symfony Framework.
-
-### Librerias Relacionadas
-- [greenter/report](https://github.com/thegreenter/report)
-- [greenter/htmltopdf](https://github.com/thegreenter/htmltopdf)
-- [greenter/validator](https://github.com/thegreenter/validator)
-- [greenter/ubl-validator](https://github.com/thegreenter/ubl-validator)
 
 
 ## License
