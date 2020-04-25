@@ -1,7 +1,7 @@
 {
     "name": "greenter/ws",
     "description": "WebServices Sunat Facturación Electrónica - Perú",
-    "keywords": ["greenter", "soap", "webservices", "sunat", "facturacion electronica"],
+    "keywords": ["greenter", "soap", "sunat", "facturacion electronica"],
     "license": "MIT",
     "authors": [
         {

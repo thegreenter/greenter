@@ -1,6 +1,7 @@
 # Documents Data - Greenter
 
-[![Travis-CI](https://img.shields.io/travis/giansalex/greenter-data.svg?branch=master&style=flat-square)](https://travis-ci.org/giansalex/greenter-data)  
+[![src greenter](https://img.shields.io/badge/src-greenter-brightgreen.svg)](https://github.com/thegreenter/greenter)
+
 Documents Data examples for Greenter.
 
 # Install

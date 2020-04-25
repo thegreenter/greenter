@@ -1,7 +1,7 @@
 {
     "name": "greenter/xcodes",
     "description": "Códigos de Error en Facturación Electrónica SUNAT - Perú",
-    "keywords": ["greenter", "error-codes", "sunat", "facturacion electronica"],
+    "keywords": ["greenter", "sunat", "facturacion electronica"],
     "license": "MIT",
     "authors": [
         {

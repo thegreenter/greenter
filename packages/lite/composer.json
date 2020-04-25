@@ -1,7 +1,7 @@
 {
     "name": "greenter/greenter",
     "description": "Implementación de la Facturacion Electrónica SUNAT - Perú",
-    "keywords": ["sunat", "xml", "facturacion electronica", "ubl21", "ubl20"],
+    "keywords": ["greenter", "sunat", "xml", "facturacion electronica", "ubl21", "ubl20"],
     "license": "MIT",
     "authors": [
         {
