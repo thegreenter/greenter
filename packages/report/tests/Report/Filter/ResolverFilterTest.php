@@ -10,8 +10,9 @@ namespace Report\Filter;
 
 use Greenter\Model\Sale\Legend;
 use Greenter\Report\Filter\ResolveFilter;
+use PHPUnit\Framework\TestCase;
 
-class ResolverFilterTest extends \PHPUnit_Framework_TestCase
+class ResolverFilterTest extends TestCase
 {
     /**
      * @var ResolveFilter

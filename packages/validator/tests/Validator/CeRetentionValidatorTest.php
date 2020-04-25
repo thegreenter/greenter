@@ -13,8 +13,9 @@ use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Retention\RetentionDetail;
+use PHPUnit\Framework\TestCase;
 
-class CeRetentionValidatorTest extends \PHPUnit_Framework_TestCase
+class CeRetentionValidatorTest extends TestCase
 {
     use ValidatorTrait;
 

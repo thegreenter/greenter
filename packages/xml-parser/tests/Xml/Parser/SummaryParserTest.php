@@ -11,8 +11,9 @@ namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Summary\Summary;
 use Greenter\Xml\Parser\SummaryParser;
+use PHPUnit\Framework\TestCase;
 
-class SummaryParserTest extends \PHPUnit_Framework_TestCase
+class SummaryParserTest extends TestCase
 {
 
     /**

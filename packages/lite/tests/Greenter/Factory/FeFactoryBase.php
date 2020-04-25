@@ -37,12 +37,13 @@ use Greenter\Xml\Builder\NoteBuilder;
 use Greenter\Xml\Builder\SummaryBuilder;
 use Greenter\Xml\Builder\VoidedBuilder;
 use Greenter\XMLSecLibs\Sunat\SignedXml;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Trait FeFactoryTrait
  * @package Tests\Greenter
  */
-class FeFactoryBase extends \PHPUnit_Framework_TestCase
+class FeFactoryBase extends TestCase
 {
     /**
      * @var FeFactory

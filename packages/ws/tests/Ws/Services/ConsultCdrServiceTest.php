@@ -8,7 +8,9 @@
 
 namespace Tests\Greenter\Ws\Services;
 
-class ConsultCdrServiceTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ConsultCdrServiceTest extends TestCase
 {
     use ConsultCdrServiceTrait;
 

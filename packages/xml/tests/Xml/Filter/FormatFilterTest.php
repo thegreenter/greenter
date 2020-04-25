@@ -3,8 +3,9 @@
 namespace Tests\Greenter\Xml\Filter;
 
 use Greenter\Xml\Filter\FormatFilter;
+use PHPUnit\Framework\TestCase;
 
-class FormatFilterTest extends \PHPUnit_Framework_TestCase
+class FormatFilterTest extends TestCase
 {
     /**
      * @var FormatFilter

@@ -10,8 +10,9 @@ use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Prepayment;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
+use PHPUnit\Framework\TestCase;
 
-class FeInvoice21ValidatorTest extends \PHPUnit_Framework_TestCase
+class FeInvoice21ValidatorTest extends TestCase
 {
     use Validator21Trait;
 

@@ -9,8 +9,9 @@
 namespace Report\Filter;
 
 use Greenter\Report\Filter\DocumentFilter;
+use PHPUnit\Framework\TestCase;
 
-class DocumentFilterTest extends \PHPUnit_Framework_TestCase
+class DocumentFilterTest extends TestCase
 {
 
     /**

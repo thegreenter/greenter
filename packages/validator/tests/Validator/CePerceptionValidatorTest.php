@@ -13,8 +13,9 @@ use Greenter\Model\Perception\Perception;
 use Greenter\Model\Perception\PerceptionDetail;
 use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
+use PHPUnit\Framework\TestCase;
 
-class CePerceptionValidatorTest extends \PHPUnit_Framework_TestCase
+class CePerceptionValidatorTest extends TestCase
 {
     use ValidatorTrait;
 

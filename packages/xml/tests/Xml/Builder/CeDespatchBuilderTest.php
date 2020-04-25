@@ -10,12 +10,13 @@ namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Data\Generator\DespatchStore;
 use Greenter\Model\Despatch\Despatch;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class CeDespatchBuilderTest
  * @package Tests\Greenter\Xml\Builder
  */
-class CeDespatchBuilderTest extends \PHPUnit_Framework_TestCase
+class CeDespatchBuilderTest extends TestCase
 {
     use CeBuilderTrait;
     use XsdValidatorTrait;

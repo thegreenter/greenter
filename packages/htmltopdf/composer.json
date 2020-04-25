@@ -17,7 +17,7 @@
         "mikehaertl/phpwkhtmltopdf": "^2.4"
     },
 	"require-dev": {
-        "phpunit/phpunit": ">=4.8 < 6.0"
+        "phpunit/phpunit": "^8"
     },
     "autoload": {
         "psr-4": {

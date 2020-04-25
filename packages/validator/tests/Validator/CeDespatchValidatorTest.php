@@ -15,8 +15,9 @@ use Greenter\Model\Despatch\Direction;
 use Greenter\Model\Despatch\Shipment;
 use Greenter\Model\Despatch\Transportist;
 use Greenter\Model\Sale\Document;
+use PHPUnit\Framework\TestCase;
 
-class CeDespatchValidatorTest extends \PHPUnit_Framework_TestCase
+class CeDespatchValidatorTest extends TestCase
 {
     use ValidatorTrait;
 

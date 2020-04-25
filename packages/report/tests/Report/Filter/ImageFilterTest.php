@@ -9,11 +9,12 @@
 namespace Tests\Greenter\Report\Filter;
 
 use Greenter\Report\Filter\ImageFilter;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ImageFilterTest
  */
-class ImageFilterTest extends \PHPUnit_Framework_TestCase
+class ImageFilterTest extends TestCase
 {
     /**
      * @var ImageFilter

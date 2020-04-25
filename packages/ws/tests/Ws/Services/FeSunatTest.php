@@ -10,11 +10,12 @@ namespace Tests\Greenter\Ws\Services;
 
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class FeSunatTest.
  */
-class FeSunatTest extends \PHPUnit_Framework_TestCase
+class FeSunatTest extends TestCase
 {
     use FeSunatTestTrait;
 

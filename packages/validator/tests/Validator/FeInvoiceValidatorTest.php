@@ -21,8 +21,9 @@ use Greenter\Model\Sale\SalePerception;
 use Greenter\Validator\SymfonyValidator;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Tests\Greenter\Validator\Listener\InvoiceListener;
+use PHPUnit\Framework\TestCase;
 
-class FeInvoiceValidatorTest extends \PHPUnit_Framework_TestCase
+class FeInvoiceValidatorTest extends TestCase
 {
     use ValidatorTrait;
 

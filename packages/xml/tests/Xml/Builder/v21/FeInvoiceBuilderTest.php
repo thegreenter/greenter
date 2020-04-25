@@ -15,8 +15,9 @@ use Greenter\Data\Generator\InvoiceIvapStore;
 use Greenter\Model\Sale\Invoice;
 use Tests\Greenter\Xml\Builder\FeBuilderTrait;
 use Tests\Greenter\Xml\Builder\XsdValidatorTrait;
+use PHPUnit\Framework\TestCase;
 
-class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
+class FeInvoiceBuilderTest extends TestCase
 {
     use FeBuilderTrait;
     use XsdValidatorTrait;

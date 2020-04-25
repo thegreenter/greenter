@@ -23,12 +23,13 @@ use Greenter\Model\Sale\SalePerception;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Validator\SymfonyValidator;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class SymfonyValidatorTest
  * @package Tests\Greenter\Validator
  */
-class SymfonyValidatorTest extends \PHPUnit_Framework_TestCase
+class SymfonyValidatorTest extends TestCase
 {
     public function testInvoiceValidate()
     {

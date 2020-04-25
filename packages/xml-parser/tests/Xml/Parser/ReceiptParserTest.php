@@ -10,8 +10,9 @@ namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Sale\Receipt;
 use Greenter\Xml\Parser\ReceiptParser;
+use PHPUnit\Framework\TestCase;
 
-class ReceiptParserTest extends \PHPUnit_Framework_TestCase
+class ReceiptParserTest extends TestCase
 {
     /**
      * @dataProvider providerDocs

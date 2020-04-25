@@ -13,12 +13,13 @@ use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Builder\ServiceBuilder;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Ws\Services\WsClientInterface;
+use PHPUnit\Framework\TestCase;
 use Mockery;
 
 /**
  * Class ServiceBuilderTest.
  */
-class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
+class ServiceBuilderTest extends TestCase
 {
     /**
      * @var ServiceBuilder

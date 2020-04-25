@@ -9,11 +9,12 @@
 namespace Tests\Greenter\Zip;
 
 use Greenter\Zip\ZipFly;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ZipFactoryTest.
  */
-class ZipFactoryTest extends \PHPUnit_Framework_TestCase
+class ZipFactoryTest extends TestCase
 {
     const DATA_XML = '<root>Empty</root>';
 

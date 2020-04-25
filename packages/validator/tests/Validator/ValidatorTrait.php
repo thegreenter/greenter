@@ -17,7 +17,7 @@ use Greenter\Validator\SymfonyValidator;
 /**
  * Trait ValidatorTrait
  * @package Tests\Greenter\Validator
- * @method \PHPUnit_Framework_MockObject_MockBuilder getMockBuilder($classname)
+ * @method \PHPUnit\Framework\MockObject\MockBuilder getMockBuilder(string $className)
  */
 trait ValidatorTrait
 {

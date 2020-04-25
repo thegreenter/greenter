@@ -11,12 +11,13 @@ namespace Tests\Greenter\Report;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Report\PdfReport;
 use Greenter\Report\ReportInterface;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class PdfReportTest
  * @package Tests\Greenter\Report
  */
-class PdfReportTest extends \PHPUnit_Framework_TestCase
+class PdfReportTest extends TestCase
 {
     /**
      * @var PdfReport

@@ -9,11 +9,12 @@
 namespace Tests\Greenter\Report;
 
 use Greenter\Report\XmlUtils;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class XmlUtilsTest.
  */
-class XmlUtilsTest extends \PHPUnit_Framework_TestCase
+class XmlUtilsTest extends TestCase
 {
     /**
      * @var XmlUtils

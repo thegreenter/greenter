@@ -9,9 +9,6 @@
         "ext-zip": "*",
         "ext-zlib": "*",
         "bacon/bacon-qr-code": "^2.0",
-        "greenter/core": "^2.1",
-        "greenter/ws": "^2.1",
-        "greenter/xml": "^2.1",
         "greenter/xmldsig": "^5.0",
         "mikehaertl/phpwkhtmltopdf": "^2.4",
         "symfony/validator": "^5.0",
@@ -20,7 +17,7 @@
     "require-dev": {
         "greenter/ubl-validator": "^2.0",
         "mockery/mockery": "^1.2",
-        "phpunit/phpunit": ">=4.8 < 6.0"
+        "phpunit/phpunit": "^8"
     },
     "autoload": {
         "psr-4": {

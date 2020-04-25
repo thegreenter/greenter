@@ -10,8 +10,9 @@ namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Perception\Perception;
 use Greenter\Xml\Parser\PerceptionParser;
+use PHPUnit\Framework\TestCase;
 
-class PerceptionParserTest extends \PHPUnit_Framework_TestCase
+class PerceptionParserTest extends TestCase
 {
     /**
      * @dataProvider providerDocs

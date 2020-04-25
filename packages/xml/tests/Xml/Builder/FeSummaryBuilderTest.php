@@ -11,12 +11,13 @@ namespace Tests\Greenter\Xml\Builder;
 use Greenter\Data\Generator\SummaryIcbperStore;
 use Greenter\Data\Generator\SummaryStore;
 use Greenter\Model\Summary\Summary;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class FeSummaryBuilderTest
  * @package Tests\Greenter\Xml\Builder
  */
-class FeSummaryBuilderTest extends \PHPUnit_Framework_TestCase
+class FeSummaryBuilderTest extends TestCase
 {
     use FeBuilderTrait;
     use XsdValidatorTrait;

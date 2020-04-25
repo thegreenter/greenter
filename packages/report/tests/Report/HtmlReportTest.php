@@ -17,8 +17,9 @@ use Greenter\Data\Generator\ReversionStore;
 use Greenter\Data\Generator\SummaryStore;
 use Greenter\Data\Generator\VoidedStore;
 use Greenter\Model\DocumentInterface;
+use PHPUnit\Framework\TestCase;
 
-class HtmlReportTest extends \PHPUnit_Framework_TestCase
+class HtmlReportTest extends TestCase
 {
     use HtmlReportTrait;
     use SharedBuilderTrait;

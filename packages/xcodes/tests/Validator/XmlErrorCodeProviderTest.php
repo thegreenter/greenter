@@ -11,8 +11,9 @@ namespace Tests\Greenter\Validator;
 
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Validator\XmlErrorCodeProvider;
+use PHPUnit\Framework\TestCase;
 
-class XmlErrorCodeProviderTest extends \PHPUnit_Framework_TestCase
+class XmlErrorCodeProviderTest extends TestCase
 {
     /**
      * @var ErrorCodeProviderInterface

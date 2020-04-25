@@ -10,12 +10,13 @@ namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Despatch\Despatch;
 use Greenter\Xml\Parser\DespatchParser;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class DespatchParserTest
  * @package Tests\Greenter\Xml\Parser
  */
-class DespatchParserTest extends \PHPUnit_Framework_TestCase
+class DespatchParserTest extends TestCase
 {
     /**
      * @dataProvider providerDocs

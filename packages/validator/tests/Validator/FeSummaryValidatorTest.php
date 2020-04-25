@@ -12,8 +12,9 @@ use Greenter\Model\Sale\Document;
 use Greenter\Model\Summary\SummaryDetail;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Summary\SummaryPerception;
+use PHPUnit\Framework\TestCase;
 
-class FeSummaryValidatorTest extends \PHPUnit_Framework_TestCase
+class FeSummaryValidatorTest extends TestCase
 {
     use ValidatorTrait;
 

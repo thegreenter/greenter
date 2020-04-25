@@ -18,8 +18,9 @@ use Greenter\Model\Voided\Voided;
 use Greenter\Ws\Reader\XmlReader;
 use Greenter\Ws\Resolver\TypeResolverInterface;
 use Greenter\Ws\Resolver\XmlTypeResolver;
+use PHPUnit\Framework\TestCase;
 
-class TypeResolverTest extends \PHPUnit_Framework_TestCase
+class TypeResolverTest extends TestCase
 {
     /**
      * @var TypeResolverInterface

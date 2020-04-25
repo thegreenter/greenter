@@ -12,8 +12,9 @@ use Greenter\Ws\Builder\SoapBuilder;
 use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Ws\Services\WsdlProvider;
+use PHPUnit\Framework\TestCase;
 
-class SoapBuilderTest extends \PHPUnit_Framework_TestCase
+class SoapBuilderTest extends TestCase
 {
     /**
      * @var SoapBuilder

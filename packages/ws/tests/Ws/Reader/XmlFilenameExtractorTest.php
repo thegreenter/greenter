@@ -11,8 +11,9 @@ namespace Tests\Greenter\Ws\Reader;
 use Greenter\Ws\Reader\FilenameExtractorInterface;
 use Greenter\Ws\Reader\XmlFilenameExtractor;
 use Greenter\Ws\Reader\XmlReader;
+use PHPUnit\Framework\TestCase;
 
-class XmlFilenameExtractorTest extends \PHPUnit_Framework_TestCase
+class XmlFilenameExtractorTest extends TestCase
 {
     const CBC_NS = 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2';
 

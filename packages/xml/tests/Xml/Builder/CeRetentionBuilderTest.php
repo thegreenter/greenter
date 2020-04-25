@@ -10,12 +10,13 @@ namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Data\Generator\RetentionStore;
 use Greenter\Model\Retention\Retention;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class CeRetentionBuilderTest
  * @package Tests\Greenter\Xml\Builder
  */
-class CeRetentionBuilderTest extends \PHPUnit_Framework_TestCase
+class CeRetentionBuilderTest extends TestCase
 {
     use CeBuilderTrait;
     use XsdValidatorTrait;

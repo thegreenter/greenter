@@ -18,8 +18,9 @@ use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\Voided;
 use Greenter\Report\Resolver\DefaultTemplateResolver;
 use Greenter\Report\Resolver\TemplateResolverInterface;
+use PHPUnit\Framework\TestCase;
 
-class ResolverTemplateTest extends \PHPUnit_Framework_TestCase
+class ResolverTemplateTest extends TestCase
 {
     /**
      * @var TemplateResolverInterface

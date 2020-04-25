@@ -10,12 +10,13 @@ namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Sale\Note;
 use Greenter\Xml\Parser\NoteParser;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class NoteParserTest
  * @package Tests\Greenter\Xml\Greenter\Parser
  */
-class NoteParserTest extends \PHPUnit_Framework_TestCase
+class NoteParserTest extends TestCase
 {
     public function testCreditNote()
     {

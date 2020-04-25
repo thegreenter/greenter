@@ -11,12 +11,13 @@ namespace Tests\Greenter\Xml\Builder;
 use Greenter\Data\Generator\InvoiceFullStore;
 use Greenter\Data\Generator\InvoiceStore;
 use Greenter\Model\Sale\Invoice;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class FeInvoiceBuilderTest
  * @package Tests\Greenter\Xml\Builder
  */
-class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
+class FeInvoiceBuilderTest extends TestCase
 {
     use FeBuilderTrait;
     use XsdValidatorTrait;

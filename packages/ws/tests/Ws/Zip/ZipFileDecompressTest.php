@@ -11,11 +11,12 @@ namespace Tests\Greenter\Ws\Zip;
 use Greenter\Zip\DecompressInterface;
 use Greenter\Zip\ZipFileDecompress;
 use Greenter\Zip\ZipFly;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ZipFileDecompressTest.
  */
-class ZipFileDecompressTest extends \PHPUnit_Framework_TestCase
+class ZipFileDecompressTest extends TestCase
 {
     /**
      * @var DecompressInterface

@@ -13,8 +13,9 @@ use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
+use PHPUnit\Framework\TestCase;
 
-class FeNoteValidator21Test extends \PHPUnit_Framework_TestCase
+class FeNoteValidator21Test extends TestCase
 {
     use Validator21Trait;
 
