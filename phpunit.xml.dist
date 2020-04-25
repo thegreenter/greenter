@@ -1,8 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <phpunit
-    bootstrap="vendor/autoload.php"
-    colors="true"
-    verbose="true"
->
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/8.0/phpunit.xsd"
+        bootstrap="vendor/autoload.php"
+        colors="true"
+        verbose="true"
+    >
     <testsuite name="all">
         <directory>packages/**/tests</directory>
     </testsuite>
