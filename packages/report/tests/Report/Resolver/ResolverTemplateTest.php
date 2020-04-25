@@ -27,7 +27,7 @@ class ResolverTemplateTest extends TestCase
      */
     private $resolver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->resolver = new DefaultTemplateResolver();
     }
@@ -43,10 +43,11 @@ class ResolverTemplateTest extends TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @throws \Exception
      */
     public function testNotFoundTemplate()
     {
+        $this->expectException(\Exception::class);
         $this->resolver->getTemplate(new \stdClass());
     }
 

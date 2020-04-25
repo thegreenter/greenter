@@ -21,7 +21,7 @@ class XmlUtilsTest extends TestCase
      */
     private $utils;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->utils = new XmlUtils();
     }

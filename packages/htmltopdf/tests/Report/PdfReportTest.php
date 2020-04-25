@@ -24,7 +24,7 @@ class PdfReportTest extends TestCase
      */
     private $pdf;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $htmlRender = $this->getHtmlRender();
         $this->pdf = new PdfReport($htmlRender);
@@ -82,7 +82,7 @@ class PdfReportTest extends TestCase
                 ->getMock();
 
         $stub->method('render')
-                ->willReturnCallback(function ($doc, $params) {
+                ->willReturnCallback(function ($_, $params) {
                     $filename = 'invoice.html';
                     if (isset($params['name'])) {
                         $filename = $params['name'];

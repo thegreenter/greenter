@@ -38,7 +38,7 @@ class SeeFeTest extends FeFactoryBase
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'aceptada',
             $result->getCdrResponse()->getDescription()
         );
@@ -71,6 +71,7 @@ class SeeFeTest extends FeFactoryBase
 
         if ($result->getCode() === '0127')
         {
+            $this->assertTrue(true);
             return;
         }
 
@@ -78,7 +79,7 @@ class SeeFeTest extends FeFactoryBase
         $this->assertNull($result->getError());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertEquals('0', $result->getCdrResponse()->getCode());
-        $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
+        $this->assertStringContainsString('aceptada', $result->getCdrResponse()->getDescription());
     }
 
     /**
@@ -136,7 +137,7 @@ class SeeFeTest extends FeFactoryBase
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'aceptada',
             $result->getCdrResponse()->getDescription()
         );

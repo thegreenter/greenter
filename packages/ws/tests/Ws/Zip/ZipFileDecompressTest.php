@@ -23,7 +23,7 @@ class ZipFileDecompressTest extends TestCase
      */
     private $zip;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->zip = new ZipFileDecompress();
     }

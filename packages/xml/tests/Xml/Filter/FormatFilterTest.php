@@ -12,7 +12,7 @@ class FormatFilterTest extends TestCase
      */
     private $formatter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->formatter = new FormatFilter();
     }

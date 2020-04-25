@@ -30,7 +30,7 @@ class FeSunatTest extends TestCase
         /** @var $response BillResult */
         $this->assertTrue($response->isSuccess());
         $this->assertNotNull($response->getCdrResponse());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'La Factura numero F001-00000001, ha sido aceptada',
             $response->getCdrResponse()->getDescription()
         );
@@ -50,7 +50,7 @@ class FeSunatTest extends TestCase
         /** @var $response BillResult */
         $this->assertTrue($response->isSuccess());
         $this->assertNotNull($response->getCdrResponse());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'La Factura numero F001-00000001, ha sido aceptada',
             $response->getCdrResponse()->getDescription()
         );
@@ -142,14 +142,15 @@ class FeSunatTest extends TestCase
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertEquals('0', $result->getCode());
-        $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
+        $this->assertStringContainsString('aceptada', $result->getCdrResponse()->getDescription());
     }
 
     /**
-     * @expectedException \Exception
+     * @throws \Exception
      */
     public function testGetStatusInvalidResponse()
     {
+        $this->expectException(\Exception::class);
         $wss = $this->getExtServiceMock();
         $wss->getStatus('1500523236600');
     }

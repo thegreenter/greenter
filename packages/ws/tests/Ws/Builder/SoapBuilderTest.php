@@ -21,7 +21,7 @@ class SoapBuilderTest extends TestCase
      */
     private $builder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->builder = new SoapBuilder();
         $this->builder
@@ -41,10 +41,11 @@ class SoapBuilderTest extends TestCase
     }
 
     /**
-     * @expectedException \SoapFault
+     * @throws \SoapFault
      */
     public function testCreateConsultClient()
     {
+        $this->expectException(\SoapFault::class);
         $this->builder
             ->setUrl(SunatEndpoints::FE_CONSULTA_CDR)
             ->setWsdl(WsdlProvider::getConsultPath())

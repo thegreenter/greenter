@@ -24,7 +24,7 @@ class ResolverFilterTest extends TestCase
      */
     private $legends;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->filter = new ResolveFilter();
         $this->legends = [

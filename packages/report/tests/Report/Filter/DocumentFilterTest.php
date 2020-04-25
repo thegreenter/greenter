@@ -19,7 +19,7 @@ class DocumentFilterTest extends TestCase
      */
     private $filter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->filter = new DocumentFilter();
     }

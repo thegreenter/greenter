@@ -55,7 +55,7 @@ class FeFactoryBase extends TestCase
      */
     protected $builders;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->builders = [
             Invoice::class => InvoiceBuilder::class,

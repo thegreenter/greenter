@@ -26,7 +26,7 @@ class SummaryParserTest extends TestCase
         /**@var $obj Summary */
         $obj = $this->getParser()->parse($xml);
 
-        $this->assertContains('RC', $obj->getName());
+        $this->assertStringContainsString('RC', $obj->getName());
         $this->assertRegExp('/^\d+$/', $obj->getCorrelativo());
         $this->assertNotNull($obj->getCompany());
         $this->assertGreaterThan(0, count($obj->getDetails()));

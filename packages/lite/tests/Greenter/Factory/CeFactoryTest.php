@@ -140,7 +140,7 @@ class CeFactoryTest extends CeFactoryBase
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
         $this->assertEquals('0127', $result->getError()->getCode());
-        $this->assertContains('El ticket no existe',
+        $this->assertStringContainsString('El ticket no existe',
             $result->getError()->getMessage());
     }
 }

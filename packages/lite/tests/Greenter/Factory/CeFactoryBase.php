@@ -58,7 +58,7 @@ class CeFactoryBase extends TestCase
      */
     protected $builders;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $signer = new SignedXml();
         $signer->setCertificateFromFile(__DIR__.'/../../Resources/SFSCert.pem');

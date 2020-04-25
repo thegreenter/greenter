@@ -22,7 +22,7 @@ class XmlFilenameExtractorTest extends TestCase
      */
     private $extractor;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->extractor = new XmlFilenameExtractor(new XmlReader());
     }
@@ -44,10 +44,11 @@ class XmlFilenameExtractorTest extends TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @throws \Exception
      */
     public function testUblVersionNotSupported()
     {
+        $this->expectException(\Exception::class);
         $doc = new \DOMDocument();
         $doc->load(__DIR__.'/../../Resources/20600055519-01-F001-00000001.xml');
         $doc->getElementsByTagNameNS(self::CBC_NS, 'UBLVersionID')

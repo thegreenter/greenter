@@ -27,7 +27,7 @@ class TypeResolverTest extends TestCase
      */
     private $resolver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->resolver = new XmlTypeResolver(new XmlReader());
     }

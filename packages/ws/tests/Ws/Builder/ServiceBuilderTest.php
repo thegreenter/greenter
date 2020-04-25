@@ -26,7 +26,7 @@ class ServiceBuilderTest extends TestCase
      */
     private $builder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->builder = new ServiceBuilder();
     }
@@ -52,10 +52,12 @@ class ServiceBuilderTest extends TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @throws \Exception
      */
     public function testInvalidClass()
     {
+        $this->expectException(\Exception::class);
+
         $this->builder->build(SunatEndpoints::class);
     }
 

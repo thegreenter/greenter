@@ -38,11 +38,6 @@ class HtmlReportTest extends TestCase
         $this->showResult($document->getName(), $html);
     }
 
-    /**
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
     public function testGenReportOtherTemplate()
     {
         $report = $this->getReporter();
@@ -53,11 +48,6 @@ class HtmlReportTest extends TestCase
         $this->assertNotEmpty($html);
     }
 
-    /**
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
     public function testGenVoidedReport()
     {
         $report = $this->getReporter();
