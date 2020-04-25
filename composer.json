@@ -3,19 +3,19 @@
     "description": "Facturacion Electrónica SUNAT - Perú",
     "license": "MIT",
     "require": {
-        "php": ">=5.5.9",
+        "php": "^7.2",
         "ext-dom": "*",
         "ext-soap": "*",
         "ext-zip": "*",
         "ext-zlib": "*",
-        "bacon/bacon-qr-code": "^1.0",
+        "bacon/bacon-qr-code": "^2.0",
         "greenter/core": "^2.1",
         "greenter/ws": "^2.1",
         "greenter/xml": "^2.1",
         "greenter/xmldsig": "^5.0",
-        "mikehaertl/phpwkhtmltopdf": "^2.3",
-        "symfony/validator": "^3.4",
-        "twig/twig": "~1.0 || ~2.0 || ~3.0"
+        "mikehaertl/phpwkhtmltopdf": "^2.4",
+        "symfony/validator": "^5.0",
+        "twig/twig": "~3.0"
     },
     "require-dev": {
         "greenter/ubl-validator": "^2.0",
