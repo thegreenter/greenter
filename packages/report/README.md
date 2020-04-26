@@ -50,7 +50,7 @@ echo $html;
 - [x] Resumen diario de Reversiones
 
 ## Features
-- Generación de Codigo QR
+-Generación de Codigo QR
 - Logo (PNG, JPEG, GIF)
 - Obteneción del Hash de la firma digital
 - Agregar cabecera y pie de pagina personalizado

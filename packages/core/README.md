@@ -4,7 +4,7 @@
 
 Core Definitions for Greenter.
 
-## Composer
+## Install
 ```bash
 composer require greenter/core
 ```

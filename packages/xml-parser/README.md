@@ -4,7 +4,7 @@
 
 Convierte XML a clases PHP definidas en [Greenter](https://github.com/thegreenter/greenter).
 
-# Instalar
+## Instalar
 Via composer desde [packagist.org](https://packagist.org/packages/greenter/xml-parser)
 
 ```bash
@@ -23,7 +23,7 @@ $invoice = $parser->parse($xml); // get an invoice.
 var_dump($invoice);
 ```
 
-# Documentos Soportados
+## Documentos Soportados
 
 - Factura Electrónica (UBL 2.0)
 - Boleta Electrónica (UBL 2.0)

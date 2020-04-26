@@ -26,16 +26,16 @@ Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/d
 
 ### Documentos Soportados.
 
-* Factura Electrónica
-* Boleta Electrónica
-* Nota de Crédito Electrónica
-* Nota de Débito Electrónica
-* Resumen Diario de Boletas
-* Comunicación de Bajas
-* Guia Remisión Electrónica
-* Retención Electrónica
-* Percepción Electrónica
-* Resumen de Reversiones
+- Factura Electrónica
+- Boleta Electrónica
+- Nota de Crédito Electrónica
+- Nota de Débito Electrónica
+- Resumen Diario de Boletas
+- Comunicación de Bajas
+- Guia Remisión Electrónica
+- Retención Electrónica
+- Percepción Electrónica
+- Resumen de Reversiones
 
 ### Web Services
 - Envío y empaquetado de los comprobantes electrónicos

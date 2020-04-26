@@ -4,13 +4,13 @@
 
 Documents Data examples for Greenter.
 
-# Install
+## Install
 Via Composer from [packagist.org](https://packagist.org/packages/greenter/data).
 ```bash
 composer require --dev greenter/data
 ```
 
-# Ejemplo
+## Ejemplo
 
 ```php
 <?php

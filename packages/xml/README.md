@@ -9,7 +9,7 @@ Generador de XML basados en el estandar UBL v2.0, v2.1 para la eleaboración de 
 composer require greenter/xml
 ```
 
-### Lista de Comprobantes.
+## Lista de Comprobantes.
 
 Comprobante                 |  UBL 2.0           | UBL 2.1            |
 ----------------------------|:------------------:|:------------------:|
