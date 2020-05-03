@@ -2,25 +2,8 @@
 
 [![src greenter](https://img.shields.io/badge/src-greenter-brightgreen.svg)](https://github.com/thegreenter/greenter)
   
-Symfony Validator for [Greenter](https://github.com/thegreenter/greenter) (UBL v2.0, v2.1)
+Validador de entidades que representan comprobantes electrónicos. 
 
-## Install
-Using composer from [packagist.org](https://packagist.org/packages/greenter/validator)
-```bash
-composer require greenter/validator
-```
-
-## Example
-
-```php
-use Greenter\Validator\SymfonyValidator;
-
-$invoice = createInvoice();
-
-$validator = new SymfonyValidator();
-// Para UBL 2.1
-// $validator = new SymfonyValidator(null, '2.1');
-$errors = $validator->validate($invoice);
-
-var_dump($errors);
-```
+## Recursos
+- [Documentación](https://greenter.dev/)
+- [Reportar un error](https://github.com/thegreenter/greenter/issues) o enviar un [pull request](https://github.com/thegreenter/greenter/pulls) al [repositorio principal de greenter](https://github.com/thegreenter/greenter).

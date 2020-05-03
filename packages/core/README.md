@@ -2,9 +2,8 @@
 
 [![src greenter](https://img.shields.io/badge/src-greenter-brightgreen.svg)](https://github.com/thegreenter/greenter)
 
-Core Definitions for Greenter.
+Greenter Definiciones y abstracciones. 
 
-## Install
-```bash
-composer require greenter/core
-```
+## Recursos
+- [Documentación](https://greenter.dev/)
+- [Reportar un error](https://github.com/thegreenter/greenter/issues) o enviar un [pull request](https://github.com/thegreenter/greenter/pulls) al [repositorio principal de greenter](https://github.com/thegreenter/greenter).

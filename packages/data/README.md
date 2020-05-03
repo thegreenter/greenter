@@ -2,24 +2,8 @@
 
 [![src greenter](https://img.shields.io/badge/src-greenter-brightgreen.svg)](https://github.com/thegreenter/greenter)
 
-Documents Data examples for Greenter.
+Entidades de facturas como ejemplos para tests.
 
-## Install
-Via Composer from [packagist.org](https://packagist.org/packages/greenter/data).
-```bash
-composer require --dev greenter/data
-```
-
-## Ejemplo
-
-```php
-<?php
-use Greenter\Data\Generator\InvoiceStore;
-
-$factory = new \Greenter\Data\GeneratorFactory();
-$generator = $factory->create(InvoiceStore::class);
-
-$document = $generator->create();
-
-var_dump($document);
-```
+## Recursos
+- [Documentación](https://greenter.dev/)
+- [Reportar un error](https://github.com/thegreenter/greenter/issues) o enviar un [pull request](https://github.com/thegreenter/greenter/pulls) al [repositorio principal de greenter](https://github.com/thegreenter/greenter).
