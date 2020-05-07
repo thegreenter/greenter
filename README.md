@@ -1,4 +1,6 @@
 # Greenter
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter?ref=badge_shield)
+
     
 Esta libreria le permite realizar la implementación de la **Facturación Electrónica** en Perú, desde los sistemas desarrollados por el 
 contribuyente, la cual esta normado por SUNAT.   
@@ -56,3 +58,7 @@ API REST con [Lycet](https://github.com/giansalex/lycet) empleando Symfony Frame
 - [greenter/htmltopdf](https://github.com/thegreenter/htmltopdf)
 - [greenter/validator](https://github.com/thegreenter/validator)
 - [greenter/ubl-validator](https://github.com/thegreenter/ubl-validator)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter?ref=badge_large)
