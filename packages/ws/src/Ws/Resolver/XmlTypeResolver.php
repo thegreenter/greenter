@@ -2,6 +2,7 @@
 
 namespace Greenter\Ws\Resolver;
 
+use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Sale\Invoice;
@@ -44,6 +45,8 @@ class XmlTypeResolver implements TypeResolverInterface
             case 'CreditNote':
             case 'DebitNote':
                 return Note::class;
+            case 'DespatchAdvice':
+                return Despatch::class;
             case 'Perception':
                 return Perception::class;
             case 'Retention':
