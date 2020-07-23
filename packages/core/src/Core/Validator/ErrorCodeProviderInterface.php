@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Greenter\Validator;
 
 /**
@@ -10,12 +12,12 @@ interface ErrorCodeProviderInterface
     /**
      * @return array
      */
-    public function getAll();
+    public function getAll(): array;
 
     /**
      * @param string $code
      *
      * @return string
      */
-    public function getValue($code);
+    public function getValue($code): ?string;
 }

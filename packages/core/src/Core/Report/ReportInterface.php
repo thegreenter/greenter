@@ -6,6 +6,8 @@
  * Time: 19:59.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Report;
 
 use Greenter\Model\DocumentInterface;
@@ -21,5 +23,5 @@ interface ReportInterface
      *
      * @return mixed
      */
-    public function render(DocumentInterface $document, $parameters = []);
+    public function render(DocumentInterface $document, array $parameters = []);
 }

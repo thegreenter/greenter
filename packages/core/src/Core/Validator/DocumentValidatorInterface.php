@@ -6,6 +6,8 @@
  * Time: 21:58.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator;
 
 use Greenter\Model\DocumentInterface;
@@ -18,7 +20,7 @@ interface DocumentValidatorInterface
     /**
      * @param DocumentInterface $document
      *
-     * @return mixed
+     * @return object
      */
-    public function validate(DocumentInterface $document);
+    public function validate(DocumentInterface $document): ?object;
 }

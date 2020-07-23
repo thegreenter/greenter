@@ -6,6 +6,8 @@
  * Time: 09:58 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Services;
 
 use Greenter\Model\Response\BaseResult;
@@ -23,5 +25,5 @@ interface SenderInterface
      *
      * @return BaseResult
      */
-    public function send($filename, $content);
+    public function send($filename, $content): ?BaseResult;
 }

@@ -6,6 +6,8 @@
  * Time: 13:26.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Builder;
 
 use Greenter\Model\DocumentInterface;
@@ -22,5 +24,5 @@ interface BuilderInterface
      *
      * @return string Content File
      */
-    public function build(DocumentInterface $document);
+    public function build(DocumentInterface $document): ?string;
 }
