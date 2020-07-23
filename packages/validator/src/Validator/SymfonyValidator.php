@@ -47,7 +47,7 @@ class SymfonyValidator implements DocumentValidatorInterface
      *
      * @return ConstraintViolationListInterface
      */
-    public function validate(DocumentInterface $document)
+    public function validate(DocumentInterface $document): ?object
     {
         return $this->validator->validate($document);
     }
