@@ -16,7 +16,7 @@ interface FilenameExtractorInterface
     /**
      * @param \DOMDocument|string $content
      *
-     * @return string
+     * @return string|null
      */
-    public function getFilename($content);
+    public function getFilename($content): ?string;
 }

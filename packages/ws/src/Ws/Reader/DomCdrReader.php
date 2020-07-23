@@ -34,9 +34,9 @@ class DomCdrReader implements CdrReaderInterface
      *
      * @param string $xml
      *
-     * @return CdrResponse
+     * @return CdrResponse|null
      */
-    public function getCdrResponse($xml)
+    public function getCdrResponse($xml): ?CdrResponse
     {
         $this->reader->loadXpath($xml);
 

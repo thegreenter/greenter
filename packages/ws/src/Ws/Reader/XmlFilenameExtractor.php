@@ -8,6 +8,8 @@
 
 namespace Greenter\Ws\Reader;
 
+use Exception;
+
 /**
  * Class XmlFilenameExtractor.
  */
@@ -33,11 +35,11 @@ class XmlFilenameExtractor implements FilenameExtractorInterface
     /**
      * @param \DOMDocument|string $content
      *
-     * @return string
+     * @return string|null
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function getFilename($content)
+    public function getFilename($content): ?string
     {
         $doc = $this->reader->parseToDocument($content);
         $this->reader->loadXpathFromDoc($doc);
@@ -57,7 +59,7 @@ class XmlFilenameExtractor implements FilenameExtractorInterface
     /**
      * @param $nameType
      * @return null|string
-     * @throws \Exception
+     * @throws Exception
      */
     private function getRuc($nameType)
     {
@@ -74,7 +76,7 @@ class XmlFilenameExtractor implements FilenameExtractorInterface
                 return $this->reader->getValue('cac:AccountingSupplierParty/cac:Party/cac:PartyIdentification/cbc:ID');
                 break;
             default:
-                throw new \Exception("UBL version $ubl no soportada.");
+                throw new Exception("UBL version $ubl no soportada.");
         }
     }
 

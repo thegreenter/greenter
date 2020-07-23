@@ -32,9 +32,9 @@ class XmlTypeResolver implements TypeResolverInterface
     /**
      * @param \DOMDocument|string $value
      *
-     * @return string
+     * @return string|null
      */
-    public function getType($value)
+    public function getType($value): ?string
     {
         $doc = $this->reader->parseToDocument($value);
         $name = $doc->documentElement->localName;

@@ -20,7 +20,7 @@ interface CdrReaderInterface
      *
      * @param string $xml
      *
-     * @return CdrResponse
+     * @return CdrResponse|null
      */
-    public function getCdrResponse($xml);
+    public function getCdrResponse($xml): ?CdrResponse;
 }

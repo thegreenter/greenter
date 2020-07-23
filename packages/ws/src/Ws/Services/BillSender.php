@@ -8,6 +8,7 @@
 
 namespace Greenter\Ws\Services;
 
+use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Response\BillResult;
 use Greenter\Services\SenderInterface;
 
@@ -20,9 +21,9 @@ class BillSender extends BaseSunat implements SenderInterface
      * @param string $filename
      * @param string $content
      *
-     * @return BillResult
+     * @return BaseResult|null
      */
-    public function send($filename, $content)
+    public function send($filename, $content): ?BaseResult
     {
         $client = $this->getClient();
         $result = new BillResult();

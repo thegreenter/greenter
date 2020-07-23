@@ -9,7 +9,7 @@ interface TypeResolverInterface
 {
     /**
      * @param \DOMDocument|string $value
-     * @return string
+     * @return string|null
      */
-    function getType($value);
+    function getType($value): ?string;
 }

@@ -21,5 +21,5 @@ interface CompressInterface
      *
      * @return string
      */
-    public function compress($filename, $content);
+    public function compress(?string $filename, ?string $content): ?string;
 }
