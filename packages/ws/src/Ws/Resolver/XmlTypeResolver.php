@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Resolver;
 
 use Greenter\Model\Despatch\Despatch;

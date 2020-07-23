@@ -6,6 +6,8 @@
  * Time: 15:38.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Reader;
 
 use Greenter\Model\Response\CdrResponse;
@@ -22,5 +24,5 @@ interface CdrReaderInterface
      *
      * @return CdrResponse|null
      */
-    public function getCdrResponse($xml): ?CdrResponse;
+    public function getCdrResponse(?string $xml): ?CdrResponse;
 }

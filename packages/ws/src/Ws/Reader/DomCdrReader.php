@@ -6,6 +6,8 @@
  * Time: 15:40.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Reader;
 
 use Greenter\Model\Response\CdrResponse;
@@ -36,7 +38,7 @@ class DomCdrReader implements CdrReaderInterface
      *
      * @return CdrResponse|null
      */
-    public function getCdrResponse($xml): ?CdrResponse
+    public function getCdrResponse(?string $xml): ?CdrResponse
     {
         $this->reader->loadXpath($xml);
 
@@ -48,7 +50,7 @@ class DomCdrReader implements CdrReaderInterface
     /**
      * @return CdrResponse
      */
-    private function createCdr()
+    private function createCdr(): ?CdrResponse
     {
         $nodePrefix = 'cac:DocumentResponse/cac:Response/';
 
@@ -66,7 +68,7 @@ class DomCdrReader implements CdrReaderInterface
      *
      * @return string[]
      */
-    private function getNotes()
+    private function getNotes(): ?array
     {
         $xpath = $this->reader->getXpath();
 

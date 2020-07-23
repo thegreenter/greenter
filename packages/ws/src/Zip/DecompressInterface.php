@@ -6,6 +6,8 @@
  * Time: 17:40.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Zip;
 
 /**
