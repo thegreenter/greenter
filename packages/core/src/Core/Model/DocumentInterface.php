@@ -6,6 +6,8 @@
  * Time: 13:31.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model;
 
 /**
@@ -18,5 +20,5 @@ interface DocumentInterface
      *
      * @return string
      */
-    public function getName();
+    public function getName(): string;
 }
