@@ -33,7 +33,6 @@ class ShipmentLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('fecTraslado', [
             new Assert\NotBlank(),
-            new Assert\Date(),
         ]);
         $metadata->addPropertyConstraint('numContenedor', new Assert\Length(['max' => 17]));
         $metadata->addPropertyConstraint('codPuerto', new Assert\Length(['max' => 3]));
