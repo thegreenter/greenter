@@ -6,6 +6,8 @@
  * Time: 08:20
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Parser;
 
 use Greenter\Model\Client\Client;
@@ -110,8 +112,8 @@ class NoteParser implements DocumentParserInterface
                     $inv->setPerception((new SalePerception())
                         ->setCodReg($nodeId->getAttribute('schemeID'))
                         ->setMto($val)
-                        ->setMtoBase(floatval($xml->getValue('sac:ReferenceAmount', $total,0)))
-                        ->setMtoTotal(floatval($xml->getValue('sac:TotalAmount', $total,0))));
+                        ->setMtoBase(floatval($xml->getValue('sac:ReferenceAmount', $total, 0)))
+                        ->setMtoTotal(floatval($xml->getValue('sac:TotalAmount', $total, 0))));
                     break;
             }
         }
@@ -184,7 +186,7 @@ class NoteParser implements DocumentParserInterface
     private function getCompany()
     {
         $xml = $this->reader;
-        $node = $xml->getNode('cac:AccountingSupplierParty',$this->rootNode);
+        $node = $xml->getNode('cac:AccountingSupplierParty', $this->rootNode);
 
         $cl = new Company();
         $cl->setRuc($xml->getValue('cbc:CustomerAssignedAccountID', $node))
@@ -218,7 +220,6 @@ class NoteParser implements DocumentParserInterface
 
         $address = $xml->getNode('cac:Party/cac:PostalAddress', $node);
         if ($address) {
-
             return (new Address())
                 ->setDireccion($xml->getValue('cbc:StreetName', $address))
                 ->setDepartamento($xml->getValue('cbc:CityName', $address))
@@ -238,10 +239,10 @@ class NoteParser implements DocumentParserInterface
         foreach ($nodes as $node) {
             $quant = $xml->getNode('cbc:'.$nameQuant, $node);
             $det = new SaleDetail();
-            $det->setCantidad($quant->nodeValue)
+            $det->setCantidad(floatval($quant->nodeValue))
                 ->setUnidad($quant->getAttribute('unitCode'))
                 ->setMtoValorVenta($xml->getValue('cbc:LineExtensionAmount', $node))
-                ->setMtoValorUnitario($xml->getValue('cac:Price/cbc:PriceAmount',  $node))
+                ->setMtoValorUnitario($xml->getValue('cac:Price/cbc:PriceAmount', $node))
                 ->setDescripcion($xml->getValue('cac:Item/cbc:Description', $node))
                 ->setCodProducto($xml->getValue('cac:Item/cac:SellersItemIdentification/cbc:ID', $node))
                 ->setCodProdSunat($xml->getValue('cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode', $node));

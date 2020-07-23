@@ -6,6 +6,8 @@
  * Time: 05:33 PM
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Parser;
 
 use DateTime;
@@ -188,7 +190,7 @@ class DespatchParser implements DocumentParserInterface
         foreach ($nodes as $node) {
             $quantity = $xml->getNode('cbc:DeliveredQuantity', $node);
             $det = new DespatchDetail();
-            $det->setCantidad($quantity->nodeValue)
+            $det->setCantidad(floatval($quantity->nodeValue))
                 ->setUnidad($quantity->getAttribute('unitCode'))
                 ->setDescripcion($xml->getValue('cac:Item/cbc:Name', $node))
                 ->setCodigo($xml->getValue('cac:Item/cac:SellersItemIdentification/cbc:ID', $node))

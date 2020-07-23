@@ -6,6 +6,8 @@
  * Time: 08:29
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml;
 
 use DOMDocument;
@@ -57,7 +59,7 @@ class XmlReader
      * @param string $def                   Default Value
      * @return string
      */
-    public function getValue($query, DOMNode $context = null, $def = '')
+    public function getValue($query, DOMNode $context = null, $def = ''): ?string
     {
         $nodes = $this->xpath->query($query, $context);
         if ($nodes->length == 0) {
@@ -72,7 +74,7 @@ class XmlReader
      * @param DOMNode|null $context
      * @return DOMElement|null
      */
-    public function getNode($query, $context)
+    public function getNode($query, $context): ?DOMElement
     {
         $nodes = $this->xpath->query($query, $context);
         if ($nodes->length == 0) {

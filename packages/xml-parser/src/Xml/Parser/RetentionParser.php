@@ -6,6 +6,8 @@
  * Time: 01:25 PM
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Parser;
 
 use DOMElement;

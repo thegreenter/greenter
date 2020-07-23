@@ -6,6 +6,8 @@
  * Time: 21:29
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Parser;
 
 use Greenter\Model\Company\Company;
