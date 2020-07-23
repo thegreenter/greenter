@@ -22,6 +22,11 @@ composer require greenter/greenter
 ```
 Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/demo).
 
+## Documentación
+- Lee esta [guia](https://fe-primer.greenter.dev/) para conocer mas sobre facturación electrónica.
+- Empieza con este [ejemplo basico con greenter](https://greenter.dev/starter/).
+- Tienes dudas o necesitas ayuda puedes hacerlo desde [aqui](https://community.greenter.dev/).
+
 ## Caracteristicas
 
 ### Documentos Soportados.
@@ -50,7 +55,7 @@ Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/d
 - Generación de [HTML Report](https://github.com/thegreenter/report)
 - Generación de [PDF](https://github.com/thegreenter/htmltopdf)
 
-### API REST
+## API REST
 API REST con [Lycet](https://github.com/giansalex/lycet) empleando Symfony Framework.
 
 
