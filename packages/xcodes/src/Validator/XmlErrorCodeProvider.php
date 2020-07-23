@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Greenter\Validator;
 
 use DOMDocument;
@@ -59,7 +61,7 @@ class XmlErrorCodeProvider implements ErrorCodeProviderInterface
         return $nodes[0]->nodeValue;
     }
 
-    private function getXpath()
+    private function getXpath(): ?DOMXPath
     {
         $doc = new DOMDocument();
         $doc->load($this->xmlErrorFile);
