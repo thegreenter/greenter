@@ -6,6 +6,8 @@
  * Time: 22:27.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader\v21;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -29,8 +31,7 @@ class NoteLoader implements LoaderMetadataInterface
             new Assert\Length(['max' => 8]),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
-            new Assert\NotBlank(),
-            new Assert\DateTime(),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('tipoMoneda', [
             new Assert\NotBlank(),
@@ -43,43 +44,20 @@ class NoteLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\Length(['max' => 500]),
         ]);
-        $metadata->addPropertyConstraints('mtoOperGravadas', [
-            new Assert\Type(['type' => 'numeric']),
-        ]);
-        $metadata->addPropertyConstraints('mtoOperInafectas', [
-            new Assert\Type(['type' => 'numeric']),
-        ]);
-        $metadata->addPropertyConstraints('mtoOperExoneradas', [
-            new Assert\Type(['type' => 'numeric']),
-        ]);
-        $metadata->addPropertyConstraints('mtoOperGratuitas', [
-            new Assert\Type(['type' => 'numeric']),
-        ]);
-        $metadata->addPropertyConstraints('mtoOperExportacion', [
-            new Assert\Type(['type' => 'numeric']),
-        ]);
         $metadata->addPropertyConstraints('totalImpuestos', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('mtoImpVenta', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('client', [
-            new Assert\NotBlank(),
+            new Assert\NotNull(),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraints('company', [
-            new Assert\NotBlank(),
+            new Assert\NotNull(),
             new Assert\Valid(),
         ]);
-        $metadata->addPropertyConstraint('mtoIGV', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('mtoISC', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('mtoBaseIsc', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('mtoOtrosTributos', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('mtoBaseOth', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('sumOtrosCargos', new Assert\Type(['type' => 'numeric']));
         $metadata->addPropertyConstraint('details', new Assert\Valid());
         $metadata->addPropertyConstraint('legends', new Assert\Valid());
         $metadata->addPropertyConstraint('guias', new Assert\Valid());
