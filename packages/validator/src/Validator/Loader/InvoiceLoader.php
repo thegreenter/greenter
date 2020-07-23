@@ -6,6 +6,8 @@
  * Time: 10:27 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -32,36 +34,30 @@ class InvoiceLoader implements LoaderMetadataInterface
             new Assert\Regex(['pattern' => '/^[0-9]{1,8}$/', 'message' => 'G001']),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
-            new Assert\NotBlank(),
-            new Assert\DateTime(),
+            new Assert\NotNull(),
         ]);
-        $metadata->addPropertyConstraint('fecVencimiento', new Assert\Date());
         $metadata->addPropertyConstraints('tipoMoneda', [
             new Assert\NotBlank(),
             new MyAssert\Currency(),
         ]);
         $metadata->addPropertyConstraints('mtoOperGravadas', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('mtoOperInafectas', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('mtoOperExoneradas', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('mtoImpVenta', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('client', [
-            new Assert\NotBlank(),
+            new Assert\NotNull(),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraints('company', [
-            new Assert\NotBlank(),
+            new Assert\NotNull(),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraint('details', new Assert\Valid());

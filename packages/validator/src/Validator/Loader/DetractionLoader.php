@@ -6,6 +6,8 @@
  * Time: 10:09 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -17,9 +19,9 @@ class DetractionLoader implements LoaderMetadataInterface
     public function load(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraints('percent', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
-        $metadata->addPropertyConstraint('mount', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('mount', new Assert\NotNull());
     }
 }
+

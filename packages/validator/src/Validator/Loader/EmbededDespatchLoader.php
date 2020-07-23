@@ -6,6 +6,8 @@
  * Time: 05:39 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;

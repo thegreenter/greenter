@@ -6,6 +6,8 @@
  * Time: 10:38 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -25,13 +27,13 @@ class SaleDetailLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\Length(['max' => 250]),
         ]);
-        $metadata->addPropertyConstraint('cantidad', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('cantidad', new Assert\NotNull());
         $metadata->addPropertyConstraint('codProducto', new Assert\Length(['max' => 30]));
         $metadata->addPropertyConstraint('codProdSunat', new Assert\Length(['max' => 20]));
-        $metadata->addPropertyConstraint('mtoValorUnitario', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('igv', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('tipAfeIgv', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoPrecioUnitario', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoValorVenta', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('mtoValorUnitario', new Assert\NotNull());
+        $metadata->addPropertyConstraint('igv', new Assert\NotNull());
+        $metadata->addPropertyConstraint('tipAfeIgv', new Assert\NotNull());
+        $metadata->addPropertyConstraint('mtoPrecioUnitario', new Assert\NotNull());
+        $metadata->addPropertyConstraint('mtoValorVenta', new Assert\NotNull());
     }
 }
