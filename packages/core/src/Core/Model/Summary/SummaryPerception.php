@@ -6,6 +6,8 @@
  * Time: 19:37.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Summary;
 
 /**
@@ -52,7 +54,7 @@ class SummaryPerception
     /**
      * @return string
      */
-    public function getCodReg()
+    public function getCodReg(): ?string
     {
         return $this->codReg;
     }
@@ -62,7 +64,7 @@ class SummaryPerception
      *
      * @return SummaryPerception
      */
-    public function setCodReg($codReg)
+    public function setCodReg(?string $codReg): SummaryPerception
     {
         $this->codReg = $codReg;
 
@@ -72,7 +74,7 @@ class SummaryPerception
     /**
      * @return float
      */
-    public function getTasa()
+    public function getTasa(): ?float
     {
         return $this->tasa;
     }
@@ -82,7 +84,7 @@ class SummaryPerception
      *
      * @return SummaryPerception
      */
-    public function setTasa($tasa)
+    public function setTasa(?float $tasa): SummaryPerception
     {
         $this->tasa = $tasa;
 
@@ -92,7 +94,7 @@ class SummaryPerception
     /**
      * @return float
      */
-    public function getMtoBase()
+    public function getMtoBase(): ?float
     {
         return $this->mtoBase;
     }
@@ -102,7 +104,7 @@ class SummaryPerception
      *
      * @return SummaryPerception
      */
-    public function setMtoBase($mtoBase)
+    public function setMtoBase(?float $mtoBase): SummaryPerception
     {
         $this->mtoBase = $mtoBase;
 
@@ -112,7 +114,7 @@ class SummaryPerception
     /**
      * @return float
      */
-    public function getMto()
+    public function getMto(): ?float
     {
         return $this->mto;
     }
@@ -122,7 +124,7 @@ class SummaryPerception
      *
      * @return SummaryPerception
      */
-    public function setMto($mto)
+    public function setMto(?float $mto): SummaryPerception
     {
         $this->mto = $mto;
 
@@ -132,7 +134,7 @@ class SummaryPerception
     /**
      * @return float
      */
-    public function getMtoTotal()
+    public function getMtoTotal(): ?float
     {
         return $this->mtoTotal;
     }
@@ -142,7 +144,7 @@ class SummaryPerception
      *
      * @return SummaryPerception
      */
-    public function setMtoTotal($mtoTotal)
+    public function setMtoTotal(?float $mtoTotal): SummaryPerception
     {
         $this->mtoTotal = $mtoTotal;
 
