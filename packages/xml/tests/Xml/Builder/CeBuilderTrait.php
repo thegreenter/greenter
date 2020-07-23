@@ -6,6 +6,8 @@
  * Time: 01:40 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Model\Despatch\Despatch;

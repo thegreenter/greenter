@@ -6,6 +6,8 @@
  * Time: 10:40 AM.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Builder\BuilderInterface;

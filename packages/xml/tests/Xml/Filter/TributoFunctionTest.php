@@ -6,6 +6,8 @@
  * Time: 18:37
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Filter;
 
 use Greenter\Xml\Filter\TributoFunction;

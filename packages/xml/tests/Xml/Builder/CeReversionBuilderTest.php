@@ -6,6 +6,8 @@
  * Time: 20:19
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Data\Generator\ReversionStore;

@@ -6,6 +6,8 @@
  * Time: 04:14 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Builder\v21;
 
 use Greenter\Data\Generator\NoteStore;

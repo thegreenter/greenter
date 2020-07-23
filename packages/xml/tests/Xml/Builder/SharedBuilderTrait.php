@@ -6,6 +6,8 @@
  * Time: 23:26
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Data\GeneratorFactory;

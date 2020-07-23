@@ -6,6 +6,8 @@
  * Time: 12:44 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Data\Generator\SummaryIcbperStore;

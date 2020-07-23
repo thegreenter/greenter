@@ -6,6 +6,8 @@
  * Time: 03:02 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Data\Generator\PerceptionStore;

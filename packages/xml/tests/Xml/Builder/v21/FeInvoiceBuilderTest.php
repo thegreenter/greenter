@@ -6,6 +6,8 @@
  * Time: 18:05
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Builder\v21;
 
 use Greenter\Data\Generator\InvoiceDiscountStore;

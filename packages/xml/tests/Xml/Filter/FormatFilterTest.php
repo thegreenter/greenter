@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Filter;
 
 use Greenter\Xml\Filter\FormatFilter;
@@ -42,7 +44,7 @@ class FormatFilterTest extends TestCase
         $number = 432.23;
         $value = $this->formatter->numberLimit($number, 10);
 
-        $this->assertEquals($this->countDecimals($number), $this->countDecimals($value));
+        $this->assertEquals($this->countDecimals(strval($number)), $this->countDecimals($value));
     }
 
     public function getNumberDecimals()
@@ -50,8 +52,13 @@ class FormatFilterTest extends TestCase
         return [[10.4, 2], [17.22111, 1], [20.677722, 3], [30.22, 0]];
     }
 
-    private function countDecimals($number)
+    private function countDecimals(string $number)
     {
-        return strlen(substr(strrchr($number, '.'), 1));
+        $lasPosition = strrchr($number, '.');
+        if ($lasPosition === false) {
+            return 0;
+        }
+
+        return strlen(substr($lasPosition, 1));
     }
 }
