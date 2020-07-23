@@ -30,7 +30,7 @@ use Greenter\Model\Sale\SalePerception;
 use Greenter\Parser\DocumentParserInterface;
 
 /**
- * Class InvoiceParser
+ * Class InvoiceParser.
  * @package Greenter\Xml\Parser
  */
 class InvoiceParser implements DocumentParserInterface

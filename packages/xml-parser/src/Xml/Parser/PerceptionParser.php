@@ -57,10 +57,10 @@ class PerceptionParser implements DocumentParserInterface
             ->setCompany($this->getCompany())
             ->setProveedor($this->getClient())
             ->setRegimen($xml->getValue('sac:SUNATPerceptionSystemCode'))
-            ->setTasa(floatval($xml->getValue('sac:SUNATPerceptionPercent', $root, 0)))
+            ->setTasa(floatval($xml->getValue('sac:SUNATPerceptionPercent', $root, '0')))
             ->setObservacion($xml->getValue('cbc:Note'))
-            ->setImpPercibido($xml->getValue('cbc:TotalInvoiceAmount', $root, 0))
-            ->setImpCobrado(floatval($xml->getValue('sac:SUNATTotalCashed', $root, 0)))
+            ->setImpPercibido(floatval($xml->getValue('cbc:TotalInvoiceAmount', $root, '0')))
+            ->setImpCobrado(floatval($xml->getValue('sac:SUNATTotalCashed', $root, '0')))
             ->setDetails(iterator_to_array($this->getDetails()));
 
         return $perception;
@@ -82,7 +82,7 @@ class PerceptionParser implements DocumentParserInterface
     private function getCompany()
     {
         $xml = $this->reader;
-        $node = $xml->getNode('cac:AgentParty',$this->rootNode);
+        $node = $xml->getNode('cac:AgentParty', $this->rootNode);
 
         $cl = new Company();
         $cl->setRuc($xml->getValue('cac:PartyIdentification/cbc:ID', $node))
@@ -114,7 +114,6 @@ class PerceptionParser implements DocumentParserInterface
 
         $address = $xml->getNode('cac:PostalAddress', $node);
         if ($address) {
-
             return (new Address())
                 ->setDireccion($xml->getValue('cbc:StreetName', $address))
                 ->setDepartamento($xml->getValue('cbc:CityName', $address))
@@ -163,7 +162,7 @@ class PerceptionParser implements DocumentParserInterface
                 $exc = new Exchange();
                 $exc->setMonedaRef($xml->getValue('cbc:SourceCurrencyCode', $cambio))
                     ->setMonedaObj($xml->getValue('cbc:TargetCurrencyCode', $cambio))
-                    ->setFactor(floatval($xml->getValue('cbc:CalculationRate', $cambio, 0)))
+                    ->setFactor(floatval($xml->getValue('cbc:CalculationRate', $cambio, '0')))
                     ->setFecha(new DateTime($xml->getValue('cbc:Date', $cambio)));
                 $det->setTipoCambio($exc);
             }

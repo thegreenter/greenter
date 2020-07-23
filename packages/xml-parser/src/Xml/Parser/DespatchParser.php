@@ -133,7 +133,7 @@ class DespatchParser implements DocumentParserInterface
         $shp = new Shipment();
         $shp->setCodTraslado($xml->getValue('cbc:HandlingCode', $node))
             ->setDesTraslado($xml->getValue('cbc:Information', $node))
-            ->setNumBultos($xml->getValue('cbc:TotalTransportHandlingUnitQuantity', $node, 0))
+            ->setNumBultos(intval($xml->getValue('cbc:TotalTransportHandlingUnitQuantity', $node, '0')))
             ->setIndTransbordo($xml->getValue('cbc:SplitConsignmentIndicator', $node, 'false') == 'true')
             ->setNumContenedor($xml->getValue('cac:TransportHandlingUnit/cbc:ID', $node))
             ->setCodPuerto($xml->getValue('cac:FirstArrivalPortLocation/cbc:ID', $node));
