@@ -6,6 +6,8 @@
  * Time: 23:56.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Despatch;
 
 /**
@@ -28,10 +30,10 @@ class Direction
     /**
      * Direction constructor.
      *
-     * @param string $ubigueo
-     * @param string $direccion
+     * @param string|null $ubigueo
+     * @param string|null $direccion
      */
-    public function __construct($ubigueo, $direccion)
+    public function __construct(?string $ubigueo, ?string $direccion)
     {
         $this->ubigueo = $ubigueo;
         $this->direccion = $direccion;
@@ -40,7 +42,7 @@ class Direction
     /**
      * @return string
      */
-    public function getUbigueo()
+    public function getUbigueo(): ?string
     {
         return $this->ubigueo;
     }
@@ -50,7 +52,7 @@ class Direction
      *
      * @return Direction
      */
-    public function setUbigueo($ubigueo)
+    public function setUbigueo(?string $ubigueo): Direction
     {
         $this->ubigueo = $ubigueo;
 
@@ -60,7 +62,7 @@ class Direction
     /**
      * @return string
      */
-    public function getDireccion()
+    public function getDireccion(): ?string
     {
         return $this->direccion;
     }
@@ -70,7 +72,7 @@ class Direction
      *
      * @return Direction
      */
-    public function setDireccion($direccion)
+    public function setDireccion(?string $direccion): Direction
     {
         $this->direccion = $direccion;
 
