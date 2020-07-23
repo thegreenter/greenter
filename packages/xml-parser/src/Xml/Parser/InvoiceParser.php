@@ -31,7 +31,7 @@ class InvoiceParser implements DocumentParserInterface
      * @param $value
      * @return DocumentInterface
      */
-    public function parse($value)
+    public function parse(object $value): ?DocumentInterface
     {
         $xpt = $this->getXpath($value);
         $inv = new Invoice();

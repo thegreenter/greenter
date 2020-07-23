@@ -40,7 +40,7 @@ class NoteParser implements DocumentParserInterface
      * @param $value
      * @return DocumentInterface
      */
-    public function parse($value)
+    public function parse(object $value): ?DocumentInterface
     {
         $this->reader = new XmlReader();
         $xml = $this->reader;

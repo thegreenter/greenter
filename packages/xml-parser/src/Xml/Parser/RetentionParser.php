@@ -8,7 +8,7 @@
 
 namespace Greenter\Xml\Parser;
 
-
+use DOMElement;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -17,9 +17,10 @@ use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Retention\RetentionDetail;
+use Greenter\Parser\DocumentParserInterface;
 use Greenter\Xml\XmlReader;
 
-class RetentionParser
+class RetentionParser implements DocumentParserInterface
 {
     /**
      * @var XmlReader
@@ -27,7 +28,7 @@ class RetentionParser
     private $reader;
 
     /**
-     * @var \DOMElement
+     * @var DOMElement
      */
     private $rootNode;
 
@@ -35,7 +36,7 @@ class RetentionParser
      * @param $value
      * @return DocumentInterface
      */
-    public function parse($value)
+    public function parse(object $value): ?DocumentInterface
     {
         $this->load($value);
         $xml = $this->reader;
@@ -106,7 +107,6 @@ class RetentionParser
 
         $address = $xml->getNode('cac:PostalAddress', $node);
         if ($address) {
-
             return (new Address())
                 ->setDireccion($xml->getValue('cbc:StreetName', $address))
                 ->setDepartamento($xml->getValue('cbc:CityName', $address))

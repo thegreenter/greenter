@@ -38,7 +38,7 @@ class SummaryParser implements DocumentParserInterface
      *
      * @return DocumentInterface
      */
-    public function parse($value)
+    public function parse(object $value): ?DocumentInterface
     {
         $this->load($value);
         $xml = $this->reader;
