@@ -6,6 +6,8 @@
  * Time: 18:57
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Report;
 
 use Greenter\Model\Sale\Invoice;
