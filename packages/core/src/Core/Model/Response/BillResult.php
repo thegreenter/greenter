@@ -6,6 +6,8 @@
  * Time: 23:12.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Response;
 
 /**
@@ -26,7 +28,7 @@ class BillResult extends BaseResult
     /**
      * @return string
      */
-    public function getCdrZip()
+    public function getCdrZip(): ?string
     {
         return $this->cdrZip;
     }
@@ -34,9 +36,9 @@ class BillResult extends BaseResult
     /**
      * @param string $cdrZip
      *
-     * @return $this
+     * @return BillResult
      */
-    public function setCdrZip($cdrZip)
+    public function setCdrZip(?string $cdrZip): BillResult
     {
         $this->cdrZip = $cdrZip;
 
@@ -46,7 +48,7 @@ class BillResult extends BaseResult
     /**
      * @return CdrResponse
      */
-    public function getCdrResponse()
+    public function getCdrResponse(): ?CdrResponse
     {
         return $this->cdrResponse;
     }
@@ -54,9 +56,9 @@ class BillResult extends BaseResult
     /**
      * @param CdrResponse $cdrResponse
      *
-     * @return $this
+     * @return BillResult
      */
-    public function setCdrResponse($cdrResponse)
+    public function setCdrResponse(?CdrResponse $cdrResponse): BillResult
     {
         $this->cdrResponse = $cdrResponse;
 

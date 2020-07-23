@@ -6,6 +6,8 @@
  * Time: 23:19.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Response;
 
 /**
@@ -21,7 +23,7 @@ class SummaryResult extends BaseResult
     /**
      * @return string
      */
-    public function getTicket()
+    public function getTicket(): ?string
     {
         return $this->ticket;
     }
@@ -31,7 +33,7 @@ class SummaryResult extends BaseResult
      *
      * @return SummaryResult
      */
-    public function setTicket($ticket)
+    public function setTicket(?string $ticket): SummaryResult
     {
         $this->ticket = $ticket;
 
