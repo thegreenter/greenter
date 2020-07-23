@@ -6,6 +6,8 @@
  * Time: 01:21 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Model\Voided\VoidedDetail;
