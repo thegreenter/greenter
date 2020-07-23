@@ -6,6 +6,8 @@
  * Time: 10:10 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Services;
 
 use Exception;

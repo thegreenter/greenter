@@ -6,6 +6,8 @@
  * Time: 09:47 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Services;
 
 use Greenter\Ws\Header\WSSESecurityHeader;

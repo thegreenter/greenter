@@ -6,6 +6,8 @@
  * Time: 09:46 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Services;
 
 /**
