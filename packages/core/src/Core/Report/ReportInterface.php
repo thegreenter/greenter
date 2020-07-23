@@ -21,7 +21,7 @@ interface ReportInterface
      * @param DocumentInterface $document
      * @param array             $parameters
      *
-     * @return mixed
+     * @return string
      */
-    public function render(DocumentInterface $document, array $parameters = []);
+    public function render(DocumentInterface $document, array $parameters = []): ?string;
 }

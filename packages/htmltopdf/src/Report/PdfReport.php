@@ -6,6 +6,8 @@
  * Time: 18:36.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Report;
 
 use Greenter\Model\DocumentInterface;
@@ -49,7 +51,7 @@ class PdfReport implements ReportInterface
      *
      * @return string
      */
-    public function getHtml()
+    public function getHtml(): ?string
     {
         return $this->html;
     }
@@ -58,9 +60,9 @@ class PdfReport implements ReportInterface
      * @param DocumentInterface $document
      * @param array             $parameters
      *
-     * @return mixed
+     * @return string
      */
-    public function render(DocumentInterface $document, array $parameters = [])
+    public function render(DocumentInterface $document, array $parameters = []): ?string
     {
         $this->html = $this->htmlReport->render($document, $parameters);
 
@@ -80,7 +82,7 @@ class PdfReport implements ReportInterface
     /**
      * @return Pdf
      */
-    public function getExporter()
+    public function getExporter(): ?Pdf
     {
         return $this->pdfRender;
     }
@@ -88,12 +90,12 @@ class PdfReport implements ReportInterface
     /**
      * @param string $path
      */
-    public function setBinPath($path)
+    public function setBinPath(?string $path)
     {
         $this->pdfRender->binary = $path;
     }
 
-    private function buildPdf($html)
+    private function buildPdf(?string $html): ?string
     {
         $this->pdfRender->addPage($html);
 
