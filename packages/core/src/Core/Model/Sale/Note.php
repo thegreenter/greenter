@@ -34,11 +34,6 @@ class Note extends BaseSale
     private $numDocfectado;
 
     /**
-     * @var float
-     */
-    private $mtoOperGratuitas;
-
-    /**
      * @var SalePerception
      */
     private $perception;
@@ -119,26 +114,6 @@ class Note extends BaseSale
     public function setNumDocfectado($numDocfectado)
     {
         $this->numDocfectado = $numDocfectado;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoOperGratuitas()
-    {
-        return $this->mtoOperGratuitas;
-    }
-
-    /**
-     * @param float $mtoOperGratuitas
-     *
-     * @return Note
-     */
-    public function setMtoOperGratuitas($mtoOperGratuitas)
-    {
-        $this->mtoOperGratuitas = $mtoOperGratuitas;
 
         return $this;
     }

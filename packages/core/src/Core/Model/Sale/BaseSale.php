@@ -86,6 +86,16 @@ class BaseSale implements DocumentInterface
     /**
      * @var float
      */
+    private $mtoOperGratuitas;
+
+    /**
+     * @var float
+     */
+    private $mtoIGVGratuitas;
+
+    /**
+     * @var float
+     */
     protected $mtoIGV;
 
     /**
@@ -405,6 +415,46 @@ class BaseSale implements DocumentInterface
     public function setMtoOperExportacion($mtoOperExportacion)
     {
         $this->mtoOperExportacion = $mtoOperExportacion;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoOperGratuitas()
+    {
+        return $this->mtoOperGratuitas;
+    }
+
+    /**
+     * @param float $mtoOperGratuitas
+     *
+     * @return $this
+     */
+    public function setMtoOperGratuitas($mtoOperGratuitas)
+    {
+        $this->mtoOperGratuitas = $mtoOperGratuitas;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoIGVGratuitas()
+    {
+        return $this->mtoIGVGratuitas;
+    }
+
+    /**
+     * @param float $mtoIGVGratuitas
+     *
+     * @return $this
+     */
+    public function setMtoIGVGratuitas($mtoIGVGratuitas)
+    {
+        $this->mtoIGVGratuitas = $mtoIGVGratuitas;
 
         return $this;
     }
