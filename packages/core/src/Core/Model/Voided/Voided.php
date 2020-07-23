@@ -6,8 +6,11 @@
  * Time: 22:00.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Voided;
 
+use DateTimeInterface;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 
@@ -24,14 +27,14 @@ class Voided implements DocumentInterface
     /**
      * Fecha de generación de los documentos a dar baja.
      *
-     * @var \DateTimeInterface
+     * @var DateTimeInterface
      */
     protected $fecGeneracion;
 
     /**
      * Fecha de generación de la comunicación.
      *
-     * @var \DateTimeInterface
+     * @var DateTimeInterface
      */
     protected $fecComunicacion;
 
@@ -48,7 +51,7 @@ class Voided implements DocumentInterface
     /**
      * @return string
      */
-    public function getCorrelativo()
+    public function getCorrelativo(): ?string
     {
         return $this->correlativo;
     }
@@ -58,7 +61,7 @@ class Voided implements DocumentInterface
      *
      * @return $this
      */
-    public function setCorrelativo($correlativo)
+    public function setCorrelativo(?string $correlativo): Voided
     {
         $this->correlativo = $correlativo;
 
@@ -66,19 +69,19 @@ class Voided implements DocumentInterface
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return DateTimeInterface
      */
-    public function getFecGeneracion()
+    public function getFecGeneracion(): ?DateTimeInterface
     {
         return $this->fecGeneracion;
     }
 
     /**
-     * @param \DateTimeInterface $fecGeneracion
+     * @param DateTimeInterface $fecGeneracion
      *
      * @return $this
      */
-    public function setFecGeneracion(\DateTimeInterface $fecGeneracion)
+    public function setFecGeneracion(?DateTimeInterface $fecGeneracion): Voided
     {
         $this->fecGeneracion = $fecGeneracion;
 
@@ -86,19 +89,19 @@ class Voided implements DocumentInterface
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return DateTimeInterface
      */
-    public function getFecComunicacion()
+    public function getFecComunicacion(): ?DateTimeInterface
     {
         return $this->fecComunicacion;
     }
 
     /**
-     * @param \DateTimeInterface $fecComunicacion
+     * @param DateTimeInterface $fecComunicacion
      *
      * @return $this
      */
-    public function setFecComunicacion(\DateTimeInterface $fecComunicacion)
+    public function setFecComunicacion(?DateTimeInterface $fecComunicacion): Voided
     {
         $this->fecComunicacion = $fecComunicacion;
 
@@ -108,7 +111,7 @@ class Voided implements DocumentInterface
     /**
      * @return Company
      */
-    public function getCompany()
+    public function getCompany(): ?Company
     {
         return $this->company;
     }
@@ -118,7 +121,7 @@ class Voided implements DocumentInterface
      *
      * @return $this
      */
-    public function setCompany(Company $company)
+    public function setCompany(?Company $company): Voided
     {
         $this->company = $company;
 
@@ -128,7 +131,7 @@ class Voided implements DocumentInterface
     /**
      * @return VoidedDetail[]
      */
-    public function getDetails()
+    public function getDetails(): ?array
     {
         return $this->details;
     }
@@ -138,7 +141,7 @@ class Voided implements DocumentInterface
      *
      * @return $this
      */
-    public function setDetails($details)
+    public function setDetails(?array $details): Voided
     {
         $this->details = $details;
 
@@ -150,7 +153,7 @@ class Voided implements DocumentInterface
      *
      * @return string
      */
-    public function getXmlId()
+    public function getXmlId(): string
     {
         $parts = [
             'RA',
@@ -166,7 +169,7 @@ class Voided implements DocumentInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->company->getRuc().'-'.$this->getXmlId();
     }

@@ -6,6 +6,8 @@
  * Time: 22:00.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Voided;
 
 /**
@@ -36,7 +38,7 @@ class VoidedDetail
     /**
      * @return string
      */
-    public function getTipoDoc()
+    public function getTipoDoc(): ?string
     {
         return $this->tipoDoc;
     }
@@ -46,7 +48,7 @@ class VoidedDetail
      *
      * @return VoidedDetail
      */
-    public function setTipoDoc($tipoDoc)
+    public function setTipoDoc(?string $tipoDoc): VoidedDetail
     {
         $this->tipoDoc = $tipoDoc;
 
@@ -56,7 +58,7 @@ class VoidedDetail
     /**
      * @return string
      */
-    public function getSerie()
+    public function getSerie(): ?string
     {
         return $this->serie;
     }
@@ -66,7 +68,7 @@ class VoidedDetail
      *
      * @return VoidedDetail
      */
-    public function setSerie($serie)
+    public function setSerie(?string $serie): VoidedDetail
     {
         $this->serie = $serie;
 
@@ -76,7 +78,7 @@ class VoidedDetail
     /**
      * @return string
      */
-    public function getCorrelativo()
+    public function getCorrelativo(): ?string
     {
         return $this->correlativo;
     }
@@ -86,7 +88,7 @@ class VoidedDetail
      *
      * @return VoidedDetail
      */
-    public function setCorrelativo($correlativo)
+    public function setCorrelativo(?string $correlativo): VoidedDetail
     {
         $this->correlativo = $correlativo;
 
@@ -96,7 +98,7 @@ class VoidedDetail
     /**
      * @return string
      */
-    public function getDesMotivoBaja()
+    public function getDesMotivoBaja(): ?string
     {
         return $this->desMotivoBaja;
     }
@@ -106,7 +108,7 @@ class VoidedDetail
      *
      * @return VoidedDetail
      */
-    public function setDesMotivoBaja($desMotivoBaja)
+    public function setDesMotivoBaja(?string $desMotivoBaja): VoidedDetail
     {
         $this->desMotivoBaja = $desMotivoBaja;
 
