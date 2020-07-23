@@ -6,7 +6,11 @@
  * Time: 10:47 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Retention;
+
+use DateTimeInterface;
 
 /**
  * Class RetentionDetail.
@@ -30,7 +34,7 @@ class RetentionDetail
     /**
      * Fecha de Emision del documento relacionado.
      *
-     * @var \DateTime
+     * @var DateTimeInterface
      */
     private $fechaEmision;
 
@@ -58,7 +62,7 @@ class RetentionDetail
     /**
      * Fecha de Retención.
      *
-     * @var \DateTime
+     * @var DateTimeInterface
      */
     private $fechaRetencion;
 
@@ -84,7 +88,7 @@ class RetentionDetail
     /**
      * @return string
      */
-    public function getTipoDoc()
+    public function getTipoDoc(): ?string
     {
         return $this->tipoDoc;
     }
@@ -94,7 +98,7 @@ class RetentionDetail
      *
      * @return RetentionDetail
      */
-    public function setTipoDoc($tipoDoc)
+    public function setTipoDoc(?string $tipoDoc): RetentionDetail
     {
         $this->tipoDoc = $tipoDoc;
 
@@ -104,7 +108,7 @@ class RetentionDetail
     /**
      * @return string
      */
-    public function getNumDoc()
+    public function getNumDoc(): ?string
     {
         return $this->numDoc;
     }
@@ -114,7 +118,7 @@ class RetentionDetail
      *
      * @return RetentionDetail
      */
-    public function setNumDoc($numDoc)
+    public function setNumDoc(?string $numDoc): RetentionDetail
     {
         $this->numDoc = $numDoc;
 
@@ -122,19 +126,19 @@ class RetentionDetail
     }
 
     /**
-     * @return \DateTime
+     * @return DateTimeInterface
      */
-    public function getFechaEmision()
+    public function getFechaEmision(): ?DateTimeInterface
     {
         return $this->fechaEmision;
     }
 
     /**
-     * @param \DateTime $fechaEmision
+     * @param DateTimeInterface $fechaEmision
      *
      * @return RetentionDetail
      */
-    public function setFechaEmision($fechaEmision)
+    public function setFechaEmision(?DateTimeInterface $fechaEmision): RetentionDetail
     {
         $this->fechaEmision = $fechaEmision;
 
@@ -144,7 +148,7 @@ class RetentionDetail
     /**
      * @return float
      */
-    public function getImpTotal()
+    public function getImpTotal(): ?float
     {
         return $this->impTotal;
     }
@@ -154,7 +158,7 @@ class RetentionDetail
      *
      * @return RetentionDetail
      */
-    public function setImpTotal($impTotal)
+    public function setImpTotal(?float $impTotal): RetentionDetail
     {
         $this->impTotal = $impTotal;
 
@@ -164,7 +168,7 @@ class RetentionDetail
     /**
      * @return string
      */
-    public function getMoneda()
+    public function getMoneda(): ?string
     {
         return $this->moneda;
     }
@@ -174,7 +178,7 @@ class RetentionDetail
      *
      * @return RetentionDetail
      */
-    public function setMoneda($moneda)
+    public function setMoneda(?string $moneda): RetentionDetail
     {
         $this->moneda = $moneda;
 
@@ -184,7 +188,7 @@ class RetentionDetail
     /**
      * @return Payment[]
      */
-    public function getPagos()
+    public function getPagos(): ?array
     {
         return $this->pagos;
     }
@@ -194,7 +198,7 @@ class RetentionDetail
      *
      * @return RetentionDetail
      */
-    public function setPagos($pagos)
+    public function setPagos(?array $pagos): RetentionDetail
     {
         $this->pagos = $pagos;
 
@@ -202,19 +206,19 @@ class RetentionDetail
     }
 
     /**
-     * @return \DateTime
+     * @return DateTimeInterface
      */
-    public function getFechaRetencion()
+    public function getFechaRetencion(): ?DateTimeInterface
     {
         return $this->fechaRetencion;
     }
 
     /**
-     * @param \DateTime $fechaRetencion
+     * @param DateTimeInterface $fechaRetencion
      *
      * @return RetentionDetail
      */
-    public function setFechaRetencion($fechaRetencion)
+    public function setFechaRetencion(?DateTimeInterface $fechaRetencion): RetentionDetail
     {
         $this->fechaRetencion = $fechaRetencion;
 
@@ -224,7 +228,7 @@ class RetentionDetail
     /**
      * @return float
      */
-    public function getImpRetenido()
+    public function getImpRetenido(): ?float
     {
         return $this->impRetenido;
     }
@@ -234,7 +238,7 @@ class RetentionDetail
      *
      * @return RetentionDetail
      */
-    public function setImpRetenido($impRetenido)
+    public function setImpRetenido(?float $impRetenido): RetentionDetail
     {
         $this->impRetenido = $impRetenido;
 
@@ -244,7 +248,7 @@ class RetentionDetail
     /**
      * @return float
      */
-    public function getImpPagar()
+    public function getImpPagar(): ?float
     {
         return $this->impPagar;
     }
@@ -254,7 +258,7 @@ class RetentionDetail
      *
      * @return RetentionDetail
      */
-    public function setImpPagar($impPagar)
+    public function setImpPagar(?float $impPagar): RetentionDetail
     {
         $this->impPagar = $impPagar;
 
@@ -264,7 +268,7 @@ class RetentionDetail
     /**
      * @return Exchange
      */
-    public function getTipoCambio()
+    public function getTipoCambio(): ?Exchange
     {
         return $this->tipoCambio;
     }
@@ -274,7 +278,7 @@ class RetentionDetail
      *
      * @return RetentionDetail
      */
-    public function setTipoCambio($tipoCambio)
+    public function setTipoCambio(?Exchange $tipoCambio): RetentionDetail
     {
         $this->tipoCambio = $tipoCambio;
 
