@@ -18,7 +18,6 @@ use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Sale\SaleDetail;
 
-
 class NoteStore implements DocumentGeneratorInterface
 {
     /**
