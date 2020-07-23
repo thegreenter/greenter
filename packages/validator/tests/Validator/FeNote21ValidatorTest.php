@@ -15,7 +15,7 @@ use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
 use PHPUnit\Framework\TestCase;
 
-class FeNoteValidator21Test extends TestCase
+class FeNote21ValidatorTest extends TestCase
 {
     use Validator21Trait;
 
