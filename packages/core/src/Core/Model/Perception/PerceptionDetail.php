@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Greenter\Model\Perception;
 
-use DateTime;
+use DateTimeInterface;
 use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
 
@@ -36,7 +36,7 @@ class PerceptionDetail
     /**
      * Fecha de Emision del documento relacionado.
      *
-     * @var DateTime
+     * @var DateTimeInterface
      */
     private $fechaEmision;
 
@@ -64,7 +64,7 @@ class PerceptionDetail
     /**
      * Fecha de Retención.
      *
-     * @var DateTime
+     * @var DateTimeInterface
      */
     private $fechaPercepcion;
 
@@ -128,19 +128,19 @@ class PerceptionDetail
     }
 
     /**
-     * @return DateTime
+     * @return DateTimeInterface
      */
-    public function getFechaEmision(): ?DateTime
+    public function getFechaEmision(): ?DateTimeInterface
     {
         return $this->fechaEmision;
     }
 
     /**
-     * @param DateTime $fechaEmision
+     * @param DateTimeInterface $fechaEmision
      *
      * @return PerceptionDetail
      */
-    public function setFechaEmision(?DateTime $fechaEmision): PerceptionDetail
+    public function setFechaEmision(?DateTimeInterface $fechaEmision): PerceptionDetail
     {
         $this->fechaEmision = $fechaEmision;
 
@@ -208,19 +208,19 @@ class PerceptionDetail
     }
 
     /**
-     * @return DateTime
+     * @return DateTimeInterface
      */
-    public function getFechaPercepcion(): ?DateTime
+    public function getFechaPercepcion(): ?DateTimeInterface
     {
         return $this->fechaPercepcion;
     }
 
     /**
-     * @param DateTime $fechaPercepcion
+     * @param DateTimeInterface $fechaPercepcion
      *
      * @return PerceptionDetail
      */
-    public function setFechaPercepcion(?DateTime $fechaPercepcion): PerceptionDetail
+    public function setFechaPercepcion(?DateTimeInterface $fechaPercepcion): PerceptionDetail
     {
         $this->fechaPercepcion = $fechaPercepcion;
 
