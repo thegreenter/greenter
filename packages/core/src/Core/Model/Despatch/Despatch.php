@@ -319,7 +319,7 @@ class Despatch implements DocumentInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         $parts = [
             $this->company->getRuc(),
