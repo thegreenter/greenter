@@ -6,6 +6,8 @@
  * Time: 11:16 AM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Sale\Note;

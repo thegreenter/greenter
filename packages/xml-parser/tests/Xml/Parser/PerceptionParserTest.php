@@ -6,6 +6,8 @@
  * Time: 02:22 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Perception\Perception;

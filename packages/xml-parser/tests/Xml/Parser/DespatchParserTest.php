@@ -6,6 +6,8 @@
  * Time: 10:41 AM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Despatch\Despatch;

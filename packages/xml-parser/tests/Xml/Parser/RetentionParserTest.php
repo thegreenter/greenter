@@ -6,6 +6,8 @@
  * Time: 03:42 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Retention\Retention;

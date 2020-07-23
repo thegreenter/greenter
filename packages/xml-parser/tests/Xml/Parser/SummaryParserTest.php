@@ -6,8 +6,9 @@
  * Time: 12:21 PM
  */
 
-namespace Tests\Greenter\Xml\Parser;
+declare(strict_types=1);
 
+namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Summary\Summary;
 use Greenter\Xml\Parser\SummaryParser;
@@ -15,7 +16,6 @@ use PHPUnit\Framework\TestCase;
 
 class SummaryParserTest extends TestCase
 {
-
     /**
      * @dataProvider providerDocs
      * @param string $filename

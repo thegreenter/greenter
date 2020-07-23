@@ -6,6 +6,8 @@
  * Time: 21:44
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Voided\Reversion;
