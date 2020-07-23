@@ -8,7 +8,7 @@ namespace Greenter\Xml\Filter;
  */
 class FormatFilter
 {
-    public function number($number, $decimals = 2)
+    public function number($number, $decimals = 2): string
     {
         return number_format($number, $decimals, '.', '');
     }

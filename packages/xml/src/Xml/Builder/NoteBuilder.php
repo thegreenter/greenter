@@ -35,7 +35,7 @@ class NoteBuilder extends TwigBuilder implements BuilderInterface
      *
      * @return string
      */
-    public function build(DocumentInterface $document)
+    public function build(DocumentInterface $document): string
     {
         /** @var $document \Greenter\Model\Sale\Note */
         $prefix = $document->getTipoDoc() === '07' ? 'notacr' : 'notadb';

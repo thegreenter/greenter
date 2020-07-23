@@ -46,16 +46,17 @@ class TributoFunction
         return self::getByTributo($code);
     }
 
-    private static function getCode($afectacion)
+    private static function getCode($afectacion): string
     {
         $value = intval($afectacion);
 
-        if ($value === 10) return '1000';
-        if ($value === 17) return '1016';
-        if ($value === 20) return '9997';
-        if ($value === 30) return '9998';
-        if ($value === 40) return '9995';
-
-        return '9996';
+        switch ($value) {
+            case 10: return '1000';
+            case 17: return '1016';
+            case 20: return '9997';
+            case 30: return '9998';
+            case 40: return '9995';
+            default: return '9996';
+        }
     }
 }

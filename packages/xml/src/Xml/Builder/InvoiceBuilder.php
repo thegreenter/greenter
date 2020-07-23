@@ -38,7 +38,7 @@ class InvoiceBuilder extends TwigBuilder implements BuilderInterface
      *
      * @throws \Exception
      */
-    public function build(DocumentInterface $document)
+    public function build(DocumentInterface $document): string
     {
         /** @var $document Invoice */
         $template = 'invoice'.$document->getUblVersion().'.xml.twig';
