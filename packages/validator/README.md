@@ -1,6 +1,6 @@
 # Greenter Validator - Facturacion Electronica
 
-[![src greenter](https://img.shields.io/badge/src-greenter-brightgreen.svg)](https://github.com/thegreenter/greenter)
+[![src greenter](https://badgen.net/badge/icon/greenter/47A297?icon=https://rawcdn.githack.com/thegreenter/docs/f16cc8f7ce432be4478bac519a45546e655d760e/docs/img/greenter-icon-white.svg&label)](https://github.com/thegreenter/greenter)
   
 Validador de entidades que representan comprobantes electrónicos. 
 
