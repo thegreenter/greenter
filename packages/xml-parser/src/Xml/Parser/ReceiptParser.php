@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace Greenter\Xml\Parser;
 
+use DateTime;
+use DOMDocument;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -45,7 +47,7 @@ class ReceiptParser implements DocumentParserInterface
         $this->reader = new XmlReader();
         $xml = $this->reader;
 
-        if ($value instanceof \DOMDocument) {
+        if ($value instanceof DOMDocument) {
             $this->reader->loadDom($value);
         } else {
             $this->reader->loadXml($value);
@@ -57,7 +59,7 @@ class ReceiptParser implements DocumentParserInterface
         $docFac = explode('-', $xml->getValue('cbc:ID', $root));
         $receipt->setSerie($docFac[0])
             ->setCorrelativo($docFac[1])
-            ->setFechaEmision(new \DateTime($xml->getValue('cbc:IssueDate', $root)))
+            ->setFechaEmision(new DateTime($xml->getValue('cbc:IssueDate', $root)))
             ->setMontoLetras($xml->getValue('cbc:Note', $root))
             ->setPerson($this->getPerson())
             ->setReceptor($this->getClient());

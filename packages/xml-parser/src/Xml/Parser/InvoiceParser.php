@@ -10,6 +10,12 @@ declare(strict_types=1);
 
 namespace Greenter\Xml\Parser;
 
+use DateTime;
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use DOMNodeList;
+use DOMXPath;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -42,7 +48,7 @@ class InvoiceParser implements DocumentParserInterface
             ->setCorrelativo($docFac[1])
             ->setTipoDoc($this->defValue($xpt->query('/xt:Invoice/cbc:InvoiceTypeCode')))
             ->setTipoMoneda($this->defValue($xpt->query('/xt:Invoice/cbc:DocumentCurrencyCode')))
-            ->setFechaEmision(new \DateTime($this->defValue($xpt->query('/xt:Invoice/cbc:IssueDate'))))
+            ->setFechaEmision(new DateTime($this->defValue($xpt->query('/xt:Invoice/cbc:IssueDate'))))
             ->setCompany($this->getCompany($xpt))
             ->setClient($this->getClient($xpt));
 
@@ -66,20 +72,20 @@ class InvoiceParser implements DocumentParserInterface
 
     private function getXpath($value)
     {
-        if ($value instanceof \DOMDocument) {
+        if ($value instanceof DOMDocument) {
             $doc = $value;
         } else {
-            $doc = new \DOMDocument();
+            $doc = new DOMDocument();
             @$doc->loadXML($value);
         }
         $rootNamespace = $doc->documentElement->namespaceURI;
-        $xpt = new \DOMXPath($doc);
+        $xpt = new DOMXPath($doc);
         $xpt->registerNamespace('xt', $rootNamespace);
 
         return $xpt;
     }
 
-    private function defValue(\DOMNodeList $nodeList, $default = '')
+    private function defValue(DOMNodeList $nodeList, $default = '')
     {
         if ($nodeList->length == 0) {
             return $default;
@@ -88,7 +94,7 @@ class InvoiceParser implements DocumentParserInterface
         return $nodeList->item(0)->nodeValue;
     }
 
-    private function loadTotals(Invoice $inv, \DOMXPath $xpt, \DOMNode $node = null)
+    private function loadTotals(Invoice $inv, DOMXPath $xpt, DOMNode $node = null)
     {
         if (empty($node)) {
             return;
@@ -96,7 +102,7 @@ class InvoiceParser implements DocumentParserInterface
 
         $totals = $xpt->query('sac:AdditionalMonetaryTotal', $node);
         foreach ($totals as $total) {
-            /**@var $total \DOMElement*/
+            /**@var $total DOMElement*/
             $id = trim($this->defValue($xpt->query('cbc:ID', $total)));
             $val = floatval($this->defValue($xpt->query('cbc:PayableAmount', $total), 0));
             switch ($id) {
@@ -132,7 +138,7 @@ class InvoiceParser implements DocumentParserInterface
         }
     }
 
-    private function loadTributos(Invoice $inv, \DOMXPath $xpt)
+    private function loadTributos(Invoice $inv, DOMXPath $xpt)
     {
         $taxs = $xpt->query('/xt:Invoice/cac:TaxTotal');
         foreach ($taxs as $tax) {
@@ -152,24 +158,23 @@ class InvoiceParser implements DocumentParserInterface
         }
     }
 
-    private function getPrepayments(\DOMXPath $xpt)
+    private function getPrepayments(DOMXPath $xpt)
     {
         $nodes = $xpt->query('/xt:Invoice/cac:PrepaidPayment');
         if ($nodes->length == 0) {
             return;
         }
         foreach ($nodes as $node) {
+            /**@var $docRel DOMElement */
             $docRel = $xpt->query('cbc:ID', $node)->item(0);
-            $item = (new Prepayment())
+            yield (new Prepayment())
                 ->setTotal(floatval($this->defValue($xpt->query('cbc:PaidAmount', $node), 0)))
                 ->setTipoDocRel($docRel->getAttribute('schemeID'))
                 ->setNroDocRel($docRel->nodeValue);
-
-            yield $item;
         }
     }
 
-    private function getLegends(\DOMXPath $xpt, \DOMNode $node = null)
+    private function getLegends(DOMXPath $xpt, DOMNode $node = null)
     {
         if (empty($node)) {
             return;
@@ -177,16 +182,14 @@ class InvoiceParser implements DocumentParserInterface
 
         $legends = $xpt->query('sac:AdditionalProperty', $node);
         foreach ($legends as $legend) {
-            /**@var $legend \DOMElement*/
-            $leg = (new Legend())
+            /**@var $legend DOMElement*/
+            yield (new Legend())
                 ->setCode($this->defValue($xpt->query('cbc:ID', $legend)))
                 ->setValue($this->defValue($xpt->query('cbc:Value', $legend)));
-
-            yield $leg;
         }
     }
 
-    private function getClient(\DOMXPath $xp)
+    private function getClient(DOMXPath $xp)
     {
         $node = $xp->query('/xt:Invoice/cac:AccountingCustomerParty')->item(0);
 
@@ -199,7 +202,7 @@ class InvoiceParser implements DocumentParserInterface
         return $cl;
     }
 
-    private function getCompany(\DOMXPath $xp)
+    private function getCompany(DOMXPath $xp)
     {
         $node = $xp->query('/xt:Invoice/cac:AccountingSupplierParty')->item(0);
 
@@ -212,18 +215,18 @@ class InvoiceParser implements DocumentParserInterface
         return $cl;
     }
 
-    private function loadExtras(\DOMXPath $xpt, Invoice $inv)
+    private function loadExtras(DOMXPath $xpt, Invoice $inv)
     {
         $inv->setCompra($this->defValue($xpt->query('/xt:Invoice/cac:OrderReference/cbc:ID')));
         $fecVen = $this->defValue($xpt->query('/xt:Invoice/cac:PaymentMeans/cbc:PaymentDueDate'));
         if (!empty($fecVen)) {
-            $inv->setFecVencimiento(new \DateTime($fecVen));
+            $inv->setFecVencimiento(new DateTime($fecVen));
         }
 
         $inv->setGuias(iterator_to_array($this->getGuias($xpt)));
     }
 
-    private function getGuias(\DOMXPath $xpt)
+    private function getGuias(DOMXPath $xpt)
     {
         $guias = $xpt->query('/xt:Invoice/cac:DespatchDocumentReference');
         if ($guias->length == 0) {
@@ -240,11 +243,11 @@ class InvoiceParser implements DocumentParserInterface
     }
 
     /**
-     * @param \DOMXPath $xp
+     * @param DOMXPath $xp
      * @param $node
      * @return Address|null
      */
-    private function getAddress(\DOMXPath $xp, $node)
+    private function getAddress(DOMXPath $xp, $node)
     {
         $nAd = $xp->query('cac:Party/cac:PostalAddress', $node);
         if ($nAd->length > 0) {
@@ -261,11 +264,12 @@ class InvoiceParser implements DocumentParserInterface
         return null;
     }
 
-    private function getDetails(\DOMXPath $xpt)
+    private function getDetails(DOMXPath $xpt)
     {
         $nodes = $xpt->query('/xt:Invoice/cac:InvoiceLine');
 
         foreach ($nodes as $node) {
+            /**@var $quant DOMElement */
             $quant = $xpt->query('cbc:InvoicedQuantity', $node)->item(0);
             $det = new SaleDetail();
             $det->setCantidad(floatval($quant->nodeValue))

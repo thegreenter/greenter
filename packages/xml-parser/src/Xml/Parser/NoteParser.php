@@ -10,6 +10,9 @@ declare(strict_types=1);
 
 namespace Greenter\Xml\Parser;
 
+use DateTime;
+use DOMDocument;
+use DOMNode;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -47,7 +50,7 @@ class NoteParser implements DocumentParserInterface
         $this->reader = new XmlReader();
         $xml = $this->reader;
 
-        if ($value instanceof \DOMDocument) {
+        if ($value instanceof DOMDocument) {
             $this->reader->loadDom($value);
         } else {
             $this->reader->loadXml($value);
@@ -64,7 +67,7 @@ class NoteParser implements DocumentParserInterface
             ->setCorrelativo($idNum[1])
             ->setTipoDoc($isNcr ? '07' : '08')
             ->setTipoMoneda($xml->getValue('cbc:DocumentCurrencyCode', $root))
-            ->setFechaEmision(new \DateTime($xml->getValue('cbc:IssueDate', $root)))
+            ->setFechaEmision(new DateTime($xml->getValue('cbc:IssueDate', $root)))
             ->setCompany($this->getCompany())
             ->setClient($this->getClient());
 
@@ -82,7 +85,7 @@ class NoteParser implements DocumentParserInterface
         return $note;
     }
 
-    private function loadTotals(Note $inv, \DOMNode $node = null)
+    private function loadTotals(Note $inv, DOMNode $node = null)
     {
         if (empty($node)) {
             return;
@@ -141,7 +144,7 @@ class NoteParser implements DocumentParserInterface
         }
     }
 
-    private function getLegends(\DOMNode $node = null)
+    private function getLegends(DOMNode $node = null)
     {
         if (empty($node)) {
             return;

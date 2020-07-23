@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace Greenter\Xml\Parser;
 
+use DateTime;
+use DOMDocument;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Document;
@@ -49,8 +51,8 @@ class SummaryParser implements DocumentParserInterface
         $id = explode('-', $xml->getValue('cbc:ID', $root));
         $summary = new Summary();
         $summary->setCorrelativo($id[2])
-            ->setFecGeneracion(new \DateTime($xml->getValue('cbc:ReferenceDate', $root)))
-            ->setFecResumen(new \DateTime($xml->getValue('cbc:IssueDate', $root)))
+            ->setFecGeneracion(new DateTime($xml->getValue('cbc:ReferenceDate', $root)))
+            ->setFecResumen(new DateTime($xml->getValue('cbc:IssueDate', $root)))
             ->setCompany($this->getCompany())
             ->setDetails(iterator_to_array($this->getDetails()));
 
@@ -61,7 +63,7 @@ class SummaryParser implements DocumentParserInterface
     {
         $this->reader = new XmlReader();
 
-        if ($value instanceof \DOMDocument) {
+        if ($value instanceof DOMDocument) {
             $this->reader->loadDom($value);
         } else {
             $this->reader->loadXml($value);
@@ -73,7 +75,7 @@ class SummaryParser implements DocumentParserInterface
     private function getCompany()
     {
         $xml = $this->reader;
-        $node = $xml->getNode('cac:AccountingSupplierParty',$this->rootNode);
+        $node = $xml->getNode('cac:AccountingSupplierParty', $this->rootNode);
 
         $cl = new Company();
         $cl->setRuc($xml->getValue('cbc:CustomerAssignedAccountID', $node))
@@ -139,7 +141,7 @@ class SummaryParser implements DocumentParserInterface
             $taxs = $xml->getNodes('cac:TaxTotal', $node);
             foreach ($taxs as $tax) {
                 $name = trim($xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax));
-                $val = floatval($xml->getValue('cbc:TaxAmount', $tax,0));
+                $val = floatval($xml->getValue('cbc:TaxAmount', $tax, 0));
                 switch ($name) {
                     case 'IGV':
                         $det->setMtoIGV($val);
