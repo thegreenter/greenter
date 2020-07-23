@@ -6,6 +6,8 @@
  * Time: 11:43 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -25,24 +27,23 @@ class PerceptionLoader implements LoaderMetadataInterface
             new Assert\Length(['max' => 8]),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
-            new Assert\NotBlank(),
-            new Assert\DateTime(),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('company', [
-            new Assert\NotBlank(),
+            new Assert\NotNull(),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraints('proveedor', [
-            new Assert\NotBlank(),
+            new Assert\NotNull(),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraints('regimen', [
             new Assert\NotBlank(),
             new Assert\Length(['min' => 2, 'max' => 2]),
         ]);
-        $metadata->addPropertyConstraint('tasa', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('impPercibido', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('impCobrado', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('tasa', new Assert\NotNull());
+        $metadata->addPropertyConstraint('impPercibido', new Assert\NotNull());
+        $metadata->addPropertyConstraint('impCobrado', new Assert\NotNull());
         $metadata->addPropertyConstraint('observacion', new Assert\Length(['max' => 250]));
         $metadata->addPropertyConstraints('details', [
             new Assert\NotBlank(),

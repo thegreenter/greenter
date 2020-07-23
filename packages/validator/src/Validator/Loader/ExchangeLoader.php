@@ -6,6 +6,8 @@
  * Time: 11:11 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -25,10 +27,9 @@ class ExchangeLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new MyAssert\Currency(),
         ]);
-        $metadata->addPropertyConstraint('factor', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('factor', new Assert\NotNull());
         $metadata->addPropertyConstraints('fecha', [
-            new Assert\NotBlank(),
-            new Assert\Date(),
+            new Assert\NotNull()
         ]);
     }
 }

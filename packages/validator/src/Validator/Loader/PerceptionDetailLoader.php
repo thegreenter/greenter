@@ -26,10 +26,9 @@ class PerceptionDetailLoader implements LoaderMetadataInterface
             new Assert\Length(['max' => 13]),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
-            new Assert\NotBlank(),
-            new Assert\Date(),
+            new Assert\NotNull(),
         ]);
-        $metadata->addPropertyConstraint('impTotal', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('impTotal', new Assert\NotNull());
         $metadata->addPropertyConstraints('moneda', [
             new Assert\NotBlank(),
             new MyAssert\Currency(),
@@ -38,12 +37,11 @@ class PerceptionDetailLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\Valid(),
         ]);
-        $metadata->addPropertyConstraint('impCobrar', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('impCobrar', new Assert\NotNull());
         $metadata->addPropertyConstraints('fechaPercepcion', [
-            new Assert\NotBlank(),
-            new Assert\Date(),
+            new Assert\NotNull(),
         ]);
-        $metadata->addPropertyConstraint('impPercibido', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('impPercibido', new Assert\NotNull());
         $metadata->addPropertyConstraint('tipoCambio', new Assert\Valid());
     }
 }
