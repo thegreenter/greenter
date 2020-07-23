@@ -6,6 +6,8 @@
  * Time: 22:31
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Data\Generator;
 
 use DateTime;
@@ -33,7 +35,7 @@ class InvoiceDiscountStore implements DocumentGeneratorInterface
      * @return DocumentInterface
      * @throws \Exception
      */
-    function create()
+    function create(): ?DocumentInterface
     {
         $invoice = new Invoice();
         $invoice

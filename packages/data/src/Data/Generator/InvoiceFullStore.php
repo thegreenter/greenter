@@ -6,12 +6,15 @@
  * Time: 22:11
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Data\Generator;
 
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Despatch\Direction;
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Charge;
 use Greenter\Model\Sale\Detraction;
 use Greenter\Model\Sale\Document;
@@ -34,7 +37,7 @@ class InvoiceFullStore implements DocumentGeneratorInterface
         $this->shared = $shared;
     }
 
-    public function create()
+    public function create(): ?DocumentInterface
     {
         $invoice = new Invoice();
         $invoice

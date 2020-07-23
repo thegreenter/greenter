@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Greenter\Data\Generator;
 
 use DateTime;
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Summary\SummaryDetail;
 
@@ -20,7 +23,7 @@ class SummaryIcbperStore implements DocumentGeneratorInterface
         $this->shared = $shared;
     }
 
-    public function create()
+    public function create(): ?DocumentInterface
     {
         $detiail = new SummaryDetail();
         $detiail->setTipoDoc('03')

@@ -6,6 +6,8 @@
  * Time: 21:45
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Data;
 
 use Greenter\Model\Client\Client;
@@ -14,7 +16,7 @@ use Greenter\Model\Company\Company;
 
 class SharedStore
 {
-    public function getCompany()
+    public function getCompany(): ?Company
     {
         return (new Company())
             ->setRuc('20123456789')
@@ -32,7 +34,7 @@ class SharedStore
             ->setTelephone('01-234455');
     }
 
-    public function getClient()
+    public function getClient(): ?Client
     {
         $client = new Client();
         $client->setTipoDoc('6')
@@ -46,19 +48,7 @@ class SharedStore
         return $client;
     }
 
-    public function getClientPerson()
-    {
-        $client = new Client();
-        $client->setTipoDoc('1')
-            ->setNumDoc('48285071')
-            ->setRznSocial('NIPAO GUVI')
-            ->setAddress((new Address())
-                ->setDireccion('Calle fusión 453, SAN MIGUEL - LIMA - PERU'));
-
-        return $client;
-    }
-
-    public function getSeller()
+    public function getSeller(): ?Client
     {
         $client = new Client();
         $client->setTipoDoc('1')
