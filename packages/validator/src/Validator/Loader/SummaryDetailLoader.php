@@ -45,14 +45,11 @@ class SummaryDetailLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraint('docReferencia', new Assert\Valid());
         $metadata->addPropertyConstraint('percepcion', new Assert\Valid());
         $metadata->addPropertyConstraints('total', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('mtoIGV', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
-        $metadata->addPropertyConstraint('mtoIvap', new Assert\Type(['type' => 'numeric']));
         $metadata->addConstraint(new Assert\Callback([$this, 'validate']));
     }
 

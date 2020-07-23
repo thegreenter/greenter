@@ -6,6 +6,8 @@
  * Time: 11:34 AM
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -25,9 +27,9 @@ class SummaryPerceptionLoader implements LoaderMetadataInterface
                 'choices' => ['01', '02', '03'],
             ]),
         ]);
-        $metadata->addPropertyConstraint('tasa', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoBase', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mto', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoTotal', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('tasa', new Assert\NotNull());
+        $metadata->addPropertyConstraint('mtoBase', new Assert\NotNull());
+        $metadata->addPropertyConstraint('mto', new Assert\NotNull());
+        $metadata->addPropertyConstraint('mtoTotal', new Assert\NotNull());
     }
 }

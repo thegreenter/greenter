@@ -6,6 +6,8 @@
  * Time: 21:20.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use DateTime;
@@ -25,15 +27,13 @@ class SummaryLoader implements LoaderMetadataInterface
             new Assert\Length(['max' => 5]),
         ]);
         $metadata->addPropertyConstraints('fecGeneracion', [
-            new Assert\NotBlank(),
-            new Assert\Date(),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('fecResumen', [
-            new Assert\NotBlank(),
-            new Assert\Date(),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('company', [
-            new Assert\NotBlank(),
+            new Assert\NotNull(),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraints('details', [
