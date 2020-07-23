@@ -6,6 +6,8 @@
  * Time: 13:37.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Builder;
 
 use Greenter\Builder\BuilderInterface;
@@ -38,7 +40,7 @@ class InvoiceBuilder extends TwigBuilder implements BuilderInterface
      *
      * @throws \Exception
      */
-    public function build(DocumentInterface $document): string
+    public function build(DocumentInterface $document): ?string
     {
         /** @var $document Invoice */
         $template = 'invoice'.$document->getUblVersion().'.xml.twig';

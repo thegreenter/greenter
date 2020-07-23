@@ -6,6 +6,8 @@
  * Time: 19:23.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Builder;
 
 use Greenter\Xml\Filter\FormatFilter;

@@ -6,6 +6,8 @@
  * Time: 13:43.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Builder;
 
 use Greenter\Builder\BuilderInterface;

@@ -6,6 +6,8 @@
  * Time: 13:47
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Builder;
 
 use Greenter\Builder\BuilderInterface;
@@ -24,7 +26,7 @@ class PerceptionBuilder extends TwigBuilder implements BuilderInterface
      * @param DocumentInterface $document
      * @return string
      */
-    public function build(DocumentInterface $document): string
+    public function build(DocumentInterface $document): ?string
     {
         return $this->render('perception.xml.twig', $document);
     }
