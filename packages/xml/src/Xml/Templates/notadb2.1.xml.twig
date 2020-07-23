@@ -196,7 +196,7 @@
         {% if doc.mtoOperGratuitas %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGratuitas|n_format }}</cbc:TaxableAmount>
-                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoIGV|n_format }}</cbc:TaxAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoIGVGratuitas|n_format }}</cbc:TaxAmount>
                 <cac:TaxCategory>
                     <cac:TaxScheme>
                         <cbc:ID>9996</cbc:ID>
