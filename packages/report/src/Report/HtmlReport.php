@@ -56,7 +56,7 @@ class HtmlReport implements ReportInterface
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function render(DocumentInterface $document, $parameters = [])
+    public function render(DocumentInterface $document, array $parameters = [])
     {
         $html = $this->twig->render($this->template, [
             'doc' => $document,

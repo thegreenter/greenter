@@ -60,7 +60,7 @@ class PdfReport implements ReportInterface
      *
      * @return mixed
      */
-    public function render(DocumentInterface $document, $parameters = [])
+    public function render(DocumentInterface $document, array $parameters = [])
     {
         $this->html = $this->htmlReport->render($document, $parameters);
 

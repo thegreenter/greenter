@@ -16,5 +16,5 @@ interface TemplateResolverInterface
      * @param DocumentInterface $document
      * @return string
      */
-    function getTemplate($document);
+    public function getTemplate(DocumentInterface $document): ?string;
 }
