@@ -6,8 +6,9 @@
  * Time: 21:01
  */
 
-namespace Tests\Greenter\Validator;
+declare(strict_types=1);
 
+namespace Tests\Greenter\Validator;
 
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Validator\XmlErrorCodeProvider;
@@ -29,7 +30,7 @@ class XmlErrorCodeProviderTest extends TestCase
     {
         $items = $this->provider->getAll();
 
-        $this->assertEquals(1470, count($items));
+        $this->assertCount(1470, $items);
     }
 
     /**
