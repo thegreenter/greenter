@@ -6,6 +6,8 @@
  * Time: 12:27 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Report\Filter;
 
 /**
@@ -49,7 +51,7 @@ class DocumentFilter
         ]
     ];
 
-    public function getValueCatalog($value, $code)
+    public function getValueCatalog($value, $code): ?string
     {
         if (!isset($this->store[$code])) {
             return '';
