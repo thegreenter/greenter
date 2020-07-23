@@ -18,9 +18,9 @@ use Greenter\Model\DocumentInterface;
 interface DocumentParserInterface
 {
     /**
-     * @param object $value
+     * @param mixed $value
      *
      * @return DocumentInterface
      */
-    public function parse(object $value): ?DocumentInterface;
+    public function parse($value): ?DocumentInterface;
 }

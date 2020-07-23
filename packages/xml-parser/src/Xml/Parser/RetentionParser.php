@@ -40,7 +40,7 @@ class RetentionParser implements DocumentParserInterface
      * @param $value
      * @return DocumentInterface
      */
-    public function parse(object $value): ?DocumentInterface
+    public function parse($value): ?DocumentInterface
     {
         $this->load($value);
         $xml = $this->reader;
