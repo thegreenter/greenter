@@ -1,7 +1,7 @@
 {
     "name": "greenter/xml",
     "description": "XML generación de documentos electrónicos, Facturacion Electrónica SUNAT - Perú",
-    "keywords": ["greenter", "sunat", "xml", "facturacion electronica"],
+    "keywords": ["greenter", "sunat", "xml", "facturacion-electronica"],
     "license": "MIT",
     "authors": [
         {
@@ -13,11 +13,11 @@
     "type": "library",
     "require": {
 		"php": "^7.2",
-        "greenter/core": "^2.2",
+        "greenter/core": "^4.0",
         "twig/twig": "~3.0"
     },
 	"require-dev": {
-        "greenter/data": "dev-master",
+        "greenter/data": "^4.0",
         "greenter/ubl-validator": "^2.0",
         "phpunit/phpunit": "^8"
     },

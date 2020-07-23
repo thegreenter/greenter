@@ -1,7 +1,7 @@
 {
     "name": "greenter/core",
     "description": "Greenter Core",
-    "keywords": ["sunat", "greenter", "facturacion electronica"],
+    "keywords": ["sunat", "greenter", "facturacion-electronica"],
     "license": "MIT",
     "authors": [
         {

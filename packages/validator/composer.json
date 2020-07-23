@@ -1,7 +1,7 @@
 {
     "name": "greenter/validator",
     "description": "Greenter Validator - Facturacion Electrónica SUNAT - Perú",
-    "keywords": ["sunat", "greenter", "validador", "facturacion electronica"],
+    "keywords": ["sunat", "greenter", "validador", "facturacion-electronica"],
     "license": "MIT",
     "authors": [
         {
@@ -13,7 +13,7 @@
     "type": "library",
     "require": {
 		"php": "^7.2",
-        "greenter/core": "^2.2",
+        "greenter/core": "^4.0",
         "symfony/validator": "^5.0"
     },
 	"require-dev": {
