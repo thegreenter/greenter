@@ -6,6 +6,8 @@
  * Time: 15:10.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Sale;
 
 /**
@@ -41,7 +43,7 @@ class SalePerception
     /**
      * @return string
      */
-    public function getCodReg()
+    public function getCodReg(): ?string
     {
         return $this->codReg;
     }
@@ -51,7 +53,7 @@ class SalePerception
      *
      * @return SalePerception
      */
-    public function setCodReg($codReg)
+    public function setCodReg(?string $codReg): SalePerception
     {
         $this->codReg = $codReg;
 
@@ -61,7 +63,7 @@ class SalePerception
     /**
      * @return float
      */
-    public function getPorcentaje()
+    public function getPorcentaje(): ?float
     {
         return $this->porcentaje;
     }
@@ -71,16 +73,17 @@ class SalePerception
      *
      * @return SalePerception
      */
-    public function setPorcentaje($porcentaje)
+    public function setPorcentaje(?float $porcentaje): SalePerception
     {
         $this->porcentaje = $porcentaje;
+
         return $this;
     }
 
     /**
      * @return float
      */
-    public function getMtoBase()
+    public function getMtoBase(): ?float
     {
         return $this->mtoBase;
     }
@@ -90,7 +93,7 @@ class SalePerception
      *
      * @return SalePerception
      */
-    public function setMtoBase($mtoBase)
+    public function setMtoBase(?float $mtoBase): SalePerception
     {
         $this->mtoBase = $mtoBase;
 
@@ -100,7 +103,7 @@ class SalePerception
     /**
      * @return float
      */
-    public function getMto()
+    public function getMto(): ?float
     {
         return $this->mto;
     }
@@ -110,7 +113,7 @@ class SalePerception
      *
      * @return SalePerception
      */
-    public function setMto($mto)
+    public function setMto(?float $mto): SalePerception
     {
         $this->mto = $mto;
 
@@ -120,7 +123,7 @@ class SalePerception
     /**
      * @return float
      */
-    public function getMtoTotal()
+    public function getMtoTotal(): ?float
     {
         return $this->mtoTotal;
     }
@@ -130,7 +133,7 @@ class SalePerception
      *
      * @return SalePerception
      */
-    public function setMtoTotal($mtoTotal)
+    public function setMtoTotal(?float $mtoTotal): SalePerception
     {
         $this->mtoTotal = $mtoTotal;
 

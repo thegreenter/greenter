@@ -6,6 +6,8 @@
  * Time: 23:26.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Sale;
 
 use DateTimeInterface;
@@ -86,12 +88,12 @@ class BaseSale implements DocumentInterface
     /**
      * @var float
      */
-    private $mtoOperGratuitas;
+    protected $mtoOperGratuitas;
 
     /**
      * @var float
      */
-    private $mtoIGVGratuitas;
+    protected $mtoIGVGratuitas;
 
     /**
      * @var float
@@ -182,7 +184,27 @@ class BaseSale implements DocumentInterface
     /**
      * @return string
      */
-    public function getTipoDoc()
+    public function getUblVersion(): ?string
+    {
+        return $this->ublVersion;
+    }
+
+    /**
+     * @param string $ublVersion
+     *
+     * @return BaseSale
+     */
+    public function setUblVersion(?string $ublVersion): BaseSale
+    {
+        $this->ublVersion = $ublVersion;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTipoDoc(): ?string
     {
         return $this->tipoDoc;
     }
@@ -190,9 +212,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param string $tipoDoc
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setTipoDoc($tipoDoc)
+    public function setTipoDoc(?string $tipoDoc): BaseSale
     {
         $this->tipoDoc = $tipoDoc;
 
@@ -202,7 +224,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return string
      */
-    public function getSerie()
+    public function getSerie(): ?string
     {
         return $this->serie;
     }
@@ -210,9 +232,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param string $serie
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setSerie($serie)
+    public function setSerie(?string $serie): BaseSale
     {
         $this->serie = $serie;
 
@@ -222,7 +244,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return string
      */
-    public function getCorrelativo()
+    public function getCorrelativo(): ?string
     {
         return $this->correlativo;
     }
@@ -230,9 +252,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param string $correlativo
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setCorrelativo($correlativo)
+    public function setCorrelativo(?string $correlativo): BaseSale
     {
         $this->correlativo = $correlativo;
 
@@ -242,7 +264,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return DateTimeInterface
      */
-    public function getFechaEmision()
+    public function getFechaEmision(): ?DateTimeInterface
     {
         return $this->fechaEmision;
     }
@@ -250,9 +272,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param DateTimeInterface $fechaEmision
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setFechaEmision(DateTimeInterface $fechaEmision)
+    public function setFechaEmision(?DateTimeInterface $fechaEmision): BaseSale
     {
         $this->fechaEmision = $fechaEmision;
 
@@ -260,29 +282,9 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @return Client
-     */
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    /**
-     * @param Client $client
-     *
-     * @return $this
-     */
-    public function setClient($client)
-    {
-        $this->client = $client;
-
-        return $this;
-    }
-
-    /**
      * @return Company
      */
-    public function getCompany()
+    public function getCompany(): ?Company
     {
         return $this->company;
     }
@@ -290,9 +292,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param Company $company
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setCompany(Company $company)
+    public function setCompany(?Company $company): BaseSale
     {
         $this->company = $company;
 
@@ -300,9 +302,29 @@ class BaseSale implements DocumentInterface
     }
 
     /**
+     * @return Client
+     */
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param Client $client
+     *
+     * @return BaseSale
+     */
+    public function setClient(?Client $client): BaseSale
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
-    public function getTipoMoneda()
+    public function getTipoMoneda(): ?string
     {
         return $this->tipoMoneda;
     }
@@ -310,9 +332,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param string $tipoMoneda
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setTipoMoneda($tipoMoneda)
+    public function setTipoMoneda(?string $tipoMoneda): BaseSale
     {
         $this->tipoMoneda = $tipoMoneda;
 
@@ -322,7 +344,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getSumOtrosCargos()
+    public function getSumOtrosCargos(): ?float
     {
         return $this->sumOtrosCargos;
     }
@@ -330,9 +352,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $sumOtrosCargos
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setSumOtrosCargos($sumOtrosCargos)
+    public function setSumOtrosCargos(?float $sumOtrosCargos): BaseSale
     {
         $this->sumOtrosCargos = $sumOtrosCargos;
 
@@ -342,7 +364,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getMtoOperGravadas()
+    public function getMtoOperGravadas(): ?float
     {
         return $this->mtoOperGravadas;
     }
@@ -350,9 +372,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoOperGravadas
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setMtoOperGravadas($mtoOperGravadas)
+    public function setMtoOperGravadas(?float $mtoOperGravadas): BaseSale
     {
         $this->mtoOperGravadas = $mtoOperGravadas;
 
@@ -362,7 +384,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getMtoOperInafectas()
+    public function getMtoOperInafectas(): ?float
     {
         return $this->mtoOperInafectas;
     }
@@ -370,9 +392,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoOperInafectas
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setMtoOperInafectas($mtoOperInafectas)
+    public function setMtoOperInafectas(?float $mtoOperInafectas): BaseSale
     {
         $this->mtoOperInafectas = $mtoOperInafectas;
 
@@ -382,7 +404,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getMtoOperExoneradas()
+    public function getMtoOperExoneradas(): ?float
     {
         return $this->mtoOperExoneradas;
     }
@@ -390,9 +412,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoOperExoneradas
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setMtoOperExoneradas($mtoOperExoneradas)
+    public function setMtoOperExoneradas(?float $mtoOperExoneradas): BaseSale
     {
         $this->mtoOperExoneradas = $mtoOperExoneradas;
 
@@ -402,7 +424,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getMtoOperExportacion()
+    public function getMtoOperExportacion(): ?float
     {
         return $this->mtoOperExportacion;
     }
@@ -410,9 +432,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoOperExportacion
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setMtoOperExportacion($mtoOperExportacion)
+    public function setMtoOperExportacion(?float $mtoOperExportacion): BaseSale
     {
         $this->mtoOperExportacion = $mtoOperExportacion;
 
@@ -422,7 +444,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getMtoOperGratuitas()
+    public function getMtoOperGratuitas(): ?float
     {
         return $this->mtoOperGratuitas;
     }
@@ -430,9 +452,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoOperGratuitas
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setMtoOperGratuitas($mtoOperGratuitas)
+    public function setMtoOperGratuitas(?float $mtoOperGratuitas): BaseSale
     {
         $this->mtoOperGratuitas = $mtoOperGratuitas;
 
@@ -442,7 +464,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getMtoIGVGratuitas()
+    public function getMtoIGVGratuitas(): ?float
     {
         return $this->mtoIGVGratuitas;
     }
@@ -450,9 +472,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoIGVGratuitas
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setMtoIGVGratuitas($mtoIGVGratuitas)
+    public function setMtoIGVGratuitas(?float $mtoIGVGratuitas): BaseSale
     {
         $this->mtoIGVGratuitas = $mtoIGVGratuitas;
 
@@ -462,7 +484,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getMtoIGV()
+    public function getMtoIGV(): ?float
     {
         return $this->mtoIGV;
     }
@@ -470,9 +492,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoIGV
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setMtoIGV($mtoIGV)
+    public function setMtoIGV(?float $mtoIGV): BaseSale
     {
         $this->mtoIGV = $mtoIGV;
 
@@ -482,207 +504,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getMtoISC()
-    {
-        return $this->mtoISC;
-    }
-
-    /**
-     * @param float $mtoISC
-     *
-     * @return $this
-     */
-    public function setMtoISC($mtoISC)
-    {
-        $this->mtoISC = $mtoISC;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoOtrosTributos()
-    {
-        return $this->mtoOtrosTributos;
-    }
-
-    /**
-     * @param float $mtoOtrosTributos
-     *
-     * @return $this
-     */
-    public function setMtoOtrosTributos($mtoOtrosTributos)
-    {
-        $this->mtoOtrosTributos = $mtoOtrosTributos;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getIcbper()
-    {
-        return $this->icbper;
-    }
-
-    /**
-     * @param float $icbper
-     *
-     * @return $this
-     */
-    public function setIcbper($icbper)
-    {
-        $this->icbper = $icbper;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getRedondeo()
-    {
-        return $this->redondeo;
-    }
-
-    /**
-     * @param float $redondeo
-     *
-     * @return $this
-     */
-    public function setRedondeo($redondeo)
-    {
-        $this->redondeo = $redondeo;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoImpVenta()
-    {
-        return $this->mtoImpVenta;
-    }
-
-    /**
-     * @param float $mtoImpVenta
-     *
-     * @return $this
-     */
-    public function setMtoImpVenta($mtoImpVenta)
-    {
-        $this->mtoImpVenta = $mtoImpVenta;
-
-        return $this;
-    }
-
-    /**
-     * @return SaleDetail[]
-     */
-    public function getDetails()
-    {
-        return $this->details;
-    }
-
-    /**
-     * @param SaleDetail[] $details
-     *
-     * @return $this
-     */
-    public function setDetails($details)
-    {
-        $this->details = $details;
-
-        return $this;
-    }
-
-    /**
-     * @return Legend[]
-     */
-    public function getLegends()
-    {
-        return $this->legends;
-    }
-
-    /**
-     * @param Legend[] $legends
-     *
-     * @return $this
-     */
-    public function setLegends($legends)
-    {
-        $this->legends = $legends;
-
-        return $this;
-    }
-
-    /**
-     * @return Document[]
-     */
-    public function getGuias()
-    {
-        return $this->guias;
-    }
-
-    /**
-     * @param Document[] $guias
-     *
-     * @return $this
-     */
-    public function setGuias($guias)
-    {
-        $this->guias = $guias;
-
-        return $this;
-    }
-
-    /**
-     * @return Document[]
-     */
-    public function getRelDocs()
-    {
-        return $this->relDocs;
-    }
-
-    /**
-     * @param Document[] $relDocs
-     *
-     * @return $this
-     */
-    public function setRelDocs($relDocs)
-    {
-        $this->relDocs = $relDocs;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCompra()
-    {
-        return $this->compra;
-    }
-
-    /**
-     * @param string $compra
-     *
-     * @return $this
-     */
-    public function setCompra($compra)
-    {
-        $this->compra = $compra;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoBaseIvap()
+    public function getMtoBaseIvap(): ?float
     {
         return $this->mtoBaseIvap;
     }
@@ -690,9 +512,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoBaseIvap
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setMtoBaseIvap($mtoBaseIvap)
+    public function setMtoBaseIvap(?float $mtoBaseIvap): BaseSale
     {
         $this->mtoBaseIvap = $mtoBaseIvap;
 
@@ -702,7 +524,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getMtoIvap()
+    public function getMtoIvap(): ?float
     {
         return $this->mtoIvap;
     }
@@ -710,9 +532,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $mtoIvap
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setMtoIvap($mtoIvap)
+    public function setMtoIvap(?float $mtoIvap): BaseSale
     {
         $this->mtoIvap = $mtoIvap;
 
@@ -722,19 +544,17 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getMtoBaseIsc()
+    public function getMtoBaseIsc(): ?float
     {
         return $this->mtoBaseIsc;
     }
 
     /**
-     * Set Monto Base ISC.
-     *
      * @param float $mtoBaseIsc
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setMtoBaseIsc($mtoBaseIsc)
+    public function setMtoBaseIsc(?float $mtoBaseIsc): BaseSale
     {
         $this->mtoBaseIsc = $mtoBaseIsc;
 
@@ -744,19 +564,37 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getMtoBaseOth()
+    public function getMtoISC(): ?float
+    {
+        return $this->mtoISC;
+    }
+
+    /**
+     * @param float $mtoISC
+     *
+     * @return BaseSale
+     */
+    public function setMtoISC(?float $mtoISC): BaseSale
+    {
+        $this->mtoISC = $mtoISC;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoBaseOth(): ?float
     {
         return $this->mtoBaseOth;
     }
 
     /**
-     * Set Monto base otros tributos.
-     *
      * @param float $mtoBaseOth
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setMtoBaseOth($mtoBaseOth)
+    public function setMtoBaseOth(?float $mtoBaseOth): BaseSale
     {
         $this->mtoBaseOth = $mtoBaseOth;
 
@@ -766,7 +604,47 @@ class BaseSale implements DocumentInterface
     /**
      * @return float
      */
-    public function getTotalImpuestos()
+    public function getMtoOtrosTributos(): ?float
+    {
+        return $this->mtoOtrosTributos;
+    }
+
+    /**
+     * @param float $mtoOtrosTributos
+     *
+     * @return BaseSale
+     */
+    public function setMtoOtrosTributos(?float $mtoOtrosTributos): BaseSale
+    {
+        $this->mtoOtrosTributos = $mtoOtrosTributos;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getIcbper(): ?float
+    {
+        return $this->icbper;
+    }
+
+    /**
+     * @param float $icbper
+     *
+     * @return BaseSale
+     */
+    public function setIcbper(?float $icbper): BaseSale
+    {
+        $this->icbper = $icbper;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotalImpuestos(): ?float
     {
         return $this->totalImpuestos;
     }
@@ -774,9 +652,9 @@ class BaseSale implements DocumentInterface
     /**
      * @param float $totalImpuestos
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setTotalImpuestos($totalImpuestos)
+    public function setTotalImpuestos(?float $totalImpuestos): BaseSale
     {
         $this->totalImpuestos = $totalImpuestos;
 
@@ -784,21 +662,141 @@ class BaseSale implements DocumentInterface
     }
 
     /**
-     * @return string
+     * @return float
      */
-    public function getUblVersion()
+    public function getRedondeo(): ?float
     {
-        return $this->ublVersion;
+        return $this->redondeo;
     }
 
     /**
-     * @param string $ublVersion
+     * @param float $redondeo
      *
-     * @return $this
+     * @return BaseSale
      */
-    public function setUblVersion($ublVersion)
+    public function setRedondeo(?float $redondeo): BaseSale
     {
-        $this->ublVersion = $ublVersion;
+        $this->redondeo = $redondeo;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoImpVenta(): ?float
+    {
+        return $this->mtoImpVenta;
+    }
+
+    /**
+     * @param float $mtoImpVenta
+     *
+     * @return BaseSale
+     */
+    public function setMtoImpVenta(?float $mtoImpVenta): BaseSale
+    {
+        $this->mtoImpVenta = $mtoImpVenta;
+
+        return $this;
+    }
+
+    /**
+     * @return SaleDetail[]
+     */
+    public function getDetails(): ?array
+    {
+        return $this->details;
+    }
+
+    /**
+     * @param SaleDetail[] $details
+     *
+     * @return BaseSale
+     */
+    public function setDetails(?array $details): BaseSale
+    {
+        $this->details = $details;
+
+        return $this;
+    }
+
+    /**
+     * @return Legend[]
+     */
+    public function getLegends(): ?array
+    {
+        return $this->legends;
+    }
+
+    /**
+     * @param Legend[] $legends
+     *
+     * @return BaseSale
+     */
+    public function setLegends(?array $legends): BaseSale
+    {
+        $this->legends = $legends;
+
+        return $this;
+    }
+
+    /**
+     * @return Document[]
+     */
+    public function getGuias(): ?array
+    {
+        return $this->guias;
+    }
+
+    /**
+     * @param Document[] $guias
+     *
+     * @return BaseSale
+     */
+    public function setGuias(?array $guias): BaseSale
+    {
+        $this->guias = $guias;
+
+        return $this;
+    }
+
+    /**
+     * @return Document[]
+     */
+    public function getRelDocs(): ?array
+    {
+        return $this->relDocs;
+    }
+
+    /**
+     * @param Document[] $relDocs
+     *
+     * @return BaseSale
+     */
+    public function setRelDocs(?array $relDocs): BaseSale
+    {
+        $this->relDocs = $relDocs;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompra(): ?string
+    {
+        return $this->compra;
+    }
+
+    /**
+     * @param string $compra
+     *
+     * @return BaseSale
+     */
+    public function setCompra(?string $compra): BaseSale
+    {
+        $this->compra = $compra;
 
         return $this;
     }
@@ -808,7 +806,7 @@ class BaseSale implements DocumentInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         $parts = [
             $this->company->getRuc(),

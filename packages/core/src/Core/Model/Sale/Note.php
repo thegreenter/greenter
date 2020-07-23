@@ -6,6 +6,8 @@
  * Time: 21:51.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Sale;
 
 /**
@@ -41,7 +43,7 @@ class Note extends BaseSale
     /**
      * @return string
      */
-    public function getCodMotivo()
+    public function getCodMotivo(): ?string
     {
         return $this->codMotivo;
     }
@@ -51,7 +53,7 @@ class Note extends BaseSale
      *
      * @return Note
      */
-    public function setCodMotivo($codMotivo)
+    public function setCodMotivo(?string $codMotivo): Note
     {
         $this->codMotivo = $codMotivo;
 
@@ -61,7 +63,7 @@ class Note extends BaseSale
     /**
      * @return string
      */
-    public function getDesMotivo()
+    public function getDesMotivo(): ?string
     {
         return $this->desMotivo;
     }
@@ -71,7 +73,7 @@ class Note extends BaseSale
      *
      * @return Note
      */
-    public function setDesMotivo($desMotivo)
+    public function setDesMotivo(?string $desMotivo): Note
     {
         $this->desMotivo = $desMotivo;
 
@@ -81,7 +83,7 @@ class Note extends BaseSale
     /**
      * @return string
      */
-    public function getTipDocAfectado()
+    public function getTipDocAfectado(): ?string
     {
         return $this->tipDocAfectado;
     }
@@ -91,7 +93,7 @@ class Note extends BaseSale
      *
      * @return Note
      */
-    public function setTipDocAfectado($tipDocAfectado)
+    public function setTipDocAfectado(?string $tipDocAfectado): Note
     {
         $this->tipDocAfectado = $tipDocAfectado;
 
@@ -101,7 +103,7 @@ class Note extends BaseSale
     /**
      * @return string
      */
-    public function getNumDocfectado()
+    public function getNumDocfectado(): ?string
     {
         return $this->numDocfectado;
     }
@@ -111,7 +113,7 @@ class Note extends BaseSale
      *
      * @return Note
      */
-    public function setNumDocfectado($numDocfectado)
+    public function setNumDocfectado(?string $numDocfectado): Note
     {
         $this->numDocfectado = $numDocfectado;
 
@@ -121,7 +123,7 @@ class Note extends BaseSale
     /**
      * @return SalePerception
      */
-    public function getPerception()
+    public function getPerception(): ?SalePerception
     {
         return $this->perception;
     }
@@ -131,7 +133,7 @@ class Note extends BaseSale
      *
      * @return Note
      */
-    public function setPerception($perception)
+    public function setPerception(?SalePerception $perception): Note
     {
         $this->perception = $perception;
 

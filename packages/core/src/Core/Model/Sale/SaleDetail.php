@@ -6,6 +6,8 @@
  * Time: 21:05.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Sale;
 
 /**
@@ -166,7 +168,7 @@ class SaleDetail
     /**
      * @return string
      */
-    public function getUnidad()
+    public function getUnidad(): ?string
     {
         return $this->unidad;
     }
@@ -176,7 +178,7 @@ class SaleDetail
      *
      * @return SaleDetail
      */
-    public function setUnidad($unidad)
+    public function setUnidad(?string $unidad): SaleDetail
     {
         $this->unidad = $unidad;
 
@@ -186,7 +188,7 @@ class SaleDetail
     /**
      * @return float
      */
-    public function getCantidad()
+    public function getCantidad(): ?float
     {
         return $this->cantidad;
     }
@@ -196,7 +198,7 @@ class SaleDetail
      *
      * @return SaleDetail
      */
-    public function setCantidad($cantidad)
+    public function setCantidad(?float $cantidad): SaleDetail
     {
         $this->cantidad = $cantidad;
 
@@ -206,7 +208,7 @@ class SaleDetail
     /**
      * @return string
      */
-    public function getCodProducto()
+    public function getCodProducto(): ?string
     {
         return $this->codProducto;
     }
@@ -216,7 +218,7 @@ class SaleDetail
      *
      * @return SaleDetail
      */
-    public function setCodProducto($codProducto)
+    public function setCodProducto(?string $codProducto): SaleDetail
     {
         $this->codProducto = $codProducto;
 
@@ -226,7 +228,7 @@ class SaleDetail
     /**
      * @return string
      */
-    public function getCodProdSunat()
+    public function getCodProdSunat(): ?string
     {
         return $this->codProdSunat;
     }
@@ -236,7 +238,7 @@ class SaleDetail
      *
      * @return SaleDetail
      */
-    public function setCodProdSunat($codProdSunat)
+    public function setCodProdSunat(?string $codProdSunat): SaleDetail
     {
         $this->codProdSunat = $codProdSunat;
 
@@ -246,7 +248,7 @@ class SaleDetail
     /**
      * @return string
      */
-    public function getCodProdGS1()
+    public function getCodProdGS1(): ?string
     {
         return $this->codProdGS1;
     }
@@ -256,7 +258,7 @@ class SaleDetail
      *
      * @return SaleDetail
      */
-    public function setCodProdGS1($codProdGS1)
+    public function setCodProdGS1(?string $codProdGS1): SaleDetail
     {
         $this->codProdGS1 = $codProdGS1;
 
@@ -266,7 +268,7 @@ class SaleDetail
     /**
      * @return string
      */
-    public function getDescripcion()
+    public function getDescripcion(): ?string
     {
         return $this->descripcion;
     }
@@ -276,7 +278,7 @@ class SaleDetail
      *
      * @return SaleDetail
      */
-    public function setDescripcion($descripcion)
+    public function setDescripcion(?string $descripcion): SaleDetail
     {
         $this->descripcion = $descripcion;
 
@@ -286,7 +288,7 @@ class SaleDetail
     /**
      * @return float
      */
-    public function getMtoValorUnitario()
+    public function getMtoValorUnitario(): ?float
     {
         return $this->mtoValorUnitario;
     }
@@ -296,7 +298,7 @@ class SaleDetail
      *
      * @return SaleDetail
      */
-    public function setMtoValorUnitario($mtoValorUnitario)
+    public function setMtoValorUnitario(?float $mtoValorUnitario): SaleDetail
     {
         $this->mtoValorUnitario = $mtoValorUnitario;
 
@@ -304,371 +306,9 @@ class SaleDetail
     }
 
     /**
-     * @return float
-     */
-    public function getDescuento()
-    {
-        return $this->descuento;
-    }
-
-    /**
-     * @deprecated UBL 2.1
-     *
-     * @param float $descuento
-     *
-     * @return SaleDetail
-     */
-    public function setDescuento($descuento)
-    {
-        $this->descuento = $descuento;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getIgv()
-    {
-        return $this->igv;
-    }
-
-    /**
-     * @param float $igv
-     *
-     * @return SaleDetail
-     */
-    public function setIgv($igv)
-    {
-        $this->igv = $igv;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTipAfeIgv()
-    {
-        return $this->tipAfeIgv;
-    }
-
-    /**
-     * @param string $tipAfeIgv
-     *
-     * @return SaleDetail
-     */
-    public function setTipAfeIgv($tipAfeIgv)
-    {
-        $this->tipAfeIgv = $tipAfeIgv;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getIsc()
-    {
-        return $this->isc;
-    }
-
-    /**
-     * @param float $isc
-     *
-     * @return SaleDetail
-     */
-    public function setIsc($isc)
-    {
-        $this->isc = $isc;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTipSisIsc()
-    {
-        return $this->tipSisIsc;
-    }
-
-    /**
-     * @param string $tipSisIsc
-     *
-     * @return SaleDetail
-     */
-    public function setTipSisIsc($tipSisIsc)
-    {
-        $this->tipSisIsc = $tipSisIsc;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getTotalImpuestos()
-    {
-        return $this->totalImpuestos;
-    }
-
-    /**
-     * @param float $totalImpuestos
-     *
-     * @return SaleDetail
-     */
-    public function setTotalImpuestos($totalImpuestos)
-    {
-        $this->totalImpuestos = $totalImpuestos;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getIcbper()
-    {
-        return $this->icbper;
-    }
-
-    /**
-     * @param float $icbper
-     *
-     * @return SaleDetail
-     */
-    public function setIcbper($icbper)
-    {
-        $this->icbper = $icbper;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getFactorIcbper()
-    {
-        return $this->factorIcbper;
-    }
-
-    /**
-     * @param float $factorIcbper
-     *
-     * @return SaleDetail
-     */
-    public function setFactorIcbper($factorIcbper)
-    {
-        $this->factorIcbper = $factorIcbper;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoPrecioUnitario()
-    {
-        return $this->mtoPrecioUnitario;
-    }
-
-    /**
-     * @param float $mtoPrecioUnitario
-     *
-     * @return SaleDetail
-     */
-    public function setMtoPrecioUnitario($mtoPrecioUnitario)
-    {
-        $this->mtoPrecioUnitario = $mtoPrecioUnitario;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoValorVenta()
-    {
-        return $this->mtoValorVenta;
-    }
-
-    /**
-     * @param float $mtoValorVenta
-     *
-     * @return SaleDetail
-     */
-    public function setMtoValorVenta($mtoValorVenta)
-    {
-        $this->mtoValorVenta = $mtoValorVenta;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoValorGratuito()
-    {
-        return $this->mtoValorGratuito;
-    }
-
-    /**
-     * @param float $mtoValorGratuito
-     *
-     * @return SaleDetail
-     */
-    public function setMtoValorGratuito($mtoValorGratuito)
-    {
-        $this->mtoValorGratuito = $mtoValorGratuito;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoBaseIgv()
-    {
-        return $this->mtoBaseIgv;
-    }
-
-    /**
-     * @param float $mtoBaseIgv
-     *
-     * @return SaleDetail
-     */
-    public function setMtoBaseIgv($mtoBaseIgv)
-    {
-        $this->mtoBaseIgv = $mtoBaseIgv;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPorcentajeIgv()
-    {
-        return $this->porcentajeIgv;
-    }
-
-    /**
-     * @param float $porcentajeIgv
-     *
-     * @return SaleDetail
-     */
-    public function setPorcentajeIgv($porcentajeIgv)
-    {
-        $this->porcentajeIgv = $porcentajeIgv;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoBaseIsc()
-    {
-        return $this->mtoBaseIsc;
-    }
-
-    /**
-     * @param float $mtoBaseIsc
-     *
-     * @return SaleDetail
-     */
-    public function setMtoBaseIsc($mtoBaseIsc)
-    {
-        $this->mtoBaseIsc = $mtoBaseIsc;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPorcentajeIsc()
-    {
-        return $this->porcentajeIsc;
-    }
-
-    /**
-     * @param float $porcentajeIsc
-     *
-     * @return SaleDetail
-     */
-    public function setPorcentajeIsc($porcentajeIsc)
-    {
-        $this->porcentajeIsc = $porcentajeIsc;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoBaseOth()
-    {
-        return $this->mtoBaseOth;
-    }
-
-    /**
-     * @param float $mtoBaseOth
-     *
-     * @return SaleDetail
-     */
-    public function setMtoBaseOth($mtoBaseOth)
-    {
-        $this->mtoBaseOth = $mtoBaseOth;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getPorcentajeOth()
-    {
-        return $this->porcentajeOth;
-    }
-
-    /**
-     * @param float $porcentajeOth
-     *
-     * @return SaleDetail
-     */
-    public function setPorcentajeOth($porcentajeOth)
-    {
-        $this->porcentajeOth = $porcentajeOth;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getOtroTributo()
-    {
-        return $this->otroTributo;
-    }
-
-    /**
-     * @param float $otroTributo
-     *
-     * @return SaleDetail
-     */
-    public function setOtroTributo($otroTributo)
-    {
-        $this->otroTributo = $otroTributo;
-
-        return $this;
-    }
-
-    /**
      * @return Charge[]
      */
-    public function getCargos()
+    public function getCargos(): ?array
     {
         return $this->cargos;
     }
@@ -678,7 +318,7 @@ class SaleDetail
      *
      * @return SaleDetail
      */
-    public function setCargos($cargos)
+    public function setCargos(?array $cargos): SaleDetail
     {
         $this->cargos = $cargos;
 
@@ -688,7 +328,7 @@ class SaleDetail
     /**
      * @return Charge[]
      */
-    public function getDescuentos()
+    public function getDescuentos(): ?array
     {
         return $this->descuentos;
     }
@@ -698,7 +338,7 @@ class SaleDetail
      *
      * @return SaleDetail
      */
-    public function setDescuentos($descuentos)
+    public function setDescuentos(?array $descuentos): SaleDetail
     {
         $this->descuentos = $descuentos;
 
@@ -706,9 +346,369 @@ class SaleDetail
     }
 
     /**
+     * @return float
+     */
+    public function getDescuento(): ?float
+    {
+        return $this->descuento;
+    }
+
+    /**
+     * @param float $descuento
+     *
+     * @return SaleDetail
+     */
+    public function setDescuento(?float $descuento): SaleDetail
+    {
+        $this->descuento = $descuento;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoBaseIgv(): ?float
+    {
+        return $this->mtoBaseIgv;
+    }
+
+    /**
+     * @param float $mtoBaseIgv
+     *
+     * @return SaleDetail
+     */
+    public function setMtoBaseIgv(?float $mtoBaseIgv): SaleDetail
+    {
+        $this->mtoBaseIgv = $mtoBaseIgv;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPorcentajeIgv(): ?float
+    {
+        return $this->porcentajeIgv;
+    }
+
+    /**
+     * @param float $porcentajeIgv
+     *
+     * @return SaleDetail
+     */
+    public function setPorcentajeIgv(?float $porcentajeIgv): SaleDetail
+    {
+        $this->porcentajeIgv = $porcentajeIgv;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getIgv(): ?float
+    {
+        return $this->igv;
+    }
+
+    /**
+     * @param float $igv
+     *
+     * @return SaleDetail
+     */
+    public function setIgv(?float $igv): SaleDetail
+    {
+        $this->igv = $igv;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTipAfeIgv(): ?string
+    {
+        return $this->tipAfeIgv;
+    }
+
+    /**
+     * @param string $tipAfeIgv
+     *
+     * @return SaleDetail
+     */
+    public function setTipAfeIgv(?string $tipAfeIgv): SaleDetail
+    {
+        $this->tipAfeIgv = $tipAfeIgv;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoBaseIsc(): ?float
+    {
+        return $this->mtoBaseIsc;
+    }
+
+    /**
+     * @param float $mtoBaseIsc
+     *
+     * @return SaleDetail
+     */
+    public function setMtoBaseIsc(?float $mtoBaseIsc): SaleDetail
+    {
+        $this->mtoBaseIsc = $mtoBaseIsc;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPorcentajeIsc(): ?float
+    {
+        return $this->porcentajeIsc;
+    }
+
+    /**
+     * @param float $porcentajeIsc
+     *
+     * @return SaleDetail
+     */
+    public function setPorcentajeIsc(?float $porcentajeIsc): SaleDetail
+    {
+        $this->porcentajeIsc = $porcentajeIsc;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getIsc(): ?float
+    {
+        return $this->isc;
+    }
+
+    /**
+     * @param float $isc
+     *
+     * @return SaleDetail
+     */
+    public function setIsc(?float $isc): SaleDetail
+    {
+        $this->isc = $isc;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTipSisIsc(): ?string
+    {
+        return $this->tipSisIsc;
+    }
+
+    /**
+     * @param string $tipSisIsc
+     *
+     * @return SaleDetail
+     */
+    public function setTipSisIsc(?string $tipSisIsc): SaleDetail
+    {
+        $this->tipSisIsc = $tipSisIsc;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoBaseOth(): ?float
+    {
+        return $this->mtoBaseOth;
+    }
+
+    /**
+     * @param float $mtoBaseOth
+     *
+     * @return SaleDetail
+     */
+    public function setMtoBaseOth(?float $mtoBaseOth): SaleDetail
+    {
+        $this->mtoBaseOth = $mtoBaseOth;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPorcentajeOth(): ?float
+    {
+        return $this->porcentajeOth;
+    }
+
+    /**
+     * @param float $porcentajeOth
+     *
+     * @return SaleDetail
+     */
+    public function setPorcentajeOth(?float $porcentajeOth): SaleDetail
+    {
+        $this->porcentajeOth = $porcentajeOth;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getOtroTributo(): ?float
+    {
+        return $this->otroTributo;
+    }
+
+    /**
+     * @param float $otroTributo
+     *
+     * @return SaleDetail
+     */
+    public function setOtroTributo(?float $otroTributo): SaleDetail
+    {
+        $this->otroTributo = $otroTributo;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getIcbper(): ?float
+    {
+        return $this->icbper;
+    }
+
+    /**
+     * @param float $icbper
+     *
+     * @return SaleDetail
+     */
+    public function setIcbper(?float $icbper): SaleDetail
+    {
+        $this->icbper = $icbper;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getFactorIcbper(): ?float
+    {
+        return $this->factorIcbper;
+    }
+
+    /**
+     * @param float $factorIcbper
+     *
+     * @return SaleDetail
+     */
+    public function setFactorIcbper(?float $factorIcbper): SaleDetail
+    {
+        $this->factorIcbper = $factorIcbper;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotalImpuestos(): ?float
+    {
+        return $this->totalImpuestos;
+    }
+
+    /**
+     * @param float $totalImpuestos
+     *
+     * @return SaleDetail
+     */
+    public function setTotalImpuestos(?float $totalImpuestos): SaleDetail
+    {
+        $this->totalImpuestos = $totalImpuestos;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoPrecioUnitario(): ?float
+    {
+        return $this->mtoPrecioUnitario;
+    }
+
+    /**
+     * @param float $mtoPrecioUnitario
+     *
+     * @return SaleDetail
+     */
+    public function setMtoPrecioUnitario(?float $mtoPrecioUnitario): SaleDetail
+    {
+        $this->mtoPrecioUnitario = $mtoPrecioUnitario;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoValorVenta(): ?float
+    {
+        return $this->mtoValorVenta;
+    }
+
+    /**
+     * @param float $mtoValorVenta
+     *
+     * @return SaleDetail
+     */
+    public function setMtoValorVenta(?float $mtoValorVenta): SaleDetail
+    {
+        $this->mtoValorVenta = $mtoValorVenta;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoValorGratuito(): ?float
+    {
+        return $this->mtoValorGratuito;
+    }
+
+    /**
+     * @param float $mtoValorGratuito
+     *
+     * @return SaleDetail
+     */
+    public function setMtoValorGratuito(?float $mtoValorGratuito): SaleDetail
+    {
+        $this->mtoValorGratuito = $mtoValorGratuito;
+
+        return $this;
+    }
+
+    /**
      * @return DetailAttribute[]
      */
-    public function getAtributos()
+    public function getAtributos(): ?array
     {
         return $this->atributos;
     }
@@ -718,7 +718,7 @@ class SaleDetail
      *
      * @return SaleDetail
      */
-    public function setAtributos($atributos)
+    public function setAtributos(?array $atributos): SaleDetail
     {
         $this->atributos = $atributos;
 

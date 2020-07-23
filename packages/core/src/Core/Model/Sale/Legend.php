@@ -6,6 +6,8 @@
  * Time: 23:34.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Sale;
 
 /**
@@ -26,7 +28,7 @@ class Legend
     /**
      * @return string
      */
-    public function getCode()
+    public function getCode(): ?string
     {
         return $this->code;
     }
@@ -36,7 +38,7 @@ class Legend
      *
      * @return Legend
      */
-    public function setCode($code)
+    public function setCode(?string $code): Legend
     {
         $this->code = $code;
 
@@ -46,7 +48,7 @@ class Legend
     /**
      * @return string
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
@@ -56,7 +58,7 @@ class Legend
      *
      * @return Legend
      */
-    public function setValue($value)
+    public function setValue(?string $value): Legend
     {
         $this->value = $value;
 
