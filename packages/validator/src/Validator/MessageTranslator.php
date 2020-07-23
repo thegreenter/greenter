@@ -6,6 +6,8 @@
  * Time: 20:50.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator;
 
 use Symfony\Contracts\Translation\TranslatorInterface;

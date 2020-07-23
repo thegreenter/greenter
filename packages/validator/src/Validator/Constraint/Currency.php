@@ -6,6 +6,8 @@
  * Time: 02:19 PM
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Constraint;
 
 use Symfony\Component\Validator\Constraint;

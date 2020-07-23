@@ -6,6 +6,8 @@
  * Time: 12:36 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator;
 
 use Greenter\Model\DocumentInterface;
@@ -27,7 +29,7 @@ class SymfonyValidator implements DocumentValidatorInterface
      *
      * @param ErrorCodeProviderInterface|null $provider
      */
-    public function __construct(ErrorCodeProviderInterface $provider = null)
+    public function __construct(?ErrorCodeProviderInterface $provider = null)
     {
         $this->factory = new CustomMetadataFactory();
         $builder = Validation::createValidatorBuilder();
@@ -57,7 +59,7 @@ class SymfonyValidator implements DocumentValidatorInterface
      *
      * @param string $version
      */
-    public function setVersion($version)
+    public function setVersion(?string $version)
     {
         $this->factory->setVersion($version);
     }
