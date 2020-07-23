@@ -18,6 +18,9 @@
 			</exclude>
 		</whitelist>
 	</filter>
+	<listeners>
+		<listener class="\Mockery\Adapter\Phpunit\TestListener" />
+	</listeners>
 	<logging>
 		<log type="coverage-clover" target="build/logs/clover.xml"/>
 		<log type="junit" target="build/logs/junit.xml" />
