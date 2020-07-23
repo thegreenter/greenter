@@ -6,6 +6,8 @@
  * Time: 22:54
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Client\Client;

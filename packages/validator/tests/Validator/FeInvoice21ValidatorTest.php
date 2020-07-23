@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Client\Client;
@@ -32,7 +34,7 @@ class FeInvoice21ValidatorTest extends TestCase
         $invoice->setTotalImpuestos(null);
         $invoice->getPerception()->setPorcentaje(null);
         $invoice->setTipoOperacion('');
-        $invoice->setValorVenta('ABC');
+        $invoice->setValorVenta(null);
 
         $validator = $this->getValidator();
         $errors = $validator->validate($invoice);

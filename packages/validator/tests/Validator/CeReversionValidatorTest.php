@@ -6,6 +6,8 @@
  * Time: 20:19
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Voided\Reversion;

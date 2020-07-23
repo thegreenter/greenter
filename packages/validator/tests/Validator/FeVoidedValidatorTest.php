@@ -6,6 +6,8 @@
  * Time: 10:47 AM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Voided\Voided;

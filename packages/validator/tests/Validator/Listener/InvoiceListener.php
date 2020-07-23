@@ -6,6 +6,8 @@
  * Time: 18:25
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator\Listener;
 
 use Greenter\Model\Sale\Invoice;
@@ -20,7 +22,7 @@ class InvoiceListener implements LoaderListenerInterface
      * @param mixed $value
      * @param ClassMetadata $metadata
      */
-    public function onLoaded($value, ClassMetadata $metadata)
+    public function onLoaded(object $value, ClassMetadata $metadata)
     {
         if (!($value instanceof Invoice)) {
             return;
