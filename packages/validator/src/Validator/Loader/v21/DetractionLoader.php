@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader\v21;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -11,12 +13,10 @@ class DetractionLoader implements LoaderMetadataInterface
     public function load(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraints('percent', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('mount', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraint('codMedioPago', new Assert\NotBlank());
         $metadata->addPropertyConstraint('ctaBanco', new Assert\NotBlank());

@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Greenter\Validator\Loader\v21;
 
@@ -13,8 +14,5 @@ class DetailAttributeLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraint('name', new Assert\NotBlank());
         $metadata->addPropertyConstraint('code', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('fecInicio', new Assert\DateTime());
-        $metadata->addPropertyConstraint('fecFin', new Assert\DateTime());
-        $metadata->addPropertyConstraint('duracion', new Assert\Type(['type' => 'int']));
     }
 }
