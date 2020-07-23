@@ -6,6 +6,8 @@
  * Time: 10:05 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Services;
 
 use Greenter\Model\Response\BaseResult;
@@ -23,7 +25,7 @@ class SummarySender extends BaseSunat implements SenderInterface
      *
      * @return BaseResult|null
      */
-    public function send($filename, $content): ?BaseResult
+    public function send(?string $filename, ?string $content): ?BaseResult
     {
         $client = $this->getClient();
         $result = new SummaryResult();

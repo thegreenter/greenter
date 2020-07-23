@@ -25,5 +25,5 @@ interface SenderInterface
      *
      * @return BaseResult
      */
-    public function send($filename, $content): ?BaseResult;
+    public function send(?string $filename, ?string $content): ?BaseResult;
 }
