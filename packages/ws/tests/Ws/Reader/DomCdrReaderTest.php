@@ -6,6 +6,8 @@
  * Time: 16:29.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Reader;
 
 use Greenter\Ws\Reader\DomCdrReader;

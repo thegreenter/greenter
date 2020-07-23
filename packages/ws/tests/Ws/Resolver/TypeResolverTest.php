@@ -6,6 +6,8 @@
  * Time: 17:42.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Resolver;
 
 use Greenter\Model\Perception\Perception;

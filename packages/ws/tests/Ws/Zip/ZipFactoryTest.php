@@ -6,7 +6,9 @@
  * Time: 13:48.
  */
 
-namespace Tests\Greenter\Zip;
+declare(strict_types=1);
+
+namespace Tests\Greenter\Ws\Zip;
 
 use Greenter\Zip\ZipFly;
 use PHPUnit\Framework\TestCase;

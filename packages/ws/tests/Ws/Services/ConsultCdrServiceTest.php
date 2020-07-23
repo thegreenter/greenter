@@ -6,6 +6,8 @@
  * Time: 15:16.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Services;
 
 use PHPUnit\Framework\TestCase;

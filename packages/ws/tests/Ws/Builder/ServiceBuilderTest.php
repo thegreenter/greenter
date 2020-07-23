@@ -6,7 +6,9 @@
  * Time: 12:25.
  */
 
-namespace Tests\Greenter\Ws\Services;
+declare(strict_types=1);
+
+namespace Tests\Greenter\Ws\Builder;
 
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;

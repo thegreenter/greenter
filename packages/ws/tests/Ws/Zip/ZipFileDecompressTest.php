@@ -6,6 +6,8 @@
  * Time: 17:41.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Zip;
 
 use Greenter\Zip\DecompressInterface;

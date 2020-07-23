@@ -6,6 +6,8 @@
  * Time: 05:18 PM.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Services;
 
 use Greenter\Model\Response\BillResult;

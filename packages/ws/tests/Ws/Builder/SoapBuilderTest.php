@@ -6,6 +6,8 @@
  * Time: 17:42.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Builder;
 
 use Greenter\Ws\Builder\SoapBuilder;
