@@ -6,6 +6,8 @@
  * Time: 23:01.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Client;
 
 use Greenter\Model\Company\Address;
