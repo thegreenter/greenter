@@ -6,7 +6,9 @@
  * Time: 17:13
  */
 
-namespace Report\Filter;
+declare(strict_types=1);
+
+namespace Tests\Greenter\Report\Filter;
 
 use Greenter\Report\Filter\DocumentFilter;
 use PHPUnit\Framework\TestCase;

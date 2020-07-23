@@ -6,7 +6,9 @@
  * Time: 20:05
  */
 
-namespace Report\Filter;
+declare(strict_types=1);
+
+namespace Tests\Greenter\Report\Filter;
 
 use Greenter\Model\Sale\Legend;
 use Greenter\Report\Filter\ResolveFilter;

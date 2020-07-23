@@ -6,6 +6,8 @@
  * Time: 10:31 AM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Report\Filter;
 
 use Greenter\Report\Filter\ImageFilter;

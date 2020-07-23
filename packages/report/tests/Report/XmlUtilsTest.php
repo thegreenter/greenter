@@ -6,8 +6,11 @@
  * Time: 04:45 PM.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Report;
 
+use DOMDocument;
 use Greenter\Report\XmlUtils;
 use PHPUnit\Framework\TestCase;
 
@@ -33,7 +36,7 @@ class XmlUtilsTest extends TestCase
      */
     public function testExtractFromDoc($filename)
     {
-        $doc = new \DOMDocument();
+        $doc = new DOMDocument();
         @$doc->load($filename);
         $hash = $this->utils->getHashSignFromDoc($doc);
 
