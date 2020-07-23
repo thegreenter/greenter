@@ -2,6 +2,9 @@
 
 namespace Greenter\Validator;
 
+use DOMDocument;
+use DOMXPath;
+
 /**
  * Class XmlErrorCodeProvider.
  */
@@ -22,7 +25,7 @@ class XmlErrorCodeProvider implements ErrorCodeProviderInterface
      *
      * @return array
      */
-    public function getAll()
+    public function getAll(): ?array
     {
         $xpath = $this->getXpath();
         $nodes = $xpath->query('/errors/error');
@@ -44,7 +47,7 @@ class XmlErrorCodeProvider implements ErrorCodeProviderInterface
      *
      * @return string
      */
-    public function getValue($code)
+    public function getValue(?string $code): ?string
     {
         $xpath = $this->getXpath();
         $nodes = $xpath->query("/errors/error[@code='$code']");
@@ -58,9 +61,9 @@ class XmlErrorCodeProvider implements ErrorCodeProviderInterface
 
     private function getXpath()
     {
-        $doc = new \DOMDocument();
+        $doc = new DOMDocument();
         $doc->load($this->xmlErrorFile);
-        $xpath = new \DOMXPath($doc);
+        $xpath = new DOMXPath($doc);
 
         return $xpath;
     }

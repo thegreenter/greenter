@@ -12,12 +12,12 @@ interface ErrorCodeProviderInterface
     /**
      * @return array
      */
-    public function getAll(): array;
+    public function getAll(): ?array;
 
     /**
      * @param string $code
      *
      * @return string
      */
-    public function getValue($code): ?string;
+    public function getValue(?string $code): ?string;
 }
