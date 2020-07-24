@@ -45,7 +45,7 @@ class InvoiceFullStore implements DocumentGeneratorInterface
             ->setMtoOperGratuitas(12)
             ->setSumDsctoGlobal(12)
             ->setMtoDescuentos(23)
-            ->setSumOtrosDescuentos(23)
+            ->setSumOtrosDescuentos(24)
             ->setTipoOperacion('2')
             ->setPerception(
                 (new SalePerception())
