@@ -37,9 +37,9 @@ class StatusResult extends BillResult
     /**
      * @param string $code
      *
-     * @return StatusResult
+     * @return $this
      */
-    public function setCode(?string $code): StatusResult
+    public function setCode(?string $code): self
     {
         $this->code = $code;
 

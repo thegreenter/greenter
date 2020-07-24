@@ -45,9 +45,9 @@ class Error
     /**
      * @param string $code
      *
-     * @return Error
+     * @return $this
      */
-    public function setCode(?string $code): Error
+    public function setCode(?string $code): self
     {
         $this->code = $code;
 
@@ -65,9 +65,9 @@ class Error
     /**
      * @param string $message
      *
-     * @return Error
+     * @return $this
      */
-    public function setMessage(?string $message): Error
+    public function setMessage(?string $message): self
     {
         $this->message = $message;
 

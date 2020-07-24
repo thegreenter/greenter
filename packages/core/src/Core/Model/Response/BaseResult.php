@@ -44,9 +44,9 @@ class BaseResult
     /**
      * @param bool $success
      *
-     * @return BaseResult
+     * @return $this
      */
-    public function setSuccess(?bool $success): BaseResult
+    public function setSuccess(?bool $success): self
     {
         $this->success = $success;
 
@@ -64,9 +64,9 @@ class BaseResult
     /**
      * @param Error $error
      *
-     * @return BaseResult
+     * @return $this
      */
-    public function setError(?Error $error): BaseResult
+    public function setError(?Error $error): self
     {
         $this->error = $error;
 

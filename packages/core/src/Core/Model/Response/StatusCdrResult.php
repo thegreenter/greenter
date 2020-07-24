@@ -36,9 +36,9 @@ class StatusCdrResult extends BillResult
     /**
      * @param string $code
      *
-     * @return StatusCdrResult
+     * @return $this
      */
-    public function setCode(?string $code): StatusCdrResult
+    public function setCode(?string $code): self
     {
         $this->code = $code;
 
@@ -56,9 +56,9 @@ class StatusCdrResult extends BillResult
     /**
      * @param string $message
      *
-     * @return StatusCdrResult
+     * @return $this
      */
-    public function setMessage(?string $message): StatusCdrResult
+    public function setMessage(?string $message): self
     {
         $this->message = $message;
 

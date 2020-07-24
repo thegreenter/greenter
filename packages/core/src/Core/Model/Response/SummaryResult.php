@@ -31,9 +31,9 @@ class SummaryResult extends BaseResult
     /**
      * @param string $ticket
      *
-     * @return SummaryResult
+     * @return $this
      */
-    public function setTicket(?string $ticket): SummaryResult
+    public function setTicket(?string $ticket): self
     {
         $this->ticket = $ticket;
 
