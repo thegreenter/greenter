@@ -61,6 +61,7 @@ class InvoiceStore implements DocumentGeneratorInterface
             ->setMtoOperGratuitas(12)
             ->setSumDsctoGlobal(12)
             ->setMtoDescuentos(23)
+            ->setSumOtrosDescuentos(23)
             ->setPerception($perc)
             ->setCompany($this->shared->getCompany())
             ->setTipoDoc('01')
