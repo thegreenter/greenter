@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Greenter\Ws\Resolver;
 
+use DOMDocument;
 use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Retention\Retention;
@@ -32,7 +33,7 @@ class XmlTypeResolver implements TypeResolverInterface
     }
 
     /**
-     * @param \DOMDocument|string $value
+     * @param DOMDocument|string $value
      *
      * @return string|null
      */
@@ -56,12 +57,17 @@ class XmlTypeResolver implements TypeResolverInterface
             case 'SummaryDocuments':
                 return Summary::class;
             case 'VoidedDocuments':
-                $this->reader->loadXpathFromDoc($doc);
-                $id = $this->reader->getValue('cbc:ID');
-
-                return 'RA' === substr($id, 0, 2) ? Voided::class : Reversion::class;
+                return $this->getFromVoidedDoc($doc);
         }
 
         return '';
+    }
+
+    private function getFromVoidedDoc(DOMDocument $doc)
+    {
+        $this->reader->loadXpathFromDoc($doc);
+        $id = $this->reader->getValue('cbc:ID');
+
+        return 'RA' === substr($id, 0, 2) ? Voided::class : Reversion::class;
     }
 }
