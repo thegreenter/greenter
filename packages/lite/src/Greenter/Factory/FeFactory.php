@@ -6,6 +6,8 @@
  * Time: 04:06 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Factory;
 
 use Greenter\Builder\BuilderInterface;
@@ -120,7 +122,7 @@ class FeFactory implements FactoryInterface
      *
      * @return BaseResult
      */
-    public function send(DocumentInterface $document)
+    public function send(DocumentInterface $document): ?BaseResult
     {
         $xml = $this->getXmlSigned($document);
 

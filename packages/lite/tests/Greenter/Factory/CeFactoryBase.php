@@ -6,6 +6,8 @@
  * Time: 20:15
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Factory;
 
 use Greenter\Factory\FeFactory;
