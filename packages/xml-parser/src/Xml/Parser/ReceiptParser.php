@@ -6,8 +6,12 @@
  * Time: 06:12 PM
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Parser;
 
+use DateTime;
+use DOMDocument;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -38,12 +42,12 @@ class ReceiptParser implements DocumentParserInterface
      * @param $value
      * @return DocumentInterface
      */
-    public function parse($value)
+    public function parse($value): ?DocumentInterface
     {
         $this->reader = new XmlReader();
         $xml = $this->reader;
 
-        if ($value instanceof \DOMDocument) {
+        if ($value instanceof DOMDocument) {
             $this->reader->loadDom($value);
         } else {
             $this->reader->loadXml($value);
@@ -55,15 +59,15 @@ class ReceiptParser implements DocumentParserInterface
         $docFac = explode('-', $xml->getValue('cbc:ID', $root));
         $receipt->setSerie($docFac[0])
             ->setCorrelativo($docFac[1])
-            ->setFechaEmision(new \DateTime($xml->getValue('cbc:IssueDate', $root)))
+            ->setFechaEmision(new DateTime($xml->getValue('cbc:IssueDate', $root)))
             ->setMontoLetras($xml->getValue('cbc:Note', $root))
             ->setPerson($this->getPerson())
             ->setReceptor($this->getClient());
 
         $monetaryTotal = $xml->getNode('cac:LegalMonetaryTotal', $root);
-        $receipt->setSubTotal(floatval($xml->getValue('cac:TaxTotal/cac:TaxSubtotal/cbc:TaxableAmount', $root, 0)))
-            ->setRetencion(floatval($xml->getValue('cbc:TaxExclusiveAmount', $monetaryTotal, 0)))
-            ->setTotal(floatval($xml->getValue('cbc:PayableAmount', $monetaryTotal, 0)));
+        $receipt->setSubTotal((float)$xml->getValue('cac:TaxTotal/cac:TaxSubtotal/cbc:TaxableAmount', $root, '0'))
+            ->setRetencion((float)$xml->getValue('cbc:TaxExclusiveAmount', $monetaryTotal, '0'))
+            ->setTotal((float)$xml->getValue('cbc:PayableAmount', $monetaryTotal, '0'));
 
         $this->loadFromDetail($receipt);
 
@@ -87,7 +91,7 @@ class ReceiptParser implements DocumentParserInterface
     private function getPerson()
     {
         $xml = $this->reader;
-        $node = $xml->getNode('cac:AccountingSupplierParty',$this->rootNode);
+        $node = $xml->getNode('cac:AccountingSupplierParty', $this->rootNode);
 
         $cl = new Company();
         $cl->setRuc($xml->getValue('cbc:CustomerAssignedAccountID', $node))
@@ -112,7 +116,7 @@ class ReceiptParser implements DocumentParserInterface
         $node = $xml->getNode('cac:InvoiceLine', $this->rootNode);
 
         $receipt
-            ->setPorcentaje(floatval($xml->getValue('cac:TaxTotal/cac:TaxSubtotal/cbc:Percent', $node, 0)))
+            ->setPorcentaje((float)$xml->getValue('cac:TaxTotal/cac:TaxSubtotal/cbc:Percent', $node, '0'))
             ->setConcepto($xml->getValue('cac:Item/cbc:Description', $node));
     }
 }

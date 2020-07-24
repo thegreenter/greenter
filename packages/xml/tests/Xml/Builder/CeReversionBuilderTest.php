@@ -6,16 +6,19 @@
  * Time: 20:19
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Data\Generator\ReversionStore;
 use Greenter\Model\Voided\Reversion;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class CeReversionBuilderTest
  * @package Tests\Greenter\Xml\Builder
  */
-class CeReversionBuilderTest extends \PHPUnit_Framework_TestCase
+class CeReversionBuilderTest extends TestCase
 {
     use CeBuilderTrait;
     use XsdValidatorTrait;

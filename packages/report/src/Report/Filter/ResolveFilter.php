@@ -6,6 +6,8 @@
  * Time: 01:47 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Report\Filter;
 
 use Greenter\Model\Sale\Legend;
@@ -21,7 +23,7 @@ class ResolveFilter
      *
      * @return string
      */
-    public function getValueLegend($legends, $code)
+    public function getValueLegend($legends, $code): ?string
     {
         foreach ($legends as $legend) {
             if ($legend->getCode() == $code) {

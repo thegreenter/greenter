@@ -6,6 +6,8 @@
  * Time: 02:21 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Report;
 
 use Greenter\Data\Generator\DespatchStore;
@@ -17,8 +19,9 @@ use Greenter\Data\Generator\ReversionStore;
 use Greenter\Data\Generator\SummaryStore;
 use Greenter\Data\Generator\VoidedStore;
 use Greenter\Model\DocumentInterface;
+use PHPUnit\Framework\TestCase;
 
-class HtmlReportTest extends \PHPUnit_Framework_TestCase
+class HtmlReportTest extends TestCase
 {
     use HtmlReportTrait;
     use SharedBuilderTrait;
@@ -37,11 +40,6 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
         $this->showResult($document->getName(), $html);
     }
 
-    /**
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
     public function testGenReportOtherTemplate()
     {
         $report = $this->getReporter();
@@ -52,11 +50,6 @@ class HtmlReportTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEmpty($html);
     }
 
-    /**
-     * @throws \Twig_Error_Loader
-     * @throws \Twig_Error_Runtime
-     * @throws \Twig_Error_Syntax
-     */
     public function testGenVoidedReport()
     {
         $report = $this->getReporter();

@@ -6,6 +6,8 @@
  * Time: 08:31 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -28,8 +30,7 @@ class PrepaymentLoader implements LoaderMetadataInterface
             new Assert\Length(['max' => 30]),
         ]);
         $metadata->addPropertyConstraints('total', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/8.0/phpunit.xsd"
+        bootstrap="vendor/autoload.php"
+        colors="true"
+        verbose="true"
+    >
+    <testsuite name="all">
+        <directory>packages/**/tests</directory>
+    </testsuite>
+    <groups>
+        <exclude>
+            <group>api</group>
+        </exclude>
+    </groups>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">packages/*/src</directory>
+        </whitelist>
+    </filter>
+</phpunit>

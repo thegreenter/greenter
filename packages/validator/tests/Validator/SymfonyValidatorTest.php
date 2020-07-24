@@ -6,6 +6,8 @@
  * Time: 12:50 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Client\Client;
@@ -23,12 +25,13 @@ use Greenter\Model\Sale\SalePerception;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
 use Greenter\Validator\SymfonyValidator;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class SymfonyValidatorTest
  * @package Tests\Greenter\Validator
  */
-class SymfonyValidatorTest extends \PHPUnit_Framework_TestCase
+class SymfonyValidatorTest extends TestCase
 {
     public function testInvoiceValidate()
     {

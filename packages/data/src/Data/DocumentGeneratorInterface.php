@@ -6,6 +6,8 @@
  * Time: 22:09
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Data;
 
 use Greenter\Model\DocumentInterface;
@@ -15,5 +17,5 @@ interface DocumentGeneratorInterface
     /**
      * @return DocumentInterface
      */
-    function create();
+    public function create(): ?DocumentInterface;
 }

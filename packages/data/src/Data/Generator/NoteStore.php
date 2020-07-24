@@ -6,15 +6,17 @@
  * Time: 21:56
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Data\Generator;
 
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Sale\SaleDetail;
-
 
 class NoteStore implements DocumentGeneratorInterface
 {
@@ -28,7 +30,7 @@ class NoteStore implements DocumentGeneratorInterface
         $this->shared = $shared;
     }
 
-    public function create()
+    public function create(): ?DocumentInterface
     {
         $note = new Note();
         $note

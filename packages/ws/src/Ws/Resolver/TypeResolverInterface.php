@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Resolver;
 
 /**
@@ -9,7 +11,7 @@ interface TypeResolverInterface
 {
     /**
      * @param \DOMDocument|string $value
-     * @return string
+     * @return string|null
      */
-    function getType($value);
+    public function getType($value): ?string;
 }

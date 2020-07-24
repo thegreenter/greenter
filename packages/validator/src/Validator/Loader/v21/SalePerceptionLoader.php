@@ -6,6 +6,8 @@
  * Time: 15:37.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader\v21;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -18,20 +20,16 @@ class SalePerceptionLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraint('codReg', new Assert\NotBlank());
         $metadata->addPropertyConstraints('mtoBase', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('mto', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('mtoTotal', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('porcentaje', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
     }
 }

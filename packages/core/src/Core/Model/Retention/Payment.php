@@ -6,7 +6,11 @@
  * Time: 10:52 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Retention;
+
+use DateTimeInterface;
 
 /**
  * Class Payment.
@@ -30,14 +34,14 @@ class Payment
     /**
      * Fecha de pag.
      *
-     * @var \DateTime
+     * @var DateTimeInterface
      */
     private $fecha;
 
     /**
      * @return string
      */
-    public function getMoneda()
+    public function getMoneda(): ?string
     {
         return $this->moneda;
     }
@@ -47,7 +51,7 @@ class Payment
      *
      * @return Payment
      */
-    public function setMoneda($moneda)
+    public function setMoneda(?string $moneda): Payment
     {
         $this->moneda = $moneda;
 
@@ -57,7 +61,7 @@ class Payment
     /**
      * @return float
      */
-    public function getImporte()
+    public function getImporte(): ?float
     {
         return $this->importe;
     }
@@ -67,7 +71,7 @@ class Payment
      *
      * @return Payment
      */
-    public function setImporte($importe)
+    public function setImporte(?float $importe): Payment
     {
         $this->importe = $importe;
 
@@ -75,19 +79,19 @@ class Payment
     }
 
     /**
-     * @return \DateTime
+     * @return DateTimeInterface
      */
-    public function getFecha()
+    public function getFecha(): ?DateTimeInterface
     {
         return $this->fecha;
     }
 
     /**
-     * @param \DateTime $fecha
+     * @param DateTimeInterface $fecha
      *
      * @return Payment
      */
-    public function setFecha($fecha)
+    public function setFecha(?DateTimeInterface $fecha): Payment
     {
         $this->fecha = $fecha;
 

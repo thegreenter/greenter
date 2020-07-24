@@ -6,12 +6,15 @@
  * Time: 20:19
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
+use PHPUnit\Framework\TestCase;
 
-class CeReversionValidatorTest extends \PHPUnit_Framework_TestCase
+class CeReversionValidatorTest extends TestCase
 {
     use ValidatorTrait;
 

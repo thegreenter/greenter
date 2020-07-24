@@ -6,26 +6,29 @@
  * Time: 12:25.
  */
 
-namespace Tests\Greenter\Ws\Services;
+declare(strict_types=1);
+
+namespace Tests\Greenter\Ws\Builder;
 
 use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Builder\ServiceBuilder;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Ws\Services\WsClientInterface;
+use PHPUnit\Framework\TestCase;
 use Mockery;
 
 /**
  * Class ServiceBuilderTest.
  */
-class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
+class ServiceBuilderTest extends TestCase
 {
     /**
      * @var ServiceBuilder
      */
     private $builder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->builder = new ServiceBuilder();
     }
@@ -51,10 +54,12 @@ class ServiceBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @throws \Exception
      */
     public function testInvalidClass()
     {
+        $this->expectException(\Exception::class);
+
         $this->builder->build(SunatEndpoints::class);
     }
 

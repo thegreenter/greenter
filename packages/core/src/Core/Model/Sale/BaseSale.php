@@ -6,6 +6,8 @@
  * Time: 23:26.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Sale;
 
 use DateTimeInterface;
@@ -82,6 +84,16 @@ class BaseSale implements DocumentInterface
      * @var float
      */
     protected $mtoOperExportacion;
+
+    /**
+     * @var float
+     */
+    protected $mtoOperGratuitas;
+
+    /**
+     * @var float
+     */
+    protected $mtoIGVGratuitas;
 
     /**
      * @var float
@@ -172,571 +184,7 @@ class BaseSale implements DocumentInterface
     /**
      * @return string
      */
-    public function getTipoDoc()
-    {
-        return $this->tipoDoc;
-    }
-
-    /**
-     * @param string $tipoDoc
-     *
-     * @return $this
-     */
-    public function setTipoDoc($tipoDoc)
-    {
-        $this->tipoDoc = $tipoDoc;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSerie()
-    {
-        return $this->serie;
-    }
-
-    /**
-     * @param string $serie
-     *
-     * @return $this
-     */
-    public function setSerie($serie)
-    {
-        $this->serie = $serie;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCorrelativo()
-    {
-        return $this->correlativo;
-    }
-
-    /**
-     * @param string $correlativo
-     *
-     * @return $this
-     */
-    public function setCorrelativo($correlativo)
-    {
-        $this->correlativo = $correlativo;
-
-        return $this;
-    }
-
-    /**
-     * @return DateTimeInterface
-     */
-    public function getFechaEmision()
-    {
-        return $this->fechaEmision;
-    }
-
-    /**
-     * @param DateTimeInterface $fechaEmision
-     *
-     * @return $this
-     */
-    public function setFechaEmision(DateTimeInterface $fechaEmision)
-    {
-        $this->fechaEmision = $fechaEmision;
-
-        return $this;
-    }
-
-    /**
-     * @return Client
-     */
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    /**
-     * @param Client $client
-     *
-     * @return $this
-     */
-    public function setClient($client)
-    {
-        $this->client = $client;
-
-        return $this;
-    }
-
-    /**
-     * @return Company
-     */
-    public function getCompany()
-    {
-        return $this->company;
-    }
-
-    /**
-     * @param Company $company
-     *
-     * @return $this
-     */
-    public function setCompany(Company $company)
-    {
-        $this->company = $company;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTipoMoneda()
-    {
-        return $this->tipoMoneda;
-    }
-
-    /**
-     * @param string $tipoMoneda
-     *
-     * @return $this
-     */
-    public function setTipoMoneda($tipoMoneda)
-    {
-        $this->tipoMoneda = $tipoMoneda;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getSumOtrosCargos()
-    {
-        return $this->sumOtrosCargos;
-    }
-
-    /**
-     * @param float $sumOtrosCargos
-     *
-     * @return $this
-     */
-    public function setSumOtrosCargos($sumOtrosCargos)
-    {
-        $this->sumOtrosCargos = $sumOtrosCargos;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoOperGravadas()
-    {
-        return $this->mtoOperGravadas;
-    }
-
-    /**
-     * @param float $mtoOperGravadas
-     *
-     * @return $this
-     */
-    public function setMtoOperGravadas($mtoOperGravadas)
-    {
-        $this->mtoOperGravadas = $mtoOperGravadas;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoOperInafectas()
-    {
-        return $this->mtoOperInafectas;
-    }
-
-    /**
-     * @param float $mtoOperInafectas
-     *
-     * @return $this
-     */
-    public function setMtoOperInafectas($mtoOperInafectas)
-    {
-        $this->mtoOperInafectas = $mtoOperInafectas;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoOperExoneradas()
-    {
-        return $this->mtoOperExoneradas;
-    }
-
-    /**
-     * @param float $mtoOperExoneradas
-     *
-     * @return $this
-     */
-    public function setMtoOperExoneradas($mtoOperExoneradas)
-    {
-        $this->mtoOperExoneradas = $mtoOperExoneradas;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoOperExportacion()
-    {
-        return $this->mtoOperExportacion;
-    }
-
-    /**
-     * @param float $mtoOperExportacion
-     *
-     * @return $this
-     */
-    public function setMtoOperExportacion($mtoOperExportacion)
-    {
-        $this->mtoOperExportacion = $mtoOperExportacion;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoIGV()
-    {
-        return $this->mtoIGV;
-    }
-
-    /**
-     * @param float $mtoIGV
-     *
-     * @return $this
-     */
-    public function setMtoIGV($mtoIGV)
-    {
-        $this->mtoIGV = $mtoIGV;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoISC()
-    {
-        return $this->mtoISC;
-    }
-
-    /**
-     * @param float $mtoISC
-     *
-     * @return $this
-     */
-    public function setMtoISC($mtoISC)
-    {
-        $this->mtoISC = $mtoISC;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoOtrosTributos()
-    {
-        return $this->mtoOtrosTributos;
-    }
-
-    /**
-     * @param float $mtoOtrosTributos
-     *
-     * @return $this
-     */
-    public function setMtoOtrosTributos($mtoOtrosTributos)
-    {
-        $this->mtoOtrosTributos = $mtoOtrosTributos;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getIcbper()
-    {
-        return $this->icbper;
-    }
-
-    /**
-     * @param float $icbper
-     *
-     * @return $this
-     */
-    public function setIcbper($icbper)
-    {
-        $this->icbper = $icbper;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getRedondeo()
-    {
-        return $this->redondeo;
-    }
-
-    /**
-     * @param float $redondeo
-     *
-     * @return $this
-     */
-    public function setRedondeo($redondeo)
-    {
-        $this->redondeo = $redondeo;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoImpVenta()
-    {
-        return $this->mtoImpVenta;
-    }
-
-    /**
-     * @param float $mtoImpVenta
-     *
-     * @return $this
-     */
-    public function setMtoImpVenta($mtoImpVenta)
-    {
-        $this->mtoImpVenta = $mtoImpVenta;
-
-        return $this;
-    }
-
-    /**
-     * @return SaleDetail[]
-     */
-    public function getDetails()
-    {
-        return $this->details;
-    }
-
-    /**
-     * @param SaleDetail[] $details
-     *
-     * @return $this
-     */
-    public function setDetails($details)
-    {
-        $this->details = $details;
-
-        return $this;
-    }
-
-    /**
-     * @return Legend[]
-     */
-    public function getLegends()
-    {
-        return $this->legends;
-    }
-
-    /**
-     * @param Legend[] $legends
-     *
-     * @return $this
-     */
-    public function setLegends($legends)
-    {
-        $this->legends = $legends;
-
-        return $this;
-    }
-
-    /**
-     * @return Document[]
-     */
-    public function getGuias()
-    {
-        return $this->guias;
-    }
-
-    /**
-     * @param Document[] $guias
-     *
-     * @return $this
-     */
-    public function setGuias($guias)
-    {
-        $this->guias = $guias;
-
-        return $this;
-    }
-
-    /**
-     * @return Document[]
-     */
-    public function getRelDocs()
-    {
-        return $this->relDocs;
-    }
-
-    /**
-     * @param Document[] $relDocs
-     *
-     * @return $this
-     */
-    public function setRelDocs($relDocs)
-    {
-        $this->relDocs = $relDocs;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCompra()
-    {
-        return $this->compra;
-    }
-
-    /**
-     * @param string $compra
-     *
-     * @return $this
-     */
-    public function setCompra($compra)
-    {
-        $this->compra = $compra;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoBaseIvap()
-    {
-        return $this->mtoBaseIvap;
-    }
-
-    /**
-     * @param float $mtoBaseIvap
-     *
-     * @return $this
-     */
-    public function setMtoBaseIvap($mtoBaseIvap)
-    {
-        $this->mtoBaseIvap = $mtoBaseIvap;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoIvap()
-    {
-        return $this->mtoIvap;
-    }
-
-    /**
-     * @param float $mtoIvap
-     *
-     * @return $this
-     */
-    public function setMtoIvap($mtoIvap)
-    {
-        $this->mtoIvap = $mtoIvap;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoBaseIsc()
-    {
-        return $this->mtoBaseIsc;
-    }
-
-    /**
-     * Set Monto Base ISC.
-     *
-     * @param float $mtoBaseIsc
-     *
-     * @return $this
-     */
-    public function setMtoBaseIsc($mtoBaseIsc)
-    {
-        $this->mtoBaseIsc = $mtoBaseIsc;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getMtoBaseOth()
-    {
-        return $this->mtoBaseOth;
-    }
-
-    /**
-     * Set Monto base otros tributos.
-     *
-     * @param float $mtoBaseOth
-     *
-     * @return $this
-     */
-    public function setMtoBaseOth($mtoBaseOth)
-    {
-        $this->mtoBaseOth = $mtoBaseOth;
-
-        return $this;
-    }
-
-    /**
-     * @return float
-     */
-    public function getTotalImpuestos()
-    {
-        return $this->totalImpuestos;
-    }
-
-    /**
-     * @param float $totalImpuestos
-     *
-     * @return $this
-     */
-    public function setTotalImpuestos($totalImpuestos)
-    {
-        $this->totalImpuestos = $totalImpuestos;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUblVersion()
+    public function getUblVersion(): ?string
     {
         return $this->ublVersion;
     }
@@ -746,9 +194,609 @@ class BaseSale implements DocumentInterface
      *
      * @return $this
      */
-    public function setUblVersion($ublVersion)
+    public function setUblVersion(?string $ublVersion): self
     {
         $this->ublVersion = $ublVersion;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTipoDoc(): ?string
+    {
+        return $this->tipoDoc;
+    }
+
+    /**
+     * @param string $tipoDoc
+     *
+     * @return $this
+     */
+    public function setTipoDoc(?string $tipoDoc): self
+    {
+        $this->tipoDoc = $tipoDoc;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSerie(): ?string
+    {
+        return $this->serie;
+    }
+
+    /**
+     * @param string $serie
+     *
+     * @return $this
+     */
+    public function setSerie(?string $serie): self
+    {
+        $this->serie = $serie;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCorrelativo(): ?string
+    {
+        return $this->correlativo;
+    }
+
+    /**
+     * @param string $correlativo
+     *
+     * @return $this
+     */
+    public function setCorrelativo(?string $correlativo): self
+    {
+        $this->correlativo = $correlativo;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface
+     */
+    public function getFechaEmision(): ?DateTimeInterface
+    {
+        return $this->fechaEmision;
+    }
+
+    /**
+     * @param DateTimeInterface $fechaEmision
+     *
+     * @return $this
+     */
+    public function setFechaEmision(?DateTimeInterface $fechaEmision): self
+    {
+        $this->fechaEmision = $fechaEmision;
+
+        return $this;
+    }
+
+    /**
+     * @return Company
+     */
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param Company $company
+     *
+     * @return $this
+     */
+    public function setCompany(?Company $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param Client $client
+     *
+     * @return $this
+     */
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTipoMoneda(): ?string
+    {
+        return $this->tipoMoneda;
+    }
+
+    /**
+     * @param string $tipoMoneda
+     *
+     * @return $this
+     */
+    public function setTipoMoneda(?string $tipoMoneda): self
+    {
+        $this->tipoMoneda = $tipoMoneda;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getSumOtrosCargos(): ?float
+    {
+        return $this->sumOtrosCargos;
+    }
+
+    /**
+     * @param float $sumOtrosCargos
+     *
+     * @return $this
+     */
+    public function setSumOtrosCargos(?float $sumOtrosCargos): self
+    {
+        $this->sumOtrosCargos = $sumOtrosCargos;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoOperGravadas(): ?float
+    {
+        return $this->mtoOperGravadas;
+    }
+
+    /**
+     * @param float $mtoOperGravadas
+     *
+     * @return $this
+     */
+    public function setMtoOperGravadas(?float $mtoOperGravadas): self
+    {
+        $this->mtoOperGravadas = $mtoOperGravadas;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoOperInafectas(): ?float
+    {
+        return $this->mtoOperInafectas;
+    }
+
+    /**
+     * @param float $mtoOperInafectas
+     *
+     * @return $this
+     */
+    public function setMtoOperInafectas(?float $mtoOperInafectas): self
+    {
+        $this->mtoOperInafectas = $mtoOperInafectas;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoOperExoneradas(): ?float
+    {
+        return $this->mtoOperExoneradas;
+    }
+
+    /**
+     * @param float $mtoOperExoneradas
+     *
+     * @return $this
+     */
+    public function setMtoOperExoneradas(?float $mtoOperExoneradas): self
+    {
+        $this->mtoOperExoneradas = $mtoOperExoneradas;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoOperExportacion(): ?float
+    {
+        return $this->mtoOperExportacion;
+    }
+
+    /**
+     * @param float $mtoOperExportacion
+     *
+     * @return $this
+     */
+    public function setMtoOperExportacion(?float $mtoOperExportacion): self
+    {
+        $this->mtoOperExportacion = $mtoOperExportacion;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoOperGratuitas(): ?float
+    {
+        return $this->mtoOperGratuitas;
+    }
+
+    /**
+     * @param float $mtoOperGratuitas
+     *
+     * @return $this
+     */
+    public function setMtoOperGratuitas(?float $mtoOperGratuitas): self
+    {
+        $this->mtoOperGratuitas = $mtoOperGratuitas;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoIGVGratuitas(): ?float
+    {
+        return $this->mtoIGVGratuitas;
+    }
+
+    /**
+     * @param float $mtoIGVGratuitas
+     *
+     * @return $this
+     */
+    public function setMtoIGVGratuitas(?float $mtoIGVGratuitas): self
+    {
+        $this->mtoIGVGratuitas = $mtoIGVGratuitas;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoIGV(): ?float
+    {
+        return $this->mtoIGV;
+    }
+
+    /**
+     * @param float $mtoIGV
+     *
+     * @return $this
+     */
+    public function setMtoIGV(?float $mtoIGV): self
+    {
+        $this->mtoIGV = $mtoIGV;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoBaseIvap(): ?float
+    {
+        return $this->mtoBaseIvap;
+    }
+
+    /**
+     * @param float $mtoBaseIvap
+     *
+     * @return $this
+     */
+    public function setMtoBaseIvap(?float $mtoBaseIvap): self
+    {
+        $this->mtoBaseIvap = $mtoBaseIvap;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoIvap(): ?float
+    {
+        return $this->mtoIvap;
+    }
+
+    /**
+     * @param float $mtoIvap
+     *
+     * @return $this
+     */
+    public function setMtoIvap(?float $mtoIvap): self
+    {
+        $this->mtoIvap = $mtoIvap;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoBaseIsc(): ?float
+    {
+        return $this->mtoBaseIsc;
+    }
+
+    /**
+     * @param float $mtoBaseIsc
+     *
+     * @return $this
+     */
+    public function setMtoBaseIsc(?float $mtoBaseIsc): self
+    {
+        $this->mtoBaseIsc = $mtoBaseIsc;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoISC(): ?float
+    {
+        return $this->mtoISC;
+    }
+
+    /**
+     * @param float $mtoISC
+     *
+     * @return $this
+     */
+    public function setMtoISC(?float $mtoISC): self
+    {
+        $this->mtoISC = $mtoISC;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoBaseOth(): ?float
+    {
+        return $this->mtoBaseOth;
+    }
+
+    /**
+     * @param float $mtoBaseOth
+     *
+     * @return $this
+     */
+    public function setMtoBaseOth(?float $mtoBaseOth): self
+    {
+        $this->mtoBaseOth = $mtoBaseOth;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoOtrosTributos(): ?float
+    {
+        return $this->mtoOtrosTributos;
+    }
+
+    /**
+     * @param float $mtoOtrosTributos
+     *
+     * @return $this
+     */
+    public function setMtoOtrosTributos(?float $mtoOtrosTributos): self
+    {
+        $this->mtoOtrosTributos = $mtoOtrosTributos;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getIcbper(): ?float
+    {
+        return $this->icbper;
+    }
+
+    /**
+     * @param float $icbper
+     *
+     * @return $this
+     */
+    public function setIcbper(?float $icbper): self
+    {
+        $this->icbper = $icbper;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotalImpuestos(): ?float
+    {
+        return $this->totalImpuestos;
+    }
+
+    /**
+     * @param float $totalImpuestos
+     *
+     * @return $this
+     */
+    public function setTotalImpuestos(?float $totalImpuestos): self
+    {
+        $this->totalImpuestos = $totalImpuestos;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getRedondeo(): ?float
+    {
+        return $this->redondeo;
+    }
+
+    /**
+     * @param float $redondeo
+     *
+     * @return $this
+     */
+    public function setRedondeo(?float $redondeo): self
+    {
+        $this->redondeo = $redondeo;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoImpVenta(): ?float
+    {
+        return $this->mtoImpVenta;
+    }
+
+    /**
+     * @param float $mtoImpVenta
+     *
+     * @return $this
+     */
+    public function setMtoImpVenta(?float $mtoImpVenta): self
+    {
+        $this->mtoImpVenta = $mtoImpVenta;
+
+        return $this;
+    }
+
+    /**
+     * @return SaleDetail[]
+     */
+    public function getDetails(): ?array
+    {
+        return $this->details;
+    }
+
+    /**
+     * @param SaleDetail[] $details
+     *
+     * @return $this
+     */
+    public function setDetails(?array $details): self
+    {
+        $this->details = $details;
+
+        return $this;
+    }
+
+    /**
+     * @return Legend[]
+     */
+    public function getLegends(): ?array
+    {
+        return $this->legends;
+    }
+
+    /**
+     * @param Legend[] $legends
+     *
+     * @return $this
+     */
+    public function setLegends(?array $legends): self
+    {
+        $this->legends = $legends;
+
+        return $this;
+    }
+
+    /**
+     * @return Document[]
+     */
+    public function getGuias(): ?array
+    {
+        return $this->guias;
+    }
+
+    /**
+     * @param Document[] $guias
+     *
+     * @return $this
+     */
+    public function setGuias(?array $guias): self
+    {
+        $this->guias = $guias;
+
+        return $this;
+    }
+
+    /**
+     * @return Document[]
+     */
+    public function getRelDocs(): ?array
+    {
+        return $this->relDocs;
+    }
+
+    /**
+     * @param Document[] $relDocs
+     *
+     * @return $this
+     */
+    public function setRelDocs(?array $relDocs): self
+    {
+        $this->relDocs = $relDocs;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompra(): ?string
+    {
+        return $this->compra;
+    }
+
+    /**
+     * @param string $compra
+     *
+     * @return $this
+     */
+    public function setCompra(?string $compra): self
+    {
+        $this->compra = $compra;
 
         return $this;
     }
@@ -758,7 +806,7 @@ class BaseSale implements DocumentInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         $parts = [
             $this->company->getRuc(),

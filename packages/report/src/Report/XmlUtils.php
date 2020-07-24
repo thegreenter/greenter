@@ -8,6 +8,10 @@
 
 namespace Greenter\Report;
 
+use DOMDocument;
+use DOMNodeList;
+use DOMXPath;
+
 /**
  * Class XmlUtils.
  */
@@ -22,9 +26,9 @@ final class XmlUtils
      *
      * @return string
      */
-    public function getHashSign($xml)
+    public function getHashSign($xml): ?string
     {
-        $doc = new \DOMDocument();
+        $doc = new DOMDocument();
         @$doc->loadXML($xml);
 
         return $this->getHashSignFromDoc($doc);
@@ -35,20 +39,20 @@ final class XmlUtils
      *
      * @return string
      */
-    public function getHashSignFromFile($filename)
+    public function getHashSignFromFile($filename): ?string
     {
-        $doc = new \DOMDocument();
+        $doc = new DOMDocument();
         @$doc->load($filename);
 
         return $this->getHashSignFromDoc($doc);
     }
 
     /**
-     * @param \DOMDocument $document
+     * @param DOMDocument $document
      *
      * @return string
      */
-    public function getHashSignFromDoc(\DOMDocument $document)
+    public function getHashSignFromDoc(DOMDocument $document): ?string
     {
         $xpt = $this->getXpath($document);
 
@@ -61,13 +65,13 @@ final class XmlUtils
     }
 
     /**
-     * @param \DOMDocument $document
+     * @param DOMDocument $document
      *
-     * @return \DOMXPath
+     * @return DOMXPath
      */
-    private function getXpath(\DOMDocument $document)
+    private function getXpath(DOMDocument $document)
     {
-        $xpt = new \DOMXPath($document);
+        $xpt = new DOMXPath($document);
         $xpt->registerNamespace('ext', self::EXT_NAMESPACE);
         $xpt->registerNamespace('ds', self::DS_NAMESPACE);
 
@@ -75,11 +79,11 @@ final class XmlUtils
     }
 
     /**
-     * @param \DOMNodeList $exts
-     * @param \DOMXPath $xpt
+     * @param DOMNodeList $exts
+     * @param DOMXPath $xpt
      * @return string
      */
-    private function getHash(\DOMNodeList $exts, \DOMXPath $xpt)
+    private function getHash(DOMNodeList $exts, DOMXPath $xpt)
     {
         for ($i = $exts->length; $i-- > 0;) {
             $nodeSign = $exts->item($i);

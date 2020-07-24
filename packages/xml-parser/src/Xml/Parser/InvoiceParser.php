@@ -6,8 +6,16 @@
  * Time: 08:14
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Parser;
 
+use DateTime;
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use DOMNodeList;
+use DOMXPath;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -22,7 +30,7 @@ use Greenter\Model\Sale\SalePerception;
 use Greenter\Parser\DocumentParserInterface;
 
 /**
- * Class InvoiceParser
+ * Class InvoiceParser.
  * @package Greenter\Xml\Parser
  */
 class InvoiceParser implements DocumentParserInterface
@@ -31,7 +39,7 @@ class InvoiceParser implements DocumentParserInterface
      * @param $value
      * @return DocumentInterface
      */
-    public function parse($value)
+    public function parse($value): ?DocumentInterface
     {
         $xpt = $this->getXpath($value);
         $inv = new Invoice();
@@ -40,7 +48,7 @@ class InvoiceParser implements DocumentParserInterface
             ->setCorrelativo($docFac[1])
             ->setTipoDoc($this->defValue($xpt->query('/xt:Invoice/cbc:InvoiceTypeCode')))
             ->setTipoMoneda($this->defValue($xpt->query('/xt:Invoice/cbc:DocumentCurrencyCode')))
-            ->setFechaEmision(new \DateTime($this->defValue($xpt->query('/xt:Invoice/cbc:IssueDate'))))
+            ->setFechaEmision(new DateTime($this->defValue($xpt->query('/xt:Invoice/cbc:IssueDate'))))
             ->setCompany($this->getCompany($xpt))
             ->setClient($this->getClient($xpt));
 
@@ -50,13 +58,13 @@ class InvoiceParser implements DocumentParserInterface
         $this->loadTributos($inv, $xpt);
         $monetaryTotal = $xpt->query('/xt:Invoice/cac:LegalMonetaryTotal')->item(0);
         $inv->setTipoOperacion($this->defValue($xpt->query('sac:SUNATTransaction/cbc:ID', $additional)))
-            ->setSumDsctoGlobal(floatval($this->defValue($xpt->query('cbc:AllowanceTotalAmount', $monetaryTotal),0)))
-            ->setTotalAnticipos(floatval($this->defValue($xpt->query('cbc:PrepaidAmount', $monetaryTotal),0)))
+            ->setSumDsctoGlobal((float)$this->defValue($xpt->query('cbc:AllowanceTotalAmount', $monetaryTotal), 0))
+            ->setTotalAnticipos((float)$this->defValue($xpt->query('cbc:PrepaidAmount', $monetaryTotal), 0))
             ->setAnticipos(iterator_to_array($this->getPrepayments($xpt)))
-            ->setMtoOtrosTributos(floatval($this->defValue($xpt->query('cbc:ChargeTotalAmount', $monetaryTotal), 0)))
-            ->setMtoImpVenta(floatval($this->defValue($xpt->query('cbc:PayableAmount', $monetaryTotal),0)))
+            ->setMtoOtrosTributos((float)$this->defValue($xpt->query('cbc:ChargeTotalAmount', $monetaryTotal), 0))
+            ->setMtoImpVenta((float)$this->defValue($xpt->query('cbc:PayableAmount', $monetaryTotal), 0))
             ->setDetails(iterator_to_array($this->getDetails($xpt)))
-            ->setLegends(iterator_to_array($this->getLegends($xpt,  $additional)));
+            ->setLegends(iterator_to_array($this->getLegends($xpt, $additional)));
         $this->loadExtras($xpt, $inv);
 
         return $inv;
@@ -64,20 +72,20 @@ class InvoiceParser implements DocumentParserInterface
 
     private function getXpath($value)
     {
-        if ($value instanceof \DOMDocument) {
+        if ($value instanceof DOMDocument) {
             $doc = $value;
         } else {
-            $doc = new \DOMDocument();
+            $doc = new DOMDocument();
             @$doc->loadXML($value);
         }
         $rootNamespace = $doc->documentElement->namespaceURI;
-        $xpt = new \DOMXPath($doc);
+        $xpt = new DOMXPath($doc);
         $xpt->registerNamespace('xt', $rootNamespace);
 
         return $xpt;
     }
 
-    private function defValue(\DOMNodeList $nodeList, $default = '')
+    private function defValue(DOMNodeList $nodeList, $default = '')
     {
         if ($nodeList->length == 0) {
             return $default;
@@ -86,7 +94,7 @@ class InvoiceParser implements DocumentParserInterface
         return $nodeList->item(0)->nodeValue;
     }
 
-    private function loadTotals(Invoice $inv, \DOMXPath $xpt, \DOMNode $node = null)
+    private function loadTotals(Invoice $inv, DOMXPath $xpt, DOMNode $node = null)
     {
         if (empty($node)) {
             return;
@@ -94,9 +102,9 @@ class InvoiceParser implements DocumentParserInterface
 
         $totals = $xpt->query('sac:AdditionalMonetaryTotal', $node);
         foreach ($totals as $total) {
-            /**@var $total \DOMElement*/
+            /**@var $total DOMElement*/
             $id = trim($this->defValue($xpt->query('cbc:ID', $total)));
-            $val = floatval($this->defValue($xpt->query('cbc:PayableAmount', $total),0));
+            $val = (float)$this->defValue($xpt->query('cbc:PayableAmount', $total), 0);
             switch ($id) {
                 case '1001':
                     $inv->setMtoOperGravadas($val);
@@ -114,14 +122,14 @@ class InvoiceParser implements DocumentParserInterface
                     $inv->setPerception((new SalePerception())
                         ->setCodReg($xpt->query('cbc:ID', $total)->item(0)->getAttribute('schemeID'))
                         ->setMto($val)
-                        ->setMtoBase(floatval($this->defValue($xpt->query('sac:ReferenceAmount', $total), 0)))
-                        ->setMtoTotal(floatval($this->defValue($xpt->query('sac:TotalAmount', $total),0))));
+                        ->setMtoBase((float)$this->defValue($xpt->query('sac:ReferenceAmount', $total), 0))
+                        ->setMtoTotal((float)$this->defValue($xpt->query('sac:TotalAmount', $total), 0)));
                     break;
                 case '2003':
                     $inv->setDetraccion((new Detraction())
                         ->setMount($val)
-                        ->setPercent(floatval($this->defValue($xpt->query('cbc:Percent', $total),0)))
-                        ->setValueRef(floatval($this->defValue($xpt->query('sac:ReferenceAmount', $total),0))));
+                        ->setPercent((float)$this->defValue($xpt->query('cbc:Percent', $total), 0))
+                        ->setValueRef((float)$this->defValue($xpt->query('sac:ReferenceAmount', $total), 0)));
                     break;
                 case '2005':
                     $inv->setMtoDescuentos($val);
@@ -130,12 +138,12 @@ class InvoiceParser implements DocumentParserInterface
         }
     }
 
-    private function loadTributos(Invoice $inv, \DOMXPath $xpt)
+    private function loadTributos(Invoice $inv, DOMXPath $xpt)
     {
         $taxs = $xpt->query('/xt:Invoice/cac:TaxTotal');
         foreach ($taxs as $tax) {
             $name = $this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax));
-            $val = floatval($this->defValue($xpt->query('cbc:TaxAmount', $tax),0));
+            $val = (float)$this->defValue($xpt->query('cbc:TaxAmount', $tax), 0);
             switch ($name) {
                 case 'IGV':
                     $inv->setMtoIGV($val);
@@ -150,24 +158,23 @@ class InvoiceParser implements DocumentParserInterface
         }
     }
 
-    private function getPrepayments(\DOMXPath $xpt)
+    private function getPrepayments(DOMXPath $xpt)
     {
         $nodes = $xpt->query('/xt:Invoice/cac:PrepaidPayment');
         if ($nodes->length == 0) {
             return;
         }
         foreach ($nodes as $node) {
+            /**@var $docRel DOMElement */
             $docRel = $xpt->query('cbc:ID', $node)->item(0);
-            $item = (new Prepayment())
-                ->setTotal(floatval($this->defValue($xpt->query('cbc:PaidAmount', $node),0)))
+            yield (new Prepayment())
+                ->setTotal((float)$this->defValue($xpt->query('cbc:PaidAmount', $node), 0))
                 ->setTipoDocRel($docRel->getAttribute('schemeID'))
                 ->setNroDocRel($docRel->nodeValue);
-
-            yield $item;
         }
     }
 
-    private function getLegends(\DOMXPath $xpt, \DOMNode $node = null)
+    private function getLegends(DOMXPath $xpt, DOMNode $node = null)
     {
         if (empty($node)) {
             return;
@@ -175,16 +182,14 @@ class InvoiceParser implements DocumentParserInterface
 
         $legends = $xpt->query('sac:AdditionalProperty', $node);
         foreach ($legends as $legend) {
-            /**@var $legend \DOMElement*/
-            $leg = (new Legend())
+            /**@var $legend DOMElement*/
+            yield (new Legend())
                 ->setCode($this->defValue($xpt->query('cbc:ID', $legend)))
                 ->setValue($this->defValue($xpt->query('cbc:Value', $legend)));
-
-            yield $leg;
         }
     }
 
-    private function getClient(\DOMXPath $xp)
+    private function getClient(DOMXPath $xp)
     {
         $node = $xp->query('/xt:Invoice/cac:AccountingCustomerParty')->item(0);
 
@@ -197,7 +202,7 @@ class InvoiceParser implements DocumentParserInterface
         return $cl;
     }
 
-    private function getCompany(\DOMXPath $xp)
+    private function getCompany(DOMXPath $xp)
     {
         $node = $xp->query('/xt:Invoice/cac:AccountingSupplierParty')->item(0);
 
@@ -210,18 +215,18 @@ class InvoiceParser implements DocumentParserInterface
         return $cl;
     }
 
-    private function loadExtras(\DOMXPath $xpt, Invoice $inv)
+    private function loadExtras(DOMXPath $xpt, Invoice $inv)
     {
         $inv->setCompra($this->defValue($xpt->query('/xt:Invoice/cac:OrderReference/cbc:ID')));
         $fecVen = $this->defValue($xpt->query('/xt:Invoice/cac:PaymentMeans/cbc:PaymentDueDate'));
         if (!empty($fecVen)) {
-            $inv->setFecVencimiento(new \DateTime($fecVen));
+            $inv->setFecVencimiento(new DateTime($fecVen));
         }
 
         $inv->setGuias(iterator_to_array($this->getGuias($xpt)));
     }
 
-    private function getGuias(\DOMXPath $xpt)
+    private function getGuias(DOMXPath $xpt)
     {
         $guias = $xpt->query('/xt:Invoice/cac:DespatchDocumentReference');
         if ($guias->length == 0) {
@@ -238,11 +243,11 @@ class InvoiceParser implements DocumentParserInterface
     }
 
     /**
-     * @param \DOMXPath $xp
+     * @param DOMXPath $xp
      * @param $node
      * @return Address|null
      */
-    private function getAddress(\DOMXPath $xp, $node)
+    private function getAddress(DOMXPath $xp, $node)
     {
         $nAd = $xp->query('cac:Party/cac:PostalAddress', $node);
         if ($nAd->length > 0) {
@@ -259,65 +264,78 @@ class InvoiceParser implements DocumentParserInterface
         return null;
     }
 
-    private function getDetails(\DOMXPath $xpt)
+    private function getDetails(DOMXPath $xpt)
     {
         $nodes = $xpt->query('/xt:Invoice/cac:InvoiceLine');
 
         foreach ($nodes as $node) {
-            $quant = $xpt->query('cbc:InvoicedQuantity', $node)->item(0);
+            /**@var $quantity DOMElement */
+            $quantity = $xpt->query('cbc:InvoicedQuantity', $node)->item(0);
             $det = new SaleDetail();
-            $det->setCantidad($quant->nodeValue)
-                ->setUnidad($quant->getAttribute('unitCode'))
-                ->setMtoValorVenta($this->defValue($xpt->query('cbc:LineExtensionAmount', $node)))
-                ->setMtoValorUnitario($this->defValue($xpt->query('cac:Price/cbc:PriceAmount', $node)))
+            $det->setCantidad((float)$quantity->nodeValue)
+                ->setUnidad($quantity->getAttribute('unitCode'))
+                ->setMtoValorVenta((float)$this->defValue($xpt->query('cbc:LineExtensionAmount', $node)))
+                ->setMtoValorUnitario((float)$this->defValue($xpt->query('cac:Price/cbc:PriceAmount', $node)))
                 ->setDescripcion($this->defValue($xpt->query('cac:Item/cbc:Description', $node)))
                 ->setCodProducto($this->defValue($xpt->query('cac:Item/cac:SellersItemIdentification/cbc:ID', $node)))
                 ->setCodProdSunat($this->defValue($xpt->query('cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode', $node)));
 
-            $taxs = $xpt->query('cac:TaxTotal', $node);
-            foreach ($taxs as $tax) {
-                $name = $this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax));
-                $val = floatval($this->defValue($xpt->query('cbc:TaxAmount', $tax),0));
-                switch ($name) {
-                    case 'IGV':
-                        $det->setIgv($val);
-                        $det->setTipAfeIgv($this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cbc:TaxExemptionReasonCode', $tax)));
-                        break;
-                    case 'ISC':
-                        $det->setIsc($val);
-                        $det->setTipSisIsc($this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cbc:TierRange', $tax)));
-                        break;
-                }
-            }
-
-            // Descuento
-            $descs = $xpt->query('cac:AllowanceCharge', $node);
-            foreach ($descs as $desc) {
-                $charge = $this->defValue($xpt->query('cbc:ChargeIndicator', $desc));
-                $charge = trim($charge);
-                if ($charge == 'false') {
-                    $val = floatval($this->defValue($xpt->query('cbc:Amount', $desc),0));
-                    $det->setDescuento($val);
-                }
-            }
-
-            $prices = $xpt->query('cac:PricingReference', $node);
-            foreach ($prices as $price) {
-                $code = $this->defValue($xpt->query('cac:AlternativeConditionPrice/cbc:PriceTypeCode', $price));
-                $value = floatval($this->defValue($xpt->query('cac:AlternativeConditionPrice/cbc:PriceAmount', $price),0));
-                $code = trim($code);
-
-                switch ($code) {
-                    case '01':
-                        $det->setMtoPrecioUnitario($value);
-                        break;
-                    case '02':
-                        $det->setMtoValorGratuito($value);
-                        break;
-                }
-            }
+            $this->loadTaxDetail($det, $xpt, $node);
+            $this->loadDescuentosDetail($det, $xpt, $node);
+            $this->loadPricesDetail($det, $xpt, $node);
 
             yield $det;
+        }
+    }
+
+    private function loadTaxDetail(SaleDetail $detail, DOMXPath $xpt, DOMNode $detailNode)
+    {
+        $taxs = $xpt->query('cac:TaxTotal', $detailNode);
+        foreach ($taxs as $tax) {
+            $name = $this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax));
+            $val = (float)$this->defValue($xpt->query('cbc:TaxAmount', $tax), 0);
+            switch ($name) {
+                case 'IGV':
+                    $detail->setIgv($val)
+                           ->setTipAfeIgv($this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cbc:TaxExemptionReasonCode', $tax)));
+                    break;
+                case 'ISC':
+                    $detail->setIsc($val)
+                           ->setTipSisIsc($this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cbc:TierRange', $tax)));
+                    break;
+            }
+        }
+    }
+
+    private function loadDescuentosDetail(SaleDetail $detail, DOMXPath $xpt, DOMNode $detailNode)
+    {
+        $descs = $xpt->query('cac:AllowanceCharge', $detailNode);
+        foreach ($descs as $desc) {
+            $charge = $this->defValue($xpt->query('cbc:ChargeIndicator', $desc));
+            $charge = trim($charge);
+            if ($charge == 'false') {
+                $val = (float)$this->defValue($xpt->query('cbc:Amount', $desc), 0);
+                $detail->setDescuento($val);
+            }
+        }
+    }
+
+    private function loadPricesDetail(SaleDetail $detail, DOMXPath $xpt, DOMNode $detailNode)
+    {
+        $prices = $xpt->query('cac:PricingReference', $detailNode);
+        foreach ($prices as $price) {
+            $code = $this->defValue($xpt->query('cac:AlternativeConditionPrice/cbc:PriceTypeCode', $price));
+            $value = (float)$this->defValue($xpt->query('cac:AlternativeConditionPrice/cbc:PriceAmount', $price), 0);
+            $code = trim($code);
+
+            switch ($code) {
+                case '01':
+                    $detail->setMtoPrecioUnitario($value);
+                    break;
+                case '02':
+                    $detail->setMtoValorGratuito($value);
+                    break;
+            }
         }
     }
 }

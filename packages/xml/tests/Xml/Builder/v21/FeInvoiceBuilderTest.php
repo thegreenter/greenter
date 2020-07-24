@@ -6,6 +6,8 @@
  * Time: 18:05
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Builder\v21;
 
 use Greenter\Data\Generator\InvoiceDiscountStore;
@@ -15,8 +17,9 @@ use Greenter\Data\Generator\InvoiceIvapStore;
 use Greenter\Model\Sale\Invoice;
 use Tests\Greenter\Xml\Builder\FeBuilderTrait;
 use Tests\Greenter\Xml\Builder\XsdValidatorTrait;
+use PHPUnit\Framework\TestCase;
 
-class FeInvoiceBuilderTest extends \PHPUnit_Framework_TestCase
+class FeInvoiceBuilderTest extends TestCase
 {
     use FeBuilderTrait;
     use XsdValidatorTrait;

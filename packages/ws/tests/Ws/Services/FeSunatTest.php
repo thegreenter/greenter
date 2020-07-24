@@ -6,15 +6,18 @@
  * Time: 05:18 PM.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Services;
 
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class FeSunatTest.
  */
-class FeSunatTest extends \PHPUnit_Framework_TestCase
+class FeSunatTest extends TestCase
 {
     use FeSunatTestTrait;
 
@@ -29,7 +32,7 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         /** @var $response BillResult */
         $this->assertTrue($response->isSuccess());
         $this->assertNotNull($response->getCdrResponse());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'La Factura numero F001-00000001, ha sido aceptada',
             $response->getCdrResponse()->getDescription()
         );
@@ -49,7 +52,7 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         /** @var $response BillResult */
         $this->assertTrue($response->isSuccess());
         $this->assertNotNull($response->getCdrResponse());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'La Factura numero F001-00000001, ha sido aceptada',
             $response->getCdrResponse()->getDescription()
         );
@@ -141,14 +144,15 @@ class FeSunatTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertEquals('0', $result->getCode());
-        $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
+        $this->assertStringContainsString('aceptada', $result->getCdrResponse()->getDescription());
     }
 
     /**
-     * @expectedException \Exception
+     * @throws \Exception
      */
     public function testGetStatusInvalidResponse()
     {
+        $this->expectException(\Exception::class);
         $wss = $this->getExtServiceMock();
         $wss->getStatus('1500523236600');
     }

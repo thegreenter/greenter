@@ -6,6 +6,8 @@
  * Time: 22:22.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Data;
 
 /**
@@ -23,14 +25,14 @@ class GeneratorFactory
      *
      * @return DocumentGeneratorInterface
      */
-    public function create($type)
+    public function create($type): ?DocumentGeneratorInterface
     {
         $shared = $this->getShared();
 
         return new $type($shared);
     }
 
-    private function getShared()
+    private function getShared(): ?SharedStore
     {
         if (empty($this->shared)) {
             $this->shared = new SharedStore();

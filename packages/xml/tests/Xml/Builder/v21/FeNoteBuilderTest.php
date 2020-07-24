@@ -6,18 +6,21 @@
  * Time: 04:14 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Builder\v21;
 
 use Greenter\Data\Generator\NoteStore;
 use Greenter\Model\Sale\Note;
 use Tests\Greenter\Xml\Builder\FeBuilderTrait;
 use Tests\Greenter\Xml\Builder\XsdValidatorTrait;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class FeNoteBuilderTest
  * @package tests\Greenter\Xml\Builder
  */
-class FeNoteBuilderTest extends \PHPUnit_Framework_TestCase
+class FeNoteBuilderTest extends TestCase
 {
     use FeBuilderTrait;
     use XsdValidatorTrait;

@@ -6,6 +6,8 @@
  * Time: 17:42.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Resolver;
 
 use Greenter\Model\Perception\Perception;
@@ -18,15 +20,16 @@ use Greenter\Model\Voided\Voided;
 use Greenter\Ws\Reader\XmlReader;
 use Greenter\Ws\Resolver\TypeResolverInterface;
 use Greenter\Ws\Resolver\XmlTypeResolver;
+use PHPUnit\Framework\TestCase;
 
-class TypeResolverTest extends \PHPUnit_Framework_TestCase
+class TypeResolverTest extends TestCase
 {
     /**
      * @var TypeResolverInterface
      */
     private $resolver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->resolver = new XmlTypeResolver(new XmlReader());
     }

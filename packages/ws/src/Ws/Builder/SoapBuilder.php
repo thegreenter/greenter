@@ -6,6 +6,8 @@
  * Time: 16:35.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Builder;
 
 use Greenter\Ws\Services\SoapClient;

@@ -6,8 +6,11 @@
  * Time: 05:38 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Sale;
 
+use DateTimeInterface;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
@@ -50,7 +53,7 @@ class Receipt implements DocumentInterface
     /**
      * Fecha de emisión.
      *
-     * @var \DateTime
+     * @var DateTimeInterface
      */
     private $fechaEmision;
 
@@ -99,7 +102,7 @@ class Receipt implements DocumentInterface
     /**
      * @return Company
      */
-    public function getPerson()
+    public function getPerson(): ?Company
     {
         return $this->person;
     }
@@ -109,7 +112,7 @@ class Receipt implements DocumentInterface
      *
      * @return Receipt
      */
-    public function setPerson($person)
+    public function setPerson(?Company $person): Receipt
     {
         $this->person = $person;
 
@@ -119,7 +122,7 @@ class Receipt implements DocumentInterface
     /**
      * @return Client
      */
-    public function getReceptor()
+    public function getReceptor(): ?Client
     {
         return $this->receptor;
     }
@@ -129,7 +132,7 @@ class Receipt implements DocumentInterface
      *
      * @return Receipt
      */
-    public function setReceptor($receptor)
+    public function setReceptor(?Client $receptor): Receipt
     {
         $this->receptor = $receptor;
 
@@ -137,19 +140,19 @@ class Receipt implements DocumentInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getSerie()
+    public function getSerie(): ?string
     {
         return $this->serie;
     }
 
     /**
-     * @param mixed $serie
+     * @param string $serie
      *
      * @return Receipt
      */
-    public function setSerie($serie)
+    public function setSerie(?string $serie): Receipt
     {
         $this->serie = $serie;
 
@@ -159,7 +162,7 @@ class Receipt implements DocumentInterface
     /**
      * @return string
      */
-    public function getCorrelativo()
+    public function getCorrelativo(): ?string
     {
         return $this->correlativo;
     }
@@ -169,7 +172,7 @@ class Receipt implements DocumentInterface
      *
      * @return Receipt
      */
-    public function setCorrelativo($correlativo)
+    public function setCorrelativo(?string $correlativo): Receipt
     {
         $this->correlativo = $correlativo;
 
@@ -177,19 +180,19 @@ class Receipt implements DocumentInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTimeInterface
      */
-    public function getFechaEmision()
+    public function getFechaEmision(): ?DateTimeInterface
     {
         return $this->fechaEmision;
     }
 
     /**
-     * @param \DateTime $fechaEmision
+     * @param DateTimeInterface $fechaEmision
      *
      * @return Receipt
      */
-    public function setFechaEmision($fechaEmision)
+    public function setFechaEmision(?DateTimeInterface $fechaEmision): Receipt
     {
         $this->fechaEmision = $fechaEmision;
 
@@ -199,7 +202,7 @@ class Receipt implements DocumentInterface
     /**
      * @return string
      */
-    public function getConcepto()
+    public function getConcepto(): ?string
     {
         return $this->concepto;
     }
@@ -209,7 +212,7 @@ class Receipt implements DocumentInterface
      *
      * @return Receipt
      */
-    public function setConcepto($concepto)
+    public function setConcepto(?string $concepto): Receipt
     {
         $this->concepto = $concepto;
 
@@ -219,7 +222,7 @@ class Receipt implements DocumentInterface
     /**
      * @return string
      */
-    public function getMontoLetras()
+    public function getMontoLetras(): ?string
     {
         return $this->montoLetras;
     }
@@ -229,7 +232,7 @@ class Receipt implements DocumentInterface
      *
      * @return Receipt
      */
-    public function setMontoLetras($montoLetras)
+    public function setMontoLetras(?string $montoLetras): Receipt
     {
         $this->montoLetras = $montoLetras;
 
@@ -239,7 +242,7 @@ class Receipt implements DocumentInterface
     /**
      * @return float
      */
-    public function getSubTotal()
+    public function getSubTotal(): ?float
     {
         return $this->subTotal;
     }
@@ -249,7 +252,7 @@ class Receipt implements DocumentInterface
      *
      * @return Receipt
      */
-    public function setSubTotal($subTotal)
+    public function setSubTotal(?float $subTotal): Receipt
     {
         $this->subTotal = $subTotal;
 
@@ -259,7 +262,7 @@ class Receipt implements DocumentInterface
     /**
      * @return float
      */
-    public function getRetencion()
+    public function getRetencion(): ?float
     {
         return $this->retencion;
     }
@@ -269,7 +272,7 @@ class Receipt implements DocumentInterface
      *
      * @return Receipt
      */
-    public function setRetencion($retencion)
+    public function setRetencion(?float $retencion): Receipt
     {
         $this->retencion = $retencion;
 
@@ -279,7 +282,7 @@ class Receipt implements DocumentInterface
     /**
      * @return float
      */
-    public function getPorcentaje()
+    public function getPorcentaje(): ?float
     {
         return $this->porcentaje;
     }
@@ -289,7 +292,7 @@ class Receipt implements DocumentInterface
      *
      * @return Receipt
      */
-    public function setPorcentaje($porcentaje)
+    public function setPorcentaje(?float $porcentaje): Receipt
     {
         $this->porcentaje = $porcentaje;
 
@@ -299,7 +302,7 @@ class Receipt implements DocumentInterface
     /**
      * @return float
      */
-    public function getTotal()
+    public function getTotal(): ?float
     {
         return $this->total;
     }
@@ -309,7 +312,7 @@ class Receipt implements DocumentInterface
      *
      * @return Receipt
      */
-    public function setTotal($total)
+    public function setTotal(?float $total): Receipt
     {
         $this->total = $total;
 
@@ -321,7 +324,7 @@ class Receipt implements DocumentInterface
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return 'RHE'.$this->person->getRuc().$this->getCorrelativo();
     }

@@ -6,8 +6,12 @@
  * Time: 01:25 PM
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Parser;
 
+use DateTime;
+use DOMDocument;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -39,7 +43,7 @@ class PerceptionParser implements DocumentParserInterface
      * @param $value
      * @return DocumentInterface
      */
-    public function parse($value)
+    public function parse($value): ?DocumentInterface
     {
         $this->load($value);
         $xml = $this->reader;
@@ -49,14 +53,14 @@ class PerceptionParser implements DocumentParserInterface
         $perception = new Perception();
         $perception->setSerie($idNum[0])
             ->setCorrelativo($idNum[1])
-            ->setFechaEmision(new \DateTime($xml->getValue('cbc:IssueDate')))
+            ->setFechaEmision(new DateTime($xml->getValue('cbc:IssueDate')))
             ->setCompany($this->getCompany())
             ->setProveedor($this->getClient())
             ->setRegimen($xml->getValue('sac:SUNATPerceptionSystemCode'))
-            ->setTasa(floatval($xml->getValue('sac:SUNATPerceptionPercent', $root, 0)))
+            ->setTasa((float)$xml->getValue('sac:SUNATPerceptionPercent', $root, '0'))
             ->setObservacion($xml->getValue('cbc:Note'))
-            ->setImpPercibido($xml->getValue('cbc:TotalInvoiceAmount', $root, 0))
-            ->setImpCobrado(floatval($xml->getValue('sac:SUNATTotalCashed', $root, 0)))
+            ->setImpPercibido((float)$xml->getValue('cbc:TotalInvoiceAmount', $root, '0'))
+            ->setImpCobrado((float)$xml->getValue('sac:SUNATTotalCashed', $root, '0'))
             ->setDetails(iterator_to_array($this->getDetails()));
 
         return $perception;
@@ -66,7 +70,7 @@ class PerceptionParser implements DocumentParserInterface
     {
         $this->reader = new XmlReader();
 
-        if ($value instanceof \DOMDocument) {
+        if ($value instanceof DOMDocument) {
             $this->reader->loadDom($value);
         } else {
             $this->reader->loadXml($value);
@@ -78,7 +82,7 @@ class PerceptionParser implements DocumentParserInterface
     private function getCompany()
     {
         $xml = $this->reader;
-        $node = $xml->getNode('cac:AgentParty',$this->rootNode);
+        $node = $xml->getNode('cac:AgentParty', $this->rootNode);
 
         $cl = new Company();
         $cl->setRuc($xml->getValue('cac:PartyIdentification/cbc:ID', $node))
@@ -110,7 +114,6 @@ class PerceptionParser implements DocumentParserInterface
 
         $address = $xml->getNode('cac:PostalAddress', $node);
         if ($address) {
-
             return (new Address())
                 ->setDireccion($xml->getValue('cbc:StreetName', $address))
                 ->setDepartamento($xml->getValue('cbc:CityName', $address))
@@ -134,8 +137,8 @@ class PerceptionParser implements DocumentParserInterface
             $det = new PerceptionDetail();
             $det->setTipoDoc($temp->getAttribute('schemeID'))
                 ->setNumDoc($temp->nodeValue)
-                ->setFechaEmision(new \DateTime($xml->getValue('cbc:IssueDate', $node)))
-                ->setImpTotal(floatval($mount->nodeValue))
+                ->setFechaEmision(new DateTime($xml->getValue('cbc:IssueDate', $node)))
+                ->setImpTotal((float)$mount->nodeValue)
                 ->setMoneda($mount->getAttribute('currencyID'))
                 ->setCobros(iterator_to_array($this->getPayments($node)));
 
@@ -143,24 +146,24 @@ class PerceptionParser implements DocumentParserInterface
             if (empty($temp)) {
                 $det->setImpPercibido(0.00)
                     ->setImpCobrar(0.00)
-                    ->setFechaPercepcion(new \DateTime());
+                    ->setFechaPercepcion(new DateTime());
 
                 yield $det;
                 continue;
             }
 
             $det
-                ->setImpPercibido(floatval($xml->getValue('sac:SUNATPerceptionAmount', $temp)))
-                ->setFechaPercepcion(new \DateTime($xml->getValue('sac:SUNATPerceptionDate', $temp)))
-                ->setImpCobrar(floatval($xml->getValue('sac:SUNATNetTotalCashed', $temp)));
+                ->setImpPercibido((float)$xml->getValue('sac:SUNATPerceptionAmount', $temp))
+                ->setFechaPercepcion(new DateTime($xml->getValue('sac:SUNATPerceptionDate', $temp)))
+                ->setImpCobrar((float)$xml->getValue('sac:SUNATNetTotalCashed', $temp));
 
             $cambio = $xml->getNode('cac:ExchangeRate', $temp);
             if ($cambio) {
                 $exc = new Exchange();
                 $exc->setMonedaRef($xml->getValue('cbc:SourceCurrencyCode', $cambio))
                     ->setMonedaObj($xml->getValue('cbc:TargetCurrencyCode', $cambio))
-                    ->setFactor(floatval($xml->getValue('cbc:CalculationRate', $cambio, 0)))
-                    ->setFecha(new \DateTime($xml->getValue('cbc:Date', $cambio)));
+                    ->setFactor((float)$xml->getValue('cbc:CalculationRate', $cambio, '0'))
+                    ->setFecha(new DateTime($xml->getValue('cbc:Date', $cambio)));
                 $det->setTipoCambio($exc);
             }
 
@@ -177,8 +180,8 @@ class PerceptionParser implements DocumentParserInterface
             $temp = $xml->getNode('cbc:PaidAmount', $pay);
             $payment = new Payment();
             $payment->setMoneda($temp->getAttribute('currencyID'))
-                ->setImporte(floatval($temp->nodeValue))
-                ->setFecha(new \DateTime($xml->getValue('cbc:PaidDate')));
+                ->setImporte((float)$temp->nodeValue)
+                ->setFecha(new DateTime($xml->getValue('cbc:PaidDate')));
 
             yield $payment;
         }

@@ -6,6 +6,8 @@
  * Time: 03:02 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Client\Client;
@@ -13,8 +15,9 @@ use Greenter\Model\Perception\Perception;
 use Greenter\Model\Perception\PerceptionDetail;
 use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
+use PHPUnit\Framework\TestCase;
 
-class CePerceptionValidatorTest extends \PHPUnit_Framework_TestCase
+class CePerceptionValidatorTest extends TestCase
 {
     use ValidatorTrait;
 

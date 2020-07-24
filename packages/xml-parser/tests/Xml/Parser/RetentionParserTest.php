@@ -6,12 +6,15 @@
  * Time: 03:42 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Retention\Retention;
 use Greenter\Xml\Parser\RetentionParser;
+use PHPUnit\Framework\TestCase;
 
-class RetentionParserTest extends \PHPUnit_Framework_TestCase
+class RetentionParserTest extends TestCase
 {
     /**
      * @dataProvider providerDocs

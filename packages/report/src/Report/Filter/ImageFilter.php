@@ -6,6 +6,8 @@
  * Time: 12:21 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Report\Filter;
 
 /**
@@ -17,7 +19,7 @@ class ImageFilter
     const JPEG_HEAD = "\xFF\xD8\xFF";
     const GIF_HEAD = "GIF";
 
-    public function toBase64($image, $mime = '')
+    public function toBase64($image, $mime = ''): ?string
     {
         if (empty($mime)) {
             $mime = $this->getMimeType($image);
@@ -27,10 +29,10 @@ class ImageFilter
         return 'data:image/'.$mime.';base64,'.$content;
     }
 
-    public function getMimeType($raw)
+    public function getMimeType($raw): ?string
     {
         $text = substr($raw, 0, 8);
-        if ($text == "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A"){
+        if ($text == "\x89\x50\x4E\x47\x0D\x0A\x1A\x0A") {
             return 'png';
         }
 

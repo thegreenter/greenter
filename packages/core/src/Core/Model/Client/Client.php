@@ -6,6 +6,8 @@
  * Time: 23:01.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Client;
 
 use Greenter\Model\Company\Address;
@@ -48,7 +50,7 @@ class Client
     /**
      * @return string
      */
-    public function getTipoDoc()
+    public function getTipoDoc(): ?string
     {
         return $this->tipoDoc;
     }
@@ -58,7 +60,7 @@ class Client
      *
      * @return Client
      */
-    public function setTipoDoc($tipoDoc)
+    public function setTipoDoc(?string $tipoDoc): Client
     {
         $this->tipoDoc = $tipoDoc;
 
@@ -68,7 +70,7 @@ class Client
     /**
      * @return string
      */
-    public function getNumDoc()
+    public function getNumDoc(): ?string
     {
         return $this->numDoc;
     }
@@ -78,7 +80,7 @@ class Client
      *
      * @return Client
      */
-    public function setNumDoc($numDoc)
+    public function setNumDoc(?string $numDoc): Client
     {
         $this->numDoc = $numDoc;
 
@@ -88,7 +90,7 @@ class Client
     /**
      * @return string
      */
-    public function getRznSocial()
+    public function getRznSocial(): ?string
     {
         return $this->rznSocial;
     }
@@ -98,7 +100,7 @@ class Client
      *
      * @return Client
      */
-    public function setRznSocial($rznSocial)
+    public function setRznSocial(?string $rznSocial): Client
     {
         $this->rznSocial = $rznSocial;
 
@@ -108,7 +110,7 @@ class Client
     /**
      * @return Address
      */
-    public function getAddress()
+    public function getAddress(): ?Address
     {
         return $this->address;
     }
@@ -118,7 +120,7 @@ class Client
      *
      * @return Client
      */
-    public function setAddress($address)
+    public function setAddress(?Address $address): Client
     {
         $this->address = $address;
 
@@ -128,36 +130,40 @@ class Client
     /**
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
     /**
      * @param string $email
+     *
      * @return Client
      */
-    public function setEmail($email)
+    public function setEmail(?string $email): Client
     {
         $this->email = $email;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getTelephone()
+    public function getTelephone(): ?string
     {
         return $this->telephone;
     }
 
     /**
      * @param string $telephone
+     *
      * @return Client
      */
-    public function setTelephone($telephone)
+    public function setTelephone(?string $telephone): Client
     {
         $this->telephone = $telephone;
+
         return $this;
     }
 }

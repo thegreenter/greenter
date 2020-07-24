@@ -6,8 +6,11 @@
  * Time: 01:20 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
+use DateTime;
 use Greenter\Model\Voided\Voided;
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -23,15 +26,13 @@ class VoidedLoader implements LoaderMetadataInterface
             new Assert\Length(['max' => 5]),
         ]);
         $metadata->addPropertyConstraints('fecGeneracion', [
-            new Assert\NotBlank(),
-            new Assert\Date(),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('fecComunicacion', [
-            new Assert\NotBlank(),
-            new Assert\Date(),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('company', [
-            new Assert\NotBlank(),
+            new Assert\NotNull(),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraints('details', [
@@ -44,7 +45,7 @@ class VoidedLoader implements LoaderMetadataInterface
     public function validate($object, ExecutionContextInterface $context)
     {
         /**@var $object Voided */
-        if ($object->getFecComunicacion() > new \DateTime()) {
+        if ($object->getFecComunicacion() > new DateTime()) {
             $context->buildViolation('2301')
                 ->atPath('fecComunicacion')
                 ->addViolation();

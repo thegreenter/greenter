@@ -9,7 +9,9 @@
 namespace Greenter\Report\Render;
 
 use BaconQrCode\Common\ErrorCorrectionLevel;
-use BaconQrCode\Renderer\Image\Png;
+use BaconQrCode\Renderer\Image\SvgImageBackEnd;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
 use Greenter\Model\Sale\BaseSale;
 
@@ -44,13 +46,11 @@ class QrRender
 
     private function getQrImage($content)
     {
-        $renderer = new Png();
-        $renderer->setHeight(120);
-        $renderer->setWidth(120);
-        $renderer->setMargin(0);
+        $renderer = new ImageRenderer(
+            new RendererStyle(120, 0),
+            new SvgImageBackEnd()
+        );
         $writer = new Writer($renderer);
-        $qrCode = $writer->writeString($content, 'UTF-8', ErrorCorrectionLevel::Q);
-
-        return $qrCode;
+        return $writer->writeString($content, 'UTF-8', ErrorCorrectionLevel::Q());
     }
 }

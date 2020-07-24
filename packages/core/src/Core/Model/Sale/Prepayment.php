@@ -6,6 +6,8 @@
  * Time: 08:21 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Sale;
 
 /**
@@ -31,7 +33,7 @@ class Prepayment
     /**
      * @return string
      */
-    public function getTipoDocRel()
+    public function getTipoDocRel(): ?string
     {
         return $this->tipoDocRel;
     }
@@ -41,7 +43,7 @@ class Prepayment
      *
      * @return Prepayment
      */
-    public function setTipoDocRel($tipoDocRel)
+    public function setTipoDocRel(?string $tipoDocRel): Prepayment
     {
         $this->tipoDocRel = $tipoDocRel;
 
@@ -51,7 +53,7 @@ class Prepayment
     /**
      * @return string
      */
-    public function getNroDocRel()
+    public function getNroDocRel(): ?string
     {
         return $this->nroDocRel;
     }
@@ -61,7 +63,7 @@ class Prepayment
      *
      * @return Prepayment
      */
-    public function setNroDocRel($nroDocRel)
+    public function setNroDocRel(?string $nroDocRel): Prepayment
     {
         $this->nroDocRel = $nroDocRel;
 
@@ -71,7 +73,7 @@ class Prepayment
     /**
      * @return float
      */
-    public function getTotal()
+    public function getTotal(): ?float
     {
         return $this->total;
     }
@@ -81,7 +83,7 @@ class Prepayment
      *
      * @return Prepayment
      */
-    public function setTotal($total)
+    public function setTotal(?float $total): Prepayment
     {
         $this->total = $total;
 

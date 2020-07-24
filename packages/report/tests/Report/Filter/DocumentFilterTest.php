@@ -6,11 +6,14 @@
  * Time: 17:13
  */
 
-namespace Report\Filter;
+declare(strict_types=1);
+
+namespace Tests\Greenter\Report\Filter;
 
 use Greenter\Report\Filter\DocumentFilter;
+use PHPUnit\Framework\TestCase;
 
-class DocumentFilterTest extends \PHPUnit_Framework_TestCase
+class DocumentFilterTest extends TestCase
 {
 
     /**
@@ -18,7 +21,7 @@ class DocumentFilterTest extends \PHPUnit_Framework_TestCase
      */
     private $filter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->filter = new DocumentFilter();
     }

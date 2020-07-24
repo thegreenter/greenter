@@ -6,8 +6,11 @@
  * Time: 12:12.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Builder;
 
+use Exception;
 use Greenter\Ws\Services\BaseSunat;
 use Greenter\Ws\Services\WsClientInterface;
 
@@ -37,13 +40,11 @@ class ServiceBuilder
      * @param string $type Service Class
      *
      * @return object
-     *
-     * @throws \Exception
      */
     public function build($type)
     {
         if (!is_subclass_of($type, BaseSunat::class)) {
-            throw new \Exception($type.' should be instance of '.BaseSunat::class);
+            throw new Exception($type.' should be instance of '.BaseSunat::class);
         }
 
         /** @var $service BaseSunat */

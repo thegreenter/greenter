@@ -6,6 +6,8 @@
  * Time: 17:40.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Zip;
 
 /**
@@ -21,5 +23,5 @@ interface DecompressInterface
      *
      * @return array
      */
-    public function decompress($content, callable $filter = null);
+    public function decompress(?string $content, callable $filter = null): ?array;
 }

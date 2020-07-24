@@ -6,21 +6,24 @@
  * Time: 10:31 AM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Report\Filter;
 
 use Greenter\Report\Filter\ImageFilter;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ImageFilterTest
  */
-class ImageFilterTest extends \PHPUnit_Framework_TestCase
+class ImageFilterTest extends TestCase
 {
     /**
      * @var ImageFilter
      */
     private $filter;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->filter = new ImageFilter();
     }

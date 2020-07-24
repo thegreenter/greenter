@@ -1,37 +1,9 @@
 # XML Parser - Greenter
 
-[![src greenter](https://img.shields.io/badge/src-greenter-brightgreen.svg)](https://github.com/thegreenter/greenter)
+[![src greenter](https://badgen.net/badge/icon/greenter/47A297?icon=https://rawcdn.githack.com/thegreenter/docs/f16cc8f7ce432be4478bac519a45546e655d760e/docs/img/greenter-icon-white.svg&label)](https://github.com/thegreenter/greenter)
 
-Convierte XML a clases PHP definidas en [Greenter](https://github.com/thegreenter/greenter).
+Convierte XML de comprobantes electrónicos a clases de PHP.
 
-# Instalar
-Via composer desde [packagist.org](https://packagist.org/packages/greenter/xml-parser)
-
-```bash
-composer require greenter/xml-parser
-```
-
-## Ejemplo
-```php
-use Greenter\Xml\Parser\InvoiceParser;
-require 'vendor/autoload.php';
-
-$parser = new InvoiceParser();
-$xml = file_get_contents('20000000001-01-F001-1.xml');
-$invoice = $parser->parse($xml); // get an invoice.
-
-var_dump($invoice);
-```
-
-# Documentos Soportados
-
-- Factura Electrónica (UBL 2.0)
-- Boleta Electrónica (UBL 2.0)
-- Nota de Crédito Electrónica (UBL 2.0)
-- Nota de Débito Electrónica (UBL 2.0)
-- Recibo por Honorarios Electrónico (UBL 2.0)
-- Guia de Remisión Electrónica (UBL 2.0)
-- Retencion Electrónica (UBL 2.0)
-- Percepcion Electrónica (UBL 2.0)
-- Comunicacion de Baja (UBL 2.0)
-- Resumen Diario de Boletas (UBL 2.0)
+## Recursos
+- [Documentación](https://greenter.dev/)
+- [Reportar un error](https://github.com/thegreenter/greenter/issues) o enviar un [pull request](https://github.com/thegreenter/greenter/pulls) al [repositorio principal de greenter](https://github.com/thegreenter/greenter).

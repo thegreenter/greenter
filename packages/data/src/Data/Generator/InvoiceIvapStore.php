@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Greenter\Data\Generator;
 
 use DateTime;
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\SaleDetail;
@@ -21,7 +24,7 @@ class InvoiceIvapStore implements DocumentGeneratorInterface
         $this->shared = $shared;
     }
 
-    public function create()
+    public function create(): ?DocumentInterface
     {
 
         $invoice = new Invoice();

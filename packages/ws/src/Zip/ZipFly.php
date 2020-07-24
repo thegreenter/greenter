@@ -164,9 +164,9 @@ class ZipFly implements CompressInterface, DecompressInterface
      * @param string $filename
      * @param string $content
      *
-     * @return string
+     * @return string|null
      */
-    public function compress($filename, $content)
+    public function compress(?string $filename, ?string $content): ?string
     {
         $this->addFile($content, $filename);
         $zip = $this->file();
@@ -190,7 +190,7 @@ class ZipFly implements CompressInterface, DecompressInterface
      *
      * @return array
      */
-    public function decompress($content, callable $filter = null)
+    public function decompress(?string $content, callable $filter = null): ?array
     {
         $start = 0;
         $result = [];

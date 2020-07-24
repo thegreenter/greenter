@@ -6,6 +6,8 @@
  * Time: 04:14 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Client\Client;
@@ -13,8 +15,9 @@ use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
+use PHPUnit\Framework\TestCase;
 
-class FeNoteValidator21Test extends \PHPUnit_Framework_TestCase
+class FeNote21ValidatorTest extends TestCase
 {
     use Validator21Trait;
 
@@ -24,21 +27,19 @@ class FeNoteValidator21Test extends \PHPUnit_Framework_TestCase
         $validator = $this->getValidator();
         $errors = $validator->validate($note);
 
-        $this->assertEquals(0,$errors->count());
+        $this->assertEquals(0, $errors->count());
     }
 
     public function testValidateNotValidNote()
     {
         $note = $this->getCreditNote();
-        $note->setMtoImpVenta('21.22');
         $note->setCodMotivo('');
         $note->setDesMotivo('');
-        $note->getPerception()->setMto('');
 
         $validator = $this->getValidator();
         $errors = $validator->validate($note);
 
-        $this->assertEquals(4, $errors->count());
+        $this->assertEquals(2, $errors->count());
     }
 
     private function getCreditNote()

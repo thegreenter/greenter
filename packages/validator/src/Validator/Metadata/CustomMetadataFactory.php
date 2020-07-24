@@ -28,7 +28,7 @@ class CustomMetadataFactory implements MetadataFactoryInterface
     /**
      * @param string $version
      */
-    public function setVersion($version)
+    public function setVersion(?string $version)
     {
         $this->version = $version;
     }

@@ -6,10 +6,13 @@
  * Time: 22:14
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Data\Generator;
 
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
 
@@ -25,7 +28,7 @@ class ReversionStore implements DocumentGeneratorInterface
         $this->shared = $shared;
     }
 
-    public function create()
+    public function create(): ?DocumentInterface
     {
         $detial1 = new VoidedDetail();
         $detial1->setTipoDoc('20')

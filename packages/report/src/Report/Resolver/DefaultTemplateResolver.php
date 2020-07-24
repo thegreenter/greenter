@@ -8,7 +8,16 @@
 
 namespace Greenter\Report\Resolver;
 
+use Exception;
+use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Perception\Perception;
+use Greenter\Model\Retention\Retention;
+use Greenter\Model\Sale\Invoice;
+use Greenter\Model\Sale\Note;
+use Greenter\Model\Summary\Summary;
+use Greenter\Model\Voided\Reversion;
+use Greenter\Model\Voided\Voided;
 
 class DefaultTemplateResolver implements TemplateResolverInterface
 {
@@ -17,34 +26,34 @@ class DefaultTemplateResolver implements TemplateResolverInterface
      *
      * @return string
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    public function getTemplate($document)
+    public function getTemplate(DocumentInterface $document): ?string
     {
         $className = get_class($document);
         switch ($className) {
-            case \Greenter\Model\Sale\Invoice::class:
-            case \Greenter\Model\Sale\Note::class:
+            case Invoice::class:
+            case Note::class:
                 $name = 'invoice';
                 break;
-            case \Greenter\Model\Retention\Retention::class:
+            case Retention::class:
                 $name = 'retention';
                 break;
-            case \Greenter\Model\Perception\Perception::class:
+            case Perception::class:
                 $name = 'perception';
                 break;
-            case \Greenter\Model\Despatch\Despatch::class:
+            case Despatch::class:
                 $name = 'despatch';
                 break;
-            case \Greenter\Model\Summary\Summary::class:
+            case Summary::class:
                 $name = 'summary';
                 break;
-            case \Greenter\Model\Voided\Voided::class:
-            case \Greenter\Model\Voided\Reversion::class:
+            case Voided::class:
+            case Reversion::class:
                 $name = 'voided';
                 break;
             default:
-                throw new \Exception('Not found template for '.$className);
+                throw new Exception('Not found template for '.$className);
         }
 
         return $name.'.html.twig';

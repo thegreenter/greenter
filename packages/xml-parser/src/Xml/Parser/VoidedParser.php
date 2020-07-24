@@ -6,8 +6,12 @@
  * Time: 21:29
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Parser;
 
+use DateTime;
+use DOMDocument;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Voided\Reversion;
@@ -36,7 +40,7 @@ class VoidedParser implements DocumentParserInterface
      * @param $value
      * @return DocumentInterface
      */
-    public function parse($value)
+    public function parse($value): ?DocumentInterface
     {
         $this->load($value);
         $xml = $this->reader;
@@ -46,8 +50,8 @@ class VoidedParser implements DocumentParserInterface
 
         $voided = $id[0] == 'RA' ? new Voided() : new Reversion();
         $voided->setCorrelativo($id[2])
-            ->setFecGeneracion(new \DateTime($xml->getValue('cbc:ReferenceDate', $root)))
-            ->setFecComunicacion(new \DateTime($xml->getValue('cbc:IssueDate', $root)))
+            ->setFecGeneracion(new DateTime($xml->getValue('cbc:ReferenceDate', $root)))
+            ->setFecComunicacion(new DateTime($xml->getValue('cbc:IssueDate', $root)))
             ->setCompany($this->getCompany())
             ->setDetails(iterator_to_array($this->getDetails()));
 
@@ -58,7 +62,7 @@ class VoidedParser implements DocumentParserInterface
     {
         $this->reader = new XmlReader();
 
-        if ($value instanceof \DOMDocument) {
+        if ($value instanceof DOMDocument) {
             $this->reader->loadDom($value);
         } else {
             $this->reader->loadXml($value);
@@ -70,7 +74,7 @@ class VoidedParser implements DocumentParserInterface
     private function getCompany()
     {
         $xml = $this->reader;
-        $node = $xml->getNode('cac:AccountingSupplierParty',$this->rootNode);
+        $node = $xml->getNode('cac:AccountingSupplierParty', $this->rootNode);
 
         $cl = new Company();
         $cl->setRuc($xml->getValue('cbc:CustomerAssignedAccountID', $node))

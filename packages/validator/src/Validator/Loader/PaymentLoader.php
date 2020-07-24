@@ -6,6 +6,8 @@
  * Time: 10:55 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -22,8 +24,7 @@ class PaymentLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraint('importe', new Assert\NotBlank());
         $metadata->addPropertyConstraints('fecha', [
-            new Assert\NotBlank(),
-            new Assert\Date(),
+            new Assert\NotNull(),
         ]);
     }
 }

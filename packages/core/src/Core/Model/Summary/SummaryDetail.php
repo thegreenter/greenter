@@ -7,6 +7,8 @@
  * Time: 12:10 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Summary;
 
 use Greenter\Model\Sale\Document;
@@ -120,7 +122,7 @@ class SummaryDetail
     /**
      * @return string
      */
-    public function getTipoDoc()
+    public function getTipoDoc(): ?string
     {
         return $this->tipoDoc;
     }
@@ -130,7 +132,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setTipoDoc($tipoDoc)
+    public function setTipoDoc(?string $tipoDoc): SummaryDetail
     {
         $this->tipoDoc = $tipoDoc;
 
@@ -140,7 +142,7 @@ class SummaryDetail
     /**
      * @return string
      */
-    public function getSerieNro()
+    public function getSerieNro(): ?string
     {
         return $this->serieNro;
     }
@@ -150,7 +152,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setSerieNro($serieNro)
+    public function setSerieNro(?string $serieNro): SummaryDetail
     {
         $this->serieNro = $serieNro;
 
@@ -160,7 +162,7 @@ class SummaryDetail
     /**
      * @return string
      */
-    public function getClienteTipo()
+    public function getClienteTipo(): ?string
     {
         return $this->clienteTipo;
     }
@@ -170,7 +172,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setClienteTipo($clienteTipo)
+    public function setClienteTipo(?string $clienteTipo): SummaryDetail
     {
         $this->clienteTipo = $clienteTipo;
 
@@ -180,7 +182,7 @@ class SummaryDetail
     /**
      * @return string
      */
-    public function getClienteNro()
+    public function getClienteNro(): ?string
     {
         return $this->clienteNro;
     }
@@ -190,7 +192,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setClienteNro($clienteNro)
+    public function setClienteNro(?string $clienteNro): SummaryDetail
     {
         $this->clienteNro = $clienteNro;
 
@@ -200,7 +202,7 @@ class SummaryDetail
     /**
      * @return Document
      */
-    public function getDocReferencia()
+    public function getDocReferencia(): ?Document
     {
         return $this->docReferencia;
     }
@@ -210,7 +212,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setDocReferencia($docReferencia)
+    public function setDocReferencia(?Document $docReferencia): SummaryDetail
     {
         $this->docReferencia = $docReferencia;
 
@@ -220,7 +222,7 @@ class SummaryDetail
     /**
      * @return SummaryPerception
      */
-    public function getPercepcion()
+    public function getPercepcion(): ?SummaryPerception
     {
         return $this->percepcion;
     }
@@ -230,7 +232,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setPercepcion($percepcion)
+    public function setPercepcion(?SummaryPerception $percepcion): SummaryDetail
     {
         $this->percepcion = $percepcion;
 
@@ -240,7 +242,7 @@ class SummaryDetail
     /**
      * @return string
      */
-    public function getEstado()
+    public function getEstado(): ?string
     {
         return $this->estado;
     }
@@ -250,7 +252,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setEstado($estado)
+    public function setEstado(?string $estado): SummaryDetail
     {
         $this->estado = $estado;
 
@@ -260,7 +262,7 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getTotal()
+    public function getTotal(): ?float
     {
         return $this->total;
     }
@@ -270,7 +272,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setTotal($total)
+    public function setTotal(?float $total): SummaryDetail
     {
         $this->total = $total;
 
@@ -280,7 +282,7 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getMtoOperGravadas()
+    public function getMtoOperGravadas(): ?float
     {
         return $this->mtoOperGravadas;
     }
@@ -290,7 +292,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setMtoOperGravadas($mtoOperGravadas)
+    public function setMtoOperGravadas(?float $mtoOperGravadas): SummaryDetail
     {
         $this->mtoOperGravadas = $mtoOperGravadas;
 
@@ -300,7 +302,7 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getMtoOperInafectas()
+    public function getMtoOperInafectas(): ?float
     {
         return $this->mtoOperInafectas;
     }
@@ -310,7 +312,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setMtoOperInafectas($mtoOperInafectas)
+    public function setMtoOperInafectas(?float $mtoOperInafectas): SummaryDetail
     {
         $this->mtoOperInafectas = $mtoOperInafectas;
 
@@ -320,7 +322,7 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getMtoOperExoneradas()
+    public function getMtoOperExoneradas(): ?float
     {
         return $this->mtoOperExoneradas;
     }
@@ -330,7 +332,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setMtoOperExoneradas($mtoOperExoneradas)
+    public function setMtoOperExoneradas(?float $mtoOperExoneradas): SummaryDetail
     {
         $this->mtoOperExoneradas = $mtoOperExoneradas;
 
@@ -340,7 +342,7 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getMtoOperExportacion()
+    public function getMtoOperExportacion(): ?float
     {
         return $this->mtoOperExportacion;
     }
@@ -350,7 +352,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setMtoOperExportacion($mtoOperExportacion)
+    public function setMtoOperExportacion(?float $mtoOperExportacion): SummaryDetail
     {
         $this->mtoOperExportacion = $mtoOperExportacion;
 
@@ -360,7 +362,7 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getMtoOperGratuitas()
+    public function getMtoOperGratuitas(): ?float
     {
         return $this->mtoOperGratuitas;
     }
@@ -370,7 +372,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setMtoOperGratuitas($mtoOperGratuitas)
+    public function setMtoOperGratuitas(?float $mtoOperGratuitas): SummaryDetail
     {
         $this->mtoOperGratuitas = $mtoOperGratuitas;
 
@@ -380,7 +382,7 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getMtoOtrosCargos()
+    public function getMtoOtrosCargos(): ?float
     {
         return $this->mtoOtrosCargos;
     }
@@ -390,7 +392,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setMtoOtrosCargos($mtoOtrosCargos)
+    public function setMtoOtrosCargos(?float $mtoOtrosCargos): SummaryDetail
     {
         $this->mtoOtrosCargos = $mtoOtrosCargos;
 
@@ -400,7 +402,7 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getMtoIGV()
+    public function getMtoIGV(): ?float
     {
         return $this->mtoIGV;
     }
@@ -410,7 +412,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setMtoIGV($mtoIGV)
+    public function setMtoIGV(?float $mtoIGV): SummaryDetail
     {
         $this->mtoIGV = $mtoIGV;
 
@@ -420,7 +422,7 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getMtoIvap()
+    public function getMtoIvap(): ?float
     {
         return $this->mtoIvap;
     }
@@ -430,7 +432,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setMtoIvap($mtoIvap)
+    public function setMtoIvap(?float $mtoIvap): SummaryDetail
     {
         $this->mtoIvap = $mtoIvap;
 
@@ -440,7 +442,7 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getMtoISC()
+    public function getMtoISC(): ?float
     {
         return $this->mtoISC;
     }
@@ -450,7 +452,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setMtoISC($mtoISC)
+    public function setMtoISC(?float $mtoISC): SummaryDetail
     {
         $this->mtoISC = $mtoISC;
 
@@ -460,7 +462,7 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getMtoOtrosTributos()
+    public function getMtoOtrosTributos(): ?float
     {
         return $this->mtoOtrosTributos;
     }
@@ -470,7 +472,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setMtoOtrosTributos($mtoOtrosTributos)
+    public function setMtoOtrosTributos(?float $mtoOtrosTributos): SummaryDetail
     {
         $this->mtoOtrosTributos = $mtoOtrosTributos;
 
@@ -480,7 +482,7 @@ class SummaryDetail
     /**
      * @return float
      */
-    public function getMtoIcbper()
+    public function getMtoIcbper(): ?float
     {
         return $this->mtoIcbper;
     }
@@ -490,7 +492,7 @@ class SummaryDetail
      *
      * @return SummaryDetail
      */
-    public function setMtoIcbper($mtoIcbper)
+    public function setMtoIcbper(?float $mtoIcbper): SummaryDetail
     {
         $this->mtoIcbper = $mtoIcbper;
 

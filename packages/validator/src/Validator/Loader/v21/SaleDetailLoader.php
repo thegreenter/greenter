@@ -6,6 +6,8 @@
  * Time: 10:38 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader\v21;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -29,39 +31,25 @@ class SaleDetailLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraint('codProducto', new Assert\Length(['max' => 30]));
         $metadata->addPropertyConstraint('codProdSunat', new Assert\Length(['max' => 8]));
         $metadata->addPropertyConstraint('codProdGS1', new Assert\Length(['max' => 14]));
-        $metadata->addPropertyConstraint('mtoPrecioUnitario', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('mtoValorGratuito', new Assert\Type(['type' => 'numeric']));
         $metadata->addPropertyConstraints('mtoValorUnitario', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('mtoValorVenta', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('totalImpuestos', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraint('tipAfeIgv', new Assert\NotBlank());
         $metadata->addPropertyConstraints('igv', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('mtoBaseIgv', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('porcentajeIgv', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
-        $metadata->addPropertyConstraint('isc', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('mtoBaseIsc', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('porcentajeIsc', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('mtoBaseOth', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('otroTributo', new Assert\Type(['type' => 'numeric']));
-        $metadata->addPropertyConstraint('porcentajeOth', new Assert\Type(['type' => 'numeric']));
         $metadata->addPropertyConstraint('cargos', new Assert\Valid());
         $metadata->addPropertyConstraint('descuentos', new Assert\Valid());
         $metadata->addPropertyConstraint('atributos', new Assert\Valid());

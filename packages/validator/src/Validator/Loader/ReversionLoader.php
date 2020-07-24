@@ -6,6 +6,8 @@
  * Time: 23:00.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 class ReversionLoader extends VoidedLoader

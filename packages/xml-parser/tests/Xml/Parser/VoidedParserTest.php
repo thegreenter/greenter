@@ -6,13 +6,16 @@
  * Time: 21:44
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\Voided;
 use Greenter\Xml\Parser\VoidedParser;
+use PHPUnit\Framework\TestCase;
 
-class VoidedParserTest extends \PHPUnit_Framework_TestCase
+class VoidedParserTest extends TestCase
 {
     /**
      * @dataProvider providerDocs

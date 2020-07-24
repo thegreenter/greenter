@@ -6,9 +6,13 @@
  * Time: 15:16.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Services;
 
-class ConsultCdrServiceTest extends \PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class ConsultCdrServiceTest extends TestCase
 {
     use ConsultCdrServiceTrait;
 
@@ -44,7 +48,7 @@ class ConsultCdrServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('0', $result->getCode());
         $this->assertNotEmpty($result->getMessage());
         $this->assertNull($result->getCdrResponse());
-        $this->assertContains('aceptada', strtolower($result->getMessage()));
+        $this->assertStringContainsString('aceptada', strtolower($result->getMessage()));
     }
 
     public function testGetCdrStatus()
@@ -56,7 +60,7 @@ class ConsultCdrServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('0', $result->getCode());
         $this->assertNotEmpty($result->getMessage());
         $this->assertNotNull($result->getCdrResponse());
-        $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
+        $this->assertStringContainsString('aceptada', $result->getCdrResponse()->getDescription());
     }
 
     public function testGetErrorCodeFromCdr()

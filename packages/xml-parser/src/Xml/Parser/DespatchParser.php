@@ -6,8 +6,12 @@
  * Time: 05:33 PM
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Parser;
 
+use DateTime;
+use DOMDocument;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
 use Greenter\Model\Despatch\Despatch;
@@ -40,12 +44,12 @@ class DespatchParser implements DocumentParserInterface
      * @param $value
      * @return DocumentInterface
      */
-    public function parse($value)
+    public function parse($value): ?DocumentInterface
     {
         $this->reader = new XmlReader();
         $xml = $this->reader;
 
-        if ($value instanceof \DOMDocument) {
+        if ($value instanceof DOMDocument) {
             $this->reader->loadDom($value);
         } else {
             $this->reader->loadXml($value);
@@ -60,7 +64,7 @@ class DespatchParser implements DocumentParserInterface
             ->setCorrelativo($docGuia[1])
             ->setTipoDoc($xml->getValue('cbc:DespatchAdviceTypeCode', $root))
             ->setObservacion($xml->getValue('cbc:Note', $root))
-            ->setFechaEmision(new \DateTime($xml->getValue('cbc:IssueDate', $root)))
+            ->setFechaEmision(new DateTime($xml->getValue('cbc:IssueDate', $root)))
             ->setCompany($this->getCompany())
             ->setDestinatario($this->getClient('cac:DeliveryCustomerParty'))
             ->setTercero($this->getClient('cac:SellerSupplierParty'))
@@ -129,7 +133,7 @@ class DespatchParser implements DocumentParserInterface
         $shp = new Shipment();
         $shp->setCodTraslado($xml->getValue('cbc:HandlingCode', $node))
             ->setDesTraslado($xml->getValue('cbc:Information', $node))
-            ->setNumBultos($xml->getValue('cbc:TotalTransportHandlingUnitQuantity', $node, 0))
+            ->setNumBultos((int)$xml->getValue('cbc:TotalTransportHandlingUnitQuantity', $node, '0'))
             ->setIndTransbordo($xml->getValue('cbc:SplitConsignmentIndicator', $node, 'false') == 'true')
             ->setNumContenedor($xml->getValue('cac:TransportHandlingUnit/cbc:ID', $node))
             ->setCodPuerto($xml->getValue('cac:FirstArrivalPortLocation/cbc:ID', $node));
@@ -137,22 +141,20 @@ class DespatchParser implements DocumentParserInterface
         $otNode = $xml->getNode('cbc:GrossWeightMeasure', $node);
         if ($otNode) {
             $shp->setUndPesoTotal($otNode->getAttribute('unitCode'))
-                ->setPesoTotal(floatval($otNode->nodeValue));
+                ->setPesoTotal((float)$otNode->nodeValue);
         }
         $otNode = $xml->getNode('cac:Delivery/cac:DeliveryAddress', $node);
         if ($otNode) {
-            $shp->setLlegada(new Direction($xml->getValue('cbc:ID', $otNode),
-                $xml->getValue('cbc:StreetName', $otNode)));
+            $shp->setLlegada(new Direction($xml->getValue('cbc:ID', $otNode), $xml->getValue('cbc:StreetName', $otNode)));
         }
         $otNode = $xml->getNode('cac:OriginAddress', $node);
         if ($otNode) {
-            $shp->setPartida(new Direction($xml->getValue('cbc:ID', $otNode),
-                $xml->getValue('cbc:StreetName', $otNode)));
+            $shp->setPartida(new Direction($xml->getValue('cbc:ID', $otNode), $xml->getValue('cbc:StreetName', $otNode)));
         }
 
         $otNode = $xml->getNode('cac:ShipmentStage', $node);
         $shp->setModTraslado($xml->getValue('cbc:TransportModeCode', $otNode))
-            ->setFecTraslado(new \DateTime($xml->getValue('cac:TransitPeriod/cbc:StartDate', $otNode)))
+            ->setFecTraslado(new DateTime($xml->getValue('cac:TransitPeriod/cbc:StartDate', $otNode)))
             ->setTransportista($this->getTransportista($otNode));
 
         return $shp;
@@ -187,10 +189,10 @@ class DespatchParser implements DocumentParserInterface
         $nodes = $xml->getNodes('cac:DespatchLine', $this->rootNode);
 
         foreach ($nodes as $node) {
-            $quant = $xml->getNode('cbc:DeliveredQuantity', $node);
+            $quantity = $xml->getNode('cbc:DeliveredQuantity', $node);
             $det = new DespatchDetail();
-            $det->setCantidad($quant->nodeValue)
-                ->setUnidad($quant->getAttribute('unitCode'))
+            $det->setCantidad((float)$quantity->nodeValue)
+                ->setUnidad($quantity->getAttribute('unitCode'))
                 ->setDescripcion($xml->getValue('cac:Item/cbc:Name', $node))
                 ->setCodigo($xml->getValue('cac:Item/cac:SellersItemIdentification/cbc:ID', $node))
                 ->setCodProdSunat($xml->getValue('cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode', $node));

@@ -6,16 +6,19 @@
  * Time: 21:27
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class NonDocumentTest
  * @package Tests\Greenter\Validator
  */
-class NonDocumentTest extends \PHPUnit_Framework_TestCase
+class NonDocumentTest extends TestCase
 {
     use CustomValidator;
 

@@ -6,6 +6,8 @@
  * Time: 13:43.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Builder;
 
 use Greenter\Builder\BuilderInterface;
@@ -35,7 +37,7 @@ class NoteBuilder extends TwigBuilder implements BuilderInterface
      *
      * @return string
      */
-    public function build(DocumentInterface $document)
+    public function build(DocumentInterface $document): string
     {
         /** @var $document \Greenter\Model\Sale\Note */
         $prefix = $document->getTipoDoc() === '07' ? 'notacr' : 'notadb';

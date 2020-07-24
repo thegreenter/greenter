@@ -6,11 +6,14 @@
  * Time: 21:44
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Data\Generator;
 
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
 use Greenter\Model\Company\Address;
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Charge;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Invoice;
@@ -31,7 +34,7 @@ class InvoiceStore implements DocumentGeneratorInterface
         $this->shared = $shared;
     }
 
-    public function create()
+    public function create(): ?DocumentInterface
     {
         $perc = new SalePerception();
         $perc->setCodReg('01') // 51 on UBL2.1 - Catalog 53

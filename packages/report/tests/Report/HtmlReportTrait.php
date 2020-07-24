@@ -6,6 +6,8 @@
  * Time: 02:21 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Report;
 
 use Greenter\Report\HtmlReport;

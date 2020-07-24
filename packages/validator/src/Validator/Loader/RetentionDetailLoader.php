@@ -6,6 +6,8 @@
  * Time: 11:18 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -26,10 +28,9 @@ class RetentionDetailLoader implements LoaderMetadataInterface
             new Assert\Length(['max' => 13]),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
-            new Assert\NotBlank(),
-            new Assert\Date(),
+            new Assert\NotNull(),
         ]);
-        $metadata->addPropertyConstraint('impTotal', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('impTotal', new Assert\NotNull());
         $metadata->addPropertyConstraints('moneda', [
             new Assert\NotBlank(),
             new MyAssert\Currency(),
@@ -38,13 +39,12 @@ class RetentionDetailLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\Valid(),
         ]);
-        $metadata->addPropertyConstraint('impPagar', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('impPagar', new Assert\NotNull());
         $metadata->addPropertyConstraints('fechaRetencion', [
-            new Assert\NotBlank(),
-            new Assert\Date(),
+            new Assert\NotNull(),
         ]);
-        $metadata->addPropertyConstraint('impRetenido', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('impPagar', new Assert\NotBlank());
+        $metadata->addPropertyConstraint('impRetenido', new Assert\NotNull());
+        $metadata->addPropertyConstraint('impPagar', new Assert\NotNull());
         $metadata->addPropertyConstraint('tipoCambio', new Assert\Valid());
     }
 }

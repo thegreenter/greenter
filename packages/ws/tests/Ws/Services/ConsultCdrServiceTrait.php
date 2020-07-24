@@ -6,6 +6,8 @@
  * Time: 15:19.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Services;
 
 use Greenter\Ws\Services\ConsultCdrService;

@@ -6,6 +6,8 @@
  * Time: 12:01.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Services;
 
 /**

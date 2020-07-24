@@ -6,6 +6,8 @@
  * Time: 10:18 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -33,20 +35,19 @@ class DespatchLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraint('observacion', new Assert\Length(['max' => 250]));
         $metadata->addPropertyConstraints('fechaEmision', [
-            new Assert\NotBlank(),
-            new Assert\DateTime(),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('destinatario', [
-            new Assert\NotBlank(),
+            new Assert\NotNull(),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraints('company', [
-            new Assert\NotBlank(),
+            new Assert\NotNull(),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraint('tercero', new Assert\Valid());
         $metadata->addPropertyConstraints('envio', [
-            new Assert\NotBlank(),
+            new Assert\NotNull(),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraint('docBaja', new Assert\Valid());

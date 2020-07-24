@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader\v21;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -11,16 +13,13 @@ class ChargeLoader implements LoaderMetadataInterface
     public function load(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraints('factor', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('monto', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraints('montoBase', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraint('codTipo', new Assert\NotBlank());
     }

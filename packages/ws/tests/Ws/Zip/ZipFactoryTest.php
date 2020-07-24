@@ -6,14 +6,17 @@
  * Time: 13:48.
  */
 
-namespace Tests\Greenter\Zip;
+declare(strict_types=1);
+
+namespace Tests\Greenter\Ws\Zip;
 
 use Greenter\Zip\ZipFly;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class ZipFactoryTest.
  */
-class ZipFactoryTest extends \PHPUnit_Framework_TestCase
+class ZipFactoryTest extends TestCase
 {
     const DATA_XML = '<root>Empty</root>';
 

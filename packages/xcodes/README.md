@@ -1,16 +1,9 @@
 # XCodes - Greenter
 
-[![src greenter](https://img.shields.io/badge/src-greenter-brightgreen.svg)](https://github.com/thegreenter/greenter)
+[![src greenter](https://badgen.net/badge/icon/greenter/47A297?icon=https://rawcdn.githack.com/thegreenter/docs/f16cc8f7ce432be4478bac519a45546e655d760e/docs/img/greenter-icon-white.svg&label)](https://github.com/thegreenter/greenter)
   
-Códigos de Error en Facturación Electrónica SUNAT.
+Códigos y descripción de Errores proveniente de los webservices de SUNAT.
 
-## Install
-Via Composer from [packagist.org](https://packagist.org/packages/greenter/xcodes).
-```bash
-composer require greenter/xcodes
-```
-
-## Sunat Notification
-
-Total Codes: 1470
-Last Update: 19/01/2018
+## Recursos
+- [Documentación](https://greenter.dev/)
+- [Reportar un error](https://github.com/thegreenter/greenter/issues) o enviar un [pull request](https://github.com/thegreenter/greenter/pulls) al [repositorio principal de greenter](https://github.com/thegreenter/greenter).

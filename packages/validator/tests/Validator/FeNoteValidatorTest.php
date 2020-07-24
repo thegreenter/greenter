@@ -6,6 +6,8 @@
  * Time: 04:14 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Client\Client;
@@ -13,8 +15,9 @@ use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
+use PHPUnit\Framework\TestCase;
 
-class FeNoteValidatorTest extends \PHPUnit_Framework_TestCase
+class FeNoteValidatorTest extends TestCase
 {
     use ValidatorTrait;
 

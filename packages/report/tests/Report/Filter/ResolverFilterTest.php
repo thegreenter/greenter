@@ -6,12 +6,15 @@
  * Time: 20:05
  */
 
-namespace Report\Filter;
+declare(strict_types=1);
+
+namespace Tests\Greenter\Report\Filter;
 
 use Greenter\Model\Sale\Legend;
 use Greenter\Report\Filter\ResolveFilter;
+use PHPUnit\Framework\TestCase;
 
-class ResolverFilterTest extends \PHPUnit_Framework_TestCase
+class ResolverFilterTest extends TestCase
 {
     /**
      * @var ResolveFilter
@@ -23,7 +26,7 @@ class ResolverFilterTest extends \PHPUnit_Framework_TestCase
      */
     private $legends;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->filter = new ResolveFilter();
         $this->legends = [

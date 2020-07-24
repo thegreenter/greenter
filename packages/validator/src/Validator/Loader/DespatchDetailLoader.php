@@ -6,6 +6,8 @@
  * Time: 23:49.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -21,16 +23,15 @@ class DespatchDetailLoader implements LoaderMetadataInterface
             new Assert\Length(['max' => 16]),
         ]);
         $metadata->addPropertyConstraints('descripcion', [
-            new Assert\NotBlank(),
+            new Assert\Required(),
             new Assert\Length(['max' => 250]),
         ]);
         $metadata->addPropertyConstraints('unidad', [
-            new Assert\NotBlank(),
+            new Assert\Required(),
             new MyAssert\CodeUnit(),
         ]);
         $metadata->addPropertyConstraints('cantidad', [
-            new Assert\NotBlank(),
-            new Assert\Type(['type' => 'numeric']),
+            new Assert\NotNull(),
         ]);
         $metadata->addPropertyConstraint('codProdSunat', new Assert\Length(['max' => 20]));
     }

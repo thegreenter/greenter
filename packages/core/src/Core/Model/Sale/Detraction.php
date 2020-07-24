@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Sale;
 
 /**
@@ -47,7 +49,7 @@ class Detraction
     /**
      * @return float
      */
-    public function getPercent()
+    public function getPercent(): ?float
     {
         return $this->percent;
     }
@@ -57,7 +59,7 @@ class Detraction
      *
      * @return Detraction
      */
-    public function setPercent($percent)
+    public function setPercent(?float $percent): Detraction
     {
         $this->percent = $percent;
 
@@ -67,7 +69,7 @@ class Detraction
     /**
      * @return float
      */
-    public function getMount()
+    public function getMount(): ?float
     {
         return $this->mount;
     }
@@ -77,7 +79,7 @@ class Detraction
      *
      * @return Detraction
      */
-    public function setMount($mount)
+    public function setMount(?float $mount): Detraction
     {
         $this->mount = $mount;
 
@@ -87,61 +89,67 @@ class Detraction
     /**
      * @return string
      */
-    public function getCtaBanco()
+    public function getCtaBanco(): ?string
     {
         return $this->ctaBanco;
     }
 
     /**
      * @param string $ctaBanco
+     *
      * @return Detraction
      */
-    public function setCtaBanco($ctaBanco)
+    public function setCtaBanco(?string $ctaBanco): Detraction
     {
         $this->ctaBanco = $ctaBanco;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getCodMedioPago()
+    public function getCodMedioPago(): ?string
     {
         return $this->codMedioPago;
     }
 
     /**
      * @param string $codMedioPago
+     *
      * @return Detraction
      */
-    public function setCodMedioPago($codMedioPago)
+    public function setCodMedioPago(?string $codMedioPago): Detraction
     {
         $this->codMedioPago = $codMedioPago;
+
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getCodBienDetraccion()
+    public function getCodBienDetraccion(): ?string
     {
         return $this->codBienDetraccion;
     }
 
     /**
      * @param string $codBienDetraccion
+     *
      * @return Detraction
      */
-    public function setCodBienDetraccion($codBienDetraccion)
+    public function setCodBienDetraccion(?string $codBienDetraccion): Detraction
     {
         $this->codBienDetraccion = $codBienDetraccion;
+
         return $this;
     }
 
     /**
      * @return float
      */
-    public function getValueRef()
+    public function getValueRef(): ?float
     {
         return $this->valueRef;
     }
@@ -149,10 +157,9 @@ class Detraction
     /**
      * @param float $valueRef
      *
-     * @deprecated use UBL 2.1
      * @return Detraction
      */
-    public function setValueRef($valueRef)
+    public function setValueRef(?float $valueRef): Detraction
     {
         $this->valueRef = $valueRef;
 

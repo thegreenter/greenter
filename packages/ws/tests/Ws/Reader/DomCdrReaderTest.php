@@ -6,15 +6,18 @@
  * Time: 16:29.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Reader;
 
 use Greenter\Ws\Reader\DomCdrReader;
 use Greenter\Ws\Reader\XmlReader;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class DomCdrReaderTest.
  */
-class DomCdrReaderTest extends \PHPUnit_Framework_TestCase
+class DomCdrReaderTest extends TestCase
 {
     /**
      * @throws \Exception

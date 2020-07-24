@@ -6,12 +6,15 @@
  * Time: 10:47 AM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
+use PHPUnit\Framework\TestCase;
 
-class FeVoidedValidatorTest extends \PHPUnit_Framework_TestCase
+class FeVoidedValidatorTest extends TestCase
 {
     use ValidatorTrait;
 

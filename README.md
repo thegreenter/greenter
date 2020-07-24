@@ -13,7 +13,7 @@ comprime el archivo XML en formato zip, conexión al webservice de SUNAT y proce
 
 
 ## Requerimientos
-- PHP 5.6 o superior
+- PHP 7.2 o superior
 - Extensiones PHP Activadas: `soap`, `dom`, `zip`, `zlib`, `openssl`.
 
 ## Instalar
@@ -22,20 +22,25 @@ composer require greenter/greenter
 ```
 Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/demo).
 
+## Documentación
+- Lee esta [guia](https://fe-primer.greenter.dev/) para conocer mas sobre facturación electrónica.
+- Empieza con este [ejemplo basico con greenter](https://greenter.dev/starter/).
+- Tienes dudas o necesitas ayuda puedes hacerlo desde [aqui](https://community.greenter.dev/).
+
 ## Caracteristicas
 
 ### Documentos Soportados.
 
-* Factura Electrónica
-* Boleta Electrónica
-* Nota de Crédito Electrónica
-* Nota de Débito Electrónica
-* Resumen Diario de Boletas
-* Comunicación de Bajas
-* Guia Remisión Electrónica
-* Retención Electrónica
-* Percepción Electrónica
-* Resumen de Reversiones
+- Factura Electrónica
+- Boleta Electrónica
+- Nota de Crédito Electrónica
+- Nota de Débito Electrónica
+- Resumen Diario de Boletas
+- Comunicación de Bajas
+- Guia Remisión Electrónica
+- Retención Electrónica
+- Percepción Electrónica
+- Resumen de Reversiones
 
 ### Web Services
 - Envío y empaquetado de los comprobantes electrónicos
@@ -50,14 +55,8 @@ Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/d
 - Generación de [HTML Report](https://github.com/thegreenter/report)
 - Generación de [PDF](https://github.com/thegreenter/htmltopdf)
 
-### API REST
+## API REST
 API REST con [Lycet](https://github.com/giansalex/lycet) empleando Symfony Framework.
-
-### Librerias Relacionadas
-- [greenter/report](https://github.com/thegreenter/report)
-- [greenter/htmltopdf](https://github.com/thegreenter/htmltopdf)
-- [greenter/validator](https://github.com/thegreenter/validator)
-- [greenter/ubl-validator](https://github.com/thegreenter/ubl-validator)
 
 
 ## License

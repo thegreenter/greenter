@@ -6,6 +6,8 @@
  * Time: 23:12.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Response;
 
 /**
@@ -34,19 +36,9 @@ class CdrResponse
     protected $notes;
 
     /**
-     * @return bool
-     */
-    public function isAccepted()
-    {
-        $code = intval($this->getCode());
-
-        return $code === 0 || $code >= 4000;
-    }
-
-    /**
      * @return string
      */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -56,7 +48,7 @@ class CdrResponse
      *
      * @return CdrResponse
      */
-    public function setId($id)
+    public function setId(?string $id): CdrResponse
     {
         $this->id = $id;
 
@@ -66,7 +58,7 @@ class CdrResponse
     /**
      * @return string
      */
-    public function getCode()
+    public function getCode(): ?string
     {
         return $this->code;
     }
@@ -76,7 +68,7 @@ class CdrResponse
      *
      * @return CdrResponse
      */
-    public function setCode($code)
+    public function setCode(?string $code): CdrResponse
     {
         $this->code = $code;
 
@@ -86,7 +78,7 @@ class CdrResponse
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -96,7 +88,7 @@ class CdrResponse
      *
      * @return CdrResponse
      */
-    public function setDescription($description)
+    public function setDescription(?string $description): CdrResponse
     {
         $this->description = $description;
 
@@ -106,7 +98,7 @@ class CdrResponse
     /**
      * @return string[]
      */
-    public function getNotes()
+    public function getNotes(): ?array
     {
         return $this->notes;
     }
@@ -116,10 +108,20 @@ class CdrResponse
      *
      * @return CdrResponse
      */
-    public function setNotes($notes)
+    public function setNotes(?array $notes): CdrResponse
     {
         $this->notes = $notes;
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAccepted()
+    {
+        $code = (int)$this->getCode();
+
+        return $code === 0 || $code >= 4000;
     }
 }

@@ -6,6 +6,8 @@
  * Time: 04:20 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Voided;
 
 /**
@@ -18,7 +20,7 @@ class Reversion extends Voided
      *
      * @return string
      */
-    public function getXmlId()
+    public function getXmlId(): string
     {
         $parts = [
             'RR',

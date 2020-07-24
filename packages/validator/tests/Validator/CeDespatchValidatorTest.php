@@ -6,6 +6,8 @@
  * Time: 03:18 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Client\Client;
@@ -15,8 +17,9 @@ use Greenter\Model\Despatch\Direction;
 use Greenter\Model\Despatch\Shipment;
 use Greenter\Model\Despatch\Transportist;
 use Greenter\Model\Sale\Document;
+use PHPUnit\Framework\TestCase;
 
-class CeDespatchValidatorTest extends \PHPUnit_Framework_TestCase
+class CeDespatchValidatorTest extends TestCase
 {
     use ValidatorTrait;
 
@@ -26,7 +29,8 @@ class CeDespatchValidatorTest extends \PHPUnit_Framework_TestCase
         $validator = $this->getValidator();
         $errors = $validator->validate($despatch);
 
-        $this->assertEquals(0,$errors->count());
+        var_dump($errors);
+        $this->assertEquals(0, $errors->count());
     }
 
     /**
@@ -78,10 +82,6 @@ class CeDespatchValidatorTest extends \PHPUnit_Framework_TestCase
         $rel->setTipoDoc('09')
             ->setNroDoc('T001-00001');
 
-        $rel2 = new Document();
-        $rel2->setTipoDoc('09')
-            ->setNroDoc('T001-00002');
-
         $dir = new Direction('', '');
         $dir->setDireccion('AV ITALIA');
         $dir->setUbigueo('150203');
@@ -101,7 +101,7 @@ class CeDespatchValidatorTest extends \PHPUnit_Framework_TestCase
             ->setPartida($dir)
             ->setTransportista($this->getTransportist());
 
-        return [$baja, [$rel, $rel2], $envio];
+        return [$baja, $rel, $envio];
     }
 
     private function getTransportist()

@@ -6,21 +6,24 @@
  * Time: 17:42.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Builder;
 
 use Greenter\Ws\Builder\SoapBuilder;
 use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Ws\Services\WsdlProvider;
+use PHPUnit\Framework\TestCase;
 
-class SoapBuilderTest extends \PHPUnit_Framework_TestCase
+class SoapBuilderTest extends TestCase
 {
     /**
      * @var SoapBuilder
      */
     private $builder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->builder = new SoapBuilder();
         $this->builder
@@ -40,10 +43,11 @@ class SoapBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \SoapFault
+     * @throws \SoapFault
      */
     public function testCreateConsultClient()
     {
+        $this->expectException(\SoapFault::class);
         $this->builder
             ->setUrl(SunatEndpoints::FE_CONSULTA_CDR)
             ->setWsdl(WsdlProvider::getConsultPath())

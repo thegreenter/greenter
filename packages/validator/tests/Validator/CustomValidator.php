@@ -6,6 +6,8 @@
  * Time: 21:25
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Validator\Metadata\CustomMetadataFactory;

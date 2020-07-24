@@ -6,6 +6,8 @@
  * Time: 22:00
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Data\Generator;
 
 use Greenter\Data\DocumentGeneratorInterface;
@@ -16,6 +18,7 @@ use Greenter\Model\Despatch\DespatchDetail;
 use Greenter\Model\Despatch\Direction;
 use Greenter\Model\Despatch\Shipment;
 use Greenter\Model\Despatch\Transportist;
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Document;
 
 class DespatchStore implements DocumentGeneratorInterface
@@ -30,7 +33,7 @@ class DespatchStore implements DocumentGeneratorInterface
         $this->shared = $shared;
     }
 
-    public function create()
+    public function create(): ?DocumentInterface
     {
         $baja = new Document();
         $baja->setTipoDoc('09')

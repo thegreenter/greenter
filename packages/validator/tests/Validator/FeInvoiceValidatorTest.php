@@ -6,6 +6,8 @@
  * Time: 22:54
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Client\Client;
@@ -21,8 +23,9 @@ use Greenter\Model\Sale\SalePerception;
 use Greenter\Validator\SymfonyValidator;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Tests\Greenter\Validator\Listener\InvoiceListener;
+use PHPUnit\Framework\TestCase;
 
-class FeInvoiceValidatorTest extends \PHPUnit_Framework_TestCase
+class FeInvoiceValidatorTest extends TestCase
 {
     use ValidatorTrait;
 

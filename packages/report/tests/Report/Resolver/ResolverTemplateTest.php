@@ -6,9 +6,13 @@
  * Time: 21:33
  */
 
-namespace Report\Resolver;
+declare(strict_types=1);
 
+namespace Tests\Greenter\Report\Resolver;
+
+use Exception;
 use Greenter\Model\Despatch\Despatch;
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Sale\Invoice;
@@ -18,15 +22,16 @@ use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\Voided;
 use Greenter\Report\Resolver\DefaultTemplateResolver;
 use Greenter\Report\Resolver\TemplateResolverInterface;
+use PHPUnit\Framework\TestCase;
 
-class ResolverTemplateTest extends \PHPUnit_Framework_TestCase
+class ResolverTemplateTest extends TestCase
 {
     /**
      * @var TemplateResolverInterface
      */
     private $resolver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->resolver = new DefaultTemplateResolver();
     }
@@ -42,11 +47,16 @@ class ResolverTemplateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @throws Exception
      */
     public function testNotFoundTemplate()
     {
-        $this->resolver->getTemplate(new \stdClass());
+        $stub = $this->createMock(DocumentInterface::class);
+        $stub->method('getName')
+             ->willReturn('TestDocument');
+
+        $this->expectException(Exception::class);
+        $this->resolver->getTemplate($stub);
     }
 
     public function getParameters()

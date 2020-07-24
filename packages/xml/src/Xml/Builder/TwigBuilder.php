@@ -6,6 +6,8 @@
  * Time: 19:23.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Builder;
 
 use Greenter\Xml\Filter\FormatFilter;
@@ -28,7 +30,7 @@ class TwigBuilder
      *
      * @param array $options [optional] Recommended: 'cache' => '/dir/cache'
      */
-    public function __construct($options = [])
+    public function __construct(array $options = [])
     {
         $this->initTwig($options);
     }
@@ -41,7 +43,7 @@ class TwigBuilder
      *
      * @return string
      */
-    public function render($template, $doc)
+    public function render($template, $doc): string
     {
         return $this->twig->render($template, [
             'doc' => $doc,

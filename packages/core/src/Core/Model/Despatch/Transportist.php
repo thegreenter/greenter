@@ -6,6 +6,8 @@
  * Time: 23:39.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Despatch;
 
 /**
@@ -47,7 +49,7 @@ class Transportist
     /**
      * @return string
      */
-    public function getTipoDoc()
+    public function getTipoDoc(): ?string
     {
         return $this->tipoDoc;
     }
@@ -57,7 +59,7 @@ class Transportist
      *
      * @return Transportist
      */
-    public function setTipoDoc($tipoDoc)
+    public function setTipoDoc(?string $tipoDoc): Transportist
     {
         $this->tipoDoc = $tipoDoc;
 
@@ -67,7 +69,7 @@ class Transportist
     /**
      * @return string
      */
-    public function getNumDoc()
+    public function getNumDoc(): ?string
     {
         return $this->numDoc;
     }
@@ -77,7 +79,7 @@ class Transportist
      *
      * @return Transportist
      */
-    public function setNumDoc($numDoc)
+    public function setNumDoc(?string $numDoc): Transportist
     {
         $this->numDoc = $numDoc;
 
@@ -87,7 +89,7 @@ class Transportist
     /**
      * @return string
      */
-    public function getRznSocial()
+    public function getRznSocial(): ?string
     {
         return $this->rznSocial;
     }
@@ -97,7 +99,7 @@ class Transportist
      *
      * @return Transportist
      */
-    public function setRznSocial($rznSocial)
+    public function setRznSocial(?string $rznSocial): Transportist
     {
         $this->rznSocial = $rznSocial;
 
@@ -107,7 +109,7 @@ class Transportist
     /**
      * @return string
      */
-    public function getPlaca()
+    public function getPlaca(): ?string
     {
         return $this->placa;
     }
@@ -117,7 +119,7 @@ class Transportist
      *
      * @return Transportist
      */
-    public function setPlaca($placa)
+    public function setPlaca(?string $placa): Transportist
     {
         $this->placa = $placa;
 
@@ -127,7 +129,7 @@ class Transportist
     /**
      * @return string
      */
-    public function getChoferTipoDoc()
+    public function getChoferTipoDoc(): ?string
     {
         return $this->choferTipoDoc;
     }
@@ -137,7 +139,7 @@ class Transportist
      *
      * @return Transportist
      */
-    public function setChoferTipoDoc($choferTipoDoc)
+    public function setChoferTipoDoc(?string $choferTipoDoc): Transportist
     {
         $this->choferTipoDoc = $choferTipoDoc;
 
@@ -147,7 +149,7 @@ class Transportist
     /**
      * @return string
      */
-    public function getChoferDoc()
+    public function getChoferDoc(): ?string
     {
         return $this->choferDoc;
     }
@@ -157,7 +159,7 @@ class Transportist
      *
      * @return Transportist
      */
-    public function setChoferDoc($choferDoc)
+    public function setChoferDoc(?string $choferDoc): Transportist
     {
         $this->choferDoc = $choferDoc;
 

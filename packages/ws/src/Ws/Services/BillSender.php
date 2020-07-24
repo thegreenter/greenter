@@ -6,8 +6,11 @@
  * Time: 09:59 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Services;
 
+use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Response\BillResult;
 use Greenter\Services\SenderInterface;
 
@@ -20,9 +23,9 @@ class BillSender extends BaseSunat implements SenderInterface
      * @param string $filename
      * @param string $content
      *
-     * @return BillResult
+     * @return BaseResult|null
      */
-    public function send($filename, $content)
+    public function send(?string $filename, ?string $content): ?BaseResult
     {
         $client = $this->getClient();
         $result = new BillResult();

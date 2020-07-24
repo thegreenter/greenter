@@ -6,6 +6,8 @@
  * Time: 08:01.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Parser;
 
 use Greenter\Model\DocumentInterface;
@@ -20,5 +22,5 @@ interface DocumentParserInterface
      *
      * @return DocumentInterface
      */
-    public function parse($value);
+    public function parse($value): ?DocumentInterface;
 }

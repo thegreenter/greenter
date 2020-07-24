@@ -6,7 +6,15 @@
  * Time: 08:29
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml;
+
+use DOMDocument;
+use DOMElement;
+use DOMNode;
+use DOMNodeList;
+use DOMXPath;
 
 /**
  * Class XmlReader
@@ -15,7 +23,7 @@ namespace Greenter\Xml;
 class XmlReader
 {
     /**
-     * @var \DOMXPath
+     * @var DOMXPath
      */
     private $xpath;
 
@@ -24,21 +32,21 @@ class XmlReader
      */
     public function loadXml($xml)
     {
-        $doc = new \DOMDocument();
+        $doc = new DOMDocument();
         @$doc->loadXML($xml);
         $this->loadDom($doc);
     }
 
     /**
-     * @param \DOMDocument $document
+     * @param DOMDocument $document
      */
-    public function loadDom(\DOMDocument $document)
+    public function loadDom(DOMDocument $document)
     {
-        $this->xpath = new \DOMXPath($document);
+        $this->xpath = new DOMXPath($document);
     }
 
     /**
-     * @return \DOMXPath
+     * @return DOMXPath
      */
     public function getXpath()
     {
@@ -47,11 +55,11 @@ class XmlReader
 
     /**
      * @param string $query                 Query xpath
-     * @param \DomNode|null $context        Context node
-     * @param string $def                   Default Value
+     * @param DomNode|null $context        Context node
+     * @param string|null $def                   Default Value
      * @return string
      */
-    public function getValue($query, \DOMNode $context = null, $def = '')
+    public function getValue($query, DOMNode $context = null, ?string $def = ''): ?string
     {
         $nodes = $this->xpath->query($query, $context);
         if ($nodes->length == 0) {
@@ -63,10 +71,10 @@ class XmlReader
 
     /**
      * @param string        $query
-     * @param \DOMNode|null $context
-     * @return \DOMElement|null
+     * @param DOMNode|null $context
+     * @return DOMElement|null
      */
-    public function getNode($query, $context)
+    public function getNode($query, $context): ?DOMElement
     {
         $nodes = $this->xpath->query($query, $context);
         if ($nodes->length == 0) {
@@ -78,8 +86,8 @@ class XmlReader
 
     /**
      * @param string        $query
-     * @param \DOMNode|null $context
-     * @return \DOMNodeList
+     * @param DOMNode|null $context
+     * @return DOMNodeList
      */
     public function getNodes($query, $context)
     {

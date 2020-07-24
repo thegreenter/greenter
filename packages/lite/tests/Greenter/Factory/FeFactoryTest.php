@@ -52,7 +52,7 @@ class FeFactoryTest extends FeFactoryBase
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
         $this->assertEquals('0306', $result->getError()->getCode());
-        $this->assertContains('No se puede leer (parsear) el archivo XML', $result->getError()->getMessage());
+        $this->assertStringContainsString('No se puede leer (parsear) el archivo XML', $result->getError()->getMessage());
     }
 
     public function testInvoiceNotValidZipFileName()
@@ -143,6 +143,7 @@ class FeFactoryTest extends FeFactoryBase
         $result = $this->getExtService()->getStatus($ticket);
 
         if ($result->getCode() !== '0') {
+            $this->assertTrue(true);
             return;
         }
 
@@ -150,7 +151,7 @@ class FeFactoryTest extends FeFactoryBase
             $this->assertNull($result->getError());
             $this->assertNotNull($result->getCdrResponse());
             $this->assertEquals('0', $result->getCdrResponse()->getCode());
-            $this->assertContains('aceptado', $result->getCdrResponse()->getDescription());
+            $this->assertStringContainsString('aceptado', $result->getCdrResponse()->getDescription());
             return;
         }
 
@@ -168,6 +169,7 @@ class FeFactoryTest extends FeFactoryBase
         $result = $this->getExtService()->getStatus($ticket);
 
         if ($result->getCode() !== '0') {
+            $this->assertTrue(true);
             return;
         }
 
@@ -175,7 +177,7 @@ class FeFactoryTest extends FeFactoryBase
             $this->assertNull($result->getError());
             $this->assertNotNull($result->getCdrResponse());
             $this->assertEquals('0', $result->getCdrResponse()->getCode());
-            $this->assertContains('aceptada', $result->getCdrResponse()->getDescription());
+            $this->assertStringContainsString('aceptada', $result->getCdrResponse()->getDescription());
             return;
         }
 

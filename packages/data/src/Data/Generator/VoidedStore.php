@@ -6,10 +6,13 @@
  * Time: 21:59
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Data\Generator;
 
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
+use Greenter\Model\DocumentInterface;
 use Greenter\Model\Voided\Voided;
 use Greenter\Model\Voided\VoidedDetail;
 
@@ -25,7 +28,7 @@ class VoidedStore implements DocumentGeneratorInterface
         $this->shared = $shared;
     }
 
-    public function create()
+    public function create(): ?DocumentInterface
     {
         $detial1 = new VoidedDetail();
         $detial1->setTipoDoc('01')

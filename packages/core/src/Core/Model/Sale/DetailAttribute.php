@@ -3,15 +3,17 @@
  * Created by PhpStorm.
  * User: Soporte
  * Date: 9/10/2018
- * Time: 12:09
+ * Time: 12:09.
  */
+
+declare(strict_types=1);
 
 namespace Greenter\Model\Sale;
 
 use DateTime;
 
 /**
- * Class DetailAttribute
+ * Class DetailAttribute.
  */
 class DetailAttribute
 {
@@ -39,102 +41,124 @@ class DetailAttribute
      * @var int
      */
     private $duracion;
+
     /**
      * @return string
      */
-    public function getCode()
+    public function getCode(): ?string
     {
         return $this->code;
     }
+
     /**
      * @param string $code
+     *
      * @return DetailAttribute
      */
-    public function setCode($code)
+    public function setCode(?string $code): DetailAttribute
     {
         $this->code = $code;
+
         return $this;
     }
+
     /**
      * @return string
      */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
+
     /**
      * @param string $name
+     *
      * @return DetailAttribute
      */
-    public function setName($name)
+    public function setName(?string $name): DetailAttribute
     {
         $this->name = $name;
+
         return $this;
     }
+
     /**
      * @return string
      */
-    public function getValue()
+    public function getValue(): ?string
     {
         return $this->value;
     }
+
     /**
      * @param string $value
+     *
      * @return DetailAttribute
      */
-    public function setValue($value)
+    public function setValue(?string $value): DetailAttribute
     {
         $this->value = $value;
+
         return $this;
     }
+
     /**
      * @return DateTime
      */
-    public function getFecInicio()
+    public function getFecInicio(): ?DateTime
     {
         return $this->fecInicio;
     }
+
     /**
      * @param DateTime $fecInicio
+     *
      * @return DetailAttribute
      */
-    public function setFecInicio($fecInicio)
+    public function setFecInicio(?DateTime $fecInicio): DetailAttribute
     {
         $this->fecInicio = $fecInicio;
+
         return $this;
     }
+
     /**
      * @return DateTime
      */
-    public function getFecFin()
+    public function getFecFin(): ?DateTime
     {
         return $this->fecFin;
     }
+
     /**
      * @param DateTime $fecFin
+     *
      * @return DetailAttribute
      */
-    public function setFecFin($fecFin)
+    public function setFecFin(?DateTime $fecFin): DetailAttribute
     {
         $this->fecFin = $fecFin;
+
         return $this;
     }
+
     /**
      * @return int
      */
-    public function getDuracion()
+    public function getDuracion(): ?int
     {
         return $this->duracion;
     }
+
     /**
-     * Set duracion en dias.
-     *
      * @param int $duracion
+     *
      * @return DetailAttribute
      */
-    public function setDuracion($duracion)
+    public function setDuracion(?int $duracion): DetailAttribute
     {
         $this->duracion = $duracion;
+
         return $this;
     }
 }

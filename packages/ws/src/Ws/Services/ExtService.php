@@ -6,6 +6,8 @@
  * Time: 10:10 AM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Ws\Services;
 
 use Exception;
@@ -51,13 +53,14 @@ class ExtService extends BaseSunat
 
     private function processResponse($status)
     {
-        $code = intval($status->statusCode);
+        $originCode = $status->statusCode;
+        $code = (int)$originCode;
 
         $result = new StatusResult();
-        $result->setCode($code);
+        $result->setCode($originCode);
 
         if ($this->isPending($code)) {
-            $result->setError($this->getCustomError($code));
+            $result->setError($this->getCustomError($originCode));
 
             return $result;
         }
@@ -73,7 +76,7 @@ class ExtService extends BaseSunat
         }
 
         if ($this->isExceptionCode($code)) {
-            $this->loadErrorByCode($result, $code);
+            $this->loadErrorByCode($result, $originCode);
         }
 
         return $result;

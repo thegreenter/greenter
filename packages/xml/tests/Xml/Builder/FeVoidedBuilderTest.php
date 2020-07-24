@@ -6,16 +6,19 @@
  * Time: 10:47 AM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Builder;
 
 use Greenter\Data\Generator\VoidedStore;
 use Greenter\Model\Voided\Voided;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class FeVoidedBuilderTest
  * @package tests\Greenter\Xml\Builder
  */
-class FeVoidedBuilderTest extends \PHPUnit_Framework_TestCase
+class FeVoidedBuilderTest extends TestCase
 {
     use FeBuilderTrait;
     use XsdValidatorTrait;

@@ -6,6 +6,8 @@
  * Time: 15:37.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
@@ -22,8 +24,17 @@ class SalePerceptionLoader implements LoaderMetadataInterface
                 'choices' => ['01', '02', '03'],
             ]),
         ]);
-        $metadata->addPropertyConstraint('mtoBase', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mto', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('mtoTotal', new Assert\NotBlank());
+        $metadata->addPropertyConstraints('mtoBase', [
+            new Assert\NotNull(),
+            new Assert\Type(['type' => 'float']),
+        ]);
+        $metadata->addPropertyConstraints('mto', [
+            new Assert\NotNull(),
+            new Assert\Type(['type' => 'float']),
+        ]);
+        $metadata->addPropertyConstraints('mtoTotal', [
+            new Assert\NotNull(),
+            new Assert\Type(['type' => 'float']),
+        ]);
     }
 }

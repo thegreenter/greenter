@@ -6,20 +6,22 @@
  * Time: 21:01
  */
 
-namespace Tests\Greenter\Validator;
+declare(strict_types=1);
 
+namespace Tests\Greenter\Validator;
 
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Validator\XmlErrorCodeProvider;
+use PHPUnit\Framework\TestCase;
 
-class XmlErrorCodeProviderTest extends \PHPUnit_Framework_TestCase
+class XmlErrorCodeProviderTest extends TestCase
 {
     /**
      * @var ErrorCodeProviderInterface
      */
     private $provider;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->provider = new XmlErrorCodeProvider();
     }
@@ -28,7 +30,7 @@ class XmlErrorCodeProviderTest extends \PHPUnit_Framework_TestCase
     {
         $items = $this->provider->getAll();
 
-        $this->assertEquals(1470, count($items));
+        $this->assertCount(1470, $items);
     }
 
     /**

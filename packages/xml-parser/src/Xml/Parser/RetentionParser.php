@@ -6,9 +6,13 @@
  * Time: 01:25 PM
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Xml\Parser;
 
-
+use DateTime;
+use DOMDocument;
+use DOMElement;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -17,9 +21,10 @@ use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Retention\RetentionDetail;
+use Greenter\Parser\DocumentParserInterface;
 use Greenter\Xml\XmlReader;
 
-class RetentionParser
+class RetentionParser implements DocumentParserInterface
 {
     /**
      * @var XmlReader
@@ -27,7 +32,7 @@ class RetentionParser
     private $reader;
 
     /**
-     * @var \DOMElement
+     * @var DOMElement
      */
     private $rootNode;
 
@@ -35,7 +40,7 @@ class RetentionParser
      * @param $value
      * @return DocumentInterface
      */
-    public function parse($value)
+    public function parse($value): ?DocumentInterface
     {
         $this->load($value);
         $xml = $this->reader;
@@ -45,14 +50,14 @@ class RetentionParser
         $retention = new Retention();
         $retention->setSerie($idNum[0])
             ->setCorrelativo($idNum[1])
-            ->setFechaEmision(new \DateTime($xml->getValue('cbc:IssueDate')))
+            ->setFechaEmision(new DateTime($xml->getValue('cbc:IssueDate')))
             ->setCompany($this->getCompany())
             ->setProveedor($this->getClient())
             ->setRegimen($xml->getValue('sac:SUNATRetentionSystemCode'))
-            ->setTasa(floatval($xml->getValue('sac:SUNATRetentionPercent', $root, 0)))
+            ->setTasa((float)$xml->getValue('sac:SUNATRetentionPercent', $root, '0'))
             ->setObservacion($xml->getValue('cbc:Note'))
-            ->setImpRetenido($xml->getValue('cbc:TotalInvoiceAmount', $root, 0))
-            ->setImpPagado(floatval($xml->getValue('sac:SUNATTotalPaid', $root, 0)))
+            ->setImpRetenido((float)$xml->getValue('cbc:TotalInvoiceAmount', $root, '0'))
+            ->setImpPagado((float)$xml->getValue('sac:SUNATTotalPaid', $root, '0'))
             ->setDetails(iterator_to_array($this->getDetails()));
 
         return $retention;
@@ -62,7 +67,7 @@ class RetentionParser
     {
         $this->reader = new XmlReader();
 
-        if ($value instanceof \DOMDocument) {
+        if ($value instanceof DOMDocument) {
             $this->reader->loadDom($value);
         } else {
             $this->reader->loadXml($value);
@@ -74,7 +79,7 @@ class RetentionParser
     private function getCompany()
     {
         $xml = $this->reader;
-        $node = $xml->getNode('cac:AgentParty',$this->rootNode);
+        $node = $xml->getNode('cac:AgentParty', $this->rootNode);
 
         $cl = new Company();
         $cl->setRuc($xml->getValue('cac:PartyIdentification/cbc:ID', $node))
@@ -106,7 +111,6 @@ class RetentionParser
 
         $address = $xml->getNode('cac:PostalAddress', $node);
         if ($address) {
-
             return (new Address())
                 ->setDireccion($xml->getValue('cbc:StreetName', $address))
                 ->setDepartamento($xml->getValue('cbc:CityName', $address))
@@ -130,8 +134,8 @@ class RetentionParser
             $det = new RetentionDetail();
             $det->setTipoDoc($temp->getAttribute('schemeID'))
                 ->setNumDoc($temp->nodeValue)
-                ->setFechaEmision(new \DateTime($xml->getValue('cbc:IssueDate', $node)))
-                ->setImpTotal(floatval($mount->nodeValue))
+                ->setFechaEmision(new DateTime($xml->getValue('cbc:IssueDate', $node)))
+                ->setImpTotal((float)$mount->nodeValue)
                 ->setMoneda($mount->getAttribute('currencyID'))
                 ->setPagos(iterator_to_array($this->getPayments($node)));
 
@@ -139,24 +143,24 @@ class RetentionParser
             if (empty($temp)) {
                 $det->setImpRetenido(0.00)
                     ->setImpPagar(0.00)
-                    ->setFechaRetencion(new \DateTime());
+                    ->setFechaRetencion(new DateTime());
 
                 yield $det;
                 continue;
             }
 
             $det
-                ->setImpRetenido(floatval($xml->getValue('sac:SUNATRetentionAmount', $temp)))
-                ->setFechaRetencion(new \DateTime($xml->getValue('sac:SUNATRetentionDate', $temp)))
-                ->setImpPagar(floatval($xml->getValue('sac:SUNATNetTotalPaid', $temp)));
+                ->setImpRetenido((float)$xml->getValue('sac:SUNATRetentionAmount', $temp))
+                ->setFechaRetencion(new DateTime($xml->getValue('sac:SUNATRetentionDate', $temp)))
+                ->setImpPagar((float)$xml->getValue('sac:SUNATNetTotalPaid', $temp));
 
             $cambio = $xml->getNode('cac:ExchangeRate', $temp);
             if ($cambio) {
                 $exc = new Exchange();
                 $exc->setMonedaRef($xml->getValue('cbc:SourceCurrencyCode', $cambio))
                     ->setMonedaObj($xml->getValue('cbc:TargetCurrencyCode', $cambio))
-                    ->setFactor(floatval($xml->getValue('cbc:CalculationRate', $cambio, 0)))
-                    ->setFecha(new \DateTime($xml->getValue('cbc:Date', $cambio)));
+                    ->setFactor((float)$xml->getValue('cbc:CalculationRate', $cambio, '0'))
+                    ->setFecha(new DateTime($xml->getValue('cbc:Date', $cambio)));
                 $det->setTipoCambio($exc);
             }
 
@@ -173,8 +177,8 @@ class RetentionParser
             $temp = $xml->getNode('cbc:PaidAmount', $pay);
             $payment = new Payment();
             $payment->setMoneda($temp->getAttribute('currencyID'))
-                ->setImporte(floatval($temp->nodeValue))
-                ->setFecha(new \DateTime($xml->getValue('cbc:PaidDate')));
+                ->setImporte((float)$temp->nodeValue)
+                ->setFecha(new DateTime($xml->getValue('cbc:PaidDate')));
 
             yield $payment;
         }

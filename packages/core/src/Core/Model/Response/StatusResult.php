@@ -6,6 +6,8 @@
  * Time: 23:20.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Model\Response;
 
 /**
@@ -27,7 +29,7 @@ class StatusResult extends BillResult
     /**
      * @return string
      */
-    public function getCode()
+    public function getCode(): ?string
     {
         return $this->code;
     }
@@ -37,7 +39,7 @@ class StatusResult extends BillResult
      *
      * @return $this
      */
-    public function setCode($code)
+    public function setCode(?string $code): self
     {
         $this->code = $code;
 

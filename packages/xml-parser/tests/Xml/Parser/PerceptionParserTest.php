@@ -6,12 +6,15 @@
  * Time: 02:22 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Perception\Perception;
 use Greenter\Xml\Parser\PerceptionParser;
+use PHPUnit\Framework\TestCase;
 
-class PerceptionParserTest extends \PHPUnit_Framework_TestCase
+class PerceptionParserTest extends TestCase
 {
     /**
      * @dataProvider providerDocs

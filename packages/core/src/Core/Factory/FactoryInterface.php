@@ -6,6 +6,8 @@
  * Time: 15:31.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Factory;
 
 use Greenter\Model\DocumentInterface;
@@ -21,5 +23,5 @@ interface FactoryInterface
      *
      * @return BaseResult
      */
-    public function send(DocumentInterface $document);
+    public function send(DocumentInterface $document): ?BaseResult;
 }

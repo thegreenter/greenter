@@ -6,6 +6,8 @@
  * Time: 21:55.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Report;
 
 use Greenter\Model\DocumentInterface;
@@ -35,7 +37,7 @@ class HtmlReport implements ReportInterface
      * @param string $templatesDir
      * @param array  $optionTwig
      */
-    public function __construct($templatesDir = '', $optionTwig = [])
+    public function __construct(?string $templatesDir = '', array $optionTwig = [])
     {
         if (!isset($optionTwig['autoescape'])) {
             $optionTwig['autoescape'] = false;
@@ -50,13 +52,13 @@ class HtmlReport implements ReportInterface
      * @param DocumentInterface $document
      * @param array $parameters
      *
-     * @return mixed
+     * @return string
      *
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function render(DocumentInterface $document, $parameters = [])
+    public function render(DocumentInterface $document, array $parameters = []): ?string
     {
         $html = $this->twig->render($this->template, [
             'doc' => $document,
@@ -71,7 +73,7 @@ class HtmlReport implements ReportInterface
      *
      * @param string $template
      */
-    public function setTemplate($template)
+    public function setTemplate(?string $template)
     {
         $this->template = $template;
     }
@@ -79,18 +81,18 @@ class HtmlReport implements ReportInterface
     /**
      * @return Environment
      */
-    public function getTwig()
+    public function getTwig(): ?Environment
     {
         return $this->twig;
     }
 
     /**
-     * @param $directory
-     * @param $options
+     * @param string $directory
+     * @param array $options
      *
      * @return Environment
      */
-    private function buildTwig($directory, $options)
+    private function buildTwig(?string $directory, array $options): ?Environment
     {
         $dirs = $this->getDirectories($directory);
 
@@ -108,7 +110,7 @@ class HtmlReport implements ReportInterface
      *
      * @return array
      */
-    private function getDirectories($directory)
+    private function getDirectories(?string $directory): ?array
     {
         $dirs = [];
         if ($directory) {

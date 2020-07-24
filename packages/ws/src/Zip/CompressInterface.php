@@ -6,6 +6,8 @@
  * Time: 17:37.
  */
 
+declare(strict_types=1);
+
 namespace Greenter\Zip;
 
 /**
@@ -21,5 +23,5 @@ interface CompressInterface
      *
      * @return string
      */
-    public function compress($filename, $content);
+    public function compress(?string $filename, ?string $content): ?string;
 }

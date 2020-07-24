@@ -6,12 +6,15 @@
  * Time: 08:23
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Xml\Parser;
 
 use Greenter\Model\Sale\Invoice;
 use Greenter\Xml\Parser\InvoiceParser;
+use PHPUnit\Framework\TestCase;
 
-class InvoiceParserTest extends \PHPUnit_Framework_TestCase
+class InvoiceParserTest extends TestCase
 {
     /**
      * @dataProvider providerSolDocs

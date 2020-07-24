@@ -40,12 +40,13 @@ use Greenter\Xml\Builder\PerceptionBuilder;
 use Greenter\Xml\Builder\RetentionBuilder;
 use Greenter\Xml\Builder\VoidedBuilder;
 use Greenter\XMLSecLibs\Sunat\SignedXml;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class CeFactoryBase
  * @package Tests\Greenter\Factory
  */
-class CeFactoryBase extends \PHPUnit_Framework_TestCase
+class CeFactoryBase extends TestCase
 {
     /**
      * @var FeFactory
@@ -57,7 +58,7 @@ class CeFactoryBase extends \PHPUnit_Framework_TestCase
      */
     protected $builders;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $signer = new SignedXml();
         $signer->setCertificateFromFile(__DIR__.'/../../Resources/SFSCert.pem');

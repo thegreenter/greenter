@@ -6,13 +6,16 @@
  * Time: 16:32.
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Reader;
 
 use Greenter\Ws\Reader\FilenameExtractorInterface;
 use Greenter\Ws\Reader\XmlFilenameExtractor;
 use Greenter\Ws\Reader\XmlReader;
+use PHPUnit\Framework\TestCase;
 
-class XmlFilenameExtractorTest extends \PHPUnit_Framework_TestCase
+class XmlFilenameExtractorTest extends TestCase
 {
     const CBC_NS = 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2';
 
@@ -21,7 +24,7 @@ class XmlFilenameExtractorTest extends \PHPUnit_Framework_TestCase
      */
     private $extractor;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->extractor = new XmlFilenameExtractor(new XmlReader());
     }
@@ -43,10 +46,11 @@ class XmlFilenameExtractorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Exception
+     * @throws \Exception
      */
     public function testUblVersionNotSupported()
     {
+        $this->expectException(\Exception::class);
         $doc = new \DOMDocument();
         $doc->load(__DIR__.'/../../Resources/20600055519-01-F001-00000001.xml');
         $doc->getElementsByTagNameNS(self::CBC_NS, 'UBLVersionID')

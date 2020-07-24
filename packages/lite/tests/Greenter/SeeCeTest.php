@@ -30,7 +30,7 @@ class SeeCeTest extends CeFactoryBase
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'aceptado',
             $result->getCdrResponse()->getDescription()
         );
@@ -47,7 +47,7 @@ class SeeCeTest extends CeFactoryBase
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'aceptado',
             $result->getCdrResponse()->getDescription()
         );
