@@ -6,6 +6,8 @@
  * Time: 23:52
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Factory;
 
 use Greenter\Builder\BuilderInterface;
@@ -108,7 +110,8 @@ class FeFactoryBase extends TestCase
      * @param DocumentInterface $document
      * @return BuilderInterface
      */
-    protected function getBuilder(DocumentInterface $document) {
+    protected function getBuilder(DocumentInterface $document)
+    {
         return new $this->builders[get_class($document)]([
             'cache' => false,
             'strict_variables' => true,

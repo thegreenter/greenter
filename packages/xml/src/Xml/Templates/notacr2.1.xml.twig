@@ -259,10 +259,10 @@
         {% endif %}
     </cac:TaxTotal>
     <cac:LegalMonetaryTotal>
-        {% if doc.sumOtrosCargos %}
+        {% if doc.sumOtrosCargos is not null %}
         <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumOtrosCargos|n_format }}</cbc:ChargeTotalAmount>
         {% endif %}
-        {% if doc.redondeo %}
+        {% if doc.redondeo is not null %}
         <cbc:PayableRoundingAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.redondeo|n_format }}</cbc:PayableRoundingAmount>
         {% endif %}
         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>
