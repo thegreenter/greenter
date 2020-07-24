@@ -76,8 +76,8 @@ class NoteParser implements DocumentParserInterface
         $this->loadTotals($note, $additional);
         $this->loadTributos($note);
         $monetaryTotal = $xml->getNode($isNcr ? 'cac:LegalMonetaryTotal': 'cac:RequestedMonetaryTotal', $root);
-        $note->setMtoOtrosTributos(floatval($xml->getValue('cbc:ChargeTotalAmount', $monetaryTotal, '0')))
-            ->setMtoImpVenta(floatval($xml->getValue('cbc:PayableAmount', $monetaryTotal, '0')))
+        $note->setMtoOtrosTributos((float)$xml->getValue('cbc:ChargeTotalAmount', $monetaryTotal, '0'))
+            ->setMtoImpVenta((float)$xml->getValue('cbc:PayableAmount', $monetaryTotal, '0'))
             ->setDetails(iterator_to_array($this->getDetails($isNcr)))
             ->setLegends(iterator_to_array($this->getLegends($additional)))
             ->setGuias(iterator_to_array($this->getGuias($root)));
@@ -97,7 +97,7 @@ class NoteParser implements DocumentParserInterface
             /**@var $total \DOMElement*/
             $nodeId = $xml->getNode('cbc:ID', $total);
             $id = trim($nodeId->nodeValue);
-            $val = floatval($xml->getValue('cbc:PayableAmount', $total, '0'));
+            $val = (float)$xml->getValue('cbc:PayableAmount', $total, '0');
             switch ($id) {
                 case '1001':
                     $inv->setMtoOperGravadas($val);
@@ -115,8 +115,8 @@ class NoteParser implements DocumentParserInterface
                     $inv->setPerception((new SalePerception())
                         ->setCodReg($nodeId->getAttribute('schemeID'))
                         ->setMto($val)
-                        ->setMtoBase(floatval($xml->getValue('sac:ReferenceAmount', $total, '0')))
-                        ->setMtoTotal(floatval($xml->getValue('sac:TotalAmount', $total, '0'))));
+                        ->setMtoBase((float)$xml->getValue('sac:ReferenceAmount', $total, '0'))
+                        ->setMtoTotal((float)$xml->getValue('sac:TotalAmount', $total, '0')));
                     break;
             }
         }
@@ -129,7 +129,7 @@ class NoteParser implements DocumentParserInterface
         foreach ($taxs as $tax) {
             $name = $xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax);
             $name = trim($name);
-            $val = floatval($xml->getValue('cbc:TaxAmount', $tax, '0'));
+            $val = (float)$xml->getValue('cbc:TaxAmount', $tax, '0');
             switch ($name) {
                 case 'IGV':
                     $inv->setMtoIGV($val);
@@ -242,10 +242,10 @@ class NoteParser implements DocumentParserInterface
         foreach ($nodes as $node) {
             $quant = $xml->getNode('cbc:'.$nameQuant, $node);
             $det = new SaleDetail();
-            $det->setCantidad(floatval($quant->nodeValue))
+            $det->setCantidad((float)$quant->nodeValue)
                 ->setUnidad($quant->getAttribute('unitCode'))
-                ->setMtoValorVenta(floatval($xml->getValue('cbc:LineExtensionAmount', $node)))
-                ->setMtoValorUnitario(floatval($xml->getValue('cac:Price/cbc:PriceAmount', $node)))
+                ->setMtoValorVenta((float)$xml->getValue('cbc:LineExtensionAmount', $node))
+                ->setMtoValorUnitario((float)$xml->getValue('cac:Price/cbc:PriceAmount', $node))
                 ->setDescripcion($xml->getValue('cac:Item/cbc:Description', $node))
                 ->setCodProducto($xml->getValue('cac:Item/cac:SellersItemIdentification/cbc:ID', $node))
                 ->setCodProdSunat($xml->getValue('cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode', $node));
@@ -254,7 +254,7 @@ class NoteParser implements DocumentParserInterface
             foreach ($taxs as $tax) {
                 $name = $xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax);
                 $name = trim($name);
-                $val = floatval($xml->getValue('cbc:TaxAmount', $tax, '0'));
+                $val = (float)$xml->getValue('cbc:TaxAmount', $tax, '0');
                 switch ($name) {
                     case 'IGV':
                         $det->setIgv($val);
@@ -273,7 +273,7 @@ class NoteParser implements DocumentParserInterface
                 $charge = $xml->getValue('cbc:ChargeIndicator', $desc);
                 $charge = trim($charge);
                 if ($charge == 'false') {
-                    $val = floatval($xml->getValue('cbc:Amount', $desc, '0'));
+                    $val = (float)$xml->getValue('cbc:Amount', $desc, '0');
                     $det->setDescuento($val);
                 }
             }
@@ -282,7 +282,7 @@ class NoteParser implements DocumentParserInterface
             foreach ($prices as $price) {
                 $code = $xml->getValue('cac:AlternativeConditionPrice/cbc:PriceTypeCode', $price);
                 $code = trim($code);
-                $value = floatval($xml->getValue('cac:AlternativeConditionPrice/cbc:PriceAmount', $price, '0'));
+                $value = (float)$xml->getValue('cac:AlternativeConditionPrice/cbc:PriceAmount', $price, '0');
 
                 switch ($code) {
                     case '01':

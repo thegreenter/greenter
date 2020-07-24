@@ -133,7 +133,7 @@ class DespatchParser implements DocumentParserInterface
         $shp = new Shipment();
         $shp->setCodTraslado($xml->getValue('cbc:HandlingCode', $node))
             ->setDesTraslado($xml->getValue('cbc:Information', $node))
-            ->setNumBultos(intval($xml->getValue('cbc:TotalTransportHandlingUnitQuantity', $node, '0')))
+            ->setNumBultos((int)$xml->getValue('cbc:TotalTransportHandlingUnitQuantity', $node, '0'))
             ->setIndTransbordo($xml->getValue('cbc:SplitConsignmentIndicator', $node, 'false') == 'true')
             ->setNumContenedor($xml->getValue('cac:TransportHandlingUnit/cbc:ID', $node))
             ->setCodPuerto($xml->getValue('cac:FirstArrivalPortLocation/cbc:ID', $node));
@@ -141,7 +141,7 @@ class DespatchParser implements DocumentParserInterface
         $otNode = $xml->getNode('cbc:GrossWeightMeasure', $node);
         if ($otNode) {
             $shp->setUndPesoTotal($otNode->getAttribute('unitCode'))
-                ->setPesoTotal(floatval($otNode->nodeValue));
+                ->setPesoTotal((float)$otNode->nodeValue);
         }
         $otNode = $xml->getNode('cac:Delivery/cac:DeliveryAddress', $node);
         if ($otNode) {
@@ -191,7 +191,7 @@ class DespatchParser implements DocumentParserInterface
         foreach ($nodes as $node) {
             $quantity = $xml->getNode('cbc:DeliveredQuantity', $node);
             $det = new DespatchDetail();
-            $det->setCantidad(floatval($quantity->nodeValue))
+            $det->setCantidad((float)$quantity->nodeValue)
                 ->setUnidad($quantity->getAttribute('unitCode'))
                 ->setDescripcion($xml->getValue('cac:Item/cbc:Name', $node))
                 ->setCodigo($xml->getValue('cac:Item/cac:SellersItemIdentification/cbc:ID', $node))

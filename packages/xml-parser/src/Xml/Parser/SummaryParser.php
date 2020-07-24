@@ -97,8 +97,8 @@ class SummaryParser implements DocumentParserInterface
                 ->setEstado(trim($xml->getValue('cac:Status/cbc:ConditionCode', $node)))
                 ->setClienteTipo(trim($xml->getValue('cac:AccountingCustomerParty/cbc:AdditionalAccountID', $node)))
                 ->setClienteNro(trim($xml->getValue('cac:AccountingCustomerParty/cbc:CustomerAssignedAccountID', $node)))
-                ->setTotal(floatval($xml->getValue('sac:TotalAmount', $node, '0')))
-                ->setMtoOtrosCargos(floatval($xml->getValue('cac:AllowanceCharge/cbc:Amount', $node, '0')));
+                ->setTotal((float)$xml->getValue('sac:TotalAmount', $node, '0'))
+                ->setMtoOtrosCargos((float)$xml->getValue('cac:AllowanceCharge/cbc:Amount', $node, '0'));
 
             $ref = $xml->getNode('cac:BillingReference', $node);
             if ($ref) {
@@ -112,17 +112,17 @@ class SummaryParser implements DocumentParserInterface
             if ($ref) {
                 $perc = new SummaryPerception();
                 $perc->setCodReg(trim($xml->getValue('sac:SUNATPerceptionSystemCode', $ref)))
-                    ->setTasa(floatval($xml->getValue('sac:SUNATPerceptionPercent', $ref, '0')))
-                    ->setMto(floatval($xml->getValue('sac:TotalInvoiceAmount', $ref, '0')))
-                    ->setMtoTotal(floatval($xml->getValue('sac:SUNATTotalCashed', $ref, '0')))
-                    ->setMtoBase(floatval($xml->getValue('sac:TaxableAmount', $ref, '0')));
+                    ->setTasa((float)$xml->getValue('sac:SUNATPerceptionPercent', $ref, '0'))
+                    ->setMto((float)$xml->getValue('sac:TotalInvoiceAmount', $ref, '0'))
+                    ->setMtoTotal((float)$xml->getValue('sac:SUNATTotalCashed', $ref, '0'))
+                    ->setMtoBase((float)$xml->getValue('sac:TaxableAmount', $ref, '0'));
             }
 
             $totals = $xml->getNodes('sac:BillingPayment', $node);
             foreach ($totals as $total) {
                 /**@var $total \DOMElement*/
                 $id = trim($xml->getValue('cbc:InstructionID', $total));
-                $val = floatval($xml->getValue('cbc:PaidAmount', $total, '0'));
+                $val = (float)$xml->getValue('cbc:PaidAmount', $total, '0');
                 switch ($id) {
                     case '01':
                         $det->setMtoOperGravadas($val);
@@ -141,7 +141,7 @@ class SummaryParser implements DocumentParserInterface
             $taxs = $xml->getNodes('cac:TaxTotal', $node);
             foreach ($taxs as $tax) {
                 $name = trim($xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax));
-                $val = floatval($xml->getValue('cbc:TaxAmount', $tax, '0'));
+                $val = (float)$xml->getValue('cbc:TaxAmount', $tax, '0');
                 switch ($name) {
                     case 'IGV':
                         $det->setMtoIGV($val);
