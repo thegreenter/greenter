@@ -44,7 +44,7 @@ class FormatFilterTest extends TestCase
         $number = 432.23;
         $value = $this->formatter->numberLimit($number, 10);
 
-        $this->assertEquals($this->countDecimals(strval($number)), $this->countDecimals($value));
+        $this->assertEquals($this->countDecimals((string)$number), $this->countDecimals($value));
     }
 
     public function getNumberDecimals()

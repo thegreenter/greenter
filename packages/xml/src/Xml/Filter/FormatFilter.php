@@ -17,12 +17,12 @@ class FormatFilter
     {
         $nroDecimals = $this->getDecimalsLenght($number);
 
-        return $nroDecimals > $decimals ? $this->number($number, $decimals) : strval($number);
+        return $nroDecimals > $decimals ? $this->number($number, $decimals) : (string)$number;
     }
 
     private function getDecimalsLenght($number): int
     {
-        $lasPosition = strrchr(strval($number), '.');
+        $lasPosition = strrchr((string)$number, '.');
         if ($lasPosition === false) {
             return 0;
         }
