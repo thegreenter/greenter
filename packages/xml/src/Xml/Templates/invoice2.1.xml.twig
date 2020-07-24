@@ -392,8 +392,8 @@
         {% if doc.subTotal is not null %}
         <cbc:TaxInclusiveAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.subTotal|n_format }}</cbc:TaxInclusiveAmount>
         {% endif %}
-        {% if doc.mtoDescuentos is not null %}
-        <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoDescuentos|n_format }}</cbc:AllowanceTotalAmount>
+        {% if doc.sumOtrosDescuentos is not null %}
+        <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumOtrosDescuentos|n_format }}</cbc:AllowanceTotalAmount>
         {% endif %}
         {% if doc.sumOtrosCargos is not null %}
         <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumOtrosCargos|n_format }}</cbc:ChargeTotalAmount>

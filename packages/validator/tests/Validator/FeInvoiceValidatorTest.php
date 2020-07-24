@@ -64,7 +64,7 @@ class FeInvoiceValidatorTest extends TestCase
         $validator = $this->getValidator();
         $errors = $validator->validate($invoice);
 
-        $this->assertEquals(2,$errors->count());
+        $this->assertEquals(2, $errors->count());
     }
 
     private function getInvoice()
@@ -74,22 +74,27 @@ class FeInvoiceValidatorTest extends TestCase
             ->setMtoOperGratuitas(12)
             ->setSumDsctoGlobal(12)
             ->setMtoDescuentos(23)
+            ->setSumOtrosDescuentos(23)
             ->setTipoOperacion('2')
             ->setFecVencimiento(new \DateTime())
-            ->setPerception((new SalePerception())
+            ->setPerception(
+                (new SalePerception())
                 ->setCodReg('01')
                 ->setMto(2)
                 ->setMtoBase(3)
                 ->setMtoTotal(4)
             )->setCompra('001-12112')
-            ->setDetraccion((new Detraction())
+            ->setDetraccion(
+                (new Detraction())
                 ->setMount(2228.3)
                 ->setPercent(9)
                 ->setValueRef(2000)
-            )->setGuiaEmbebida((new EmbededDespatch())
+            )->setGuiaEmbebida(
+                (new EmbededDespatch())
                 ->setLlegada(new Direction('070101', 'AV. REPUBLICA DE ARGENTINA N? 2976 URB.'))
                 ->setPartida(new Direction('070101', 'AV OSCAR R BENAVIDES No 5915  PE'))
-                ->setTransportista((new Client())
+                ->setTransportista(
+                    (new Client())
                     ->setTipoDoc('6')
                     ->setNumDoc('20100006376')
                     ->setRznSocial('TRANS SAC')
@@ -121,7 +126,8 @@ class FeInvoiceValidatorTest extends TestCase
             ->setCorrelativo('123')
             ->setFechaEmision(new \DateTime())
             ->setTipoMoneda('PEN')
-            ->setClient((new Client())
+            ->setClient(
+                (new Client())
                 ->setTipoDoc('6')
                 ->setNumDoc('20000000001')
                 ->setRznSocial('EMPRESA 1')

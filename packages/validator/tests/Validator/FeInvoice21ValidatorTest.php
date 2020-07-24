@@ -47,16 +47,18 @@ class FeInvoice21ValidatorTest extends TestCase
         $invoice = new Invoice();
         $invoice
             ->setTipoOperacion('0101')
-            ->setMtoDescuentos(23)
+            ->setSumOtrosDescuentos(23)
             ->setFecVencimiento(new \DateTime())
-            ->setPerception((new SalePerception())
+            ->setPerception(
+                (new SalePerception())
                 ->setCodReg('01')
                 ->setPorcentaje(3)
                 ->setMto(2)
                 ->setMtoBase(3)
                 ->setMtoTotal(4)
             )->setCompra('001-12112')
-            ->setDetraccion((new Detraction())
+            ->setDetraccion(
+                (new Detraction())
                 ->setMount(2228.3)
                 ->setPercent(9)
                 ->setCodBienDetraccion('00')
@@ -80,7 +82,8 @@ class FeInvoice21ValidatorTest extends TestCase
             ->setCorrelativo('123')
             ->setFechaEmision(new \DateTime())
             ->setTipoMoneda('PEN')
-            ->setClient((new Client())
+            ->setClient(
+                (new Client())
                 ->setTipoDoc('6')
                 ->setNumDoc('20000000001')
                 ->setRznSocial('EMPRESA 1')
