@@ -48,7 +48,7 @@ class TributoFunction
 
     private static function getCode($afectacion): string
     {
-        $value = intval($afectacion);
+        $value = (int)$afectacion;
 
         switch ($value) {
             case 10: return '1000';

@@ -120,7 +120,7 @@ class CdrResponse
      */
     public function isAccepted()
     {
-        $code = intval($this->getCode());
+        $code = (int)$this->getCode();
 
         return $code === 0 || $code >= 4000;
     }
