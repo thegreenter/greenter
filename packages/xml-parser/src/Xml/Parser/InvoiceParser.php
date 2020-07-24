@@ -269,61 +269,73 @@ class InvoiceParser implements DocumentParserInterface
         $nodes = $xpt->query('/xt:Invoice/cac:InvoiceLine');
 
         foreach ($nodes as $node) {
-            /**@var $quant DOMElement */
-            $quant = $xpt->query('cbc:InvoicedQuantity', $node)->item(0);
+            /**@var $quantity DOMElement */
+            $quantity = $xpt->query('cbc:InvoicedQuantity', $node)->item(0);
             $det = new SaleDetail();
-            $det->setCantidad((float)$quant->nodeValue)
-                ->setUnidad($quant->getAttribute('unitCode'))
+            $det->setCantidad((float)$quantity->nodeValue)
+                ->setUnidad($quantity->getAttribute('unitCode'))
                 ->setMtoValorVenta((float)$this->defValue($xpt->query('cbc:LineExtensionAmount', $node)))
                 ->setMtoValorUnitario((float)$this->defValue($xpt->query('cac:Price/cbc:PriceAmount', $node)))
                 ->setDescripcion($this->defValue($xpt->query('cac:Item/cbc:Description', $node)))
                 ->setCodProducto($this->defValue($xpt->query('cac:Item/cac:SellersItemIdentification/cbc:ID', $node)))
                 ->setCodProdSunat($this->defValue($xpt->query('cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode', $node)));
 
-            $taxs = $xpt->query('cac:TaxTotal', $node);
-            foreach ($taxs as $tax) {
-                $name = $this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax));
-                $val = (float)$this->defValue($xpt->query('cbc:TaxAmount', $tax), 0);
-                switch ($name) {
-                    case 'IGV':
-                        $det->setIgv($val);
-                        $det->setTipAfeIgv($this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cbc:TaxExemptionReasonCode', $tax)));
-                        break;
-                    case 'ISC':
-                        $det->setIsc($val);
-                        $det->setTipSisIsc($this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cbc:TierRange', $tax)));
-                        break;
-                }
-            }
-
-            // Descuento
-            $descs = $xpt->query('cac:AllowanceCharge', $node);
-            foreach ($descs as $desc) {
-                $charge = $this->defValue($xpt->query('cbc:ChargeIndicator', $desc));
-                $charge = trim($charge);
-                if ($charge == 'false') {
-                    $val = (float)$this->defValue($xpt->query('cbc:Amount', $desc), 0);
-                    $det->setDescuento($val);
-                }
-            }
-
-            $prices = $xpt->query('cac:PricingReference', $node);
-            foreach ($prices as $price) {
-                $code = $this->defValue($xpt->query('cac:AlternativeConditionPrice/cbc:PriceTypeCode', $price));
-                $value = (float)$this->defValue($xpt->query('cac:AlternativeConditionPrice/cbc:PriceAmount', $price), 0);
-                $code = trim($code);
-
-                switch ($code) {
-                    case '01':
-                        $det->setMtoPrecioUnitario($value);
-                        break;
-                    case '02':
-                        $det->setMtoValorGratuito($value);
-                        break;
-                }
-            }
+            $this->loadTaxDetail($det, $xpt, $node);
+            $this->loadDescuentosDetail($det, $xpt, $node);
+            $this->loadPricesDetail($det, $xpt, $node);
 
             yield $det;
+        }
+    }
+
+    private function loadTaxDetail(SaleDetail $detail, DOMXPath $xpt, DOMNode $detailNode)
+    {
+        $taxs = $xpt->query('cac:TaxTotal', $detailNode);
+        foreach ($taxs as $tax) {
+            $name = $this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax));
+            $val = (float)$this->defValue($xpt->query('cbc:TaxAmount', $tax), 0);
+            switch ($name) {
+                case 'IGV':
+                    $detail->setIgv($val)
+                           ->setTipAfeIgv($this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cbc:TaxExemptionReasonCode', $tax)));
+                    break;
+                case 'ISC':
+                    $detail->setIsc($val)
+                           ->setTipSisIsc($this->defValue($xpt->query('cac:TaxSubtotal/cac:TaxCategory/cbc:TierRange', $tax)));
+                    break;
+            }
+        }
+    }
+
+    private function loadDescuentosDetail(SaleDetail $detail, DOMXPath $xpt, DOMNode $detailNode)
+    {
+        $descs = $xpt->query('cac:AllowanceCharge', $detailNode);
+        foreach ($descs as $desc) {
+            $charge = $this->defValue($xpt->query('cbc:ChargeIndicator', $desc));
+            $charge = trim($charge);
+            if ($charge == 'false') {
+                $val = (float)$this->defValue($xpt->query('cbc:Amount', $desc), 0);
+                $detail->setDescuento($val);
+            }
+        }
+    }
+
+    private function loadPricesDetail(SaleDetail $detail, DOMXPath $xpt, DOMNode $detailNode)
+    {
+        $prices = $xpt->query('cac:PricingReference', $detailNode);
+        foreach ($prices as $price) {
+            $code = $this->defValue($xpt->query('cac:AlternativeConditionPrice/cbc:PriceTypeCode', $price));
+            $value = (float)$this->defValue($xpt->query('cac:AlternativeConditionPrice/cbc:PriceAmount', $price), 0);
+            $code = trim($code);
+
+            switch ($code) {
+                case '01':
+                    $detail->setMtoPrecioUnitario($value);
+                    break;
+                case '02':
+                    $detail->setMtoValorGratuito($value);
+                    break;
+            }
         }
     }
 }
