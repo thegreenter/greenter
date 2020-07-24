@@ -54,7 +54,7 @@ class ExtService extends BaseSunat
     private function processResponse($status)
     {
         $originCode = $status->statusCode;
-        $code = intval($originCode);
+        $code = (int)$originCode;
 
         $result = new StatusResult();
         $result->setCode($originCode);
