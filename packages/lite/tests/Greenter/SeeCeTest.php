@@ -6,6 +6,8 @@
  * Time: 05:15 PM
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter;
 
 use Greenter\Model\DocumentInterface;

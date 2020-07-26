@@ -44,6 +44,11 @@ class Invoice extends BaseSale
     private $mtoDescuentos;
 
     /**
+     * @var float
+     */
+    private $sumOtrosDescuentos;
+
+    /**
      * @var Charge[]
      */
     private $descuentos;
@@ -186,6 +191,26 @@ class Invoice extends BaseSale
     public function setMtoDescuentos(?float $mtoDescuentos): Invoice
     {
         $this->mtoDescuentos = $mtoDescuentos;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getSumOtrosDescuentos(): ?float
+    {
+        return $this->sumOtrosDescuentos;
+    }
+
+    /**
+     * @param float $sumOtrosDescuentos
+     *
+     * @return Invoice
+     */
+    public function setSumOtrosDescuentos(?float $sumOtrosDescuentos): Invoice
+    {
+        $this->sumOtrosDescuentos = $sumOtrosDescuentos;
 
         return $this;
     }

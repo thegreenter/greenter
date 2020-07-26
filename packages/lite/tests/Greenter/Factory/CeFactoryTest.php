@@ -6,6 +6,8 @@
  * Time: 20:16
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Factory;
 
 use Greenter\Model\Response\CdrResponse;

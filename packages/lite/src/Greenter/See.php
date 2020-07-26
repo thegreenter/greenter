@@ -6,6 +6,8 @@
  * Time: 04:23 PM.
  */
 
+declare(strict_types=1);
+
 namespace Greenter;
 
 use DOMDocument;

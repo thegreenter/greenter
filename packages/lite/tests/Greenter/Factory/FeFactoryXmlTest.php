@@ -6,6 +6,8 @@
  * Time: 12:10
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Factory;
 
 use Greenter\Model\DocumentInterface;
@@ -103,6 +105,7 @@ class FeFactoryXmlTest extends FeFactoryBase
         $this->assertEquals(1, $nodes->length);
         $this->assertEquals(count($baja->getDetails()), $tipo->length);
     }
+
     /**
      * @param string $xml
      * @return \DOMXPath

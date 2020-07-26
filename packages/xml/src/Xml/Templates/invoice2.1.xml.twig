@@ -389,19 +389,19 @@
     </cac:TaxTotal>
     <cac:LegalMonetaryTotal>
         <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.valorVenta|n_format }}</cbc:LineExtensionAmount>
-        {% if doc.subTotal %}
+        {% if doc.subTotal is not null %}
         <cbc:TaxInclusiveAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.subTotal|n_format }}</cbc:TaxInclusiveAmount>
         {% endif %}
-        {% if doc.mtoDescuentos %}
-        <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoDescuentos|n_format }}</cbc:AllowanceTotalAmount>
+        {% if doc.sumOtrosDescuentos is not null %}
+        <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumOtrosDescuentos|n_format }}</cbc:AllowanceTotalAmount>
         {% endif %}
-        {% if doc.sumOtrosCargos %}
+        {% if doc.sumOtrosCargos is not null %}
         <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumOtrosCargos|n_format }}</cbc:ChargeTotalAmount>
         {% endif %}
-        {% if doc.totalAnticipos %}
+        {% if doc.totalAnticipos is not null %}
         <cbc:PrepaidAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.totalAnticipos|n_format }}</cbc:PrepaidAmount>
         {% endif %}
-        {% if doc.redondeo %}
+        {% if doc.redondeo is not null %}
         <cbc:PayableRoundingAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.redondeo|n_format }}</cbc:PayableRoundingAmount>
         {% endif %}
         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>

@@ -35,7 +35,7 @@ class InvoiceDiscountStore implements DocumentGeneratorInterface
      * @return DocumentInterface
      * @throws \Exception
      */
-    function create(): ?DocumentInterface
+    public function create(): ?DocumentInterface
     {
         $invoice = new Invoice();
         $invoice
@@ -47,7 +47,7 @@ class InvoiceDiscountStore implements DocumentGeneratorInterface
             ->setFechaEmision(new DateTime())
             ->setTipoMoneda('PEN')
             ->setClient($this->shared->getClient())
-            ->setMtoDescuentos(5) // Descuento Global que no afecta a la base imponible
+            ->setSumOtrosDescuentos(5) // Descuento Global que no afecta a la base imponible
             ->setMtoOperGravadas(70)
             ->setMtoIGV(12.6)
             ->setTotalImpuestos(12.6)

@@ -6,6 +6,8 @@
  * Time: 23:50
  */
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Factory;
 
 use Greenter\Ws\Services\SummarySender;
