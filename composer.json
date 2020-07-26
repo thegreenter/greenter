@@ -65,5 +65,10 @@
         "greenter/xcodes": "self.version",
         "greenter/xml": "self.version",
         "greenter/xml-parser": "self.version"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.0-dev"
+        }
     }
 }
