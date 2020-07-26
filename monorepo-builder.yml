@@ -3,6 +3,7 @@ parameters:
     data_to_append:
         require-dev:
             phpstan/phpstan: '^0.12'
+            symplify/monorepo-builder: "^8.1"
 
     directories_to_repositories:
         packages/core: 'https://github.com/thegreenter/core.git'
