@@ -74,7 +74,7 @@ class PdfReport implements ReportInterface
      *
      * @param array $options
      */
-    public function setOptions(array $options)
+    public function setOptions(array $options): void
     {
         $this->pdfRender->setOptions($options);
     }
@@ -90,7 +90,7 @@ class PdfReport implements ReportInterface
     /**
      * @param string $path
      */
-    public function setBinPath(?string $path)
+    public function setBinPath(?string $path): void
     {
         $this->pdfRender->binary = $path;
     }
@@ -99,6 +99,8 @@ class PdfReport implements ReportInterface
     {
         $this->pdfRender->addPage($html);
 
-        return $this->pdfRender->toString();
+        $result = $this->pdfRender->toString();
+
+        return $result === false ? null : $result;
     }
 }
