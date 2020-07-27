@@ -67,6 +67,11 @@
         "greenter/xml": "self.version",
         "greenter/xml-parser": "self.version"
     },
+    "scripts": {
+        "test": "phpunit",
+        "lint": "phpstan analyse",
+        "lint:ci": "phpstan analyse --error-format=github"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "4.0-dev"
