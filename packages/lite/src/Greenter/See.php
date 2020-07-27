@@ -62,7 +62,7 @@ class See
     private $signer;
 
     /**
-     * @var ErrorCodeProviderInterface
+     * @var ErrorCodeProviderInterface|null
      */
     private $codeProvider;
 
@@ -108,7 +108,7 @@ class See
     /**
      * @param string $directory
      */
-    public function setCachePath($directory)
+    public function setCachePath(?string $directory)
     {
         $this->options['cache'] = $directory;
     }
@@ -116,7 +116,7 @@ class See
     /**
      * @param string $certificate
      */
-    public function setCertificate($certificate)
+    public function setCertificate(string $certificate)
     {
         $this->signer->setCertificate($certificate);
     }
@@ -125,7 +125,7 @@ class See
      * @param string $user
      * @param string $password
      */
-    public function setCredentials($user, $password)
+    public function setCredentials(string $user, string $password)
     {
         $this->wsClient->setCredentials($user, $password);
     }
@@ -133,7 +133,7 @@ class See
     /**
      * @param string $service
      */
-    public function setService($service)
+    public function setService(?string $service)
     {
         $this->wsClient->setService($service);
     }
@@ -143,7 +143,7 @@ class See
      *
      * @param ErrorCodeProviderInterface $codeProvider
      */
-    public function setCodeProvider($codeProvider)
+    public function setCodeProvider(?ErrorCodeProviderInterface $codeProvider)
     {
         $this->codeProvider = $codeProvider;
     }
@@ -190,7 +190,7 @@ class See
      *
      * @return Model\Response\BaseResult
      */
-    public function sendXml($type, $name, $xml)
+    public function sendXml(string $type, string $name, string $xml)
     {
         $this->factory
             ->setBuilder($this->getBuilder($type))
@@ -208,7 +208,7 @@ class See
      *
      * @throws Exception
      */
-    public function sendXmlFile($xmlContent)
+    public function sendXmlFile(string $xmlContent)
     {
         $doc = new DOMDocument();
         $doc->loadXML($xmlContent);
@@ -224,11 +224,11 @@ class See
     }
 
     /**
-     * @param $ticket
+     * @param string $ticket
      *
      * @return Model\Response\StatusResult
      */
-    public function getStatus($ticket)
+    public function getStatus(string $ticket)
     {
         $sender = new ExtService();
         $sender->setClient($this->wsClient);
@@ -249,7 +249,7 @@ class See
      *
      * @return BuilderInterface
      */
-    private function getBuilder($class)
+    private function getBuilder(string $class)
     {
         $builder = $this->builders[$class];
 
@@ -261,7 +261,7 @@ class See
      *
      * @return SenderInterface
      */
-    private function getSender($class)
+    private function getSender(string $class)
     {
         $sender = in_array($class, $this->summarys) ? new SummarySender() : new BillSender();
         $sender->setClient($this->wsClient);
