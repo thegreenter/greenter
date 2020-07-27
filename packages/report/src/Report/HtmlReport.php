@@ -92,7 +92,7 @@ class HtmlReport implements ReportInterface
      *
      * @return Environment
      */
-    private function buildTwig(?string $directory, array $options): ?Environment
+    private function buildTwig(?string $directory, array $options): Environment
     {
         $dirs = $this->getDirectories($directory);
 
@@ -106,11 +106,11 @@ class HtmlReport implements ReportInterface
     }
 
     /**
-     * @param $directory
+     * @param string $directory
      *
      * @return array
      */
-    private function getDirectories(?string $directory): ?array
+    private function getDirectories(?string $directory): array
     {
         $dirs = [];
         if ($directory) {

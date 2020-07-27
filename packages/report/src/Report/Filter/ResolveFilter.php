@@ -19,7 +19,7 @@ class ResolveFilter
 {
     /**
      * @param Legend[] $legends
-     * @param $code
+     * @param string $code
      *
      * @return string
      */
