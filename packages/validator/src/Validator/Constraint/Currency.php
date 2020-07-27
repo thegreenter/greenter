@@ -17,5 +17,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class Currency extends Constraint
 {
+    /**
+     * @var string
+     */
     public $message = 'The value {{ value }} is not a valid currency.';
 }

@@ -21,7 +21,7 @@ class CustomMetadataFactory implements MetadataFactoryInterface
     private $version;
 
     /**
-     * @var LoaderListenerInterface
+     * @var LoaderListenerInterface|null
      */
     private $listener;
 
@@ -59,7 +59,7 @@ class CustomMetadataFactory implements MetadataFactoryInterface
             return $metaData;
         }
 
-        /** @var $loader LoaderMetadataInterface */
+        /** @var LoaderMetadataInterface $loader */
         $loader = new $fullClass();
         $loader->load($metaData);
         if ($this->listener) {
@@ -82,7 +82,7 @@ class CustomMetadataFactory implements MetadataFactoryInterface
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      *
      * @return bool|string
      */

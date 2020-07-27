@@ -17,5 +17,8 @@ use Symfony\Component\Validator\Constraint;
  */
 class CodeUnit extends Constraint
 {
+    /**
+     * @var string
+     */
     public $message = 'The value {{ value }} is not a valid unit code.';
 }

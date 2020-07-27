@@ -41,7 +41,7 @@ class VoidedDetailLoader implements LoaderMetadataInterface
 
     public function validate($object, ExecutionContextInterface $context)
     {
-        /** @var $object VoidedDetail */
+        /** @var VoidedDetail $object */
         $letter = 'F';
         switch ($object->getTipoDoc()) {
             case '20':

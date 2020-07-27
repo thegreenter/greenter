@@ -191,7 +191,10 @@ class CurrencyValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        /**@var $constraint Currency */
+        if (!$constraint instanceof Currency) {
+            return;
+        }
+
         if (!in_array($value, $this->currencies)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)

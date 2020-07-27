@@ -1117,8 +1117,12 @@ class CodeUnitValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        /**@var $constraint CodeUnit */
+        if (!$constraint instanceof CodeUnit) {
+            return;
+        }
+
         if (!in_array($value, $this->codes)) {
+
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ value }}', $value)
                 ->addViolation();
