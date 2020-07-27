@@ -71,8 +71,7 @@ class SeeFeTest extends FeFactoryBase
     {
         $result = $this->getSee()->getStatus($ticket);
 
-        if ($result->getCode() === '0127')
-        {
+        if ($result->getCode() === '0127') {
             $this->assertTrue(true);
             return;
         }

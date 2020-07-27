@@ -224,11 +224,11 @@ class See
     }
 
     /**
-     * @param string $ticket
+     * @param string|null $ticket
      *
      * @return Model\Response\StatusResult
      */
-    public function getStatus(string $ticket)
+    public function getStatus(?string $ticket)
     {
         $sender = new ExtService();
         $sender->setClient($this->wsClient);
