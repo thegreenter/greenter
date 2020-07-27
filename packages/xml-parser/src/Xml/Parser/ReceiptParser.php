@@ -39,7 +39,7 @@ class ReceiptParser implements DocumentParserInterface
     /**
      * Parse document.
      *
-     * @param $value
+     * @param mixed $value
      * @return DocumentInterface
      */
     public function parse($value): ?DocumentInterface

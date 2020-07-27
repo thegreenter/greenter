@@ -81,7 +81,9 @@ class XmlReader
             return null;
         }
 
-        return $nodes->item(0);
+        $node = $nodes->item(0);
+
+        return $node instanceof DOMElement ? $node : null;
     }
 
     /**

@@ -12,6 +12,7 @@ namespace Greenter\Xml\Parser;
 
 use DateTime;
 use DOMDocument;
+use DOMElement;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
 use Greenter\Model\Despatch\Despatch;
@@ -36,12 +37,12 @@ class DespatchParser implements DocumentParserInterface
     private $reader;
 
     /**
-     * @var \DOMElement
+     * @var DOMElement
      */
     private $rootNode;
 
     /**
-     * @param $value
+     * @param mixed $value
      * @return DocumentInterface
      */
     public function parse($value): ?DocumentInterface

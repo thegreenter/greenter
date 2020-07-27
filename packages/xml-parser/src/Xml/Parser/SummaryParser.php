@@ -38,7 +38,7 @@ class SummaryParser implements DocumentParserInterface
     private $rootNode;
 
     /**
-     * @param $value
+     * @param mixed $value
      *
      * @return DocumentInterface
      */

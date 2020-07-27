@@ -37,7 +37,7 @@ class RetentionParser implements DocumentParserInterface
     private $rootNode;
 
     /**
-     * @param $value
+     * @param mixed $value
      * @return DocumentInterface
      */
     public function parse($value): ?DocumentInterface
