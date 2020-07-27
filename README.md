@@ -1,4 +1,4 @@
-# Greenter
+# ![Greenter](https://cdn.giansalex.dev/images/github/greenter-ico.png) Greenter
 ![CI](https://github.com/thegreenter/greenter/workflows/CI/badge.svg) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter?ref=badge_shield)
 
     
@@ -6,11 +6,6 @@ Esta libreria le permite realizar la implementación de la **Facturación Electr
 contribuyente, la cual esta normado por SUNAT.   
 Greenter realiza la mayoria de tareas del proceso, genera el XML según el estándar UBL, firma con el certificado digital que sunat exige,
 comprime el archivo XML en formato zip, conexión al webservice de SUNAT y procesa el CDR (Comprobante de Recepción).
-
-<p align="center">
-  <img alt="Sunat Facturacion Electronica" width="256px" src="https://greenter.dev/img/logo.svg">
-</p>
-
 
 ## Requerimientos
 - PHP 7.2 o superior
