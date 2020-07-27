@@ -42,9 +42,7 @@ class DomCdrReader implements CdrReaderInterface
     {
         $this->reader->loadXpath($xml);
 
-        $cdr = $this->createCdr();
-
-        return $cdr;
+        return $this->createCdr();
     }
 
     /**
