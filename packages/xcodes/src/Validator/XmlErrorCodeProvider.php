@@ -66,8 +66,7 @@ class XmlErrorCodeProvider implements ErrorCodeProviderInterface
     {
         $doc = new DOMDocument();
         $doc->load($this->xmlErrorFile);
-        $xpath = new DOMXPath($doc);
 
-        return $xpath;
+        return new DOMXPath($doc);
     }
 }
