@@ -29,7 +29,6 @@ class CeDespatchValidatorTest extends TestCase
         $validator = $this->getValidator();
         $errors = $validator->validate($despatch);
 
-        var_dump($errors);
         $this->assertEquals(0, $errors->count());
     }
 
