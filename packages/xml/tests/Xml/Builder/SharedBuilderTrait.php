@@ -20,7 +20,7 @@ trait SharedBuilderTrait
         return new SharedStore();
     }
 
-    private function createDocument($type)
+    private function createDocument(string $type)
     {
         $factory = new GeneratorFactory();
         $factory->shared = $this->getShared();

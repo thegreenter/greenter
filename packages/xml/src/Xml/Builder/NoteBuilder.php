@@ -12,6 +12,7 @@ namespace Greenter\Xml\Builder;
 
 use Greenter\Builder\BuilderInterface;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Sale\Note;
 use Greenter\Xml\Filter\TributoFunction;
 use Twig\TwigFunction;
 
@@ -39,9 +40,10 @@ class NoteBuilder extends TwigBuilder implements BuilderInterface
      */
     public function build(DocumentInterface $document): string
     {
-        /** @var $document \Greenter\Model\Sale\Note */
-        $prefix = $document->getTipoDoc() === '07' ? 'notacr' : 'notadb';
-        $template = $prefix.$document->getUblVersion().'.xml.twig';
+        /** @var Note $note */
+        $note = /*.(Note).*/$document;
+        $prefix = $note->getTipoDoc() === '07' ? 'notacr' : 'notadb';
+        $template = $prefix.$note->getUblVersion().'.xml.twig';
 
         return $this->render($template, $document);
     }

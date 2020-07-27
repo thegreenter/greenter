@@ -42,8 +42,9 @@ class InvoiceBuilder extends TwigBuilder implements BuilderInterface
      */
     public function build(DocumentInterface $document): ?string
     {
-        /** @var $document Invoice */
-        $template = 'invoice'.$document->getUblVersion().'.xml.twig';
+        /** @var Invoice $invoice */
+        $invoice = /*.(Invoice).*/ $document;
+        $template = 'invoice'.$invoice->getUblVersion().'.xml.twig';
 
         return $this->render($template, $document);
     }
