@@ -108,7 +108,7 @@ class See
     /**
      * @param string $directory
      */
-    public function setCachePath(?string $directory)
+    public function setCachePath(string $directory)
     {
         $this->options['cache'] = $directory;
     }
