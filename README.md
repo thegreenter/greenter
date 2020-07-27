@@ -1,5 +1,5 @@
 # Greenter
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter?ref=badge_shield)
+![CI](https://github.com/thegreenter/greenter/workflows/CI/badge.svg) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter?ref=badge_shield)
 
     
 Esta libreria le permite realizar la implementación de la **Facturación Electrónica** en Perú, desde los sistemas desarrollados por el 
