@@ -20,6 +20,7 @@ use Greenter\Zip\CompressInterface;
 use Greenter\Zip\DecompressInterface;
 use Greenter\Zip\ZipFileDecompress;
 use Greenter\Zip\ZipFly;
+use SoapFault;
 
 /**
  * Class BaseSunat.
@@ -34,22 +35,22 @@ class BaseSunat
     private $client;
 
     /**
-     * @var ErrorCodeProviderInterface
+     * @var ErrorCodeProviderInterface|null
      */
     private $codeProvider;
 
     /**
-     * @var CompressInterface
+     * @var CompressInterface|null
      */
     public $compressor;
 
     /**
-     * @var DecompressInterface
+     * @var DecompressInterface|null
      */
     public $decompressor;
 
     /**
-     * @var CdrReaderInterface
+     * @var CdrReaderInterface|null
      */
     public $cdrReader;
 
@@ -84,11 +85,11 @@ class BaseSunat
     /**
      * Get error from Fault Exception.
      *
-     * @param \SoapFault $fault
+     * @param SoapFault $fault
      *
      * @return Error
      */
-    protected function getErrorFromFault(\SoapFault $fault)
+    protected function getErrorFromFault(SoapFault $fault)
     {
         $error = $this->getErrorByCode($fault->faultcode, $fault->faultstring);
 
@@ -139,7 +140,7 @@ class BaseSunat
     }
 
     /**
-     * @param $zipContent
+     * @param string $zipContent
      *
      * @return \Greenter\Model\Response\CdrResponse
      */
@@ -155,7 +156,7 @@ class BaseSunat
     }
 
     /**
-     * @param $code
+     * @param string $code
      *
      * @return string
      */
@@ -170,7 +171,7 @@ class BaseSunat
 
     protected function isExceptionCode($code)
     {
-        $value = intval($code);
+        $value = (int)$code;
 
         return $value >= 100 && $value <= 1999;
     }

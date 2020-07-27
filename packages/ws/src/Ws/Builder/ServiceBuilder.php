@@ -47,7 +47,7 @@ class ServiceBuilder
             throw new Exception($type.' should be instance of '.BaseSunat::class);
         }
 
-        /** @var $service BaseSunat */
+        /** @var BaseSunat $service */
         $service = new $type();
         $service->setClient($this->client);
 

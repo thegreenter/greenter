@@ -35,10 +35,10 @@ class SoapClient extends \SoapClient implements WsClientInterface
     }
 
     /**
-     * @param $user
-     * @param $password
+     * @param string $user
+     * @param string $password
      */
-    public function setCredentials($user, $password)
+    public function setCredentials(?string $user, ?string $password)
     {
         $this->__setSoapHeaders(new WSSESecurityHeader($user, $password));
     }
@@ -48,14 +48,14 @@ class SoapClient extends \SoapClient implements WsClientInterface
      *
      * @param string $url
      */
-    public function setService($url)
+    public function setService(?string $url)
     {
         $this->__setLocation($url);
     }
 
     /**
-     * @param $function
-     * @param $arguments
+     * @param string $function
+     * @param array $arguments
      *
      * @return mixed
      */

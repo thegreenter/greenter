@@ -57,7 +57,7 @@ class XmlFilenameExtractor implements FilenameExtractorInterface
     }
 
     /**
-     * @param $nameType
+     * @param string $nameType
      * @return null|string
      * @throws Exception
      */
@@ -71,10 +71,8 @@ class XmlFilenameExtractor implements FilenameExtractorInterface
         switch ($ubl) {
             case '2.0':
                 return $this->reader->getValue('cac:AccountingSupplierParty/cbc:CustomerAssignedAccountID');
-                break;
             case '2.1':
                 return $this->reader->getValue('cac:AccountingSupplierParty/cac:Party/cac:PartyIdentification/cbc:ID');
-                break;
             default:
                 throw new Exception("UBL version $ubl no soportada.");
         }

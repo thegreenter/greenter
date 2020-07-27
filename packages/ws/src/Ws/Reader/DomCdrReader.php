@@ -50,7 +50,7 @@ class DomCdrReader implements CdrReaderInterface
     /**
      * @return CdrResponse
      */
-    private function createCdr(): ?CdrResponse
+    private function createCdr(): CdrResponse
     {
         $nodePrefix = 'cac:DocumentResponse/cac:Response/';
 
@@ -68,7 +68,7 @@ class DomCdrReader implements CdrReaderInterface
      *
      * @return string[]
      */
-    private function getNotes(): ?array
+    private function getNotes(): array
     {
         $xpath = $this->reader->getXpath();
 
