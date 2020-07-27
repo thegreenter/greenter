@@ -21,18 +21,18 @@ class GeneratorFactory
     public $shared;
 
     /**
-     * @param $type
+     * @param string $type
      *
      * @return DocumentGeneratorInterface
      */
-    public function create($type): ?DocumentGeneratorInterface
+    public function create(string $type): ?DocumentGeneratorInterface
     {
         $shared = $this->getShared();
 
         return new $type($shared);
     }
 
-    private function getShared(): ?SharedStore
+    private function getShared(): SharedStore
     {
         if (empty($this->shared)) {
             $this->shared = new SharedStore();
