@@ -137,7 +137,6 @@ class HtmlReportTest extends TestCase
             ],
             'user' => [
                 'numIGV' => 18,
-                'resolucion' => '212321',
                 'header' => 'Telf: <b>(056) 123375</b>',
                 'extras' => [
                     ['name' => 'CONDICION DE PAGO', 'value' => 'Efectivo'],

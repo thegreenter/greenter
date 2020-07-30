@@ -55,7 +55,7 @@ class TwigBuilder
         $loader = new FilesystemLoader(__DIR__.'/../Templates');
 
         $twig = new Environment($loader, $options);
-        $this->LoadFilterAndFunctions($twig);
+        $this->loadFilterAndFunctions($twig);
 
         $this->twig = $twig;
     }
@@ -63,7 +63,7 @@ class TwigBuilder
     /**
      * @param Environment $twig
      */
-    private function LoadFilterAndFunctions(Environment $twig)
+    private function loadFilterAndFunctions(Environment $twig)
     {
         $formatFilter = new FormatFilter();
 
