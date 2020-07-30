@@ -31,26 +31,14 @@
                                 </tr>
                                 <tr>
                                     <td align="center">
-                                        &nbsp;
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center">
                                         <span style="font-size:15px" text-align="center">R.U.C.: {{ cp.ruc }}</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="center">
-                                        No.: <span>{{ doc.serie }}-{{ doc.correlativo }}</span>
+                                        <span style="font-size:24px">{{ doc.serie }}-{{ doc.correlativo }}</span>
                                     </td>
                                 </tr>
-                                {% if params.user.resolucion is defined %}
-                                <tr>
-                                    <td align="center">
-                                        Nro. R.I. Emisor: <span>{{ params.user.resolucion }}</span>
-                                    </td>
-                                </tr>
-                                {% endif %}
                                 </tbody></table>
                         </div>
                     </td>
