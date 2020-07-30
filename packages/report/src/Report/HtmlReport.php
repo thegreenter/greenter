@@ -39,10 +39,6 @@ class HtmlReport implements ReportInterface
      */
     public function __construct(?string $templatesDir = '', array $optionTwig = [])
     {
-        if (!isset($optionTwig['autoescape'])) {
-            $optionTwig['autoescape'] = false;
-        }
-
         $this->twig = $this->buildTwig($templatesDir, $optionTwig);
     }
 
