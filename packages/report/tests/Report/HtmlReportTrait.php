@@ -37,7 +37,6 @@ trait HtmlReportTrait
             'user' => [
                 'header' => 'Telf: <b>(056) 123375</b>',
                 'footer' => file_get_contents(__DIR__.'/../Resources/footer.html'),
-                'resolucion' => '212321',
             ]
         ];
     }
