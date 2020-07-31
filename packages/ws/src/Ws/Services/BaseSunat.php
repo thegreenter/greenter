@@ -55,9 +55,9 @@ class BaseSunat
     public $cdrReader;
 
     /**
-     * @param ErrorCodeProviderInterface $codeProvider
+     * @param ErrorCodeProviderInterface|null $codeProvider
      */
-    public function setCodeProvider(ErrorCodeProviderInterface $codeProvider)
+    public function setCodeProvider(?ErrorCodeProviderInterface $codeProvider)
     {
         $this->codeProvider = $codeProvider;
     }
@@ -162,7 +162,7 @@ class BaseSunat
      */
     protected function getMessageError($code)
     {
-        if (empty($this->codeProvider)) {
+        if (is_null($this->codeProvider)) {
             return '';
         }
 
