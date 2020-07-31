@@ -22,28 +22,28 @@ use Greenter\XMLSecLibs\Sunat\SignedXml;
 class FeFactory implements FactoryInterface
 {
     /**
-     * @var SignedXml
+     * @var SignedXml|null
      */
     private $signer;
 
     /**
      * Sender service.
      *
-     * @var SenderInterface
+     * @var SenderInterface|null
      */
     private $sender;
 
     /**
      * Ultimo xml generado.
      *
-     * @var string
+     * @var string|null
      */
     private $lastXml;
 
     /**
      * Xml Builder.
      *
-     * @var BuilderInterface
+     * @var BuilderInterface|null
      */
     private $builder;
 
@@ -74,7 +74,7 @@ class FeFactory implements FactoryInterface
      *
      * @return FeFactory
      */
-    public function setSender(?SenderInterface $sender)
+    public function setSender(?SenderInterface $sender): self
     {
         $this->sender = $sender;
 
@@ -88,7 +88,7 @@ class FeFactory implements FactoryInterface
      *
      * @return FeFactory
      */
-    public function setBuilder(?BuilderInterface $builder)
+    public function setBuilder(?BuilderInterface $builder): self
     {
         $this->builder = $builder;
 
@@ -108,7 +108,7 @@ class FeFactory implements FactoryInterface
      *
      * @return FeFactory
      */
-    public function setSigner(?SignedXml $signer)
+    public function setSigner(?SignedXml $signer): self
     {
         $this->signer = $signer;
 
@@ -130,7 +130,7 @@ class FeFactory implements FactoryInterface
     }
 
 
-    public function sendXml(?string $name, ?string $xml)
+    public function sendXml(?string $name, ?string $xml): ?BaseResult
     {
         return $this->sender->send($name, $xml);
     }
@@ -150,7 +150,7 @@ class FeFactory implements FactoryInterface
      *
      * @return string
      */
-    public function getXmlSigned(DocumentInterface $document)
+    public function getXmlSigned(DocumentInterface $document): ?string
     {
         $xml = $this->builder->build($document);
 

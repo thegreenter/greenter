@@ -12,21 +12,17 @@ namespace Greenter;
 
 use DOMDocument;
 use Exception;
-use Greenter\Builder\BuilderInterface;
 use Greenter\Factory\FeFactory;
+use Greenter\Factory\WsSenderResolver;
+use Greenter\Factory\XmlBuilderResolver;
 use Greenter\Model\DocumentInterface;
-use Greenter\Model\Summary\Summary;
-use Greenter\Model\Voided\Reversion;
-use Greenter\Model\Voided\Voided;
-use Greenter\Services\SenderInterface;
+use Greenter\Model\Response\StatusResult;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Reader\XmlFilenameExtractor;
 use Greenter\Ws\Reader\XmlReader;
 use Greenter\Ws\Resolver\XmlTypeResolver;
-use Greenter\Ws\Services\BillSender;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SoapClient;
-use Greenter\Ws\Services\SummarySender;
 use Greenter\XMLSecLibs\Sunat\SignedXml;
 
 /**
@@ -45,16 +41,6 @@ class See
      * @var SoapClient
      */
     private $wsClient;
-
-    /**
-     * @var array
-     */
-    private $builders;
-
-    /**
-     * @var array
-     */
-    private $summarys;
 
     /**
      * @var SignedXml
@@ -81,17 +67,6 @@ class See
         $this->factory = new FeFactory();
         $this->wsClient = new SoapClient();
         $this->signer = new SignedXml();
-        $this->builders = [
-            Model\Sale\Invoice::class => Xml\Builder\InvoiceBuilder::class,
-            Model\Sale\Note::class => Xml\Builder\NoteBuilder::class,
-            Model\Summary\Summary::class => Xml\Builder\SummaryBuilder::class,
-            Model\Voided\Voided::class => Xml\Builder\VoidedBuilder::class,
-            Model\Despatch\Despatch::class => Xml\Builder\DespatchBuilder::class,
-            Model\Retention\Retention::class => Xml\Builder\RetentionBuilder::class,
-            Model\Perception\Perception::class => Xml\Builder\PerceptionBuilder::class,
-            Model\Voided\Reversion::class => Xml\Builder\VoidedBuilder::class,
-        ];
-        $this->summarys = [Summary::class, Summary::class, Voided::class, Reversion::class];
         $this->factory->setSigner($this->signer);
     }
 
@@ -131,6 +106,18 @@ class See
     }
 
     /**
+     * Set Clave SOL de usuario secundario.
+     *
+     * @param string $ruc
+     * @param string $user
+     * @param string $password
+     */
+    public function setClaveSOL(string $ruc, string $user, string $password)
+    {
+        $this->wsClient->setCredentials($ruc.$user, $password);
+    }
+
+    /**
      * @param string $service
      */
     public function setService(?string $service)
@@ -141,7 +128,7 @@ class See
     /**
      * Set error code provider.
      *
-     * @param ErrorCodeProviderInterface $codeProvider
+     * @param ErrorCodeProviderInterface|null $codeProvider
      */
     public function setCodeProvider(?ErrorCodeProviderInterface $codeProvider)
     {
@@ -157,10 +144,10 @@ class See
      */
     public function getXmlSigned(DocumentInterface $document)
     {
-        $classDoc = get_class($document);
+        $buildResolver = new XmlBuilderResolver($this->options);
 
         return $this->factory
-            ->setBuilder($this->getBuilder($classDoc))
+            ->setBuilder($buildResolver->find(get_class($document)))
             ->getXmlSigned($document);
     }
 
@@ -173,10 +160,7 @@ class See
      */
     public function send(DocumentInterface $document)
     {
-        $classDoc = get_class($document);
-        $this->factory
-            ->setBuilder($this->getBuilder($classDoc))
-            ->setSender($this->getSender($classDoc));
+        $this->configureFactory(get_class($document));
 
         return $this->factory->send($document);
     }
@@ -192,9 +176,7 @@ class See
      */
     public function sendXml(string $type, string $name, string $xml)
     {
-        $this->factory
-            ->setBuilder($this->getBuilder($type))
-            ->setSender($this->getSender($type));
+        $this->configureFactory($type);
 
         return $this->factory->sendXml($name, $xml);
     }
@@ -226,9 +208,10 @@ class See
     /**
      * @param string|null $ticket
      *
-     * @return Model\Response\StatusResult
+     * @return StatusResult
+     * @throws Exception
      */
-    public function getStatus(?string $ticket)
+    public function getStatus(?string $ticket): StatusResult
     {
         $sender = new ExtService();
         $sender->setClient($this->wsClient);
@@ -239,36 +222,18 @@ class See
     /**
      * @return FeFactory
      */
-    public function getFactory()
+    public function getFactory(): FeFactory
     {
         return $this->factory;
     }
 
-    /**
-     * @param string $class
-     *
-     * @return BuilderInterface
-     */
-    private function getBuilder(string $class)
+    private function configureFactory(string $docClass): void
     {
-        $builder = $this->builders[$class];
+        $buildResolver = new XmlBuilderResolver($this->options);
+        $senderResolver = new WsSenderResolver($this->wsClient, $this->codeProvider);
 
-        return new $builder($this->options);
-    }
-
-    /**
-     * @param string $class
-     *
-     * @return SenderInterface
-     */
-    private function getSender(string $class)
-    {
-        $sender = in_array($class, $this->summarys) ? new SummarySender() : new BillSender();
-        $sender->setClient($this->wsClient);
-        if ($this->codeProvider) {
-            $sender->setCodeProvider($this->codeProvider);
-        }
-
-        return $sender;
+        $this->factory
+            ->setBuilder($buildResolver->find($docClass))
+            ->setSender($senderResolver->find($docClass));
     }
 }

@@ -181,7 +181,7 @@ class SeeFeTest extends FeFactoryBase
         ]);
         $see->setCachePath(null);
         $see->setCodeProvider($this->getErrorCodeProvider());
-        $see->setCredentials('20000000001MODDATOS', 'moddatos');
+        $see->setClaveSOL('20000000001', 'MODDATOS', 'moddatos');
         $see->setCertificate(file_get_contents(__DIR__.'/../Resources/SFSCert.pem'));
 
         return $see;

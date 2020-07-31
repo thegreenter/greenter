@@ -25,7 +25,7 @@ class ExtService extends BaseSunat
      * @return StatusResult
      * @throws Exception
      */
-    public function getStatus($ticket)
+    public function getStatus($ticket): StatusResult
     {
         try {
             return $this->getStatusInternal($ticket);
@@ -37,7 +37,7 @@ class ExtService extends BaseSunat
         }
     }
 
-    private function getStatusInternal($ticket)
+    private function getStatusInternal($ticket): StatusResult
     {
         $params = [
             'ticket' => $ticket,
@@ -51,7 +51,7 @@ class ExtService extends BaseSunat
         return $this->processResponse($response->status);
     }
 
-    private function processResponse($status)
+    private function processResponse($status): StatusResult
     {
         $originCode = $status->statusCode;
         $code = (int)$originCode;
@@ -87,20 +87,18 @@ class ExtService extends BaseSunat
      *
      * @return Error
      */
-    private function getCustomError($code)
+    private function getCustomError($code): Error
     {
-        $error = new Error($code, 'El procesamiento del comprobante aún no ha terminado');
-
-        return $error;
+        return new Error($code, 'El procesamiento del comprobante aún no ha terminado');
     }
 
-    private function isProcessed($code)
+    private function isProcessed(int $code)
     {
-        return '0' == $code || '99' == $code;
+        return 0 === $code || 99 === $code;
     }
 
-    private function isPending($code)
+    private function isPending(int $code)
     {
-        return '98' == $code;
+        return 98 === $code;
     }
 }

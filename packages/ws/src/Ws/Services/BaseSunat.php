@@ -55,9 +55,9 @@ class BaseSunat
     public $cdrReader;
 
     /**
-     * @param ErrorCodeProviderInterface $codeProvider
+     * @param ErrorCodeProviderInterface|null $codeProvider
      */
-    public function setCodeProvider(ErrorCodeProviderInterface $codeProvider)
+    public function setCodeProvider(?ErrorCodeProviderInterface $codeProvider)
     {
         $this->codeProvider = $codeProvider;
     }
@@ -65,7 +65,7 @@ class BaseSunat
     /**
      * @return WsClientInterface
      */
-    public function getClient()
+    public function getClient(): WsClientInterface
     {
         return $this->client;
     }
@@ -75,7 +75,7 @@ class BaseSunat
      *
      * @return BaseSunat
      */
-    public function setClient($client)
+    public function setClient(WsClientInterface $client)
     {
         $this->client = $client;
 
@@ -162,7 +162,7 @@ class BaseSunat
      */
     protected function getMessageError($code)
     {
-        if (empty($this->codeProvider)) {
+        if ($this->codeProvider === null) {
             return '';
         }
 
