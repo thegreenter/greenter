@@ -16,6 +16,7 @@ use Greenter\Factory\FeFactory;
 use Greenter\Factory\WsSenderResolver;
 use Greenter\Factory\XmlBuilderResolver;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Response\StatusResult;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Reader\XmlFilenameExtractor;
 use Greenter\Ws\Reader\XmlReader;
@@ -195,10 +196,10 @@ class See
     /**
      * @param string|null $ticket
      *
-     * @return Model\Response\StatusResult
+     * @return StatusResult
      * @throws Exception
      */
-    public function getStatus(?string $ticket)
+    public function getStatus(?string $ticket): StatusResult
     {
         $sender = new ExtService();
         $sender->setClient($this->wsClient);
@@ -214,7 +215,7 @@ class See
         return $this->factory;
     }
 
-    private function configureFactory(string $docClass)
+    private function configureFactory(string $docClass): void
     {
         $buildResolver = new XmlBuilderResolver($this->options);
         $senderResolver = new WsSenderResolver($this->wsClient, $this->codeProvider);
