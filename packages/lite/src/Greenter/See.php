@@ -106,6 +106,18 @@ class See
     }
 
     /**
+     * Set Clave SOL de usuario secundario.
+     *
+     * @param string $ruc
+     * @param string $user
+     * @param string $password
+     */
+    public function setClaveSOL(string $ruc, string $user, string $password)
+    {
+        $this->wsClient->setCredentials($ruc.$user, $password);
+    }
+
+    /**
      * @param string $service
      */
     public function setService(?string $service)
