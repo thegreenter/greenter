@@ -162,7 +162,7 @@ class BaseSunat
      */
     protected function getMessageError($code)
     {
-        if (is_null($this->codeProvider)) {
+        if ($this->codeProvider === null) {
             return '';
         }
 
