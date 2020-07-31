@@ -65,7 +65,7 @@ class BaseSunat
     /**
      * @return WsClientInterface
      */
-    public function getClient()
+    public function getClient(): WsClientInterface
     {
         return $this->client;
     }
@@ -75,7 +75,7 @@ class BaseSunat
      *
      * @return BaseSunat
      */
-    public function setClient($client)
+    public function setClient(WsClientInterface $client)
     {
         $this->client = $client;
 
