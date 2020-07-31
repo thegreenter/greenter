@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Greenter\Factory;
 
-use Greenter\Model\DocumentInterface;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\Voided;
@@ -45,9 +44,8 @@ class WsSenderResolver
         ];
     }
 
-    public function find(DocumentInterface $document): SenderInterface
+    public function find(string $docClass): SenderInterface
     {
-        $docClass = get_class($document);
         $sender = in_array($docClass, $this->summary) ? new SummarySender() : new BillSender();
         $sender->setClient($this->client);
         $sender->setCodeProvider($this->codeProvider);
