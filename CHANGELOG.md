@@ -1,5 +1,5 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
 ## Unreleased
