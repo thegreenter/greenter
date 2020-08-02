@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Greenter\Factory;
 
 use Greenter\Builder\BuilderInterface;
+use Greenter\Model\Voided\Reversion;
+use Greenter\Xml\Builder\VoidedBuilder;
 
 class XmlBuilderResolver
 {
@@ -31,6 +33,10 @@ class XmlBuilderResolver
 
     private function findBuilderType(string $docClass): string
     {
+        if ($docClass === Reversion::class) {
+            return VoidedBuilder::class;
+        }
+
         $className = substr(strrchr($docClass, '\\'), 1);
 
         return "Greenter\\Xml\\Builder\\${className}Builder";

@@ -58,7 +58,7 @@ class SeeCeTest extends CeFactoryBase
     /**
      * @throws \Exception
      */
-    public function testSendSummary()
+    public function testSendReversion()
     {
         $doc = $this->getReversion();
         /**@var $result SummaryResult*/
