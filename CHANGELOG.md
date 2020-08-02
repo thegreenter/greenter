@@ -3,3 +3,14 @@
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
 ## Unreleased
+
+- La versión mínima de PHP es `7.2`
+- Los paquetes principales ahora se manejaran en `thegreenter/greenter` monorepo.
+- Se configuró tipos estrictos en la mayoría de clases.
+- Se añadió un nuevo campo: otros descuentos `sumOtrosDescuentos`, para diferenciarlo de `mtoDescuentos` (UBL 2.0).
+- Debido a que el monorepo incluye la mayoría de paquetes, se agregó un nuevo paquete `greenter/lite` que representará al anterior `greenter/greenter`. 
+- `See::setCachePath()` solo aceptara `string|null`, para deshabilitar el cache enviar `null`.
+- `PdfReport::render()` retornará solo `string|null`, donde `null` indica que hubo un error.
+- Un nuevo método `See::sendXmlFile($xml)` para enviar xml previamente generados.
+- Se formateo el nodo de firma, para incluirlo en una sola línea.
+- Un nuevo método `See::setClaveSOL()`, para evitar confusión en las credenciales.
