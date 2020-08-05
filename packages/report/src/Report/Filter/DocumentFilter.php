@@ -44,6 +44,10 @@ class DocumentFilter
             '1' => 'DNI',
             '6' => 'RUC',
         ],
+        '18' => [
+            '01' => 'PÚBLICO',
+            '02' => 'PRIVADO'
+        ],
         '19' => [
             '1' => 'ADICIONAR',
             '2' => 'MODIFICAR',
