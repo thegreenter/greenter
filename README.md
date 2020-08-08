@@ -22,6 +22,7 @@ Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/d
 - Lee esta [guia](https://fe-primer.greenter.dev/) para conocer mas sobre facturación electrónica.
 - Empieza con este [ejemplo basico con greenter](https://greenter.dev/starter/).
 - Tienes dudas o necesitas ayuda puedes hacerlo desde [aqui](https://community.greenter.dev/).
+- Puedes seguirnos en [Facebook](https://fb.me/thegreenter) para actualizaciones.
 
 ## API REST
 API REST con [Lycet](https://github.com/giansalex/lycet) empleando Symfony Framework.
