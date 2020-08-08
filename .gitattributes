@@ -9,4 +9,4 @@ CHANGELOG.md export-ignore
 phpstan.neon export-ignore
 phpunit.xml.dist export-ignore
 monorepo-builder.yml export-ignore
-README.md export-ignore
+/*.md export-ignore
