@@ -14,4 +14,5 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 - Un nuevo método `See::sendXmlFile($xml)` para enviar xml previamente generados.
 - Se formateo el nodo de firma, para incluirlo en una sola línea.
 - Un nuevo método `See::setClaveSOL()`, para evitar confusión en las credenciales.
+- Se eliminó **Nro Resuolucion** en los PDF, los que quieran incluirlo, podrán hacerlo desde leyendas.
 - Se quitó la clase `Notification` y otros relacionados, finalmente nunca se concluyó alguna implementación útil.   
