@@ -1,7 +1,24 @@
 {
     "name": "greenter/greenter",
-    "description": "Facturacion Electrónica SUNAT - Perú",
+    "description": "Facturacion Electrónica SUNAT en Perú",
+    "keywords": ["facturacion-electronica", "sunat", "peru", "greenter"],
+    "homepage": "https://greenter.dev/",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Giancarlos Salas",
+            "email": "giansalex@gmail.com"
+        }
+    ],
+    "support": {
+        "forum": "https://community.greenter.dev/"
+    },
+    "funding": [
+        {
+            "type": "yape",
+            "url": "https://yape.greenter.dev/"
+        }
+    ],
     "require": {
         "php": "^7.2",
         "ext-dom": "*",
