@@ -26,7 +26,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::PACKAGE_ALIAS_FORMAT, '<major>.<minor>.x-dev');
     $parameters->set(Option::DATA_TO_APPEND, [
         'require-dev' => [
             'phpstan/phpstan' => '^0.12',
