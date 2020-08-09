@@ -2,6 +2,7 @@
     "name": "greenter/report",
     "description": "Representacion Impresa para Facturacion Electrónica SUNAT - Perú",
     "keywords": ["sunat", "pdf", "greenter", "facturacion-electronica"],
+    "homepage": "https://greenter.dev/",
     "license": "MIT",
     "authors": [
         {
@@ -9,7 +10,6 @@
             "email": "giansalex@gmail.com"
         }
     ],
-    "homepage": "https://github.com/thegreenter/report",
     "type": "library",
     "require": {
 		"php": "^7.2",

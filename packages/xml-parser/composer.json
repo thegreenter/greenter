@@ -2,6 +2,7 @@
     "name": "greenter/xml-parser",
     "description": "Greenter XML Parser",
     "keywords": ["sunat", "xml", "greenter", "facturacion-electronica"],
+    "homepage": "https://greenter.dev/",
     "license": "MIT",
     "authors": [
         {
@@ -9,7 +10,6 @@
             "email": "giansalex@gmail.com"
         }
     ],
-    "homepage": "https://github.com/thegreenter/xml-parser",
     "type": "library",
     "require": {
 		"php": "^7.2",

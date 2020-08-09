@@ -2,6 +2,7 @@
     "name": "greenter/data",
     "description": "Store Documents for Greenter",
     "keywords": ["greenter", "sunat", "facturacion-electronica"],
+    "homepage": "https://greenter.dev/",
     "license": "MIT",
     "authors": [
         {
@@ -9,7 +10,6 @@
             "email": "giansalex@gmail.com"
         }
     ],
-    "homepage": "https://github.com/thegreenter/data",
     "type": "library",
     "require": {
         "php": "^7.2",

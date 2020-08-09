@@ -2,6 +2,7 @@
     "name": "greenter/ws",
     "description": "WebServices Sunat Facturación Electrónica - Perú",
     "keywords": ["greenter", "soap", "sunat", "facturacion-electronica"],
+    "homepage": "https://greenter.dev/",
     "license": "MIT",
     "authors": [
         {
@@ -9,7 +10,6 @@
             "email": "giansalex@gmail.com"
         }
     ],
-    "homepage": "https://github.com/thegreenter/ws",
     "type": "library",
     "require": {
 	    "php": "^7.2",

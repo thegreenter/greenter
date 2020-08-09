@@ -2,6 +2,7 @@
     "name": "greenter/core",
     "description": "Greenter Core",
     "keywords": ["sunat", "greenter", "facturacion-electronica"],
+    "homepage": "https://greenter.dev/",
     "license": "MIT",
     "authors": [
         {
@@ -9,7 +10,6 @@
             "email": "giansalex@gmail.com"
         }
     ],
-    "homepage": "https://github.com/thegreenter/core",
     "type": "library",
     "require": {
 		"php": "^7.2"
