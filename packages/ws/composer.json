@@ -10,6 +10,9 @@
             "email": "giansalex@gmail.com"
         }
     ],
+    "support": {
+        "forum": "https://community.greenter.dev/"
+    },
     "type": "library",
     "require": {
 	    "php": "^7.2",
