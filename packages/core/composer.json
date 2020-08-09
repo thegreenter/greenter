@@ -15,9 +15,9 @@
     },
     "type": "library",
     "require": {
-		"php": "^7.2"
+        "php": "^7.2"
     },
-	"autoload": {
+    "autoload": {
         "psr-4": {
             "Greenter\\": "src/Core/"
         }

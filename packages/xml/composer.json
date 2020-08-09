@@ -15,16 +15,16 @@
     },
     "type": "library",
     "require": {
-		"php": "^7.2",
+        "php": "^7.2",
         "greenter/core": "^4.0",
         "twig/twig": "~3.0"
     },
-	"require-dev": {
+    "require-dev": {
         "greenter/data": "^4.0",
         "greenter/ubl-validator": "^2.0",
         "phpunit/phpunit": "^8"
     },
-	"autoload": {
+    "autoload": {
         "psr-4": {
             "Greenter\\": "src/"
         }

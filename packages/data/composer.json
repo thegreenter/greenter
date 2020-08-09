@@ -18,7 +18,7 @@
         "php": "^7.2",
         "greenter/core": "^4.0"
     },
-	"autoload": {
+    "autoload": {
         "psr-4": {
             "Greenter\\": "src/"
         }

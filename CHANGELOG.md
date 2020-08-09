@@ -2,7 +2,7 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
-## Unreleased
+## v4.0.0 - 2020-08-09
 
 - La versión mínima de PHP es `7.2`
 - Los paquetes principales ahora se manejaran en `thegreenter/greenter` monorepo.
