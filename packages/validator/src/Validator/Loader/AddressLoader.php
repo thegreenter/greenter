@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 class AddressLoader implements LoaderMetadataInterface
 {
     /**
-     * @param ClassMetadata $metadata .
+     * @param ClassMetadata $metadata
      */
     public function load(ClassMetadata $metadata)
     {
