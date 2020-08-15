@@ -334,8 +334,8 @@
             <cac:TaxSubtotal>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.icbper|n_format }}</cbc:TaxAmount>
                 <cbc:BaseUnitMeasure unitCode="{{ detail.unidad }}">{{ detail.cantidad }}</cbc:BaseUnitMeasure>
-                <cbc:PerUnitAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.factorIcbper|n_format }}</cbc:PerUnitAmount>
                 <cac:TaxCategory>
+                    <cbc:PerUnitAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.factorIcbper|n_format }}</cbc:PerUnitAmount>
                     <cac:TaxScheme>
                         <cbc:ID>7152</cbc:ID>
                         <cbc:Name>ICBPER</cbc:Name>
