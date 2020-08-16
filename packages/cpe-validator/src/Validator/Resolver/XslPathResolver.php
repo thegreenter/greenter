@@ -11,7 +11,7 @@ class XslPathResolver implements RuleResolverInterface
     /**
      * @var string
      */
-    public $basePath;
+    private $basePath;
 
     /**
      * XslPathResolver constructor.

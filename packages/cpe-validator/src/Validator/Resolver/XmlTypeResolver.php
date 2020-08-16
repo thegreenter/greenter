@@ -29,14 +29,14 @@ class XmlTypeResolver implements TypeResolverInterface
         }
     }
 
-    public function fromInvoice(DOMDocument $doc)
+    private function fromInvoice(DOMDocument $doc)
     {
         $typeCode = $this->getTextValue($doc, "//*[local-name()='InvoiceTypeCode']");
 
         return $typeCode === DocumentType::BOLETA ? DocumentType::BOLETA : DocumentType::FACTURA;
     }
 
-    public function fromVoided(DOMDocument $doc)
+    private function fromVoided(DOMDocument $doc)
     {
         $id = $this->getTextValue($doc, "//*[local-name()='ID']");
         $isReversion = strpos($id, DocumentType::RESUMEN_REVERSION) === 0;
