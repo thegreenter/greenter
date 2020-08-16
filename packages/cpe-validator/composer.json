@@ -1,0 +1,38 @@
+{
+    "name": "greenter/cpe-validator",
+    "description": "Validador de Reglas de Validación CPE - SUNAT",
+    "keywords": ["greenter", "sunat", "facturacion-electronica"],
+    "homepage": "https://greenter.dev/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Giancarlos Salas",
+            "email": "giansalex@gmail.com"
+        }
+    ],
+    "support": {
+        "forum": "https://community.greenter.dev/"
+    },
+    "type": "library",
+    "require": {
+        "php": "^7.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Greenter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Greenter\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "4.1-dev"
+        }
+    }
+}
