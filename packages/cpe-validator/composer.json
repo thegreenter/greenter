@@ -15,7 +15,9 @@
     },
     "type": "library",
     "require": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "ext-libxml": "*",
+        "ext-xsl": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^8"
