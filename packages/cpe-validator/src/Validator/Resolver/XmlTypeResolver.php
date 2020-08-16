@@ -36,14 +36,14 @@ class XmlTypeResolver implements TypeResolverInterface
 
     private function fromInvoice(DOMDocument $doc)
     {
-        $typeCode = $this->getTextValue($doc, "//*[local-name()='InvoiceTypeCode']");
+        $typeCode = $this->getTextValue($doc, 'cbc:InvoiceTypeCode');
 
         return $typeCode === DocumentType::BOLETA ? DocumentType::BOLETA : DocumentType::FACTURA;
     }
 
     private function fromVoided(DOMDocument $doc)
     {
-        $id = $this->getTextValue($doc, "//*[local-name()='ID']");
+        $id = $this->getTextValue($doc, 'cbc:ID');
         $isReversion = strpos($id, DocumentType::RESUMEN_REVERSION) === 0;
 
         return $isReversion ? DocumentType::RESUMEN_REVERSION : DocumentType::COMUNICACION_BAJA;
@@ -52,7 +52,7 @@ class XmlTypeResolver implements TypeResolverInterface
     private function getTextValue(DOMDocument $doc, string $query): ?string
     {
         $xpath = new DOMXPath($doc);
-        $node = $xpath->query($query);
+        $node = $xpath->query($query, $doc->documentElement);
 
         return $node->length > 0 ? $node->item(0)->nodeValue : null;
     }
