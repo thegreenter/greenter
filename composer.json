@@ -41,6 +41,7 @@
         "psr-4": {
             "Greenter\\": [
                 "packages/core/src/Core/",
+                "packages/cpe-validator/src/",
                 "packages/data/src/",
                 "packages/htmltopdf/src/",
                 "packages/lite/src/Greenter/",
