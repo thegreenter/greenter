@@ -10,11 +10,8 @@ use Greenter\Validator\Entity\DocumentType;
 
 class XmlTypeResolver implements TypeResolverInterface
 {
-    public function getType(?string $xml): ?string
+    public function getType(DOMDocument $doc): ?string
     {
-        $doc = new DOMDocument();
-        $doc->loadXML($xml);
-
         $docName = $doc->documentElement->localName;
         switch ($docName) {
             case 'Invoice': return $this->fromInvoice($doc);
@@ -27,6 +24,14 @@ class XmlTypeResolver implements TypeResolverInterface
             case 'Perception': return DocumentType::PERCEPCION;
             default: return null;
         }
+    }
+
+    public function getTypeFromXml(?string $xml): ?string
+    {
+        $doc = new DOMDocument();
+        $doc->loadXML($xml);
+
+        return $this->getType($doc);
     }
 
     private function fromInvoice(DOMDocument $doc)
