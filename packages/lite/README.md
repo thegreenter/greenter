@@ -1,6 +1,6 @@
 # Greenter Lite
 
-[![src greenter](https://badgen.net/badge/icon/greenter/47A297?icon=https://rawcdn.githack.com/thegreenter/docs/f16cc8f7ce432be4478bac519a45546e655d760e/docs/img/greenter-icon-white.svg&label)](https://github.com/thegreenter/greenter)
+[![src greenter](https://greenter.dev/img/greenter_badge.svg)](https://github.com/thegreenter/greenter)
 
 Versión de Greenter que solo incluye los paquetes minimos requeridos para generar y enviar comprobantes electrónicos.
 
