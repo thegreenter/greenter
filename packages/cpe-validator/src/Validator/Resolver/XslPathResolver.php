@@ -49,6 +49,6 @@ class XslPathResolver implements RuleResolverInterface
                 return null;
         }
 
-        return $this->basePath.PATH_SEPARATOR.$xslFile;
+        return $this->basePath.DIRECTORY_SEPARATOR.$xslFile;
     }
 }
