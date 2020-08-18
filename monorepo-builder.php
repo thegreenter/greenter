@@ -34,6 +34,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::DIRECTORIES_TO_REPOSITORIES, [
         'packages/core' => 'https://github.com/thegreenter/core.git',
+        'packages/cpe-validator' => 'https://github.com/thegreenter/cpe-validator.git',
         'packages/data' => 'https://github.com/thegreenter/data.git',
         'packages/htmltopdf' => 'https://github.com/thegreenter/htmltopdf.git',
         'packages/lite' => 'https://github.com/thegreenter/lite.git',
