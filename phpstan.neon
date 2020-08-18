@@ -12,3 +12,4 @@ parameters:
     - packages/xcodes/src
     - packages/xml/src
     - packages/xml-parser/src
+    - packages/xml-utils/src
