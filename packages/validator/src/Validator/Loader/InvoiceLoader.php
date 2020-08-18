@@ -27,7 +27,6 @@ class InvoiceLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
-            new Assert\Regex(['pattern' => '/^[F|B][A-Z0-9]{3}$/', 'message' => 'G001']),
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
