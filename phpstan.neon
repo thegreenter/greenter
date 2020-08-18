@@ -2,6 +2,7 @@ parameters:
     level: 5
     paths:
     - packages/core/src
+    - packages/cpe-validator/src
     - packages/data/src
     - packages/htmltopdf/src
     - packages/lite/src
