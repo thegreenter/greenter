@@ -33,13 +33,13 @@ class FeSummaryValidatorTest extends TestCase
     {
         $summary = $this->getSummary();
         $det = $summary->getDetails()[0];
-        $det->setTipoDoc('222');
+        $det->setTipoDoc('22');
         $det->setClienteTipo('33');
 
         $validator = $this->getValidator();
         $errors = $validator->validate($summary);
 
-        $this->assertEquals(2, count($errors));
+        $this->assertEquals(1, count($errors));
     }
 
     private function getSummary()

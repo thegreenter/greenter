@@ -20,9 +20,6 @@ class SalePerceptionLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('codReg', [
             new Assert\NotBlank(),
-            new Assert\Choice([
-                'choices' => ['01', '02', '03'],
-            ]),
         ]);
         $metadata->addPropertyConstraints('mtoBase', [
             new Assert\NotNull(),

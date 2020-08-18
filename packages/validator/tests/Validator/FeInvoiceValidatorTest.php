@@ -59,12 +59,12 @@ class FeInvoiceValidatorTest extends TestCase
     {
         $invoice = $this->getInvoice();
         $invoice->setTipoDoc('123')
-            ->setSerie('FF000');
+            ->setSerie('FF00');
 
         $validator = $this->getValidator();
         $errors = $validator->validate($invoice);
 
-        $this->assertEquals(2, $errors->count());
+        $this->assertEquals(1, $errors->count());
     }
 
     private function getInvoice()
