@@ -14,6 +14,7 @@ use Greenter\Model\DocumentInterface;
 use Greenter\Report\Extension\ReportTwigExtension;
 use Greenter\Report\Extension\RuntimeLoader;
 use Twig\Environment;
+use Twig\Extension\CoreExtension;
 use Twig\Loader\FilesystemLoader;
 
 /**
@@ -21,6 +22,7 @@ use Twig\Loader\FilesystemLoader;
  */
 class HtmlReport implements ReportInterface
 {
+    public const TIMEZONE = 'America/Lima';
     /**
      * @var Environment
      */
@@ -97,8 +99,17 @@ class HtmlReport implements ReportInterface
 
         $twig->addRuntimeLoader(new RuntimeLoader());
         $twig->addExtension(new ReportTwigExtension());
+        $this->configureTimezone($twig);
 
         return $twig;
+    }
+
+    private function configureTimezone(Environment $twig)
+    {
+        $extension = $twig->getExtension(CoreExtension::class);
+        if ($extension instanceof CoreExtension) {
+            $extension->setTimezone(self::TIMEZONE);
+        }
     }
 
     /**

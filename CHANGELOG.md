@@ -2,6 +2,9 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
+## Unreleased
+- Configurar zona horaria por defecto a `America/Lima` en xml,report.
+
 ## v4.0.0 - 2020-08-09
 
 - La versión mínima de PHP es `7.2`
