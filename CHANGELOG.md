@@ -2,7 +2,7 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
-## Unreleased
+## v4.0.2 - 2020-08-22
 - Configurar zona horaria por defecto a `America/Lima` en xml,report.
 - Nuevo paquete `greenter/cpe-validator`, permite realizar las validaciones con los archivos XSL de Sunat SFS.
 - Eliminación de validaciones complejas de `greenter/validator`, en favor de `cpe-validator`.
