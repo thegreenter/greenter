@@ -62,9 +62,17 @@ class TwigBuilder
 
         $twig = new Environment($loader, $options);
         $this->loadFilterAndFunctions($twig);
-        $twig->getExtension(CoreExtension::class)->setTimezone(self::TIMEZONE);
+        $this->configureTimezone($twig);
 
         $this->twig = $twig;
+    }
+
+    private function configureTimezone(Environment $twig)
+    {
+        $extension = $twig->getExtension(CoreExtension::class);
+        if ($extension instanceof CoreExtension) {
+            $extension->setTimezone(self::TIMEZONE);
+        }
     }
 
     /**

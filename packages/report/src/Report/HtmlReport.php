@@ -99,9 +99,17 @@ class HtmlReport implements ReportInterface
 
         $twig->addRuntimeLoader(new RuntimeLoader());
         $twig->addExtension(new ReportTwigExtension());
-        $twig->getExtension(CoreExtension::class)->setTimezone(self::TIMEZONE);
+        $this->configureTimezone($twig);
 
         return $twig;
+    }
+
+    private function configureTimezone(Environment $twig)
+    {
+        $extension = $twig->getExtension(CoreExtension::class);
+        if ($extension instanceof CoreExtension) {
+            $extension->setTimezone(self::TIMEZONE);
+        }
     }
 
     /**
