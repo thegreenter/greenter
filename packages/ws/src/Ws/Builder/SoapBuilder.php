@@ -90,6 +90,7 @@ class SoapBuilder
     {
         $client = new SoapClient($this->wsdl, $this->wsdlParams);
         $client->setCredentials($this->user, $this->password);
+        $client->setService($this->url);
 
         return $client;
     }
