@@ -6,8 +6,8 @@
     
 Esta librería le permite implementar la **Facturación Electrónica** en Perú, desde los sistemas desarrollados por el 
 contribuyente, el cual esta normado por SUNAT.   
-Greenter realiza la mayoría de tareas del proceso, genera el XML según el estándar UBL, firma con el certificado digital,
-comprime el archivo XML en formato zip, realiza el envío al webservice de SUNAT y procesa el CDR (Comprobante de Recepción), además incluye otras 
+Greenter realiza la mayoría de tareas del proceso, genera el XML según el estándar UBL, firma el XML con el certificado digital,
+, realiza el envío del comprobante a los webservice de SUNAT y procesa el CDR (Comprobante de Recepción), además incluye otras 
 herramientas de utilidad.
 
 Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/demo).
