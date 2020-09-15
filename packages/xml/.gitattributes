@@ -3,4 +3,3 @@
 .gitignore export-ignore
 phpunit.xml.dist export-ignore
 *.md export-ignore
-*.twig linguist-language=XML
