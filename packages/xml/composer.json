@@ -16,11 +16,11 @@
     "type": "library",
     "require": {
         "php": "^7.2",
-        "greenter/core": "^4.1",
+        "greenter/core": "^4.2",
         "twig/twig": "~3.0"
     },
     "require-dev": {
-        "greenter/data": "^4.1",
+        "greenter/data": "^4.2",
         "greenter/ubl-validator": "^2.0",
         "phpunit/phpunit": "^8"
     },
@@ -36,7 +36,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.1-dev"
+            "dev-master": "4.2-dev"
         }
     }
 }

@@ -19,7 +19,7 @@
         "ext-zlib": "*",
         "ext-dom": "*",
         "ext-soap": "*",
-        "greenter/core": "^4.1",
+        "greenter/core": "^4.2",
         "nelexa/zip": "^3.3"
     },
     "require-dev": {
@@ -38,7 +38,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.1-dev"
+            "dev-master": "4.2-dev"
         }
     }
 }
