@@ -21,9 +21,6 @@
     ],
     "require": {
         "php": "^7.2",
-        "ext-dom": "*",
-        "ext-soap": "*",
-        "ext-zlib": "*",
         "bacon/bacon-qr-code": "^2.0",
         "greenter/xmldsig": "^5.0",
         "mikehaertl/phpwkhtmltopdf": "^2.4",
@@ -36,6 +33,12 @@
         "mockery/mockery": "^1.2",
         "phpstan/phpstan": "^0.12",
         "phpunit/phpunit": "^8"
+    },
+    "suggest": {
+        "ext-dom": "For xml, xml-parser, cpe-validator, ws package",
+        "ext-soap": "For ws package",
+        "ext-zlib": "For ws package",
+        "ext-xsl": "For cpe-validator package"
     },
     "autoload": {
         "psr-4": {
