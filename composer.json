@@ -61,6 +61,7 @@
                 "tests/"
             ],
             "Tests\\Greenter\\": [
+                "packages/cpe-validator/tests/",
                 "packages/htmltopdf/tests/",
                 "packages/report/tests/",
                 "packages/validator/tests/",
@@ -73,6 +74,7 @@
     },
     "replace": {
         "greenter/core": "self.version",
+        "greenter/cpe-validator": "self.version",
         "greenter/data": "self.version",
         "greenter/greenter": "self.version",
         "greenter/htmltopdf": "self.version",
