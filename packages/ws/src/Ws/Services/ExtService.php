@@ -13,6 +13,7 @@ namespace Greenter\Ws\Services;
 use Exception;
 use Greenter\Model\Response\Error;
 use Greenter\Model\Response\StatusResult;
+use SoapFault;
 
 /**
  * Class ExtService.
@@ -29,7 +30,7 @@ class ExtService extends BaseSunat
     {
         try {
             return $this->getStatusInternal($ticket);
-        } catch (\SoapFault $e) {
+        } catch (SoapFault $e) {
             $result = new StatusResult();
             $result->setError($this->getErrorFromFault($e));
 
@@ -37,6 +38,11 @@ class ExtService extends BaseSunat
         }
     }
 
+    /**
+     * @param string|null $ticket
+     * @return StatusResult
+     * @throws SoapFault
+     */
     private function getStatusInternal($ticket): StatusResult
     {
         $params = [
