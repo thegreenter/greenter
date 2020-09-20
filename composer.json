@@ -28,6 +28,7 @@
         "bacon/bacon-qr-code": "^2.0",
         "greenter/xmldsig": "^5.0",
         "mikehaertl/phpwkhtmltopdf": "^2.4",
+        "nelexa/zip": "^3.3",
         "symfony/validator": "^5.0",
         "twig/twig": "~3.0"
     },
