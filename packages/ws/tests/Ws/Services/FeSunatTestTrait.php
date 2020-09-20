@@ -188,6 +188,7 @@ trait FeSunatTestTrait
                         break;
                     case '223123123214':
                         $obj->status->statusCode = '0'; // Código procesado: 0, pero sin zip.
+                        $obj->status->content = '';
                         break;
                     case '667123123214':
                         $obj->status->statusCode = '1002';
