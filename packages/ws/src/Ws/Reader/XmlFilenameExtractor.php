@@ -67,6 +67,10 @@ class XmlFilenameExtractor implements FilenameExtractorInterface
             return $this->reader->getValue('cac:AgentParty/cac:PartyIdentification/cbc:ID');
         }
 
+        if ('DespatchAdvice' === $nameType) {
+            return $this->reader->getValue('cac:DespatchSupplierParty/cbc:CustomerAssignedAccountID');
+        }
+
         $ubl = $this->reader->getValue('cbc:UBLVersionID');
         switch ($ubl) {
             case '2.0':
