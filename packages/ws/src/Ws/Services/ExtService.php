@@ -10,9 +10,9 @@ declare(strict_types=1);
 
 namespace Greenter\Ws\Services;
 
-use Exception;
 use Greenter\Model\Response\Error;
 use Greenter\Model\Response\StatusResult;
+use Greenter\Services\InvalidServiceResponseException;
 use SoapFault;
 
 /**
@@ -24,7 +24,7 @@ class ExtService extends BaseSunat
      * @param string $ticket
      *
      * @return StatusResult
-     * @throws Exception
+     * @throws InvalidServiceResponseException
      */
     public function getStatus($ticket): StatusResult
     {
@@ -42,7 +42,7 @@ class ExtService extends BaseSunat
      * @param string|null $ticket
      * @return StatusResult
      * @throws SoapFault
-     * @throws Exception
+     * @throws InvalidServiceResponseException
      */
     private function getStatusInternal($ticket): StatusResult
     {
@@ -52,7 +52,7 @@ class ExtService extends BaseSunat
 
         $response = $this->getClient()->call('getStatus', ['parameters' => $params]);
         if (!isset($response->status)) {
-            throw new Exception('Invalid getStatus service response.');
+            throw new InvalidServiceResponseException('Invalid getStatus service response.');
         }
 
         return $this->processResponse($response->status);
@@ -61,7 +61,7 @@ class ExtService extends BaseSunat
     /**
      * @param object $status
      * @return StatusResult
-     * @throws Exception
+     * @throws InvalidServiceResponseException
      */
     private function processResponse($status): StatusResult
     {
@@ -79,7 +79,7 @@ class ExtService extends BaseSunat
 
         if ($this->isProcessed($code)) {
             if (!isset($status->content) || empty($status->content)) {
-                throw new Exception('Invalid CDR response (zip not found).');
+                throw new InvalidServiceResponseException('Invalid CDR response (zip not found).');
             }
 
             $cdrZip = $status->content;
