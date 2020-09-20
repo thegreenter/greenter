@@ -10,9 +10,10 @@ declare(strict_types=1);
 
 namespace Greenter\Ws\Services;
 
-use Exception;
 use Greenter\Model\Response\Error;
 use Greenter\Model\Response\StatusResult;
+use Greenter\Services\InvalidServiceResponseException;
+use SoapFault;
 
 /**
  * Class ExtService.
@@ -23,13 +24,13 @@ class ExtService extends BaseSunat
      * @param string $ticket
      *
      * @return StatusResult
-     * @throws Exception
+     * @throws InvalidServiceResponseException
      */
     public function getStatus($ticket): StatusResult
     {
         try {
             return $this->getStatusInternal($ticket);
-        } catch (\SoapFault $e) {
+        } catch (SoapFault $e) {
             $result = new StatusResult();
             $result->setError($this->getErrorFromFault($e));
 
@@ -37,6 +38,12 @@ class ExtService extends BaseSunat
         }
     }
 
+    /**
+     * @param string|null $ticket
+     * @return StatusResult
+     * @throws SoapFault
+     * @throws InvalidServiceResponseException
+     */
     private function getStatusInternal($ticket): StatusResult
     {
         $params = [
@@ -45,12 +52,17 @@ class ExtService extends BaseSunat
 
         $response = $this->getClient()->call('getStatus', ['parameters' => $params]);
         if (!isset($response->status)) {
-            throw new Exception('Invalid getStatus service response.');
+            throw new InvalidServiceResponseException('Invalid getStatus service response.');
         }
 
         return $this->processResponse($response->status);
     }
 
+    /**
+     * @param object $status
+     * @return StatusResult
+     * @throws InvalidServiceResponseException
+     */
     private function processResponse($status): StatusResult
     {
         $originCode = $status->statusCode;
@@ -66,6 +78,10 @@ class ExtService extends BaseSunat
         }
 
         if ($this->isProcessed($code)) {
+            if (!isset($status->content) || empty($status->content)) {
+                throw new InvalidServiceResponseException('Invalid CDR response (zip not found).');
+            }
+
             $cdrZip = $status->content;
             $result
                 ->setSuccess(true)

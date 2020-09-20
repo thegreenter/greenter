@@ -10,8 +10,10 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Ws\Services;
 
+use Exception;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
+use Greenter\Services\InvalidServiceResponseException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -148,13 +150,20 @@ class FeSunatTest extends TestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function testGetStatusInvalidResponse()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $wss = $this->getExtServiceMock();
         $wss->getStatus('1500523236600');
+    }
+
+    public function testGetStatusInvalidCDRZip()
+    {
+        $this->expectException(InvalidServiceResponseException::class);
+        $wss = $this->getExtServiceMock();
+        $wss->getStatus('223123123214');
     }
 
     public function testGetStatusWithExceptionCode()
