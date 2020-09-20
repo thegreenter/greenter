@@ -42,6 +42,7 @@ class ExtService extends BaseSunat
      * @param string|null $ticket
      * @return StatusResult
      * @throws SoapFault
+     * @throws Exception
      */
     private function getStatusInternal($ticket): StatusResult
     {
@@ -57,6 +58,11 @@ class ExtService extends BaseSunat
         return $this->processResponse($response->status);
     }
 
+    /**
+     * @param object $status
+     * @return StatusResult
+     * @throws Exception
+     */
     private function processResponse($status): StatusResult
     {
         $originCode = $status->statusCode;
