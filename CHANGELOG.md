@@ -2,7 +2,7 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
-## Unreleased
+## v4.1.0 - 2020-09-20
 - Uso de compresión y decompresión en memoria #145
 - Validación de zip vacío en `getStatus` #144
 - Configuración de código Unidad `NIU`, en impuesto a la bolsa `ICBPER`.
