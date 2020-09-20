@@ -10,7 +10,7 @@ use Greenter\Validator\Parser\ResultParserInterface;
 use InvalidArgumentException;
 use XSLTProcessor;
 
-class XslValidator implements ValidatorInterface
+class XslValidator implements XslValidatorInterface
 {
     /**
      * @var DOMDocument
