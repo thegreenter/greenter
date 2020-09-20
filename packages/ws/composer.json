@@ -16,11 +16,11 @@
     "type": "library",
     "require": {
         "php": "^7.2",
-        "ext-zip": "*",
         "ext-zlib": "*",
         "ext-dom": "*",
         "ext-soap": "*",
-        "greenter/core": "^4.1"
+        "greenter/core": "^4.1",
+        "nelexa/zip": "^3.3"
     },
     "require-dev": {
         "phpunit/phpunit": "^8",

@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace Tests\Greenter\Ws\Zip;
 
 use Greenter\Zip\DecompressInterface;
-use Greenter\Zip\ZipFileDecompress;
+use Greenter\Zip\ZipDecompressDecorator;
 use Greenter\Zip\ZipFly;
 use PHPUnit\Framework\TestCase;
 
@@ -27,12 +27,19 @@ class ZipFileDecompressTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->zip = new ZipFileDecompress();
+        $this->zip = new ZipDecompressDecorator(new ZipFly());
     }
 
     public function testDecompressEmptyFile()
     {
         $items = $this->zip->decompress('');
+
+        $this->assertEquals(0, count($items));
+    }
+
+    public function testDecompressInvalidZipFile()
+    {
+        $items = $this->zip->decompress('xxx');
 
         $this->assertEquals(0, count($items));
     }

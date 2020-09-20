@@ -12,6 +12,7 @@ namespace Tests\Greenter\Ws\Zip;
 
 use Greenter\Zip\ZipFly;
 use PHPUnit\Framework\TestCase;
+use PhpZip\Exception\InvalidArgumentException as InvalidArgumentExceptionPhpZip;
 
 /**
  * Class ZipFactoryTest.
@@ -50,16 +51,9 @@ class ZipFactoryTest extends TestCase
         $this->assertEquals(self::DATA_XML, $content);
     }
 
-    public function testUnixTime()
-    {
-        $zip = new ZipFly();
-        $result = $zip->unix2DosTime(181233012);
-
-        $this->assertEquals(2162688, $result);
-    }
-
     public function testInvalidZip()
     {
+        $this->expectException(InvalidArgumentExceptionPhpZip::class);
         $zip = new ZipFly();
         $res = $zip->decompress('');
 

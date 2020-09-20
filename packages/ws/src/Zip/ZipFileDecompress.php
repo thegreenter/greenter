@@ -12,6 +12,7 @@ use ZipArchive;
 
 /**
  * Class ZipFileDecompress.
+ * @deprecated deprecated since version v4.0.3, use ZipFlyDecompress
  */
 class ZipFileDecompress implements DecompressInterface
 {
