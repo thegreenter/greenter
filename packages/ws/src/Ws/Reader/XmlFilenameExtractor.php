@@ -96,6 +96,8 @@ class XmlFilenameExtractor implements FilenameExtractorInterface
                 return '07';
             case 'DebitNote':
                 return '08';
+            case 'DespatchAdvice':
+                return '09';
             case 'Perception':
                 return '40';
             case 'Retention':
