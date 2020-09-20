@@ -50,14 +50,6 @@ class ZipFactoryTest extends TestCase
         $this->assertEquals(self::DATA_XML, $content);
     }
 
-    public function testUnixTime()
-    {
-        $zip = new ZipFly();
-        $result = $zip->unix2DosTime(181233012);
-
-        $this->assertEquals(2162688, $result);
-    }
-
     public function testInvalidZip()
     {
         $zip = new ZipFly();
