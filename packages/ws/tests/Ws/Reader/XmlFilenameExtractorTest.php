@@ -70,6 +70,7 @@ class XmlFilenameExtractorTest extends TestCase
         $params = [
             [__DIR__.'/../../Resources/20600055519-01-F001-00000001.xml'],
             [__DIR__.'/../../Resources/20000000001-RC-20171119-001.xml'],
+            [__DIR__.'/../../Resources/20600995805-RA-20170719-01.xml'],
         ];
         $params = array_merge($params, $list);
 

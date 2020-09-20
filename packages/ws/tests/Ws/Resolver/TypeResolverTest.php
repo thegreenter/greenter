@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Ws\Resolver;
 
+use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Sale\Invoice;
@@ -71,6 +72,7 @@ XML;
             [Invoice::class, __DIR__.'/../../Resources/20600055519-01-F001-00000001.xml'],
             [Note::class, __DIR__.'/../../Resources/Name/20123456789-07-FF01-123.xml'],
             [Note::class, __DIR__.'/../../Resources/Name/20123456789-08-FF01-123.xml'],
+            [Despatch::class, __DIR__.'/../../Resources/Name/20123456789-09-T001-123.xml'],
             [Retention::class, __DIR__.'/../../Resources/Name/20123456789-20-R001-123.xml'],
             [Perception::class, __DIR__.'/../../Resources/Name/20123456789-40-P001-123.xml'],
             [Summary::class, __DIR__.'/../../Resources/20000000001-RC-20171119-001.xml'],

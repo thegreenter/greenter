@@ -63,10 +63,19 @@ class XmlFilenameExtractor implements FilenameExtractorInterface
      */
     private function getRuc($nameType)
     {
-        if ('Perception' === $nameType || 'Retention' == $nameType) {
-            return $this->reader->getValue('cac:AgentParty/cac:PartyIdentification/cbc:ID');
+        switch ($nameType) {
+            case 'Perception':
+            case 'Retention':
+                return $this->reader->getValue('cac:AgentParty/cac:PartyIdentification/cbc:ID');
+            case 'DespatchAdvice':
+                return $this->reader->getValue('cac:DespatchSupplierParty/cbc:CustomerAssignedAccountID');
+            default:
+                return $this->getFromUblVersion();
         }
+    }
 
+    private function getFromUblVersion()
+    {
         $ubl = $this->reader->getValue('cbc:UBLVersionID');
         switch ($ubl) {
             case '2.0':
@@ -87,6 +96,8 @@ class XmlFilenameExtractor implements FilenameExtractorInterface
                 return '07';
             case 'DebitNote':
                 return '08';
+            case 'DespatchAdvice':
+                return '09';
             case 'Perception':
                 return '40';
             case 'Retention':
