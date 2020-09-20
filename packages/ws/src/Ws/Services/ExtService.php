@@ -66,6 +66,10 @@ class ExtService extends BaseSunat
         }
 
         if ($this->isProcessed($code)) {
+            if (!isset($status->content) || empty($status->content)) {
+                throw new Exception('Invalid CDR response (zip not found).');
+            }
+
             $cdrZip = $status->content;
             $result
                 ->setSuccess(true)
