@@ -16,7 +16,7 @@ Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/d
 
 ## Requerimientos
 - PHP `7.2` o superior
-- Extensiones PHP Activadas: `soap`, `zip`, `zlib`, `openssl`.
+- Extensiones PHP Activadas: `soap`, `zlib`, `openssl`.
 
 ## Documentación
 - Lee esta [guia](https://fe-primer.greenter.dev/) para conocer mas sobre facturación electrónica.

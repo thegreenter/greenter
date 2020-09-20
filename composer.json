@@ -23,7 +23,6 @@
         "php": "^7.2",
         "ext-dom": "*",
         "ext-soap": "*",
-        "ext-zip": "*",
         "ext-zlib": "*",
         "bacon/bacon-qr-code": "^2.0",
         "greenter/xmldsig": "^5.0",

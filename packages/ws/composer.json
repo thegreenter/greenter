@@ -16,7 +16,6 @@
     "type": "library",
     "require": {
         "php": "^7.2",
-        "ext-zip": "*",
         "ext-zlib": "*",
         "ext-dom": "*",
         "ext-soap": "*",
