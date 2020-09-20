@@ -157,6 +157,16 @@ class FeSunatTest extends TestCase
         $wss->getStatus('1500523236600');
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function testGetStatusInvalidCDRZip()
+    {
+        $this->expectException(\Exception::class);
+        $wss = $this->getExtServiceMock();
+        $wss->getStatus('223123123214');
+    }
+
     public function testGetStatusWithExceptionCode()
     {
         $wss = $this->getExtServiceMock();

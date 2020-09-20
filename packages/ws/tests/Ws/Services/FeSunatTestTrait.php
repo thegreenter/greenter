@@ -182,14 +182,20 @@ trait FeSunatTestTrait
                 if ($ticket === '1500523236600') return $obj;
 
                 $obj->status = new \stdClass();
-                if ('223123123213' === $ticket) {
-                    $obj->status->statusCode = '98';
-                } elseif ('667123123214' === $ticket){
-                    $obj->status->statusCode = '1002';
-                    $obj->status->statusMessage = 'ERROR Z';
-                } else {
-                    $obj->status->statusCode = '0';
-                    $obj->status->content = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
+                switch ($ticket) {
+                    case '223123123213':
+                        $obj->status->statusCode = '98';
+                        break;
+                    case '223123123214':
+                        $obj->status->statusCode = '0'; // Código procesado: 0, pero sin zip.
+                        break;
+                    case '667123123214':
+                        $obj->status->statusCode = '1002';
+                        $obj->status->statusMessage = 'ERROR Z';
+                        break;
+                    default:
+                        $obj->status->statusCode = '0';
+                        $obj->status->content = file_get_contents(__DIR__.'/../../Resources/cdrBaja.zip');
                 }
 
                 return $obj;
