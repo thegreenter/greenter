@@ -8,7 +8,6 @@
 
 namespace Greenter\Zip;
 
-use Exception;
 use PhpZip\ZipFile;
 
 /**
@@ -44,13 +43,10 @@ class ZipFly implements CompressInterface, DecompressInterface
      */
     public function decompress(?string $content, callable $filter = null): ?array
     {
-        $zipFile = $this->openZip($content);
+        $zipFile = new ZipFile();
+        $zipFile->openFromString($content);
 
         $output = [];
-        if ($zipFile === null) {
-            return $output;
-        }
-
         if ($zipFile->count() > 0) {
             $output = iterator_to_array($this->getFiles($zipFile, $filter));
         }
@@ -71,20 +67,6 @@ class ZipFly implements CompressInterface, DecompressInterface
                     'content' => $zip->getEntryContents($filename),
                 ];
             }
-        }
-    }
-
-    private function openZip(?string $zip): ?ZipFile
-    {
-        if (empty($zip)) {
-            return null;
-        }
-
-        try {
-            $zipFile = new ZipFile();
-            return $zipFile->openFromString($zip);
-        } catch (Exception $e) {
-            return null;
         }
     }
 }
