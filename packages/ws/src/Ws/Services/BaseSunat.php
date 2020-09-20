@@ -18,6 +18,7 @@ use Greenter\Ws\Reader\DomCdrReader;
 use Greenter\Ws\Reader\XmlReader;
 use Greenter\Zip\CompressInterface;
 use Greenter\Zip\DecompressInterface;
+use Greenter\Zip\ZipDecompressDecorator;
 use Greenter\Zip\ZipFly;
 use SoapFault;
 
@@ -191,7 +192,7 @@ class BaseSunat
     private function getXmlResponse($content)
     {
         if (!$this->decompressor) {
-            $this->decompressor = new ZipFly();
+            $this->decompressor = new ZipDecompressDecorator(new ZipFly());
         }
 
         $filter = function ($filename) {

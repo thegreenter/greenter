@@ -12,6 +12,7 @@ namespace Tests\Greenter\Ws\Zip;
 
 use Greenter\Zip\ZipFly;
 use PHPUnit\Framework\TestCase;
+use PhpZip\Exception\InvalidArgumentException as InvalidArgumentExceptionPhpZip;
 
 /**
  * Class ZipFactoryTest.
@@ -52,6 +53,7 @@ class ZipFactoryTest extends TestCase
 
     public function testInvalidZip()
     {
+        $this->expectException(InvalidArgumentExceptionPhpZip::class);
         $zip = new ZipFly();
         $res = $zip->decompress('');
 
