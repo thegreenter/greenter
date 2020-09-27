@@ -74,8 +74,13 @@ class XslValidator implements XslValidatorInterface
     private function getErrors(?array $xmlErrors): array
     {
         $errors = [];
-        foreach ($xmlErrors as $error) {
-            $errors[] = $this->errorParser->parse($error->message);
+        foreach ($xmlErrors as $xmlError) {
+            $error = $this->errorParser->parse($xmlError->message);
+
+            if ($error !== null) {
+                $errors[] = $error;
+            }
+
         }
 
         return $errors;
