@@ -28,3 +28,6 @@ jobs:
 
     - name: Run PHPStan
       run: composer run-script lint:ci
+
+    - name: Run PSalm
+      run: vendor/bin/psalm --shepherd
