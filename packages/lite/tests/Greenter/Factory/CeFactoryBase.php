@@ -323,7 +323,7 @@ class CeFactoryBase extends TestCase
             ->setNroDoc('213123');
 
         $envio = new Shipment();
-        $envio->setModTraslado('01')
+        $envio
             ->setCodTraslado('01')
             ->setDesTraslado('VENTA')
             ->setFecTraslado(new \DateTime())
@@ -331,7 +331,8 @@ class CeFactoryBase extends TestCase
             ->setIndTransbordo(false)
             ->setPesoTotal(12.5)
             ->setUndPesoTotal('KGM')
-            ->setNumBultos(2)
+//            ->setNumBultos(2) // Solo en Importación: CodTraslado: 08
+            ->setModTraslado('01')
             ->setNumContenedor('XD-2232')
             ->setLlegada(new Direction('150101', 'AV LIMA'))
             ->setPartida(new Direction('150203', 'AV ITALIA'))
