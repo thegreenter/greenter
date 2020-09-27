@@ -260,6 +260,7 @@ class FeFactoryBase extends TestCase
 
         $note = new Note();
         $note
+            ->setUblVersion('2.1')
             ->setTipDocAfectado('01')
             ->setNumDocfectado('F001-111')
             ->setCodMotivo('07')
@@ -271,9 +272,8 @@ class FeFactoryBase extends TestCase
             ->setTipoMoneda('PEN')
             ->setClient($client)
             ->setMtoOperGravadas(200)
-            ->setMtoOperExoneradas(0)
-            ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
+            ->setTotalImpuestos(36)
             ->setMtoImpVenta(236)
             ->setCompany($this->getCompany());
 
@@ -282,22 +282,28 @@ class FeFactoryBase extends TestCase
             ->setUnidad('NIU')
             ->setCantidad(2)
             ->setDescripcion('PROD 1')
+            ->setMtoBaseIgv(100)
+            ->setPorcentajeIgv(18)
             ->setIgv(18)
             ->setTipAfeIgv('10')
+            ->setTotalImpuestos(18)
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
-            ->setMtoPrecioUnitario(56);
+            ->setMtoPrecioUnitario(59);
 
         $detail2 = new SaleDetail();
         $detail2->setCodProducto('C02')
             ->setUnidad('NIU')
             ->setCantidad(2)
             ->setDescripcion('PROD 2')
+            ->setMtoBaseIgv(100)
+            ->setPorcentajeIgv(18)
             ->setIgv(18)
             ->setTipAfeIgv('10')
+            ->setTotalImpuestos(18)
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
-            ->setMtoPrecioUnitario(56);
+            ->setMtoPrecioUnitario(59);
 
         $legend = new Legend();
         $legend->setCode('1000')
@@ -363,8 +369,7 @@ class FeFactoryBase extends TestCase
         $debit = $this->getCreditNote();
         $debit->setCodMotivo('01')
             ->setDesMotivo('XXXX ')
-            ->setTipoDoc('08')
-            ->setFechaEmision($this->getDate());
+            ->setTipoDoc('08');
 
         return $debit;
     }
