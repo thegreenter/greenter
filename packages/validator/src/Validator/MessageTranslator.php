@@ -79,7 +79,7 @@ class MessageTranslator implements TranslatorInterface
         return $this->locale;
     }
 
-    private function getValue($id)
+    private function getValue(string $id)
     {
         $value = $this->provider->getValue($id);
         if ($value) {

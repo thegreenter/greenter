@@ -87,7 +87,7 @@ class XmlFilenameExtractor implements FilenameExtractorInterface
         }
     }
 
-    private function getTypeFromDoc($name)
+    private function getTypeFromDoc(string $name)
     {
         switch ($name) {
             case 'Invoice':
