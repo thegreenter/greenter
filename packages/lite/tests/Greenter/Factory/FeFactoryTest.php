@@ -27,9 +27,10 @@ class FeFactoryTest extends FeFactoryBase
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertEquals(
-            'La Factura numero F001-123, ha sido aceptada',
-            $result->getCdrResponse()->getDescription()
+            '0',
+            $result->getCdrResponse()->getCode()
         );
+        $this->assertCount(0, $result->getCdrResponse()->getNotes());
         $this->assertNotEmpty($result->getCdrZip());
     }
 
@@ -88,9 +89,10 @@ class FeFactoryTest extends FeFactoryBase
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertEquals(
-            'La Nota de Credito numero FF01-123, ha sido aceptada',
-            $result->getCdrResponse()->getDescription()
+            '0',
+            $result->getCdrResponse()->getCode()
         );
+        $this->assertCount(0, $result->getCdrResponse()->getNotes());
     }
 
     public function testNotaDebito()
@@ -101,9 +103,10 @@ class FeFactoryTest extends FeFactoryBase
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertEquals(
-            'La Nota de Debito numero FF01-123, ha sido aceptada',
-            $result->getCdrResponse()->getDescription()
+            '0',
+            $result->getCdrResponse()->getCode()
         );
+        $this->assertCount(0, $result->getCdrResponse()->getNotes());
     }
 
     public function testResumen()
@@ -153,7 +156,7 @@ class FeFactoryTest extends FeFactoryBase
             $this->assertNull($result->getError());
             $this->assertNotNull($result->getCdrResponse());
             $this->assertEquals('0', $result->getCdrResponse()->getCode());
-            $this->assertStringContainsString('aceptado', $result->getCdrResponse()->getDescription());
+            $this->assertCount(0, $result->getCdrResponse()->getNotes());
             return;
         }
 
@@ -179,7 +182,7 @@ class FeFactoryTest extends FeFactoryBase
             $this->assertNull($result->getError());
             $this->assertNotNull($result->getCdrResponse());
             $this->assertEquals('0', $result->getCdrResponse()->getCode());
-            $this->assertStringContainsString('aceptada', $result->getCdrResponse()->getDescription());
+            $this->assertCount(0, $result->getCdrResponse()->getNotes());
             return;
         }
 
