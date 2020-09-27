@@ -396,8 +396,8 @@ class FeFactoryBase extends TestCase
             ->setDocReferencia((new Document())
                 ->setTipoDoc('03')
                 ->setNroDoc('B001-1'))
-            ->setTotal(100)
-            ->setMtoOperGravadas(20.555)
+            ->setTotal(50.6)
+            ->setMtoOperGravadas(20)
             ->setMtoOperInafectas(12)
             ->setMtoOperExoneradas(15)
             ->setMtoIGV(3.6);
@@ -410,17 +410,17 @@ class FeFactoryBase extends TestCase
             ->setPercepcion((new SummaryPerception())
                 ->setCodReg('01')
                 ->setTasa(2.00)
-                ->setMtoBase(200.00)
-                ->setMto(4.00)
-                ->setMtoTotal(204.00))
+                ->setMtoBase(336.12)
+                ->setMto(6.7224)
+                ->setMtoTotal(342.89))
             ->setEstado('1')
-            ->setTotal(200)
-            ->setMtoOperGravadas(3)
+            ->setTotal(336.12)
+            ->setMtoOperGravadas(200)
             ->setMtoOperExoneradas(30)
-            ->setMtoOperInafectas(2)
-            ->setMtoOtrosCargos(1)
-            ->setMtoIGV(7.2)
-            ->setMtoISC(2.8);
+            ->setMtoOperInafectas(20)
+            ->setMtoOtrosCargos(10)
+            ->setMtoIGV(42.12)
+            ->setMtoISC(34);
 
         $sum = new Summary();
         $sum->setFecGeneracion($this->getDate())
