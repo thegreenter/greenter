@@ -170,9 +170,6 @@ class BaseSunat
         return $this->codeProvider->getValue($code);
     }
 
-    /**
-     * @param bool $code
-     */
     protected function isExceptionCode($code): bool
     {
         $value = (int)$code;

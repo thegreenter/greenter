@@ -186,11 +186,11 @@ class See
      *
      * @param string $xmlContent
      *
-     * @return Model\Response\BaseResult
+     * @return Model\Response\BaseResult|null
      *
      * @throws Exception
      */
-    public function sendXmlFile(string $xmlContent)
+    public function sendXmlFile(string $xmlContent): ?Model\Response\BaseResult
     {
         $doc = new DOMDocument();
         $doc->loadXML($xmlContent);
