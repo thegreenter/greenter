@@ -104,7 +104,7 @@ class CeFactoryBase extends TestCase
     {
         $summValids = [Summary::class, Reversion::class];
         $client = new SoapClient();
-        $client->setCredentials('20000000001MODDATOS', 'moddatos');
+        $client->setCredentials('20123456789MODDATOS', 'moddatos');
         $client->setService($endpoint);
         $sender = in_array($className, $summValids) ? new SummarySender(): new BillSender();
         $sender->setClient($client);
@@ -118,7 +118,7 @@ class CeFactoryBase extends TestCase
     protected function getExtService()
     {
         $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
-        $client->setCredentials('20000000001MODDATOS', 'moddatos');
+        $client->setCredentials('20123456789MODDATOS', 'moddatos');
         $client->setService(SunatEndpoints::RETENCION_BETA);
         $service = new ExtService();
         $service->setClient($client);
