@@ -12,6 +12,7 @@ namespace Greenter\Report;
 
 use Greenter\Model\DocumentInterface;
 use mikehaertl\wkhtmlto\Pdf;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * Class PdfReport.
@@ -101,6 +102,6 @@ class PdfReport implements ReportInterface
 
         $result = $this->pdfRender->toString();
 
-        return $result === false ? null : $result;
+        return $result === false ? null : (string)$result;
     }
 }
