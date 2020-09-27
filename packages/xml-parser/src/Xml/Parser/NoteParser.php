@@ -253,51 +253,64 @@ class NoteParser implements DocumentParserInterface
                 ->setCodProducto($xml->getValue('cac:Item/cac:SellersItemIdentification/cbc:ID', $node))
                 ->setCodProdSunat($xml->getValue('cac:Item/cac:CommodityClassification/cbc:ItemClassificationCode', $node));
 
-            $taxs = $xml->getNodes('cac:TaxTotal', $node);
-            foreach ($taxs as $tax) {
-                $name = $xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax);
-                $name = trim($name);
-                $val = (float)$xml->getValue('cbc:TaxAmount', $tax, '0');
-                switch ($name) {
-                    case 'IGV':
-                        $det->setIgv($val);
-                        $det->setTipAfeIgv($xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cbc:TaxExemptionReasonCode', $tax));
-                        break;
-                    case 'ISC':
-                        $det->setIsc($val);
-                        $det->setTipSisIsc($xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cbc:TierRange', $tax));
-                        break;
-                }
-            }
 
-            // Descuento
-            $descs = $xml->getNodes('cac:AllowanceCharge', $node);
-            foreach ($descs as $desc) {
-                $charge = $xml->getValue('cbc:ChargeIndicator', $desc);
-                $charge = trim($charge);
-                if ($charge == 'false') {
-                    $val = (float)$xml->getValue('cbc:Amount', $desc, '0');
-                    $det->setDescuento($val);
-                }
-            }
-
-            $prices = $xml->getNodes('cac:PricingReference', $node);
-            foreach ($prices as $price) {
-                $code = $xml->getValue('cac:AlternativeConditionPrice/cbc:PriceTypeCode', $price);
-                $code = trim($code);
-                $value = (float)$xml->getValue('cac:AlternativeConditionPrice/cbc:PriceAmount', $price, '0');
-
-                switch ($code) {
-                    case '01':
-                        $det->setMtoPrecioUnitario($value);
-                        break;
-                    case '02':
-                        $det->setMtoValorGratuito($value);
-                        break;
-                }
-            }
+            $this->loadTaxDetail($det, $xml, $node);
+            $this->loadDescuentosDetail($det, $xml, $node);
+            $this->loadPricesDetail($det, $xml, $node);
 
             yield $det;
+        }
+    }
+
+    private function loadTaxDetail(SaleDetail $detail, XmlReader $xml, DOMNode $detailNode)
+    {
+        $taxs = $xml->getNodes('cac:TaxTotal', $detailNode);
+        foreach ($taxs as $tax) {
+            $name = $xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax);
+            $name = trim($name);
+            $val = (float)$xml->getValue('cbc:TaxAmount', $tax, '0');
+            switch ($name) {
+                case 'IGV':
+                    $detail->setIgv($val);
+                    $detail->setTipAfeIgv($xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cbc:TaxExemptionReasonCode', $tax));
+                    break;
+                case 'ISC':
+                    $detail->setIsc($val);
+                    $detail->setTipSisIsc($xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cbc:TierRange', $tax));
+                    break;
+            }
+        }
+    }
+
+    private function loadDescuentosDetail(SaleDetail $detail, XmlReader $xml, DOMNode $detailNode)
+    {
+        $descs = $xml->getNodes('cac:AllowanceCharge', $detailNode);
+        foreach ($descs as $desc) {
+            $charge = $xml->getValue('cbc:ChargeIndicator', $desc);
+            $charge = trim($charge);
+            if ($charge == 'false') {
+                $val = (float)$xml->getValue('cbc:Amount', $desc, '0');
+                $detail->setDescuento($val);
+            }
+        }
+    }
+
+    private function loadPricesDetail(SaleDetail $detail, XmlReader $xml, DOMNode $detailNode)
+    {
+        $prices = $xml->getNodes('cac:PricingReference', $detailNode);
+        foreach ($prices as $price) {
+            $code = $xml->getValue('cac:AlternativeConditionPrice/cbc:PriceTypeCode', $price);
+            $code = trim($code);
+            $value = (float)$xml->getValue('cac:AlternativeConditionPrice/cbc:PriceAmount', $price, '0');
+
+            switch ($code) {
+                case '01':
+                    $detail->setMtoPrecioUnitario($value);
+                    break;
+                case '02':
+                    $detail->setMtoValorGratuito($value);
+                    break;
+            }
         }
     }
 }
