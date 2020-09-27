@@ -76,7 +76,7 @@ class CeFactoryTest extends CeFactoryBase
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
-        $this->assertEquals('1034', $result->getError()->getCode());
+        $this->assertEquals('0151', $result->getError()->getCode());
     }
 
     /**
