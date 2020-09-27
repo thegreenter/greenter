@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class PdfReportTest
- * @package Tests\Greenter\Report
+ * @group manual
  */
 class PdfReportTest extends TestCase
 {
