@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Greenter\Ws\Services;
 
 use Greenter\Model\Response\BillResult;
+use Greenter\Model\Response\CdrResponse;
 use Greenter\Model\Response\Error;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Reader\CdrReaderInterface;
@@ -128,9 +129,9 @@ class BaseSunat
      * @param string $filename
      * @param string $xml
      *
-     * @return string
+     * @return null|string
      */
-    protected function compress($filename, $xml)
+    protected function compress($filename, $xml): ?string
     {
         if (!$this->compressor) {
             $this->compressor = new ZipFly();
@@ -142,9 +143,9 @@ class BaseSunat
     /**
      * @param string $zipContent
      *
-     * @return \Greenter\Model\Response\CdrResponse
+     * @return CdrResponse|null
      */
-    protected function extractResponse($zipContent)
+    protected function extractResponse($zipContent): ?CdrResponse
     {
         if (!$this->cdrReader) {
             $this->cdrReader = new DomCdrReader(new XmlReader());
@@ -158,9 +159,9 @@ class BaseSunat
     /**
      * @param string $code
      *
-     * @return string
+     * @return null|string
      */
-    protected function getMessageError($code)
+    protected function getMessageError($code): ?string
     {
         if ($this->codeProvider === null) {
             return '';
@@ -169,14 +170,20 @@ class BaseSunat
         return $this->codeProvider->getValue($code);
     }
 
-    protected function isExceptionCode($code)
+    /**
+     * @param bool $code
+     */
+    protected function isExceptionCode($code): bool
     {
         $value = (int)$code;
 
         return $value >= 100 && $value <= 1999;
     }
 
-    protected function loadErrorByCode(BillResult $result, $code)
+    /**
+     * @param null|string $code
+     */
+    protected function loadErrorByCode(BillResult $result, ?string $code): void
     {
         $error = $this->getErrorByCode($code);
 
@@ -189,7 +196,7 @@ class BaseSunat
             ->setError($error);
     }
 
-    private function getXmlResponse($content)
+    private function getXmlResponse(?string $content)
     {
         if (!$this->decompressor) {
             $this->decompressor = new ZipDecompressDecorator(new ZipFly());

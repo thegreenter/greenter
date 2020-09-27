@@ -47,7 +47,7 @@ class ConsultCdrService extends BaseSunat
         return $this->getStatusResult('getStatusCdr', 'statusCdr', $ruc, $tipo, $serie, $numero);
     }
 
-    private function getStatusResult($method, $resultName, $ruc, $tipo, $serie, $numero)
+    private function getStatusResult(string $method, string $resultName, string $ruc, string $tipo, string $serie, int $numero)
     {
         $result = new StatusCdrResult();
 
