@@ -200,7 +200,7 @@ class NoteParser implements DocumentParserInterface
         return $cl;
     }
 
-    private function getGuias($node)
+    private function getGuias(\DOMElement $node)
     {
         $xml = $this->reader;
         $guias = $xml->getNodes('cac:DespatchDocumentReference', $node);
@@ -217,7 +217,10 @@ class NoteParser implements DocumentParserInterface
         }
     }
 
-    private function getAddress($node)
+    /**
+     * @param \DOMElement|null $node
+     */
+    private function getAddress(?\DOMElement $node)
     {
         $xml = $this->reader;
 
@@ -234,7 +237,7 @@ class NoteParser implements DocumentParserInterface
         return null;
     }
 
-    private function getDetails($isNcr)
+    private function getDetails(bool $isNcr)
     {
         $xml = $this->reader;
         $nodes = $xml->getNodes('cac:' . ($isNcr ? 'CreditNoteLine': 'DebitNoteLine'), $this->rootNode);

@@ -101,7 +101,10 @@ class ReceiptParser implements DocumentParserInterface
         return $cl;
     }
 
-    private function getAddress($node)
+    /**
+     * @param \DOMElement|null $node
+     */
+    private function getAddress(?\DOMElement $node)
     {
         $xml = $this->reader;
         $address = new Address();

@@ -56,7 +56,10 @@ class ZipFly implements CompressInterface, DecompressInterface
         return $output;
     }
 
-    private function getFiles(ZipFile $zip, $filter)
+    /**
+     * @param callable|null $filter
+     */
+    private function getFiles(ZipFile $zip, ?callable $filter)
     {
         $entries = $zip->getEntries();
         foreach ($entries as $entry) {

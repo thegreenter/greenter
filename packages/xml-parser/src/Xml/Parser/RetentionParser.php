@@ -105,7 +105,10 @@ class RetentionParser implements DocumentParserInterface
         return $client;
     }
 
-    private function getAddress($node)
+    /**
+     * @param DOMElement|null $node
+     */
+    private function getAddress(?DOMElement $node)
     {
         $xml = $this->reader;
 
@@ -168,7 +171,7 @@ class RetentionParser implements DocumentParserInterface
         }
     }
 
-    private function getPayments($node)
+    private function getPayments(\DOMNode $node)
     {
         $xml = $this->reader;
 
