@@ -31,3 +31,12 @@ jobs:
 
     - name: Run PSalm
       run: vendor/bin/psalm --shepherd
+
+    - name: Unit Tests
+      run: vendor/bin/phpunit --exclude-group manual --coverage-clover clover.xml
+
+    - uses: codecov/codecov-action@v1
+      with:
+        file: ./clover.xml
+        flags: unittests
+        name: codecov-greenter
