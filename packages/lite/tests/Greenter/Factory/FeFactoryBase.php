@@ -82,7 +82,7 @@ class FeFactoryBase extends TestCase
     private function getSender($className, $endpoint)
     {
         $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
-        $client->setCredentials('20000000001MODDATOS', 'moddatos');
+        $client->setCredentials('20123456789MODDATOS', 'moddatos');
         $client->setService($endpoint);
         $summValids = [Summary::class, Summary::class, Voided::class];
         $sender = in_array($className, $summValids) ? new SummarySender(): new BillSender();
@@ -124,7 +124,7 @@ class FeFactoryBase extends TestCase
     protected function getExtService()
     {
         $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
-        $client->setCredentials('20000000001MODDATOS', 'moddatos');
+        $client->setCredentials('20123456789MODDATOS', 'moddatos');
         $client->setService(SunatEndpoints::FE_BETA);
         $service = new ExtService();
         $service->setClient($client);
@@ -140,44 +140,51 @@ class FeFactoryBase extends TestCase
             ->setRznSocial('EMPRESA 1');
 
         $invoice = new Invoice();
-        $invoice->setFecVencimiento(new \DateTime())
-            ->setCompra('01-21312312')
+        $invoice
+            ->setUblVersion('2.1')
+            ->setFecVencimiento(new \DateTime())
             ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
+            ->setTipoOperacion('0101')
             ->setFechaEmision($this->getDate())
             ->setTipoMoneda('PEN')
             ->setClient($client)
             ->setMtoOperGravadas(200)
-            ->setMtoOperExoneradas(0)
-            ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
-            ->setMtoImpVenta(2236.43)
+            ->setTotalImpuestos(36)
+            ->setValorVenta(200)
+            ->setSubTotal(236)
+            ->setMtoImpVenta(236)
             ->setCompany($this->getCompany());
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')
             ->setUnidad('NIU')
             ->setCantidad(2)
-            ->setDescuento(1)
             ->setDescripcion('PROD 1')
+            ->setMtoBaseIgv(100)
+            ->setPorcentajeIgv(18.00)
             ->setIgv(18)
             ->setTipAfeIgv('10')
+            ->setTotalImpuestos(18)
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
-            ->setMtoPrecioUnitario(56);
+            ->setMtoPrecioUnitario(59);
 
         $detail2 = new SaleDetail();
         $detail2->setCodProducto('C02')
-            ->setCodProdSunat('012')
             ->setUnidad('NIU')
             ->setCantidad(2)
             ->setDescripcion('PROD 1')
+            ->setMtoBaseIgv(100)
+            ->setPorcentajeIgv(18.00)
             ->setIgv(18)
             ->setTipAfeIgv('10')
+            ->setTotalImpuestos(18)
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
-            ->setMtoPrecioUnitario(56);
+            ->setMtoPrecioUnitario(59);
 
         $legend = new Legend();
         $legend->setCode('1000')
