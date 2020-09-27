@@ -54,8 +54,7 @@ class FeFactoryTest extends FeFactoryBase
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
-        $this->assertEquals('0306', $result->getError()->getCode());
-        $this->assertStringContainsString('No se puede leer (parsear) el archivo XML', $result->getError()->getMessage());
+        $this->assertEquals('3088', $result->getError()->getCode());
     }
 
     public function testInvoiceNotValidZipFileName()
