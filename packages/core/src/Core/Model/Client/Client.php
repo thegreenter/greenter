@@ -18,37 +18,37 @@ use Greenter\Model\Company\Address;
 class Client
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $tipoDoc;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $numDoc;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $rznSocial;
 
     /**
-     * @var Address
+     * @var Address|null
      */
     private $address;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $email;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $telephone;
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getTipoDoc(): ?string
     {
@@ -56,7 +56,7 @@ class Client
     }
 
     /**
-     * @param string $tipoDoc
+     * @param string|null $tipoDoc
      *
      * @return Client
      */
@@ -68,7 +68,7 @@ class Client
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getNumDoc(): ?string
     {
@@ -76,7 +76,7 @@ class Client
     }
 
     /**
-     * @param string $numDoc
+     * @param string|null $numDoc
      *
      * @return Client
      */
@@ -88,7 +88,7 @@ class Client
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getRznSocial(): ?string
     {
@@ -96,7 +96,7 @@ class Client
     }
 
     /**
-     * @param string $rznSocial
+     * @param string|null $rznSocial
      *
      * @return Client
      */
@@ -108,7 +108,7 @@ class Client
     }
 
     /**
-     * @return Address
+     * @return Address|null
      */
     public function getAddress(): ?Address
     {
@@ -116,7 +116,7 @@ class Client
     }
 
     /**
-     * @param Address $address
+     * @param Address|null $address
      *
      * @return Client
      */
@@ -128,7 +128,7 @@ class Client
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getEmail(): ?string
     {
@@ -136,7 +136,7 @@ class Client
     }
 
     /**
-     * @param string $email
+     * @param string|null $email
      *
      * @return Client
      */
@@ -148,7 +148,7 @@ class Client
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getTelephone(): ?string
     {
@@ -156,7 +156,7 @@ class Client
     }
 
     /**
-     * @param string $telephone
+     * @param string|null $telephone
      *
      * @return Client
      */
