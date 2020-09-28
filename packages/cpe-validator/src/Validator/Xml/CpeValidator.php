@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Greenter\Validator;
+namespace Greenter\Validator\Xml;
 
 use DOMDocument;
 use Greenter\Validator\Entity\CpeError;
 use Greenter\Validator\Entity\ErrorLevel;
 use Greenter\Validator\Resolver\RuleResolverInterface;
 use Greenter\Validator\Resolver\TypeResolverInterface;
-use Greenter\Validator\Xml\ValidatorInterface;
-use Greenter\Validator\Xml\XslValidatorInterface;
 
 class CpeValidator implements ValidatorInterface
 {

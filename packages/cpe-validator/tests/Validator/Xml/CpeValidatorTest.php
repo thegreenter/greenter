@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Greenter\Validator;
+namespace Tests\Greenter\Validator\Xml;
 
 use DOMDocument;
 use Greenter\Validator\CpeValidator;
@@ -18,7 +18,7 @@ class CpeValidatorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->validator = new CpeValidator(__DIR__.'/../Resources');
+        $this->validator = new CpeValidator(__DIR__ . '/../Resources');
     }
 
     public function testValid()
