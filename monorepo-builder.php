@@ -29,6 +29,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::DATA_TO_APPEND, [
         'require-dev' => [
             'phpstan/phpstan' => '^0.12',
+            'vimeo/psalm' => '^3.16',
         ],
     ]);
 
