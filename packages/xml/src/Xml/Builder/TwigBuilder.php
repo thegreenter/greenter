@@ -56,7 +56,7 @@ class TwigBuilder
         ]);
     }
 
-    private function initTwig($options)
+    private function initTwig(array $options)
     {
         $loader = new FilesystemLoader(__DIR__.'/../Templates');
 

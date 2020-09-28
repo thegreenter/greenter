@@ -27,7 +27,7 @@ class ConsultCdrService extends BaseSunat
      *
      * @return StatusCdrResult
      */
-    public function getStatus($ruc, $tipo, $serie, $numero)
+    public function getStatus(string $ruc, string $tipo, string $serie, int $numero)
     {
         return $this->getStatusResult('getStatus', 'status', $ruc, $tipo, $serie, $numero);
     }
@@ -42,12 +42,12 @@ class ConsultCdrService extends BaseSunat
      *
      * @return StatusCdrResult
      */
-    public function getStatusCdr($ruc, $tipo, $serie, $numero)
+    public function getStatusCdr(string $ruc, string $tipo, string $serie, int $numero)
     {
         return $this->getStatusResult('getStatusCdr', 'statusCdr', $ruc, $tipo, $serie, $numero);
     }
 
-    private function getStatusResult($method, $resultName, $ruc, $tipo, $serie, $numero)
+    private function getStatusResult(string $method, string $resultName, string $ruc, string $tipo, string $serie, int $numero)
     {
         $result = new StatusCdrResult();
 

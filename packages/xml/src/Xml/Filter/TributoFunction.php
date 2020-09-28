@@ -25,7 +25,7 @@ class TributoFunction
         '9999' => ['OTH', 'OTROS'],
     ];
 
-    public static function getByTributo($code)
+    public static function getByTributo(?string $code)
     {
         if (isset(self::$codigoTributos[$code])) {
             $values = self::$codigoTributos[$code];

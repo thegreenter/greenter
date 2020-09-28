@@ -13,10 +13,6 @@ namespace Tests\Greenter\Factory;
 use Greenter\Model\Response\CdrResponse;
 use Greenter\Model\Response\StatusResult;
 
-/**
- * Class CeFactoryTest
- * @package Tests\Greenter\Factory
- */
 class CeFactoryTest extends CeFactoryBase
 {
     public function testDespatch()
@@ -29,13 +25,13 @@ class CeFactoryTest extends CeFactoryBase
             return;
         }
 
-        // file_put_contents('guia.xml', $this->factory->getLastXml());
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertEquals(
-            'El Comprobante numero T001-123 ha sido aceptado',
-            $result->getCdrResponse()->getDescription()
+            '0',
+            $result->getCdrResponse()->getCode()
         );
+
     }
 
     public function testRetention()
@@ -46,8 +42,8 @@ class CeFactoryTest extends CeFactoryBase
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertEquals(
-            'El Comprobante numero R001-123 ha sido aceptado',
-            $result->getCdrResponse()->getDescription()
+            '0',
+            $result->getCdrResponse()->getCode()
         );
     }
 
@@ -67,20 +63,20 @@ class CeFactoryTest extends CeFactoryBase
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertEquals(
-            'El Comprobante numero P001-123 ha sido aceptado',
-            $result->getCdrResponse()->getDescription()
+            '0',
+            $result->getCdrResponse()->getCode()
         );
     }
 
-    public function testPerceptionNotValidTasa()
+    public function testPerceptionNotValidRuc()
     {
         $perception = $this->getPerception();
-        $perception->setTasa(3);
+        $perception->getCompany()->setRuc('2000010000');
         $result = $this->getFactoryResult($perception);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());
-        $this->assertEquals('2603', $result->getError()->getCode());
+        $this->assertEquals('0151', $result->getError()->getCode());
     }
 
     /**
@@ -129,9 +125,6 @@ class CeFactoryTest extends CeFactoryBase
         $this->assertNotNull($result->getCdrResponse());
         $this->assertNotNull($result->getCdrZip());
         $this->assertEquals('0', $result->getCode());
-        $this->assertRegExp(
-            '/El Comprobante numero RR-\d{8}-001 ha sido aceptado$/',
-            $result->getCdrResponse()->getDescription());
     }
 
     public function testStatusInvalidTicket()

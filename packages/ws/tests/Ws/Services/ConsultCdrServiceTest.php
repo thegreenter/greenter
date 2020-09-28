@@ -42,7 +42,7 @@ class ConsultCdrServiceTest extends TestCase
     public function testGetStatus()
     {
         $wss = $this->getConsultServiceMock();
-        $result = $wss->getStatus('20000000001', '01', 'F001', '1');
+        $result = $wss->getStatus('20000000001', '01', 'F001', 1);
 
         $this->assertTrue($result->isSuccess());
         $this->assertEquals('0', $result->getCode());
@@ -54,7 +54,7 @@ class ConsultCdrServiceTest extends TestCase
     public function testGetCdrStatus()
     {
         $wss = $this->getConsultServiceMock();
-        $result = $wss->getStatusCdr('20000000001', '01', 'F001', '1');
+        $result = $wss->getStatusCdr('20000000001', '01', 'F001', 1);
 
         $this->assertTrue($result->isSuccess());
         $this->assertEquals('0', $result->getCode());
@@ -66,7 +66,7 @@ class ConsultCdrServiceTest extends TestCase
     public function testGetErrorCodeFromCdr()
     {
         $wss = $this->getConsultServiceMock();
-        $result = $wss->getStatusCdr('20600995805', '01', 'F001', '2');
+        $result = $wss->getStatusCdr('20600995805', '01', 'F001', 2);
 
         $this->assertFalse($result->isSuccess());
         $this->assertNotNull($result->getError());

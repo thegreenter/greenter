@@ -32,7 +32,8 @@
         "greenter/ubl-validator": "^2.0",
         "mockery/mockery": "^1.2",
         "phpstan/phpstan": "^0.12",
-        "phpunit/phpunit": "^8"
+        "phpunit/phpunit": "^8",
+        "vimeo/psalm": "^3.16"
     },
     "suggest": {
         "ext-dom": "For xml, xml-parser, cpe-validator, ws package",

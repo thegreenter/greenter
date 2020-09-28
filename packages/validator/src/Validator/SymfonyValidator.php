@@ -80,7 +80,7 @@ class SymfonyValidator implements DocumentValidatorInterface
         return $this->factory;
     }
 
-    private function getTranslator($errorProvider)
+    private function getTranslator(ErrorCodeProviderInterface $errorProvider)
     {
         $translator = new MessageTranslator($errorProvider);
         $translator->addResource($this->getResources());

@@ -110,7 +110,7 @@ class XmlReader
      * @param string $query relative to root namespace
      * @return null|string
      */
-    public function getValue($query)
+    public function getValue(string $query): ?string
     {
         $nodes = $this->xpath->query($this->root.'/'.$query);
         if ($nodes->length > 0) {

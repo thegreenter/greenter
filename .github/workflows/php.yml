@@ -18,7 +18,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: 7.2
-        extensions: soap, zip
+        extensions: soap
 
     - name: Validate composer.json
       run: composer validate
@@ -28,3 +28,15 @@ jobs:
 
     - name: Run PHPStan
       run: composer run-script lint:ci
+
+    - name: Run PSalm
+      run: vendor/bin/psalm --shepherd
+
+    - name: Unit Tests
+      run: vendor/bin/phpunit --exclude-group manual --coverage-clover clover.xml
+
+    - uses: codecov/codecov-action@v1
+      with:
+        file: ./clover.xml
+        flags: unittests
+        name: codecov-greenter

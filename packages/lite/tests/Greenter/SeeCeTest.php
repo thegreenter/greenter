@@ -98,7 +98,7 @@ class SeeCeTest extends CeFactoryBase
             'debug' => true,
             'cache' => false,
         ]);
-        $see->setCredentials('20000000001MODDATOS', 'moddatos');
+        $see->setCredentials('20123456789MODDATOS', 'moddatos');
         $see->setCertificate(file_get_contents(__DIR__.'/../Resources/SFSCert.pem'));
 
         return $see;

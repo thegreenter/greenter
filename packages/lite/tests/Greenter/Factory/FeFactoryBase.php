@@ -82,7 +82,7 @@ class FeFactoryBase extends TestCase
     private function getSender($className, $endpoint)
     {
         $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
-        $client->setCredentials('20000000001MODDATOS', 'moddatos');
+        $client->setCredentials('20123456789MODDATOS', 'moddatos');
         $client->setService($endpoint);
         $summValids = [Summary::class, Summary::class, Voided::class];
         $sender = in_array($className, $summValids) ? new SummarySender(): new BillSender();
@@ -124,7 +124,7 @@ class FeFactoryBase extends TestCase
     protected function getExtService()
     {
         $client = new SoapClient(SunatEndpoints::WSDL_ENDPOINT);
-        $client->setCredentials('20000000001MODDATOS', 'moddatos');
+        $client->setCredentials('20123456789MODDATOS', 'moddatos');
         $client->setService(SunatEndpoints::FE_BETA);
         $service = new ExtService();
         $service->setClient($client);
@@ -140,44 +140,51 @@ class FeFactoryBase extends TestCase
             ->setRznSocial('EMPRESA 1');
 
         $invoice = new Invoice();
-        $invoice->setFecVencimiento(new \DateTime())
-            ->setCompra('01-21312312')
+        $invoice
+            ->setUblVersion('2.1')
+            ->setFecVencimiento(new \DateTime())
             ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
+            ->setTipoOperacion('0101')
             ->setFechaEmision($this->getDate())
             ->setTipoMoneda('PEN')
             ->setClient($client)
             ->setMtoOperGravadas(200)
-            ->setMtoOperExoneradas(0)
-            ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
-            ->setMtoImpVenta(2236.43)
+            ->setTotalImpuestos(36)
+            ->setValorVenta(200)
+            ->setSubTotal(236)
+            ->setMtoImpVenta(236)
             ->setCompany($this->getCompany());
 
         $detail1 = new SaleDetail();
         $detail1->setCodProducto('C023')
             ->setUnidad('NIU')
             ->setCantidad(2)
-            ->setDescuento(1)
             ->setDescripcion('PROD 1')
+            ->setMtoBaseIgv(100)
+            ->setPorcentajeIgv(18.00)
             ->setIgv(18)
             ->setTipAfeIgv('10')
+            ->setTotalImpuestos(18)
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
-            ->setMtoPrecioUnitario(56);
+            ->setMtoPrecioUnitario(59);
 
         $detail2 = new SaleDetail();
         $detail2->setCodProducto('C02')
-            ->setCodProdSunat('012')
             ->setUnidad('NIU')
             ->setCantidad(2)
             ->setDescripcion('PROD 1')
+            ->setMtoBaseIgv(100)
+            ->setPorcentajeIgv(18.00)
             ->setIgv(18)
             ->setTipAfeIgv('10')
+            ->setTotalImpuestos(18)
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
-            ->setMtoPrecioUnitario(56);
+            ->setMtoPrecioUnitario(59);
 
         $legend = new Legend();
         $legend->setCode('1000')
@@ -253,6 +260,7 @@ class FeFactoryBase extends TestCase
 
         $note = new Note();
         $note
+            ->setUblVersion('2.1')
             ->setTipDocAfectado('01')
             ->setNumDocfectado('F001-111')
             ->setCodMotivo('07')
@@ -264,9 +272,8 @@ class FeFactoryBase extends TestCase
             ->setTipoMoneda('PEN')
             ->setClient($client)
             ->setMtoOperGravadas(200)
-            ->setMtoOperExoneradas(0)
-            ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
+            ->setTotalImpuestos(36)
             ->setMtoImpVenta(236)
             ->setCompany($this->getCompany());
 
@@ -275,22 +282,28 @@ class FeFactoryBase extends TestCase
             ->setUnidad('NIU')
             ->setCantidad(2)
             ->setDescripcion('PROD 1')
+            ->setMtoBaseIgv(100)
+            ->setPorcentajeIgv(18)
             ->setIgv(18)
             ->setTipAfeIgv('10')
+            ->setTotalImpuestos(18)
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
-            ->setMtoPrecioUnitario(56);
+            ->setMtoPrecioUnitario(59);
 
         $detail2 = new SaleDetail();
         $detail2->setCodProducto('C02')
             ->setUnidad('NIU')
             ->setCantidad(2)
             ->setDescripcion('PROD 2')
+            ->setMtoBaseIgv(100)
+            ->setPorcentajeIgv(18)
             ->setIgv(18)
             ->setTipAfeIgv('10')
+            ->setTotalImpuestos(18)
             ->setMtoValorVenta(100)
             ->setMtoValorUnitario(50)
-            ->setMtoPrecioUnitario(56);
+            ->setMtoPrecioUnitario(59);
 
         $legend = new Legend();
         $legend->setCode('1000')
@@ -356,8 +369,7 @@ class FeFactoryBase extends TestCase
         $debit = $this->getCreditNote();
         $debit->setCodMotivo('01')
             ->setDesMotivo('XXXX ')
-            ->setTipoDoc('08')
-            ->setFechaEmision($this->getDate());
+            ->setTipoDoc('08');
 
         return $debit;
     }
@@ -384,8 +396,8 @@ class FeFactoryBase extends TestCase
             ->setDocReferencia((new Document())
                 ->setTipoDoc('03')
                 ->setNroDoc('B001-1'))
-            ->setTotal(100)
-            ->setMtoOperGravadas(20.555)
+            ->setTotal(50.6)
+            ->setMtoOperGravadas(20)
             ->setMtoOperInafectas(12)
             ->setMtoOperExoneradas(15)
             ->setMtoIGV(3.6);
@@ -398,17 +410,17 @@ class FeFactoryBase extends TestCase
             ->setPercepcion((new SummaryPerception())
                 ->setCodReg('01')
                 ->setTasa(2.00)
-                ->setMtoBase(200.00)
-                ->setMto(4.00)
-                ->setMtoTotal(204.00))
+                ->setMtoBase(336.12)
+                ->setMto(6.7224)
+                ->setMtoTotal(342.89))
             ->setEstado('1')
-            ->setTotal(200)
-            ->setMtoOperGravadas(3)
+            ->setTotal(336.12)
+            ->setMtoOperGravadas(200)
             ->setMtoOperExoneradas(30)
-            ->setMtoOperInafectas(2)
-            ->setMtoOtrosCargos(1)
-            ->setMtoIGV(7.2)
-            ->setMtoISC(2.8);
+            ->setMtoOperInafectas(20)
+            ->setMtoOtrosCargos(10)
+            ->setMtoIGV(42.12)
+            ->setMtoISC(34);
 
         $sum = new Summary();
         $sum->setFecGeneracion($this->getDate())

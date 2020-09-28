@@ -140,9 +140,9 @@ class See
      *
      * @param DocumentInterface $document
      *
-     * @return string
+     * @return null|string
      */
-    public function getXmlSigned(DocumentInterface $document)
+    public function getXmlSigned(DocumentInterface $document): ?string
     {
         $buildResolver = new XmlBuilderResolver($this->options);
 
@@ -156,9 +156,9 @@ class See
      *
      * @param DocumentInterface $document
      *
-     * @return Model\Response\BaseResult
+     * @return Model\Response\BaseResult|null
      */
-    public function send(DocumentInterface $document)
+    public function send(DocumentInterface $document): ?Model\Response\BaseResult
     {
         $this->configureFactory(get_class($document));
 
@@ -172,9 +172,9 @@ class See
      * @param string $name Xml Name
      * @param string $xml  Xml Content
      *
-     * @return Model\Response\BaseResult
+     * @return Model\Response\BaseResult|null
      */
-    public function sendXml(string $type, string $name, string $xml)
+    public function sendXml(string $type, string $name, string $xml): ?Model\Response\BaseResult
     {
         $this->configureFactory($type);
 
@@ -186,11 +186,11 @@ class See
      *
      * @param string $xmlContent
      *
-     * @return Model\Response\BaseResult
+     * @return Model\Response\BaseResult|null
      *
      * @throws Exception
      */
-    public function sendXmlFile(string $xmlContent)
+    public function sendXmlFile(string $xmlContent): ?Model\Response\BaseResult
     {
         $doc = new DOMDocument();
         $doc->loadXML($xmlContent);

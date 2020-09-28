@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="4"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="packages/core/src/Core" />
+        <directory name="packages/cpe-validator/src" />
+        <directory name="packages/data/src" />
+        <directory name="packages/htmltopdf/src" />
+        <directory name="packages/lite/src/Greenter" />
+        <directory name="packages/report/src" />
+        <directory name="packages/validator/src" />
+        <directory name="packages/ws/src" />
+        <directory name="packages/xcodes/src" />
+        <directory name="packages/xml-parser/src" />
+        <directory name="packages/xml/src" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+    <issueHandlers>
+        <NullArgument>
+            <errorLevel type="suppress">
+                <referencedFunction name="SoapVar::SoapVar"/>
+            </errorLevel>
+        </NullArgument>
+        <UndefinedPropertyFetch>
+            <errorLevel type="suppress">
+                <referencedProperty name="SoapFault::$faultcode" />
+                <referencedProperty name="SoapFault::$faultstring" />
+                <referencedProperty name="SoapFault::$detail" />
+            </errorLevel>
+        </UndefinedPropertyFetch>
+    </issueHandlers>
+</psalm>

@@ -39,7 +39,10 @@ class ZipFileDecompress implements DecompressInterface
         return $output;
     }
 
-    private function getFiles(ZipArchive $zip, $filter)
+    /**
+     * @param callable|null $filter
+     */
+    private function getFiles(ZipArchive $zip, ?callable $filter)
     {
         $total = $zip->numFiles;
         for ($i = 0; $i < $total; ++$i) {

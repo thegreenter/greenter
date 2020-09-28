@@ -12,7 +12,6 @@ namespace Tests\Greenter;
 
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BillResult;
-use Greenter\Model\Response\SummaryResult;
 use Greenter\Model\Sale\BaseSale;
 use Greenter\Model\Sale\Invoice;
 use Greenter\See;
@@ -40,20 +39,19 @@ class SeeFeTest extends FeFactoryBase
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
-        $this->assertStringContainsString(
-            'aceptada',
-            $result->getCdrResponse()->getDescription()
+        $this->assertEquals(
+            '0',
+            $result->getCdrResponse()->getCode()
         );
+        $this->assertCount(0, $result->getCdrResponse()->getNotes());
     }
 
     /**
-     * @dataProvider providerSummaryDocs
-     * @param DocumentInterface $doc
      * @return string
      */
-    public function testSendSummary(DocumentInterface $doc)
+    public function testSendSummary()
     {
-        /**@var $result SummaryResult*/
+        $doc = $this->getSummary();
         $result = $this->getSee()->send($doc);
 
         $this->assertTrue($result->isSuccess());
@@ -80,7 +78,7 @@ class SeeFeTest extends FeFactoryBase
         $this->assertNull($result->getError());
         $this->assertNotNull($result->getCdrResponse());
         $this->assertEquals('0', $result->getCdrResponse()->getCode());
-        $this->assertStringContainsString('aceptada', $result->getCdrResponse()->getDescription());
+        $this->assertCount(0, $result->getCdrResponse()->getNotes());
     }
 
     /**
@@ -105,6 +103,9 @@ class SeeFeTest extends FeFactoryBase
         $result = $see->sendXml(Invoice::class, $invoice->getName(), $xmlSigned);
 
         $this->assertTrue($result->isSuccess());
+        $this->assertNotNull($result->getCdrResponse());
+        $this->assertEquals('0', $result->getCdrResponse()->getCode());
+        $this->assertCount(0, $result->getCdrResponse()->getNotes());
     }
 
     /**
@@ -119,6 +120,9 @@ class SeeFeTest extends FeFactoryBase
         $result = $see->sendXmlFile($xmlSigned);
 
         $this->assertTrue($result->isSuccess());
+        $this->assertNotNull($result->getCdrResponse());
+        $this->assertEquals('0', $result->getCdrResponse()->getCode());
+        $this->assertCount(0, $result->getCdrResponse()->getNotes());
     }
 
     /**
@@ -134,22 +138,19 @@ class SeeFeTest extends FeFactoryBase
         $this->assertNotNull($see->getFactory());
 
         $result = $see->send($doc);
-//        file_put_contents($doc->getName().'.xml', $see->getFactory()->getLastXml());
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
-        $this->assertStringContainsString(
-            'aceptada',
-            $result->getCdrResponse()->getDescription()
-        );
+        $this->assertEquals('0', $result->getCdrResponse()->getCode());
+        $this->assertCount(0, $result->getCdrResponse()->getNotes());
     }
 
     public function providerInvoiceDocsV21()
     {
         return [
-            [$this->getInvoiceV21()],
-            [$this->getCreditNoteV21()],
-            [$this->getDebitNoteV21()],
+            [$this->getInvoice()],
+            [$this->getCreditNote()],
+            [$this->getDebitNote()],
         ];
     }
 
@@ -162,18 +163,11 @@ class SeeFeTest extends FeFactoryBase
         ];
     }
 
-    public function providerSummaryDocs()
-    {
-        return [
-            [$this->getSummary()],
-            [$this->getVoided()],
-        ];
-    }
-
     private function getSee()
     {
+        $endpoint = SunatEndpoints::FE_BETA;
         $see = new See();
-        $see->setService(SunatEndpoints::FE_BETA);
+        $see->setService($endpoint);
         $see->setBuilderOptions([
             'strict_variables' => true,
             'optimizations' => 0,
@@ -181,7 +175,7 @@ class SeeFeTest extends FeFactoryBase
         ]);
         $see->setCachePath(null);
         $see->setCodeProvider($this->getErrorCodeProvider());
-        $see->setClaveSOL('20000000001', 'MODDATOS', 'moddatos');
+        $see->setClaveSOL('20123456789', 'MODDATOS', 'moddatos');
         $see->setCertificate(file_get_contents(__DIR__.'/../Resources/SFSCert.pem'));
 
         return $see;

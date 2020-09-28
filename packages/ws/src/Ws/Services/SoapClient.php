@@ -67,7 +67,7 @@ class SoapClient extends \SoapClient implements WsClientInterface
 
     /**
      * @param string $function
-     * @param array $arguments
+     * @param mixed $arguments
      *
      * @return mixed
      */

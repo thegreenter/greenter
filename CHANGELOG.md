@@ -2,6 +2,9 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
+## Unreleased
+- Los parámetros para métodos `ConsultCdrService::getStatus` y `ConsultCdrService::getStatusCdr` ahora son de tipado estricto. 
+
 ## v4.1.0 - 2020-09-20
 - Uso de compresión y decompresión en memoria #145
 - Validación de zip vacío en `getStatus` #144

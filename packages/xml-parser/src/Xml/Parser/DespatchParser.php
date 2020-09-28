@@ -77,7 +77,7 @@ class DespatchParser implements DocumentParserInterface
         return $guia;
     }
 
-    private function getClient($nodeName)
+    private function getClient(string $nodeName)
     {
         $xml = $this->reader;
         $node = $xml->getNode($nodeName, $this->rootNode);
@@ -161,7 +161,10 @@ class DespatchParser implements DocumentParserInterface
         return $shp;
     }
 
-    private function getTransportista($node)
+    /**
+     * @param DOMElement|null $node
+     */
+    private function getTransportista(?DOMElement $node)
     {
         $xml = $this->reader;
         $trans = new Transportist();
