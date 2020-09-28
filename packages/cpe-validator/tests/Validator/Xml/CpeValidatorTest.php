@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Tests\Greenter\Validator\Xml;
 
 use DOMDocument;
+use Greenter\Validator\Resolver\TypeResolverInterface;
+use Greenter\Validator\Resolver\XslPathResolver;
 use Greenter\Validator\Xml\CpeValidator;
 use Greenter\Validator\Entity\ErrorLevel;
+use Greenter\Validator\Xml\XslValidatorInterface;
 use PHPUnit\Framework\TestCase;
 use Tests\Greenter\Validator\Factory\CpeValidatoFactory;
 
@@ -34,7 +37,7 @@ XML;
 
         $errors = $this->validator->validateFromXml('2000000001-01-F001-1.xml', $xml);
 
-        $this->assertEmpty($errors);
+        $this->assertCount(0, $errors);
     }
 
     public function testValidWithoutXslSet()
@@ -47,7 +50,24 @@ XML;
 
         $errors = $this->validator->validateFromXml('2000000001-01-F001-1.xml', $xml);
 
-        $this->assertNotEmpty($errors);
+        $this->assertCount(1, $errors);
+    }
+
+    public function testNotFoundXslRule()
+    {
+        $xml = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<ApplicationResponse xmlns="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2">
+</ApplicationResponse>
+XML;
+        $resolverStub = $this->createMock(TypeResolverInterface::class);
+        $resolverStub->method('getType')->willReturn('00');
+
+        $validator = new CpeValidator($resolverStub, new XslPathResolver(__DIR__), $this->createMock(XslValidatorInterface::class));
+
+        $errors = $validator->validateFromXml('2000000001-01-F001-1.xml', $xml);
+
+        $this->assertCount(1, $errors);
     }
 
     public function testValidWithErrors()
