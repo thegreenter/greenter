@@ -2,31 +2,42 @@
 
 declare(strict_types=1);
 
-namespace Greenter\Validator;
+namespace Greenter\Validator\Xml;
 
 use DOMDocument;
 use Greenter\Validator\Entity\CpeError;
 use Greenter\Validator\Entity\ErrorLevel;
-use Greenter\Validator\Parser\ErrorResultParser;
-use Greenter\Validator\Resolver\XmlTypeResolver;
-use Greenter\Validator\Resolver\XslPathResolver;
-use Greenter\Validator\Xml\ValidatorInterface;
-use Greenter\Validator\Xml\XslValidator;
+use Greenter\Validator\Resolver\RuleResolverInterface;
+use Greenter\Validator\Resolver\TypeResolverInterface;
 
 class CpeValidator implements ValidatorInterface
 {
     /**
-     * @var string
+     * @var TypeResolverInterface
      */
-    private $xslBasePath;
+    private $typeResolver;
+
+    /**
+     * @var RuleResolverInterface
+     */
+    private $ruleResolver;
+
+    /**
+     * @var XslValidatorInterface
+     */
+    private $xslValidator;
 
     /**
      * CpeValidator constructor.
-     * @param string $xslBasePath
+     * @param TypeResolverInterface $typeResolver
+     * @param RuleResolverInterface $ruleResolver
+     * @param XslValidatorInterface $xslValidator
      */
-    public function __construct(string $xslBasePath)
+    public function __construct(TypeResolverInterface $typeResolver, RuleResolverInterface $ruleResolver, XslValidatorInterface $xslValidator)
     {
-        $this->xslBasePath = $xslBasePath;
+        $this->typeResolver = $typeResolver;
+        $this->ruleResolver = $ruleResolver;
+        $this->xslValidator = $xslValidator;
     }
 
     /**
@@ -49,8 +60,7 @@ class CpeValidator implements ValidatorInterface
      */
     public function validate(string $filename, DOMDocument $document): array
     {
-        $typeResolver = new XmlTypeResolver();
-        $type = $typeResolver->getType($document);
+        $type = $this->typeResolver->getType($document);
 
         if ($type === null) {
             return [
@@ -60,9 +70,8 @@ class CpeValidator implements ValidatorInterface
             ];
         }
 
-        $xslResolver = new XslPathResolver($this->xslBasePath);
-        $xslPath = $xslResolver->getPath($type);
-        if ($xslPath === null) {
+        $rulePath = $this->ruleResolver->getPath($type);
+        if ($rulePath === null) {
             return [
                 (new CpeError())
                     ->setCode('0305')
@@ -70,13 +79,11 @@ class CpeValidator implements ValidatorInterface
             ];
         }
 
-        $xslValidator = new XslValidator(new ErrorResultParser());
-
         $xslDoc = new DOMDocument();
-        $xslDoc->load($xslPath);
+        $xslDoc->load($rulePath);
 
-        $xslValidator->setXsl($xslDoc);
+        $this->xslValidator->setXsl($xslDoc);
 
-        return $xslValidator->validate($filename, $document);
+        return $this->xslValidator->validate($filename, $document);
     }
 }
