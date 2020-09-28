@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Tests\Greenter\Validator\Xml;
 
 use DOMDocument;
-use Greenter\Validator\CpeValidator;
+use Greenter\Validator\Xml\CpeValidator;
 use Greenter\Validator\Entity\ErrorLevel;
 use PHPUnit\Framework\TestCase;
+use Tests\Greenter\Validator\Factory\CpeValidatoFactory;
 
 class CpeValidatorTest extends TestCase
 {
@@ -18,7 +19,8 @@ class CpeValidatorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->validator = new CpeValidator(__DIR__ . '/../Resources');
+        $factory = new CpeValidatoFactory();
+        $this->validator = $factory->create(__DIR__ . '/../../Resources');
     }
 
     public function testValid()
