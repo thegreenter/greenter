@@ -7,6 +7,7 @@
 .sonarcloud.properties export-ignore
 CHANGELOG.md export-ignore
 phpstan.neon export-ignore
+psalm.xml export-ignore
 phpunit.xml.dist export-ignore
 monorepo-builder.php export-ignore
 /*.md export-ignore

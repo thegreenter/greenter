@@ -16,37 +16,37 @@ namespace Greenter\Model\Company;
 class Company
 {
     /**
-     * @var string
+     * @var string|null
      */
     private $ruc;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $razonSocial;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $nombreComercial;
 
     /**
-     * @var Address
+     * @var Address|null
      */
     private $address;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $email;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $telephone;
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getRuc(): ?string
     {
@@ -54,7 +54,7 @@ class Company
     }
 
     /**
-     * @param string $ruc
+     * @param string|null $ruc
      *
      * @return Company
      */
@@ -66,7 +66,7 @@ class Company
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getRazonSocial(): ?string
     {
@@ -74,7 +74,7 @@ class Company
     }
 
     /**
-     * @param string $razonSocial
+     * @param string|null $razonSocial
      *
      * @return Company
      */
@@ -86,7 +86,7 @@ class Company
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getNombreComercial(): ?string
     {
@@ -94,7 +94,7 @@ class Company
     }
 
     /**
-     * @param string $nombreComercial
+     * @param string|null $nombreComercial
      *
      * @return Company
      */
@@ -106,7 +106,7 @@ class Company
     }
 
     /**
-     * @return Address
+     * @return Address|null
      */
     public function getAddress(): ?Address
     {
@@ -114,7 +114,7 @@ class Company
     }
 
     /**
-     * @param Address $address
+     * @param Address|null $address
      *
      * @return Company
      */
@@ -126,7 +126,7 @@ class Company
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getEmail(): ?string
     {
@@ -134,7 +134,7 @@ class Company
     }
 
     /**
-     * @param string $email
+     * @param string|null $email
      *
      * @return Company
      */
@@ -146,7 +146,7 @@ class Company
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getTelephone(): ?string
     {
@@ -154,7 +154,7 @@ class Company
     }
 
     /**
-     * @param string $telephone
+     * @param string|null $telephone
      *
      * @return Company
      */

@@ -1,6 +1,8 @@
 # ![Greenter](https://cdn.giansalex.dev/images/github/greenter-ico.png) Greenter
 ![CI](https://github.com/thegreenter/greenter/workflows/CI/badge.svg)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ab05a05260fe452c9bfae8bf20e94d5d)](https://www.codacy.com/gh/thegreenter/greenter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=thegreenter/greenter&amp;utm_campaign=Badge_Grade)
+[![Type Cover](https://shepherd.dev/github/thegreenter/greenter/coverage.svg)](https://shepherd.dev/github/thegreenter/greenter)
+[![codecov](https://codecov.io/gh/thegreenter/greenter/branch/master/graph/badge.svg)](https://codecov.io/gh/thegreenter/greenter)
 [![Project Stats](https://www.openhub.net/p/greenter/widgets/project_thin_badge.gif)](https://www.openhub.net/p/greenter)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter?ref=badge_shield)
     

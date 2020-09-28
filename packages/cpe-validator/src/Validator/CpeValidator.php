@@ -62,6 +62,13 @@ class CpeValidator implements ValidatorInterface
 
         $xslResolver = new XslPathResolver($this->xslBasePath);
         $xslPath = $xslResolver->getPath($type);
+        if ($xslPath === null) {
+            return [
+                (new CpeError())
+                    ->setCode('0305')
+                    ->setLevel(ErrorLevel::EXCEPTION)
+            ];
+        }
 
         $xslValidator = new XslValidator(new ErrorResultParser());
 
