@@ -14,7 +14,7 @@ namespace Greenter\Xml\Filter;
  */
 class TributoFunction
 {
-    private static $codigoTributos = [
+    private static $tributos = [
         '1000' => ['VAT', 'IGV'],
         '1016' => ['VAT', 'IVAP'],
         '2000' => ['EXC', 'ISC'],
@@ -27,8 +27,8 @@ class TributoFunction
 
     public static function getByTributo(?string $code)
     {
-        if (isset(self::$codigoTributos[$code])) {
-            $values = self::$codigoTributos[$code];
+        if (isset(self::$tributos[$code])) {
+            $values = self::$tributos[$code];
             return [
               'id' => $code,
               'code' => $values[0],
