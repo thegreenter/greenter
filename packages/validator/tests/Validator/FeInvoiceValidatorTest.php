@@ -37,6 +37,7 @@ class FeInvoiceValidatorTest extends TestCase
         $validator = $this->getValidator();
         $errors = $validator->validate($invoice);
 
+        $this->assertNotNull($validator->getValidator());
         $this->assertEquals(0, $errors->count());
     }
 
