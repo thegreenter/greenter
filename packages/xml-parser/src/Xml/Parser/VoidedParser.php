@@ -42,10 +42,10 @@ class VoidedParser implements DocumentParserInterface
      */
     public function parse($value): ?DocumentInterface
     {
-        $this->load($value);
+        $this->reader = $this->load($value);
         $xml = $this->reader;
+        $root = $this->rootNode = $xml->getXpath()->document->documentElement;
 
-        $root = $this->rootNode;
         $id = explode('-', $xml->getValue('cbc:ID', $root));
 
         $voided = $id[0] == 'RA' ? new Voided() : new Reversion();
@@ -58,17 +58,21 @@ class VoidedParser implements DocumentParserInterface
         return $voided;
     }
 
-    private function load($value)
+    /**
+     * @param mixed $value
+     * @return XmlReader
+     */
+    private function load($value): XmlReader
     {
-        $this->reader = new XmlReader();
+        $reader = new XmlReader();
 
         if ($value instanceof DOMDocument) {
             $this->reader->loadDom($value);
-        } else {
-            $this->reader->loadXml($value);
+            return $reader;
         }
 
-        $this->rootNode = $this->reader->getXpath()->document->documentElement;
+        $this->reader->loadXml($value);
+        return $reader;
     }
 
     private function getCompany()
