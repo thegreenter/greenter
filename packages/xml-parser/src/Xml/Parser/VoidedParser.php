@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace Greenter\Xml\Parser;
 
 use DateTime;
-use DOMDocument;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Voided\Reversion;
@@ -26,6 +25,8 @@ use Greenter\Xml\XmlReader;
  */
 class VoidedParser implements DocumentParserInterface
 {
+    use XmlLoaderTrait;
+
     /**
      * @var XmlReader
      */
@@ -56,23 +57,6 @@ class VoidedParser implements DocumentParserInterface
             ->setDetails(iterator_to_array($this->getDetails()));
 
         return $voided;
-    }
-
-    /**
-     * @param mixed $value
-     * @return XmlReader
-     */
-    private function load($value): XmlReader
-    {
-        $reader = new XmlReader();
-
-        if ($value instanceof DOMDocument) {
-            $this->reader->loadDom($value);
-            return $reader;
-        }
-
-        $this->reader->loadXml($value);
-        return $reader;
     }
 
     private function getCompany()

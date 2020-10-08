@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace Greenter\Xml\Parser;
 
 use DateTime;
-use DOMDocument;
+use DOMElement;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -26,13 +26,15 @@ use Greenter\Xml\XmlReader;
  */
 class ReceiptParser implements DocumentParserInterface
 {
+    use XmlLoaderTrait;
+
     /**
      * @var XmlReader
      */
     private $reader;
 
     /**
-     * @var \DOMElement
+     * @var DOMElement
      */
     private $rootNode;
 
@@ -44,17 +46,10 @@ class ReceiptParser implements DocumentParserInterface
      */
     public function parse($value): ?DocumentInterface
     {
-        $this->reader = new XmlReader();
+        $this->reader = $this->load($value);
         $xml = $this->reader;
+        $root = $this->rootNode = $xml->getXpath()->document->documentElement;
 
-        if ($value instanceof DOMDocument) {
-            $this->reader->loadDom($value);
-        } else {
-            $this->reader->loadXml($value);
-        }
-
-        $root = $xml->getXpath()->document->documentElement;
-        $this->rootNode = $root;
         $receipt = new Receipt();
         $docFac = explode('-', $xml->getValue('cbc:ID', $root));
         $receipt->setSerie($docFac[0])
@@ -102,9 +97,9 @@ class ReceiptParser implements DocumentParserInterface
     }
 
     /**
-     * @param \DOMElement|null $node
+     * @param DOMElement|null $node
      */
-    private function getAddress(?\DOMElement $node)
+    private function getAddress(?DOMElement $node)
     {
         $xml = $this->reader;
         $address = new Address();

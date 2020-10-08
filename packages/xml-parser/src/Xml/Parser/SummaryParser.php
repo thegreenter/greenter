@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace Greenter\Xml\Parser;
 
 use DateTime;
-use DOMDocument;
+use DOMElement;
 use DOMNode;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
@@ -28,13 +28,15 @@ use Greenter\Xml\XmlReader;
  */
 class SummaryParser implements DocumentParserInterface
 {
+    use XmlLoaderTrait;
+
     /**
      * @var XmlReader
      */
     private $reader;
 
     /**
-     * @var \DOMElement
+     * @var DOMElement
      */
     private $rootNode;
 
@@ -58,23 +60,6 @@ class SummaryParser implements DocumentParserInterface
             ->setDetails(iterator_to_array($this->getDetails()));
 
         return $summary;
-    }
-
-    /**
-     * @param mixed $value
-     * @return XmlReader
-     */
-    private function load($value): XmlReader
-    {
-        $reader = new XmlReader();
-
-        if ($value instanceof DOMDocument) {
-            $this->reader->loadDom($value);
-            return $reader;
-        }
-
-        $this->reader->loadXml($value);
-        return $reader;
     }
 
     private function getCompany()

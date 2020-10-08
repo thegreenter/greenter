@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace Greenter\Xml\Parser;
 
 use DateTime;
-use DOMDocument;
 use DOMElement;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
@@ -31,6 +30,8 @@ use Greenter\Xml\XmlReader;
  */
 class DespatchParser implements DocumentParserInterface
 {
+    use XmlLoaderTrait;
+
     /**
      * @var XmlReader
      */
@@ -47,11 +48,9 @@ class DespatchParser implements DocumentParserInterface
      */
     public function parse($value): ?DocumentInterface
     {
-        $this->reader = $this->createXmlReader($value);
+        $this->reader = $this->load($value);
         $xml = $this->reader;
-
-        $root = $xml->getXpath()->document->documentElement;
-        $this->rootNode = $root;
+        $root = $this->rootNode = $xml->getXpath()->document->documentElement;
 
         $guia = new Despatch();
         $docGuia = explode('-', $xml->getValue('cbc:ID', $root));
@@ -69,24 +68,6 @@ class DespatchParser implements DocumentParserInterface
         $this->loadRelDocs($guia);
 
         return $guia;
-    }
-
-    /**
-     * @param mixed $value
-     * @return XmlReader
-     */
-    private function createXmlReader($value): XmlReader
-    {
-        $reader = new XmlReader();
-
-        if ($value instanceof DOMDocument) {
-            $reader->loadDom($value);
-
-            return $reader;
-        }
-        $this->reader->loadXml($value);
-
-        return $reader;
     }
 
     private function getClient(string $nodeName)
