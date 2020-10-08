@@ -97,6 +97,7 @@ class InvoiceFullStore implements DocumentGeneratorInterface
             ->setCorrelativo('123')
             ->setFechaEmision(new \DateTime())
             ->setTipoMoneda('PEN')
+            ->setObservacion('FACTURA DE PRUEBA')
             ->setClient($this->shared->getClient())
             ->setMtoOperGravadas(200)
             ->setMtoOperExoneradas(0)
