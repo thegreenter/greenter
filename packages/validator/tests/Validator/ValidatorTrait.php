@@ -62,6 +62,8 @@ trait ValidatorTrait
         $stub->method('getValue')
             ->willReturnCallback(function ($code) {
                 switch ($code) {
+                    case '1003':
+                        return 'InvoiceTypeCode - El valor del tipo de documento es invalido o no coincide con el nombre del archivo';
                     case 'This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.':
                         return 'Este valor es demasiado largo.';
                     default:

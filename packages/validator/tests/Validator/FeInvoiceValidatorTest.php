@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Validator;
 
+use DateTime;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Despatch\Direction;
 use Greenter\Model\Sale\Detraction;
@@ -42,7 +43,7 @@ class FeInvoiceValidatorTest extends TestCase
     public function testNotValidDate()
     {
         $invoice = $this->getInvoice();
-        $invoice->setFechaEmision(new \DateTime('-8 days'));
+        $invoice->setFechaEmision(new DateTime('-8 days'));
         /**@var $validator SymfonyValidator */
         $validator = $this->getValidator();
         $factory  = $validator->getMetadatFactory();
@@ -58,13 +59,14 @@ class FeInvoiceValidatorTest extends TestCase
     public function testNotValidInvoice()
     {
         $invoice = $this->getInvoice();
-        $invoice->setTipoDoc('123')
-            ->setSerie('FF00');
+        $invoice
+            ->setTipoDoc('123')
+            ->setCorrelativo('123456789');
 
         $validator = $this->getValidator();
         $errors = $validator->validate($invoice);
 
-        $this->assertEquals(1, $errors->count());
+        $this->assertEquals(2, $errors->count());
     }
 
     private function getInvoice()
@@ -76,7 +78,7 @@ class FeInvoiceValidatorTest extends TestCase
             ->setMtoDescuentos(23)
             ->setSumOtrosDescuentos(23)
             ->setTipoOperacion('2')
-            ->setFecVencimiento(new \DateTime())
+            ->setFecVencimiento(new DateTime())
             ->setPerception(
                 (new SalePerception())
                 ->setCodReg('01')
@@ -124,7 +126,7 @@ class FeInvoiceValidatorTest extends TestCase
             ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
-            ->setFechaEmision(new \DateTime())
+            ->setFechaEmision(new DateTime())
             ->setTipoMoneda('PEN')
             ->setClient(
                 (new Client())
