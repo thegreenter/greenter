@@ -38,7 +38,7 @@ class TwigBuilder
      */
     public function __construct(array $options = [])
     {
-        $this->initTwig($options);
+        $this->twig = $this->createTwig($options);
     }
 
     /**
@@ -56,15 +56,15 @@ class TwigBuilder
         ]);
     }
 
-    private function initTwig(array $options)
+    private function createTwig(array $options)
     {
         $loader = new FilesystemLoader(__DIR__.'/../Templates');
 
-        $twig = new Environment($loader, $options);
-        $this->loadFilterAndFunctions($twig);
-        $this->configureTimezone($twig);
+        $twigEnv = new Environment($loader, $options);
+        $this->loadFilterAndFunctions($twigEnv);
+        $this->configureTimezone($twigEnv);
 
-        $this->twig = $twig;
+        return $twigEnv;
     }
 
     private function configureTimezone(Environment $twig)
