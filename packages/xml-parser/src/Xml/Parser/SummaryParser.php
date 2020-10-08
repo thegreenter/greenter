@@ -116,6 +116,8 @@ class SummaryParser implements DocumentParserInterface
                     ->setMto((float)$xml->getValue('sac:TotalInvoiceAmount', $ref, '0'))
                     ->setMtoTotal((float)$xml->getValue('sac:SUNATTotalCashed', $ref, '0'))
                     ->setMtoBase((float)$xml->getValue('sac:TaxableAmount', $ref, '0'));
+
+                $det->setPercepcion($perc);
             }
 
             $totals = $xml->getNodes('sac:BillingPayment', $node);
