@@ -12,7 +12,6 @@ namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Greenter\Validator\Constraint as MyAssert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class NoteLoader implements LoaderMetadataInterface
@@ -39,7 +38,6 @@ class NoteLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('tipoMoneda', [
             new Assert\NotBlank(),
-            new MyAssert\Currency(),
         ]);
         $metadata->addPropertyConstraints('mtoOperGravadas', [
             new Assert\NotNull(),

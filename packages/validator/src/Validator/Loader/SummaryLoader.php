@@ -12,7 +12,6 @@ namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Greenter\Validator\Constraint as MyAssert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class SummaryLoader implements LoaderMetadataInterface
@@ -39,7 +38,6 @@ class SummaryLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('moneda', [
             new Assert\NotBlank(),
-            new MyAssert\Currency(),
         ]);
     }
 }
