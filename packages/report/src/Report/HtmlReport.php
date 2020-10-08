@@ -95,13 +95,13 @@ class HtmlReport implements ReportInterface
         $dirs = $this->getDirectories($directory);
 
         $loader = new FilesystemLoader($dirs);
-        $twig = new Environment($loader, $options);
+        $twigEnv = new Environment($loader, $options);
 
-        $twig->addRuntimeLoader(new RuntimeLoader());
-        $twig->addExtension(new ReportTwigExtension());
-        $this->configureTimezone($twig);
+        $twigEnv->addRuntimeLoader(new RuntimeLoader());
+        $twigEnv->addExtension(new ReportTwigExtension());
+        $this->configureTimezone($twigEnv);
 
-        return $twig;
+        return $twigEnv;
     }
 
     private function configureTimezone(Environment $twig)
