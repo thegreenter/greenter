@@ -45,9 +45,9 @@ class SummaryParser implements DocumentParserInterface
      */
     public function parse($value): ?DocumentInterface
     {
-        $this->load($value);
+        $this->reader = $this->load($value);
         $xml = $this->reader;
-        $root = $this->rootNode;
+        $root = $this->rootNode = $xml->getXpath()->document->documentElement;
 
         $id = explode('-', $xml->getValue('cbc:ID', $root));
         $summary = new Summary();
@@ -60,17 +60,21 @@ class SummaryParser implements DocumentParserInterface
         return $summary;
     }
 
-    private function load($value)
+    /**
+     * @param mixed $value
+     * @return XmlReader
+     */
+    private function load($value): XmlReader
     {
-        $this->reader = new XmlReader();
+        $reader = new XmlReader();
 
         if ($value instanceof DOMDocument) {
             $this->reader->loadDom($value);
-        } else {
-            $this->reader->loadXml($value);
+            return $reader;
         }
 
-        $this->rootNode = $this->reader->getXpath()->document->documentElement;
+        $this->reader->loadXml($value);
+        return $reader;
     }
 
     private function getCompany()
