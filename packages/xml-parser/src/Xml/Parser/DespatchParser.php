@@ -47,14 +47,8 @@ class DespatchParser implements DocumentParserInterface
      */
     public function parse($value): ?DocumentInterface
     {
-        $this->reader = new XmlReader();
+        $this->reader = $this->createXmlReader($value);
         $xml = $this->reader;
-
-        if ($value instanceof DOMDocument) {
-            $this->reader->loadDom($value);
-        } else {
-            $this->reader->loadXml($value);
-        }
 
         $root = $xml->getXpath()->document->documentElement;
         $this->rootNode = $root;
@@ -75,6 +69,24 @@ class DespatchParser implements DocumentParserInterface
         $this->loadRelDocs($guia);
 
         return $guia;
+    }
+
+    /**
+     * @param mixed $value
+     * @return XmlReader
+     */
+    private function createXmlReader($value): XmlReader
+    {
+        $reader = new XmlReader();
+
+        if ($value instanceof DOMDocument) {
+            $reader->loadDom($value);
+
+            return $reader;
+        }
+        $this->reader->loadXml($value);
+
+        return $reader;
     }
 
     private function getClient(string $nodeName)
