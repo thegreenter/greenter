@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Validator;
 
+use DateTime;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Perception\PerceptionDetail;
@@ -27,7 +28,7 @@ class CePerceptionValidatorTest extends TestCase
         $validator = $this->getValidator();
         $errors = $validator->validate($perception);
 
-        $this->assertEquals(0,$errors->count());
+        $this->assertEquals(0, $errors->count());
     }
 
     /**
@@ -45,7 +46,7 @@ class CePerceptionValidatorTest extends TestCase
         $perception
             ->setSerie('P001')
             ->setCorrelativo('123')
-            ->setFechaEmision(new \DateTime())
+            ->setFechaEmision(new DateTime())
             ->setObservacion('NOTA PRUEBA />')
             ->setCompany($this->getCompany())
             ->setProveedor($client)
@@ -57,8 +58,8 @@ class CePerceptionValidatorTest extends TestCase
         $perception->setDetails([(new PerceptionDetail())
             ->setTipoDoc('01')
             ->setNumDoc('F001-1')
-            ->setFechaEmision(new \DateTime())
-            ->setFechaPercepcion(new \DateTime())
+            ->setFechaEmision(new DateTime())
+            ->setFechaPercepcion(new DateTime())
             ->setMoneda('PEN')
             ->setImpTotal(200)
             ->setImpCobrar(200)
@@ -76,11 +77,11 @@ class CePerceptionValidatorTest extends TestCase
     {
         $pay = new Payment();
         $pay->setMoneda('PEN')
-            ->setFecha(new \DateTime())
+            ->setFecha(new DateTime())
             ->setImporte(100);
 
         $cambio = new Exchange();
-        $cambio->setFecha(new \DateTime())
+        $cambio->setFecha(new DateTime())
             ->setFactor(1)
             ->setMonedaObj('PEN')
             ->setMonedaRef('PEN');
