@@ -92,6 +92,20 @@ class InvoiceFullStore implements DocumentGeneratorInterface
                 ->setTipoDoc('09')
                 ->setNroDoc('T001-1')
             ])
+            ->setCargos([
+                (new Charge())
+                ->setCodTipo('04') // catalog. 53
+                ->setFactor(1)
+                ->setMonto(100) // anticipo
+                ->setMontoBase(100)
+            ])
+            ->setDescuentos([
+                (new Charge())
+                    ->setCodTipo('00') // Catalog. 53
+                    ->setMontoBase(200)
+                    ->setFactor(0.10)
+                    ->setMonto(20)
+            ])
             ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
