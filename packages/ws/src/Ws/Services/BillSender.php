@@ -48,7 +48,7 @@ class BillSender extends BaseSunat implements SenderInterface
             }
 
             $result
-                ->setCdrResponse($this->extractResponse($cdrZip))
+                ->setCdrResponse($this->extractResponse((string)$cdrZip))
                 ->setCdrZip($cdrZip)
                 ->setSuccess(true);
         } catch (SoapFault $e) {

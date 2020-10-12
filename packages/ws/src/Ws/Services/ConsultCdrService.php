@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Greenter\Ws\Services;
 
 use Greenter\Model\Response\StatusCdrResult;
+use SoapFault;
 
 /**
  * Class ConsultCdrService.
@@ -62,7 +63,7 @@ class ConsultCdrService extends BaseSunat
             $statusCdr = $response->{$resultName};
             $this->loadFromResponse($result, $statusCdr);
 
-        } catch (\SoapFault $e) {
+        } catch (SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
         }
 
@@ -78,7 +79,7 @@ class ConsultCdrService extends BaseSunat
 
         if (isset($statusCdr->content)) {
             $result->setCdrZip($statusCdr->content)
-                ->setCdrResponse($this->extractResponse($statusCdr->content));
+                ->setCdrResponse($this->extractResponse((string)$statusCdr->content));
             $code = $result->getCdrResponse()->getCode();
         }
 

@@ -126,12 +126,12 @@ class BaseSunat
     }
 
     /**
-     * @param string $filename
-     * @param string $xml
+     * @param string|null $filename
+     * @param string|null $xml
      *
      * @return null|string
      */
-    protected function compress($filename, $xml): ?string
+    protected function compress(?string $filename, ?string $xml): ?string
     {
         if (!$this->compressor) {
             $this->compressor = new ZipFly();
@@ -141,11 +141,11 @@ class BaseSunat
     }
 
     /**
-     * @param string $zipContent
+     * @param string|null $zipContent
      *
      * @return CdrResponse|null
      */
-    protected function extractResponse($zipContent): ?CdrResponse
+    protected function extractResponse(?string $zipContent): ?CdrResponse
     {
         if (!$this->cdrReader) {
             $this->cdrReader = new DomCdrReader(new XmlReader());
@@ -200,7 +200,7 @@ class BaseSunat
             $this->decompressor = new ZipDecompressDecorator(new ZipFly());
         }
 
-        $filter = function ($filename) {
+        $filter = function (?string $filename) {
             return 'xml' === strtolower($this->getFileExtension($filename));
         };
         $files = $this->decompressor->decompress($content, $filter);
@@ -208,7 +208,7 @@ class BaseSunat
         return 0 === count($files) ? '' : $files[0]['content'];
     }
 
-    private function getFileExtension($filename)
+    private function getFileExtension(?string $filename)
     {
         $lastDotPos = strrpos($filename, '.');
         if (!$lastDotPos) {
