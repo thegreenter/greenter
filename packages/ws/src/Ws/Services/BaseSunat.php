@@ -92,7 +92,7 @@ class BaseSunat
      */
     protected function getErrorFromFault(SoapFault $fault)
     {
-        $error = $this->getErrorByCode($fault->faultcode, $fault->faultstring);
+        $error = $this->getErrorByCode((string)$fault->faultcode, $fault->faultstring);
 
         if (empty($error->getMessage())) {
             $error->setMessage($fault->faultstring.(isset($fault->detail) ? ' '.$fault->detail->message : ''));
@@ -102,12 +102,12 @@ class BaseSunat
     }
 
     /**
-     * @param string $code
-     * @param string $optional intenta obtener el codigo de este parametro sino $codigo no es válido
+     * @param string|null $code
+     * @param string|null $optional intenta obtener el codigo de este parametro sino $codigo no es válido
      *
      * @return Error
      */
-    protected function getErrorByCode($code, $optional = '')
+    protected function getErrorByCode(?string $code, ?string $optional = ''): Error
     {
         $error = new Error($code);
         $code = preg_replace(self::NUMBER_PATTERN, '', $code);
@@ -157,11 +157,11 @@ class BaseSunat
     }
 
     /**
-     * @param string $code
+     * @param string|null $code
      *
      * @return null|string
      */
-    protected function getMessageError($code): ?string
+    protected function getMessageError(?string $code): ?string
     {
         if ($this->codeProvider === null) {
             return '';
@@ -178,7 +178,8 @@ class BaseSunat
     }
 
     /**
-     * @param null|string $code
+     * @param BillResult $result
+     * @param string|null $code
      */
     protected function loadErrorByCode(BillResult $result, ?string $code): void
     {
