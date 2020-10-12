@@ -14,6 +14,7 @@ use DOMDocument;
 use Exception;
 use Greenter\Ws\Reader\DomCdrReader;
 use Greenter\Ws\Reader\XmlReader;
+use Greenter\Ws\Reader\XmlReaderException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -98,5 +99,14 @@ XML;
         $cdr = $this->reader->getCdrResponse($xml);
 
         $this->assertEmpty($cdr->getId());
+    }
+
+    public function testEmptyXml(): void
+    {
+        $this->expectException(XmlReaderException::class);
+
+        $cdr = $this->reader->getCdrResponse('');
+
+        $this->assertNull($cdr);
     }
 }
