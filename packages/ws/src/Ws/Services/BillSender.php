@@ -45,6 +45,8 @@ class BillSender extends BaseSunat implements SenderInterface
                     CustomErrorCodes::CDR_NOTFOUND_CODE,
                     CustomErrorCodes::CDR_NOTFOUND_BILL_MSG)
                 );
+
+                return $result;
             }
 
             $result
