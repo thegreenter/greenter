@@ -13,7 +13,6 @@ namespace Tests\Greenter\Ws\Services;
 use Exception;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
-use Greenter\Services\InvalidServiceResponseException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -161,9 +160,11 @@ class FeSunatTest extends TestCase
 
     public function testGetStatusInvalidCDRZip()
     {
-        $this->expectException(InvalidServiceResponseException::class);
         $wss = $this->getExtServiceMock();
-        $wss->getStatus('223123123214');
+        $result = $wss->getStatus('223123123214');
+
+        $this->assertFalse($result->isSuccess());
+        $this->assertEquals('CDR', $result->getError()->getCode());
     }
 
     public function testGetStatusWithExceptionCode()
