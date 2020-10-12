@@ -13,6 +13,7 @@ namespace Greenter\Ws\Services;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Response\BillResult;
 use Greenter\Services\SenderInterface;
+use SoapFault;
 
 /**
  * Class BillSender.
@@ -42,7 +43,7 @@ class BillSender extends BaseSunat implements SenderInterface
                 ->setCdrResponse($this->extractResponse($cdrZip))
                 ->setCdrZip($cdrZip)
                 ->setSuccess(true);
-        } catch (\SoapFault $e) {
+        } catch (SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
         }
 
