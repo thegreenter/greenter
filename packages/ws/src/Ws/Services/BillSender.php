@@ -12,6 +12,7 @@ namespace Greenter\Ws\Services;
 
 use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Response\BillResult;
+use Greenter\Model\Response\Error;
 use Greenter\Services\SenderInterface;
 use SoapFault;
 
@@ -39,6 +40,13 @@ class BillSender extends BaseSunat implements SenderInterface
             ];
             $response = $client->call('sendBill', ['parameters' => $params]);
             $cdrZip = $response->applicationResponse;
+            if (empty($cdrZip)) {
+                $result->setError(new Error(
+                    CustomErrorCodes::CDR_NOTFOUND_CODE,
+                    CustomErrorCodes::CDR_NOTFOUND_BILL_MSG)
+                );
+            }
+
             $result
                 ->setCdrResponse($this->extractResponse($cdrZip))
                 ->setCdrZip($cdrZip)
