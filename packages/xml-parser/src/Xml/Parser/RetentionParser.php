@@ -11,8 +11,8 @@ declare(strict_types=1);
 namespace Greenter\Xml\Parser;
 
 use DateTime;
-use DOMDocument;
 use DOMElement;
+use DOMNode;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -26,6 +26,8 @@ use Greenter\Xml\XmlReader;
 
 class RetentionParser implements DocumentParserInterface
 {
+    use XmlLoaderTrait;
+
     /**
      * @var XmlReader
      */
@@ -42,9 +44,9 @@ class RetentionParser implements DocumentParserInterface
      */
     public function parse($value): ?DocumentInterface
     {
-        $this->load($value);
+        $this->reader = $this->load($value);
         $xml = $this->reader;
-        $root = $this->rootNode;
+        $root = $this->rootNode = $xml->getXpath()->document->documentElement;
 
         $idNum = explode('-', $xml->getValue('cbc:ID'));
         $retention = new Retention();
@@ -61,19 +63,6 @@ class RetentionParser implements DocumentParserInterface
             ->setDetails(iterator_to_array($this->getDetails()));
 
         return $retention;
-    }
-
-    private function load($value)
-    {
-        $this->reader = new XmlReader();
-
-        if ($value instanceof DOMDocument) {
-            $this->reader->loadDom($value);
-        } else {
-            $this->reader->loadXml($value);
-        }
-
-        $this->rootNode = $this->reader->getXpath()->document->documentElement;
     }
 
     private function getCompany()
@@ -171,7 +160,7 @@ class RetentionParser implements DocumentParserInterface
         }
     }
 
-    private function getPayments(\DOMNode $node)
+    private function getPayments(DOMNode $node)
     {
         $xml = $this->reader;
 

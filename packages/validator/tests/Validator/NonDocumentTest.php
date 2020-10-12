@@ -25,9 +25,12 @@ class NonDocumentTest extends TestCase
     public function testClientValidator()
     {
         $client = $this->getClient();
-        $errors = $this->getValidator()->validate($client);
+        $validator = $this->getValidator();
 
-        $this->assertEquals(0, count($errors));
+        $errors = $validator->validate($client);
+
+        $this->assertTrue($validator->hasMetadataFor($client));
+        $this->assertCount(0, $errors);
     }
 
     public function testClientInvalidValidator()

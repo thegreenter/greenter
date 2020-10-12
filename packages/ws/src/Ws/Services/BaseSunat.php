@@ -92,7 +92,7 @@ class BaseSunat
      */
     protected function getErrorFromFault(SoapFault $fault)
     {
-        $error = $this->getErrorByCode($fault->faultcode, $fault->faultstring);
+        $error = $this->getErrorByCode((string)$fault->faultcode, $fault->faultstring);
 
         if (empty($error->getMessage())) {
             $error->setMessage($fault->faultstring.(isset($fault->detail) ? ' '.$fault->detail->message : ''));
@@ -102,12 +102,12 @@ class BaseSunat
     }
 
     /**
-     * @param string $code
-     * @param string $optional intenta obtener el codigo de este parametro sino $codigo no es válido
+     * @param string|null $code
+     * @param string|null $optional intenta obtener el codigo de este parametro sino $codigo no es válido
      *
      * @return Error
      */
-    protected function getErrorByCode($code, $optional = '')
+    protected function getErrorByCode(?string $code, ?string $optional = ''): Error
     {
         $error = new Error($code);
         $code = preg_replace(self::NUMBER_PATTERN, '', $code);
@@ -126,12 +126,12 @@ class BaseSunat
     }
 
     /**
-     * @param string $filename
-     * @param string $xml
+     * @param string|null $filename
+     * @param string|null $xml
      *
      * @return null|string
      */
-    protected function compress($filename, $xml): ?string
+    protected function compress(?string $filename, ?string $xml): ?string
     {
         if (!$this->compressor) {
             $this->compressor = new ZipFly();
@@ -141,11 +141,11 @@ class BaseSunat
     }
 
     /**
-     * @param string $zipContent
+     * @param string|null $zipContent
      *
      * @return CdrResponse|null
      */
-    protected function extractResponse($zipContent): ?CdrResponse
+    protected function extractResponse(?string $zipContent): ?CdrResponse
     {
         if (!$this->cdrReader) {
             $this->cdrReader = new DomCdrReader(new XmlReader());
@@ -157,11 +157,11 @@ class BaseSunat
     }
 
     /**
-     * @param string $code
+     * @param string|null $code
      *
      * @return null|string
      */
-    protected function getMessageError($code): ?string
+    protected function getMessageError(?string $code): ?string
     {
         if ($this->codeProvider === null) {
             return '';
@@ -170,15 +170,14 @@ class BaseSunat
         return $this->codeProvider->getValue($code);
     }
 
-    protected function isExceptionCode($code): bool
+    protected function isExceptionCode(int $code): bool
     {
-        $value = (int)$code;
-
-        return $value >= 100 && $value <= 1999;
+        return $code >= 100 && $code <= 1999;
     }
 
     /**
-     * @param null|string $code
+     * @param BillResult $result
+     * @param string|null $code
      */
     protected function loadErrorByCode(BillResult $result, ?string $code): void
     {
@@ -199,7 +198,7 @@ class BaseSunat
             $this->decompressor = new ZipDecompressDecorator(new ZipFly());
         }
 
-        $filter = function ($filename) {
+        $filter = function (?string $filename) {
             return 'xml' === strtolower($this->getFileExtension($filename));
         };
         $files = $this->decompressor->decompress($content, $filter);
@@ -207,7 +206,7 @@ class BaseSunat
         return 0 === count($files) ? '' : $files[0]['content'];
     }
 
-    private function getFileExtension($filename)
+    private function getFileExtension(?string $filename)
     {
         $lastDotPos = strrpos($filename, '.');
         if (!$lastDotPos) {

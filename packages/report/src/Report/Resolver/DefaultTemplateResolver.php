@@ -53,7 +53,7 @@ class DefaultTemplateResolver implements TemplateResolverInterface
                 $name = 'voided';
                 break;
             default:
-                throw new Exception('Not found template for '.$className);
+                throw new InvalidDocumentException('Not found template for '.$className);
         }
 
         return $name.'.html.twig';

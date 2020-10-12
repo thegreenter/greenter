@@ -4,6 +4,7 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
 ## Unreleased
 - Los parámetros para métodos `ConsultCdrService::getStatus` y `ConsultCdrService::getStatusCdr` ahora son de tipado estricto. 
+- Se incluyó un error personalizado cuando el CDR no es encontrado en la respuesta de SUNAT. 
 
 ## v4.1.0 - 2020-09-20
 - Uso de compresión y decompresión en memoria #145

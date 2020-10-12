@@ -34,7 +34,7 @@ class GeneratorFactory
 
     private function getShared(): SharedStore
     {
-        if (empty($this->shared)) {
+        if ($this->shared === null) {
             $this->shared = new SharedStore();
         }
 

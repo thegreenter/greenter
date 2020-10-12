@@ -13,6 +13,7 @@ namespace Greenter\Ws\Services;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\Services\SenderInterface;
+use SoapFault;
 
 /**
  * Class SummarySender.
@@ -40,7 +41,7 @@ class SummarySender extends BaseSunat implements SenderInterface
             $result
                 ->setTicket($response->ticket)
                 ->setSuccess(true);
-        } catch (\SoapFault $e) {
+        } catch (SoapFault $e) {
             $result->setError($this->getErrorFromFault($e));
         }
 

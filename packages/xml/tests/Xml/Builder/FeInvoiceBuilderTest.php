@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Data\Generator\BoletaStore;
 use Greenter\Data\Generator\InvoiceFullStore;
 use Greenter\Data\Generator\InvoiceStore;
 use Greenter\Model\Sale\Invoice;
@@ -41,6 +42,16 @@ class FeInvoiceBuilderTest extends TestCase
         $filename = $invoice->getName();
 
         $this->assertEquals($this->getFilename($invoice), $filename);
+    }
+
+    public function testCreateXmlBoleta()
+    {
+        $invoice = $this->createDocument(BoletaStore::class);
+
+        $xml = $this->build($invoice);
+
+        $this->assertNotEmpty($xml);
+        $this->assertSchema($xml);
     }
 
     private function getFileName(Invoice $invoice)

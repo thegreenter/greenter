@@ -11,7 +11,6 @@ declare(strict_types=1);
 namespace Greenter\Xml\Parser;
 
 use DateTime;
-use DOMDocument;
 use DOMElement;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Company;
@@ -31,6 +30,8 @@ use Greenter\Xml\XmlReader;
  */
 class DespatchParser implements DocumentParserInterface
 {
+    use XmlLoaderTrait;
+
     /**
      * @var XmlReader
      */
@@ -47,17 +48,9 @@ class DespatchParser implements DocumentParserInterface
      */
     public function parse($value): ?DocumentInterface
     {
-        $this->reader = new XmlReader();
+        $this->reader = $this->load($value);
         $xml = $this->reader;
-
-        if ($value instanceof DOMDocument) {
-            $this->reader->loadDom($value);
-        } else {
-            $this->reader->loadXml($value);
-        }
-
-        $root = $xml->getXpath()->document->documentElement;
-        $this->rootNode = $root;
+        $root = $this->rootNode = $xml->getXpath()->document->documentElement;
 
         $guia = new Despatch();
         $docGuia = explode('-', $xml->getValue('cbc:ID', $root));

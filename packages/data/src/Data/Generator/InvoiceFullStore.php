@@ -10,12 +10,14 @@ declare(strict_types=1);
 
 namespace Greenter\Data\Generator;
 
+use DateTime;
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Despatch\Direction;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Charge;
+use Greenter\Model\Sale\DetailAttribute;
 use Greenter\Model\Sale\Detraction;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\EmbededDespatch;
@@ -41,7 +43,7 @@ class InvoiceFullStore implements DocumentGeneratorInterface
     {
         $invoice = new Invoice();
         $invoice
-            ->setFecVencimiento(new \DateTime())
+            ->setFecVencimiento(new DateTime())
             ->setMtoOperGratuitas(12)
             ->setSumDsctoGlobal(12)
             ->setMtoDescuentos(23)
@@ -92,16 +94,35 @@ class InvoiceFullStore implements DocumentGeneratorInterface
                 ->setTipoDoc('09')
                 ->setNroDoc('T001-1')
             ])
+            ->setCargos([
+                (new Charge())
+                ->setCodTipo('04') // catalog. 53
+                ->setFactor(1)
+                ->setMonto(100) // anticipo
+                ->setMontoBase(100)
+            ])
+            ->setDescuentos([
+                (new Charge())
+                    ->setCodTipo('00') // Catalog. 53
+                    ->setMontoBase(200)
+                    ->setFactor(0.10)
+                    ->setMonto(20)
+            ])
             ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
-            ->setFechaEmision(new \DateTime())
+            ->setFechaEmision(new DateTime())
             ->setTipoMoneda('PEN')
+            ->setObservacion('FACTURA DE PRUEBA')
             ->setClient($this->shared->getClient())
             ->setMtoOperGravadas(200)
             ->setMtoOperExoneradas(0)
             ->setMtoOperInafectas(0)
+            ->setMtoOperExportacion(0)
+            ->setMtoBaseIsc(24)
+            ->setMtoBaseOth(16)
             ->setMtoIGV(36)
+            ->setMtoIGVGratuitas(0)
             ->setMtoISC(2)
             ->setSumOtrosCargos(12)
             ->setMtoOtrosTributos(1)
@@ -111,7 +132,8 @@ class InvoiceFullStore implements DocumentGeneratorInterface
             ->setRedondeo(0.02)
             ->setMtoImpVenta(236)
             ->setCompany($this->shared->getCompany())
-            ->setDetails([(new SaleDetail())
+            ->setDetails([
+                (new SaleDetail())
                 ->setCodProducto('C023')
                 ->setUnidad('NIU')
                 ->setCantidad(2)
@@ -128,7 +150,8 @@ class InvoiceFullStore implements DocumentGeneratorInterface
                 ->setMtoValorVenta(100)
                 ->setMtoValorUnitario(50.44556677881233)
                 ->setMtoPrecioUnitario(56.3215)
-                , (new SaleDetail())
+                ,
+                (new SaleDetail())
                     ->setCodProducto('C02')
                     ->setCodProdSunat('001')
                     ->setCodProdGS1('123456789')
@@ -136,6 +159,13 @@ class InvoiceFullStore implements DocumentGeneratorInterface
                     ->setCantidad(2)
                     ->setDescripcion('PROD 2')
                     ->setDescuento(1)
+                    ->setCargos([
+                        (new Charge())
+                            ->setCodTipo('01')
+                            ->setFactor(5.00)
+                            ->setMontoBase(100)
+                            ->setMonto(5)
+                    ])
                     ->setDescuentos([
                         (new Charge())
                             ->setCodTipo('00')
@@ -146,11 +176,31 @@ class InvoiceFullStore implements DocumentGeneratorInterface
                     ->setMtoBaseIgv(100)
                     ->setPorcentajeIgv(18)
                     ->setIgv(18)
-                    ->setTotalImpuestos(18)
+                    ->setMtoBaseOth(10)
+                    ->setPorcentajeOth(100)
+                    ->setOtroTributo(10)
+                    ->setTotalImpuestos(28)
                     ->setTipAfeIgv('10')
                     ->setMtoValorVenta(100)
                     ->setMtoValorGratuito(2.32)
                     ->setMtoValorUnitario(50.777777)
+                    ->setAtributos([
+                        (new DetailAttribute())
+                        ->setCode('5010')
+                        ->setName('Numero de Placa')
+                        ->setValue('ABI-453')
+                        ,
+                        (new DetailAttribute())
+                        ->setCode('4005')
+                        ->setName('Número de Días de Permanencia')
+                        ->setDuracion(5)
+                        ,
+                        (new DetailAttribute())
+                        ->setCode('7014')
+                        ->setName('Fecha de inicio/término de vigencia de cobertura')
+                        ->setFecInicio(new DateTime())
+                        ->setFecFin(new DateTime('+365 days'))
+                    ])
             ])->setLegends([
                 (new Legend())
                     ->setCode('1000')

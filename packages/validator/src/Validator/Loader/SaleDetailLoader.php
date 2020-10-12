@@ -12,17 +12,13 @@ namespace Greenter\Validator\Loader;
 
 use Greenter\Validator\Metadata\LoaderMetadataInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Greenter\Validator\Constraint as MyAssert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 class SaleDetailLoader implements LoaderMetadataInterface
 {
     public function load(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraints('unidad', [
-            new Assert\NotBlank(),
-            new MyAssert\CodeUnit(),
-        ]);
+        $metadata->addPropertyConstraint('unidad', new Assert\NotBlank());
         $metadata->addPropertyConstraints('descripcion', [
             new Assert\NotBlank(),
             new Assert\Length(['max' => 250]),

@@ -11,7 +11,8 @@ declare(strict_types=1);
 namespace Greenter\Xml\Parser;
 
 use DateTime;
-use DOMDocument;
+use DOMElement;
+use DOMNode;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -29,13 +30,15 @@ use Greenter\Xml\XmlReader;
  */
 class PerceptionParser implements DocumentParserInterface
 {
+    use XmlLoaderTrait;
+
     /**
      * @var XmlReader
      */
     private $reader;
 
     /**
-     * @var \DOMElement
+     * @var DOMElement
      */
     private $rootNode;
 
@@ -45,9 +48,9 @@ class PerceptionParser implements DocumentParserInterface
      */
     public function parse($value): ?DocumentInterface
     {
-        $this->load($value);
+        $this->reader = $this->load($value);
         $xml = $this->reader;
-        $root = $this->rootNode;
+        $root = $this->rootNode = $xml->getXpath()->document->documentElement;
 
         $idNum = explode('-', $xml->getValue('cbc:ID'));
         $perception = new Perception();
@@ -64,19 +67,6 @@ class PerceptionParser implements DocumentParserInterface
             ->setDetails(iterator_to_array($this->getDetails()));
 
         return $perception;
-    }
-
-    private function load($value)
-    {
-        $this->reader = new XmlReader();
-
-        if ($value instanceof DOMDocument) {
-            $this->reader->loadDom($value);
-        } else {
-            $this->reader->loadXml($value);
-        }
-
-        $this->rootNode = $this->reader->getXpath()->document->documentElement;
     }
 
     private function getCompany()
@@ -109,9 +99,9 @@ class PerceptionParser implements DocumentParserInterface
     }
 
     /**
-     * @param \DOMElement|null $node
+     * @param DOMElement|null $node
      */
-    private function getAddress(?\DOMElement $node)
+    private function getAddress(?DOMElement $node)
     {
         $xml = $this->reader;
 
@@ -174,7 +164,7 @@ class PerceptionParser implements DocumentParserInterface
         }
     }
 
-    private function getPayments(\DOMNode $node)
+    private function getPayments(DOMNode $node)
     {
         $xml = $this->reader;
 

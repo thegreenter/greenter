@@ -15,11 +15,12 @@ use Greenter\Model\Company\Company;
 use Greenter\Validator\DocumentValidatorInterface;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Validator\SymfonyValidator;
+use PHPUnit\Framework\MockObject\MockBuilder;
 
 /**
  * Trait ValidatorTrait
- * @package Tests\Greenter\Validator
- * @method \PHPUnit\Framework\MockObject\MockBuilder getMockBuilder(string $className)
+ *
+ * @method MockBuilder getMockBuilder(string $className)
  */
 trait ValidatorTrait
 {
@@ -59,7 +60,16 @@ trait ValidatorTrait
                 ->getMock();
 
         $stub->method('getValue')
-            ->willReturn('');
+            ->willReturnCallback(function ($code) {
+                switch ($code) {
+                    case '1003':
+                        return 'InvoiceTypeCode - El valor del tipo de documento es invalido o no coincide con el nombre del archivo';
+                    case 'This value is too long. It should have {{ limit }} character or less.|This value is too long. It should have {{ limit }} characters or less.':
+                        return 'Este valor es demasiado largo.';
+                    default:
+                        return '';
+                }
+            });
 
         /**@var $stub ErrorCodeProviderInterface*/
         return $stub;

@@ -58,9 +58,9 @@ class XmlTypeResolver implements TypeResolverInterface
                 return Summary::class;
             case 'VoidedDocuments':
                 return $this->getFromVoidedDoc($doc);
+            default:
+                return '';
         }
-
-        return '';
     }
 
     private function getFromVoidedDoc(DOMDocument $doc)

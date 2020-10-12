@@ -11,7 +11,8 @@ declare(strict_types=1);
 namespace Greenter\Xml\Parser;
 
 use DateTime;
-use DOMDocument;
+use DOMElement;
+use DOMNode;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Document;
@@ -27,13 +28,15 @@ use Greenter\Xml\XmlReader;
  */
 class SummaryParser implements DocumentParserInterface
 {
+    use XmlLoaderTrait;
+
     /**
      * @var XmlReader
      */
     private $reader;
 
     /**
-     * @var \DOMElement
+     * @var DOMElement
      */
     private $rootNode;
 
@@ -44,9 +47,9 @@ class SummaryParser implements DocumentParserInterface
      */
     public function parse($value): ?DocumentInterface
     {
-        $this->load($value);
+        $this->reader = $this->load($value);
         $xml = $this->reader;
-        $root = $this->rootNode;
+        $root = $this->rootNode = $xml->getXpath()->document->documentElement;
 
         $id = explode('-', $xml->getValue('cbc:ID', $root));
         $summary = new Summary();
@@ -57,19 +60,6 @@ class SummaryParser implements DocumentParserInterface
             ->setDetails(iterator_to_array($this->getDetails()));
 
         return $summary;
-    }
-
-    private function load($value)
-    {
-        $this->reader = new XmlReader();
-
-        if ($value instanceof DOMDocument) {
-            $this->reader->loadDom($value);
-        } else {
-            $this->reader->loadXml($value);
-        }
-
-        $this->rootNode = $this->reader->getXpath()->document->documentElement;
     }
 
     private function getCompany()
@@ -108,55 +98,75 @@ class SummaryParser implements DocumentParserInterface
                 $det->setDocReferencia($doc);
             }
 
-            $ref = $xml->getNode('sac:SUNATPerceptionSummaryDocumentReference', $node);
-            if ($ref) {
-                $perc = new SummaryPerception();
-                $perc->setCodReg(trim($xml->getValue('sac:SUNATPerceptionSystemCode', $ref)))
-                    ->setTasa((float)$xml->getValue('sac:SUNATPerceptionPercent', $ref, '0'))
-                    ->setMto((float)$xml->getValue('sac:TotalInvoiceAmount', $ref, '0'))
-                    ->setMtoTotal((float)$xml->getValue('sac:SUNATTotalCashed', $ref, '0'))
-                    ->setMtoBase((float)$xml->getValue('sac:TaxableAmount', $ref, '0'));
-            }
-
-            $totals = $xml->getNodes('sac:BillingPayment', $node);
-            foreach ($totals as $total) {
-                /**@var $total \DOMElement*/
-                $id = trim($xml->getValue('cbc:InstructionID', $total));
-                $val = (float)$xml->getValue('cbc:PaidAmount', $total, '0');
-                switch ($id) {
-                    case '01':
-                        $det->setMtoOperGravadas($val);
-                        break;
-                    case '02':
-                        $det->setMtoOperExoneradas($val);
-                        break;
-                    case '03':
-                        $det->setMtoOperInafectas($val);
-                        break;
-                    case '05':
-                        $det->setMtoOperGratuitas($val);
-                        break;
-                }
-            }
-            $taxs = $xml->getNodes('cac:TaxTotal', $node);
-            foreach ($taxs as $tax) {
-                $name = trim($xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax));
-                $val = (float)$xml->getValue('cbc:TaxAmount', $tax, '0');
-                switch ($name) {
-                    case 'IGV':
-                        $det->setMtoIGV($val);
-                        break;
-                    case 'ISC':
-                        $det->setMtoISC($val);
-                        break;
-                    case 'OTROS':
-                        $det->setMtoOtrosTributos($val);
-                        break;
-                }
-            }
-
+            $this->loadPerception($det, $node);
+            $this->loadTotals($det, $node);
+            $this->loadTaxs($det, $node);
 
             yield $det;
+        }
+    }
+
+    private function loadPerception(SummaryDetail $detail, ?DOMNode $node): void
+    {
+        $xml = $this->reader;
+        $ref = $xml->getNode('sac:SUNATPerceptionSummaryDocumentReference', $node);
+        if ($ref === null) {
+            return;
+        }
+
+        $perc = new SummaryPerception();
+        $perc->setCodReg(trim($xml->getValue('sac:SUNATPerceptionSystemCode', $ref)))
+            ->setTasa((float)$xml->getValue('sac:SUNATPerceptionPercent', $ref, '0'))
+            ->setMto((float)$xml->getValue('sac:TotalInvoiceAmount', $ref, '0'))
+            ->setMtoTotal((float)$xml->getValue('sac:SUNATTotalCashed', $ref, '0'))
+            ->setMtoBase((float)$xml->getValue('sac:TaxableAmount', $ref, '0'));
+
+        $detail->setPercepcion($perc);
+    }
+
+    private function loadTotals(SummaryDetail $detail, ?DOMNode $node): void
+    {
+        $xml = $this->reader;
+        $totals = $xml->getNodes('sac:BillingPayment', $node);
+        foreach ($totals as $total) {
+            /**@var $total \DOMElement*/
+            $id = trim($xml->getValue('cbc:InstructionID', $total));
+            $val = (float)$xml->getValue('cbc:PaidAmount', $total, '0');
+            switch ($id) {
+                case '01':
+                    $detail->setMtoOperGravadas($val);
+                    break;
+                case '02':
+                    $detail->setMtoOperExoneradas($val);
+                    break;
+                case '03':
+                    $detail->setMtoOperInafectas($val);
+                    break;
+                case '05':
+                    $detail->setMtoOperGratuitas($val);
+                    break;
+            }
+        }
+    }
+
+    private function loadTaxs(SummaryDetail $detail, ?DOMNode $node): void
+    {
+        $xml = $this->reader;
+        $taxs = $xml->getNodes('cac:TaxTotal', $node);
+        foreach ($taxs as $tax) {
+            $name = trim($xml->getValue('cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:Name', $tax));
+            $val = (float)$xml->getValue('cbc:TaxAmount', $tax, '0');
+            switch ($name) {
+                case 'IGV':
+                    $detail->setMtoIGV($val);
+                    break;
+                case 'ISC':
+                    $detail->setMtoISC($val);
+                    break;
+                case 'OTROS':
+                    $detail->setMtoOtrosTributos($val);
+                    break;
+            }
         }
     }
 }

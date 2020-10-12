@@ -83,7 +83,7 @@ class XmlFilenameExtractor implements FilenameExtractorInterface
             case '2.1':
                 return $this->reader->getValue('cac:AccountingSupplierParty/cac:Party/cac:PartyIdentification/cbc:ID');
             default:
-                throw new Exception("UBL version $ubl no soportada.");
+                throw new XmlReaderException("UBL version $ubl no soportada.");
         }
     }
 

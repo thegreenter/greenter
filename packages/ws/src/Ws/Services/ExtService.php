@@ -61,7 +61,6 @@ class ExtService extends BaseSunat
     /**
      * @param object $status
      * @return StatusResult
-     * @throws InvalidServiceResponseException
      */
     private function processResponse($status): StatusResult
     {
@@ -79,16 +78,21 @@ class ExtService extends BaseSunat
 
         if ($this->isProcessed($code)) {
             if (!isset($status->content) || empty($status->content)) {
-                throw new InvalidServiceResponseException('Invalid CDR response (zip not found).');
+                $result->setError(new Error(
+                    CustomErrorCodes::CDR_NOTFOUND_CODE,
+                    CustomErrorCodes::CDR_NOTFOUND_EXT_MSG)
+                );
+
+                return $result;
             }
 
             $cdrZip = $status->content;
             $result
                 ->setSuccess(true)
-                ->setCdrResponse($this->extractResponse($cdrZip))
+                ->setCdrResponse($this->extractResponse((string)$cdrZip))
                 ->setCdrZip($cdrZip);
 
-            $code = $result->getCdrResponse()->getCode();
+            $code = (int)$result->getCdrResponse()->getCode();
         }
 
         if ($this->isExceptionCode($code)) {

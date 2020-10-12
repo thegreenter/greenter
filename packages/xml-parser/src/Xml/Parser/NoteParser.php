@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace Greenter\Xml\Parser;
 
 use DateTime;
-use DOMDocument;
+use DOMElement;
 use DOMNode;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
@@ -31,13 +31,15 @@ use Greenter\Xml\XmlReader;
  */
 class NoteParser implements DocumentParserInterface
 {
+    use XmlLoaderTrait;
+
     /**
      * @var XmlReader
      */
     private $reader;
 
     /**
-     * @var \DOMElement
+     * @var DOMElement
      */
     private $rootNode;
 
@@ -47,17 +49,10 @@ class NoteParser implements DocumentParserInterface
      */
     public function parse($value): ?DocumentInterface
     {
-        $this->reader = new XmlReader();
+        $this->reader = $this->load($value);
         $xml = $this->reader;
+        $root = $this->rootNode = $xml->getXpath()->document->documentElement;
 
-        if ($value instanceof DOMDocument) {
-            $this->reader->loadDom($value);
-        } else {
-            $this->reader->loadXml($value);
-        }
-
-        $root = $xml->getXpath()->document->documentElement;
-        $this->rootNode = $root;
         $isNcr = $root->nodeName == 'CreditNote';
 
         $note = new Note();
@@ -94,7 +89,7 @@ class NoteParser implements DocumentParserInterface
         $xml = $this->reader;
         $totals = $xml->getNodes('sac:AdditionalMonetaryTotal', $node);
         foreach ($totals as $total) {
-            /**@var $total \DOMElement*/
+            /**@var $total DOMElement*/
             $nodeId = $xml->getNode('cbc:ID', $total);
             $id = trim($nodeId->nodeValue);
             $val = (float)$xml->getValue('cbc:PayableAmount', $total, '0');
@@ -153,7 +148,7 @@ class NoteParser implements DocumentParserInterface
         $xml = $this->reader;
         $legends = $xml->getNodes('sac:AdditionalProperty', $node);
         foreach ($legends as $legend) {
-            /**@var $legend \DOMElement*/
+            /**@var $legend DOMElement*/
             $leg = (new Legend())
                 ->setCode($xml->getValue('cbc:ID', $legend))
                 ->setValue($xml->getValue('cbc:Value', $legend));
@@ -200,7 +195,7 @@ class NoteParser implements DocumentParserInterface
         return $cl;
     }
 
-    private function getGuias(\DOMElement $node)
+    private function getGuias(DOMElement $node)
     {
         $xml = $this->reader;
         $guias = $xml->getNodes('cac:DespatchDocumentReference', $node);
@@ -218,9 +213,9 @@ class NoteParser implements DocumentParserInterface
     }
 
     /**
-     * @param \DOMElement|null $node
+     * @param DOMElement|null $node
      */
-    private function getAddress(?\DOMElement $node)
+    private function getAddress(?DOMElement $node)
     {
         $xml = $this->reader;
 

@@ -26,12 +26,16 @@ class ReceiptParserTest extends TestCase
         /**@var $doc Receipt */
         $doc = $this->getParser()->parse($xml);
 
+        $this->assertNotEmpty($doc->getName());
         $this->assertStringStartsWith('E', $doc->getSerie());
         $this->assertLessThanOrEqual(8, strlen($doc->getCorrelativo()));
         $this->assertEquals(11, strlen($doc->getReceptor()->getNumDoc()));
+        $this->assertNotNull($doc->getPerson());
+        $this->assertNotNull($doc->getFechaEmision());
         $this->assertNotEmpty($doc->getMontoLetras());
         $this->assertNotEmpty($doc->getConcepto());
         $this->assertNotEmpty($doc->getSubTotal());
+        $this->assertIsFloat($doc->getRetencion());
         $this->assertNotEmpty($doc->getTotal());
         $this->assertNotEmpty($doc->getPorcentaje());
     }
