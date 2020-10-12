@@ -21,6 +21,8 @@ use Greenter\Ws\Services\SummarySender;
 use Greenter\Ws\Services\SunatEndpoints;
 use Greenter\Ws\Services\WsClientInterface;
 use Mockery;
+use SoapFault;
+use stdClass;
 
 /**
  * trait FeSunatTestTrait.
@@ -49,6 +51,23 @@ trait FeSunatTestTrait
         $sender = new BillSender();
         $sender->setCodeProvider($this->getErrorCodeProviderMock());
         $sender->setClient($this->getClientThrowMock($code));
+
+        return $sender;
+    }
+
+    /**
+     * @return SenderInterface
+     */
+    private function getBillSenderNoCdrMock()
+    {
+        $response = new stdClass();
+        $response->applicationResponse = null;
+
+        $client = Mockery::mock(WsClientInterface::class);
+        $client->shouldReceive('call')->andReturn($response);
+
+        $sender = new BillSender();
+        $sender->setClient($client);
 
         return $sender;
     }
@@ -87,7 +106,7 @@ trait FeSunatTestTrait
      */
     private function getSummarySenderMock()
     {
-        $obj = new \stdClass();
+        $obj = new stdClass();
         $obj->ticket = '1500523236696';
 
         $client = Mockery::mock(WsClientInterface::class);
@@ -147,7 +166,7 @@ trait FeSunatTestTrait
     {
         $client = Mockery::mock(WsClientInterface::class);
         $client->shouldReceive('call')
-            ->andThrowExceptions([new \SoapFault($code, 'ERROR TEST')]);
+            ->andThrowExceptions([new SoapFault($code, 'ERROR TEST')]);
 
         return $client;
     }
@@ -178,10 +197,10 @@ trait FeSunatTestTrait
             ->andReturnUsing(function ($_, $args) {
                 $ticket = $args['parameters']['ticket'];
 
-                $obj = new \stdClass();
+                $obj = new stdClass();
                 if ($ticket === '1500523236600') return $obj;
 
-                $obj->status = new \stdClass();
+                $obj->status = new stdClass();
                 switch ($ticket) {
                     case '223123123213':
                         $obj->status->statusCode = '98';

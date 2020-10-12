@@ -73,6 +73,18 @@ class FeSunatTest extends TestCase
         $this->assertEquals('El archivo ZIP esta corrupto', $response->getError()->getMessage());
     }
 
+    public function testBillServiceInvalidCDRZip()
+    {
+        $nameXml = '20600055519-01-F001-00000001';
+        $xml = file_get_contents(__DIR__."/../../Resources/$nameXml.xml");
+        $wss = $this->getBillSenderNoCdrMock();
+
+        $result = $wss->send($nameXml, $xml);
+
+        $this->assertFalse($result->isSuccess());
+        $this->assertEquals('CDR', $result->getError()->getCode());
+    }
+
     public function testSendVoided()
     {
         $nameXml = '20600995805-RA-20170719-01';
