@@ -18,11 +18,11 @@ trait XmlLoaderTrait
         $reader = new XmlReader();
 
         if ($value instanceof DOMDocument) {
-            $this->reader->loadDom($value);
+            $reader->loadDom($value);
             return $reader;
         }
 
-        $this->reader->loadXml($value);
+        $reader->loadXml($value);
         return $reader;
     }
 }
