@@ -56,8 +56,7 @@ class DomCdrReaderTest extends TestCase
     {
         $path = __DIR__.'/../../Resources/R-20600995805-01-F001-3.xml';
         $xml = file_get_contents($path);
-        $reader = $this->getCdrReader();
-        $cdr = $reader->getCdrResponse($xml);
+        $cdr = $this->reader->getCdrResponse($xml);
 
         $this->assertNotEmpty($cdr);
         $this->assertEquals(2, count($cdr->getNotes()));
