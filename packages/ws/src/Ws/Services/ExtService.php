@@ -92,7 +92,7 @@ class ExtService extends BaseSunat
                 ->setCdrResponse($this->extractResponse((string)$cdrZip))
                 ->setCdrZip($cdrZip);
 
-            $code = $result->getCdrResponse()->getCode();
+            $code = (int)$result->getCdrResponse()->getCode();
         }
 
         if ($this->isExceptionCode($code)) {
