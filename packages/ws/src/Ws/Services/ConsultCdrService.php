@@ -83,7 +83,7 @@ class ConsultCdrService extends BaseSunat
             $code = $result->getCdrResponse()->getCode();
         }
 
-        if ($this->isExceptionCode($code)) {
+        if ($this->isExceptionCode((int)$code)) {
             $this->loadErrorByCode($result, $code);
         }
     }

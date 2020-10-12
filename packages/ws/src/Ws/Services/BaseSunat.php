@@ -170,11 +170,9 @@ class BaseSunat
         return $this->codeProvider->getValue($code);
     }
 
-    protected function isExceptionCode($code): bool
+    protected function isExceptionCode(int $code): bool
     {
-        $value = (int)$code;
-
-        return $value >= 100 && $value <= 1999;
+        return $code >= 100 && $code <= 1999;
     }
 
     /**
