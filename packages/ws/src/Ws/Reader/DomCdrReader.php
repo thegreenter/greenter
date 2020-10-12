@@ -40,6 +40,10 @@ class DomCdrReader implements CdrReaderInterface
      */
     public function getCdrResponse(?string $xml): ?CdrResponse
     {
+        if (empty($xml)) {
+            throw new XmlReaderException('XML del CDR no puede estar vacío.');
+        }
+
         $this->reader->loadXpath($xml);
 
         return $this->createCdr();
