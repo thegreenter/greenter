@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Ws\Reader;
 
+use DOMDocument;
+use Exception;
 use Greenter\Ws\Reader\DomCdrReader;
 use Greenter\Ws\Reader\XmlReader;
 use PHPUnit\Framework\TestCase;
@@ -20,14 +22,24 @@ use PHPUnit\Framework\TestCase;
 class DomCdrReaderTest extends TestCase
 {
     /**
-     * @throws \Exception
+     * @var DomCdrReader
      */
-    public function testGetResponse()
+    private $reader;
+
+    protected function setUp(): void
+    {
+        $this->reader = new DomCdrReader(new XmlReader());
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testGetResponse(): void
     {
         $path = __DIR__.'/../../Resources/R-20600995805-01-F001-1.xml';
         $xml = file_get_contents($path);
-        $reader = $this->getCdrReader();
-        $cdr = $reader->getCdrResponse($xml);
+
+        $cdr = $this->reader->getCdrResponse($xml);
 
         $this->assertNotEmpty($cdr);
         $this->assertEquals(0, count($cdr->getNotes()));
@@ -37,9 +49,9 @@ class DomCdrReaderTest extends TestCase
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function testGetResponseWithNotes()
+    public function testGetResponseWithNotes(): void
     {
         $path = __DIR__.'/../../Resources/R-20600995805-01-F001-3.xml';
         $xml = file_get_contents($path);
@@ -50,7 +62,7 @@ class DomCdrReaderTest extends TestCase
         $this->assertEquals(2, count($cdr->getNotes()));
     }
 
-    public function testNotFoundResponse()
+    public function testNotFoundResponse(): void
     {
         $xml = <<<XML
 <ar:AppRespnse xmlns:ar="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"
@@ -60,8 +72,8 @@ xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
     <cbc:value>1</cbc:value>
 </ar:AppRespnse>
 XML;
-        $reader = $this->getCdrReader();
-        $cdr = $reader->getCdrResponse($xml);
+
+        $cdr = $this->reader->getCdrResponse($xml);
 
         $this->assertEmpty($cdr->getId());
         $this->assertEmpty($cdr->getCode());
@@ -70,11 +82,11 @@ XML;
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
-    public function testEmptyNodes()
+    public function testEmptyNodes(): void
     {
-        $doc = new \DOMDocument();
+        $doc = new DOMDocument();
         $doc->load(__DIR__.'/../../Resources/R-20600995805-01-F001-3.xml');
         $referenceId = $doc->documentElement
                         ->childNodes->item(27)
@@ -83,14 +95,8 @@ XML;
 
         $referenceId->parentNode->removeChild($referenceId);
         $xml = $doc->saveXML();
-        $reader = $this->getCdrReader();
-        $cdr = $reader->getCdrResponse($xml);
+        $cdr = $this->reader->getCdrResponse($xml);
 
         $this->assertEmpty($cdr->getId());
-    }
-
-    private function getCdrReader()
-    {
-        return new DomCdrReader(new XmlReader());
     }
 }
