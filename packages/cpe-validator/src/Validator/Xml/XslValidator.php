@@ -52,7 +52,7 @@ class XslValidator implements XslValidatorInterface
         $proc = new XsltProcessor();
 
         $proc->importStylesheet($this->xslDocument);
-        $proc->registerPHPFunctions(['preg_match']);
+        $proc->registerPHPFunctions([XsltFunctions::class.'::matches']);
         $proc->setParameter('', 'nombreArchivoEnviado', $filename);
 
         $state = libxml_use_internal_errors(true);
