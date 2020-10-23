@@ -8,7 +8,7 @@ use function preg_match;
 
 final class XsltFunctions
 {
-    public static function matches($pattern, $input)
+    public static function matches(?string $pattern, ?string $input)
     {
         $pattern = str_replace('/', '\/', $pattern);
 
