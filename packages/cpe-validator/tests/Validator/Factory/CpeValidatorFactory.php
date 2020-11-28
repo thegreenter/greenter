@@ -10,7 +10,7 @@ use Greenter\Validator\Resolver\XslPathResolver;
 use Greenter\Validator\Xml\CpeValidator;
 use Greenter\Validator\Xml\XslValidator;
 
-class CpeValidatoFactory
+class CpeValidatorFactory
 {
     public function create(string $xslBasePath): CpeValidator
     {

@@ -11,7 +11,7 @@ use Greenter\Validator\Xml\CpeValidator;
 use Greenter\Validator\Entity\ErrorLevel;
 use Greenter\Validator\Xml\XslValidatorInterface;
 use PHPUnit\Framework\TestCase;
-use Tests\Greenter\Validator\Factory\CpeValidatoFactory;
+use Tests\Greenter\Validator\Factory\CpeValidatorFactory;
 
 class CpeValidatorTest extends TestCase
 {
@@ -22,7 +22,7 @@ class CpeValidatorTest extends TestCase
 
     protected function setUp(): void
     {
-        $factory = new CpeValidatoFactory();
+        $factory = new CpeValidatorFactory();
         $this->validator = $factory->create(__DIR__ . '/../../Resources');
     }
 
