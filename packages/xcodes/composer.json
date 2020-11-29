@@ -15,7 +15,7 @@
     },
     "type": "library",
     "require": {
-        "php": "^7.2",
+        "php": ">=7.2",
         "greenter/core": "^4.2"
     },
     "require-dev": {
