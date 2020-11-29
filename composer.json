@@ -38,6 +38,7 @@
     "suggest": {
         "ext-dom": "For xml, xml-parser, cpe-validator, ws package",
         "ext-soap": "For ws package",
+        "ext-fileinfo": "For ws package (PHP 8)",
         "ext-zlib": "For ws package",
         "ext-xsl": "For cpe-validator package"
     },
