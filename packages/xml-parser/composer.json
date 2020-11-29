@@ -17,7 +17,7 @@
     "require": {
         "php": ">=7.2",
         "ext-dom": "*",
-        "greenter/core": "^4.2"
+        "greenter/core": "^4.1.1"
     },
     "autoload": {
         "psr-4": {

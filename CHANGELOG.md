@@ -2,7 +2,7 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
-## Unreleased
+## 4.1.1 - 2020-11-29
 - Los parámetros para métodos `ConsultCdrService::getStatus` y `ConsultCdrService::getStatusCdr` ahora son de tipado estricto. 
 - Se incluyó un error personalizado cuando el CDR no es encontrado en la respuesta de SUNAT.
 - Corrección de método `php:match` XSLT en `cpe-validator`.
