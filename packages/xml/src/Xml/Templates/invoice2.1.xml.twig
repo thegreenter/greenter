@@ -79,9 +79,11 @@
             <cac:PartyIdentification>
                 <cbc:ID schemeID="6">{{ emp.ruc }}</cbc:ID>
             </cac:PartyIdentification>
+			{% if emp.nombreComercial %}
             <cac:PartyName>
                 <cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
             </cac:PartyName>
+			{% endif %}
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
                 {% set addr = emp.address %}
