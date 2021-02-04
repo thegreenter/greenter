@@ -51,11 +51,11 @@ class FeVoidedBuilderTest extends TestCase
     {
         /**@var Voided $voided */
         $voided = $this->createDocument(VoidedStore::class);
-        $voided->setFecComunicacion(new DateTime('2021-02-04 01:30:00+00:00')); // UTC
+        $voided->setFecComunicacion(new DateTime('2021-02-04 01:30:00+00:00')); // UTC 20210204
 
         $name = $voided->getName();
 
-        $this->assertStringContainsString('RA-20210203-', $name);
+        $this->assertStringContainsString('RA-20210203-', $name); // Lima 20210203
     }
 
     public function testVoidedFilename()
