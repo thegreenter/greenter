@@ -13,12 +13,15 @@ namespace Greenter\Model\Voided;
 use DateTimeInterface;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\TimezonePeTrait;
 
 /**
  * Class Voided.
  */
 class Voided implements DocumentInterface
 {
+    use TimezonePeTrait;
+
     /**
      * @var string
      */
@@ -155,10 +158,11 @@ class Voided implements DocumentInterface
      */
     public function getXmlId(): string
     {
+        $fecComunicacionPe = $this->getDateWithTimezone($this->fecComunicacion);
         $parts = [
             'RA',
-            $this->getFecComunicacion()->format('Ymd'),
-            $this->getCorrelativo(),
+            $fecComunicacionPe->format('Ymd'),
+            $this->correlativo,
         ];
 
         return join('-', $parts);

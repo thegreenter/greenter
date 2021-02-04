@@ -13,12 +13,15 @@ namespace Greenter\Model\Summary;
 use DateTimeInterface;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\TimezonePeTrait;
 
 /**
  * Class Summary.
  */
 class Summary implements DocumentInterface
 {
+    use TimezonePeTrait;
+
     /**
      * @var string
      */
@@ -180,10 +183,11 @@ class Summary implements DocumentInterface
      */
     public function getXmlId(): string
     {
+        $fecResumenPe = $this->getDateWithTimezone($this->fecResumen);
         $parts = [
             'RC',
-            $this->getFecResumen()->format('Ymd'),
-            $this->getCorrelativo(),
+            $fecResumenPe->format('Ymd'),
+            $this->correlativo,
         ];
 
         return join('-', $parts);
