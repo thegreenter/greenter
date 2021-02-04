@@ -13,7 +13,7 @@ trait TimezonePeTrait
 {
     protected function getDateWithTimezone(DateTimeInterface $date): DateTimeInterface
     {
-        $timezone = new DateTimeZone('America/Lima');
+        $timezone = new DateTimeZone(TimeZonePe::DEFAULT);
         if ($date instanceof DateTime) {
             $date = clone $date;
             return $date->setTimezone($timezone);
