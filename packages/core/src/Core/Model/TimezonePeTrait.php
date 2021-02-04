@@ -14,15 +14,11 @@ trait TimezonePeTrait
     protected function getDateWithTimezone(DateTimeInterface $date): DateTimeInterface
     {
         $timezone = new DateTimeZone('America/Lima');
-        if ($date instanceof DateTimeImmutable) {
-            return $date->setTimezone($timezone);
-        }
-
         if ($date instanceof DateTime) {
             $date = clone $date;
             return $date->setTimezone($timezone);
         }
 
-        return $date;
+        return $date instanceof DateTimeImmutable ? $date->setTimezone($timezone) : $date;
     }
 }
