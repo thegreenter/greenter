@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <psalm
     errorLevel="4"
-    resolveFromConfigFile="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
@@ -28,12 +27,20 @@
                 <referencedFunction name="SoapVar::SoapVar"/>
             </errorLevel>
         </NullArgument>
-        <UndefinedPropertyFetch>
+        <RedundantCondition>
             <errorLevel type="suppress">
-                <referencedProperty name="SoapFault::$faultcode" />
-                <referencedProperty name="SoapFault::$faultstring" />
-                <referencedProperty name="SoapFault::$detail" />
+                <file name="packages/ws/src/Ws/Services/BaseSunat.php"/>
             </errorLevel>
-        </UndefinedPropertyFetch>
+        </RedundantCondition>
+        <InvalidPropertyFetch>
+            <errorLevel type="suppress">
+                <file name="packages/ws/src/Ws/Services/BaseSunat.php"/>
+            </errorLevel>
+        </InvalidPropertyFetch>
+        <TypeDoesNotContainType>
+            <errorLevel type="suppress">
+                <file name="packages/ws/src/Ws/Services/BaseSunat.php"/>
+            </errorLevel>
+        </TypeDoesNotContainType>
     </issueHandlers>
 </psalm>

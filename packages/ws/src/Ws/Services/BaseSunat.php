@@ -92,7 +92,7 @@ class BaseSunat
      */
     protected function getErrorFromFault(SoapFault $fault)
     {
-        $error = $this->getErrorByCode((string)$fault->faultcode, $fault->faultstring);
+        $error = $this->getErrorByCode($fault->faultcode, $fault->faultstring);
 
         if (empty($error->getMessage())) {
             $error->setMessage($fault->faultstring.(isset($fault->detail) ? ' '.$fault->detail->message : ''));
