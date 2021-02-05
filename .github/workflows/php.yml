@@ -30,10 +30,7 @@ jobs:
       run: composer run-script lint:ci
 
     - name: Run PSalm
-      run: | 
-        php --version;
-        php -r "echo \PHP_VERSION_ID.PHP_EOL;";
-        php vendor/bin/psalm --shepherd
+      run: vendor/bin/psalm --shepherd
 
     - name: Unit Tests
       run: vendor/bin/phpunit --exclude-group manual --coverage-clover clover.xml
