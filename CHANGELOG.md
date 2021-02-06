@@ -2,7 +2,7 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
-## Unreleased
+## 4.2.0 - 2021-02-06
 - Agregar forma de Pago según resolución **Nº 000193-2020/SUNAT**
 - Corrección zona horaria Lima en nombres de archivo para Resumen diario y C. de bajas. 
 
