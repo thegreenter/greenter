@@ -22,7 +22,7 @@ interface BuilderInterface
      *
      * @param DocumentInterface $document
      *
-     * @return string Content File
+     * @return string|null Content File
      */
     public function build(DocumentInterface $document): ?string;
 }

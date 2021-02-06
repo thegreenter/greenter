@@ -49,16 +49,11 @@ trait FeBuilderTrait
             'autoescape' => false,
         ]);
 
-        /** @var $builder BuilderInterface */
+        /** @var BuilderInterface $builder */
         return $builder;
     }
 
-    /**
-     * @param DocumentInterface $document
-     *
-     * @return string
-     */
-    private function build(DocumentInterface $document)
+    private function build(DocumentInterface $document): ?string
     {
         $generator = $this->getGenerator(get_class($document));
 
