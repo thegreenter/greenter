@@ -18,6 +18,8 @@ use Greenter\Factory\FeFactory;
 use Greenter\Model\Client\Client;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
+use Greenter\Model\Response\BillResult;
+use Greenter\Model\Response\SummaryResult;
 use Greenter\Model\Sale\Charge;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\FormaPagos\FormaPagoContado;
@@ -97,7 +99,7 @@ class FeFactoryBase extends TestCase
 
     /**
      * @param DocumentInterface $document
-     * @return BaseResult|\Greenter\Model\Response\BillResult|\Greenter\Model\Response\SummaryResult
+     * @return BaseResult|BillResult|SummaryResult|null
      */
     protected function getFactoryResult(DocumentInterface $document)
     {

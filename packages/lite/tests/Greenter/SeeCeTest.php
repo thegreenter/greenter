@@ -19,7 +19,7 @@ use Tests\Greenter\Factory\CeFactoryBase;
 
 /**
  * Class SeeCeTest
- * @package Tests\Greenter
+ * @group integration
  */
 class SeeCeTest extends CeFactoryBase
 {

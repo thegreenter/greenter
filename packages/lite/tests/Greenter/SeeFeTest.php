@@ -20,7 +20,7 @@ use Tests\Greenter\Factory\FeFactoryBase;
 
 /**
  * Class SeeFeTest
- * @package Greenter
+ * @group integration
  */
 class SeeFeTest extends FeFactoryBase
 {

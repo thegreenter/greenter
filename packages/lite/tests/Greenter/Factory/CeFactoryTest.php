@@ -13,6 +13,10 @@ namespace Tests\Greenter\Factory;
 use Greenter\Model\Response\CdrResponse;
 use Greenter\Model\Response\StatusResult;
 
+/**
+ * Class CeFactoryTest.
+ * @group integration
+ */
 class CeFactoryTest extends CeFactoryBase
 {
     public function testDespatch()
