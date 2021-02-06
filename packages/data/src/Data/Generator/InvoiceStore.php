@@ -10,12 +10,14 @@ declare(strict_types=1);
 
 namespace Greenter\Data\Generator;
 
+use DateTime;
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
 use Greenter\Model\Company\Address;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Charge;
 use Greenter\Model\Sale\Document;
+use Greenter\Model\Sale\FormaPagos\FormaPagoContado;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Prepayment;
@@ -55,7 +57,7 @@ class InvoiceStore implements DocumentGeneratorInterface
                 ->setTotal(120),
         ]);
         $invoice
-            ->setFecVencimiento(new \DateTime())
+            ->setFecVencimiento(new DateTime())
             ->setCompra('0000123232')
             ->setTotalAnticipos(120.24)
             ->setMtoOperGratuitas(12)
@@ -67,7 +69,8 @@ class InvoiceStore implements DocumentGeneratorInterface
             ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
-            ->setFechaEmision(new \DateTime())
+            ->setFechaEmision(new DateTime())
+            ->setFormaPago(new FormaPagoContado())
             ->setTipoMoneda('PEN')
             ->setClient($this->shared->getClient())
             ->setSeller($this->shared->getSeller())

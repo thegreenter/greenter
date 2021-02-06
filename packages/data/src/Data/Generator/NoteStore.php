@@ -10,10 +10,12 @@ declare(strict_types=1);
 
 namespace Greenter\Data\Generator;
 
+use DateTime;
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Document;
+use Greenter\Model\Sale\FormaPagos\FormaPagoContado;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Sale\SaleDetail;
@@ -40,7 +42,7 @@ class NoteStore implements DocumentGeneratorInterface
             ->setDesMotivo('DEVOLUCION POR ITEM')
             ->setTipoDoc('07')
             ->setSerie('FF01')
-            ->setFechaEmision(new \DateTime())
+            ->setFechaEmision(new DateTime())
             ->setCorrelativo('123')
             ->setTipoMoneda('PEN')
             ->setClient($this->shared->getClient())
@@ -51,6 +53,7 @@ class NoteStore implements DocumentGeneratorInterface
             ->setTotalImpuestos(36)
             ->setMtoImpVenta(236)
             ->setCompany($this->shared->getCompany())
+            ->setFormaPago(new FormaPagoContado())
             ->setGuias([(new Document())
                 ->setTipoDoc('09')
                 ->setNroDoc('T001-213')

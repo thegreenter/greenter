@@ -17,12 +17,14 @@ use Greenter\Model\Client\Client;
 use Greenter\Model\Despatch\Direction;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Charge;
+use Greenter\Model\Sale\Cuota;
 use Greenter\Model\Sale\DetailAttribute;
 use Greenter\Model\Sale\Detraction;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\EmbededDespatch;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
+use Greenter\Model\Sale\PaymentTerms;
 use Greenter\Model\Sale\Prepayment;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
@@ -107,6 +109,17 @@ class InvoiceFullStore implements DocumentGeneratorInterface
                     ->setMontoBase(200)
                     ->setFactor(0.10)
                     ->setMonto(20)
+            ])
+            ->setFormaPago(
+                (new PaymentTerms())
+                    ->setTipo('Credito')
+                    ->setMonto(123.122)
+            )
+            ->setCuotas([
+                (new Cuota())
+                    ->setMonto(23.23)
+                    ->setFechaPago(new DateTime('2021-02-05'))
+                    ->setMoneda('USD')
             ])
             ->setTipoDoc('01')
             ->setSerie('F001')

@@ -8,6 +8,7 @@ use DateTime;
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Sale\FormaPagos\FormaPagoContado;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\SaleDetail;
@@ -36,6 +37,7 @@ class InvoiceIvapStore implements DocumentGeneratorInterface
             ->setCorrelativo('123')
             ->setCompany($this->shared->getCompany())
             ->setFechaEmision(new DateTime())
+            ->setFormaPago(new FormaPagoContado())
             ->setTipoMoneda('PEN')
             ->setClient($this->shared->getClient())
             ->setMtoOperGravadas(200)
