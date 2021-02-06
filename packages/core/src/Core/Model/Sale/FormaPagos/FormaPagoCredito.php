@@ -16,7 +16,7 @@ class FormaPagoCredito extends PaymentTerms
     public function __construct(?float $monto = null, ?string $moneda = null)
     {
         $this->tipo = 'Credito';
-        $this->moneda = $monto;
-        $this->monto = $moneda;
+        $this->monto = $monto;
+        $this->moneda = $moneda;
     }
 }
