@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Greenter\Data\Generator;
 
+use DateTime;
 use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
 use Greenter\Model\DocumentInterface;
@@ -59,6 +60,7 @@ class SummaryStore implements DocumentGeneratorInterface
             ->setMtoOperGravadas(40)
             ->setMtoOperExoneradas(30)
             ->setMtoOperInafectas(120)
+            ->setMtoOperGratuitas(10)
             ->setMtoIGV(7.2)
             ->setMtoISC(2.8);
 
@@ -81,9 +83,19 @@ class SummaryStore implements DocumentGeneratorInterface
             ->setMtoOtrosCargos(21)
             ->setMtoIGV(3.6);
 
+        $detiail4 = new SummaryDetail();
+        $detiail4->setTipoDoc('03')
+            ->setSerieNro('B001-3')
+            ->setEstado('1')
+            ->setClienteTipo('1')
+            ->setClienteNro('00000000')
+            ->setTotal(104)
+            ->setMtoOperGravadas(100)
+            ->setMtoIvap(4);
+
         $sum = new Summary();
-        $sum->setFecGeneracion(new \DateTime('-1days'))
-            ->setFecResumen(new \DateTime('-1days'))
+        $sum->setFecGeneracion(new DateTime('-1days'))
+            ->setFecResumen(new DateTime('-1days'))
             ->setCorrelativo('001')
             ->setCompany($this->shared->getCompany())
             ->setDetails([$detiail1, $detiail2, $detiail3]);
