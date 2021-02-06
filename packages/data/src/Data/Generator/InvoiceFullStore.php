@@ -119,7 +119,7 @@ class InvoiceFullStore implements DocumentGeneratorInterface
             ->setCuotas([
                 (new Cuota())
                     ->setMonto(23.23)
-                    ->setFechaPago(new DateTime('2021-02-05'))
+                    ->setFechaPago(new DateTime('2021-02-07 00:00:00-05:00'))
                     ->setMoneda('PEN')
             ])
             ->setTipoDoc('01')
