@@ -16,7 +16,7 @@
     "type": "library",
     "require": {
         "php": ">=7.2",
-        "greenter/core": "^4.2",
+        "greenter/core": "^4.3",
         "mikehaertl/phpwkhtmltopdf": "^2.4"
     },
     "require-dev": {
@@ -37,7 +37,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.2-dev"
+            "dev-master": "4.3-dev"
         }
     }
 }
