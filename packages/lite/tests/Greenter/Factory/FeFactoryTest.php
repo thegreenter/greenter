@@ -15,7 +15,7 @@ use Greenter\Xml\Builder\SummaryBuilder;
 use Greenter\XMLSecLibs\Sunat\SignedXml;
 /**
  * Class FeFactoryTest
- * @package Tests\Greenter
+ * @group integration
  */
 class FeFactoryTest extends FeFactoryBase
 {

@@ -15,6 +15,7 @@ use Greenter\Data\DocumentGeneratorInterface;
 use Greenter\Data\SharedStore;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Charge;
+use Greenter\Model\Sale\FormaPagos\FormaPagoContado;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\SaleDetail;
@@ -45,6 +46,7 @@ class InvoiceDiscountStore implements DocumentGeneratorInterface
             ->setSerie('F001')
             ->setCorrelativo('124')
             ->setFechaEmision(new DateTime())
+            ->setFormaPago(new FormaPagoContado())
             ->setTipoMoneda('PEN')
             ->setClient($this->shared->getClient())
             ->setSumOtrosDescuentos(5) // Descuento Global que no afecta a la base imponible

@@ -12,7 +12,6 @@ namespace Tests\Greenter;
 
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BillResult;
-use Greenter\Model\Sale\BaseSale;
 use Greenter\Model\Sale\Invoice;
 use Greenter\See;
 use Greenter\Validator\ErrorCodeProviderInterface;
@@ -21,15 +20,15 @@ use Tests\Greenter\Factory\FeFactoryBase;
 
 /**
  * Class SeeFeTest
- * @package Greenter
+ * @group integration
  */
 class SeeFeTest extends FeFactoryBase
 {
     /**
-     * @dataProvider providerInvoiceDocs
+     * @dataProvider providerInvoiceDocsv21
      * @param DocumentInterface $doc
      */
-    public function testSendInvoice(DocumentInterface $doc)
+    public function testSendInvoiceV21(DocumentInterface $doc)
     {
         /**@var $result BillResult*/
         $see = $this->getSee();
@@ -39,10 +38,7 @@ class SeeFeTest extends FeFactoryBase
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotNull($result->getCdrResponse());
-        $this->assertEquals(
-            '0',
-            $result->getCdrResponse()->getCode()
-        );
+        $this->assertEquals('0', $result->getCdrResponse()->getCode());
         $this->assertCount(0, $result->getCdrResponse()->getNotes());
     }
 
@@ -82,7 +78,7 @@ class SeeFeTest extends FeFactoryBase
     }
 
     /**
-     * @dataProvider providerInvoiceDocs
+     * @dataProvider providerInvoiceDocsV21
      * @param DocumentInterface $doc
      */
     public function testGetXmlSigned(DocumentInterface $doc)
@@ -125,36 +121,7 @@ class SeeFeTest extends FeFactoryBase
         $this->assertCount(0, $result->getCdrResponse()->getNotes());
     }
 
-    /**
-     * @dataProvider providerInvoiceDocsv21
-     * @param DocumentInterface $doc
-     */
-    public function testSendInvoiceV21(DocumentInterface $doc)
-    {
-        /**@var $doc BaseSale */
-        $doc->setUblVersion('2.1');
-        /**@var $result BillResult*/
-        $see = $this->getSee();
-        $this->assertNotNull($see->getFactory());
-
-        $result = $see->send($doc);
-
-        $this->assertTrue($result->isSuccess());
-        $this->assertNotNull($result->getCdrResponse());
-        $this->assertEquals('0', $result->getCdrResponse()->getCode());
-        $this->assertCount(0, $result->getCdrResponse()->getNotes());
-    }
-
     public function providerInvoiceDocsV21()
-    {
-        return [
-            [$this->getInvoice()],
-            [$this->getCreditNote()],
-            [$this->getDebitNote()],
-        ];
-    }
-
-    public function providerInvoiceDocs()
     {
         return [
             [$this->getInvoice()],
