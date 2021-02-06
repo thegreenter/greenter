@@ -182,6 +182,16 @@ class BaseSale implements DocumentInterface
     protected $compra;
 
     /**
+     * @var PaymentTerms|null
+     */
+    protected $formaPago;
+
+    /**
+     * @var Cuota[]|null
+     */
+    protected $cuotas;
+
+    /**
      * @return string
      */
     public function getUblVersion(): ?string
@@ -798,6 +808,42 @@ class BaseSale implements DocumentInterface
     {
         $this->compra = $compra;
 
+        return $this;
+    }
+
+    /**
+     * @return PaymentTerms|null
+     */
+    public function getFormaPago(): ?PaymentTerms
+    {
+        return $this->formaPago;
+    }
+
+    /**
+     * @param PaymentTerms|null $formaPago
+     * @return $this
+     */
+    public function setFormaPago(?PaymentTerms $formaPago): self
+    {
+        $this->formaPago = $formaPago;
+        return $this;
+    }
+
+    /**
+     * @return Cuota[]|null
+     */
+    public function getCuotas(): ?array
+    {
+        return $this->cuotas;
+    }
+
+    /**
+     * @param Cuota[]|null $cuotas
+     * @return $this
+     */
+    public function setCuotas(?array $cuotas): self
+    {
+        $this->cuotas = $cuotas;
         return $this;
     }
 
