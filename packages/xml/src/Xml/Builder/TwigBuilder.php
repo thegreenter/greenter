@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Greenter\Xml\Builder;
 
+use Greenter\Model\TimeZonePe;
 use Greenter\Xml\Filter\FormatFilter;
 use Twig\Environment;
 use Twig\Extension\CoreExtension;
@@ -21,11 +22,6 @@ use Twig\TwigFilter;
  */
 class TwigBuilder
 {
-    /**
-     * Zona horaria para fechas en XML.
-     */
-    public const TIMEZONE = 'America/Lima';
-
     /**
      * @var Environment
      */
@@ -71,7 +67,7 @@ class TwigBuilder
     {
         $extension = $twig->getExtension(CoreExtension::class);
         if ($extension instanceof CoreExtension) {
-            $extension->setTimezone(self::TIMEZONE);
+            $extension->setTimezone(TimeZonePe::DEFAULT);
         }
     }
 

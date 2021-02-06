@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Greenter\Report;
 
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\TimeZonePe;
 use Greenter\Report\Extension\ReportTwigExtension;
 use Greenter\Report\Extension\RuntimeLoader;
 use Twig\Environment;
@@ -22,7 +23,6 @@ use Twig\Loader\FilesystemLoader;
  */
 class HtmlReport implements ReportInterface
 {
-    public const TIMEZONE = 'America/Lima';
     /**
      * @var Environment
      */
@@ -108,7 +108,7 @@ class HtmlReport implements ReportInterface
     {
         $extension = $twig->getExtension(CoreExtension::class);
         if ($extension instanceof CoreExtension) {
-            $extension->setTimezone(self::TIMEZONE);
+            $extension->setTimezone(TimeZonePe::DEFAULT);
         }
     }
 

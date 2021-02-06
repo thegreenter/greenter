@@ -22,10 +22,11 @@ class Reversion extends Voided
      */
     public function getXmlId(): string
     {
+        $fecComunicacionPe = $this->getDateWithTimezone($this->fecComunicacion);
         $parts = [
             'RR',
-            $this->getFecComunicacion()->format('Ymd'),
-            $this->getCorrelativo(),
+            $fecComunicacionPe->format('Ymd'),
+            $this->correlativo,
         ];
 
         return join('-', $parts);
