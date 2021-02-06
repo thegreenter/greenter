@@ -20,7 +20,6 @@ use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
-use Greenter\Model\Sale\Charge;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\FormaPagos\FormaPagoContado;
 use Greenter\Model\Sale\Invoice;
@@ -203,61 +202,6 @@ class FeFactoryBase extends TestCase
         return $invoice;
     }
 
-    protected function getInvoiceV21()
-    {
-        $client = new Client();
-        $client->setTipoDoc('6')
-            ->setNumDoc('20000000001')
-            ->setRznSocial('EMPRESA 1');
-
-        $invoice = new Invoice();
-        $invoice->setFecVencimiento(new DateTime())
-            ->setTipoOperacion('0101')
-            ->setTipoDoc('01')
-            ->setSerie('F001')
-            ->setCorrelativo('123')
-            ->setFechaEmision($this->getDate())
-            ->setTipoMoneda('PEN')
-            ->setClient($client)
-            ->setCompra('01-21312312')
-            ->setMtoOperGravadas(200)
-            ->setMtoIGV(36)
-            ->setTotalImpuestos(36)
-            ->setValorVenta(200)
-            ->setMtoImpVenta(236.43)
-            ->setCompany($this->getCompany());
-
-        $detail1 = new SaleDetail();
-        $detail1->setCodProducto('C023')
-            ->setUnidad('NIU')
-            ->setCantidad(2)
-            ->setDescuentos([
-                (new Charge())
-                ->setCodTipo('00')
-                ->setFactor(1.00)
-                ->setMontoBase(100.00)
-                ->setMonto(1.00)
-            ])
-            ->setDescripcion('PROD 1')
-            ->setMtoBaseIgv(100)
-            ->setPorcentajeIgv(18.00)
-            ->setIgv(18)
-            ->setTipAfeIgv('10')
-            ->setTotalImpuestos(18.00)
-            ->setMtoValorVenta(100)
-            ->setMtoValorUnitario(50)
-            ->setMtoPrecioUnitario(56);
-
-        $legend = new Legend();
-        $legend->setCode('1000')
-            ->setValue('SON N SOLES');
-
-        $invoice->setDetails([$detail1])
-            ->setLegends([$legend]);
-
-        return $invoice;
-    }
-
     protected function getCreditNote()
     {
         $client = new Client();
@@ -275,7 +219,6 @@ class FeFactoryBase extends TestCase
             ->setTipoDoc('07')
             ->setSerie('FF01')
             ->setFechaEmision($this->getDate())
-            ->setFormaPago(new FormaPagoContado())
             ->setCorrelativo('123')
             ->setTipoMoneda('PEN')
             ->setClient($client)
