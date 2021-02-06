@@ -10,6 +10,9 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Factory;
 
+use DateInterval;
+use DateTime;
+use Exception;
 use Greenter\Builder\BuilderInterface;
 use Greenter\Factory\FeFactory;
 use Greenter\Model\Client\Client;
@@ -17,6 +20,7 @@ use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Sale\Charge;
 use Greenter\Model\Sale\Document;
+use Greenter\Model\Sale\FormaPagos\FormaPagoContado;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\SaleDetail;
@@ -142,11 +146,12 @@ class FeFactoryBase extends TestCase
         $invoice = new Invoice();
         $invoice
             ->setUblVersion('2.1')
-            ->setFecVencimiento(new \DateTime())
+            ->setFecVencimiento(new DateTime())
             ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
             ->setTipoOperacion('0101')
+            ->setFormaPago(new FormaPagoContado())
             ->setFechaEmision($this->getDate())
             ->setTipoMoneda('PEN')
             ->setClient($client)
@@ -204,7 +209,7 @@ class FeFactoryBase extends TestCase
             ->setRznSocial('EMPRESA 1');
 
         $invoice = new Invoice();
-        $invoice->setFecVencimiento(new \DateTime())
+        $invoice->setFecVencimiento(new DateTime())
             ->setTipoOperacion('0101')
             ->setTipoDoc('01')
             ->setSerie('F001')
@@ -268,6 +273,7 @@ class FeFactoryBase extends TestCase
             ->setTipoDoc('07')
             ->setSerie('FF01')
             ->setFechaEmision($this->getDate())
+            ->setFormaPago(new FormaPagoContado())
             ->setCorrelativo('123')
             ->setTipoMoneda('PEN')
             ->setClient($client)
@@ -479,10 +485,10 @@ class FeFactoryBase extends TestCase
 
     private function getDate()
     {
-        $date = new \DateTime();
+        $date = new DateTime();
         try {
-            $date->sub(new \DateInterval('P1D'));
-        } catch (\Exception $e) {
+            $date->sub(new DateInterval('P1D'));
+        } catch (Exception $e) {
             echo $e->getMessage();
         }
 
