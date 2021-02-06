@@ -4,6 +4,7 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
 ## Unreleased
 - Agregar forma de Pago según resolución **Nº 000193-2020/SUNAT**
+- Corrección zona horaria Lima en nombres de archivo para Resumen diario y C. de bajas. 
 
 ## 4.1.1 - 2020-11-29
 - Los parámetros para métodos `ConsultCdrService::getStatus` y `ConsultCdrService::getStatusCdr` ahora son de tipado estricto. 
