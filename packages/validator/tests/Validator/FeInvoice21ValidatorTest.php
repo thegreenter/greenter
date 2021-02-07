@@ -22,13 +22,13 @@ class FeInvoice21ValidatorTest extends TestCase
     use Validator21Trait;
 
     /**
-     * @dataProvider getInvoices
+     * @dataProvider dataDocs
+     * @param Invoice $invoice
      */
-    public function testValidateInvoice()
+    public function testValidateInvoice(Invoice $invoice)
     {
-        $invoice = $this->getInvoice();
-
         $validator = $this->getValidator();
+
         $errors = $validator->validate($invoice);
 
         $this->assertEquals(0, $errors->count());
@@ -140,7 +140,7 @@ class FeInvoice21ValidatorTest extends TestCase
         return $invoiceBase->setFormaPago(new FormaPagoCredito(20));
     }
 
-    public function getInvoices()
+    public function dataDocs()
     {
         return [
           [$this->getInvoice()],
