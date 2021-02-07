@@ -10,9 +10,12 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Validator;
 
+use DateTime;
 use Greenter\Model\Client\Client;
+use Greenter\Model\Sale\Cuota;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
+use Greenter\Model\Sale\PaymentTerms;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
 use PHPUnit\Framework\TestCase;
@@ -21,10 +24,14 @@ class FeNote21ValidatorTest extends TestCase
 {
     use Validator21Trait;
 
-    public function testValidateNote()
+    /**
+     * @dataProvider dataDocs
+     * @param Note $note
+     */
+    public function testValidateNote(Note $note)
     {
-        $note = $this->getCreditNote();
         $validator = $this->getValidator();
+
         $errors = $validator->validate($note);
 
         $this->assertEquals(0, $errors->count());
@@ -42,7 +49,7 @@ class FeNote21ValidatorTest extends TestCase
         $this->assertEquals(2, $errors->count());
     }
 
-    private function getCreditNote()
+    private function getCreditNote(): Note
     {
         $client = new Client();
         $client->setTipoDoc('6')
@@ -67,7 +74,7 @@ class FeNote21ValidatorTest extends TestCase
             ->setTipoDoc('07')
             ->setSerie('FF01')
             ->setCorrelativo('123')
-            ->setFechaEmision(new \DateTime())
+            ->setFechaEmision(new DateTime())
             ->setTipoMoneda('PEN')
             ->setClient($client)
             ->setMtoOperGravadas(200)
@@ -98,5 +105,30 @@ class FeNote21ValidatorTest extends TestCase
             ->setLegends([$legend]);
 
         return $note;
+    }
+
+    private function getCreditNotePagoCredito(): Note
+    {
+        $noteBase = $this->getCreditNote();
+
+        return $noteBase
+            ->setFormaPago(
+                (new PaymentTerms())
+                ->setTipo('Credito')
+                ->setMonto(100)
+            )
+            ->setCuotas([
+                (new Cuota())
+                ->setMonto(100)
+                ->setFechaPago(new DateTime('2021-02-17 00:00:00-05:00'))
+            ]);
+    }
+
+    public function dataDocs()
+    {
+        return [
+            [$this->getCreditNote()],
+            [$this->getCreditNotePagoCredito()],
+        ];
     }
 }
