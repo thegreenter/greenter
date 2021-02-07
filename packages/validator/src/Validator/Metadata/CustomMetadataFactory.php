@@ -55,7 +55,7 @@ class CustomMetadataFactory implements MetadataFactoryInterface
         $metaData = new ClassMetadata(get_class($value));
         $fullClass = $this->getClassValidator($value);
 
-        if (!class_exists($fullClass)) {
+        if ($fullClass === null) {
             return $metaData;
         }
 
@@ -84,18 +84,23 @@ class CustomMetadataFactory implements MetadataFactoryInterface
     /**
      * @param mixed $value
      *
-     * @return string
+     * @return string|null
      */
-    private function getClassValidator($value): string
+    private function getClassValidator($value): ?string
     {
         $classModel = get_class($value);
         $className = substr(strrchr($classModel, '\\'), 1);
         $version = $this->getFormatVersion();
         if (!empty($version)) {
-            return 'Greenter\\Validator\\Loader\\'.$version.'\\'.$className.'Loader';
-        }
+            $fullClass = 'Greenter\\Validator\\Loader\\'.$version.'\\'.$className.'Loader';
 
-        return 'Greenter\\Validator\\Loader\\'.$className.'Loader';
+            if (class_exists($fullClass)) {
+                return $fullClass;
+            }
+        }
+        $fullClass = 'Greenter\\Validator\\Loader\\'.$className.'Loader';
+
+        return class_exists($fullClass) ? $fullClass : null;
     }
 
     private function getFormatVersion()
