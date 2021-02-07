@@ -49,6 +49,11 @@ class InvoiceLoader implements LoaderMetadataInterface
             new Assert\NotNull(),
             new Assert\Valid(),
         ]);
+        $metadata->addPropertyConstraints('formaPago', [
+            new Assert\NotNull(),
+            new Assert\Valid(),
+        ]);
+        $metadata->addPropertyConstraint('cuotas', new Assert\Valid());
         $metadata->addPropertyConstraint('seller', new Assert\Valid());
         $metadata->addPropertyConstraint('details', new Assert\Valid());
         $metadata->addPropertyConstraint('legends', new Assert\Valid());

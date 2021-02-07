@@ -15,12 +15,9 @@ use Greenter\Model\Company\Company;
 use Greenter\Validator\DocumentValidatorInterface;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Validator\SymfonyValidator;
-use PHPUnit\Framework\MockObject\MockBuilder;
 
 /**
  * Trait ValidatorTrait
- *
- * @method MockBuilder getMockBuilder(string $className)
  */
 trait ValidatorTrait
 {

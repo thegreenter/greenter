@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Validator;
 
+use DateTime;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Sale\Detraction;
 use Greenter\Model\Sale\Document;
+use Greenter\Model\Sale\FormaPagos\FormaPagoContado;
+use Greenter\Model\Sale\FormaPagos\FormaPagoCredito;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Prepayment;
@@ -18,11 +21,14 @@ class FeInvoice21ValidatorTest extends TestCase
 {
     use Validator21Trait;
 
-    public function testValidateInvoice()
+    /**
+     * @dataProvider dataDocs
+     * @param Invoice $invoice
+     */
+    public function testValidateInvoice(Invoice $invoice)
     {
-        $invoice = $this->getInvoice();
-
         $validator = $this->getValidator();
+
         $errors = $validator->validate($invoice);
 
         $this->assertEquals(0, $errors->count());
@@ -35,11 +41,12 @@ class FeInvoice21ValidatorTest extends TestCase
         $invoice->getPerception()->setPorcentaje(null);
         $invoice->setTipoOperacion('');
         $invoice->setValorVenta(null);
+        $invoice->setFormaPago(null);
 
         $validator = $this->getValidator();
         $errors = $validator->validate($invoice);
 
-        $this->assertEquals(4, $errors->count());
+        $this->assertEquals(5, $errors->count());
     }
 
     private function getInvoice()
@@ -48,7 +55,7 @@ class FeInvoice21ValidatorTest extends TestCase
         $invoice
             ->setTipoOperacion('0101')
             ->setSumOtrosDescuentos(23)
-            ->setFecVencimiento(new \DateTime())
+            ->setFecVencimiento(new DateTime())
             ->setPerception(
                 (new SalePerception())
                 ->setCodReg('01')
@@ -80,7 +87,8 @@ class FeInvoice21ValidatorTest extends TestCase
             ->setTipoDoc('01')
             ->setSerie('F001')
             ->setCorrelativo('123')
-            ->setFechaEmision(new \DateTime())
+            ->setFechaEmision(new DateTime())
+            ->setFormaPago(new FormaPagoContado())
             ->setTipoMoneda('PEN')
             ->setClient(
                 (new Client())
@@ -123,5 +131,20 @@ class FeInvoice21ValidatorTest extends TestCase
             ]);
 
         return $invoice;
+    }
+
+    private function getInvoicePagoCredito()
+    {
+        $invoiceBase = $this->getInvoice();
+
+        return $invoiceBase->setFormaPago(new FormaPagoCredito(20));
+    }
+
+    public function dataDocs()
+    {
+        return [
+          [$this->getInvoice()],
+          [$this->getInvoicePagoCredito()],
+        ];
     }
 }

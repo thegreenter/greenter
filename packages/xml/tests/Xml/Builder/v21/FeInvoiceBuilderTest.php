@@ -14,6 +14,7 @@ use Greenter\Data\Generator\InvoiceDiscountStore;
 use Greenter\Data\Generator\InvoiceFullStore;
 use Greenter\Data\Generator\InvoiceIcbperStore;
 use Greenter\Data\Generator\InvoiceIvapStore;
+use Greenter\Data\Generator\InvoicePagoCreditoStore;
 use Greenter\Model\Sale\Invoice;
 use Tests\Greenter\Xml\Builder\FeBuilderTrait;
 use Tests\Greenter\Xml\Builder\XsdValidatorTrait;
@@ -52,9 +53,10 @@ class FeInvoiceBuilderTest extends TestCase
     public function storeProvider()
     {
         return [
-          [InvoiceDiscountStore::class],
-          [InvoiceIvapStore::class],
-          [InvoiceIcbperStore::class]
+            [InvoiceDiscountStore::class],
+            [InvoiceIvapStore::class],
+            [InvoiceIcbperStore::class],
+            [InvoicePagoCreditoStore::class]
         ];
     }
 }

@@ -56,6 +56,8 @@ class NoteLoader implements LoaderMetadataInterface
             new Assert\NotNull(),
             new Assert\Valid(),
         ]);
+        $metadata->addPropertyConstraint('formaPago', new Assert\Valid());
+        $metadata->addPropertyConstraint('cuotas', new Assert\Valid());
         $metadata->addPropertyConstraint('details', new Assert\Valid());
         $metadata->addPropertyConstraint('legends', new Assert\Valid());
         $metadata->addPropertyConstraint('guias', new Assert\Valid());
