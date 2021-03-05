@@ -13,11 +13,9 @@ jobs:
       matrix:
         php: ['8.0']
         report-coverage: [false]
-        psalm-flags: ['']
         include:
           - php: '7.2'
             report-coverage: true
-            psalm-flags: '--shepherd'
 
     steps:
     - uses: actions/checkout@v2
@@ -32,13 +30,14 @@ jobs:
       run: composer validate
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: composer install --prefer-dist --no-progress
 
     - name: Run PHPStan
       run: composer run-script lint:ci
 
     - name: Run PSalm
-      run: vendor/bin/psalm ${{ matrix.psalm-flags }}
+      if: ${{ matrix.report-coverage }}
+      run: vendor/bin/psalm --shepherd
 
     - name: Unit Tests
       run: vendor/bin/phpunit --exclude-group manual --coverage-clover clover.xml
