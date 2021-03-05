@@ -11,12 +11,11 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        php: ['7.2', '8.0']
+        php: ['8.0']
         report-coverage: [false]
         psalm-flags: ['']
         include:
-          - os: ubuntu-20.04
-            php: '7.2'
+          - php: '7.2'
             report-coverage: true
             psalm-flags: '--shepherd'
 
@@ -27,7 +26,7 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        extensions: mbstring,soap
+        extensions: mbstring, soap
 
     - name: Validate composer.json
       run: composer validate
