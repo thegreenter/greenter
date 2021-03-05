@@ -8,8 +8,17 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        php: ['7.2', '8.0']
+        report-coverage: [false]
+        psalm-flags: ['']
+        include:
+          - os: ubuntu-20.04
+            php: '7.2'
+            report-coverage: true
+            psalm-flags: '--shepherd'
 
     steps:
     - uses: actions/checkout@v2
@@ -17,7 +26,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: 7.2
+        php-version: ${{ matrix.php }}
         extensions: mbstring,soap
 
     - name: Validate composer.json
@@ -30,13 +39,15 @@ jobs:
       run: composer run-script lint:ci
 
     - name: Run PSalm
-      run: vendor/bin/psalm --shepherd
+      run: vendor/bin/psalm ${{ matrix.psalm-flags }}
 
     - name: Unit Tests
       run: vendor/bin/phpunit --exclude-group manual --coverage-clover clover.xml
 
     - uses: codecov/codecov-action@v1
+      if: ${{ matrix.report-coverage }}
       with:
         file: ./clover.xml
         flags: unittests
         name: codecov-greenter
+
