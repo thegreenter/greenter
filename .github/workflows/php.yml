@@ -24,7 +24,8 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        extensions: mbstring, soap
+        # zip only for linter
+        extensions: mbstring, soap, zip
 
     - name: Validate composer.json
       run: composer validate
