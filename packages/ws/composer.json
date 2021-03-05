@@ -20,7 +20,7 @@
         "ext-dom": "*",
         "ext-soap": "*",
         "greenter/core": "^4.3",
-        "nelexa/zip": "^3.3"
+        "nelexa/zip": "^3.3 || ^4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8",
