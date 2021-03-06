@@ -25,7 +25,7 @@ jobs:
       with:
         php-version: ${{ matrix.php }}
         # zip only for linter
-        extensions: mbstring, soap, zip
+        extensions: mbstring, soap, :fileinfo, zip
 
     - name: Validate composer.json
       run: composer validate

@@ -26,9 +26,6 @@
         "phpunit/phpunit": "^8",
         "mockery/mockery": "^1.2"
     },
-    "suggest": {
-        "ext-fileinfo": "For php 8"
-    },
     "autoload": {
         "psr-4": {
             "Greenter\\": "src/"
