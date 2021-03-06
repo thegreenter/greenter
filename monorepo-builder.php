@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use GreenTools\Monorepo\NextDevReleaseWorker;
 use GreenTools\Monorepo\TagVersionWorker;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJsonSection;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\AddTagToChangelogReleaseWorker;
+use Symplify\MonorepoBuilder\Release\ReleaseWorker\PushNextDevReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\PushTagReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\SetCurrentMutualDependenciesReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\SetNextMutualDependenciesReleaseWorker;
@@ -37,6 +37,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(TagVersionWorker::class);
     $services->set(SetNextMutualDependenciesReleaseWorker::class);
     $services->set(UpdateBranchAliasReleaseWorker::class);
-    $services->set(NextDevReleaseWorker::class);
+    $services->set(PushNextDevReleaseWorker::class);
     $services->set(PushTagReleaseWorker::class);
 };
