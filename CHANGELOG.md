@@ -6,6 +6,7 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 - Incluir validaciones de forma de pago en `greenter/validator`
 - Actualizar versión de paquetes para permitir instalación en PHP 8
 - Eliminar extension php `fileinfo`
+- Actualizar códigos de retorno a la fecha `2021-01-29`
 
 ## 4.2.0 - 2021-02-06
 - Agregar forma de Pago según resolución **Nº 000193-2020/SUNAT**
