@@ -2,6 +2,11 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
+## Unreleased
+- Incluir validaciones de forma de pago en `greenter/validator`
+- Actualizar versión de paquetes para permitir instalación en PHP 8
+- Eliminar extension php `fileinfo`
+
 ## 4.2.0 - 2021-02-06
 - Agregar forma de Pago según resolución **Nº 000193-2020/SUNAT**
 - Corrección zona horaria Lima en nombres de archivo para Resumen diario y C. de bajas. 
