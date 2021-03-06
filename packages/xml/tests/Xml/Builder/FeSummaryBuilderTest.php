@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Xml\Builder;
 
+use DateTime;
 use Greenter\Data\Generator\SummaryIcbperStore;
 use Greenter\Data\Generator\SummaryStore;
 use Greenter\Model\Summary\Summary;
@@ -53,9 +54,10 @@ class FeSummaryBuilderTest extends TestCase
     {
         /**@var $summary Summary*/
         $summary = $this->createDocument(SummaryStore::class);
+        $summary->setFecResumen(new DateTime('2021-03-05 00:00:00-05:00'));
         $filename = $summary->getName();
 
-        $this->assertEquals($this->getFilename($summary), $filename);
+        $this->assertEquals('20123456789-RC-20210305-001', $filename);
     }
 
     public function storeProvider()
@@ -64,17 +66,5 @@ class FeSummaryBuilderTest extends TestCase
           [SummaryStore::class],
           [SummaryIcbperStore::class]
         ];
-    }
-
-    private function getFileName(Summary $summary)
-    {
-        $parts = [
-            $summary->getCompany()->getRuc(),
-            'RC',
-            $summary->getFecResumen()->format('Ymd'),
-            $summary->getCorrelativo(),
-        ];
-
-        return join('-', $parts);
     }
 }
