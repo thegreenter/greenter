@@ -62,20 +62,9 @@ class FeVoidedBuilderTest extends TestCase
     {
         /**@var $voided Voided */
         $voided = $this->createDocument(VoidedStore::class);
+        $voided->setFecComunicacion(new DateTime('2021-03-05 00:00:00-05:00'));
         $filename = $voided->getName();
 
-        $this->assertEquals($this->getFilename($voided), $filename);
-    }
-
-    private function getFilename(Voided $voided)
-    {
-        $parts = [
-            $voided->getCompany()->getRuc(),
-            'RA',
-            $voided->getFecComunicacion()->format('Ymd'),
-            $voided->getCorrelativo(),
-        ];
-
-        return join('-', $parts);
+        $this->assertEquals('20123456789-RA-20210305-00111', $filename);
     }
 }

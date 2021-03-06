@@ -8,6 +8,7 @@
 
 namespace Greenter\Zip;
 
+use PhpZip\Constants\ZipCompressionMethod;
 use PhpZip\ZipFile;
 
 /**
@@ -26,7 +27,7 @@ class ZipFly implements CompressInterface, DecompressInterface
     public function compress(?string $filename, ?string $content): ?string
     {
         $zipFile = new ZipFile();
-        $zipFile->addFromString($filename, $content);
+        $zipFile->addFromString($filename, $content, ZipCompressionMethod::DEFLATED);
         $zip = $zipFile->outputAsString();
         $zipFile->close();
 

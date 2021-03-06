@@ -8,8 +8,14 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        php: ['8.0']
+        report-coverage: [false]
+        include:
+          - php: '7.2'
+            report-coverage: true
 
     steps:
     - uses: actions/checkout@v2
@@ -17,26 +23,30 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: 7.2
-        extensions: mbstring,soap
+        php-version: ${{ matrix.php }}
+        # zip only for linter
+        extensions: mbstring, soap, :fileinfo, zip
 
     - name: Validate composer.json
       run: composer validate
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: composer install --prefer-dist --no-progress
 
     - name: Run PHPStan
       run: composer run-script lint:ci
 
     - name: Run PSalm
+      if: ${{ matrix.report-coverage }}
       run: vendor/bin/psalm --shepherd
 
     - name: Unit Tests
       run: vendor/bin/phpunit --exclude-group manual --coverage-clover clover.xml
 
     - uses: codecov/codecov-action@v1
+      if: ${{ matrix.report-coverage }}
       with:
         file: ./clover.xml
         flags: unittests
         name: codecov-greenter
+
