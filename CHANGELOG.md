@@ -2,7 +2,7 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
-## Unreleased
+## 4.3.0 - 2021-03-06
 - Incluir validaciones de forma de pago en `greenter/validator`
 - Actualizar versión de paquetes para permitir instalación en PHP 8
 - Eliminar extension php `fileinfo`
