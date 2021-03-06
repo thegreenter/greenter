@@ -97,10 +97,5 @@
         "test": "phpunit",
         "lint": "phpstan analyse",
         "lint:ci": "phpstan analyse --error-format=github"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "4.1-dev"
-        }
     }
 }
