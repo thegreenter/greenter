@@ -18,11 +18,8 @@ jobs:
             php-version: 7.4
             coverage: none
 
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
-
       - name: Install Monorepo-Builder
-        run: composer require symplify/monorepo-builder:^9.0 --dev
+        run: composer require symplify/monorepo-builder:^9.0 --update-no-dev
 
       # get package json list
       -

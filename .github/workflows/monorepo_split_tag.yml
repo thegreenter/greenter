@@ -21,11 +21,8 @@ jobs:
 
       -   uses: "ramsey/composer-install@v1"
 
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
-
       - name: Install Monorepo-Builder
-        run: composer require symplify/monorepo-builder:^9.0 --dev
+        run: composer require symplify/monorepo-builder:^9.0 --update-no-dev
 
       # get package json list
       -
