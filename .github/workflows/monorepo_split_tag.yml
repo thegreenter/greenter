@@ -1,4 +1,4 @@
-name: Sync Tag
+name: Sync Monorepo
 
 on:
   push:
