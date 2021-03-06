@@ -73,6 +73,9 @@
                 "packages/xcodes/tests/",
                 "packages/xml-parser/tests/",
                 "packages/xml/tests/"
+            ],
+            "GreenTools\\Monorepo\\": [
+                "tools/monorepo"
             ]
         }
     },
