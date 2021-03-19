@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns4:ApplicationResponse xmlns:ns4="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2"
+                         xmlns="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+                         xmlns:ns2="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+                         xmlns:ns3="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+    <ns2:UBLExtensions>
+        <ns2:UBLExtension>
+            <ns2:ExtensionContent>
+            </ns2:ExtensionContent>
+        </ns2:UBLExtension>
+    </ns2:UBLExtensions>
+    <UBLVersionID>2.1</UBLVersionID>
+    <CustomizationID>1.0</CustomizationID>
+    <ID>e449aad1-41f0-46e9-b10c-f33f680e0725</ID>
+    <IssueDate>2021-03-18</IssueDate>
+    <IssueTime>16:50:40.00272</IssueTime>
+    <ResponseDate>2021-03-18</ResponseDate>
+    <ResponseTime>16:50:40.00296</ResponseTime>
+    <ns3:SenderParty>
+        <ns3:PartyLegalEntity>
+            <CompanyID schemeAgencyName="PE:SUNAT" schemeID="6"
+                       schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo6">20000000003
+            </CompanyID>
+        </ns3:PartyLegalEntity>
+    </ns3:SenderParty>
+    <ns3:ReceiverParty>
+        <ns3:PartyLegalEntity>
+            <CompanyID schemeAgencyName="PE:SUNAT" schemeID="6"
+                       schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo6">20000000001
+            </CompanyID>
+        </ns3:PartyLegalEntity>
+    </ns3:ReceiverParty>
+    <ns3:DocumentResponse>
+        <ns3:Response>
+            <ReferenceID>F001-1</ReferenceID>
+            <ResponseCode listAgencyName="PE:SUNAT">0</ResponseCode>
+            <Description>La Factura F001-1 ha sido aceptada.</Description>
+        </ns3:Response>
+        <ns3:DocumentReference>
+            <ID>F001-1</ID>
+            <IssueDate>2021-03-18</IssueDate>
+            <IssueTime>16:49:42</IssueTime>
+            <DocumentTypeCode>01</DocumentTypeCode>
+            <ns3:Attachment>
+                <ns3:ExternalReference>
+                    <DocumentHash>RwNDwdsWs4XMKM4BoTAf5MKh3T8=</DocumentHash>
+                </ns3:ExternalReference>
+            </ns3:Attachment>
+        </ns3:DocumentReference>
+        <ns3:IssuerParty>
+            <ns3:PartyLegalEntity>
+                <CompanyID schemeID="6">20000000003</CompanyID>
+            </ns3:PartyLegalEntity>
+        </ns3:IssuerParty>
+        <ns3:RecipientParty>
+            <ns3:PartyLegalEntity>
+                <CompanyID schemeID="6">20000000001</CompanyID>
+            </ns3:PartyLegalEntity>
+        </ns3:RecipientParty>
+    </ns3:DocumentResponse>
+</ns4:ApplicationResponse>

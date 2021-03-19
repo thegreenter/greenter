@@ -49,6 +49,20 @@ class DomCdrReaderTest extends TestCase
         $this->assertEquals('La Factura numero F001-00000001, ha sido aceptada', $cdr->getDescription());
     }
 
+    public function testCustomNsCdr(): void
+    {
+        $path = __DIR__.'/../../Resources/efact_cdr1.xml';
+        $xml = file_get_contents($path);
+
+        $cdr = $this->reader->getCdrResponse($xml);
+
+        $this->assertNotEmpty($cdr);
+        $this->assertEquals(0, count($cdr->getNotes()));
+        $this->assertEquals('F001-1', $cdr->getId());
+        $this->assertEquals('0', $cdr->getCode());
+        $this->assertEquals('La Factura F001-1 ha sido aceptada.', $cdr->getDescription());
+    }
+
     /**
      * @throws Exception
      */
