@@ -66,5 +66,5 @@ jobs:
           split-repository-organization: 'thegreenter'
           split-repository-name: '${{ matrix.package }}'
           tag: ${{ steps.previous_tag.outputs.tag }}
-          user-name: "github-actions"
-          user-email: "41898282+github-actions[bot]@users.noreply.github.com"
+          user-name: "giansalex"
+          user-email: "giansalex@gmail.com"
