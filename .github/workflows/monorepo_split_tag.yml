@@ -68,3 +68,4 @@ jobs:
           tag: ${{ steps.previous_tag.outputs.tag }}
           user-name: "giansalex"
           user-email: "giansalex@gmail.com"
+          branch: "master"
