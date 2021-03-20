@@ -2,6 +2,11 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
+## Unreleased
+- Corregir lectura de CDR cuando los `namespaces` xml sean diferentes al por defecto.
+- Incluir el detalle de `SoapFault` en forma codificada, ya que puede ser una estructura compleja.
+- Incluir flujo de `CI` para sincronizar monorepo en `dev-master`.
+
 ## 4.3.0 - 2021-03-06
 - Incluir validaciones de forma de pago en `greenter/validator`
 - Actualizar versión de paquetes para permitir instalación en PHP 8
