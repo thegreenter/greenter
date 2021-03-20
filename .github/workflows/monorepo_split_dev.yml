@@ -1,12 +1,12 @@
-name: Sync Monorepo
+name: Sync Monorepo Dev-Master
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - master
 
 jobs:
-  provide_packages_json_tagged:
+  provide_packages_json:
     runs-on: ubuntu-20.04
 
     steps:
@@ -27,33 +27,24 @@ jobs:
       # get package json list
       -
         id: output_data
-        run: echo "::set-output name=matrix::$(vendor/bin/monorepo-builder packages-json)"
+        run: echo "::set-output name=matrix::$(packages/monorepo-builder/bin/monorepo-builder packages-json)"
 
     # this step is needed, so the output gets to the next defined job
     outputs:
       matrix: ${{ steps.output_data.outputs.matrix }}
 
-  split_monorepo_tagged:
-    needs: provide_packages_json_tagged
+  split_monorepo:
+    needs: provide_packages_json
 
     runs-on: ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
-        package: ${{fromJson(needs.provide_packages_json_tagged.outputs.matrix)}}
+        package: ${{fromJson(needs.provide_packages_json.outputs.matrix)}}
 
     steps:
       -
         uses: actions/checkout@v2
-        # this is required for "WyriHaximus/github-action-get-previous-tag" workflow
-        # see https://github.com/actions/checkout#fetch-all-history-for-all-tags-and-branches
-        with:
-          fetch-depth: 0
-
-      # see https://github.com/WyriHaximus/github-action-get-previous-tag
-      -
-        id: previous_tag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
 
       -
         # Uses an action in the root directory
@@ -65,6 +56,6 @@ jobs:
           package-directory: 'packages/${{ matrix.package }}'
           split-repository-organization: 'thegreenter'
           split-repository-name: '${{ matrix.package }}'
-          tag: ${{ steps.previous_tag.outputs.tag }}
           user-name: "giansalex"
           user-email: "giansalex@gmail.com"
+          branch: "master"

@@ -55,6 +55,19 @@ trait FeSunatTestTrait
         return $sender;
     }
 
+    private function getBillSenderThrowWithDetail(string $code, object $detail)
+    {
+        $sender = new BillSender();
+
+        $client = Mockery::mock(WsClientInterface::class);
+        $client->shouldReceive('call')
+            ->andThrowExceptions([new SoapFault($code, 'ERROR TEST', null, $detail)]);
+
+        $sender->setClient($client);
+
+        return $sender;
+    }
+
     /**
      * @return SenderInterface
      */

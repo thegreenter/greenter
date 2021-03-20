@@ -95,7 +95,8 @@ class BaseSunat
         $error = $this->getErrorByCode($fault->faultcode, $fault->faultstring);
 
         if (empty($error->getMessage())) {
-            $error->setMessage($fault->faultstring.(isset($fault->detail) ? ' '.$fault->detail->message : ''));
+            $detail = isset($fault->detail) ? ' | '.json_encode($fault->detail) : '';
+            $error->setMessage($fault->faultstring.$detail);
         }
 
         return $error;

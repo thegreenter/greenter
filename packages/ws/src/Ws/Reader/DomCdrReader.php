@@ -44,7 +44,7 @@ class DomCdrReader implements CdrReaderInterface
             throw new XmlReaderException('XML del CDR no puede estar vacío.');
         }
 
-        $this->reader->loadXpath($xml);
+        $this->loadXml($xml);
 
         return $this->createCdr();
     }
@@ -86,5 +86,13 @@ class DomCdrReader implements CdrReaderInterface
         }
 
         return $notes;
+    }
+
+    private function loadXml(string $xml): void
+    {
+        $this->reader->loadXpath($xml);
+        $xpath = $this->reader->getXpath();
+        $xpath->registerNamespace('cac', UblNs::CAC);
+        $xpath->registerNamespace('cbc', UblNs::CBC);
     }
 }
