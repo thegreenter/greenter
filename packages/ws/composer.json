@@ -19,7 +19,7 @@
         "ext-zlib": "*",
         "ext-dom": "*",
         "ext-soap": "*",
-        "greenter/core": "^4.3.1",
+        "greenter/core": "^4.4",
         "nelexa/zip": "^3.3 || ^4.0"
     },
     "require-dev": {
