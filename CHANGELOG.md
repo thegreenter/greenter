@@ -2,6 +2,9 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
+## Unreleased
+- #175 Inclusión de tag `<Signature>` en guía remisión.
+
 ## 4.3.1 - 2021-03-20
 - Corregir lectura de CDR cuando los `namespaces` xml sean diferentes al por defecto.
 - Incluir el detalle de `SoapFault` en forma codificada, ya que puede ser una estructura compleja.
