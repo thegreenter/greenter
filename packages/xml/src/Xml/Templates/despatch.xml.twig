@@ -28,6 +28,22 @@
 	</cac:AdditionalDocumentReference>
     {% endif %}
     {% set emp = doc.company %}
+    	<cac:Signature>
+		<cbc:ID>{{ emp.ruc }}</cbc:ID>
+		<cac:SignatoryParty>
+			<cac:PartyIdentification>
+				<cbc:ID>{{ emp.ruc }}</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyName>
+				<cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
+			</cac:PartyName>
+		</cac:SignatoryParty>
+		<cac:DigitalSignatureAttachment>
+			<cac:ExternalReference>
+				<cbc:URI>#GREENTER-SIGN</cbc:URI>
+			</cac:ExternalReference>
+		</cac:DigitalSignatureAttachment>
+	</cac:Signature>
 	<cac:DespatchSupplierParty>
 		<cbc:CustomerAssignedAccountID schemeID="6">{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
 		<cac:Party>
