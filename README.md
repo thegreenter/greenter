@@ -29,5 +29,11 @@ Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/d
 ## API REST
 Si trabajas con otro lenguaje de programación, puedes usar [Lycet](https://github.com/giansalex/lycet).
 
+## Soporte
+![JetBrains](https://raw.githubusercontent.com/thegreenter/greenter/master/.github/jetbrains-3.png)
+
+[JetBrains](https://jb.gg/OpenSource) apoya nuestro proyecto de código abierto, proporcionando licencias para utilizar su pack de productos.
+
+
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fthegreenter%2Fgreenter?ref=badge_large)
