@@ -41,6 +41,21 @@ class Note extends BaseSale
     private $perception;
 
     /**
+     * @var float
+     */
+    private $sumDsctoGlobal;
+
+    /**
+     * @var float
+     */
+    private $mtoDescuentos;
+
+    /**
+     * @var Charge[]
+     */
+    private $descuentos;
+
+    /**
      * @return string
      */
     public function getCodMotivo(): ?string
@@ -136,6 +151,66 @@ class Note extends BaseSale
     public function setPerception(?SalePerception $perception): Note
     {
         $this->perception = $perception;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getSumDsctoGlobal(): ?float
+    {
+        return $this->sumDsctoGlobal;
+    }
+
+    /**
+     * @param float $sumDsctoGlobal
+     *
+     * @return Note
+     */
+    public function setSumDsctoGlobal(?float $sumDsctoGlobal): Note
+    {
+        $this->sumDsctoGlobal = $sumDsctoGlobal;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMtoDescuentos(): ?float
+    {
+        return $this->mtoDescuentos;
+    }
+
+    /**
+     * @param float $mtoDescuentos
+     *
+     * @return Note
+     */
+    public function setMtoDescuentos(?float $mtoDescuentos): Note
+    {
+        $this->mtoDescuentos = $mtoDescuentos;
+
+        return $this;
+    }
+
+    /**
+     * @return Charge[]
+     */
+    public function getDescuentos(): ?array
+    {
+        return $this->descuentos;
+    }
+
+    /**
+     * @param Charge[] $descuentos
+     *
+     * @return Note
+     */
+    public function setDescuentos(?array $descuentos): Note
+    {
+        $this->descuentos = $descuentos;
 
         return $this;
     }

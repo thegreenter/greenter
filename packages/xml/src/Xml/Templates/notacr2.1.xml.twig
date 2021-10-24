@@ -158,6 +158,17 @@
     </cac:PaymentTerms>
     {% endfor %}
     {% endif %}
+    {% if doc.descuentos %}
+    {% for desc in doc.descuentos %}
+    <cac:AllowanceCharge>
+        <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
+        <cbc:AllowanceChargeReasonCode>{{ desc.codTipo }}</cbc:AllowanceChargeReasonCode>
+        <cbc:MultiplierFactorNumeric>{{ desc.factor }}</cbc:MultiplierFactorNumeric>
+        <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ desc.monto|n_format }}</cbc:Amount>
+        <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ desc.montoBase|n_format }}</cbc:BaseAmount>
+    </cac:AllowanceCharge>
+    {% endfor %}
+    {% endif %}
     <cac:TaxTotal>
         <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.totalImpuestos|n_format }}</cbc:TaxAmount>
         {% if doc.mtoISC %}
