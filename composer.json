@@ -31,7 +31,7 @@
     "require-dev": {
         "greenter/ubl-validator": "^2.0",
         "mockery/mockery": "^1.2",
-        "phpstan/phpstan": "0.12.84",
+        "phpstan/phpstan": "^0.12.99",
         "phpunit/phpunit": "^8",
         "vimeo/psalm": "^4.4"
     },

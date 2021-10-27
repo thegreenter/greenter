@@ -19,6 +19,6 @@ trait TimezonePeTrait
             return $date->setTimezone($timezone);
         }
 
-        return $date instanceof DateTimeImmutable ? $date->setTimezone($timezone) : $date;
+        return $date->setTimezone($timezone);
     }
 }
