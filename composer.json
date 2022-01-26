@@ -83,7 +83,6 @@
         "greenter/core": "self.version",
         "greenter/cpe-validator": "self.version",
         "greenter/data": "self.version",
-        "greenter/greenter": "self.version",
         "greenter/htmltopdf": "self.version",
         "greenter/lite": "self.version",
         "greenter/report": "self.version",
