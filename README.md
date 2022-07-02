@@ -26,6 +26,10 @@ Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/d
 - Tienes dudas o necesitas ayuda puedes hacerlo desde [aqui](https://community.greenter.dev/).
 - Puedes seguirnos en [Facebook](https://fb.me/thegreenter) para actualizaciones.
 
+## Community
+- [Forum](https://community.greenter.dev/)
+- [Telegram](https://t.me/+EZKfH3D1cDtlNDE5)
+
 ## API REST
 Si trabajas con otro lenguaje de programación, puedes usar [Lycet](https://github.com/giansalex/lycet).
 
