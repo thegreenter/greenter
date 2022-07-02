@@ -82,7 +82,7 @@ class DomCdrReader implements CdrReaderInterface
 
         /** @var \DOMElement $node */
         foreach ($nodes as $node) {
-            $notes[] = $node->nodeValue;
+            $notes[] = $node->nodeValue ?? '';
         }
 
         return $notes;

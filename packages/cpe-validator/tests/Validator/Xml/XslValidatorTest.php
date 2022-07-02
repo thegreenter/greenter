@@ -8,7 +8,7 @@ use DOMDocument;
 use Greenter\Validator\Parser\ResultParserInterface;
 use Greenter\Validator\Xml\XslValidator;
 use InvalidArgumentException;
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class XslValidatorTest extends TestCase
 {

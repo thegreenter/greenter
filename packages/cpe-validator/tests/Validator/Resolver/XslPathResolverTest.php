@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Greenter\Validator\Resolver;
 
 use Greenter\Validator\Resolver\XslPathResolver;
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class XslPathResolverTest extends TestCase
 {

@@ -18,11 +18,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class MessageTranslator implements TranslatorInterface
 {
     /**
-     * @var string
-     */
-    private $locale;
-
-    /**
      * @var ErrorCodeProviderInterface
      */
     private $provider;
@@ -64,19 +59,19 @@ class MessageTranslator implements TranslatorInterface
      *
      * @throws \InvalidArgumentException If the locale contains invalid characters
      */
-    public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null)
+    public function trans(string $id, array $parameters = [], string $domain = null, string $locale = null): string
     {
         return $this->getValue($id);
     }
 
     /**
-     * Returns the current locale.
+     * Returns the default locale.
      *
      * @return string The locale
      */
-    public function getLocale()
+    public function getLocale(): string
     {
-        return $this->locale;
+        return "en";
     }
 
     private function getValue(string $id)
