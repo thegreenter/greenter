@@ -275,7 +275,9 @@
     <cac:AllowanceCharge>
         <cbc:ChargeIndicator>false</cbc:ChargeIndicator>
         <cbc:AllowanceChargeReasonCode>{{ desc.codTipo }}</cbc:AllowanceChargeReasonCode>
+        {% if desc.factor is not null %}
         <cbc:MultiplierFactorNumeric>{{ desc.factor }}</cbc:MultiplierFactorNumeric>
+        {% endif %}
         <cbc:Amount currencyID="{{ doc.tipoMoneda }}">{{ desc.monto|n_format }}</cbc:Amount>
         <cbc:BaseAmount currencyID="{{ doc.tipoMoneda }}">{{ desc.montoBase|n_format }}</cbc:BaseAmount>
     </cac:AllowanceCharge>
