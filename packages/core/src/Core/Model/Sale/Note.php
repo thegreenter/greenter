@@ -41,6 +41,16 @@ class Note extends BaseSale
     private $perception;
 
     /**
+     * @var float
+     */
+    private $valorVenta;
+
+    /**
+     * @var float
+     */
+    private $subTotal;
+
+    /**
      * @return string
      */
     public function getCodMotivo(): ?string
@@ -136,6 +146,46 @@ class Note extends BaseSale
     public function setPerception(?SalePerception $perception): Note
     {
         $this->perception = $perception;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getValorVenta(): ?float
+    {
+        return $this->valorVenta;
+    }
+
+    /**
+     * @param float $valorVenta
+     *
+     * @return Note
+     */
+    public function setValorVenta(?float $valorVenta): Note
+    {
+        $this->valorVenta = $valorVenta;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getSubTotal(): ?float
+    {
+        return $this->subTotal;
+    }
+
+    /**
+     * @param float $subTotal
+     *
+     * @return Note
+     */
+    public function setSubTotal(?float $subTotal): Note
+    {
+        $this->subTotal = $subTotal;
 
         return $this;
     }

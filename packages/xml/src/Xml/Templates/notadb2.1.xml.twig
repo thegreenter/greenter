@@ -259,6 +259,12 @@
         {% endif %}
     </cac:TaxTotal>
     <cac:RequestedMonetaryTotal>
+        {% if doc.valorVenta is not null %}
+            <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.valorVenta|n_format }}</cbc:LineExtensionAmount>
+        {% endif %}
+        {% if doc.subTotal is not null %}
+            <cbc:TaxInclusiveAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.subTotal|n_format }}</cbc:TaxInclusiveAmount>
+        {% endif %}
         {% if doc.sumOtrosCargos is not null %}
         <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumOtrosCargos|n_format }}</cbc:ChargeTotalAmount>
         {% endif %}

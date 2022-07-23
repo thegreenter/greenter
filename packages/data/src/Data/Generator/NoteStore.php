@@ -51,6 +51,8 @@ class NoteStore implements DocumentGeneratorInterface
             ->setMtoOperInafectas(0)
             ->setMtoIGV(36)
             ->setTotalImpuestos(36)
+            ->setValorVenta(200)
+            ->setSubTotal(236)
             ->setMtoImpVenta(236)
             ->setCompany($this->shared->getCompany())
             ->setFormaPago(new FormaPagoContado())
