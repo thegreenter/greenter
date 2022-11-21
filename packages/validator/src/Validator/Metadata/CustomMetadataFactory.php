@@ -50,7 +50,7 @@ class CustomMetadataFactory implements MetadataFactoryInterface
      *
      * @throws NoSuchMetadataException If no metadata exists for the given value
      */
-    public function getMetadataFor($value)
+    public function getMetadataFor($value): MetadataInterface
     {
         $metaData = new ClassMetadata(get_class($value));
         $fullClass = $this->getClassValidator($value);
@@ -76,7 +76,7 @@ class CustomMetadataFactory implements MetadataFactoryInterface
      *
      * @return bool Whether metadata can be returned for that value
      */
-    public function hasMetadataFor($value)
+    public function hasMetadataFor($value): bool
     {
         return !empty($this->getClassValidator($value));
     }
