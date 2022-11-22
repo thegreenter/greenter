@@ -26,7 +26,7 @@ jobs:
       # get package json list
       -
         id: output_data
-        run: echo "::set-output name=matrix::$(vendor/bin/monorepo-builder packages-json)"
+        run: echo "matrix=$(vendor/bin/monorepo-builder packages-json)" >> $GITHUB_OUTPUT
 
     # this step is needed, so the output gets to the next defined job
     outputs:
@@ -47,14 +47,14 @@ jobs:
       -
         # Uses an action in the root directory
         name: Monorepo Split of ${{ matrix.package }}
-        uses: symplify/monorepo-split-github-action@2.0
+        uses: symplify/monorepo-split-github-action@2.1
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
           tag: ${GITHUB_REF#refs/tags/}
-          package-directory: 'packages/${{ matrix.package }}'
-          split-repository-organization: 'thegreenter'
-          split-repository-name: '${{ matrix.package }}'
-          user-name: "giansalex"
-          user-email: "giansalex@gmail.com"
+          package_directory: 'packages/${{ matrix.package }}'
+          repository_organization: 'thegreenter'
+          repository_name: '${{ matrix.package }}'
+          user_name: "giansalex"
+          user_email: "me@giansalex.dev"
           branch: "master"
