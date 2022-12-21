@@ -30,9 +30,8 @@ class DespatchBuilder extends TwigBuilder implements BuilderInterface
     {
         /** @var Despatch $despatch */
         $despatch = $document;
-        if ($despatch->getVersion() == '2022') {
-            return $this->render('despatch2022.xml.twig', $document);
-        }
-        return $this->render('despatch.xml.twig', $document);
+        $template = $despatch->getVersion() === '2022' ? 'despatch2022.xml.twig': 'despatch.xml.twig';
+
+        return $this->render($template, $document);
     }
 }

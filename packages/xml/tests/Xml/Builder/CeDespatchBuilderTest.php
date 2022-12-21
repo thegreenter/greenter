@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Xml\Builder;
 
+use Greenter\Data\Generator\Despatch2022Store;
 use Greenter\Data\Generator\DespatchStore;
 use Greenter\Model\Despatch\Despatch;
 use PHPUnit\Framework\TestCase;
@@ -26,6 +27,15 @@ class CeDespatchBuilderTest extends TestCase
     public function testCreateXmlDespatch()
     {
         $despatch = $this->createDocument(DespatchStore::class);
+
+        $xml = $this->build($despatch);
+
+        $this->assertSchema($xml);
+    }
+
+    public function testCreateXmlDespatch2022()
+    {
+        $despatch = $this->createDocument(Despatch2022Store::class);
 
         $xml = $this->build($despatch);
 
