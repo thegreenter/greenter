@@ -28,6 +28,12 @@ class Transportist
      */
     private $rznSocial;
     /**
+     * Número de Registro MTC.
+     *
+     * @var string
+     */
+    private $nroMtc;
+    /**
      * (Transporte Privado).
      *
      * @var string
@@ -103,6 +109,24 @@ class Transportist
     {
         $this->rznSocial = $rznSocial;
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNroMtc(): ?string
+    {
+        return $this->nroMtc;
+    }
+
+    /**
+     * @param string|null $nroMtc
+     * @return Transportist
+     */
+    public function setNroMtc(?string $nroMtc): Transportist
+    {
+        $this->nroMtc = $nroMtc;
         return $this;
     }
 

@@ -116,9 +116,11 @@
 		{% endfor %}
 		<cac:ShipmentStage>
 			<cbc:TransportModeCode listName="Modalidad de traslado" listAgencyName="PE:SUNAT" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo18">{{ envio.modTraslado }}</cbc:TransportModeCode>
+			{% if envio.fecTraslado %}
 			<cac:TransitPeriod>
 				<cbc:StartDate>{{ envio.fecTraslado|date('Y-m-d') }}</cbc:StartDate>
 			</cac:TransitPeriod>
+			{% endif %}
             {% if envio.transportista %}
 			<cac:CarrierParty>
 				<cac:PartyIdentification>
@@ -126,7 +128,7 @@
 				</cac:PartyIdentification>
 				<cac:PartyLegalEntity>
 					<cbc:RegistrationName><![CDATA[{{ envio.transportista.rznSocial|raw }}]]></cbc:RegistrationName>
-{#					<cbc:CompanyID></cbc:CompanyID>#}
+					<cbc:CompanyID>{{ envio.transportista.nroMtc }}</cbc:CompanyID>
 				</cac:PartyLegalEntity>
 			</cac:CarrierParty>
 			<cac:TransportMeans>
