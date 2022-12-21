@@ -42,6 +42,20 @@ class Shipment
      */
     private $indTransbordo;
     /**
+     * Indicador de traslado, Retorno, Transbordo, etc.
+     * opciones:
+     *
+     * SUNAT_Envio_IndicadorTransbordoProgramado
+     * SUNAT_Envio_IndicadorTrasladoVehiculoM1L
+     * SUNAT_Envio_IndicadorRetornoVehiculoEnvaseVacio
+     * SUNAT_Envio_IndicadorRetornoVehiculoVacio
+     * SUNAT_Envio_IndicadorTrasladoTotalDAMoDS
+     * SUNAT_Envio_IndicadorVehiculoConductoresTransp
+     *
+     * @var string[]
+     */
+    private $indicadores;
+    /**
      * Peso bruto total de los ítems seleccionados (en KGM).
      *
      * @var float
@@ -72,8 +86,6 @@ class Shipment
      */
     private $fecTraslado;
     /**
-     * @deprecated use $contenedores
-     *
      * Numero de Contenedor (Motivo Importación).
      *
      * @var string
@@ -171,7 +183,7 @@ class Shipment
     }
 
     /**
-     * @deprecated unused
+     * @deprecated use setIndicadores
      *
      * @param bool $indTransbordo
      *
@@ -181,6 +193,24 @@ class Shipment
     {
         $this->indTransbordo = $indTransbordo;
 
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getIndicadores(): ?array
+    {
+        return $this->indicadores;
+    }
+
+    /**
+     * @param string[] $indicadores
+     * @return Shipment
+     */
+    public function setIndicador(?array $indicadores): Shipment
+    {
+        $this->indicadores = $indicadores;
         return $this;
     }
 
@@ -311,6 +341,8 @@ class Shipment
     }
 
     /**
+     * @deprecated use setContenedores
+     *
      * @param string $numContenedor
      *
      * @return Shipment

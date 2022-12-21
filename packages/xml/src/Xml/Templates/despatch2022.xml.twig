@@ -111,6 +111,9 @@
         {% if envio.numBultos %}
 		<cbc:TotalTransportHandlingUnitQuantity>{{ envio.numBultos }}</cbc:TotalTransportHandlingUnitQuantity>
 		{% endif %}
+		{% for indicador in envio.indicadores %}
+		<cbc:SpecialInstructions>{{ indicador }}</cbc:SpecialInstructions>
+		{% endfor %}
 		<cac:ShipmentStage>
 			<cbc:TransportModeCode listName="Modalidad de traslado" listAgencyName="PE:SUNAT" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo18">{{ envio.modTraslado }}</cbc:TransportModeCode>
 			<cac:TransitPeriod>
