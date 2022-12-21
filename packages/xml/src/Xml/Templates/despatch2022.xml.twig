@@ -111,9 +111,8 @@
         {% if envio.numBultos %}
 		<cbc:TotalTransportHandlingUnitQuantity>{{ envio.numBultos }}</cbc:TotalTransportHandlingUnitQuantity>
 		{% endif %}
-{#	no va	<cbc:SplitConsignmentIndicator>{{ envio.indTransbordo ? "true" : "false" }}</cbc:SplitConsignmentIndicator>#}
 		<cac:ShipmentStage>
-			<cbc:TransportModeCode>{{ envio.modTraslado }}</cbc:TransportModeCode>
+			<cbc:TransportModeCode listName="Modalidad de traslado" listAgencyName="PE:SUNAT" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo18">{{ envio.modTraslado }}</cbc:TransportModeCode>
 			<cac:TransitPeriod>
 				<cbc:StartDate>{{ envio.fecTraslado|date('Y-m-d') }}</cbc:StartDate>
 			</cac:TransitPeriod>

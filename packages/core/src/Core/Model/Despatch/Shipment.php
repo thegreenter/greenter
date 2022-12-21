@@ -163,6 +163,8 @@ class Shipment
     }
 
     /**
+     * @deprecated unused
+     *
      * @param bool $indTransbordo
      *
      * @return Shipment
