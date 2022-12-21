@@ -163,11 +163,20 @@
 				<cbc:TraceID>{{ precinto }}</cbc:TraceID>
 			</cac:TransportHandlingUnit>
 		{% endfor %}
-        {% if envio.codPuerto %}
+        {% if envio.puerto %}
 		<cac:FirstArrivalPortLocation>
-			<cbc:ID>{{ envio.codPuerto }}</cbc:ID>
+			<cbc:ID schemeAgencyName="PE:SUNAT" schemeName="Puertos" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo63">{{ envio.puerto.codigo }}</cbc:ID>
+			<cbc:LocationTypeCode>1</cbc:LocationTypeCode>
+			<cbc:Name>{{ envio.puerto.nombre }}</cbc:Name>
 		</cac:FirstArrivalPortLocation>
         {% endif %}
+		{% if envio.aeropuerto %}
+		<cac:FirstArrivalPortLocation>
+			<cbc:ID schemeAgencyName="PE:SUNAT" schemeName="Aeropuertos" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo64">{{ envio.aeropuerto.codigo }}</cbc:ID>
+			<cbc:LocationTypeCode>2</cbc:LocationTypeCode>
+			<cbc:Name>{{ envio.aeropuerto.nombre }}</cbc:Name>
+		</cac:FirstArrivalPortLocation>
+		{% endif %}
 	</cac:Shipment>
     {% for det in doc.details %}
 	<cac:DespatchLine>

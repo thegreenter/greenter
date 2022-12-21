@@ -104,6 +104,14 @@ class Shipment
      */
     private $codPuerto;
     /**
+     * @var Puerto
+     */
+    private $puerto;
+    /**
+     * @var Puerto
+     */
+    private $aeropuerto;
+    /**
      * @var Transportist
      */
     private $transportista;
@@ -381,6 +389,8 @@ class Shipment
     }
 
     /**
+     * @deprecated use setPuerto
+     *
      * @param string $codPuerto
      *
      * @return Shipment
@@ -389,6 +399,42 @@ class Shipment
     {
         $this->codPuerto = $codPuerto;
 
+        return $this;
+    }
+
+    /**
+     * @return Puerto
+     */
+    public function getPuerto(): ?Puerto
+    {
+        return $this->puerto;
+    }
+
+    /**
+     * @param Puerto|null $puerto
+     * @return Shipment
+     */
+    public function setPuerto(?Puerto $puerto): Shipment
+    {
+        $this->puerto = $puerto;
+        return $this;
+    }
+
+    /**
+     * @return Puerto
+     */
+    public function getAeropuerto(): ?Puerto
+    {
+        return $this->aeropuerto;
+    }
+
+    /**
+     * @param Puerto|null $aeropuerto
+     * @return Shipment
+     */
+    public function setAeropuerto(?Puerto $aeropuerto): Shipment
+    {
+        $this->aeropuerto = $aeropuerto;
         return $this;
     }
 
