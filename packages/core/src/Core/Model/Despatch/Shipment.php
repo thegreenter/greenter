@@ -116,6 +116,12 @@ class Shipment
      */
     private $transportista;
     /**
+     * Conductores principales y secundarios.
+     *
+     * @var Driver
+     */
+    private $choferes;
+    /**
      * @var Direction
      */
     private $llegada;
@@ -455,6 +461,24 @@ class Shipment
     {
         $this->transportista = $transportista;
 
+        return $this;
+    }
+
+    /**
+     * @return Driver
+     */
+    public function getChoferes(): ?Driver
+    {
+        return $this->choferes;
+    }
+
+    /**
+     * @param Driver|null $choferes
+     * @return Shipment
+     */
+    public function setChoferes(?Driver $choferes): Shipment
+    {
+        $this->choferes = $choferes;
         return $this;
     }
 

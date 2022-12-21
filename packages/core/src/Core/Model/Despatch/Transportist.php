@@ -139,6 +139,8 @@ class Transportist
     }
 
     /**
+     * @deprecated use shipment.vehicles
+     *
      * @param string $placa
      *
      * @return Transportist
@@ -159,6 +161,8 @@ class Transportist
     }
 
     /**
+     * @deprecated use shipment.drivers
+     *
      * @param string $choferTipoDoc
      *
      * @return Transportist
@@ -179,6 +183,8 @@ class Transportist
     }
 
     /**
+     * @deprecated use shipment.drivers
+     *
      * @param string $choferDoc
      *
      * @return Transportist

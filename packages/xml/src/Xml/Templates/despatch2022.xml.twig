@@ -131,15 +131,18 @@
 					<cbc:CompanyID>{{ envio.transportista.nroMtc }}</cbc:CompanyID>
 				</cac:PartyLegalEntity>
 			</cac:CarrierParty>
-			<cac:TransportMeans>
-				<cac:RoadTransport>
-					<cbc:LicensePlateID>{{ envio.transportista.placa }}</cbc:LicensePlateID>
-				</cac:RoadTransport>
-			</cac:TransportMeans>
-			<cac:DriverPerson>
-				<cbc:ID schemeID="{{ envio.transportista.choferTipoDoc }}">{{ envio.transportista.choferDoc }}</cbc:ID>
-			</cac:DriverPerson>
             {% endif %}
+			{% for chofer in envio.choferes %}
+			<cac:DriverPerson>
+				<cbc:ID schemeID="{{ chofer.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ chofer.nroDoc }}</cbc:ID>
+				<cbc:FirstName>{{ chofer.nombres }}</cbc:FirstName>
+				<cbc:FamilyName>{{ chofer.apellidos }}</cbc:FamilyName>
+				<cbc:JobTitle>{{ chofer.tipo }}</cbc:JobTitle>
+				<cac:IdentityDocumentReference>
+					<cbc:ID>{{ chofer.licencia }}</cbc:ID>
+				</cac:IdentityDocumentReference>
+			</cac:DriverPerson>
+			{% endfor %}
 		</cac:ShipmentStage>
 		<cac:Delivery>
 			<cac:Despatch>
