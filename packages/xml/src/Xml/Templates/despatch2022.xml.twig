@@ -105,7 +105,9 @@
 		<cbc:Information>{{ envio.sustentoPeso }}</cbc:Information>
 		{% endif %}
 		<cbc:GrossWeightMeasure unitCode="{{ envio.undPesoTotal }}">{{ envio.pesoTotal|n_format(3) }}</cbc:GrossWeightMeasure>
-{#		<cbc:NetWeightMeasure unitCode="KGM">23.333</cbc:NetWeightMeasure>#}
+		{% if envio.pesoItems %}
+		<cbc:NetWeightMeasure unitCode="KGM">{{ envio.pesoItems|n_format(3) }}</cbc:NetWeightMeasure>
+		{% endif %}
         {% if envio.numBultos %}
 		<cbc:TotalTransportHandlingUnitQuantity>{{ envio.numBultos }}</cbc:TotalTransportHandlingUnitQuantity>
 		{% endif %}

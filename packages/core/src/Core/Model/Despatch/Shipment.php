@@ -42,6 +42,12 @@ class Shipment
      */
     private $indTransbordo;
     /**
+     * Peso bruto total de los ítems seleccionados (en KGM).
+     *
+     * @var float
+     */
+    private $pesoItems;
+    /**
      * @var float
      */
     private $pesoTotal;
@@ -165,6 +171,24 @@ class Shipment
     {
         $this->indTransbordo = $indTransbordo;
 
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPesoItems(): ?float
+    {
+        return $this->pesoItems;
+    }
+
+    /**
+     * @param float|null $pesoItems
+     * @return Shipment
+     */
+    public function setPesoItems(?float $pesoItems): Shipment
+    {
+        $this->pesoItems = $pesoItems;
         return $this;
     }
 
