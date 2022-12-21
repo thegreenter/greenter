@@ -76,14 +76,16 @@
 		</cac:Party>
 	</cac:SellerSupplierParty>
     {% endif %}
-	{% if doc.buyer %}
+	{% if doc.comprador %}
 	<cac:BuyerCustomerParty>
 		<cac:Party>
 			<cac:PartyIdentification>
-				<cbc:ID schemeID="{{ doc.buyer.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.buyer.numDoc }}</cbc:ID>
+				<cbc:ID schemeID="{{ doc.comprador.tipoDoc }}" schemeName="Documento de Identidad"
+						schemeAgencyName="PE:SUNAT"
+						schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.comprador.numDoc }}</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ doc.buyer.rznSocial|raw }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ doc.comprador.rznSocial|raw }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:BuyerCustomerParty>

@@ -58,6 +58,12 @@ class Despatch implements DocumentInterface
      */
     private $tercero;
     /**
+     * Datos del Comprador.
+     *
+     * @var Client
+     */
+    private $comprador;
+    /**
      * @var Shipment
      */
     private $envio;
@@ -223,13 +229,33 @@ class Despatch implements DocumentInterface
     }
 
     /**
-     * @param Client $tercero
+     * @param Client|null $tercero
      *
      * @return Despatch
      */
     public function setTercero(?Client $tercero): Despatch
     {
         $this->tercero = $tercero;
+
+        return $this;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getComprador(): ?Client
+    {
+        return $this->comprador;
+    }
+
+    /**
+     * @param Client|null $comprador
+     *
+     * @return Despatch
+     */
+    public function setComprador(?Client $comprador): Despatch
+    {
+        $this->comprador = $comprador;
 
         return $this;
     }
