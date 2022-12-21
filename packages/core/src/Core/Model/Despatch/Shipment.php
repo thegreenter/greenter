@@ -124,7 +124,7 @@ class Shipment
     /**
      * Conductores principales y secundarios.
      *
-     * @var Driver
+     * @var Driver[]
      */
     private $choferes;
     /**
@@ -489,18 +489,18 @@ class Shipment
     }
 
     /**
-     * @return Driver
+     * @return Driver[]
      */
-    public function getChoferes(): ?Driver
+    public function getChoferes(): ?array
     {
         return $this->choferes;
     }
 
     /**
-     * @param Driver|null $choferes
+     * @param Driver[] $choferes
      * @return Shipment
      */
-    public function setChoferes(?Driver $choferes): Shipment
+    public function setChoferes(?array $choferes): Shipment
     {
         $this->choferes = $choferes;
         return $this;
