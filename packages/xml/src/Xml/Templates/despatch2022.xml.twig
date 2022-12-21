@@ -68,7 +68,7 @@
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:DeliveryCustomerParty>
-    {% if doc.tercero %}
+	{% if doc.tercero %}
 	<cac:SellerSupplierParty>
 		<cac:Party>
 			<cac:PartyIdentification>
@@ -79,7 +79,7 @@
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:SellerSupplierParty>
-    {% endif %}
+	{% endif %}
 	{% if doc.comprador %}
 	<cac:BuyerCustomerParty>
 		<cac:Party>
@@ -145,6 +145,9 @@
 			<cac:Despatch>
 				<cac:DespatchAddress>
 					<cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">{{ envio.partida.ubigueo }}</cbc:ID>
+					{% if envio.partida.codLocal %}
+					<cbc:AddressTypeCode listID="{{ envio.partida.ruc }}">{{ envio.partida.codLocal }}</cbc:AddressTypeCode>
+					{% endif %}
 					<cac:AddressLine>
 						<cbc:Line>{{ envio.partida.direccion }}</cbc:Line>
 					</cac:AddressLine>
@@ -152,6 +155,9 @@
 			</cac:Despatch>
 			<cac:DeliveryAddress>
 				<cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">{{ envio.llegada.ubigueo }}</cbc:ID>
+				{% if envio.llegada.codLocal %}
+				<cbc:AddressTypeCode listID="{{ envio.llegada.ruc }}">{{ envio.llegada.codLocal }}</cbc:AddressTypeCode>
+				{% endif %}
 				<cac:AddressLine>
 					<cbc:Line>{{ envio.llegada.direccion }}</cbc:Line>
 				</cac:AddressLine>

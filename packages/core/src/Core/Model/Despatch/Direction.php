@@ -28,6 +28,18 @@ class Direction
     private $direccion;
 
     /**
+     * Código de establecimiento de punto de llegada.
+     *
+     * @var string
+     */
+    private $codLocal;
+    /**
+     * Número de RUC asociado al punto de llegada.
+     *
+     * @var string
+     */
+    private $ruc;
+    /**
      * Direction constructor.
      *
      * @param string|null $ubigueo
@@ -76,6 +88,42 @@ class Direction
     {
         $this->direccion = $direccion;
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCodLocal(): ?string
+    {
+        return $this->codLocal;
+    }
+
+    /**
+     * @param string|null $codLocal
+     * @return Direction
+     */
+    public function setCodLocal(?string $codLocal): Direction
+    {
+        $this->codLocal = $codLocal;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRuc(): ?string
+    {
+        return $this->ruc;
+    }
+
+    /**
+     * @param string|null $ruc
+     * @return Direction
+     */
+    public function setRuc(?string $ruc): Direction
+    {
+        $this->ruc = $ruc;
         return $this;
     }
 }
