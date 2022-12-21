@@ -152,11 +152,12 @@
 				</cac:AddressLine>
 			</cac:DeliveryAddress>
 		</cac:Delivery>
-        {% if envio.numContenedor %}
-		<cac:TransportHandlingUnit>
-			<cbc:ID>{{ envio.numContenedor }}</cbc:ID>
-		</cac:TransportHandlingUnit>
-        {% endif %}
+		{% for precinto in envio.contenedores %}
+			<cac:TransportHandlingUnit>
+				<cbc:ID>{{ loop.index }}</cbc:ID>
+				<cbc:TraceID>{{ precinto }}</cbc:TraceID>
+			</cac:TransportHandlingUnit>
+		{% endfor %}
         {% if envio.codPuerto %}
 		<cac:FirstArrivalPortLocation>
 			<cbc:ID>{{ envio.codPuerto }}</cbc:ID>

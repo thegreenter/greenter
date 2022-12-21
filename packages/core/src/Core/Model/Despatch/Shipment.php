@@ -72,11 +72,19 @@ class Shipment
      */
     private $fecTraslado;
     /**
+     * @deprecated use $contenedores
+     *
      * Numero de Contenedor (Motivo Importación).
      *
      * @var string
      */
     private $numContenedor;
+    /**
+     * Contenedores (precinto)
+     *
+     * @var string[]
+     */
+    private $contenedores;
     /**
      * Codigo del Puerto. (Puerto o Aeropuerto de embarque/desembarque).
      *
@@ -311,6 +319,24 @@ class Shipment
     {
         $this->numContenedor = $numContenedor;
 
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getContenedores(): ?array
+    {
+        return $this->contenedores;
+    }
+
+    /**
+     * @param string[] $contenedores
+     * @return Shipment
+     */
+    public function setContenedores(?array $contenedores): Shipment
+    {
+        $this->contenedores = $contenedores;
         return $this;
     }
 
