@@ -116,6 +116,12 @@ class Shipment
      */
     private $transportista;
     /**
+     * Vehiculo Principal.
+     *
+     * @var Vehicle
+     */
+    private $vehiculo;
+    /**
      * Conductores principales y secundarios.
      *
      * @var Driver
@@ -461,6 +467,24 @@ class Shipment
     {
         $this->transportista = $transportista;
 
+        return $this;
+    }
+
+    /**
+     * @return Vehicle
+     */
+    public function getVehiculo(): ?Vehicle
+    {
+        return $this->vehiculo;
+    }
+
+    /**
+     * @param Vehicle|null $vehiculo
+     * @return Shipment
+     */
+    public function setVehiculo(?Vehicle $vehiculo): Shipment
+    {
+        $this->vehiculo = $vehiculo;
         return $this;
     }
 

@@ -167,11 +167,37 @@
 			</cac:DeliveryAddress>
 		</cac:Delivery>
 		{% for precinto in envio.contenedores %}
-			<cac:TransportHandlingUnit>
+		<cac:TransportHandlingUnit>
+			<cac:Package>
 				<cbc:ID>{{ loop.index }}</cbc:ID>
 				<cbc:TraceID>{{ precinto }}</cbc:TraceID>
-			</cac:TransportHandlingUnit>
+			</cac:Package>
+		</cac:TransportHandlingUnit>
 		{% endfor %}
+		{% if envio.vehiculo %}
+		<cac:TransportHandlingUnit>
+			<cac:TransportEquipment>
+				<cbc:ID>{{ envio.vehiculo.placa }}</cbc:ID>
+				<cac:ApplicableTransportMeans>
+					<cbc:RegistrationNationalityID>{{ envio.vehiculo.nroCirculacion }}</cbc:RegistrationNationalityID>
+				</cac:ApplicableTransportMeans>
+				{% for sec in envio.vehiculo.secundarios %}
+				<cac:AttachedTransportEquipment>
+					<cbc:ID>{{ sec.placa }}</cbc:ID>
+					<cac:ApplicableTransportMeans>
+						<cbc:RegistrationNationalityID>{{ sec.nroCirculacion }}</cbc:RegistrationNationalityID>
+					</cac:ApplicableTransportMeans>
+					<cac:ShipmentDocumentReference>
+						<cbc:ID schemeID="{{ sec.codEmisor }}" schemeName="Entidad Autorizadora" schemeAgencyName="PE:SUNAT">{{ sec.nroAutorizacion }}</cbc:ID>
+					</cac:ShipmentDocumentReference>
+				</cac:AttachedTransportEquipment>
+				{% endfor %}
+				<cac:ShipmentDocumentReference>
+					<cbc:ID schemeID="{{ envio.vehiculo.codEmisor }}" schemeName="Entidad Autorizadora" schemeAgencyName="PE:SUNAT">{{ envio.vehiculo.nroAutorizacion }}</cbc:ID>
+				</cac:ShipmentDocumentReference>
+			</cac:TransportEquipment>
+		</cac:TransportHandlingUnit>
+		{% endif %}
         {% if envio.puerto %}
 		<cac:FirstArrivalPortLocation>
 			<cbc:ID schemeAgencyName="PE:SUNAT" schemeName="Puertos" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo63">{{ envio.puerto.codigo }}</cbc:ID>
