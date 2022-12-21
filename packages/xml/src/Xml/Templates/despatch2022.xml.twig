@@ -194,10 +194,19 @@
 				<cbc:ID>{{ det.codigo }}</cbc:ID>
 			</cac:SellersItemIdentification>
 			{% if det.codProdSunat %}
-				<cac:CommodityClassification>
-					<cbc:ItemClassificationCode listID="UNSPSC" listAgencyName="GS1 US" listName="Item Classification">{{ det.codProdSunat }}</cbc:ItemClassificationCode>
-				</cac:CommodityClassification>
+			<cac:CommodityClassification>
+				<cbc:ItemClassificationCode listID="UNSPSC" listAgencyName="GS1 US" listName="Item Classification">{{ det.codProdSunat }}</cbc:ItemClassificationCode>
+			</cac:CommodityClassification>
 			{% endif %}
+			{% for atr in det.atributos %}
+			<cac:AdditionalItemProperty >
+				<cbc:Name>{{ atr.name }}</cbc:Name>
+				<cbc:NameCode>{{ atr.code }}</cbc:NameCode>
+				{% if atr.value %}
+					<cbc:Value>{{ atr.value }}</cbc:Value>
+				{% endif %}
+			</cac:AdditionalItemProperty>
+			{% endfor %}
 		</cac:Item>
 	</cac:DespatchLine>
     {% endfor %}
