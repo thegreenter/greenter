@@ -15,18 +15,22 @@
     {% if doc.observacion %}
 	<cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
     {% endif %}
-    {% if doc.relDoc %}
+	{% for rel in doc.addDocs  %}
 	<cac:AdditionalDocumentReference>
-		<cbc:ID>{{ doc.relDoc.nroDoc }}</cbc:ID>
-		<cbc:DocumentTypeCode listAgencyName="PE:SUNAT" listName="Documento relacionado al transporte" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo61">{{ doc.relDoc.tipoDoc }}</cbc:DocumentTypeCode>
-		<cbc:DocumentType>Factura</cbc:DocumentType>
+		<cbc:ID>{{ rel.nro }}</cbc:ID>
+		<cbc:DocumentTypeCode listAgencyName="PE:SUNAT" listName="Documento relacionado al transporte" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo61">{{ rel.tipo }}</cbc:DocumentTypeCode>
+		<cbc:DocumentType>{{ rel.tipoDesc }}</cbc:DocumentType>
+		{% if rel.emisor %}
 		<cac:IssuerParty>
 			<cac:PartyIdentification>
-				<cbc:ID schemeID="6" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">20000000001</cbc:ID>
+				<cbc:ID schemeID="6" schemeName="Documento de Identidad"
+						schemeAgencyName="PE:SUNAT"
+						schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ rel.emisor }}</cbc:ID>
 			</cac:PartyIdentification>
 		</cac:IssuerParty>
+		{% endif %}
 	</cac:AdditionalDocumentReference>
-    {% endif %}
+    {% endfor %}
     {% set emp = doc.company %}
 	<cac:Signature>
 		<cbc:ID>{{ emp.ruc }}</cbc:ID>
