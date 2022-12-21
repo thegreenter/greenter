@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Greenter\Xml\Builder;
 
 use Greenter\Builder\BuilderInterface;
+use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\DocumentInterface;
 
 /**
@@ -27,6 +28,11 @@ class DespatchBuilder extends TwigBuilder implements BuilderInterface
      */
     public function build(DocumentInterface $document): ?string
     {
+        /** @var Despatch $despatch */
+        $despatch = $document;
+        if ($despatch->getVersion() == '2022') {
+            return $this->render('despatch2022.xml.twig', $document);
+        }
         return $this->render('despatch.xml.twig', $document);
     }
 }

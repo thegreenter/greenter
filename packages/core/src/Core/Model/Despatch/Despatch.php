@@ -24,6 +24,11 @@ class Despatch implements DocumentInterface
     /**
      * @var string
      */
+    private $version;
+
+    /**
+     * @var string
+     */
     private $tipoDoc;
     /**
      * Serie del Documento (ejem: T001).
@@ -83,6 +88,24 @@ class Despatch implements DocumentInterface
      * @var DespatchDetail[]
      */
     private $details;
+
+    /**
+     * @return string
+     */
+    public function getVersion(): ?string
+    {
+        return $this->version;
+    }
+
+    /**
+     * @param string|null $version
+     * @return Despatch
+     */
+    public function setVersion(?string $version): Despatch
+    {
+        $this->version = $version;
+        return $this;
+    }
 
     /**
      * @return string
