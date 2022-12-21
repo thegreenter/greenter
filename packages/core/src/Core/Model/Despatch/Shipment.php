@@ -30,6 +30,12 @@ class Shipment
      */
     private $desTraslado;
     /**
+     * Sustento de la diferencia del Peso bruto total de la carga respecto al peso de los ítems seleccionados.
+     *
+     * @var string
+     */
+    private $sustentoPeso;
+    /**
      * Indicador de Transbordo Programado.
      *
      * @var bool
@@ -121,6 +127,24 @@ class Shipment
     {
         $this->desTraslado = $desTraslado;
 
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSustentoPeso(): ?string
+    {
+        return $this->sustentoPeso;
+    }
+
+    /**
+     * @param string|null $sustentoPeso
+     * @return Shipment
+     */
+    public function setSustentoPeso(?string $sustentoPeso): Shipment
+    {
+        $this->sustentoPeso = $sustentoPeso;
         return $this;
     }
 

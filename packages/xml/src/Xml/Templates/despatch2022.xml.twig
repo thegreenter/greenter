@@ -96,11 +96,13 @@
 	{% endif %}
     {% set envio = doc.envio %}
 	<cac:Shipment>
-		<cbc:ID>1</cbc:ID>
+		<cbc:ID>SUNAT_Envio</cbc:ID>
 		<cbc:HandlingCode listAgencyName="PE:SUNAT" listName="Motivo de traslado" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo20">{{ envio.codTraslado }}</cbc:HandlingCode>
-{#		<cbc:HandlingInstructions></cbc:HandlingInstructions>#}
         {% if envio.desTraslado %}
-		<cbc:Information>{{ envio.desTraslado }}</cbc:Information>
+		<cbc:HandlingInstructions>{{ envio.desTraslado }}</cbc:HandlingInstructions>
+		{% endif %}
+		{% if envio.sustentoPeso %}
+		<cbc:Information>{{ envio.sustentoPeso }}</cbc:Information>
 		{% endif %}
 		<cbc:GrossWeightMeasure unitCode="{{ envio.undPesoTotal }}">{{ envio.pesoTotal|n_format(3) }}</cbc:GrossWeightMeasure>
 {#		<cbc:NetWeightMeasure unitCode="KGM">23.333</cbc:NetWeightMeasure>#}
