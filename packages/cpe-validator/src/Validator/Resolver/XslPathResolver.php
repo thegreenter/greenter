@@ -20,7 +20,7 @@ class XslPathResolver implements RuleResolverInterface
         DocumentType::NOTA_DEBITO => "2.X/ValidaExprRegND-2.0.1.xsl",
         DocumentType::RESUMEN_DIARIO => "1.X/ValidaExprRegSummary-1.1.0.xsl",
         DocumentType::COMUNICACION_BAJA => "1.X/ValidaExprRegSummaryVoided-1.0.1.xsl",
-        DocumentType::GUIA_REMISION => "2.X/ValidaExprRegGuiaRemitente-2.0.1.xsl",
+        DocumentType::GUIA_REMISION => "2.X/ValidaExprRegGreRemitente-2.0.1.xsl",
         DocumentType::RETENCION => "1.X/ValidaExprRegRetencion-1.0.3.xsl",
         DocumentType::PERCEPCION => "1.X/ValidaExprRegPercepcion-1.0.1.xsl",
         DocumentType::RESUMEN_REVERSION => "1.X/ValidaExprRegOtrosVoided-1.0.1.xsl",
