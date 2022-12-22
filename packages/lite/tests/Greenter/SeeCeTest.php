@@ -30,12 +30,9 @@ class SeeCeTest extends CeFactoryBase
         /**@var $result BillResult*/
         $result = $this->getSee(SunatEndpoints::GUIA_BETA)->send($doc);
 
-        $this->assertTrue($result->isSuccess());
-        $this->assertNotNull($result->getCdrResponse());
-        $this->assertStringContainsString(
-            'aceptado',
-            $result->getCdrResponse()->getDescription()
-        );
+        // Enviar a API
+        $this->assertFalse($result->isSuccess());
+        $this->assertEquals($result->getError()->getCode(), '1085');
     }
 
     /**
