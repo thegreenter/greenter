@@ -200,8 +200,7 @@
 			<cbc:LocationTypeCode>1</cbc:LocationTypeCode>
 			<cbc:Name>{{ envio.puerto.nombre }}</cbc:Name>
 		</cac:FirstArrivalPortLocation>
-        {% endif %}
-		{% if envio.aeropuerto %}
+        {% elseif envio.aeropuerto %}
 		<cac:FirstArrivalPortLocation>
 			<cbc:ID schemeAgencyName="PE:SUNAT" schemeName="Aeropuertos" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo64">{{ envio.aeropuerto.codigo }}</cbc:ID>
 			<cbc:LocationTypeCode>2</cbc:LocationTypeCode>

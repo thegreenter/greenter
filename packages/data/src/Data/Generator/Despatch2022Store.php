@@ -106,6 +106,10 @@ class Despatch2022Store implements DocumentGeneratorInterface
                 ->setTipoDoc('6')
                 ->setNumDoc('20000000003')
                 ->setRznSocial('GREENTER SA'))
+            ->setComprador((new Client())
+                ->setTipoDoc('6')
+                ->setNumDoc('20000000004')
+                ->setRznSocial('EMPRESA SAC'))
             ->setObservacion('NOTA GUIA')
             ->setAddDocs([$rel])
             ->setEnvio($envio);
