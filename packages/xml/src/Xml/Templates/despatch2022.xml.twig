@@ -23,9 +23,7 @@
 		{% if rel.emisor %}
 		<cac:IssuerParty>
 			<cac:PartyIdentification>
-				<cbc:ID schemeID="6" schemeName="Documento de Identidad"
-						schemeAgencyName="PE:SUNAT"
-						schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ rel.emisor }}</cbc:ID>
+				<cbc:ID schemeID="6" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ rel.emisor }}</cbc:ID>
 			</cac:PartyIdentification>
 		</cac:IssuerParty>
 		{% endif %}
@@ -68,6 +66,18 @@
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:DeliveryCustomerParty>
+	{% if doc.comprador %}
+	<cac:BuyerCustomerParty>
+		<cac:Party>
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="{{ doc.comprador.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.comprador.numDoc }}</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName><![CDATA[{{ doc.comprador.rznSocial|raw }}]]></cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:BuyerCustomerParty>
+	{% endif %}
 	{% if doc.tercero %}
 	<cac:SellerSupplierParty>
 		<cac:Party>
@@ -79,20 +89,6 @@
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:SellerSupplierParty>
-	{% endif %}
-	{% if doc.comprador %}
-	<cac:BuyerCustomerParty>
-		<cac:Party>
-			<cac:PartyIdentification>
-				<cbc:ID schemeID="{{ doc.comprador.tipoDoc }}" schemeName="Documento de Identidad"
-						schemeAgencyName="PE:SUNAT"
-						schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.comprador.numDoc }}</cbc:ID>
-			</cac:PartyIdentification>
-			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ doc.comprador.rznSocial|raw }}]]></cbc:RegistrationName>
-			</cac:PartyLegalEntity>
-		</cac:Party>
-	</cac:BuyerCustomerParty>
 	{% endif %}
     {% set envio = doc.envio %}
 	<cac:Shipment>
@@ -145,6 +141,15 @@
 			{% endfor %}
 		</cac:ShipmentStage>
 		<cac:Delivery>
+			<cac:DeliveryAddress>
+				<cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">{{ envio.llegada.ubigueo }}</cbc:ID>
+				{% if envio.llegada.codLocal %}
+				<cbc:AddressTypeCode listID="{{ envio.llegada.ruc }}">{{ envio.llegada.codLocal }}</cbc:AddressTypeCode>
+				{% endif %}
+				<cac:AddressLine>
+					<cbc:Line>{{ envio.llegada.direccion }}</cbc:Line>
+				</cac:AddressLine>
+			</cac:DeliveryAddress>
 			<cac:Despatch>
 				<cac:DespatchAddress>
 					<cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">{{ envio.partida.ubigueo }}</cbc:ID>
@@ -156,15 +161,6 @@
 					</cac:AddressLine>
 				</cac:DespatchAddress>
 			</cac:Despatch>
-			<cac:DeliveryAddress>
-				<cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">{{ envio.llegada.ubigueo }}</cbc:ID>
-				{% if envio.llegada.codLocal %}
-				<cbc:AddressTypeCode listID="{{ envio.llegada.ruc }}">{{ envio.llegada.codLocal }}</cbc:AddressTypeCode>
-				{% endif %}
-				<cac:AddressLine>
-					<cbc:Line>{{ envio.llegada.direccion }}</cbc:Line>
-				</cac:AddressLine>
-			</cac:DeliveryAddress>
 		</cac:Delivery>
 		{% for precinto in envio.contenedores %}
 		<cac:TransportHandlingUnit>
@@ -217,6 +213,9 @@
 	<cac:DespatchLine>
 		<cbc:ID>{{ loop.index }}</cbc:ID>
 		<cbc:DeliveredQuantity unitCode="{{ det.unidad }}">{{ det.cantidad }}</cbc:DeliveredQuantity>
+		<cac:OrderLineReference>
+			<cbc:LineID>{{ loop.index }}</cbc:LineID>
+		</cac:OrderLineReference>
 		<cac:Item>
 			<cbc:Description><![CDATA[{{ det.descripcion|raw }}]]></cbc:Description>
 			<cac:SellersItemIdentification>
