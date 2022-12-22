@@ -47,7 +47,8 @@ class Despatch2022Store implements DocumentGeneratorInterface
         $transp = new Transportist();
         $transp->setTipoDoc('6')
             ->setNumDoc('20000000002')
-            ->setRznSocial('TRANSPORTES S.A.C');
+            ->setRznSocial('TRANSPORTES S.A.C')
+            ->setNroMtc('100101');
 
         $conductor = (new Driver())
         ->setTipo('Principal')
@@ -84,6 +85,8 @@ class Despatch2022Store implements DocumentGeneratorInterface
             ->setIndicador(['SUNAT_Envio_IndicadorTrasladoVehiculoM1L'])
             ->setPesoTotal(12.5)
             ->setUndPesoTotal('KGM')
+            ->setPesoItems(10.23)
+            ->setSustentoPeso('Ninguna')
             ->setNumBultos(2)
             ->setContenedores(['0000001', '0000002'])
             ->setLlegada((new Direction('150101', 'AV LIMA'))
@@ -93,6 +96,11 @@ class Despatch2022Store implements DocumentGeneratorInterface
                 ->setCodLocal('00002')
                 ->setRuc('20000000002'))
             ->setTransportista($transp);
+
+        // only one port is allowed
+        if ($envio->getAeropuerto()) {
+            $envio->setPuerto(null);
+        }
 
         $despatch = new Despatch();
         $despatch->setVersion('2022')
