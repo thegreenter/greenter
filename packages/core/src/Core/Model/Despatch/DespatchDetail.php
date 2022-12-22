@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace Greenter\Model\Despatch;
 
+use Greenter\Model\Sale\DetailAttribute;
+
 /**
  * Class DespatchDetail.
  */

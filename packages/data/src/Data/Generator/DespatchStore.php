@@ -19,6 +19,7 @@ use Greenter\Model\Despatch\Direction;
 use Greenter\Model\Despatch\Shipment;
 use Greenter\Model\Despatch\Transportist;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Sale\DetailAttribute;
 use Greenter\Model\Sale\Document;
 
 class DespatchStore implements DocumentGeneratorInterface
@@ -87,7 +88,11 @@ class DespatchStore implements DocumentGeneratorInterface
             ->setUnidad('ZZ')
             ->setDescripcion('PROD 1')
             ->setCodigo('PROD1')
-            ->setCodProdSunat('P001');
+            ->setCodProdSunat('P001')
+            ->setAtributos([(new DetailAttribute())
+                ->setCode('01')
+                ->setName('AAAA')
+                ->setValue('BBBBB BBBB')]);
 
         $despatch->setDetails([$detail]);
 
