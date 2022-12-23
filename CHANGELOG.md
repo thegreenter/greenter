@@ -3,6 +3,18 @@
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
 ## Unreleased
+- #206 Agregar xml para nueva Guia de Remisión.  
+
+## 4.3.4 - 2022-11-21
+
+- #200 Agregar campos faltantes a Nota de Debito
+- #204 Soporte para symfony 6
+
+## 4.3.3 - 2022-07-19
+- #199 Corrección descuento código 05
+- #197 Phpstan v1
+
+## 4.3.1 - 2021-06-04
 - #175 Inclusión de tag `<Signature>` en guía remisión.
 
 ## 4.3.1 - 2021-03-20
