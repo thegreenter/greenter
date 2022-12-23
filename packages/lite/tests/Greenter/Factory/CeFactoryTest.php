@@ -24,8 +24,9 @@ class CeFactoryTest extends CeFactoryBase
         $despatch = $this->getDespatch();
         $result = $this->getFactoryResult($despatch);
 
+        // Enviar a API
         if (!$result->isSuccess() &&
-            $result->getError()->getCode() == '200') {
+            $result->getError()->getCode() == '1085') {
             return;
         }
 

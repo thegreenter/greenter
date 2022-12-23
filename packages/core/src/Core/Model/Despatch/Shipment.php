@@ -30,11 +30,37 @@ class Shipment
      */
     private $desTraslado;
     /**
+     * Sustento de la diferencia del Peso bruto total de la carga respecto al peso de los ítems seleccionados.
+     *
+     * @var string
+     */
+    private $sustentoPeso;
+    /**
      * Indicador de Transbordo Programado.
      *
      * @var bool
      */
     private $indTransbordo;
+    /**
+     * Indicador de traslado, Retorno, Transbordo, etc.
+     * opciones:
+     *
+     * SUNAT_Envio_IndicadorTransbordoProgramado
+     * SUNAT_Envio_IndicadorTrasladoVehiculoM1L
+     * SUNAT_Envio_IndicadorRetornoVehiculoEnvaseVacio
+     * SUNAT_Envio_IndicadorRetornoVehiculoVacio
+     * SUNAT_Envio_IndicadorTrasladoTotalDAMoDS
+     * SUNAT_Envio_IndicadorVehiculoConductoresTransp
+     *
+     * @var string[]
+     */
+    private $indicadores;
+    /**
+     * Peso bruto total de los ítems seleccionados (en KGM).
+     *
+     * @var float
+     */
+    private $pesoItems;
     /**
      * @var float
      */
@@ -66,15 +92,41 @@ class Shipment
      */
     private $numContenedor;
     /**
+     * Contenedores (precinto)
+     *
+     * @var string[]
+     */
+    private $contenedores;
+    /**
      * Codigo del Puerto. (Puerto o Aeropuerto de embarque/desembarque).
      *
      * @var string
      */
     private $codPuerto;
     /**
+     * @var Puerto
+     */
+    private $puerto;
+    /**
+     * @var Puerto
+     */
+    private $aeropuerto;
+    /**
      * @var Transportist
      */
     private $transportista;
+    /**
+     * Vehiculo Principal.
+     *
+     * @var Vehicle
+     */
+    private $vehiculo;
+    /**
+     * Conductores principales y secundarios.
+     *
+     * @var Driver[]
+     */
+    private $choferes;
     /**
      * @var Direction
      */
@@ -125,6 +177,24 @@ class Shipment
     }
 
     /**
+     * @return string
+     */
+    public function getSustentoPeso(): ?string
+    {
+        return $this->sustentoPeso;
+    }
+
+    /**
+     * @param string|null $sustentoPeso
+     * @return Shipment
+     */
+    public function setSustentoPeso(?string $sustentoPeso): Shipment
+    {
+        $this->sustentoPeso = $sustentoPeso;
+        return $this;
+    }
+
+    /**
      * @return bool
      */
     public function isIndTransbordo(): ?bool
@@ -133,6 +203,8 @@ class Shipment
     }
 
     /**
+     * @deprecated use setIndicadores
+     *
      * @param bool $indTransbordo
      *
      * @return Shipment
@@ -141,6 +213,42 @@ class Shipment
     {
         $this->indTransbordo = $indTransbordo;
 
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getIndicadores(): ?array
+    {
+        return $this->indicadores;
+    }
+
+    /**
+     * @param string[] $indicadores
+     * @return Shipment
+     */
+    public function setIndicador(?array $indicadores): Shipment
+    {
+        $this->indicadores = $indicadores;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPesoItems(): ?float
+    {
+        return $this->pesoItems;
+    }
+
+    /**
+     * @param float|null $pesoItems
+     * @return Shipment
+     */
+    public function setPesoItems(?float $pesoItems): Shipment
+    {
+        $this->pesoItems = $pesoItems;
         return $this;
     }
 
@@ -253,6 +361,8 @@ class Shipment
     }
 
     /**
+     * @deprecated use setContenedores
+     *
      * @param string $numContenedor
      *
      * @return Shipment
@@ -265,6 +375,24 @@ class Shipment
     }
 
     /**
+     * @return string[]
+     */
+    public function getContenedores(): ?array
+    {
+        return $this->contenedores;
+    }
+
+    /**
+     * @param string[] $contenedores
+     * @return Shipment
+     */
+    public function setContenedores(?array $contenedores): Shipment
+    {
+        $this->contenedores = $contenedores;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getCodPuerto(): ?string
@@ -273,6 +401,8 @@ class Shipment
     }
 
     /**
+     * @deprecated use setPuerto
+     *
      * @param string $codPuerto
      *
      * @return Shipment
@@ -281,6 +411,42 @@ class Shipment
     {
         $this->codPuerto = $codPuerto;
 
+        return $this;
+    }
+
+    /**
+     * @return Puerto
+     */
+    public function getPuerto(): ?Puerto
+    {
+        return $this->puerto;
+    }
+
+    /**
+     * @param Puerto|null $puerto
+     * @return Shipment
+     */
+    public function setPuerto(?Puerto $puerto): Shipment
+    {
+        $this->puerto = $puerto;
+        return $this;
+    }
+
+    /**
+     * @return Puerto
+     */
+    public function getAeropuerto(): ?Puerto
+    {
+        return $this->aeropuerto;
+    }
+
+    /**
+     * @param Puerto|null $aeropuerto
+     * @return Shipment
+     */
+    public function setAeropuerto(?Puerto $aeropuerto): Shipment
+    {
+        $this->aeropuerto = $aeropuerto;
         return $this;
     }
 
@@ -301,6 +467,42 @@ class Shipment
     {
         $this->transportista = $transportista;
 
+        return $this;
+    }
+
+    /**
+     * @return Vehicle
+     */
+    public function getVehiculo(): ?Vehicle
+    {
+        return $this->vehiculo;
+    }
+
+    /**
+     * @param Vehicle|null $vehiculo
+     * @return Shipment
+     */
+    public function setVehiculo(?Vehicle $vehiculo): Shipment
+    {
+        $this->vehiculo = $vehiculo;
+        return $this;
+    }
+
+    /**
+     * @return Driver[]
+     */
+    public function getChoferes(): ?array
+    {
+        return $this->choferes;
+    }
+
+    /**
+     * @param Driver[] $choferes
+     * @return Shipment
+     */
+    public function setChoferes(?array $choferes): Shipment
+    {
+        $this->choferes = $choferes;
         return $this;
     }
 

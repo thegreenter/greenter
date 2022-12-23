@@ -1,0 +1,241 @@
+{% apply spaceless %}
+<?xml version="1.0" encoding="utf-8"?>
+<DespatchAdvice xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+	<ext:UBLExtensions>
+		<ext:UBLExtension>
+			<ext:ExtensionContent/>
+		</ext:UBLExtension>
+	</ext:UBLExtensions>
+	<cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+	<cbc:CustomizationID>2.0</cbc:CustomizationID>
+	<cbc:ID>{{ doc.serie }}-{{ doc.correlativo }}</cbc:ID>
+	<cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
+	<cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>
+	<cbc:DespatchAdviceTypeCode listAgencyName="PE:SUNAT" listName="Tipo de Documento" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01">{{ doc.tipoDoc }}</cbc:DespatchAdviceTypeCode>
+    {% if doc.observacion %}
+	<cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
+    {% endif %}
+	{% for rel in doc.addDocs  %}
+	<cac:AdditionalDocumentReference>
+		<cbc:ID>{{ rel.nro }}</cbc:ID>
+		<cbc:DocumentTypeCode listAgencyName="PE:SUNAT" listName="Documento relacionado al transporte" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo61">{{ rel.tipo }}</cbc:DocumentTypeCode>
+		<cbc:DocumentType>{{ rel.tipoDesc }}</cbc:DocumentType>
+		{% if rel.emisor %}
+		<cac:IssuerParty>
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="6" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ rel.emisor }}</cbc:ID>
+			</cac:PartyIdentification>
+		</cac:IssuerParty>
+		{% endif %}
+	</cac:AdditionalDocumentReference>
+    {% endfor %}
+    {% set emp = doc.company %}
+	<cac:Signature>
+		<cbc:ID>{{ emp.ruc }}</cbc:ID>
+		<cac:SignatoryParty>
+			<cac:PartyIdentification>
+				<cbc:ID>{{ emp.ruc }}</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyName>
+				<cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
+			</cac:PartyName>
+		</cac:SignatoryParty>
+		<cac:DigitalSignatureAttachment>
+			<cac:ExternalReference>
+				<cbc:URI>#GREENTER-SIGN</cbc:URI>
+			</cac:ExternalReference>
+		</cac:DigitalSignatureAttachment>
+	</cac:Signature>
+	<cac:DespatchSupplierParty>
+		<cac:Party>
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="6" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ emp.ruc }}</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:DespatchSupplierParty>
+	<cac:DeliveryCustomerParty>
+		<cac:Party>
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="{{ doc.destinatario.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.destinatario.numDoc }}</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName><![CDATA[{{ doc.destinatario.rznSocial|raw }}]]></cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:DeliveryCustomerParty>
+	{% if doc.comprador %}
+	<cac:BuyerCustomerParty>
+		<cac:Party>
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="{{ doc.comprador.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.comprador.numDoc }}</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName><![CDATA[{{ doc.comprador.rznSocial|raw }}]]></cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:BuyerCustomerParty>
+	{% endif %}
+	{% if doc.tercero %}
+	<cac:SellerSupplierParty>
+		<cac:Party>
+			<cac:PartyIdentification>
+				<cbc:ID schemeID="{{ doc.tercero.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.tercero.numDoc }}</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyLegalEntity>
+				<cbc:RegistrationName><![CDATA[{{ doc.tercero.rznSocial|raw }}]]></cbc:RegistrationName>
+			</cac:PartyLegalEntity>
+		</cac:Party>
+	</cac:SellerSupplierParty>
+	{% endif %}
+    {% set envio = doc.envio %}
+	<cac:Shipment>
+		<cbc:ID>SUNAT_Envio</cbc:ID>
+		<cbc:HandlingCode listAgencyName="PE:SUNAT" listName="Motivo de traslado" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo20">{{ envio.codTraslado }}</cbc:HandlingCode>
+        {% if envio.desTraslado %}
+		<cbc:HandlingInstructions>{{ envio.desTraslado }}</cbc:HandlingInstructions>
+		{% endif %}
+		{% if envio.sustentoPeso %}
+		<cbc:Information>{{ envio.sustentoPeso }}</cbc:Information>
+		{% endif %}
+		<cbc:GrossWeightMeasure unitCode="{{ envio.undPesoTotal }}">{{ envio.pesoTotal|n_format(3) }}</cbc:GrossWeightMeasure>
+		{% if envio.pesoItems %}
+		<cbc:NetWeightMeasure unitCode="KGM">{{ envio.pesoItems|n_format(3) }}</cbc:NetWeightMeasure>
+		{% endif %}
+        {% if envio.numBultos %}
+		<cbc:TotalTransportHandlingUnitQuantity>{{ envio.numBultos }}</cbc:TotalTransportHandlingUnitQuantity>
+		{% endif %}
+		{% for indicador in envio.indicadores %}
+		<cbc:SpecialInstructions>{{ indicador }}</cbc:SpecialInstructions>
+		{% endfor %}
+		<cac:ShipmentStage>
+			<cbc:TransportModeCode listName="Modalidad de traslado" listAgencyName="PE:SUNAT" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo18">{{ envio.modTraslado }}</cbc:TransportModeCode>
+			{% if envio.fecTraslado %}
+			<cac:TransitPeriod>
+				<cbc:StartDate>{{ envio.fecTraslado|date('Y-m-d') }}</cbc:StartDate>
+			</cac:TransitPeriod>
+			{% endif %}
+            {% if envio.transportista %}
+			<cac:CarrierParty>
+				<cac:PartyIdentification>
+					<cbc:ID schemeID="{{ envio.transportista.tipoDoc }}">{{ envio.transportista.numDoc }}</cbc:ID>
+				</cac:PartyIdentification>
+				<cac:PartyLegalEntity>
+					<cbc:RegistrationName><![CDATA[{{ envio.transportista.rznSocial|raw }}]]></cbc:RegistrationName>
+					<cbc:CompanyID>{{ envio.transportista.nroMtc }}</cbc:CompanyID>
+				</cac:PartyLegalEntity>
+			</cac:CarrierParty>
+            {% endif %}
+			{% for chofer in envio.choferes %}
+			<cac:DriverPerson>
+				<cbc:ID schemeID="{{ chofer.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ chofer.nroDoc }}</cbc:ID>
+				<cbc:FirstName>{{ chofer.nombres }}</cbc:FirstName>
+				<cbc:FamilyName>{{ chofer.apellidos }}</cbc:FamilyName>
+				<cbc:JobTitle>{{ chofer.tipo }}</cbc:JobTitle>
+				<cac:IdentityDocumentReference>
+					<cbc:ID>{{ chofer.licencia }}</cbc:ID>
+				</cac:IdentityDocumentReference>
+			</cac:DriverPerson>
+			{% endfor %}
+		</cac:ShipmentStage>
+		<cac:Delivery>
+			<cac:DeliveryAddress>
+				<cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">{{ envio.llegada.ubigueo }}</cbc:ID>
+				{% if envio.llegada.codLocal %}
+				<cbc:AddressTypeCode listID="{{ envio.llegada.ruc }}">{{ envio.llegada.codLocal }}</cbc:AddressTypeCode>
+				{% endif %}
+				<cac:AddressLine>
+					<cbc:Line>{{ envio.llegada.direccion }}</cbc:Line>
+				</cac:AddressLine>
+			</cac:DeliveryAddress>
+			<cac:Despatch>
+				<cac:DespatchAddress>
+					<cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">{{ envio.partida.ubigueo }}</cbc:ID>
+					{% if envio.partida.codLocal %}
+					<cbc:AddressTypeCode listID="{{ envio.partida.ruc }}">{{ envio.partida.codLocal }}</cbc:AddressTypeCode>
+					{% endif %}
+					<cac:AddressLine>
+						<cbc:Line>{{ envio.partida.direccion }}</cbc:Line>
+					</cac:AddressLine>
+				</cac:DespatchAddress>
+			</cac:Despatch>
+		</cac:Delivery>
+		{% for precinto in envio.contenedores %}
+		<cac:TransportHandlingUnit>
+			<cac:Package>
+				<cbc:ID>{{ loop.index }}</cbc:ID>
+				<cbc:TraceID>{{ precinto }}</cbc:TraceID>
+			</cac:Package>
+		</cac:TransportHandlingUnit>
+		{% endfor %}
+		{% if envio.vehiculo %}
+		<cac:TransportHandlingUnit>
+			<cac:TransportEquipment>
+				<cbc:ID>{{ envio.vehiculo.placa }}</cbc:ID>
+				<cac:ApplicableTransportMeans>
+					<cbc:RegistrationNationalityID>{{ envio.vehiculo.nroCirculacion }}</cbc:RegistrationNationalityID>
+				</cac:ApplicableTransportMeans>
+				{% for sec in envio.vehiculo.secundarios %}
+				<cac:AttachedTransportEquipment>
+					<cbc:ID>{{ sec.placa }}</cbc:ID>
+					<cac:ApplicableTransportMeans>
+						<cbc:RegistrationNationalityID>{{ sec.nroCirculacion }}</cbc:RegistrationNationalityID>
+					</cac:ApplicableTransportMeans>
+					<cac:ShipmentDocumentReference>
+						<cbc:ID schemeID="{{ sec.codEmisor }}" schemeName="Entidad Autorizadora" schemeAgencyName="PE:SUNAT">{{ sec.nroAutorizacion }}</cbc:ID>
+					</cac:ShipmentDocumentReference>
+				</cac:AttachedTransportEquipment>
+				{% endfor %}
+				<cac:ShipmentDocumentReference>
+					<cbc:ID schemeID="{{ envio.vehiculo.codEmisor }}" schemeName="Entidad Autorizadora" schemeAgencyName="PE:SUNAT">{{ envio.vehiculo.nroAutorizacion }}</cbc:ID>
+				</cac:ShipmentDocumentReference>
+			</cac:TransportEquipment>
+		</cac:TransportHandlingUnit>
+		{% endif %}
+        {% if envio.puerto %}
+		<cac:FirstArrivalPortLocation>
+			<cbc:ID schemeAgencyName="PE:SUNAT" schemeName="Puertos" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo63">{{ envio.puerto.codigo }}</cbc:ID>
+			<cbc:LocationTypeCode>1</cbc:LocationTypeCode>
+			<cbc:Name>{{ envio.puerto.nombre }}</cbc:Name>
+		</cac:FirstArrivalPortLocation>
+        {% elseif envio.aeropuerto %}
+		<cac:FirstArrivalPortLocation>
+			<cbc:ID schemeAgencyName="PE:SUNAT" schemeName="Aeropuertos" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo64">{{ envio.aeropuerto.codigo }}</cbc:ID>
+			<cbc:LocationTypeCode>2</cbc:LocationTypeCode>
+			<cbc:Name>{{ envio.aeropuerto.nombre }}</cbc:Name>
+		</cac:FirstArrivalPortLocation>
+		{% endif %}
+	</cac:Shipment>
+    {% for det in doc.details %}
+	<cac:DespatchLine>
+		<cbc:ID>{{ loop.index }}</cbc:ID>
+		<cbc:DeliveredQuantity unitCode="{{ det.unidad }}">{{ det.cantidad }}</cbc:DeliveredQuantity>
+		<cac:OrderLineReference>
+			<cbc:LineID>{{ loop.index }}</cbc:LineID>
+		</cac:OrderLineReference>
+		<cac:Item>
+			<cbc:Description><![CDATA[{{ det.descripcion|raw }}]]></cbc:Description>
+			<cac:SellersItemIdentification>
+				<cbc:ID>{{ det.codigo }}</cbc:ID>
+			</cac:SellersItemIdentification>
+			{% if det.codProdSunat %}
+			<cac:CommodityClassification>
+				<cbc:ItemClassificationCode listID="UNSPSC" listAgencyName="GS1 US" listName="Item Classification">{{ det.codProdSunat }}</cbc:ItemClassificationCode>
+			</cac:CommodityClassification>
+			{% endif %}
+			{% for atr in det.atributos %}
+			<cac:AdditionalItemProperty >
+				<cbc:Name>{{ atr.name }}</cbc:Name>
+				<cbc:NameCode>{{ atr.code }}</cbc:NameCode>
+				{% if atr.value %}
+					<cbc:Value>{{ atr.value }}</cbc:Value>
+				{% endif %}
+			</cac:AdditionalItemProperty>
+			{% endfor %}
+		</cac:Item>
+	</cac:DespatchLine>
+    {% endfor %}
+</DespatchAdvice>
+{% endapply %}

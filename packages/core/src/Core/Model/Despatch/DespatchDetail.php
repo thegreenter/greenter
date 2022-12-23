@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace Greenter\Model\Despatch;
 
+use Greenter\Model\Sale\DetailAttribute;
+
 /**
  * Class DespatchDetail.
  */
@@ -37,6 +39,11 @@ class DespatchDetail
      * @var string
      */
     private $codProdSunat;
+
+    /**
+     * @var DetailAttribute[]
+     */
+    private $atributos;
 
     /**
      * @return string
@@ -135,6 +142,24 @@ class DespatchDetail
     {
         $this->codProdSunat = $codProdSunat;
 
+        return $this;
+    }
+
+    /**
+     * @return DetailAttribute[]
+     */
+    public function getAtributos(): ?array
+    {
+        return $this->atributos;
+    }
+
+    /**
+     * @param DetailAttribute[] $atributos
+     * @return DespatchDetail
+     */
+    public function setAtributos(?array $atributos): DespatchDetail
+    {
+        $this->atributos = $atributos;
         return $this;
     }
 }

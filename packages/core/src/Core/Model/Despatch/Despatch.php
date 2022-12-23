@@ -24,6 +24,11 @@ class Despatch implements DocumentInterface
     /**
      * @var string
      */
+    private $version;
+
+    /**
+     * @var string
+     */
     private $tipoDoc;
     /**
      * Serie del Documento (ejem: T001).
@@ -58,6 +63,12 @@ class Despatch implements DocumentInterface
      */
     private $tercero;
     /**
+     * Datos del Comprador.
+     *
+     * @var Client
+     */
+    private $comprador;
+    /**
      * @var Shipment
      */
     private $envio;
@@ -70,9 +81,31 @@ class Despatch implements DocumentInterface
      */
     private $relDoc;
     /**
+     * @var AdditionalDoc[]
+     */
+    private $addDocs;
+    /**
      * @var DespatchDetail[]
      */
     private $details;
+
+    /**
+     * @return string
+     */
+    public function getVersion(): ?string
+    {
+        return $this->version;
+    }
+
+    /**
+     * @param string|null $version
+     * @return Despatch
+     */
+    public function setVersion(?string $version): Despatch
+    {
+        $this->version = $version;
+        return $this;
+    }
 
     /**
      * @return string
@@ -223,13 +256,33 @@ class Despatch implements DocumentInterface
     }
 
     /**
-     * @param Client $tercero
+     * @param Client|null $tercero
      *
      * @return Despatch
      */
     public function setTercero(?Client $tercero): Despatch
     {
         $this->tercero = $tercero;
+
+        return $this;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getComprador(): ?Client
+    {
+        return $this->comprador;
+    }
+
+    /**
+     * @param Client|null $comprador
+     *
+     * @return Despatch
+     */
+    public function setComprador(?Client $comprador): Despatch
+    {
+        $this->comprador = $comprador;
 
         return $this;
     }
@@ -263,6 +316,8 @@ class Despatch implements DocumentInterface
     }
 
     /**
+     * @deprecated unused
+     *
      * @param Document $docBaja
      *
      * @return Despatch
@@ -283,6 +338,8 @@ class Despatch implements DocumentInterface
     }
 
     /**
+     * @deprecated use setAddDocs
+     *
      * @param Document $relDoc
      *
      * @return Despatch
@@ -290,6 +347,25 @@ class Despatch implements DocumentInterface
     public function setRelDoc(?Document $relDoc): Despatch
     {
         $this->relDoc = $relDoc;
+
+        return $this;
+    }
+
+    /**
+     * @return AdditionalDoc[]
+     */
+    public function getAddDocs(): ?array
+    {
+        return $this->addDocs;
+    }
+
+    /**
+     * @param AdditionalDoc[] $addDocs
+     * @return Despatch
+     */
+    public function setAddDocs(?array $addDocs): Despatch
+    {
+        $this->addDocs = $addDocs;
 
         return $this;
     }

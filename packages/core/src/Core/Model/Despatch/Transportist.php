@@ -28,6 +28,12 @@ class Transportist
      */
     private $rznSocial;
     /**
+     * Número de Registro MTC.
+     *
+     * @var string
+     */
+    private $nroMtc;
+    /**
      * (Transporte Privado).
      *
      * @var string
@@ -109,12 +115,32 @@ class Transportist
     /**
      * @return string
      */
+    public function getNroMtc(): ?string
+    {
+        return $this->nroMtc;
+    }
+
+    /**
+     * @param string|null $nroMtc
+     * @return Transportist
+     */
+    public function setNroMtc(?string $nroMtc): Transportist
+    {
+        $this->nroMtc = $nroMtc;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getPlaca(): ?string
     {
         return $this->placa;
     }
 
     /**
+     * @deprecated use shipment.vehicles
+     *
      * @param string $placa
      *
      * @return Transportist
@@ -135,6 +161,8 @@ class Transportist
     }
 
     /**
+     * @deprecated use shipment.drivers
+     *
      * @param string $choferTipoDoc
      *
      * @return Transportist
@@ -155,6 +183,8 @@ class Transportist
     }
 
     /**
+     * @deprecated use shipment.drivers
+     *
      * @param string $choferDoc
      *
      * @return Transportist
