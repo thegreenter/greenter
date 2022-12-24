@@ -174,23 +174,31 @@
 		<cac:TransportHandlingUnit>
 			<cac:TransportEquipment>
 				<cbc:ID>{{ envio.vehiculo.placa }}</cbc:ID>
+				{% if envio.vehiculo.nroCirculacion %}
 				<cac:ApplicableTransportMeans>
 					<cbc:RegistrationNationalityID>{{ envio.vehiculo.nroCirculacion }}</cbc:RegistrationNationalityID>
 				</cac:ApplicableTransportMeans>
+				{% endif %}
 				{% for sec in envio.vehiculo.secundarios %}
 				<cac:AttachedTransportEquipment>
 					<cbc:ID>{{ sec.placa }}</cbc:ID>
+					{% if sec.nroCirculacion %}
 					<cac:ApplicableTransportMeans>
 						<cbc:RegistrationNationalityID>{{ sec.nroCirculacion }}</cbc:RegistrationNationalityID>
 					</cac:ApplicableTransportMeans>
+					{% endif %}
+					{% if sec.nroAutorizacion %}
 					<cac:ShipmentDocumentReference>
 						<cbc:ID schemeID="{{ sec.codEmisor }}" schemeName="Entidad Autorizadora" schemeAgencyName="PE:SUNAT">{{ sec.nroAutorizacion }}</cbc:ID>
 					</cac:ShipmentDocumentReference>
+					{% endif %}
 				</cac:AttachedTransportEquipment>
 				{% endfor %}
+				{% if envio.vehiculo.nroAutorizacion %}
 				<cac:ShipmentDocumentReference>
 					<cbc:ID schemeID="{{ envio.vehiculo.codEmisor }}" schemeName="Entidad Autorizadora" schemeAgencyName="PE:SUNAT">{{ envio.vehiculo.nroAutorizacion }}</cbc:ID>
 				</cac:ShipmentDocumentReference>
+				{% endif %}
 			</cac:TransportEquipment>
 		</cac:TransportHandlingUnit>
 		{% endif %}
