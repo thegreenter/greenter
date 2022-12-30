@@ -82,7 +82,7 @@ class Despatch2022Store implements DocumentGeneratorInterface
             ->setAeropuerto((new Puerto())
                 ->setCodigo('02')
                 ->setNombre('Aeropuerto 1'))
-            ->setIndicador(['SUNAT_Envio_IndicadorTrasladoVehiculoM1L'])
+            ->setIndicadores(['SUNAT_Envio_IndicadorTrasladoVehiculoM1L'])
             ->setPesoTotal(12.5)
             ->setUndPesoTotal('KGM')
             ->setPesoItems(10.23)
