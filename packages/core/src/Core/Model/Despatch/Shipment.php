@@ -228,7 +228,7 @@ class Shipment
      * @param string[] $indicadores
      * @return Shipment
      */
-    public function setIndicador(?array $indicadores): Shipment
+    public function setIndicadores(?array $indicadores): Shipment
     {
         $this->indicadores = $indicadores;
         return $this;
