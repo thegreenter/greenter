@@ -3,7 +3,8 @@
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
 ## Unreleased
-- #206 Agregar xml para nueva Guia de Remisión.  
+- #206 Agregar xml para nueva Guia de Remisión. 
+- #209 Cambiar versión mínima de PHP a `7.4`
 
 ## 4.3.4 - 2022-11-21
 
