@@ -22,6 +22,7 @@
     "require": {
         "php": ">=7.4",
         "bacon/bacon-qr-code": "^2.0",
+        "greenter/gre-api": "^0.1",
         "greenter/xmldsig": "^5.0",
         "mikehaertl/phpwkhtmltopdf": "^2.4",
         "nelexa/zip": "^4.0",
