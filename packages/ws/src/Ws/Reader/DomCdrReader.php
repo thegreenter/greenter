@@ -55,12 +55,14 @@ class DomCdrReader implements CdrReaderInterface
     private function createCdr(): CdrResponse
     {
         $nodePrefix = 'cac:DocumentResponse/cac:Response/';
+        $referencePath = 'cac:DocumentResponse/cac:DocumentReference/cbc:DocumentDescription';
 
         $cdr = new CdrResponse();
         $cdr->setId($this->reader->getValue($nodePrefix.'cbc:ReferenceID'))
             ->setCode($this->reader->getValue($nodePrefix.'cbc:ResponseCode'))
             ->setDescription($this->reader->getValue($nodePrefix.'cbc:Description'))
-            ->setNotes($this->getNotes());
+            ->setNotes($this->getNotes())
+            ->setReference($this->reader->getValue($referencePath));
 
         return $cdr;
     }
