@@ -7,24 +7,24 @@ use DateTime;
 use Exception;
 use Greenter\Services\Api\BasicToken;
 use Greenter\Services\Api\TokenStoreInterface;
-use Greenter\Sunat\GRE\Api\AuthApi;
+use Greenter\Sunat\GRE\Api\AuthApiInterface;
 use Greenter\Sunat\GRE\Api\CpeApi;
 use Greenter\Sunat\GRE\ApiException;
 use Greenter\Sunat\GRE\Configuration;
-use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 
 class ApiFactory
 {
-    private AuthApi $api;
-    private Client $client;
+    private AuthApiInterface $api;
+    private ClientInterface $client;
     private TokenStoreInterface $store;
 
     /**
-     * @param AuthApi $api
-     * @param Client $client
+     * @param AuthApiInterface $api
+     * @param ClientInterface $client
      * @param TokenStoreInterface $store
      */
-    public function __construct(AuthApi $api, Client $client, TokenStoreInterface $store)
+    public function __construct(AuthApiInterface $api, ClientInterface $client, TokenStoreInterface $store)
     {
         $this->api = $api;
         $this->client = $client;
@@ -37,7 +37,6 @@ class ApiFactory
      */
     public function create(?string $client_id, ?string $secret, ?string $user, ?string $password): CpeApi
     {
-        $token = '';
         $tokenData = $this->store->get($client_id);
         if ($tokenData && $tokenData->getExpire() > $this->addSeconds(new DateTime(), 600)) {
             $token = $tokenData->getValue();
