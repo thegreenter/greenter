@@ -11,6 +11,7 @@ use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Response\StatusResult;
 use Greenter\Sunat\GRE\Api\AuthApi;
 use Greenter\Sunat\GRE\ApiException;
+use Greenter\Sunat\GRE\Configuration;
 use Greenter\XMLSecLibs\Sunat\SignedXml;
 use GuzzleHttp\Client;
 
@@ -20,6 +21,10 @@ class Api
     private ?SignedXml $signer = null;
 
     private array $credentials = [];
+    private array $endpoints = [
+        'api' => 'https://api-seguridad.sunat.gob.pe/v1',
+        'cpe' => 'https://api.sunat.gob.pe/v1',
+    ];
 
     /**
      * Twig Render Options.
@@ -46,6 +51,18 @@ class Api
     public function setBuilderOptions(array $options): Api
     {
         $this->options = array_merge($this->options, $options);
+
+        return $this;
+    }
+
+    /**
+     * @param array $endpoints
+     *
+     * @return Api
+     */
+    public function setEndpoint(array $endpoints): Api
+    {
+        $this->endpoints = $endpoints;
 
         return $this;
     }
@@ -141,6 +158,13 @@ class Api
 
     private function createApiFactory(): ApiFactory {
         $client = new Client();
-        return new ApiFactory(new AuthApi($client), $client, new InMemoryStore(), null);
+        $config = Configuration::getDefaultConfiguration();
+
+        return new ApiFactory(
+            new AuthApi($client, $config->setHost($this->endpoints['api'])),
+            $client,
+            new InMemoryStore(),
+            $this->endpoints['cpe'],
+        );
     }
 }
