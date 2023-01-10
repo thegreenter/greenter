@@ -63,6 +63,21 @@ class DomCdrReaderTest extends TestCase
         $this->assertEquals('La Factura F001-1 ha sido aceptada.', $cdr->getDescription());
     }
 
+    public function testNuevaGuiaCdr(): void
+    {
+        $path = __DIR__.'/../../Resources/R-20000000001-09-T001-1.xml';
+        $xml = file_get_contents($path);
+
+        $cdr = $this->reader->getCdrResponse($xml);
+
+        $this->assertNotEmpty($cdr);
+        $this->assertStringStartsWith('https://e-factura.sunat.gob.pe/', $cdr->getReference());
+        $this->assertEquals(1, count($cdr->getNotes()));
+        $this->assertEquals('T001-1', $cdr->getId());
+        $this->assertEquals('0', $cdr->getCode());
+        $this->assertEquals('El Comprobante  numero T001-1, ha sido aceptado', $cdr->getDescription());
+    }
+
     /**
      * @throws Exception
      */

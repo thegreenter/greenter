@@ -1,0 +1,55 @@
+<ar:ApplicationResponse xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:ar="urn:oasis:names:specification:ubl:schema:xsd:ApplicationResponse-2">
+	<ext:UBLExtension>
+		<ext:ExtensionContent></ext:ExtensionContent>
+	</ext:UBLExtension>
+	<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+	<cbc:CustomizationID>1.0</cbc:CustomizationID>
+	<cbc:ID>b1f343dc-8650-438a-005f-5170bddf57b9</cbc:ID>
+	<cbc:IssueDate>2023-01-05</cbc:IssueDate>
+	<cbc:IssueTime>10:23:59.909</cbc:IssueTime>
+	<cbc:ResponseDate>2023-01-05</cbc:ResponseDate>
+	<cbc:ResponseTime>10:24:00</cbc:ResponseTime>
+	<cac:Signature>
+		<cbc:ID>SignSUNAT</cbc:ID>
+		<cac:SignatoryParty>
+			<cac:PartyIdentification>
+				<cbc:ID>20000000001</cbc:ID>
+			</cac:PartyIdentification>
+			<cac:PartyName>
+				<cbc:Name>SUNAT</cbc:Name>
+			</cac:PartyName>
+		</cac:SignatoryParty>
+		<cac:DigitalSignatureAttachment>
+			<cac:ExternalReference>
+				<cbc:URI>#SignSUNAT</cbc:URI>
+			</cac:ExternalReference>
+		</cac:DigitalSignatureAttachment>
+	</cac:Signature>
+	<cbc:Note>4398 - El N&#250;mero de placa no se encuentra en las bases consultadas, placa: F2E836</cbc:Note>
+	<cac:SenderParty>
+		<cac:PartyIdentification>
+			<cbc:ID>20000000001</cbc:ID>
+		</cac:PartyIdentification>
+	</cac:SenderParty>
+	<cac:ReceiverParty>
+		<cac:PartyIdentification>
+			<cbc:ID>20000000002</cbc:ID>
+		</cac:PartyIdentification>
+	</cac:ReceiverParty>
+	<cac:DocumentResponse>
+		<cac:Response>
+			<cbc:ReferenceID>T001-1</cbc:ReferenceID>
+				<cbc:ResponseCode>0</cbc:ResponseCode>
+				<cbc:Description>El Comprobante  numero T001-1, ha sido aceptado</cbc:Description>
+		</cac:Response>
+		<cac:DocumentReference>
+			<cbc:ID>T001-1</cbc:ID>
+				<cbc:DocumentDescription>https://e-factura.sunat.gob.pe/v1/contribuyente/gre/comprobantes/descargaqr?hashqr=xxxxxxxxxxxxxxxxxxxxxxxxxxx</cbc:DocumentDescription>
+		</cac:DocumentReference>
+		<cac:RecipientParty>
+			<cac:PartyIdentification>
+				<cbc:ID>6-20000000002</cbc:ID>
+			</cac:PartyIdentification>
+		</cac:RecipientParty>
+	</cac:DocumentResponse>
+</ar:ApplicationResponse>
