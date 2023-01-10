@@ -10,6 +10,7 @@ use Greenter\Model\Response\StatusResult;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\Services\SenderInterface;
 use Greenter\Sunat\GRE\Api\CpeApi;
+use Greenter\Sunat\GRE\Api\CpeApiInterface;
 use Greenter\Sunat\GRE\ApiException;
 use Greenter\Sunat\GRE\Model\CpeDocument;
 use Greenter\Sunat\GRE\Model\CpeDocumentArchivo;
@@ -18,12 +19,12 @@ use Greenter\Ws\Services\BaseSunat;
 
 class GreSender extends BaseSunat implements SenderInterface
 {
-    private CpeApi $api;
+    private CpeApiInterface $api;
 
     /**
-     * @param CpeApi $api
+     * @param CpeApiInterface $api
      */
-    public function __construct(CpeApi $api)
+    public function __construct(CpeApiInterface $api)
     {
         $this->api = $api;
     }
