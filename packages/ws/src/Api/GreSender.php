@@ -44,8 +44,7 @@ class GreSender extends BaseSunat implements SenderInterface
                 ->setTicket($response->getNumTicket())
                 ->setSuccess(true);
         } catch (ApiException $e) {
-            // TODO: parse error by code
-            $result->setError(new Error("API", $e->getMessage()));
+            $result->setError($this->processException($e));
         }
 
         return $result;
@@ -58,7 +57,7 @@ class GreSender extends BaseSunat implements SenderInterface
 
             return $this->processResponse($response);
         } catch (ApiException $e) {
-            $result->setError(new Error("API", $e->getMessage()));
+            $result->setError($this->processException($e));
         }
 
         return $result;
@@ -103,5 +102,22 @@ class GreSender extends BaseSunat implements SenderInterface
         }
 
         return $result;
+    }
+
+    private function processException(ApiException $e): Error {
+        switch ($e->getCode()) {
+            case 422:
+                /**@var $resp \Greenter\Sunat\GRE\Model\CpeErrorValidation */
+                $resp = $e->getResponseObject();
+                foreach ($resp->getErrors() as $err) {
+                    return new Error($err->getCod(), $err->getMsg());
+                }
+            case 500:
+                /**@var $resp \Greenter\Sunat\GRE\Model\CpeError */
+                $resp = $e->getResponseObject();
+                return new Error($resp->getCod(), $resp->getMsg());
+        }
+
+        return new Error("API", $e->getMessage());
     }
 }
