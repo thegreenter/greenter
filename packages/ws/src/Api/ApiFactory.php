@@ -18,17 +18,24 @@ class ApiFactory
     private AuthApiInterface $api;
     private ClientInterface $client;
     private TokenStoreInterface $store;
+    private ?string $cpeEndpoint;
 
     /**
      * @param AuthApiInterface $api
      * @param ClientInterface $client
      * @param TokenStoreInterface $store
+     * @param string|null $endpoint
      */
-    public function __construct(AuthApiInterface $api, ClientInterface $client, TokenStoreInterface $store)
+    public function __construct(
+        AuthApiInterface $api,
+        ClientInterface $client,
+        TokenStoreInterface $store,
+        ?string $endpoint)
     {
         $this->api = $api;
         $this->client = $client;
         $this->store = $store;
+        $this->cpeEndpoint = $endpoint;
     }
 
     /**
@@ -59,7 +66,7 @@ class ApiFactory
 
         return new CpeApi(
             $this->client,
-            $config->setHost($config->getHostFromSettings(1))
+            $config->setHost($this->cpeEndpoint ?? $config->getHostFromSettings(1))
         );
     }
 

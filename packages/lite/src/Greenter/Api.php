@@ -141,6 +141,6 @@ class Api
 
     private function createApiFactory(): ApiFactory {
         $client = new Client();
-        return new ApiFactory(new AuthApi($client), $client, new InMemoryStore());
+        return new ApiFactory(new AuthApi($client), $client, new InMemoryStore(), null);
     }
 }
