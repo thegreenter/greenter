@@ -20,7 +20,7 @@
         "ext-dom": "*",
         "ext-soap": "*",
         "greenter/core": "^4.4",
-        "greenter/gre-api": "^0.1",
+        "greenter/gre-api": "^1.0",
         "nelexa/zip": "^4.0"
     },
     "require-dev": {
