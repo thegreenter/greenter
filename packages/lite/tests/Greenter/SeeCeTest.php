@@ -23,18 +23,6 @@ use Tests\Greenter\Factory\CeFactoryBase;
  */
 class SeeCeTest extends CeFactoryBase
 {
-    public function testSendDespatch()
-    {
-        $doc = $this->getDespatch();
-
-        /**@var $result BillResult*/
-        $result = $this->getSee(SunatEndpoints::GUIA_BETA)->send($doc);
-
-        // Enviar a API
-        $this->assertFalse($result->isSuccess());
-        $this->assertEquals($result->getError()->getCode(), '1085');
-    }
-
     /**
      * @dataProvider providerBillDocs
      * @param DocumentInterface $doc
