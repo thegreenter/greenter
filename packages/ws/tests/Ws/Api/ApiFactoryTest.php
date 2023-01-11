@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Greenter\Ws\Api;
 
 use Greenter\Api\ApiFactory;
 use Greenter\Api\InMemoryStore;
-use Greenter\Services\Api\BasicToken;
 use Greenter\Sunat\GRE\Api\AuthApiInterface;
 use Greenter\Sunat\GRE\Api\CpeApi;
 use Greenter\Sunat\GRE\Model\ApiToken;
