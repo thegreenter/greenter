@@ -38,7 +38,7 @@ class Api
      * @param ApiFactory|null $factory
      * @param SignedXml|null $signer
      */
-    public function __construct(?array $endpoints, ?ApiFactory $factory, ?SignedXml $signer)
+    public function __construct(?array $endpoints = null, ?ApiFactory $factory = null, ?SignedXml $signer = null)
     {
         $this->factory = $factory ?? $this->createApiFactory($endpoints ?? $this->defaaultEndpoints);
         $this->signer = $signer ?? new SignedXml();
