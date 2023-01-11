@@ -96,6 +96,21 @@ class GreSenderTest extends TestCase
     {
         $api = Mockery::mock(CpeApiInterface::class);
         $api->shouldReceive('consultarEnvio')
+            ->andThrowExceptions([
+                $this->createException(500, new CpeError(['cod' => '500', 'msg' => 'Internal Server Error'])),
+            ]);
+        $sender = new GreSender($api);
+        $result = $sender->status('a.b.c');
+
+        $this->assertFalse($result->isSuccess());
+        $this->assertEmpty($result->getCode());
+        $this->assertNotNull($result->getError());
+    }
+
+    public function testStatusError(): void
+    {
+        $api = Mockery::mock(CpeApiInterface::class);
+        $api->shouldReceive('consultarEnvio')
             ->andReturn(
                 new StatusResponse([
                     'cod_respuesta' => '98',
