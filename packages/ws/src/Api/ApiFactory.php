@@ -11,6 +11,7 @@ use Greenter\Services\Api\BasicToken;
 use Greenter\Services\Api\TokenStoreInterface;
 use Greenter\Sunat\GRE\Api\AuthApiInterface;
 use Greenter\Sunat\GRE\Api\CpeApi;
+use Greenter\Sunat\GRE\Api\CpeApiInterface;
 use Greenter\Sunat\GRE\ApiException;
 use Greenter\Sunat\GRE\Configuration;
 use GuzzleHttp\ClientInterface;
@@ -45,7 +46,7 @@ class ApiFactory
      * @throws ApiException
      * @throws Exception
      */
-    public function create(?string $clientId, ?string $secret, ?string $user, ?string $password): CpeApi
+    public function create(?string $clientId, ?string $secret, ?string $user, ?string $password): CpeApiInterface
     {
         $token = $this->getToken($clientId, $secret, $user, $password);
 
