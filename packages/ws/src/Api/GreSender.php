@@ -105,20 +105,20 @@ class GreSender extends BaseSunat implements SenderInterface
         return $result;
     }
 
-    private function processException(ApiException $e): Error
+    private function processException(ApiException $ex): Error
     {
-        if ($e->getCode() === 422) {
+        if ($ex->getCode() === 422) {
             /**@var $resp \Greenter\Sunat\GRE\Model\CpeErrorValidation */
-            $resp = $e->getResponseObject();
+            $resp = $ex->getResponseObject();
             foreach ($resp->getErrors() as $err) {
                 return new Error($err->getCod(), $err->getMsg());
             }
-        } elseif ($e->getCode() === 500) {
+        } elseif ($ex->getCode() === 500) {
             /**@var $resp \Greenter\Sunat\GRE\Model\CpeError */
-            $resp = $e->getResponseObject();
+            $resp = $ex->getResponseObject();
             return new Error($resp->getCod(), $resp->getMsg());
         }
 
-        return new Error("API", $e->getMessage());
+        return new Error("API", $ex->getMessage());
     }
 }

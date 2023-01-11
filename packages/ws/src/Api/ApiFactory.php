@@ -47,31 +47,41 @@ class ApiFactory
      */
     public function create(?string $clientId, ?string $secret, ?string $user, ?string $password): CpeApi
     {
-        $tokenData = $this->store->get($clientId);
-        if ($tokenData && $tokenData->getExpire() > $this->addSeconds(new DateTime(), 600)) {
-            $token = $tokenData->getValue();
-        } else {
-            $result = $this->api->getToken(
-                'password',
-                'https://api-cpe.sunat.gob.pe',
-                $clientId,
-                $secret,
-                $user,
-                $password
-            );
+        $token = $this->getToken($clientId, $secret, $user, $password);
 
-            $token = $result->getAccessToken();
-            $expire =  $this->addSeconds(new DateTime(), $result->getExpiresIn());
-            $this->store->set($clientId, new BasicToken($token, $expire));
-        }
-
-        $config = Configuration::getDefaultConfiguration()
+        $config = (new Configuration())
             ->setAccessToken($token);
 
         return new CpeApi(
             $this->client,
             $config->setHost($this->cpeEndpoint ?? $config->getHostFromSettings(1))
         );
+    }
+
+    /**
+     * @throws Exception
+     */
+    private function getToken(?string $clientId, ?string $secret, ?string $user, ?string $password): ?string
+    {
+        $tokenData = $this->store->get($clientId);
+        if ($tokenData && $tokenData->getExpire() > $this->addSeconds(new DateTime(), 600)) {
+            return $tokenData->getValue();
+        }
+
+        $result = $this->api->getToken(
+            'password',
+            'https://api-cpe.sunat.gob.pe',
+            $clientId,
+            $secret,
+            $user,
+            $password
+        );
+
+        $token = $result->getAccessToken();
+        $expire =  $this->addSeconds(new DateTime(), $result->getExpiresIn());
+        $this->store->set($clientId, new BasicToken($token, $expire));
+
+        return $token;
     }
 
     /**
