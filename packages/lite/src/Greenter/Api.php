@@ -23,7 +23,7 @@ class Api
     private ?SignedXml $signer = null;
 
     private array $credentials = [];
-    private array $endpoints = [
+    private array $defaaultEndpoints = [
         'api' => 'https://api-seguridad.sunat.gob.pe/v1',
         'cpe' => 'https://api.sunat.gob.pe/v1',
     ];
@@ -34,12 +34,13 @@ class Api
     private array $options = ['autoescape' => false];
 
     /**
+     * @param array|null $endpoints
      * @param ApiFactory|null $factory
      * @param SignedXml|null $signer
      */
-    public function __construct(?ApiFactory $factory, ?SignedXml $signer)
+    public function __construct(?array $endpoints, ?ApiFactory $factory, ?SignedXml $signer)
     {
-        $this->factory = $factory ?? $this->createApiFactory();
+        $this->factory = $factory ?? $this->createApiFactory($endpoints ?? $this->defaaultEndpoints);
         $this->signer = $signer ?? new SignedXml();
     }
 
@@ -53,18 +54,6 @@ class Api
     public function setBuilderOptions(array $options): Api
     {
         $this->options = array_merge($this->options, $options);
-
-        return $this;
-    }
-
-    /**
-     * @param array $endpoints
-     *
-     * @return Api
-     */
-    public function setEndpoint(array $endpoints): Api
-    {
-        $this->endpoints = $endpoints;
 
         return $this;
     }
@@ -160,16 +149,16 @@ class Api
         return new GreSender($api);
     }
 
-    private function createApiFactory(): ApiFactory
+    private function createApiFactory(array $endpoints): ApiFactory
     {
         $client = new Client();
         $config = Configuration::getDefaultConfiguration();
 
         return new ApiFactory(
-            new AuthApi($client, $config->setHost($this->endpoints['api'])),
+            new AuthApi($client, $config->setHost($endpoints['api'])),
             $client,
             new InMemoryStore(),
-            $this->endpoints['cpe'],
+            $endpoints['cpe'],
         );
     }
 }
