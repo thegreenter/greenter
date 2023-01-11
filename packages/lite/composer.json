@@ -18,9 +18,9 @@
         "php": ">=7.4",
         "ext-dom": "*",
         "greenter/xmldsig": "^5.0",
-        "greenter/core": "^4.4",
-        "greenter/ws": "^4.4",
-        "greenter/xml": "^4.4"
+        "greenter/core": "^5.0",
+        "greenter/ws": "^5.0",
+        "greenter/xml": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9"
@@ -37,7 +37,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.4-dev"
+            "dev-master": "5.0-dev"
         }
     }
 }

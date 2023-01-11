@@ -26,8 +26,8 @@ class PerceptionParserTest extends TestCase
         /**@var $obj Perception */
         $obj = $this->getParser()->parse($xml);
 
-        $this->assertRegExp('/^[P][0-9A-Z]{3}$/', $obj->getSerie());
-        $this->assertRegExp('/^\d+$/', $obj->getCorrelativo());
+        $this->assertMatchesRegularExpression('/^[P][0-9A-Z]{3}$/', $obj->getSerie());
+        $this->assertMatchesRegularExpression('/^\d+$/', $obj->getCorrelativo());
         $this->assertNotNull($obj->getCompany());
         $this->assertNotNull($obj->getProveedor());
         $this->assertGreaterThan(0, count($obj->getDetails()));

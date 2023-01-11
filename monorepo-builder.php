@@ -22,8 +22,8 @@ return static function (MBConfig $mbConfig): void {
 
     $mbConfig->dataToRemove([
         'require-dev' => [
-            'phpstan/phpstan' => '^1.8',
-            'vimeo/psalm' => '^4.4',
+            'phpstan/phpstan' => '^1.9',
+            'vimeo/psalm' => '^5.4',
         ],
     ]);
 

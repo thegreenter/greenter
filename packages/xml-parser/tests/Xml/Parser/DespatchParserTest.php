@@ -31,7 +31,7 @@ class DespatchParserTest extends TestCase
         $obj = $this->getParser()->parse($xml);
 
         $this->assertEquals('09', $obj->getTipoDoc());
-        $this->assertRegExp('/^T\w{3}/', $obj->getSerie());
+        $this->assertMatchesRegularExpression('/^T\w{3}/', $obj->getSerie());
         $this->assertNotNull($obj->getCompany());
         $this->assertNotNull($obj->getDestinatario());
         $this->assertLessThanOrEqual(8, strlen($obj->getCorrelativo()));

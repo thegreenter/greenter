@@ -16,7 +16,7 @@
     "type": "library",
     "require": {
         "php": ">=7.4",
-        "greenter/core": "^4.4"
+        "greenter/core": "^5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9"
@@ -33,7 +33,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.4-dev"
+            "dev-master": "5.0-dev"
         }
     }
 }

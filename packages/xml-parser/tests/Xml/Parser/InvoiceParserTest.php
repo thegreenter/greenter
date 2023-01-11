@@ -28,8 +28,8 @@ class InvoiceParserTest extends TestCase
         /**@var $obj Invoice */
         $obj = $parser->parse($xml);
 
-        $this->assertRegExp('/^0\d{1}/', $obj->getTipoDoc());
-        $this->assertRegExp('/^E\w{3}/', $obj->getSerie());
+        $this->assertMatchesRegularExpression('/^0\d{1}/', $obj->getTipoDoc());
+        $this->assertMatchesRegularExpression('/^E\w{3}/', $obj->getSerie());
         $this->assertLessThanOrEqual(8, strlen($obj->getCorrelativo()));
         $this->assertNotEmpty($obj->getFechaEmision());
         $this->assertGreaterThanOrEqual(1, count($obj->getDetails()));
@@ -52,8 +52,8 @@ class InvoiceParserTest extends TestCase
         /**@var $obj Invoice */
         $obj = $parser->parse($xml);
 
-        $this->assertRegExp('/^0\d{1}/', $obj->getTipoDoc());
-        $this->assertRegExp('/^[FB]\w{3}/', $obj->getSerie());
+        $this->assertMatchesRegularExpression('/^0\d{1}/', $obj->getTipoDoc());
+        $this->assertMatchesRegularExpression('/^[FB]\w{3}/', $obj->getSerie());
         $this->assertLessThanOrEqual(8, strlen($obj->getCorrelativo()));
         $this->assertNotEmpty($obj->getFechaEmision());
         $this->assertGreaterThanOrEqual(1, count($obj->getDetails()));
@@ -71,8 +71,8 @@ class InvoiceParserTest extends TestCase
         /**@var $obj Invoice */
         $obj = $parser->parse($doc);
 
-        $this->assertRegExp('/^0\d{1}/', $obj->getTipoDoc());
-        $this->assertRegExp('/^[FB]\w{3}/', $obj->getSerie());
+        $this->assertMatchesRegularExpression('/^0\d{1}/', $obj->getTipoDoc());
+        $this->assertMatchesRegularExpression('/^[FB]\w{3}/', $obj->getSerie());
         $this->assertLessThanOrEqual(8, strlen($obj->getCorrelativo()));
         $this->assertNotEmpty($obj->getFechaEmision());
         $this->assertGreaterThanOrEqual(1, count($obj->getDetails()));
