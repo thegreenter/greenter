@@ -22,7 +22,7 @@
     "require-dev": {
         "greenter/data": "^4.4",
         "greenter/ubl-validator": "^2.0",
-        "phpunit/phpunit": "^8"
+        "phpunit/phpunit": "^9"
     },
     "autoload": {
         "psr-4": {
