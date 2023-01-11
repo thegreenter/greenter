@@ -93,7 +93,7 @@ class GreSender extends BaseSunat implements SenderInterface
                 );
             }
 
-            if ($status->getIndCdrGenerado()) {
+            if ($status->getIndCdrGenerado() === '1') {
                 $cdrZip = base64_decode($status->getArcCdr());
                 $result
                     ->setSuccess(true)
