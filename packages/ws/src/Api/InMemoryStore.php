@@ -12,7 +12,7 @@ class InMemoryStore implements TokenStoreInterface
      */
     private array $tokens = [];
 
-    function get(?string $id): ?BasicToken
+    public function get(?string $id): ?BasicToken
     {
         if (array_key_exists($id, $this->tokens)) {
             return $this->tokens[$id];
@@ -21,7 +21,7 @@ class InMemoryStore implements TokenStoreInterface
         return null;
     }
 
-    function set(?string $id, ?BasicToken $token)
+    public function set(?string $id, BasicToken $token)
     {
        $this->tokens[$id] = $token;
     }

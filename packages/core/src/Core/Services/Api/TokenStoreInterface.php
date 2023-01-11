@@ -6,7 +6,20 @@ namespace Greenter\Services\Api;
 
 interface TokenStoreInterface
 {
-    function get(?string $id): ?BasicToken;
+    /**
+     * Get Token by id.
+     *
+     * @param string|null $id
+     * @return BasicToken|null
+     */
+    public function get(?string $id): ?BasicToken;
 
-    function set(?string $id, ?BasicToken $token);
+    /**
+     * Save token.
+     *
+     * @param string|null $id
+     * @param BasicToken|null $token
+     * @return mixed
+     */
+    public function set(?string $id, BasicToken $token);
 }
