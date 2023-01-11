@@ -43,7 +43,7 @@ class ApiFactoryTest extends TestCase
                 ->twice()
                 ->andReturn(new ApiToken([
                     'access_token' => 'xxxx.xxxx.xxxx',
-                    'token_type' => 'bearer',
+                    'token_type' => 'JWT',
                     'expires_in' => 3600,
                 ]));
 
