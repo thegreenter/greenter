@@ -15,6 +15,10 @@ use Greenter\Model\Despatch\Shipment;
 use Greenter\Model\Response\SummaryResult;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class ApiTest
+ * @group integration
+ */
 class ApiTest extends TestCase
 {
     public function testSend(): void
