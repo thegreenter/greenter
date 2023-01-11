@@ -37,6 +37,9 @@
             "Tests\\Greenter\\": "tests/"
         }
     },
+    "suggest": {
+        "ext-curl": "Necesario para enviar guia de remision"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "4.4-dev"
