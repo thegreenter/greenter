@@ -81,9 +81,9 @@ final class XmlUtils
     /**
      * @param DOMNodeList $exts
      * @param DOMXPath $xpt
-     * @return string
+     * @return string|null
      */
-    private function getHash(DOMNodeList $exts, DOMXPath $xpt)
+    private function getHash(DOMNodeList $exts, DOMXPath $xpt): ?string
     {
         for ($i = $exts->length; $i-- > 0;) {
             $nodeSign = $exts->item($i);

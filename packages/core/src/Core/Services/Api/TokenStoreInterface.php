@@ -19,7 +19,7 @@ interface TokenStoreInterface
      *
      * @param string|null $id
      * @param BasicToken $token
-     * @return mixed
+     * @return void
      */
-    public function set(?string $id, BasicToken $token);
+    public function set(?string $id, BasicToken $token): void;
 }

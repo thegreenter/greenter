@@ -21,7 +21,7 @@ class InMemoryStore implements TokenStoreInterface
         return null;
     }
 
-    public function set(?string $id, BasicToken $token)
+    public function set(?string $id, BasicToken $token): void
     {
        $this->tokens[$id] = $token;
     }
