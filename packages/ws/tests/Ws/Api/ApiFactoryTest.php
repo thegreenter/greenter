@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Ws\Api;
 
+use DateTime;
 use Greenter\Api\ApiFactory;
 use Greenter\Api\InMemoryStore;
 use Greenter\Sunat\GRE\Api\AuthApiInterface;
@@ -29,13 +30,17 @@ class ApiFactoryTest extends TestCase
         $token2 = $store->get('x'); // no changes
 
         $this->assertEquals($token, $token2);
+
+        // get token if expireIn < 10min
+        $store->set('x', $token->setValue('xx')->setExpire(new DateTime('+9 minutes')));
+        $factory->create('x', 'x', '20123456780MODDATOS', 'moddatos');
     }
 
     private function deps(): array
     {
         $auth = Mockery::mock(AuthApiInterface::class);
         $auth->shouldReceive('getToken')
-                ->once()
+                ->twice()
                 ->andReturn(new ApiToken([
                     'access_token' => 'xxxx.xxxx.xxxx',
                     'token_type' => 'bearer',
