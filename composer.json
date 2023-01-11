@@ -40,7 +40,8 @@
         "ext-dom": "For xml, xml-parser, cpe-validator, ws package",
         "ext-soap": "For ws package",
         "ext-zlib": "For ws package",
-        "ext-xsl": "For cpe-validator package"
+        "ext-xsl": "For cpe-validator package",
+        "ext-curl": "For ws package (GRE)"
     },
     "autoload": {
         "psr-4": {
