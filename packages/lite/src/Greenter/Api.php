@@ -24,7 +24,7 @@ class Api
 
     private array $credentials = [];
     private array $defaaultEndpoints = [
-        'api' => 'https://api-seguridad.sunat.gob.pe/v1',
+        'auth' => 'https://api-seguridad.sunat.gob.pe/v1',
         'cpe' => 'https://api.sunat.gob.pe/v1',
     ];
 
@@ -155,7 +155,7 @@ class Api
         $config = new Configuration();
 
         return new ApiFactory(
-            new AuthApi($client, $config->setHost($endpoints['api'])),
+            new AuthApi($client, $config->setHost($endpoints['auth'])),
             $client,
             new InMemoryStore(),
             $endpoints['cpe'],
