@@ -18,7 +18,7 @@ interface TokenStoreInterface
      * Save token.
      *
      * @param string|null $id
-     * @param BasicToken|null $token
+     * @param BasicToken $token
      * @return mixed
      */
     public function set(?string $id, BasicToken $token);
