@@ -22,6 +22,7 @@
     "require": {
         "php": ">=7.4",
         "bacon/bacon-qr-code": "^2.0",
+        "greenter/gre-api": "^1.0",
         "greenter/xmldsig": "^5.0",
         "mikehaertl/phpwkhtmltopdf": "^2.4",
         "nelexa/zip": "^4.0",
@@ -31,15 +32,16 @@
     "require-dev": {
         "greenter/ubl-validator": "^2.0",
         "mockery/mockery": "^1.2",
-        "phpstan/phpstan": "^1.8",
-        "phpunit/phpunit": "^8",
-        "vimeo/psalm": "^4.4"
+        "phpstan/phpstan": "^1.9",
+        "phpunit/phpunit": "^9",
+        "vimeo/psalm": "^5.4"
     },
     "suggest": {
         "ext-dom": "For xml, xml-parser, cpe-validator, ws package",
         "ext-soap": "For ws package",
         "ext-zlib": "For ws package",
-        "ext-xsl": "For cpe-validator package"
+        "ext-xsl": "For cpe-validator package",
+        "ext-curl": "For ws package (GRE)"
     },
     "autoload": {
         "psr-4": {

@@ -15,10 +15,6 @@ use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
 use Greenter\Model\Despatch\Despatch;
-use Greenter\Model\Despatch\DespatchDetail;
-use Greenter\Model\Despatch\Direction;
-use Greenter\Model\Despatch\Shipment;
-use Greenter\Model\Despatch\Transportist;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Perception\Perception;
 use Greenter\Model\Perception\PerceptionDetail;
@@ -27,7 +23,6 @@ use Greenter\Model\Retention\Exchange;
 use Greenter\Model\Retention\Payment;
 use Greenter\Model\Retention\Retention;
 use Greenter\Model\Retention\RetentionDetail;
-use Greenter\Model\Sale\Document;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Reversion;
 use Greenter\Model\Voided\VoidedDetail;
@@ -82,9 +77,6 @@ class CeFactoryBase extends TestCase
     protected function getFactoryResult(DocumentInterface $document)
     {
         $url = SunatEndpoints::RETENCION_BETA;
-        if ($document instanceof Despatch) {
-            $url = SunatEndpoints::GUIA_BETA;
-        }
 
         $sender = $this->getSender(get_class($document), $url);
         $builder = new $this->builders[get_class($document)]();
@@ -270,88 +262,6 @@ class CeFactoryBase extends TestCase
             ->setDetails([$detial1, $detial2]);
 
         return $reversion;
-    }
-
-    /**
-     * @return Despatch
-     */
-    protected function getDespatch()
-    {
-        list($baja, $rel, $envio) = $this->getExtrasDespatch();
-        $despatch = new Despatch();
-        $despatch->setTipoDoc('09')
-            ->setSerie('T001')
-            ->setCorrelativo('123')
-            ->setFechaEmision(new \DateTime())
-            ->setCompany($this->getCompany())
-            ->setDestinatario((new Client())
-                ->setTipoDoc('6')
-                ->setNumDoc('20000000002')
-                ->setRznSocial('EMPRESA (<!-- --> />) 1'))
-            ->setTercero((new Client())
-                ->setTipoDoc('6')
-                ->setNumDoc('20000000003')
-                ->setRznSocial('EMPRESA SA'))
-            ->setObservacion('NOTA GUIA')
-            ->setDocBaja($baja)
-            ->setRelDoc($rel)
-            ->setEnvio($envio);
-
-        $detail = new DespatchDetail();
-        $detail->setCantidad(2)
-            ->setUnidad('ZZ')
-            ->setCodProdSunat('22222')
-            ->setDescripcion('PROD 1')
-            ->setCodigo('PROD1');
-
-        $despatch->setDetails([$detail]);
-
-        return $despatch;
-    }
-
-    /**
-     * @return array
-     */
-    private function getExtrasDespatch()
-    {
-        $baja = new Document();
-        $baja->setTipoDoc('09')
-            ->setNroDoc('T001-00001');
-
-        $rel = new Document();
-        $rel->setTipoDoc('02') // Tipo: Numero de Orden de Entrega
-            ->setNroDoc('213123');
-
-        $envio = new Shipment();
-        $envio
-            ->setCodTraslado('01')
-            ->setDesTraslado('VENTA')
-            ->setFecTraslado(new \DateTime())
-            ->setCodPuerto('123')
-            ->setIndTransbordo(false)
-            ->setPesoTotal(12.5)
-            ->setUndPesoTotal('KGM')
-//            ->setNumBultos(2) // Solo en Importación: CodTraslado: 08
-            ->setModTraslado('01')
-            ->setNumContenedor('XD-2232')
-            ->setLlegada(new Direction('150101', 'AV LIMA'))
-            ->setPartida(new Direction('150203', 'AV ITALIA'))
-            ->setTransportista($this->getTransportist());
-
-        return [$baja, $rel, $envio];
-    }
-
-    private function getTransportist()
-    {
-        $transp = new Transportist();
-        $transp->setTipoDoc('6')
-            ->setNumDoc('20000000002')
-            ->setRznSocial('TRANSPORTES S.A.C')
-            ->setPlaca('ABI-453')
-            ->setChoferTipoDoc('1')
-            ->setChoferDoc('40003344');
-
-        return $transp;
     }
 
     /**

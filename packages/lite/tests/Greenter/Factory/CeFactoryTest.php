@@ -19,26 +19,6 @@ use Greenter\Model\Response\StatusResult;
  */
 class CeFactoryTest extends CeFactoryBase
 {
-    public function testDespatch()
-    {
-        $despatch = $this->getDespatch();
-        $result = $this->getFactoryResult($despatch);
-
-        // Enviar a API
-        if (!$result->isSuccess() &&
-            $result->getError()->getCode() == '1085') {
-            return;
-        }
-
-        $this->assertTrue($result->isSuccess());
-        $this->assertNotNull($result->getCdrResponse());
-        $this->assertEquals(
-            '0',
-            $result->getCdrResponse()->getCode()
-        );
-
-    }
-
     public function testRetention()
     {
         $retention = $this->getRetention();
@@ -54,8 +34,8 @@ class CeFactoryTest extends CeFactoryBase
 
     public function testGetXmlSigned()
     {
-        $despatch = $this->getDespatch();
-        $signXml = $this->getXmlSigned($despatch);
+        $perception = $this->getPerception();
+        $signXml = $this->getXmlSigned($perception);
 
         $this->assertNotEmpty($signXml);
     }

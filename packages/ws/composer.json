@@ -20,10 +20,11 @@
         "ext-dom": "*",
         "ext-soap": "*",
         "greenter/core": "^4.4",
+        "greenter/gre-api": "^1.0",
         "nelexa/zip": "^4.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8",
+        "phpunit/phpunit": "^9",
         "mockery/mockery": "^1.2"
     },
     "autoload": {
@@ -35,6 +36,9 @@
         "psr-4": {
             "Tests\\Greenter\\": "tests/"
         }
+    },
+    "suggest": {
+        "ext-curl": "Necesario para enviar guia de remision"
     },
     "extra": {
         "branch-alias": {

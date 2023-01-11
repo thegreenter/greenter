@@ -2,7 +2,7 @@
 
 [![src greenter](https://greenter.dev/img/greenter_badge.svg)](https://github.com/thegreenter/greenter)
     
-Conexión con los webservices de SUNAT, para el envío de comprabantes electrónicos.
+Conexión con los webservices de SUNAT, para el envío de comprobantes electrónicos.
 
 ## Recursos
 - [Documentación](https://greenter.dev/packages/ws/)
