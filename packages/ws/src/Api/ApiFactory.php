@@ -73,7 +73,7 @@ class ApiFactory
     /**
      * @throws Exception
      */
-    function addSeconds(DateTime $time, int $seconds): DateTime {
+    private function addSeconds(DateTime $time, int $seconds): DateTime {
         return $time->add(new DateInterval('PT'.$seconds.'S'));
     }
 }
