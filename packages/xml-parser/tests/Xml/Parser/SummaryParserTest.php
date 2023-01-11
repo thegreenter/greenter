@@ -27,14 +27,14 @@ class SummaryParserTest extends TestCase
         $obj = $this->getParser()->parse($xml);
 
         $this->assertStringContainsString('RC', $obj->getName());
-        $this->assertRegExp('/^\d+$/', $obj->getCorrelativo());
+        $this->assertMatchesRegularExpression('/^\d+$/', $obj->getCorrelativo());
         $this->assertNotNull($obj->getCompany());
         $this->assertGreaterThan(0, count($obj->getDetails()));
 
         foreach ($obj->getDetails() as $detail) {
             $this->assertTrue(in_array($detail->getTipoDoc(), ['03', '07', '08']));
             $this->assertTrue(in_array($detail->getEstado(), ['1', '2', '3']));
-            $this->assertRegExp('/^B\d{3}-\d{1,8}$/', $detail->getSerieNro());
+            $this->assertMatchesRegularExpression('/^B\d{3}-\d{1,8}$/', $detail->getSerieNro());
             $this->assertTrue(is_float($detail->getTotal()));
             if ($detail->getDocReferencia()) {
                 $ref = $detail->getDocReferencia();
