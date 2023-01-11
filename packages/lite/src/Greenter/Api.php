@@ -152,7 +152,7 @@ class Api
     private function createApiFactory(array $endpoints): ApiFactory
     {
         $client = new Client();
-        $config = Configuration::getDefaultConfiguration();
+        $config = new Configuration();
 
         return new ApiFactory(
             new AuthApi($client, $config->setHost($endpoints['api'])),
