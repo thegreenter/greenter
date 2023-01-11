@@ -70,14 +70,14 @@ class Api
     }
 
     /**
-     * @param string $client_id
+     * @param string $clientId
      * @param string $secret
      *
      * @return Api
      */
-    public function setApiCredentials(string $client_id, string $secret): Api
+    public function setApiCredentials(string $clientId, string $secret): Api
     {
-        $this->credentials['client_id'] = $client_id;
+        $this->credentials['client_id'] = $clientId;
         $this->credentials['client_secret'] = $secret;
 
         return $this;
@@ -138,7 +138,8 @@ class Api
      * @return StatusResult
      * @throws ApiException
      */
-    public function getStatus(?string $ticket): StatusResult {
+    public function getStatus(?string $ticket): StatusResult
+    {
         $sender = $this->createSender();
 
         return $sender->status($ticket);
@@ -147,7 +148,8 @@ class Api
     /**
      * @throws ApiException
      */
-    private function createSender(): GreSender {
+    private function createSender(): GreSender
+    {
         $api = $this->factory->create(
             $this->credentials['client_id'],
             $this->credentials['client_secret'],
@@ -158,7 +160,8 @@ class Api
         return new GreSender($api);
     }
 
-    private function createApiFactory(): ApiFactory {
+    private function createApiFactory(): ApiFactory
+    {
         $client = new Client();
         $config = Configuration::getDefaultConfiguration();
 

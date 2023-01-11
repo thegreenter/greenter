@@ -9,7 +9,6 @@ use Greenter\Model\Response\Error;
 use Greenter\Model\Response\StatusResult;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\Services\SenderInterface;
-use Greenter\Sunat\GRE\Api\CpeApi;
 use Greenter\Sunat\GRE\Api\CpeApiInterface;
 use Greenter\Sunat\GRE\ApiException;
 use Greenter\Sunat\GRE\Model\CpeDocument;
@@ -51,7 +50,8 @@ class GreSender extends BaseSunat implements SenderInterface
         return $result;
     }
 
-    public function status(?string $ticket): StatusResult {
+    public function status(?string $ticket): StatusResult
+    {
         $result = new StatusResult();
         try {
             $response = $this->api->consultarEnvio($ticket);
@@ -105,18 +105,18 @@ class GreSender extends BaseSunat implements SenderInterface
         return $result;
     }
 
-    private function processException(ApiException $e): Error {
-        switch ($e->getCode()) {
-            case 422:
-                /**@var $resp \Greenter\Sunat\GRE\Model\CpeErrorValidation */
-                $resp = $e->getResponseObject();
-                foreach ($resp->getErrors() as $err) {
-                    return new Error($err->getCod(), $err->getMsg());
-                }
-            case 500:
-                /**@var $resp \Greenter\Sunat\GRE\Model\CpeError */
-                $resp = $e->getResponseObject();
-                return new Error($resp->getCod(), $resp->getMsg());
+    private function processException(ApiException $e): Error
+    {
+        if ($e->getCode() === 422) {
+            /**@var $resp \Greenter\Sunat\GRE\Model\CpeErrorValidation */
+            $resp = $e->getResponseObject();
+            foreach ($resp->getErrors() as $err) {
+                return new Error($err->getCod(), $err->getMsg());
+            }
+        } elseif ($e->getCode() === 500) {
+            /**@var $resp \Greenter\Sunat\GRE\Model\CpeError */
+            $resp = $e->getResponseObject();
+            return new Error($resp->getCod(), $resp->getMsg());
         }
 
         return new Error("API", $e->getMessage());

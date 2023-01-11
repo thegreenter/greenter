@@ -32,7 +32,8 @@ class ApiFactory
         AuthApiInterface $api,
         ClientInterface $client,
         TokenStoreInterface $store,
-        ?string $endpoint)
+        ?string $endpoint
+    )
     {
         $this->api = $api;
         $this->client = $client;
@@ -44,23 +45,24 @@ class ApiFactory
      * @throws ApiException
      * @throws Exception
      */
-    public function create(?string $client_id, ?string $secret, ?string $user, ?string $password): CpeApi
+    public function create(?string $clientId, ?string $secret, ?string $user, ?string $password): CpeApi
     {
-        $tokenData = $this->store->get($client_id);
+        $tokenData = $this->store->get($clientId);
         if ($tokenData && $tokenData->getExpire() > $this->addSeconds(new DateTime(), 600)) {
             $token = $tokenData->getValue();
         } else {
             $result = $this->api->getToken(
                 'password',
                 'https://api-cpe.sunat.gob.pe',
-                $client_id,
+                $clientId,
                 $secret,
                 $user,
-                $password);
+                $password
+            );
 
             $token = $result->getAccessToken();
             $expire =  $this->addSeconds(new DateTime(), $result->getExpiresIn());
-            $this->store->set($client_id, new BasicToken($token, $expire));
+            $this->store->set($clientId, new BasicToken($token, $expire));
         }
 
         $config = Configuration::getDefaultConfiguration()
@@ -75,7 +77,8 @@ class ApiFactory
     /**
      * @throws Exception
      */
-    private function addSeconds(DateTime $time, int $seconds): DateTime {
+    private function addSeconds(DateTime $time, int $seconds): DateTime
+    {
         return $time->add(new DateInterval('PT'.$seconds.'S'));
     }
 }
