@@ -25,8 +25,13 @@ final class SunatEndpoints
 
     /**
      * GUIA DE REMISION SERVICES.
+     *
+     * @deprecated use API endpoint
      */
     public const GUIA_BETA = 'https://e-beta.sunat.gob.pe/ol-ti-itemision-guia-gem-beta/billService';
+    /**
+     * @deprecated use API endpoint
+     */
     public const GUIA_PRODUCCION = 'https://e-guiaremision.sunat.gob.pe/ol-ti-itemision-guia-gem/billService';
 
     /**
