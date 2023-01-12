@@ -21,6 +21,7 @@ class Api
 {
     private ?ApiFactory $factory = null;
     private ?SignedXml $signer = null;
+    private ?string $lastXml = null;
 
     private array $credentials = [];
     private array $defaaultEndpoints = [
@@ -102,6 +103,16 @@ class Api
     }
 
     /**
+     * Get Last XML Signed.
+     *
+     * @return string
+     */
+    public function getLastXml(): ?string
+    {
+        return $this->lastXml;
+    }
+
+    /**
      * Envia comprobante.
      *
      * @param DocumentInterface $document
@@ -113,11 +124,25 @@ class Api
     {
         $buildResolver = new XmlBuilderResolver($this->options);
         $builder = $buildResolver->find(get_class($document));
-        $sender = $this->createSender();
 
         $xml = $builder->build($document);
-        $xmlSigned = $this->signer->signXml($xml);
-        return $sender->send($document->getName(), $xmlSigned);
+        $this->lastXml = $this->signer->signXml($xml);
+        return $this->sendXml($document->getName(), $this->lastXml);
+    }
+
+    /**
+     * Enviar xml firmado.
+     *
+     * @param string $name
+     * @param string $content
+     * @return BaseResult|null
+     * @throws ApiException
+     */
+    public function sendXml(string $name, string $content): ?BaseResult
+    {
+        $sender = $this->createSender();
+
+        return $sender->send($name, $content);
     }
 
     /**

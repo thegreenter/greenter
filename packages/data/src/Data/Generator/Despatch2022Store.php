@@ -23,6 +23,7 @@ use Greenter\Model\Despatch\Shipment;
 use Greenter\Model\Despatch\Transportist;
 use Greenter\Model\Despatch\Vehicle;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Sale\DetailAttribute;
 
 class Despatch2022Store implements DocumentGeneratorInterface
 {
@@ -129,7 +130,20 @@ class Despatch2022Store implements DocumentGeneratorInterface
             ->setCodigo('PROD1')
             ->setCodProdSunat('P001');
 
-        $despatch->setDetails([$detail]);
+        $detail2 = new DespatchDetail();
+        $detail2->setCantidad(0.123456789111) // xml formateará a 10 decimales
+            ->setUnidad('KGM')
+            ->setDescripcion('PROD 2')
+            ->setCodigo('PROD2')
+            ->setCodProdSunat('P002')
+            ->setAtributos([
+                (new DetailAttribute())
+                ->setCode('01')
+                ->setName('CONCEPTO')
+                ->setValue('TEST')
+            ]);
+
+        $despatch->setDetails([$detail, $detail2]);
 
         return $despatch;
     }

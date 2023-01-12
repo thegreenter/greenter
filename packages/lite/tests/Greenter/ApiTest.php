@@ -31,6 +31,7 @@ class ApiTest extends TestCase
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
+        $this->assertNotEmpty($api->getLastXml());
 
         $res = $api->getStatus($result->getTicket());
         $this->assertTrue($res->isSuccess());

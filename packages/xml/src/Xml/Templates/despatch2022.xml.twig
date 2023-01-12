@@ -219,7 +219,7 @@
     {% for det in doc.details %}
 	<cac:DespatchLine>
 		<cbc:ID>{{ loop.index }}</cbc:ID>
-		<cbc:DeliveredQuantity unitCode="{{ det.unidad }}">{{ det.cantidad }}</cbc:DeliveredQuantity>
+		<cbc:DeliveredQuantity unitCode="{{ det.unidad }}">{{ det.cantidad|n_format_limit(10) }}</cbc:DeliveredQuantity>
 		<cac:OrderLineReference>
 			<cbc:LineID>{{ loop.index }}</cbc:LineID>
 		</cac:OrderLineReference>
