@@ -26,7 +26,7 @@ class Api
     private array $credentials = [];
     private array $defaaultEndpoints = [
         'auth' => 'https://api-seguridad.sunat.gob.pe/v1',
-        'cpe' => 'https://api.sunat.gob.pe/v1',
+        'cpe' => 'https://api-cpe.sunat.gob.pe/v1',
     ];
 
     /**
