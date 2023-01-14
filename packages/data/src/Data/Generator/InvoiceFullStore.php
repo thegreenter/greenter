@@ -99,7 +99,7 @@ class InvoiceFullStore implements DocumentGeneratorInterface
             ->setCargos([
                 (new Charge())
                 ->setCodTipo('04') // catalog. 53
-                ->setFactor(1)
+                ->setFactor(1.00001)
                 ->setMonto(100) // anticipo
                 ->setMontoBase(100)
             ])
@@ -107,7 +107,7 @@ class InvoiceFullStore implements DocumentGeneratorInterface
                 (new Charge())
                     ->setCodTipo('00') // Catalog. 53
                     ->setMontoBase(200)
-                    ->setFactor(0.10)
+                    ->setFactor(0.00006)
                     ->setMonto(20)
             ])
             ->setFormaPago(

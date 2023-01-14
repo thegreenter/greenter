@@ -15,14 +15,15 @@ class FormatFilter
 
     public function numberLimit($number, $decimals): ?string
     {
-        $nroDecimals = $this->getDecimalsLenght($number);
+        $numString = (string)$number;
+        $applyFormat = $this->getDecimalsLength($numString) > $decimals || strpos($numString, "E") !== false;
 
-        return $nroDecimals > $decimals ? $this->number($number, $decimals) : (string)$number;
+        return $applyFormat ? $this->number($number, $decimals) : $numString;
     }
 
-    private function getDecimalsLenght($number): int
+    private function getDecimalsLength(string $number): int
     {
-        $lasPosition = strrchr((string)$number, '.');
+        $lasPosition = strrchr($number, '.');
         if ($lasPosition === false) {
             return 0;
         }
