@@ -79,6 +79,10 @@ class ApiFactory
         );
 
         $token = $result->getAccessToken();
+        if (empty($token)) {
+            throw new ApiException('Cliente No autorizado');
+        }
+
         $expire =  $this->addSeconds(new DateTime(), $result->getExpiresIn());
         $this->store->set($clientId, new BasicToken($token, $expire));
 
