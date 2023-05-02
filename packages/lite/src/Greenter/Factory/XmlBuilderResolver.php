@@ -39,6 +39,6 @@ class XmlBuilderResolver
 
         $className = substr(strrchr($docClass, '\\'), 1);
 
-        return "Greenter\\Xml\\Builder\\${className}Builder";
+        return "Greenter\\Xml\\Builder\\".$className."Builder";
     }
 }

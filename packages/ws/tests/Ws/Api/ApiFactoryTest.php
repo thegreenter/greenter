@@ -7,6 +7,7 @@ namespace Tests\Greenter\Ws\Api;
 use DateTime;
 use Greenter\Api\ApiFactory;
 use Greenter\Api\InMemoryStore;
+use Greenter\Services\InvalidServiceResponseException;
 use Greenter\Sunat\GRE\Api\AuthApiInterface;
 use Greenter\Sunat\GRE\Api\CpeApi;
 use Greenter\Sunat\GRE\Model\ApiToken;
@@ -18,7 +19,7 @@ class ApiFactoryTest extends TestCase
 {
     public function testCreate()
     {
-        list ($auth, $client, $store) = $this->deps();
+        list ($auth, $client, $store) = $this->deps(2, null);
         $factory = new ApiFactory($auth, $client, $store, null);
         $api = $factory->create('x', 'x', '20123456780MODDATOS', 'moddatos');
         $token = $store->get('x');
@@ -36,13 +37,21 @@ class ApiFactoryTest extends TestCase
         $factory->create('x', 'x', '20123456780MODDATOS', 'moddatos');
     }
 
-    private function deps(): array
+    public function testInvalidToken()
+    {
+        $this->expectException(InvalidServiceResponseException::class);
+        list ($auth, $client, $store) = $this->deps(1,'');
+        $factory = new ApiFactory($auth, $client, $store, null);
+        $factory->create('x', 'x', '20123456780MODDATOS', 'moddatos');
+    }
+
+    private function deps(int $times, ?string $token): array
     {
         $auth = Mockery::mock(AuthApiInterface::class);
         $auth->shouldReceive('getToken')
-                ->twice()
+                ->times($times)
                 ->andReturn(new ApiToken([
-                    'access_token' => 'xxxx.xxxx.xxxx',
+                    'access_token' => $token ?? 'xxxx.xxxx.xxxx',
                     'token_type' => 'JWT',
                     'expires_in' => 3600,
                 ]));
