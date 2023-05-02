@@ -9,6 +9,7 @@ use DateTime;
 use Exception;
 use Greenter\Services\Api\BasicToken;
 use Greenter\Services\Api\TokenStoreInterface;
+use Greenter\Services\InvalidServiceResponseException;
 use Greenter\Sunat\GRE\Api\AuthApiInterface;
 use Greenter\Sunat\GRE\Api\CpeApi;
 use Greenter\Sunat\GRE\Api\CpeApiInterface;
@@ -80,7 +81,7 @@ class ApiFactory
 
         $token = $result->getAccessToken();
         if (empty($token)) {
-            throw new Exception('Cliente No autorizado');
+            throw new InvalidServiceResponseException('Cliente No autorizado');
         }
 
         $expire =  $this->addSeconds(new DateTime(), $result->getExpiresIn());

@@ -7,6 +7,7 @@ namespace Tests\Greenter\Ws\Api;
 use DateTime;
 use Greenter\Api\ApiFactory;
 use Greenter\Api\InMemoryStore;
+use Greenter\Services\InvalidServiceResponseException;
 use Greenter\Sunat\GRE\Api\AuthApiInterface;
 use Greenter\Sunat\GRE\Api\CpeApi;
 use Greenter\Sunat\GRE\Model\ApiToken;
@@ -38,7 +39,7 @@ class ApiFactoryTest extends TestCase
 
     public function testInvalidToken()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(InvalidServiceResponseException::class);
         list ($auth, $client, $store) = $this->deps(1,'');
         $factory = new ApiFactory($auth, $client, $store, null);
         $factory->create('x', 'x', '20123456780MODDATOS', 'moddatos');
