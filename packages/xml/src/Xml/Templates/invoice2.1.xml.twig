@@ -553,7 +553,7 @@
                     <cac:AdditionalItemProperty >
                         <cbc:Name>{{ atr.name }}</cbc:Name>
                         <cbc:NameCode>{{ atr.code }}</cbc:NameCode>
-                        {% if atr.value %}
+                        {% if atr.value is not null %}
                         <cbc:Value>{{ atr.value }}</cbc:Value>
                         {% endif %}
                         {% if atr.fecInicio or atr.fecFin or atr.duracion %}
