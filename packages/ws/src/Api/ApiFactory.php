@@ -80,7 +80,7 @@ class ApiFactory
 
         $token = $result->getAccessToken();
         if (empty($token)) {
-            throw new ApiException('Cliente No autorizado');
+            throw new Exception('Cliente No autorizado');
         }
 
         $expire =  $this->addSeconds(new DateTime(), $result->getExpiresIn());
