@@ -7,7 +7,7 @@ on:
 
 jobs:
   provide_packages_json_tagged:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v2
@@ -15,7 +15,7 @@ jobs:
       # required for matrix of packages set
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: 8.2
           coverage: none
 
       - uses: "ramsey/composer-install@v1"
@@ -35,7 +35,7 @@ jobs:
   split_monorepo_tagged:
     needs: provide_packages_json_tagged
 
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
@@ -47,7 +47,7 @@ jobs:
       -
         # Uses an action in the root directory
         name: Monorepo Split of ${{ matrix.package }}
-        uses: symplify/monorepo-split-github-action@2.1
+        uses: symplify/monorepo-split-github-action@v2.3.0
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:
