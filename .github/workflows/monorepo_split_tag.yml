@@ -21,7 +21,7 @@ jobs:
       - uses: "ramsey/composer-install@v1"
 
       - name: Install Monorepo-Builder
-        run: composer require symplify/monorepo-builder:11.2.3 --update-no-dev
+        run: composer require symplify/monorepo-builder:11.0.8 --update-no-dev
 
       # get package json list
       -
