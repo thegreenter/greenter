@@ -2,7 +2,7 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
-## Unreleased
+## 5.0.0 - 2023-05-01
 - #206 Agregar xml para nueva Guia de Remisión. 
 - #209 Cambiar versión mínima de PHP a `7.4`
 - #213 Agregar GRE cliente REST.
