@@ -144,7 +144,7 @@
         <cbc:ID>FormaPago</cbc:ID>
         <cbc:PaymentMeansID>{{ doc.formaPago.tipo }}</cbc:PaymentMeansID>
         {% if doc.formaPago.monto %}
-        <cbc:Amount currencyID="{{ doc.formaPago.moneda|default(doc.tipoMoneda) }}">{{ doc.formaPago.monto }}</cbc:Amount>
+        <cbc:Amount currencyID="{{ doc.formaPago.moneda|default(doc.tipoMoneda) }}">{{ doc.formaPago.monto|n_format }}</cbc:Amount>
         {% endif %}
     </cac:PaymentTerms>
     {% endif %}
