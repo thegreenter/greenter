@@ -161,14 +161,16 @@
 					</cac:AddressLine>
 				</cac:DespatchAddress>
 				{% if doc.tipoDoc == '31' %}
+				{% if envio.transportista %}
 				<cac:DespatchParty> 
 					<cac:PartyIdentification>
-						<cbc:ID schemeID="6" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ emp.ruc }}</cbc:ID>
+						<cbc:ID schemeID="{{ envio.transportista.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ envio.transportista.numDoc }}</cbc:ID>
 					</cac:PartyIdentification>
 					<cac:PartyLegalEntity>
-						<cbc:RegistrationName>{{ emp.razonSocial|raw }}</cbc:RegistrationName>
+						<cbc:RegistrationName><![CDATA[{{ envio.transportista.rznSocial|raw }}]]></cbc:RegistrationName>
 					</cac:PartyLegalEntity>
 				</cac:DespatchParty> 
+				{% endif %}
 				{% endif %}
 			</cac:Despatch>
 		</cac:Delivery>
