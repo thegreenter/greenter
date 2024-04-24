@@ -160,6 +160,16 @@
 						<cbc:Line>{{ envio.partida.direccion }}</cbc:Line>
 					</cac:AddressLine>
 				</cac:DespatchAddress>
+				{% if doc.tipoDoc == '31' %}
+				<cac:DespatchParty> 
+					<cac:PartyIdentification>
+						<cbc:ID schemeID="6" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ emp.ruc }}</cbc:ID>
+					</cac:PartyIdentification>
+					<cac:PartyLegalEntity>
+						<cbc:RegistrationName>{{ emp.razonSocial|raw }}</cbc:RegistrationName>
+					</cac:PartyLegalEntity>
+				</cac:DespatchParty> 
+				{% endif %}
 			</cac:Despatch>
 		</cac:Delivery>
 		{% for precinto in envio.contenedores %}
