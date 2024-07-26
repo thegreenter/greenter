@@ -90,7 +90,7 @@
     {% endif %}
     {% set emp = doc.company %}
     <cac:Signature>
-        <cbc:ID>{{ emp.ruc }}</cbc:ID>
+        <cbc:ID>SIGN{{ emp.ruc }}</cbc:ID>
         <cac:SignatoryParty>
             <cac:PartyIdentification>
                 <cbc:ID>{{ emp.ruc }}</cbc:ID>
