@@ -13,7 +13,7 @@
     <cbc:IssueDate>{{ doc.fecComunicacion|date('Y-m-d') }}</cbc:IssueDate>
     {% set emp = doc.company %}
     <cac:Signature>
-        <cbc:ID>{{ emp.ruc }}</cbc:ID>
+        <cbc:ID>SIGN{{ emp.ruc }}</cbc:ID>
         <cac:SignatoryParty>
             <cac:PartyIdentification>
                 <cbc:ID>{{ emp.ruc }}</cbc:ID>
