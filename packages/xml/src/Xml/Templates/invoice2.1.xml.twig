@@ -308,7 +308,7 @@
             </cac:TaxCategory>
         </cac:TaxSubtotal>
         {% endif %}
-        {% if doc.mtoOperGravadas %}
+        {% if doc.mtoOperGravadas is not null %}
         <cac:TaxSubtotal>
             <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|n_format }}</cbc:TaxableAmount>
             <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoIGV|n_format }}</cbc:TaxAmount>
@@ -321,7 +321,7 @@
             </cac:TaxCategory>
         </cac:TaxSubtotal>
         {% endif %}
-        {% if doc.mtoOperInafectas %}
+        {% if doc.mtoOperInafectas is not null %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|n_format }}</cbc:TaxableAmount>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0</cbc:TaxAmount>
@@ -334,7 +334,7 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         {% endif %}
-        {% if doc.mtoOperExoneradas %}
+        {% if doc.mtoOperExoneradas is not null %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:TaxableAmount>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0</cbc:TaxAmount>
@@ -347,7 +347,7 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         {% endif %}
-        {% if doc.mtoOperGratuitas %}
+        {% if doc.mtoOperGratuitas is not null %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGratuitas|n_format }}</cbc:TaxableAmount>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoIGVGratuitas|n_format }}</cbc:TaxAmount>
@@ -360,7 +360,7 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         {% endif %}
-        {% if doc.mtoOperExportacion %}
+        {% if doc.mtoOperExportacion is not null %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExportacion|n_format }}</cbc:TaxableAmount>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0</cbc:TaxAmount>
