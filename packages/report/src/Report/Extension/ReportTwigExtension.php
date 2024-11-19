@@ -31,6 +31,7 @@ class ReportTwigExtension extends AbstractExtension
         return [
             new TwigFunction('legend', ['Greenter\Report\Filter\ResolveFilter', 'getValueLegend']),
             new TwigFunction('qrCode', ['Greenter\Report\Render\QrRender', 'getImage']),
+            new TwigFunction('qrCodeDespatch', ['Greenter\Report\Render\QrRender', 'getImageDespatch']),
         ];
     }
 }

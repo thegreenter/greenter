@@ -7,6 +7,7 @@
 </head>
 <body class="white-bg">
 {% set cp = doc.company %}
+{% set isInvoice = doc.tipoDoc in ['01', '03'] %}
 {% set isNota = doc.tipoDoc in ['07', '08'] %}
 {% set isAnticipo = doc.totalAnticipos is defined and doc.totalAnticipos > 0 %}
 {% set name = doc.tipoDoc|catalog('01') %}
@@ -173,6 +174,32 @@
                                     </p>
                                 </td>
                             </tr>
+                            {% if isInvoice and doc.detraccion %}
+                            <tr class="border_top">
+                                <td width="30%" style="font-size: 10px;">
+                                    TIPO DE DETRACCIÓN:
+                                </td>
+                                <td width="70%" style="font-size: 10px;">
+                                    {{ doc.detraccion.codBienDetraccion }} - {{ doc.detraccion.codBienDetraccion|catalog('54') }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%" style="font-size: 10px;">
+                                    MEDIO DE PAGO:
+                                </td>
+                                <td width="70%" style="font-size: 10px;">
+                                    {{ doc.detraccion.codMedioPago }} - {{ doc.detraccion.codMedioPago|catalog('59') }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="30%" style="font-size: 10px;">
+                                    N° CTA. BANCO NAC:
+                                </td>
+                                <td width="70%" style="font-size: 10px;">
+                                    {{ doc.detraccion.ctaBanco }}
+                                </td>
+                            </tr>
+                            {% endif %}
                             {% if isNota %}
                             <tr class="border_top">
                                 <td width="30%" style="font-size: 10px;">
@@ -224,6 +251,33 @@
                             </tbody>
                         </table>
                         {% endif %}
+                        {% if doc.cuotas %}
+                        <table width="100%" border="0" cellpadding="5" cellspacing="0">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <br>
+                                    <strong>Cuotas</strong>
+                                    <br>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table width="100%" border="0" cellpadding="5" cellspacing="0" style="font-size: 10px;">
+                            <tbody>
+                            <tr>
+                                <td width="30%"><b>Monto</b></td>
+                                <td width="70%"><b>Fecha Pago</b></td>
+                            </tr>
+                            {% for cuota in doc.cuotas %}
+                            <tr class="border_top">
+                                <td width="30%">{{ moneda }} {{ cuota.monto|n_format }}</td>
+                                <td width="70%">{{ cuota.fechaPago|date('d/m/Y') }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% endif %}
                     </td>
                     <td width="50%" valign="top">
                         <br>
@@ -253,21 +307,39 @@
                                 <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoOperExoneradas|n_format }}</span></td>
                             </tr>
                             {% endif %}
+                            {% if doc.mtoOperGratuitas %}
+                            <tr class="border_bottom">
+                                <td align="right"><strong>Op. Gratuitas:</strong></td>
+                                <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoOperGratuitas|n_format }}</span></td>
+                            </tr>
+                            {% endif %}
+                            {% if doc.mtoOperExportacion %}
+                            <tr class="border_bottom">
+                                <td align="right"><strong>Op. Exportación:</strong></td>
+                                <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoOperExportacion|n_format }}</span></td>
+                            </tr>
+                            {% endif %}
+                            {% if doc.mtoBaseIvap %}
+                            <tr class="border_bottom">
+                                <td align="right"><strong>Base IVAP:</strong></td>
+                                <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoBaseIvap|n_format }}</span></td>
+                            </tr>
+                            {% endif %}
+                            {% if doc.mtoIGVGratuitas %}
+                            <tr>
+                                <td align="right"><strong>IGV Gratuito:</strong></td>
+                                <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoIGVGratuitas|n_format }}</span></td>
+                            </tr>
+                            {% endif %}
                             <tr>
                                 <td align="right"><strong>I.G.V.{% if params.user.numIGV is defined %} {{ params.user.numIGV }}%{% endif %}:</strong></td>
                                 <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoIGV|n_format }}</span></td>
                             </tr>
-                            {% if doc.mtoISC %}
+                            {% if doc.mtoIvap %}
                             <tr>
-                                <td align="right"><strong>I.S.C.:</strong></td>
-                                <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoISC|n_format }}</span></td>
+                                <td align="right"><strong>IVAP:</strong></td>
+                                <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoIvap|n_format }}</span></td>
                             </tr>
-                            {% endif %}
-                            {% if  doc.sumOtrosCargos %}
-                                <tr>
-                                    <td align="right"><strong>Otros Cargos:</strong></td>
-                                    <td width="120" align="right"><span>{{ moneda }}  {{ doc.sumOtrosCargos|n_format }}</span></td>
-                                </tr>
                             {% endif %}
                             {% if doc.icbper %}
                                 <tr>
@@ -275,11 +347,29 @@
                                     <td width="120" align="right"><span>{{ moneda }}  {{ doc.icbper|n_format }}</span></td>
                                 </tr>
                             {% endif %}
+                            {% if doc.mtoISC %}
+                            <tr>
+                                <td align="right"><strong>I.S.C.:</strong></td>
+                                <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoISC|n_format }}</span></td>
+                            </tr>
+                            {% endif %}
+                            {% if doc.sumOtrosCargos %}
+                                <tr>
+                                    <td align="right"><strong>Otros Cargos:</strong></td>
+                                    <td width="120" align="right"><span>{{ moneda }}  {{ doc.sumOtrosCargos|n_format }}</span></td>
+                                </tr>
+                            {% endif %}
                             {% if doc.mtoOtrosTributos %}
                                 <tr>
                                     <td align="right"><strong>Otros Tributos:</strong></td>
                                     <td width="120" align="right"><span>{{ moneda }}  {{ doc.mtoOtrosTributos|n_format }}</span></td>
                                 </tr>
+                            {% endif %}
+                            {% if doc.redondeo %}
+                            <tr>
+                                <td align="right"><strong>Redondeo:</strong></td>
+                                <td width="120" align="right"><span>{{ moneda }} {{ doc.redondeo|n_format }}</span></td>
+                            </tr>
                             {% endif %}
                             <tr>
                                 <td align="right"><strong>Precio Venta:</strong></td>
@@ -297,6 +387,12 @@
                                     <td width="120" align="right"><span>{{ soles }} {{ perc.mtoTotal|n_format }}</span></td>
                                 </tr>
                             {% endif %}
+                            {% if isInvoice and doc.detraccion %}
+                            <tr>
+                                <td align="right"><strong>Detracción ({{doc.detraccion.percent}}%):</strong></td>
+                                <td width="120" align="right"><span id="ride-importeTotal" class="ride-importeTotal">{{ moneda }}  {{ doc.detraccion.mount|n_format }}</span></td>
+                            </tr>
+                            {% endif %}
                             </tbody>
                         </table>
                     </td>
@@ -308,8 +404,10 @@
                 <div style="page-break-after:always;"></div>
             {% endif %}
             <div>
-                <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #666; margin: 20px 0; padding: 0;"><table width="100%" border="0" cellpadding="0" cellspacing="0">
-                    <tbody><tr>
+                <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #666; margin: 20px 0; padding: 0;">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tbody>
+                    <tr>
                         <td width="85%">
                             <blockquote>
                                 {% if params.user.footer is defined %}
@@ -325,7 +423,8 @@
                             <img src="{{ qrCode(doc)|image_b64('svg+xml') }}" alt="Qr Image">
                         </td>
                     </tr>
-                    </tbody></table>
+                    </tbody>
+                </table>
             </div>
         </td>
     </tr>
