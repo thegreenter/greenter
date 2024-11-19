@@ -96,8 +96,8 @@
                         <td width="40%" align="left"><strong>Fecha Inicio de Traslado:</strong>  {{ doc.envio.fecTraslado|date('d/m/Y') }} </td>
                     </tr>
                     <tr>
-                        <td width="60%" align="left"><strong>Motivo Traslado:</strong>  {{ doc.envio.desTraslado }} </td>
-                        <td width="40%" align="left"><strong>Modalidad de Transporte:</strong>  {{ doc.envio.modTraslado }} </td>
+                        <td width="60%" align="left"><strong>Motivo Traslado:</strong>  {{ doc.envio.codTraslado|catalog('20') }} </td>
+                        <td width="40%" align="left"><strong>Modalidad de Transporte:</strong>  {{ doc.envio.modTraslado|catalog('18') }} </td>
                     </tr>
                     <tr>
                         <td width="60%" align="left"><strong>Peso Bruto Total ({{ doc.envio.undPesoTotal }}):</strong>  {{ doc.envio.pesoTotal }} </td>
@@ -109,25 +109,43 @@
                     </tr>
                     </tbody></table>
             </div><br>
-            {% set tr = doc.envio.transportista %}
-            {% if tr %}
+            {% set transportista = doc.envio.transportista %}
+            {% set vehiculo = doc.envio.vehiculo %}
+            {% set choferes = doc.envio.choferes %}
+            {% set indicadores = doc.envio.indicadores %}
             <div class="tabla_borde">
                 <table width="100%" border="0" cellpadding="5" cellspacing="0">
                     <tbody>
                     <tr>
                         <td colspan="2">TRANSPORTE</td>
                     </tr>
+                    {% if transportista %}
                     <tr class="border_top">
-                        <td width="60%" align="left"><strong>Razón Social:</strong>  {{ tr.rznSocial }}</td>
-                        <td width="40%" align="left"><strong>{{ tr.tipoDoc|catalog('06') }}:</strong>  {{ tr.numDoc }}</td>
+                        <td width="60%" align="left"><strong>Razón Social:</strong>  {{ transportista.rznSocial }}</td>
+                        <td width="40%" align="left"><strong>{{ transportista.tipoDoc|catalog('06') }}:</strong>  {{ transportista.numDoc }}</td>
                     </tr>
+                    {% endif %}
+                    {% if vehiculo or choferes %}
                     <tr>
-                        <td width="60%" align="left"><strong>Vehiculo:</strong>  {{ tr.placa }}</td>
-                        <td width="40%" align="left"><strong>Conductor:</strong>  {{ tr.choferTipoDoc|catalog('06') }} {{ tr.choferDoc }}</td>
+                        <td width="60%" align="left">
+                            <strong>Vehículo principal:</strong>  {{ vehiculo.placa }}
+                            {% for secundario in vehiculo.secundarios %}
+                            <br>
+                            <strong>Vehículo secundario:</strong>  {{ secundario.placa }}
+                            {% endfor %}
+                        </td>
+                        <td width="40%" align="left">
+                            {% for chofer in choferes %}
+                            <strong>Conductor {{chofer.tipo}}:</strong>  {{ chofer.tipoDoc|catalog('06') }} {{ chofer.nroDoc }} - {{ chofer.nombres }} {{ chofer.apellidos }}
+                            {% if not loop.last %}
+                            <br>
+                            {% endif %}
+                            {% endfor %}
+                        </td>
                     </tr>
+                    {% endif %}
                     </tbody></table>
             </div><br>
-            {% endif %}
             <div class="tabla_borde">
                 <table width="100%" border="0" cellpadding="5" cellspacing="0">
                     <tbody>
@@ -176,16 +194,20 @@
             <div>
             <table>
                 <tbody>
-                <tr><td width="100%">
-                    <blockquote>
-                        {% if params.user.footer is defined %}
-                            {{ params.user.footer|raw }}
-                        {% endif %}
-                        {% if params.system.hash is defined and params.system.hash%}
-                            <strong>Resumen:</strong>   {{ params.system.hash }}<br>
-                        {% endif %}
-                        <span>Representación Impresa de la {{ name }} ELECTRÓNICA.</span>
-                    </blockquote>
+                <tr>
+                    <td width="85%">
+                        <blockquote>
+                            {% if params.user.footer is defined %}
+                                {{ params.user.footer|raw }}
+                            {% endif %}
+                            {% if params.system.hash is defined and params.system.hash%}
+                                <strong>Resumen:</strong>   {{ params.system.hash }}<br>
+                            {% endif %}
+                            <span>Representación Impresa de la {{ name }} ELECTRÓNICA.</span>
+                        </blockquote>
+                    </td>
+                    <td width="15%" align="right">
+                        <img src="{{ qrCodeDespatch(doc)|image_b64('svg+xml') }}" alt="Qr Image">
                     </td>
                 </tr>
                 </tbody></table>

@@ -13,6 +13,7 @@ use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\ImageRenderer;
 use BaconQrCode\Renderer\RendererStyle\RendererStyle;
 use BaconQrCode\Writer;
+use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\Sale\BaseSale;
 
 /**
@@ -38,6 +39,28 @@ class QrRender
             $sale->getFechaEmision()->format('Y-m-d'),
             $client->getTipoDoc(),
             $client->getNumDoc(),
+        ];
+        $content = implode('|', $params).'|';
+
+        return $this->getQrImage($content);
+    }
+
+    /**
+     * @param Despatch $despatch
+     *
+     * @return string
+     */
+    public function getImageDespatch($despatch)
+    {
+        $destinatario = $despatch->getDestinatario();
+        $params = [
+            $despatch->getCompany()->getRuc(),
+            $despatch->getTipoDoc(),
+            $despatch->getSerie(),
+            $despatch->getCorrelativo(),
+            $despatch->getFechaEmision()->format('Y-m-d'),
+            $destinatario->getTipoDoc(),
+            $destinatario->getNumDoc(),
         ];
         $content = implode('|', $params).'|';
 
