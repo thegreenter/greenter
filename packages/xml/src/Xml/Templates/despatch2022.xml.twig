@@ -110,6 +110,21 @@
 		{% for indicador in envio.indicadores %}
 		<cbc:SpecialInstructions>{{ indicador }}</cbc:SpecialInstructions>
 		{% endfor %}
+		{% if envio.subContratado %}
+		<cac:Consignment>
+	        <!-- ID OBLIGATORIO POR UBL -->
+			<cbc:ID>SUNAT_Envio</cbc:ID>
+			<!-- DATOS DEL SUBCONTRATADOR -->
+        	<cac:LogisticsOperatorParty>
+			   <cac:PartyIdentification>
+				  <cbc:ID schemeID="{{ envio.subContratado.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ envio.subContratado.numDoc }}</cbc:ID>
+			   </cac:PartyIdentification>
+			   <cac:PartyLegalEntity>
+				  <cbc:RegistrationName><![CDATA[{{ envio.subContratado.rznSocial|raw }}]]></cbc:RegistrationName>
+			   </cac:PartyLegalEntity>
+			</cac:LogisticsOperatorParty>
+		</cac:Consignment>
+		{% endif %}
 		<cac:ShipmentStage>
 			<cbc:TransportModeCode listName="Modalidad de traslado" listAgencyName="PE:SUNAT" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo18">{{ envio.modTraslado }}</cbc:TransportModeCode>
 			{% if envio.fecTraslado %}
@@ -160,6 +175,15 @@
 						<cbc:Line>{{ envio.partida.direccion }}</cbc:Line>
 					</cac:AddressLine>
 				</cac:DespatchAddress>
+				<cac:DespatchParty>
+					<cac:PartyIdentification>
+						<cbc:ID schemeID="6" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT"
+								schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.remitente.numDoc|raw }}</cbc:ID>
+					</cac:PartyIdentification>
+					<cac:PartyLegalEntity>
+						<cbc:RegistrationName><![CDATA[{{ doc.remitente.rznSocial }}]]></cbc:RegistrationName>
+					</cac:PartyLegalEntity>
+				</cac:DespatchParty>
 			</cac:Despatch>
 		</cac:Delivery>
 		{% for precinto in envio.contenedores %}
@@ -246,4 +270,4 @@
 	</cac:DespatchLine>
     {% endfor %}
 </DespatchAdvice>
-{% endapply %}
+ {% endapply %}
