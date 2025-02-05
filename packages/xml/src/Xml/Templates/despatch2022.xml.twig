@@ -175,6 +175,7 @@
 						<cbc:Line>{{ envio.partida.direccion }}</cbc:Line>
 					</cac:AddressLine>
 				</cac:DespatchAddress>
+				{% if doc.remitente %}
 				<cac:DespatchParty>
 					<cac:PartyIdentification>
 						<cbc:ID schemeID="6" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT"
@@ -184,6 +185,7 @@
 						<cbc:RegistrationName><![CDATA[{{ doc.remitente.rznSocial }}]]></cbc:RegistrationName>
 					</cac:PartyLegalEntity>
 				</cac:DespatchParty>
+				{% endif %}
 			</cac:Despatch>
 		</cac:Delivery>
 		{% for precinto in envio.contenedores %}
