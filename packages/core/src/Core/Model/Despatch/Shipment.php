@@ -545,4 +545,29 @@ class Shipment
 
         return $this;
     }
+    
+    //Extra para guia transportista
+    /**
+    * @var Transportist
+    */
+    private $subContratado;
+        /**
+     * @return Transportist
+     */
+    public function getSubContratado(): ?Transportist
+    {
+        return $this->subContratado;
+    }
+
+    /**
+     * @param Transportist $subContratado
+     *
+     * @return Despatch
+     */
+    public function setSubContratado(?Transportist $subContratado): Shipment
+    {
+        $this->subContratado = $subContratado;
+
+        return $this;
+    }
 }
