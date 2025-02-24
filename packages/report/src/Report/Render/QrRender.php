@@ -50,21 +50,9 @@ class QrRender
      *
      * @return string
      */
-    public function getImageDespatch($despatch)
+    public function getImageDespatch($qr)
     {
-        $destinatario = $despatch->getDestinatario();
-        $params = [
-            $despatch->getCompany()->getRuc(),
-            $despatch->getTipoDoc(),
-            $despatch->getSerie(),
-            $despatch->getCorrelativo(),
-            $despatch->getFechaEmision()->format('Y-m-d'),
-            $destinatario->getTipoDoc(),
-            $destinatario->getNumDoc(),
-        ];
-        $content = implode('|', $params).'|';
-
-        return $this->getQrImage($content);
+        return $this->getQrImage($qr);
     }
 
     private function getQrImage(string $content)
