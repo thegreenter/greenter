@@ -67,7 +67,12 @@ class QrRender
         return $this->getQrImage($content);
     }
 
-    private function getQrUrl(string $url)
+    /**
+     * @param string $url
+     *
+     * @return string
+     */
+    public function getQrUrl(string $url)
     {
         return $this->getQrImage($url);
     }
