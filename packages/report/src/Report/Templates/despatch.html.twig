@@ -207,7 +207,7 @@
                         </blockquote>
                     </td>
                     <td width="15%" align="right">
-                        {% if params.system.qr %}
+                        {% if params.system.qr is defined %}
                             <img src="{{ qrUrl(params.system.qr)|image_b64('svg+xml') }}" alt="Qr Image">
                         {% endif %}
                     </td>
