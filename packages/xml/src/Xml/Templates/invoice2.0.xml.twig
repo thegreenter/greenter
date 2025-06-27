@@ -282,8 +282,12 @@
     </cac:TaxTotal>
     {% endif %}
     <cac:LegalMonetaryTotal>
+        {% if doc.sumDsctoGlobal != 0.00 %}
         <cbc:AllowanceTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.sumDsctoGlobal|default(0)|n_format }}</cbc:AllowanceTotalAmount>
+        {% endif %}
+        {% if doc.mtoOtrosTributos != 0.00 %}
         <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0)|n_format }}</cbc:ChargeTotalAmount>
+        {% endif %}
         {% if doc.totalAnticipos is not null %}<cbc:PrepaidAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.totalAnticipos|n_format }}</cbc:PrepaidAmount>{% endif %}
         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
