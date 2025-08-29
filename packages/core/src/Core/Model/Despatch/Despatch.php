@@ -41,7 +41,7 @@ class Despatch implements DocumentInterface
      */
     private $correlativo;
     /**
-     * @var string
+     * @var array
      */
     private $observacion;
     /**
@@ -168,19 +168,19 @@ class Despatch implements DocumentInterface
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getObservacion(): ?string
+    public function getObservacion(): ?array
     {
         return $this->observacion;
     }
 
     /**
-     * @param string $observacion
+     * @param array $observacion
      *
      * @return Despatch
      */
-    public function setObservacion(?string $observacion): Despatch
+    public function setObservacion(?array $observacion): Despatch
     {
         $this->observacion = $observacion;
 
