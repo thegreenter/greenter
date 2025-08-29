@@ -12,9 +12,9 @@
 	<cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
 	<cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>
 	<cbc:DespatchAdviceTypeCode listAgencyName="PE:SUNAT" listName="Tipo de Documento" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01">{{ doc.tipoDoc }}</cbc:DespatchAdviceTypeCode>
-    {% if doc.observacion %}
-	<cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
-    {% endif %}
+	{% for obs in doc.despacho.Observaciones %}
+    <cbc:Note><![CDATA[{{ obs }}]]></cbc:Note>
+    {% endfor %}
 	{% for rel in doc.addDocs  %}
 	<cac:AdditionalDocumentReference>
 		<cbc:ID>{{ rel.nro }}</cbc:ID>
