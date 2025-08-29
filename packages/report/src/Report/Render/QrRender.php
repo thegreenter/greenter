@@ -46,25 +46,13 @@ class QrRender
     }
 
     /**
-     * @param Despatch $despatch
-     *
+     * Summary of getImageDespatch
+     * @param string $qr Link de la guía de remisión encontrada en el CDR
      * @return string
      */
-    public function getImageDespatch($despatch)
+    public function getImageDespatch(string $qr)
     {
-        $destinatario = $despatch->getDestinatario();
-        $params = [
-            $despatch->getCompany()->getRuc(),
-            $despatch->getTipoDoc(),
-            $despatch->getSerie(),
-            $despatch->getCorrelativo(),
-            $despatch->getFechaEmision()->format('Y-m-d'),
-            $destinatario->getTipoDoc(),
-            $destinatario->getNumDoc(),
-        ];
-        $content = implode('|', $params).'|';
-
-        return $this->getQrImage($content);
+        return $this->getQrImage($qr);
     }
 
     /**

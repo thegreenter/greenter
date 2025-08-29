@@ -406,4 +406,29 @@ class Despatch implements DocumentInterface
 
         return join('-', $parts);
     }
+
+    //Extra para guia transportista
+    /**
+    * @var Client
+    */
+    private $remitente;
+        /**
+     * @return Client
+     */
+    public function getRemitente(): ?Client
+    {
+        return $this->remitente;
+    }
+
+    /**
+     * @param Client $remitente
+     *
+     * @return Despatch
+     */
+    public function setRemitente(?Client $remitente): Despatch
+    {
+        $this->remitente = $remitente;
+
+        return $this;
+    }
 }
