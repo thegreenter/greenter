@@ -206,6 +206,9 @@
                     </td>
                     <td width="15%" align="right">
                          <img src="{{ qrCodeDespatch(params.system.qr)|image_b64('svg+xml') }}" alt="Qr Image">
+                        {% if params.system.qr is defined %}
+                            <img src="{{ qrUrl(params.system.qr)|image_b64('svg+xml') }}" alt="Qr Image">
+                        {% endif %}
                     </td>
                 </tr>
                 </tbody></table>
