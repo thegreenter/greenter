@@ -206,7 +206,7 @@
                 <td class="no">{{ det.cantidad|n_format }}</td>
                 <td class="desc">
                     <h3>{{ det.codProducto }}</h3>
-                    {{ det.descripcion }}
+                    {{ det.descripcion|replace({'|': '<br>'})|raw }}
                 </td>
                 <td class="unit">{{ det.unidad }}</td>
                 <td class="qty">{{ moneda }}{{ det.mtoValorUnitario }}</td>
