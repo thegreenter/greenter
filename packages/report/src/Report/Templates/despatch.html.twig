@@ -23,8 +23,6 @@
                                 <tbody><tr>
                                     <td align="center">
                                         <span style="font-family:Tahoma, Geneva, sans-serif; font-size:29px" text-align="center">{{ name }}</span>
-                                        <br>
-                                        <span style="font-family:Tahoma, Geneva, sans-serif; font-size:19px" text-align="center">E L E C T R Ó N I C A</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -203,10 +201,11 @@
                             {% if params.system.hash is defined and params.system.hash%}
                                 <strong>Resumen:</strong>   {{ params.system.hash }}<br>
                             {% endif %}
-                            <span>Representación Impresa de la {{ name }} ELECTRÓNICA.</span>
+                            <span>Representación Impresa de la {{ name }}.</span>
                         </blockquote>
                     </td>
                     <td width="15%" align="right">
+                         <img src="{{ qrCodeDespatch(params.system.qr)|image_b64('svg+xml') }}" alt="Qr Image">
                         {% if params.system.qr is defined %}
                             <img src="{{ qrUrl(params.system.qr)|image_b64('svg+xml') }}" alt="Qr Image">
                         {% endif %}
