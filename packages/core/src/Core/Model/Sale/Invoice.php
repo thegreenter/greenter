@@ -106,9 +106,9 @@ class Invoice extends BaseSale
     private $subTotal;
 
     /**
-     * @var string
+     * @var string[]
      */
-    private $observacion;
+    private array $observacion = [];
 
     /**
      * @var Address
@@ -438,17 +438,17 @@ class Invoice extends BaseSale
     /**
      * @return string
      */
-    public function getObservacion(): ?string
+    public function getObservacion(): ?array
     {
         return $this->observacion;
     }
 
     /**
-     * @param string $observacion
+     * @param array $observacion
      *
      * @return Invoice
      */
-    public function setObservacion(?string $observacion): Invoice
+    public function setObservacion(array $observacion): Invoice
     {
         $this->observacion = $observacion;
 

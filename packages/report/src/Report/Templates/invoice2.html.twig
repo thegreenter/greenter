@@ -213,6 +213,11 @@
                 <td class="total">{{ moneda }}{{ det.mtoValorVenta }}</td>
             </tr>
         {% endfor %}
+            <tr>
+            {% for obs in doc.observacion %}
+                <span>{{ obs }}</span><br>
+            {% endfor %}
+            </tr>
         </tbody>
         <tfoot>
         <tr>
