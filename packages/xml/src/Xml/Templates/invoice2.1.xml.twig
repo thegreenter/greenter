@@ -19,9 +19,9 @@
     {% for leg in doc.legends %}
     <cbc:Note languageLocaleID="{{ leg.code }}"><![CDATA[{{ leg.value }}]]></cbc:Note>
     {% endfor %}
-    {% if doc.observacion %}
-    <cbc:Note><![CDATA[{{ doc.observacion }}]]></cbc:Note>
-    {% endif %}
+    {% for obs in doc.observacion %}
+    <cbc:Note><![CDATA[{{ obs }}]]></cbc:Note>
+    {% endfor %}
     <cbc:DocumentCurrencyCode>{{ doc.tipoMoneda }}</cbc:DocumentCurrencyCode>
     {% if doc.compra %}
     <cac:OrderReference>
