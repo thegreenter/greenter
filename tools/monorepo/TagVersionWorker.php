@@ -36,7 +36,7 @@ final class TagVersionWorker implements ReleaseWorkerInterface
 
             $this->processRunner->run($gitAddCommitCommand);
         } catch (Throwable $throwable) {
-            // nothing to commit
+            echo $throwable;
         }
 
         $this->processRunner->run('git tag ' . $version->getOriginalString());
