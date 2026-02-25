@@ -126,6 +126,9 @@
             <cac:TaxSubtotal>
                 <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ igv }}</cbc:TaxAmount>
                 <cac:TaxCategory>
+                    {% if det.porcentajeIgv is not null %}
+                        <cbc:Percent>{{ det.porcentajeIgv|n_format }}</cbc:Percent>
+                    {% endif %}
                     <cac:TaxScheme>
                         <cbc:ID>1000</cbc:ID>
                         <cbc:Name>IGV</cbc:Name>

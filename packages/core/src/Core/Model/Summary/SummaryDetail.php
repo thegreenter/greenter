@@ -63,6 +63,11 @@ class SummaryDetail
     private $total;
 
     /**
+     * @var ?float
+     */
+    private ?float $porcentajeIgv = null;
+
+    /**
      * @var float
      */
     private $mtoOperGravadas;
@@ -275,6 +280,26 @@ class SummaryDetail
     public function setTotal(?float $total): SummaryDetail
     {
         $this->total = $total;
+
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPorcentajeIgv(): ?float
+    {
+        return $this->porcentajeIgv;
+    }
+
+    /**
+     * @param float $porcentajeIgv
+     *
+     * @return SummaryDetail
+     */
+    public function setPorcentajeIgv(?float $porcentajeIgv): SummaryDetail
+    {
+        $this->porcentajeIgv = $porcentajeIgv;
 
         return $this;
     }

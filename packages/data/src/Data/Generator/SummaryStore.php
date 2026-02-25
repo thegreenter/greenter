@@ -45,6 +45,7 @@ class SummaryStore implements DocumentGeneratorInterface
             ->setMtoOperExoneradas(50)
             ->setMtoOperExportacion(10)
             ->setMtoOtrosCargos(21)
+            ->setPorcentajeIgv(18.0)
             ->setMtoIGV(3.6);
 
         $detiail2 = new SummaryDetail();
@@ -62,6 +63,7 @@ class SummaryStore implements DocumentGeneratorInterface
             ->setMtoOperInafectas(120)
             ->setMtoOperGratuitas(10)
             ->setMtoIGV(7.2)
+            ->setPorcentajeIgv(18.0)
             ->setMtoISC(2.8);
 
         $detiail3 = new SummaryDetail();
@@ -81,7 +83,8 @@ class SummaryStore implements DocumentGeneratorInterface
             ->setMtoOperInafectas(24.4)
             ->setMtoOperExoneradas(50)
             ->setMtoOtrosCargos(21)
-            ->setMtoIGV(3.6);
+            ->setMtoIGV(3.6)
+            ->setPorcentajeIgv(18.0);
 
         $detiail4 = new SummaryDetail();
         $detiail4->setTipoDoc('03')
