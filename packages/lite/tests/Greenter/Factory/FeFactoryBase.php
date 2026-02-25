@@ -351,7 +351,8 @@ class FeFactoryBase extends TestCase
             ->setMtoOperGravadas(20)
             ->setMtoOperInafectas(12)
             ->setMtoOperExoneradas(15)
-            ->setMtoIGV(3.6);
+            ->setMtoIGV(3.6)
+            ->setPorcentajeIgv(18.0);
 
         $detiail2 = new SummaryDetail();
         $detiail2->setTipoDoc('03')
@@ -371,6 +372,7 @@ class FeFactoryBase extends TestCase
             ->setMtoOperInafectas(20)
             ->setMtoOtrosCargos(10)
             ->setMtoIGV(42.12)
+            ->setPorcentajeIgv(18.0)
             ->setMtoISC(34);
 
         $sum = new Summary();
