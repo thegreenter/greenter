@@ -13,7 +13,9 @@
 	<cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>
 	<cbc:DespatchAdviceTypeCode listAgencyName="PE:SUNAT" listName="Tipo de Documento" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01">{{ doc.tipoDoc }}</cbc:DespatchAdviceTypeCode>
     {% if doc.observacion %}
-	<cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
+	{% for obs in doc.observacion %}
+    <cbc:Note><![CDATA[{{ obs|raw }}]]></cbc:Note>
+    {% endfor %}
     {% endif %}
 	{% for rel in doc.addDocs  %}
 	<cac:AdditionalDocumentReference>
