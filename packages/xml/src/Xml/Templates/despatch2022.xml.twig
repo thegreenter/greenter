@@ -128,6 +128,11 @@
 				</cac:PartyLegalEntity>
 			</cac:CarrierParty>
             {% endif %}
+			{% if envio.fecEntregaBienes %}
+            <cac:LoadingTransportEvent>
+                <cbc:OccurrenceDate>{{ envio.fecEntregaBienes|date('Y-m-d') }}</cbc:OccurrenceDate>
+            </cac:LoadingTransportEvent>
+			{% endif %}
 			{% for chofer in envio.choferes %}
 			<cac:DriverPerson>
 				<cbc:ID schemeID="{{ chofer.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ chofer.nroDoc }}</cbc:ID>
