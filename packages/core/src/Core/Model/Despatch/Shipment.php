@@ -86,6 +86,12 @@ class Shipment
      */
     private $fecTraslado;
     /**
+     * Fecha de entrega de bienes al transportista.
+     *
+     * @var DateTime
+     */
+    private $fecEntregaBienes;
+    /**
      * Numero de Contenedor (Motivo Importación).
      *
      * @var string
@@ -348,6 +354,26 @@ class Shipment
     public function setFecTraslado(?DateTime $fecTraslado): Shipment
     {
         $this->fecTraslado = $fecTraslado;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getFecEntregaBienes(): ?DateTime
+    {
+        return $this->fecEntregaBienes;
+    }
+
+    /**
+     * @param DateTime $fecEntregaBienes
+     *
+     * @return Shipment
+     */
+    public function setFecEntregaBienes(?DateTime $fecEntregaBienes): Shipment
+    {
+        $this->fecEntregaBienes = $fecEntregaBienes;
 
         return $this;
     }
