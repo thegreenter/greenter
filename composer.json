@@ -103,5 +103,12 @@
         "test": "phpunit",
         "lint": "phpstan analyse",
         "lint:ci": "phpstan analyse --error-format=github"
+    },
+    "config": {
+        "policy": {
+            "advisories": {
+                "ignore": ["twig/twig"]
+            }
+        }
     }
 }
