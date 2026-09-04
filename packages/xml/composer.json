@@ -21,7 +21,7 @@
     },
     "require-dev": {
         "greenter/data": "^5.0",
-        "greenter/ubl-validator": "^2.0",
+        "greenter/ubl-validator": "^2.3",
         "phpunit/phpunit": "^9"
     },
     "autoload": {

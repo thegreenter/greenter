@@ -47,13 +47,13 @@ class PerceptionParserTest extends TestCase
      * Field 7 of SUNAT's "Percepciones1_0" sheet, and conditional: absent
      * from a document that is not exceptionally issued.
      */
-    public function testParseExceptionalIndicator()
+    public function testParseIndExcepcional()
     {
         $withIndicator = $this->parseResource('20000000001-40-P001-2.xml');
-        $this->assertSame('01', $withIndicator->getExceptionalIndicator());
+        $this->assertSame('01', $withIndicator->getIndExcepcional());
 
         $without = $this->parseResource('20000000001-40-P001-1.xml');
-        $this->assertNull($without->getExceptionalIndicator());
+        $this->assertNull($without->getIndExcepcional());
     }
 
     private function parseResource(string $filename): Perception

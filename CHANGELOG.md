@@ -2,6 +2,9 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
+## Unreleased
+- #274 Soportar `sac:ExceptionalIndicator` (`indExcepcional`) en comprobante de Percepción.
+
 ## 5.0.0 - 2023-05-01
 - #206 Agregar xml para nueva Guia de Remisión. 
 - #209 Cambiar versión mínima de PHP a `7.4`

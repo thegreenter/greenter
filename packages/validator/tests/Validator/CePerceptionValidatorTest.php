@@ -31,6 +31,27 @@ class CePerceptionValidatorTest extends TestCase
         $this->assertEquals(0, $errors->count());
     }
 
+    public function testValidatePerceptionWithIndExcepcional()
+    {
+        $perception = $this->getPerception();
+        $perception->setIndExcepcional('01');
+        $validator = $this->getValidator();
+        $errors = $validator->validate($perception);
+
+        $this->assertEquals(0, $errors->count());
+    }
+
+    public function testValidatePerceptionInvalidIndExcepcional()
+    {
+        $perception = $this->getPerception();
+        $perception->setIndExcepcional('1');
+        $validator = $this->getValidator();
+        $errors = $validator->validate($perception);
+
+        $this->assertEquals(1, $errors->count());
+        $this->assertEquals('indExcepcional', $errors->get(0)->getPropertyPath());
+    }
+
     /**
      * @return Perception
      */

@@ -77,16 +77,18 @@ class Perception implements DocumentInterface
     private $observacion;
 
     /**
-     * Indicador de emision excepcional.
+     * Indicador excepcional.
      *
-     * Campo 7 de la hoja «Percepciones1_0» de las reglas de validacion de
-     * SUNAT. Su unico valor admitido es '01' (regla 3322) y, cuando se
-     * consigna, el comprobante solo puede llevar un documento relacionado
-     * (3323) y ese documento debe ser una factura (3324).
+     * Campo 7 de la hoja «Percepciones1_0» de las Reglas de validación de SUNAT
+     * (actualizado al 26.08.2026, https://cpe.sunat.gob.pe/guias-y-manuales).
+     * Código de excepción; actualmente el único valor admitido es '01' - emisión
+     * excepcional (regla 3322). Cuando se consigna, el comprobante solo puede
+     * llevar un documento relacionado (3323) y ese documento debe ser una
+     * factura (3324).
      *
-     * @var string
+     * @var string|null
      */
-    private $exceptionalIndicator;
+    private $indExcepcional;
 
     /**
      * Dato del Comprobante relacionado.
@@ -298,18 +300,19 @@ class Perception implements DocumentInterface
     /**
      * @return string|null
      */
-    public function getExceptionalIndicator(): ?string
+    public function getIndExcepcional(): ?string
     {
-        return $this->exceptionalIndicator;
+        return $this->indExcepcional;
     }
 
     /**
-     * @param string|null $exceptionalIndicator
+     * @param string|null $indExcepcional
+     *
      * @return Perception
      */
-    public function setExceptionalIndicator(?string $exceptionalIndicator): Perception
+    public function setIndExcepcional(?string $indExcepcional): Perception
     {
-        $this->exceptionalIndicator = $exceptionalIndicator;
+        $this->indExcepcional = $indExcepcional;
 
         return $this;
     }

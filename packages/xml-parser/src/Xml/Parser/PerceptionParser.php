@@ -57,7 +57,7 @@ class PerceptionParser implements DocumentParserInterface
         $perception->setSerie($idNum[0])
             ->setCorrelativo($idNum[1])
             ->setFechaEmision(new DateTime($xml->getValue('cbc:IssueDate')))
-            ->setExceptionalIndicator($xml->getValue('sac:ExceptionalIndicator', $root, null))
+            ->setIndExcepcional($xml->getValue('sac:ExceptionalIndicator', $root, null))
             ->setCompany($this->getCompany())
             ->setProveedor($this->getClient())
             ->setRegimen($xml->getValue('sac:SUNATPerceptionSystemCode'))

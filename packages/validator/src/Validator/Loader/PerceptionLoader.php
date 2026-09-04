@@ -45,6 +45,7 @@ class PerceptionLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraint('impPercibido', new Assert\NotNull());
         $metadata->addPropertyConstraint('impCobrado', new Assert\NotNull());
         $metadata->addPropertyConstraint('observacion', new Assert\Length(['max' => 250]));
+        $metadata->addPropertyConstraint('indExcepcional', new Assert\Length(['min' => 2, 'max' => 2]));
         $metadata->addPropertyConstraints('details', [
             new Assert\NotBlank(),
             new Assert\Valid(),
