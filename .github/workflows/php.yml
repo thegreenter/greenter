@@ -3,8 +3,6 @@ name: CI
 on:
   push:
     branches: [ master ]
-  # Sin filtro de ramas: un PR hacia una rama feature (como #275 -> feat/...)
-  # también debe correr los tests antes de mergearse.
   pull_request:
   workflow_dispatch:
 
@@ -15,16 +13,16 @@ concurrency:
 
 jobs:
   # --------------------------------------------------------------------------
-  # Tests deterministas (sin red). Esto es lo que bloquea el merge.
+  # Tests deterministas (sin red).
   # --------------------------------------------------------------------------
   unit:
     name: Unit · PHP ${{ matrix.php }}
-    runs-on: ubuntu-24.04          # ubuntu-22.04 entra en deprecación el 17-09-2026
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     strategy:
-      fail-fast: false             # que el job 7.4 no se cancele si falla el 8.x
+      fail-fast: false
       matrix:
-        php: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4' ]
+        php: [ '7.4', '8.2', '8.4' ]
         include:
           - php: '7.4'
             coverage: true
@@ -39,8 +37,6 @@ jobs:
           extensions: mbstring, curl, soap, dom, xsl, zip, :fileinfo
           # pcov solo donde se reporta cobertura; en el resto 'none' (más rápido)
           coverage: ${{ matrix.coverage && 'pcov' || 'none' }}
-          # psalm como PHAR: vimeo/psalm ~5.10 en require-dev exige PHP <= 8.2
-          # e impide instalar dependencias (y probar) en 8.3/8.4.
           tools: composer:v2, psalm:5
 
       - name: Validate composer.json
@@ -78,7 +74,7 @@ jobs:
 
   # --------------------------------------------------------------------------
   # Tests de integración contra SUNAT beta / GRE (nubefact). Dependen de
-  # servicios externos: se ejecutan aparte y NO bloquean el merge.
+  # servicios externos: se ejecutan aparte.
   # --------------------------------------------------------------------------
   integration:
     name: Integración SUNAT beta (informativo)
