@@ -16,6 +16,9 @@ class ConsultCdrServiceTest extends TestCase
 {
     use ConsultCdrServiceTrait;
 
+    /**
+     * @group integration
+     */
     public function testGetStatusInvalidUser()
     {
         $service = $this->getConsultService();
@@ -27,6 +30,9 @@ class ConsultCdrServiceTest extends TestCase
         $this->assertEquals('00103', $result->getError()->getCode());
     }
 
+    /**
+     * @group integration
+     */
     public function testGetStatusCdrInvalidUser()
     {
         $service = $this->getConsultService();

@@ -59,7 +59,7 @@ class XmlReader
      * @param string|null $def                   Default Value
      * @return string
      */
-    public function getValue($query, DOMNode $context = null, ?string $def = ''): ?string
+    public function getValue($query, ?DOMNode $context = null, ?string $def = ''): ?string
     {
         $nodes = $this->xpath->query($query, $context);
         if ($nodes->length == 0) {

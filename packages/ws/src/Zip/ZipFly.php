@@ -42,7 +42,7 @@ class ZipFly implements CompressInterface, DecompressInterface
      *
      * @return array
      */
-    public function decompress(?string $content, callable $filter = null): ?array
+    public function decompress(?string $content, ?callable $filter = null): ?array
     {
         $zipFile = new ZipFile();
         $zipFile->openFromString($content);

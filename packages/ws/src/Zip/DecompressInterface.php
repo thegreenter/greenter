@@ -23,5 +23,5 @@ interface DecompressInterface
      *
      * @return array
      */
-    public function decompress(?string $content, callable $filter = null): ?array;
+    public function decompress(?string $content, ?callable $filter = null): ?array;
 }

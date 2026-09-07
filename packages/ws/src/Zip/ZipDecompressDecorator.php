@@ -25,7 +25,7 @@ class ZipDecompressDecorator implements DecompressInterface
     /**
      * @inheritDoc
      */
-    public function decompress(?string $content, callable $filter = null): ?array
+    public function decompress(?string $content, ?callable $filter = null): ?array
     {
         if (empty($content)) {
             return [];

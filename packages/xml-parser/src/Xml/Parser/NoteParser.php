@@ -80,7 +80,7 @@ class NoteParser implements DocumentParserInterface
         return $note;
     }
 
-    private function loadTotals(Note $inv, DOMNode $node = null)
+    private function loadTotals(Note $inv, ?DOMNode $node = null)
     {
         if (empty($node)) {
             return;
@@ -139,7 +139,7 @@ class NoteParser implements DocumentParserInterface
         }
     }
 
-    private function getLegends(DOMNode $node = null)
+    private function getLegends(?DOMNode $node = null)
     {
         if (empty($node)) {
             return;

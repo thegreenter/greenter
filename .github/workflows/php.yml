@@ -3,49 +3,107 @@ name: CI
 on:
   push:
     branches: [ master ]
+  # Sin filtro de ramas: un PR hacia una rama feature (como #275 -> feat/...)
+  # también debe correr los tests antes de mergearse.
   pull_request:
-    branches: [ master ]
+  workflow_dispatch:
+
+# Cancela el run anterior cuando se hace push de nuevo al mismo PR/rama.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: ubuntu-22.04
+  # --------------------------------------------------------------------------
+  # Tests deterministas (sin red). Esto es lo que bloquea el merge.
+  # --------------------------------------------------------------------------
+  unit:
+    name: Unit · PHP ${{ matrix.php }}
+    runs-on: ubuntu-24.04          # ubuntu-22.04 entra en deprecación el 17-09-2026
+    timeout-minutes: 15
     strategy:
+      fail-fast: false             # que el job 7.4 no se cancele si falla el 8.x
       matrix:
-        php: ['8.2']
-        report-coverage: [false]
+        php: [ '7.4', '8.0', '8.1', '8.2', '8.3', '8.4' ]
         include:
           - php: '7.4'
-            report-coverage: true
+            coverage: true
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php }}
-        extensions: mbstring, curl, soap, :fileinfo
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, curl, soap, dom, xsl, zip, :fileinfo
+          # pcov solo donde se reporta cobertura; en el resto 'none' (más rápido)
+          coverage: ${{ matrix.coverage && 'pcov' || 'none' }}
+          # psalm como PHAR: vimeo/psalm ~5.10 en require-dev exige PHP <= 8.2
+          # e impide instalar dependencias (y probar) en 8.3/8.4.
+          tools: composer:v2, psalm:5
 
-    - name: Validate composer.json
-      run: composer validate
+      - name: Validate composer.json
+        run: composer validate --strict
 
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      - name: Install dependencies (con caché)
+        uses: ramsey/composer-install@v4
+        with:
+          composer-options: --prefer-dist --no-progress
 
-    - name: Run PHPStan
-      run: composer run-script lint:ci
+      - name: PHPStan
+        run: composer run-script lint:ci
 
-    - name: Run PSalm
-      if: ${{ matrix.report-coverage }}
-      run: vendor/bin/psalm --shepherd
+      - name: Psalm
+        if: ${{ matrix.coverage }}
+        run: psalm --shepherd --no-progress
 
-    - name: Unit Tests
-      run: vendor/bin/phpunit --exclude-group manual --coverage-clover clover.xml
+      - name: Unit tests
+        if: ${{ !matrix.coverage }}
+        run: vendor/bin/phpunit --exclude-group integration,manual
 
-    - uses: codecov/codecov-action@v1
-      if: ${{ matrix.report-coverage }}
-      with:
-        file: ./clover.xml
-        flags: unittests
-        name: codecov-greenter
+      - name: Unit tests + coverage
+        if: ${{ matrix.coverage }}
+        run: vendor/bin/phpunit --exclude-group integration,manual --coverage-clover clover.xml
 
+      - name: Upload coverage
+        if: ${{ matrix.coverage }}
+        uses: codecov/codecov-action@v7
+        with:
+          files: ./clover.xml
+          flags: unittests
+          name: codecov-greenter
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: false
+
+  # --------------------------------------------------------------------------
+  # Tests de integración contra SUNAT beta / GRE (nubefact). Dependen de
+  # servicios externos: se ejecutan aparte y NO bloquean el merge.
+  # --------------------------------------------------------------------------
+  integration:
+    name: Integración SUNAT beta (informativo)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    continue-on-error: true
+    # En PRs de forks no hay secrets ni sentido de golpear SUNAT; correr solo
+    # en push a master, PRs internos o manualmente.
+    if: >-
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, curl, soap, dom, xsl, zip, :fileinfo
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies (con caché)
+        uses: ramsey/composer-install@v4
+
+      - name: Integration tests
+        run: vendor/bin/phpunit --group integration --exclude-group manual

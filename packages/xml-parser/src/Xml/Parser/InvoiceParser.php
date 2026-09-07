@@ -108,7 +108,7 @@ class InvoiceParser implements DocumentParserInterface
         return $node->getAttribute($attribute);
     }
 
-    private function loadTotals(Invoice $inv, DOMXPath $xpt, DOMNode $node = null)
+    private function loadTotals(Invoice $inv, DOMXPath $xpt, ?DOMNode $node = null)
     {
         if (empty($node)) {
             return;
@@ -186,7 +186,7 @@ class InvoiceParser implements DocumentParserInterface
         }
     }
 
-    private function getLegends(DOMXPath $xpt, DOMNode $node = null)
+    private function getLegends(DOMXPath $xpt, ?DOMNode $node = null)
     {
         if (empty($node)) {
             return;

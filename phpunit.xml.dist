@@ -10,7 +10,8 @@
   </testsuite>
   <groups>
     <exclude>
-      <group>api</group>
+      <group>integration</group>
+      <group>manual</group>
     </exclude>
   </groups>
 </phpunit>

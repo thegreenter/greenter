@@ -2,6 +2,10 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
+## Unreleased
+- CI: tests unitarios separados de los de integración (SUNAT beta ya no bloquea PRs); matrix PHP 7.4–8.4; actions actualizadas.
+- Corregir parámetros implícitamente nullable (deprecación PHP 8.4).
+
 ## 5.0.0 - 2023-05-01
 - #206 Agregar xml para nueva Guia de Remisión. 
 - #209 Cambiar versión mínima de PHP a `7.4`

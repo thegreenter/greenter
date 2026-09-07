@@ -7,10 +7,10 @@ on:
 
 jobs:
   provide_packages_json_tagged:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
 
       # required for matrix of packages set
       - uses: shivammathur/setup-php@v2
@@ -18,7 +18,7 @@ jobs:
           php-version: 8.2
           coverage: none
 
-      - uses: "ramsey/composer-install@v1"
+      - uses: "ramsey/composer-install@v4"
 
       - name: Install Monorepo-Builder
         run: composer require symplify/monorepo-builder:11.0.8 --update-no-dev
@@ -35,19 +35,19 @@ jobs:
   split_monorepo_tagged:
     needs: provide_packages_json_tagged
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
         package: ${{fromJson(needs.provide_packages_json_tagged.outputs.matrix)}}
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
 
       -
         # Uses an action in the root directory
         name: Monorepo Split of ${{ matrix.package }}
-        uses: symplify/monorepo-split-github-action@v2.3.0
+        uses: symplify/monorepo-split-github-action@v2.4.5
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
         with:

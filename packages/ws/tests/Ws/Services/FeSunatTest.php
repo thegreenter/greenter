@@ -115,6 +115,9 @@ class FeSunatTest extends TestCase
         $this->assertEquals(13, strlen($result->getTicket()));
     }
 
+    /**
+     * @group integration
+     */
     public function testSendVoidedSummarySender()
     {
         $nameXml = '20600995805-RA-20170719-01';
