@@ -18,12 +18,6 @@
     "support": {
         "forum": "https://community.greenter.dev/"
     },
-    "funding": [
-        {
-            "type": "yape",
-            "url": "https://yape.greenter.dev/"
-        }
-    ],
     "require": {
         "php": ">=7.4",
         "bacon/bacon-qr-code": "^2.0||^3.0",
