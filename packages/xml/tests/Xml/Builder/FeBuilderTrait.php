@@ -59,4 +59,26 @@ trait FeBuilderTrait
 
         return $generator->build($document);
     }
+
+    /**
+     * Verifica que el TaxAmount de los tributos sin monto (EXP, EXO, INA) tenga formato n(12,2).
+     *
+     * @param string $xml
+     * @param int $expectedCount
+     */
+    private function assertZeroTaxAmountFormat(string $xml, int $expectedCount): void
+    {
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $xpath->registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+
+        $nodes = $xpath->query('/*/cac:TaxTotal/cac:TaxSubtotal[cac:TaxCategory/cac:TaxScheme/cbc:ID[.="9995" or .="9997" or .="9998"]]/cbc:TaxAmount');
+
+        $this->assertSame($expectedCount, $nodes->length);
+        foreach ($nodes as $node) {
+            $this->assertSame('0.00', $node->nodeValue);
+        }
+    }
 }

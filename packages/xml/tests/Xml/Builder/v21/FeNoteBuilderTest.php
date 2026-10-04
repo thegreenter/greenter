@@ -29,13 +29,16 @@ class FeNoteBuilderTest extends TestCase
     {
         /**@var $note Note*/
         $note = $this->createDocument(NoteStore::class);
-        $note->setUblVersion('2.1');
+        $note->setUblVersion('2.1')
+            ->setMtoOperExoneradas(100)
+            ->setMtoOperInafectas(50);
 
         $xml = $this->build($note);
 
 //        file_put_contents('notecr.xml', $xml);
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
+        $this->assertZeroTaxAmountFormat($xml, 2);
     }
 
     public function testCreateXmlDebitNote()
@@ -43,12 +46,15 @@ class FeNoteBuilderTest extends TestCase
         /**@var $note Note*/
         $note = $this->createDocument(NoteStore::class);
         $note->setTipoDoc('08');
-        $note->setUblVersion('2.1');
+        $note->setUblVersion('2.1')
+            ->setMtoOperExoneradas(100)
+            ->setMtoOperInafectas(50);
 
         $xml = $this->build($note);
 
 //        file_put_contents('notedb.xml', $xml);
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
+        $this->assertZeroTaxAmountFormat($xml, 2);
     }
 }

@@ -36,6 +36,7 @@ class FeInvoiceBuilderTest extends TestCase
 //        file_put_contents('x.xml', $xml);
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
+        $this->assertZeroTaxAmountFormat($xml, 3);
     }
 
     /**

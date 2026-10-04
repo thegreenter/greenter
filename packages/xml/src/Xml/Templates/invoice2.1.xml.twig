@@ -324,7 +324,7 @@
         {% if doc.mtoOperInafectas is not null %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|n_format }}</cbc:TaxableAmount>
-                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0</cbc:TaxAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0.00</cbc:TaxAmount>
                 <cac:TaxCategory>
                     <cac:TaxScheme>
                         <cbc:ID>9998</cbc:ID>
@@ -337,7 +337,7 @@
         {% if doc.mtoOperExoneradas is not null %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:TaxableAmount>
-                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0</cbc:TaxAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0.00</cbc:TaxAmount>
                 <cac:TaxCategory>
                     <cac:TaxScheme>
                         <cbc:ID>9997</cbc:ID>
@@ -363,7 +363,7 @@
         {% if doc.mtoOperExportacion is not null %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExportacion|n_format }}</cbc:TaxableAmount>
-                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0</cbc:TaxAmount>
+                <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0.00</cbc:TaxAmount>
                 <cac:TaxCategory>
                     <cac:TaxScheme>
                         <cbc:ID>9995</cbc:ID>
