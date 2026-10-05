@@ -7,7 +7,7 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 - #276 CI: tests unitarios separados de los de integración (SUNAT beta ya no bloquea PRs).
 - Corregir parámetros implícitamente nullable (deprecación PHP 8.4).
 - Registrar filtros y funciones Twig del reporte con instancias (compatibilidad con Psalm 5.26).
-- #258 Retención/Percepción: agregar `Payment::numero` (número de cuota) usado en `cac:Payment/cbc:ID`, validar un solo pago por detalle de retención (XSD SUNAT) y leer número/fecha de pago por nodo en los parsers.
+- #258 Retención/Percepción: agregar `Payment::numero` (número de cuota) usado en `cac:Payment/cbc:ID`, validar un solo pago/cobro por detalle de retención y percepción (XSD SUNAT) y leer número/fecha de pago por nodo en los parsers.
 
 ## 5.0.0 - 2023-05-01
 - #206 Agregar xml para nueva Guia de Remisión. 
