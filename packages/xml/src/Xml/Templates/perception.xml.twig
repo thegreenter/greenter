@@ -76,7 +76,7 @@
 		{% if det.cobros %}
         {% for cob in det.cobros %}
 		<cac:Payment>
-			<cbc:ID>{{ loop.index }}</cbc:ID>
+			<cbc:ID>{{ cob.numero|default(loop.index) }}</cbc:ID>
 			<cbc:PaidAmount currencyID="{{ cob.moneda }}">{{ cob.importe|n_format }}</cbc:PaidAmount>
 			<cbc:PaidDate>{{ cob.fecha|date('Y-m-d') }}</cbc:PaidDate>
 		</cac:Payment>

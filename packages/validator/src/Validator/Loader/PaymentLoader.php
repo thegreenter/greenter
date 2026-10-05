@@ -18,6 +18,7 @@ class PaymentLoader implements LoaderMetadataInterface
 {
     public function load(ClassMetadata $metadata)
     {
+        $metadata->addPropertyConstraint('numero', new Assert\GreaterThan(0));
         $metadata->addPropertyConstraints('moneda', [
             new Assert\NotBlank(),
             new Assert\Length(['min' => 3, 'max' => 3]),
