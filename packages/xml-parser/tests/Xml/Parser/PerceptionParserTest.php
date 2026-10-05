@@ -37,6 +37,10 @@ class PerceptionParserTest extends TestCase
             $this->assertNotEmpty($detail->getNumDoc());
             $this->assertNotNull($detail->getFechaEmision());
             $this->assertGreaterThan(0, count($detail->getCobros()));
+            foreach ($detail->getCobros() as $cobro) {
+                $this->assertGreaterThan(0, $cobro->getNumero());
+                $this->assertNotNull($cobro->getFecha());
+            }
             $this->assertTrue(is_float($detail->getImpTotal()));
             $this->assertTrue(is_float($detail->getImpPercibido()));
             $this->assertTrue(is_float($detail->getImpCobrar()));

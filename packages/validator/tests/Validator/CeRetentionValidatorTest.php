@@ -30,6 +30,32 @@ class CeRetentionValidatorTest extends TestCase
         $this->assertEquals(0,$errors->count());
     }
 
+    public function testValidateRetentionMultiplePagosPorDetalle()
+    {
+        $retention = $this->getRetention();
+        $detail = $retention->getDetails()[0];
+        $pay = (new Payment())
+            ->setNumero(2)
+            ->setMoneda('PEN')
+            ->setFecha(new \DateTime())
+            ->setImporte(100);
+        $detail->setPagos(array_merge($detail->getPagos(), [$pay]));
+
+        $errors = $this->getValidator()->validate($retention);
+
+        $this->assertEquals(1, $errors->count());
+    }
+
+    public function testValidateRetentionNumeroPagoInvalido()
+    {
+        $retention = $this->getRetention();
+        $retention->getDetails()[0]->getPagos()[0]->setNumero(0);
+
+        $errors = $this->getValidator()->validate($retention);
+
+        $this->assertEquals(1, $errors->count());
+    }
+
     /**
      * @return Retention
      */
@@ -77,7 +103,8 @@ class CeRetentionValidatorTest extends TestCase
     private function getExtras()
     {
         $pay = new Payment();
-        $pay->setMoneda('PEN')
+        $pay->setNumero(1)
+            ->setMoneda('PEN')
             ->setFecha(new \DateTime())
             ->setImporte(100);
 

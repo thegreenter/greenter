@@ -18,6 +18,15 @@ use DateTimeInterface;
 class Payment
 {
     /**
+     * Número de pago (cuota) asignado a la factura.
+     *
+     * Si no se especifica, se utiliza la posición del pago dentro del detalle.
+     *
+     * @var int|null
+     */
+    private $numero;
+
+    /**
      * Moneda de pago (igual a la moneda del documento de referencia).
      *
      * @var string
@@ -37,6 +46,26 @@ class Payment
      * @var DateTimeInterface
      */
     private $fecha;
+
+    /**
+     * @return int|null
+     */
+    public function getNumero(): ?int
+    {
+        return $this->numero;
+    }
+
+    /**
+     * @param int|null $numero
+     *
+     * @return Payment
+     */
+    public function setNumero(?int $numero): Payment
+    {
+        $this->numero = $numero;
+
+        return $this;
+    }
 
     /**
      * @return string

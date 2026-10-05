@@ -37,6 +37,10 @@ class RetentionParserTest extends TestCase
             $this->assertNotEmpty($detail->getNumDoc());
             $this->assertNotNull($detail->getFechaEmision());
             $this->assertTrue(is_array($detail->getPagos()));
+            foreach ($detail->getPagos() as $pago) {
+                $this->assertGreaterThan(0, $pago->getNumero());
+                $this->assertNotNull($pago->getFecha());
+            }
             $this->assertTrue(is_float($detail->getImpTotal()));
             $this->assertTrue(is_float($detail->getImpRetenido()));
             $this->assertTrue(is_float($detail->getImpPagar()));

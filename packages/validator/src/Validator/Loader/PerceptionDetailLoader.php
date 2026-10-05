@@ -33,6 +33,9 @@ class PerceptionDetailLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('cobros', [
             new Assert\NotBlank(),
+            // XSD SUNAT: cac:Payment maxOccurs=1 por SUNATPerceptionDocumentReference,
+            // para varios cobros de una factura agregar un detalle por cada cobro.
+            new Assert\Count(['max' => 1]),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraint('impCobrar', new Assert\NotNull());

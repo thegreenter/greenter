@@ -35,6 +35,9 @@ class RetentionDetailLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('pagos', [
             new Assert\NotBlank(),
+            // XSD SUNAT: cac:Payment maxOccurs=1 por SUNATRetentionDocumentReference,
+            // para varios pagos de una factura agregar un detalle por cada pago.
+            new Assert\Count(['max' => 1]),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraint('impPagar', new Assert\NotNull());
