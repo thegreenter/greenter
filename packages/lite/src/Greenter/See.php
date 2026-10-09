@@ -61,11 +61,13 @@ class See
 
     /**
      * See constructor.
+     *
+     * @param SoapClient|null $wsClient Cliente SOAP, ejm: `SoapClient::createSecure()` para verificar el certificado TLS de SUNAT.
      */
-    public function __construct()
+    public function __construct(?SoapClient $wsClient = null)
     {
         $this->factory = new FeFactory();
-        $this->wsClient = new SoapClient();
+        $this->wsClient = $wsClient ?? new SoapClient();
         $this->signer = new SignedXml();
         $this->factory->setSigner($this->signer);
     }
