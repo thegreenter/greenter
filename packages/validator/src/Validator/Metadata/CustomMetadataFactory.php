@@ -20,76 +20,91 @@ class CustomMetadataFactory implements MetadataFactoryInterface
 {
     private $version;
 
-    /**
-     * @var LoaderListenerInterface|null
-     */
     private $listener;
 
     /**
-     * @param string $version
+     * Metadata por clase y versión, solo se usa cuando no hay listener.
+     *
+     * @var array<string, ClassMetadata>
      */
+    private $loaded = [];
+
     public function setVersion(?string $version)
     {
         $this->version = $version;
     }
 
-    /**
-     * @param LoaderListenerInterface $listener
-     */
     public function setListener(LoaderListenerInterface $listener)
     {
         $this->listener = $listener;
+        $this->loaded = [];
     }
 
-    /**
-     * Returns the metadata for the given value.
-     *
-     * @param mixed $value Some value
-     *
-     * @return MetadataInterface The metadata for the value
-     *
-     * @throws NoSuchMetadataException If no metadata exists for the given value
-     */
     public function getMetadataFor($value): MetadataInterface
     {
-        $metaData = new ClassMetadata(get_class($value));
-        $fullClass = $this->getClassValidator($value);
+        $class = $this->getClass($value);
+        $key = $class.'@'.$this->getFormatVersion();
 
-        if ($fullClass === null) {
+        if ($this->listener === null && isset($this->loaded[$key])) {
+            return $this->loaded[$key];
+        }
+
+        $metaData = new ClassMetadata($class);
+        $found = $this->findLoader($class);
+
+        if ($found === null) {
             return $metaData;
         }
 
-        /** @var LoaderMetadataInterface $loader */
+        [$ownerClass, $fullClass] = $found;
         $loader = new $fullClass();
-        $loader->load($metaData);
-        if ($this->listener) {
-            $this->listener->onLoaded($value, $metaData);
+        if ($ownerClass === $class) {
+            $loader->load($metaData);
+        } else {
+            // Subclase: las restricciones se definen sobre la clase que declara las propiedades.
+            $ownerMetadata = new ClassMetadata($ownerClass);
+            $loader->load($ownerMetadata);
+            $metaData->mergeConstraints($ownerMetadata);
         }
 
-        return $metaData;
+        if ($this->listener) {
+            $this->listener->onLoaded($value, $metaData);
+
+            return $metaData;
+        }
+
+        return $this->loaded[$key] = $metaData;
     }
 
-    /**
-     * Returns whether the class is able to return metadata for the given value.
-     *
-     * @param mixed $value Some value
-     *
-     * @return bool Whether metadata can be returned for that value
-     */
     public function hasMetadataFor($value): bool
     {
-        return !empty($this->getClassValidator($value));
+        return $this->findLoader($this->getClass($value)) !== null;
     }
 
     /**
-     * @param mixed $value
+     * Busca el loader de la clase o de la clase padre más cercana.
      *
-     * @return string|null
+     * @return string[]|null [clase del modelo con loader, clase del loader]
      */
-    private function getClassValidator($value): ?string
+    private function findLoader(string $classModel): ?array
     {
-        $classModel = get_class($value);
-        $className = substr(strrchr($classModel, '\\'), 1);
+        $classes = class_exists($classModel)
+            ? array_merge([$classModel], array_values(class_parents($classModel)))
+            : [$classModel];
+
+        foreach ($classes as $class) {
+            $fullClass = $this->getLoaderClass($class);
+            if ($fullClass !== null) {
+                return [$class, $fullClass];
+            }
+        }
+
+        return null;
+    }
+
+    private function getLoaderClass(string $classModel): ?string
+    {
+        $className = substr((string)strrchr('\\'.$classModel, '\\'), 1);
         $version = $this->getFormatVersion();
         if (!empty($version)) {
             $fullClass = 'Greenter\\Validator\\Loader\\'.$version.'\\'.$className.'Loader';
@@ -101,6 +116,14 @@ class CustomMetadataFactory implements MetadataFactoryInterface
         $fullClass = 'Greenter\\Validator\\Loader\\'.$className.'Loader';
 
         return class_exists($fullClass) ? $fullClass : null;
+    }
+
+    /**
+     * @param object|string $value
+     */
+    private function getClass($value): string
+    {
+        return is_object($value) ? get_class($value) : ltrim((string)$value, '\\');
     }
 
     private function getFormatVersion()
