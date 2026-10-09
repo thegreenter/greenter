@@ -13,22 +13,7 @@
     <cbc:ReferenceDate>{{ doc.fecGeneracion|date('Y-m-d') }}</cbc:ReferenceDate>
     <cbc:IssueDate>{{ doc.fecComunicacion|date('Y-m-d') }}</cbc:IssueDate>
     {% set emp = doc.company %}
-    <cac:Signature>
-        <cbc:ID>SIGN{{ emp.ruc }}</cbc:ID>
-        <cac:SignatoryParty>
-            <cac:PartyIdentification>
-                <cbc:ID>{{ emp.ruc }}</cbc:ID>
-            </cac:PartyIdentification>
-            <cac:PartyName>
-                <cbc:Name><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:Name>
-            </cac:PartyName>
-        </cac:SignatoryParty>
-        <cac:DigitalSignatureAttachment>
-            <cac:ExternalReference>
-                <cbc:URI>#GREENTER-SIGN</cbc:URI>
-            </cac:ExternalReference>
-        </cac:DigitalSignatureAttachment>
-    </cac:Signature>
+    {% include 'partials/signature.xml.twig' %}
     <cac:AccountingSupplierParty>
         <cbc:CustomerAssignedAccountID>{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
         <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>

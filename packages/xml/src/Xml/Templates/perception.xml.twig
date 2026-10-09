@@ -10,22 +10,7 @@
 	<cbc:UBLVersionID>2.0</cbc:UBLVersionID>
 	<cbc:CustomizationID>1.0</cbc:CustomizationID>
     {% set emp = doc.company %}
-	<cac:Signature>
-		<cbc:ID>SIGN{{ emp.ruc }}</cbc:ID>
-		<cac:SignatoryParty>
-			<cac:PartyIdentification>
-				<cbc:ID>{{ emp.ruc }}</cbc:ID>
-			</cac:PartyIdentification>
-			<cac:PartyName>
-				<cbc:Name><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:Name>
-			</cac:PartyName>
-		</cac:SignatoryParty>
-		<cac:DigitalSignatureAttachment>
-			<cac:ExternalReference>
-				<cbc:URI>#GREENTER-SIGN</cbc:URI>
-			</cac:ExternalReference>
-		</cac:DigitalSignatureAttachment>
-	</cac:Signature>
+	{% include 'partials/signature.xml.twig' %}
 	<cbc:ID>{{ doc.serie }}-{{ doc.correlativo }}</cbc:ID>
 	<cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
 	<cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>

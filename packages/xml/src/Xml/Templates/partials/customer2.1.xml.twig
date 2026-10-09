@@ -1,0 +1,36 @@
+{% autoescape 'html' %}
+<cac:AccountingCustomerParty>
+    <cac:Party>
+        <cac:PartyIdentification>
+            <cbc:ID schemeID="{{ client.tipoDoc }}">{{ client.numDoc }}</cbc:ID>
+        </cac:PartyIdentification>
+        <cac:PartyLegalEntity>
+            <cbc:RegistrationName><![CDATA[{{ client.rznSocial|cdata }}]]></cbc:RegistrationName>
+            {% if client.address %}
+            {% set addr = client.address %}
+            <cac:RegistrationAddress>
+                {% if addr.ubigueo %}
+                <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
+                {% endif %}
+                <cac:AddressLine>
+                    <cbc:Line><![CDATA[{{ addr.direccion|cdata }}]]></cbc:Line>
+                </cac:AddressLine>
+                <cac:Country>
+                    <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
+                </cac:Country>
+            </cac:RegistrationAddress>
+            {% endif %}
+        </cac:PartyLegalEntity>
+        {% if client.email or client.telephone %}
+        <cac:Contact>
+            {% if client.telephone %}
+            <cbc:Telephone>{{ client.telephone }}</cbc:Telephone>
+            {% endif %}
+            {% if client.email %}
+            <cbc:ElectronicMail>{{ client.email }}</cbc:ElectronicMail>
+            {% endif %}
+        </cac:Contact>
+        {% endif %}
+    </cac:Party>
+</cac:AccountingCustomerParty>
+{% endautoescape %}
