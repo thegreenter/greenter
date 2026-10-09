@@ -1,4 +1,5 @@
 {% apply spaceless %}
+{% autoescape 'html' %}
 <?xml version="1.0" encoding="utf-8"?>
 <DespatchAdvice xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
 	<ext:UBLExtensions>
@@ -13,7 +14,7 @@
 	<cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>
 	<cbc:DespatchAdviceTypeCode>{{ doc.tipoDoc }}</cbc:DespatchAdviceTypeCode>
     {% if doc.observacion %}
-	<cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
+	<cbc:Note><![CDATA[{{ doc.observacion|cdata }}]]></cbc:Note>
     {% endif %}
     {% if doc.docBaja %}
 	<cac:OrderReference>
@@ -35,7 +36,7 @@
 				<cbc:ID>{{ emp.ruc }}</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyName>
-				<cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
+				<cbc:Name><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:Name>
 			</cac:PartyName>
 		</cac:SignatoryParty>
 		<cac:DigitalSignatureAttachment>
@@ -48,7 +49,7 @@
 		<cbc:CustomerAssignedAccountID schemeID="6">{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
 		<cac:Party>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:DespatchSupplierParty>
@@ -56,7 +57,7 @@
 		<cbc:CustomerAssignedAccountID schemeID="{{ doc.destinatario.tipoDoc }}">{{ doc.destinatario.numDoc }}</cbc:CustomerAssignedAccountID>
 		<cac:Party>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ doc.destinatario.rznSocial|raw }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ doc.destinatario.rznSocial|cdata }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:DeliveryCustomerParty>
@@ -65,7 +66,7 @@
 		<cbc:CustomerAssignedAccountID schemeID="{{ doc.tercero.tipoDoc }}">{{ doc.tercero.numDoc }}</cbc:CustomerAssignedAccountID>
 		<cac:Party>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ doc.tercero.rznSocial|raw }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ doc.tercero.rznSocial|cdata }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:SellerSupplierParty>
@@ -93,7 +94,7 @@
 					<cbc:ID schemeID="{{ envio.transportista.tipoDoc }}">{{ envio.transportista.numDoc }}</cbc:ID>
 				</cac:PartyIdentification>
 				<cac:PartyName>
-					<cbc:Name><![CDATA[{{ envio.transportista.rznSocial|raw }}]]></cbc:Name>
+					<cbc:Name><![CDATA[{{ envio.transportista.rznSocial|cdata }}]]></cbc:Name>
 				</cac:PartyName>
 			</cac:CarrierParty>
 			<cac:TransportMeans>
@@ -135,7 +136,7 @@
 			<cbc:LineID>{{ loop.index }}</cbc:LineID>
 		</cac:OrderLineReference>
 		<cac:Item>
-			<cbc:Name><![CDATA[{{ det.descripcion|raw }}]]></cbc:Name>
+			<cbc:Name><![CDATA[{{ det.descripcion|cdata }}]]></cbc:Name>
 			<cac:SellersItemIdentification>
 				<cbc:ID>{{ det.codigo }}</cbc:ID>
 			</cac:SellersItemIdentification>
@@ -148,4 +149,5 @@
 	</cac:DespatchLine>
     {% endfor %}
 </DespatchAdvice>
+{% endautoescape %}
 {% endapply %}

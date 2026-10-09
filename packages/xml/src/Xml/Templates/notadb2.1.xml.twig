@@ -1,4 +1,5 @@
 {% apply spaceless %}
+{% autoescape 'html' %}
 <?xml version="1.0" encoding="utf-8"?>
 <DebitNote xmlns="urn:oasis:names:specification:ubl:schema:xsd:DebitNote-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
     <ext:UBLExtensions>
@@ -12,7 +13,7 @@
     <cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
     <cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>
     {% for leg in doc.legends %}
-        <cbc:Note languageLocaleID="{{ leg.code }}"><![CDATA[{{ leg.value }}]]></cbc:Note>
+        <cbc:Note languageLocaleID="{{ leg.code }}"><![CDATA[{{ leg.value|cdata }}]]></cbc:Note>
     {% endfor %}
     <cbc:DocumentCurrencyCode>{{ doc.tipoMoneda }}</cbc:DocumentCurrencyCode>
     <cac:DiscrepancyResponse>
@@ -55,7 +56,7 @@
                 <cbc:ID>{{ emp.ruc }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
+                <cbc:Name><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:Name>
             </cac:PartyName>
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
@@ -70,10 +71,10 @@
                 <cbc:ID schemeID="6">{{ emp.ruc }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
+                <cbc:Name><![CDATA[{{ emp.nombreComercial|cdata }}]]></cbc:Name>
             </cac:PartyName>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
+                <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:RegistrationName>
                 {% set addr = emp.address %}
                 <cac:RegistrationAddress>
                     <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
@@ -85,7 +86,7 @@
                     <cbc:CountrySubentity>{{ addr.departamento }}</cbc:CountrySubentity>
                     <cbc:District>{{ addr.distrito }}</cbc:District>
                     <cac:AddressLine>
-                        <cbc:Line><![CDATA[{{ addr.direccion|raw }}]]></cbc:Line>
+                        <cbc:Line><![CDATA[{{ addr.direccion|cdata }}]]></cbc:Line>
                     </cac:AddressLine>
                     <cac:Country>
                         <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
@@ -111,7 +112,7 @@
                 <cbc:ID schemeID="{{ client.tipoDoc }}">{{ client.numDoc }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName><![CDATA[{{ client.rznSocial|raw }}]]></cbc:RegistrationName>
+                <cbc:RegistrationName><![CDATA[{{ client.rznSocial|cdata }}]]></cbc:RegistrationName>
                 {% if client.address %}
                     {% set addr = client.address %}
                     <cac:RegistrationAddress>
@@ -119,7 +120,7 @@
                             <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
                         {% endif %}
                         <cac:AddressLine>
-                            <cbc:Line><![CDATA[{{ addr.direccion|raw }}]]></cbc:Line>
+                            <cbc:Line><![CDATA[{{ addr.direccion|cdata }}]]></cbc:Line>
                         </cac:AddressLine>
                         <cac:Country>
                             <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
@@ -352,7 +353,7 @@
             {% endif %}
         </cac:TaxTotal>
         <cac:Item>
-            <cbc:Description><![CDATA[{{ detail.descripcion|raw }}]]></cbc:Description>
+            <cbc:Description><![CDATA[{{ detail.descripcion|cdata }}]]></cbc:Description>
             {% if detail.codProducto %}
                 <cac:SellersItemIdentification>
                     <cbc:ID>{{ detail.codProducto }}</cbc:ID>
@@ -399,4 +400,5 @@
     </cac:DebitNoteLine>
    {% endfor %}
 </DebitNote>
+{% endautoescape %}
 {% endapply %}

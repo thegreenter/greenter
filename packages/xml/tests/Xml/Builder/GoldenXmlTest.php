@@ -104,6 +104,7 @@ class GoldenXmlTest extends TestCase
         return [
             'invoice20' => [InvoiceStore::class, $ubl20],
             'invoice21' => [InvoiceStore::class, $ubl21],
+            'invoice20-full' => [InvoiceFullStore::class, $ubl20],
             'invoice21-full' => [InvoiceFullStore::class, $ubl21],
             'invoice21-discount' => [InvoiceDiscountStore::class, null],
             'invoice21-icbper' => [InvoiceIcbperStore::class, null],

@@ -1,4 +1,5 @@
 {% apply spaceless %}
+{% autoescape 'html' %}
 <?xml version="1.0" encoding="utf-8"?>
 <VoidedDocuments xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:VoidedDocuments-1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
     <ext:UBLExtensions>
@@ -19,7 +20,7 @@
                 <cbc:ID>{{ emp.ruc }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
+                <cbc:Name><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:Name>
             </cac:PartyName>
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
@@ -33,7 +34,7 @@
         <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
         <cac:Party>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
+                <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
@@ -43,8 +44,9 @@
         <cbc:DocumentTypeCode>{{ det.tipoDoc }}</cbc:DocumentTypeCode>
         <sac:DocumentSerialID>{{ det.serie }}</sac:DocumentSerialID>
         <sac:DocumentNumberID>{{ det.correlativo }}</sac:DocumentNumberID>
-        <sac:VoidReasonDescription><![CDATA[{{ det.desMotivoBaja|raw }}]]></sac:VoidReasonDescription>
+        <sac:VoidReasonDescription><![CDATA[{{ det.desMotivoBaja|cdata }}]]></sac:VoidReasonDescription>
     </sac:VoidedDocumentsLine>
     {% endfor %}
 </VoidedDocuments>
+{% endautoescape %}
 {% endapply %}

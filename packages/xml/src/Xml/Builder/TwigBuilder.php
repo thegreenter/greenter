@@ -12,6 +12,7 @@ namespace Greenter\Xml\Builder;
 
 use Greenter\Model\TimeZonePe;
 use Greenter\Xml\Filter\FormatFilter;
+use Greenter\Xml\Filter\XmlFilter;
 use Twig\Environment;
 use Twig\Extension\CoreExtension;
 use Twig\Loader\FilesystemLoader;
@@ -80,5 +81,6 @@ class TwigBuilder
 
         $twig->addFilter(new TwigFilter('n_format', [$formatFilter, 'number']));
         $twig->addFilter(new TwigFilter('n_format_limit', [$formatFilter, 'numberLimit']));
+        $twig->addFilter(new TwigFilter('cdata', [new XmlFilter(), 'cdata'], ['is_safe' => ['all']]));
     }
 }

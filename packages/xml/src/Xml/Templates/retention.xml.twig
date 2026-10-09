@@ -1,4 +1,5 @@
 {% apply spaceless %}
+{% autoescape 'html' %}
 <?xml version="1.0" encoding="utf-8"?>
 <Retention xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:Retention-1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1">
     <ext:UBLExtensions>
@@ -16,7 +17,7 @@
                 <cbc:ID>{{ emp.ruc }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
+                <cbc:Name><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:Name>
             </cac:PartyName>
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
@@ -33,12 +34,12 @@
             <cbc:ID schemeID="6">{{ emp.ruc }}</cbc:ID>
         </cac:PartyIdentification>
         <cac:PartyName>
-            <cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
+            <cbc:Name><![CDATA[{{ emp.nombreComercial|cdata }}]]></cbc:Name>
         </cac:PartyName>
         {% set addr = emp.address %}
         <cac:PostalAddress>
             <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
-            <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
+            <cbc:StreetName><![CDATA[{{ addr.direccion|cdata }}]]></cbc:StreetName>
             <cbc:CityName>{{ addr.departamento }}</cbc:CityName>
             <cbc:CountrySubentity>{{ addr.provincia }}</cbc:CountrySubentity>
             <cbc:District>{{ addr.distrito }}</cbc:District>
@@ -47,7 +48,7 @@
             </cac:Country>
         </cac:PostalAddress>
         <cac:PartyLegalEntity>
-            <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
+            <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:RegistrationName>
         </cac:PartyLegalEntity>
     </cac:AgentParty>
     <cac:ReceiverParty>
@@ -55,13 +56,13 @@
             <cbc:ID schemeID="{{ doc.proveedor.tipoDoc }}">{{ doc.proveedor.numDoc }}</cbc:ID>
         </cac:PartyIdentification>
         <cac:PartyLegalEntity>
-            <cbc:RegistrationName><![CDATA[{{ doc.proveedor.rznSocial }}]]></cbc:RegistrationName>
+            <cbc:RegistrationName><![CDATA[{{ doc.proveedor.rznSocial|cdata }}]]></cbc:RegistrationName>
         </cac:PartyLegalEntity>
     </cac:ReceiverParty>
     <sac:SUNATRetentionSystemCode>{{ doc.regimen }}</sac:SUNATRetentionSystemCode>
     <sac:SUNATRetentionPercent>{{ doc.tasa|n_format }}</sac:SUNATRetentionPercent>
     {% if doc.observacion %}
-    <cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
+    <cbc:Note><![CDATA[{{ doc.observacion|cdata }}]]></cbc:Note>
     {% endif %}
     <cbc:TotalInvoiceAmount currencyID="PEN">{{ doc.impRetenido|n_format }}</cbc:TotalInvoiceAmount>
     <sac:SUNATTotalPaid currencyID="PEN">{{ doc.impPagado|n_format }}</sac:SUNATTotalPaid>
@@ -97,4 +98,5 @@
     </sac:SUNATRetentionDocumentReference>
     {% endfor %}
 </Retention>
+{% endautoescape %}
 {% endapply %}

@@ -1,4 +1,5 @@
 {% apply spaceless %}
+{% autoescape 'html' %}
 <?xml version="1.0" encoding="utf-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1">
     <ext:UBLExtensions>
@@ -112,7 +113,7 @@
                 <cbc:ID>{{ emp.ruc }}</cbc:ID>
             </cac:PartyIdentification>
             <cac:PartyName>
-                <cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
+                <cbc:Name><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:Name>
             </cac:PartyName>
         </cac:SignatoryParty>
         <cac:DigitalSignatureAttachment>
@@ -126,12 +127,12 @@
         <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
         <cac:Party>
             <cac:PartyName>
-                <cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
+                <cbc:Name><![CDATA[{{ emp.nombreComercial|cdata }}]]></cbc:Name>
             </cac:PartyName>
             {% set addr = emp.address %}
             <cac:PostalAddress>
                 <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
-                <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
+                <cbc:StreetName><![CDATA[{{ addr.direccion|cdata }}]]></cbc:StreetName>
                 <cbc:CityName>{{ addr.departamento }}</cbc:CityName>
                 <cbc:CountrySubentity>{{ addr.provincia }}</cbc:CountrySubentity>
                 <cbc:District>{{ addr.distrito }}</cbc:District>
@@ -140,7 +141,7 @@
                 </cac:Country>
             </cac:PostalAddress>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
+                <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
             {% if emp.email or emp.telephone %}
             <cac:Contact>
@@ -165,14 +166,14 @@
                 {% if addr.ubigueo %}
                 <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
                 {% endif %}
-                <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
+                <cbc:StreetName><![CDATA[{{ addr.direccion|cdata }}]]></cbc:StreetName>
                 <cac:Country>
                     <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
             {% endif %}
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName><![CDATA[{{ client.rznSocial|raw }}]]></cbc:RegistrationName>
+                <cbc:RegistrationName><![CDATA[{{ client.rznSocial|cdata }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
             {% if client.email or client.telephone %}
             <cac:Contact>
@@ -198,14 +199,14 @@
                 {% if addr.ubigueo %}
                 <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
                 {% endif %}
-                <cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
+                <cbc:StreetName><![CDATA[{{ addr.direccion|cdata }}]]></cbc:StreetName>
                 <cac:Country>
                     <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
                 </cac:Country>
             </cac:PostalAddress>
             {% endif %}
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName><![CDATA[{{ seller.rznSocial|raw }}]]></cbc:RegistrationName>
+                <cbc:RegistrationName><![CDATA[{{ seller.rznSocial|cdata }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
             {% if seller.email or seller.telephone %}
             <cac:Contact>
@@ -348,7 +349,7 @@
         </cac:TaxTotal>
         {% endif %}
         <cac:Item>
-            <cbc:Description><![CDATA[{{ detail.descripcion|raw }}]]></cbc:Description>
+            <cbc:Description><![CDATA[{{ detail.descripcion|cdata }}]]></cbc:Description>
             <cac:SellersItemIdentification>
                 <cbc:ID>{{ detail.codProducto }}</cbc:ID>
             </cac:SellersItemIdentification>
@@ -364,4 +365,5 @@
     </cac:InvoiceLine>
     {% endfor %}
 </Invoice>
+{% endautoescape %}
 {% endapply %}

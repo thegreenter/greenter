@@ -1,4 +1,5 @@
 {% apply spaceless %}
+{% autoescape 'html' %}
 <?xml version="1.0" encoding="utf-8"?>
 <DespatchAdvice xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
 	<ext:UBLExtensions>
@@ -13,7 +14,7 @@
 	<cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>
 	<cbc:DespatchAdviceTypeCode listAgencyName="PE:SUNAT" listName="Tipo de Documento" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01">{{ doc.tipoDoc }}</cbc:DespatchAdviceTypeCode>
     {% if doc.observacion %}
-	<cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
+	<cbc:Note><![CDATA[{{ doc.observacion|cdata }}]]></cbc:Note>
     {% endif %}
 	{% for rel in doc.addDocs  %}
 	<cac:AdditionalDocumentReference>
@@ -37,7 +38,7 @@
 				<cbc:ID>{{ emp.ruc }}</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyName>
-				<cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
+				<cbc:Name><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:Name>
 			</cac:PartyName>
 		</cac:SignatoryParty>
 		<cac:DigitalSignatureAttachment>
@@ -52,7 +53,7 @@
 				<cbc:ID schemeID="6" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ emp.ruc }}</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:DespatchSupplierParty>
@@ -62,7 +63,7 @@
 				<cbc:ID schemeID="{{ doc.destinatario.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.destinatario.numDoc }}</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ doc.destinatario.rznSocial|raw }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ doc.destinatario.rznSocial|cdata }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:DeliveryCustomerParty>
@@ -73,7 +74,7 @@
 				<cbc:ID schemeID="{{ doc.comprador.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.comprador.numDoc }}</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ doc.comprador.rznSocial|raw }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ doc.comprador.rznSocial|cdata }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:BuyerCustomerParty>
@@ -85,7 +86,7 @@
 				<cbc:ID schemeID="{{ doc.tercero.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.tercero.numDoc }}</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ doc.tercero.rznSocial|raw }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ doc.tercero.rznSocial|cdata }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:SellerSupplierParty>
@@ -123,7 +124,7 @@
 					<cbc:ID schemeID="{{ envio.transportista.tipoDoc }}">{{ envio.transportista.numDoc }}</cbc:ID>
 				</cac:PartyIdentification>
 				<cac:PartyLegalEntity>
-					<cbc:RegistrationName><![CDATA[{{ envio.transportista.rznSocial|raw }}]]></cbc:RegistrationName>
+					<cbc:RegistrationName><![CDATA[{{ envio.transportista.rznSocial|cdata }}]]></cbc:RegistrationName>
 					<cbc:CompanyID>{{ envio.transportista.nroMtc }}</cbc:CompanyID>
 				</cac:PartyLegalEntity>
 			</cac:CarrierParty>
@@ -229,7 +230,7 @@
 			<cbc:LineID>{{ loop.index }}</cbc:LineID>
 		</cac:OrderLineReference>
 		<cac:Item>
-			<cbc:Description><![CDATA[{{ det.descripcion|raw }}]]></cbc:Description>
+			<cbc:Description><![CDATA[{{ det.descripcion|cdata }}]]></cbc:Description>
 			<cac:SellersItemIdentification>
 				<cbc:ID>{{ det.codigo }}</cbc:ID>
 			</cac:SellersItemIdentification>
@@ -251,4 +252,5 @@
 	</cac:DespatchLine>
     {% endfor %}
 </DespatchAdvice>
+{% endautoescape %}
 {% endapply %}
