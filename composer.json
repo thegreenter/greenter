@@ -65,6 +65,7 @@
                 "tests/"
             ],
             "Tests\\Greenter\\": [
+                "packages/core/tests/",
                 "packages/cpe-validator/tests/",
                 "packages/htmltopdf/tests/",
                 "packages/report/tests/",
