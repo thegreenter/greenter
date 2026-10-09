@@ -22,9 +22,10 @@ class Api
     private ?ApiFactory $factory = null;
     private ?SignedXml $signer = null;
     private ?string $lastXml = null;
+    private ?XmlBuilderResolver $builderResolver = null;
 
     private array $credentials = [];
-    private array $defaaultEndpoints = [
+    private array $defaultEndpoints = [
         'auth' => 'https://api-seguridad.sunat.gob.pe/v1',
         'cpe' => 'https://api-cpe.sunat.gob.pe/v1',
     ];
@@ -41,7 +42,7 @@ class Api
      */
     public function __construct(?array $endpoints = null, ?ApiFactory $factory = null, ?SignedXml $signer = null)
     {
-        $this->factory = $factory ?? $this->createApiFactory($endpoints ?? $this->defaaultEndpoints);
+        $this->factory = $factory ?? $this->createApiFactory($endpoints ?? $this->defaultEndpoints);
         $this->signer = $signer ?? new SignedXml();
     }
 
@@ -55,6 +56,7 @@ class Api
     public function setBuilderOptions(array $options): Api
     {
         $this->options = array_merge($this->options, $options);
+        $this->getBuilderResolver()->setOptions($this->options);
 
         return $this;
     }
@@ -122,8 +124,7 @@ class Api
      */
     public function send(DocumentInterface $document): ?BaseResult
     {
-        $buildResolver = new XmlBuilderResolver($this->options);
-        $builder = $buildResolver->find(get_class($document));
+        $builder = $this->getBuilderResolver()->find(get_class($document));
 
         $xml = $builder->build($document);
         $this->lastXml = $this->signer->signXml($xml);
@@ -157,6 +158,20 @@ class Api
         $sender = $this->createSender();
 
         return $sender->status($ticket);
+    }
+
+    /**
+     * Resolver de XML builders, permite registrar builders para documentos propios.
+     *
+     * @return XmlBuilderResolver
+     */
+    public function getBuilderResolver(): XmlBuilderResolver
+    {
+        if ($this->builderResolver === null) {
+            $this->builderResolver = new XmlBuilderResolver($this->options);
+        }
+
+        return $this->builderResolver;
     }
 
     /**

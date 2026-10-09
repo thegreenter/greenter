@@ -60,6 +60,11 @@ class See
     private $options = ['autoescape' => false];
 
     /**
+     * @var XmlBuilderResolver|null
+     */
+    private $builderResolver;
+
+    /**
      * See constructor.
      *
      * @param SoapClient|null $wsClient Cliente SOAP, ejm: `SoapClient::createSecure()` para verificar el certificado TLS de SUNAT.
@@ -80,6 +85,7 @@ class See
     public function setBuilderOptions(array $options)
     {
         $this->options = array_merge($this->options, $options);
+        $this->getBuilderResolver()->setOptions($this->options);
     }
 
     /**
@@ -88,6 +94,7 @@ class See
     public function setCachePath(?string $directory)
     {
         $this->options['cache'] = empty($directory) ? false : $directory;
+        $this->getBuilderResolver()->setOptions($this->options);
     }
 
     /**
@@ -146,10 +153,8 @@ class See
      */
     public function getXmlSigned(DocumentInterface $document): ?string
     {
-        $buildResolver = new XmlBuilderResolver($this->options);
-
         return $this->factory
-            ->setBuilder($buildResolver->find(get_class($document)))
+            ->setBuilder($this->getBuilderResolver()->find(get_class($document)))
             ->getXmlSigned($document);
     }
 
@@ -229,13 +234,28 @@ class See
         return $this->factory;
     }
 
+    /**
+     * Resolver de XML builders, permite registrar builders para documentos propios.
+     *
+     * Los builders se reutilizan entre envíos (y con ellos el entorno Twig).
+     *
+     * @return XmlBuilderResolver
+     */
+    public function getBuilderResolver(): XmlBuilderResolver
+    {
+        if ($this->builderResolver === null) {
+            $this->builderResolver = new XmlBuilderResolver($this->options);
+        }
+
+        return $this->builderResolver;
+    }
+
     private function configureFactory(string $docClass): void
     {
-        $buildResolver = new XmlBuilderResolver($this->options);
         $senderResolver = new WsSenderResolver($this->wsClient, $this->codeProvider);
 
         $this->factory
-            ->setBuilder($buildResolver->find($docClass))
+            ->setBuilder($this->getBuilderResolver()->find($docClass))
             ->setSender($senderResolver->find($docClass));
     }
 }
