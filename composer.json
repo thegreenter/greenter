@@ -32,14 +32,16 @@
         "greenter/ubl-validator": "^2.3",
         "mockery/mockery": "^1.2",
         "phpstan/phpstan": "^1.9",
-        "phpunit/phpunit": "^9"
+        "phpunit/phpunit": "^9",
+        "psr/simple-cache": "^1.0 || ^2.0 || ^3.0"
     },
     "suggest": {
         "ext-dom": "For xml, xml-parser, cpe-validator, ws package",
         "ext-soap": "For ws package",
         "ext-zlib": "For ws package",
         "ext-xsl": "For cpe-validator package",
-        "ext-curl": "For ws package (GRE)"
+        "ext-curl": "For ws package (GRE)",
+        "psr/simple-cache": "For ws package, store GRE API token in a PSR-16 cache (Psr16TokenStore)"
     },
     "autoload": {
         "psr-4": {

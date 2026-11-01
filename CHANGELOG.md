@@ -8,6 +8,7 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 - Corregir parámetros implícitamente nullable (deprecación PHP 8.4).
 - Registrar filtros y funciones Twig del reporte con instancias (compatibilidad con Psalm 5.26).
 - #258 Retención/Percepción: agregar `Payment::numero` (número de cuota) usado en `cac:Payment/cbc:ID`, validar un solo pago/cobro por detalle de retención y percepción (XSD SUNAT) y leer número/fecha de pago por nodo en los parsers.
+- API GRE: token de acceso persistente. Nuevos `FileTokenStore` (archivos) y `Psr16TokenStore` (caché PSR-16) en `greenter/ws`, y `Api::setTokenStore()` para reutilizar el token entre peticiones en lugar de autenticarse en cada una.
 
 ## 5.0.0 - 2023-05-01
 - #206 Agregar xml para nueva Guia de Remisión. 

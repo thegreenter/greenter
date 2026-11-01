@@ -11,20 +11,25 @@ use Greenter\Factory\XmlBuilderResolver;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Response\StatusResult;
+use Greenter\Services\Api\TokenStoreInterface;
 use Greenter\Sunat\GRE\Api\AuthApi;
 use Greenter\Sunat\GRE\ApiException;
 use Greenter\Sunat\GRE\Configuration;
 use Greenter\XMLSecLibs\Sunat\SignedXml;
 use GuzzleHttp\Client;
+use LogicException;
 
 class Api
 {
     private ?ApiFactory $factory = null;
+    private bool $customFactory;
+    private array $endpoints;
+    private ?TokenStoreInterface $tokenStore = null;
     private ?SignedXml $signer = null;
     private ?string $lastXml = null;
 
     private array $credentials = [];
-    private array $defaaultEndpoints = [
+    private array $defaultEndpoints = [
         'auth' => 'https://api-seguridad.sunat.gob.pe/v1',
         'cpe' => 'https://api-cpe.sunat.gob.pe/v1',
     ];
@@ -41,8 +46,32 @@ class Api
      */
     public function __construct(?array $endpoints = null, ?ApiFactory $factory = null, ?SignedXml $signer = null)
     {
-        $this->factory = $factory ?? $this->createApiFactory($endpoints ?? $this->defaaultEndpoints);
+        $this->endpoints = $endpoints ?? $this->defaultEndpoints;
+        $this->factory = $factory;
+        $this->customFactory = $factory !== null;
         $this->signer = $signer ?? new SignedXml();
+    }
+
+    /**
+     * Establece donde se guarda el token de acceso de la API (por defecto en memoria).
+     *
+     * Usar un almacenamiento persistente (ej. FileTokenStore, Psr16TokenStore) evita
+     * solicitar un nuevo token a SUNAT en cada petición/proceso.
+     *
+     * @param TokenStoreInterface $store
+     *
+     * @return Api
+     */
+    public function setTokenStore(TokenStoreInterface $store): Api
+    {
+        if ($this->customFactory) {
+            throw new LogicException('Se inyectó un ApiFactory personalizado; configure el TokenStore en ese ApiFactory.');
+        }
+
+        $this->tokenStore = $store;
+        $this->factory = null;
+
+        return $this;
     }
 
     /**
@@ -164,7 +193,7 @@ class Api
      */
     private function createSender(): GreSender
     {
-        $api = $this->factory->create(
+        $api = $this->getFactory()->create(
             $this->credentials['client_id'],
             $this->credentials['client_secret'],
             $this->credentials['username'],
@@ -172,6 +201,15 @@ class Api
         );
 
         return new GreSender($api);
+    }
+
+    private function getFactory(): ApiFactory
+    {
+        if ($this->factory === null) {
+            $this->factory = $this->createApiFactory($this->endpoints);
+        }
+
+        return $this->factory;
     }
 
     private function createApiFactory(array $endpoints): ApiFactory
@@ -182,7 +220,7 @@ class Api
         return new ApiFactory(
             new AuthApi($client, $config->setHost($endpoints['auth'])),
             $client,
-            new InMemoryStore(),
+            $this->tokenStore ?? new InMemoryStore(),
             $endpoints['cpe'],
         );
     }
