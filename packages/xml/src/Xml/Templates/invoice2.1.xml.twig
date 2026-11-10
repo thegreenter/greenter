@@ -193,16 +193,26 @@
         <cac:Delivery>
             <cac:DeliveryLocation>
                 <cac:Address>
+                    {% if addr.ubigueo %}
                     <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
+                    {% endif %}
                     {% if addr.urbanizacion %}
                     <cbc:CitySubdivisionName>{{ addr.urbanizacion }}</cbc:CitySubdivisionName>
                     {% endif %}
+                    {% if addr.provincia %}
                     <cbc:CityName>{{ addr.provincia }}</cbc:CityName>
+                    {% endif %}
+                    {% if addr.departamento %}
                     <cbc:CountrySubentity>{{ addr.departamento }}</cbc:CountrySubentity>
+                    {% endif %}
+                    {% if addr.distrito %}
                     <cbc:District>{{ addr.distrito }}</cbc:District>
+                    {% endif %}
+                    {% if addr.direccion %}
                     <cac:AddressLine>
                         <cbc:Line><![CDATA[{{ addr.direccion|raw }}]]></cbc:Line>
                     </cac:AddressLine>
+                    {% endif %}
                     <cac:Country>
                         <cbc:IdentificationCode listID="ISO 3166-1" listAgencyName="United Nations Economic Commission for Europe" listName="Country">{{ addr.codigoPais }}</cbc:IdentificationCode>
                     </cac:Country>
