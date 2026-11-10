@@ -23,6 +23,21 @@ class CeRetentionBuilderTest extends TestCase
     use CeBuilderTrait;
     use XsdValidatorTrait;
 
+    /**
+     * La hoja de SUNAT: en la dirección del emisor, cbc:CityName es la
+     * provincia y cbc:CountrySubentity el departamento.
+     */
+    public function testRetentionProvinciaYDepartamento()
+    {
+        $retention = $this->createDocument(RetentionStore::class);
+        $retention->getCompany()->getAddress()->setProvincia('HUAURA')->setDepartamento('LIMA');
+
+        $xml = $this->build($retention);
+
+        $this->assertStringContainsString('<cbc:CityName>HUAURA</cbc:CityName>', $xml);
+        $this->assertStringContainsString('<cbc:CountrySubentity>LIMA</cbc:CountrySubentity>', $xml);
+    }
+
     public function testCreateXmlRetention()
     {
         $retention = $this->createDocument(RetentionStore::class);
