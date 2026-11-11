@@ -26,6 +26,19 @@ class TributoFunctionTest extends TestCase
         $this->assertNotNull($value);
     }
 
+    /**
+     * Catálogo 07: 17 (IVAP) y 40 (exportación) usan 9996 en operaciones gratuitas.
+     */
+    public function testGetAfectacionGratuita()
+    {
+        $this->assertSame('1016', TributoFunction::getByAfectacion('17')['id']);
+        $this->assertSame('9996', TributoFunction::getByAfectacion('17', true)['id']);
+        $this->assertSame('9995', TributoFunction::getByAfectacion('40')['id']);
+        $this->assertSame('9996', TributoFunction::getByAfectacion('40', true)['id']);
+        $this->assertSame('1000', TributoFunction::getByAfectacion('10', true)['id']);
+        $this->assertSame('9996', TributoFunction::getByAfectacion('11', true)['id']);
+    }
+
     public function testGetTributoNotFound()
     {
         $value = TributoFunction::getByTributo('2');
