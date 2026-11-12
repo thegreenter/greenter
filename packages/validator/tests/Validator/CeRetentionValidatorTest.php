@@ -30,6 +30,26 @@ class CeRetentionValidatorTest extends TestCase
         $this->assertEquals(0,$errors->count());
     }
 
+    public function testValidateRetentionRedondeoYNombreComercial()
+    {
+        $doc = $this->getRetention();
+        $doc->setRedondeo(-0.5);
+        $doc->getProveedor()->setNombreComercial('MI TIENDA');
+
+        $this->assertEquals(0, $this->getValidator()->validate($doc)->count());
+    }
+
+    public function testValidateRetentionRedondeoMayorAUno()
+    {
+        $doc = $this->getRetention();
+        $doc->setRedondeo(1.5);
+
+        $errors = $this->getValidator()->validate($doc);
+
+        $this->assertEquals(1, $errors->count());
+        $this->assertEquals('redondeo', $errors->get(0)->getPropertyPath());
+    }
+
     public function testValidateRetentionMultiplePagosPorDetalle()
     {
         $retention = $this->getRetention();

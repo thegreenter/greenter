@@ -42,6 +42,20 @@ class FeSummaryValidatorTest extends TestCase
         $this->assertEquals(1, count($errors));
     }
 
+    public function testValidateSummaryClienteNombre()
+    {
+        $summary = $this->getSummary();
+        $summary->getDetails()[0]->setClienteNombre('JUAN PEREZ');
+
+        $this->assertEquals(0, count($this->getValidator()->validate($summary)));
+
+        $summary->getDetails()[0]->setClienteNombre('JP');
+        $errors = $this->getValidator()->validate($summary);
+
+        $this->assertEquals(1, count($errors));
+        $this->assertStringContainsString('clienteNombre', $errors->get(0)->getPropertyPath());
+    }
+
     private function getSummary()
     {
         $detiail1 = new SummaryDetail();

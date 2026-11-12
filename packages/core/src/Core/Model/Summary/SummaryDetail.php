@@ -39,6 +39,13 @@ class SummaryDetail
     private $clienteNro;
 
     /**
+     * Apellidos y nombres, denominación o razón social del adquiriente o usuario.
+     *
+     * @var string|null
+     */
+    private $clienteNombre;
+
+    /**
      * Boleta de Venta que se modifica.
      *
      * @var Document
@@ -93,6 +100,34 @@ class SummaryDetail
     private $mtoOperGratuitas;
 
     /**
+     * Operaciones gratuitas gravadas (catálogo 11: 06).
+     *
+     * @var float|null
+     */
+    private $mtoOperGratuitasGravadas;
+
+    /**
+     * Operaciones gratuitas exoneradas (catálogo 11: 07).
+     *
+     * @var float|null
+     */
+    private $mtoOperGratuitasExoneradas;
+
+    /**
+     * Operaciones gratuitas inafectas (catálogo 11: 08).
+     *
+     * @var float|null
+     */
+    private $mtoOperGratuitasInafectas;
+
+    /**
+     * Operaciones gratuitas de exportación (catálogo 11: 09).
+     *
+     * @var float|null
+     */
+    private $mtoOperGratuitasExportacion;
+
+    /**
      * Otros Cargos.
      *
      * @var float
@@ -103,6 +138,15 @@ class SummaryDetail
      * @var float
      */
     private $mtoIGV;
+
+    /**
+     * IGV de las operaciones gratuitas (tributo 9996 - GRA).
+     *
+     * Usa porcentajeIgv como tasa del tributo (regla 2992).
+     *
+     * @var float|null
+     */
+    private $mtoIGVGratuitas;
 
     /**
      * @var float
@@ -200,6 +244,26 @@ class SummaryDetail
     public function setClienteNro(?string $clienteNro): SummaryDetail
     {
         $this->clienteNro = $clienteNro;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getClienteNombre(): ?string
+    {
+        return $this->clienteNombre;
+    }
+
+    /**
+     * @param string|null $clienteNombre
+     *
+     * @return SummaryDetail
+     */
+    public function setClienteNombre(?string $clienteNombre): SummaryDetail
+    {
+        $this->clienteNombre = $clienteNombre;
 
         return $this;
     }
@@ -405,6 +469,86 @@ class SummaryDetail
     }
 
     /**
+     * @return float|null
+     */
+    public function getMtoOperGratuitasGravadas(): ?float
+    {
+        return $this->mtoOperGratuitasGravadas;
+    }
+
+    /**
+     * @param float|null $mtoOperGratuitasGravadas
+     *
+     * @return SummaryDetail
+     */
+    public function setMtoOperGratuitasGravadas(?float $mtoOperGratuitasGravadas): SummaryDetail
+    {
+        $this->mtoOperGratuitasGravadas = $mtoOperGratuitasGravadas;
+
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getMtoOperGratuitasExoneradas(): ?float
+    {
+        return $this->mtoOperGratuitasExoneradas;
+    }
+
+    /**
+     * @param float|null $mtoOperGratuitasExoneradas
+     *
+     * @return SummaryDetail
+     */
+    public function setMtoOperGratuitasExoneradas(?float $mtoOperGratuitasExoneradas): SummaryDetail
+    {
+        $this->mtoOperGratuitasExoneradas = $mtoOperGratuitasExoneradas;
+
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getMtoOperGratuitasInafectas(): ?float
+    {
+        return $this->mtoOperGratuitasInafectas;
+    }
+
+    /**
+     * @param float|null $mtoOperGratuitasInafectas
+     *
+     * @return SummaryDetail
+     */
+    public function setMtoOperGratuitasInafectas(?float $mtoOperGratuitasInafectas): SummaryDetail
+    {
+        $this->mtoOperGratuitasInafectas = $mtoOperGratuitasInafectas;
+
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getMtoOperGratuitasExportacion(): ?float
+    {
+        return $this->mtoOperGratuitasExportacion;
+    }
+
+    /**
+     * @param float|null $mtoOperGratuitasExportacion
+     *
+     * @return SummaryDetail
+     */
+    public function setMtoOperGratuitasExportacion(?float $mtoOperGratuitasExportacion): SummaryDetail
+    {
+        $this->mtoOperGratuitasExportacion = $mtoOperGratuitasExportacion;
+
+        return $this;
+    }
+
+    /**
      * @return float
      */
     public function getMtoOtrosCargos(): ?float
@@ -440,6 +584,26 @@ class SummaryDetail
     public function setMtoIGV(?float $mtoIGV): SummaryDetail
     {
         $this->mtoIGV = $mtoIGV;
+
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getMtoIGVGratuitas(): ?float
+    {
+        return $this->mtoIGVGratuitas;
+    }
+
+    /**
+     * @param float|null $mtoIGVGratuitas
+     *
+     * @return SummaryDetail
+     */
+    public function setMtoIGVGratuitas(?float $mtoIGVGratuitas): SummaryDetail
+    {
+        $this->mtoIGVGratuitas = $mtoIGVGratuitas;
 
         return $this;
     }
