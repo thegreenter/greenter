@@ -33,8 +33,7 @@ class FeTemplateFormatTest extends TestCase
     {
         $invoice = $this->createInvoice();
         $detail = $invoice->getDetails()[1];
-        $detail->setCantidad(0.00001)
-            ->setPorcentajeIgv(18.123456)
+        $detail->setPorcentajeIgv(18.123456)
             ->setCargos([(new Charge())->setCodTipo('47')->setMonto(5.123456)->setMontoBase(100.1)])
             ->setDescuentos([(new Charge())->setCodTipo('00')->setFactor(0.05)->setMonto(5.005)->setMontoBase(100)]);
 
