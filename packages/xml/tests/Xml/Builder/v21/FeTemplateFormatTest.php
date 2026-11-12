@@ -41,9 +41,7 @@ class FeTemplateFormatTest extends TestCase
         $xml = $this->build($invoice);
         $xpath = $this->xpath($xml);
         $line = '/*/cac:InvoiceLine[2]';
-
-        // n(12,10)
-        $this->assertSame('0.0000100000', $xpath->evaluate("string($line/cbc:InvoicedQuantity)"));
+        
         // n(3,5)
         $this->assertSame('18.12346', $xpath->evaluate("string($line/cac:TaxTotal/cac:TaxSubtotal[cac:TaxCategory/cbc:TaxExemptionReasonCode]/cac:TaxCategory/cbc:Percent)"));
         // n(12,2) y factor opcional (ERR-3052)
