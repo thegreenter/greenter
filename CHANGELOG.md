@@ -3,6 +3,11 @@
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
 ## Unreleased
+
+
+## 5.4.0 - 2026-11-10
+- #284 dirección de entrega opcional, para declarar solo el país del servicio exportado.
+- #283 Retención/Percepción: `CityName` es la provincia y `CountrySubentity` el departamento.
 - #274 Soportar `sac:ExceptionalIndicator` (`indExcepcional`) en comprobante de Percepción.
 - #276 CI: tests unitarios separados de los de integración (SUNAT beta ya no bloquea PRs).
 - Corregir parámetros implícitamente nullable (deprecación PHP 8.4).
