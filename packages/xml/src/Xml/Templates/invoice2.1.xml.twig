@@ -482,7 +482,7 @@
     {% for detail in doc.details %}
     <cac:InvoiceLine>
         <cbc:ID>{{ loop.index }}</cbc:ID>
-        <cbc:InvoicedQuantity unitCode="{{ detail.unidad }}">{{ detail.cantidad|n_format_limit(10) }}</cbc:InvoicedQuantity>
+        <cbc:InvoicedQuantity unitCode="{{ detail.unidad }}">{{ detail.cantidad }}</cbc:InvoicedQuantity>
         <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|n_format }}</cbc:LineExtensionAmount>
         <cac:PricingReference>
             {% if detail.mtoValorGratuito %}
@@ -571,7 +571,7 @@
             {% if detail.icbper %}
             <cac:TaxSubtotal>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.icbper|n_format }}</cbc:TaxAmount>
-                <cbc:BaseUnitMeasure unitCode="NIU">{{ detail.cantidad|n_format(0) }}</cbc:BaseUnitMeasure>
+                <cbc:BaseUnitMeasure unitCode="NIU">{{ detail.cantidad }}</cbc:BaseUnitMeasure>
                 <cac:TaxCategory>
                     <cbc:PerUnitAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.factorIcbper|n_format }}</cbc:PerUnitAmount>
                     <cac:TaxScheme>
