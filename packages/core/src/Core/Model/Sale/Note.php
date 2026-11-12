@@ -51,6 +51,13 @@ class Note extends BaseSale
     private $subTotal;
 
     /**
+     * Detracción, solo para nota de débito (08).
+     *
+     * @var Detraction|null
+     */
+    private $detraccion;
+
+    /**
      * @return string
      */
     public function getCodMotivo(): ?string
@@ -186,6 +193,28 @@ class Note extends BaseSale
     public function setSubTotal(?float $subTotal): Note
     {
         $this->subTotal = $subTotal;
+
+        return $this;
+    }
+
+    /**
+     * @return Detraction|null
+     */
+    public function getDetraccion(): ?Detraction
+    {
+        return $this->detraccion;
+    }
+
+    /**
+     * Detracción, solo para nota de débito (08).
+     *
+     * @param Detraction|null $detraccion
+     *
+     * @return Note
+     */
+    public function setDetraccion(?Detraction $detraccion): Note
+    {
+        $this->detraccion = $detraccion;
 
         return $this;
     }

@@ -4,6 +4,7 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
 ## Unreleased
 - #285 Actualizar el factor ICBPER al valor vigente 0.5 (desde 2023)
+- Factura, boleta y notas 2.1: alinear formato y campos con las reglas de validación SUNAT (26.08.2026)
 
 ## 5.4.0 - 2026-11-10
 - #284 dirección de entrega opcional, para declarar solo el país del servicio exportado.
