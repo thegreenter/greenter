@@ -4,6 +4,11 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
 ## Unreleased
 - Factura, boleta y notas 2.1: alinear formato y campos con las reglas de validación SUNAT (26.08.2026): cantidades n(12,10), tasas n(3,5), montos de cargos/descuentos por ítem n(12,2), factor de cargo opcional, `@schemeID` GTIN, ICBPER con `NIU`, afectación 17/40 gratuita con tributo 9996, sin etiquetas vacías en la dirección del emisor, dirección completa del adquirente, motivo de la nota en CDATA. Nuevos `DetailAttribute::cantidad`/`unidad` (`cbc:ValueQuantity`) y `horaInicio` (`cbc:StartTime`), y detracción en la nota de débito (`Note::detraccion`).
+
+
+## 5.4.0 - 2026-11-10
+- #284 dirección de entrega opcional, para declarar solo el país del servicio exportado.
+- #283 Retención/Percepción: `CityName` es la provincia y `CountrySubentity` el departamento.
 - #274 Soportar `sac:ExceptionalIndicator` (`indExcepcional`) en comprobante de Percepción.
 - #276 CI: tests unitarios separados de los de integración (SUNAT beta ya no bloquea PRs).
 - Corregir parámetros implícitamente nullable (deprecación PHP 8.4).
