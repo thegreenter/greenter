@@ -42,10 +42,19 @@
         <cbc:LineID>{{ loop.index }}</cbc:LineID>
         <cbc:DocumentTypeCode>{{ det.tipoDoc }}</cbc:DocumentTypeCode>
         <cbc:ID>{{ det.serieNro }}</cbc:ID>
+        {% if det.clienteNro or det.clienteTipo %}
         <cac:AccountingCustomerParty>
             <cbc:CustomerAssignedAccountID>{{ det.clienteNro }}</cbc:CustomerAssignedAccountID>
             <cbc:AdditionalAccountID>{{ det.clienteTipo }}</cbc:AdditionalAccountID>
+            {% if det.clienteNombre %}
+            <cac:Party>
+                <cac:PartyLegalEntity>
+                    <cbc:RegistrationName><![CDATA[{{ det.clienteNombre|raw }}]]></cbc:RegistrationName>
+                </cac:PartyLegalEntity>
+            </cac:Party>
+            {% endif %}
         </cac:AccountingCustomerParty>
+        {% endif %}
         {% if det.docReferencia %}
         <cac:BillingReference>
             <cac:InvoiceDocumentReference>
@@ -92,11 +101,23 @@
             <cbc:InstructionID>04</cbc:InstructionID>
         </sac:BillingPayment>
         {% endif %}
+        {# 05-Gratuitas: desactivado por SUNAT desde 2027-01-01, reemplazado por 06, 07, 08 y 09 #}
         {% if det.mtoOperGratuitas %}
         <sac:BillingPayment>
             <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ det.mtoOperGratuitas|n_format }}</cbc:PaidAmount>
             <cbc:InstructionID>05</cbc:InstructionID>
         </sac:BillingPayment>
+        {% endif %}
+        {% set gra = det.gratuitas %}
+        {% if gra %}
+        {% for code, mto in {'06': gra.mtoGravadas, '07': gra.mtoExoneradas, '08': gra.mtoInafectas, '09': gra.mtoExportacion} %}
+        {% if mto %}
+        <sac:BillingPayment>
+            <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ mto|n_format }}</cbc:PaidAmount>
+            <cbc:InstructionID>{{ code }}</cbc:InstructionID>
+        </sac:BillingPayment>
+        {% endif %}
+        {% endfor %}
         {% endif %}
         {% if det.mtoOtrosCargos %}
         <cac:AllowanceCharge>
@@ -133,6 +154,25 @@
                         <cbc:ID>1000</cbc:ID>
                         <cbc:Name>IGV</cbc:Name>
                         <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        {% endif %}
+        {% if gra and gra.mtoIgv %}
+        {% set igvGra = gra.mtoIgv|n_format %}
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ igvGra }}</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ igvGra }}</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    {% if det.porcentajeIgv is not null %}
+                        <cbc:Percent>{{ det.porcentajeIgv|n_format }}</cbc:Percent>
+                    {% endif %}
+                    <cac:TaxScheme>
+                        <cbc:ID>9996</cbc:ID>
+                        <cbc:Name>GRA</cbc:Name>
+                        <cbc:TaxTypeCode>FRE</cbc:TaxTypeCode>
                     </cac:TaxScheme>
                 </cac:TaxCategory>
             </cac:TaxSubtotal>

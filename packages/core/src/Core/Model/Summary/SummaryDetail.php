@@ -39,6 +39,13 @@ class SummaryDetail
     private $clienteNro;
 
     /**
+     * Apellidos y nombres, denominación o razón social del adquiriente o usuario.
+     *
+     * @var string|null
+     */
+    private $clienteNombre;
+
+    /**
      * Boleta de Venta que se modifica.
      *
      * @var Document
@@ -49,6 +56,13 @@ class SummaryDetail
      * @var SummaryPerception
      */
     private $percepcion;
+
+    /**
+     * Operaciones gratuitas desagregadas (catálogo 11: 06-09) e IGV de gratuitas (9996).
+     *
+     * @var SummaryGratuitas|null
+     */
+    private $gratuitas;
 
     /**
      * Estado del item (catalog: 19).
@@ -88,6 +102,12 @@ class SummaryDetail
     private $mtoOperExportacion;
 
     /**
+     * Operaciones gratuitas consolidadas (catálogo 11: 05).
+     *
+     * @deprecated El código 05 "Gratuitas" del catálogo 11 deja de ser válido a partir del
+     *             2027-01-01 (hoja «Control de Cambios» de las reglas de validación SUNAT
+     *             26.08.2026). Usar setGratuitas() con SummaryGratuitas (códigos 06, 07, 08 y 09).
+     *
      * @var float
      */
     private $mtoOperGratuitas;
@@ -205,6 +225,26 @@ class SummaryDetail
     }
 
     /**
+     * @return string|null
+     */
+    public function getClienteNombre(): ?string
+    {
+        return $this->clienteNombre;
+    }
+
+    /**
+     * @param string|null $clienteNombre
+     *
+     * @return SummaryDetail
+     */
+    public function setClienteNombre(?string $clienteNombre): SummaryDetail
+    {
+        $this->clienteNombre = $clienteNombre;
+
+        return $this;
+    }
+
+    /**
      * @return Document
      */
     public function getDocReferencia(): ?Document
@@ -240,6 +280,26 @@ class SummaryDetail
     public function setPercepcion(?SummaryPerception $percepcion): SummaryDetail
     {
         $this->percepcion = $percepcion;
+
+        return $this;
+    }
+
+    /**
+     * @return SummaryGratuitas|null
+     */
+    public function getGratuitas(): ?SummaryGratuitas
+    {
+        return $this->gratuitas;
+    }
+
+    /**
+     * @param SummaryGratuitas|null $gratuitas
+     *
+     * @return SummaryDetail
+     */
+    public function setGratuitas(?SummaryGratuitas $gratuitas): SummaryDetail
+    {
+        $this->gratuitas = $gratuitas;
 
         return $this;
     }
@@ -385,6 +445,12 @@ class SummaryDetail
     }
 
     /**
+     * Operaciones gratuitas consolidadas (catálogo 11: 05).
+     *
+     * @deprecated El código 05 "Gratuitas" del catálogo 11 deja de ser válido a partir del
+     *             2027-01-01 (hoja «Control de Cambios» de las reglas de validación SUNAT
+     *             26.08.2026). Usar setGratuitas() con SummaryGratuitas (códigos 06, 07, 08 y 09).
+     *
      * @return float
      */
     public function getMtoOperGratuitas(): ?float
@@ -393,6 +459,12 @@ class SummaryDetail
     }
 
     /**
+     * Operaciones gratuitas consolidadas (catálogo 11: 05).
+     *
+     * @deprecated El código 05 "Gratuitas" del catálogo 11 deja de ser válido a partir del
+     *             2027-01-01 (hoja «Control de Cambios» de las reglas de validación SUNAT
+     *             26.08.2026). Usar setGratuitas() con SummaryGratuitas (códigos 06, 07, 08 y 09).
+     *
      * @param float $mtoOperGratuitas
      *
      * @return SummaryDetail

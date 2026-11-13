@@ -77,6 +77,15 @@ class Perception implements DocumentInterface
     private $observacion;
 
     /**
+     * Monto de redondeo del importe total cobrado (cbc:PayableRoundingAmount).
+     *
+     * Valor absoluto no mayor a 1 (regla 3303).
+     *
+     * @var float|null
+     */
+    private $redondeo;
+
+    /**
      * Indicador excepcional.
      *
      * Campo 7 de la hoja «Percepciones1_0» de las Reglas de validación de SUNAT
@@ -293,6 +302,26 @@ class Perception implements DocumentInterface
     public function setObservacion(?string $observacion): Perception
     {
         $this->observacion = $observacion;
+
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getRedondeo(): ?float
+    {
+        return $this->redondeo;
+    }
+
+    /**
+     * @param float|null $redondeo
+     *
+     * @return Perception
+     */
+    public function setRedondeo(?float $redondeo): Perception
+    {
+        $this->redondeo = $redondeo;
 
         return $this;
     }

@@ -35,39 +35,95 @@
 		<cac:PartyIdentification>
 			<cbc:ID schemeID="6">{{ emp.ruc }}</cbc:ID>
 		</cac:PartyIdentification>
+		{% if emp.nombreComercial %}
 		<cac:PartyName>
 			<cbc:Name><![CDATA[{{ emp.nombreComercial|raw }}]]></cbc:Name>
 		</cac:PartyName>
-        {% set addr = emp.address %}
+		{% endif %}
+		{% if emp.address %}
+		{% set addr = emp.address %}
 		<cac:PostalAddress>
+			{% if addr.ubigueo %}
 			<cbc:ID>{{ addr.ubigueo }}</cbc:ID>
+			{% endif %}
+			{% if addr.direccion %}
 			<cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
+			{% endif %}
+			{% if addr.urbanizacion %}
+			<cbc:CitySubdivisionName>{{ addr.urbanizacion }}</cbc:CitySubdivisionName>
+			{% endif %}
+			{% if addr.provincia %}
 			<cbc:CityName>{{ addr.provincia }}</cbc:CityName>
+			{% endif %}
+			{% if addr.departamento %}
 			<cbc:CountrySubentity>{{ addr.departamento }}</cbc:CountrySubentity>
+			{% endif %}
+			{% if addr.distrito %}
 			<cbc:District>{{ addr.distrito }}</cbc:District>
+			{% endif %}
+			{% if addr.codigoPais %}
 			<cac:Country>
 				<cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
 			</cac:Country>
+			{% endif %}
 		</cac:PostalAddress>
+		{% endif %}
 		<cac:PartyLegalEntity>
 			<cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
 		</cac:PartyLegalEntity>
 	</cac:AgentParty>
+	{% set client = doc.proveedor %}
 	<cac:ReceiverParty>
 		<cac:PartyIdentification>
-			<cbc:ID schemeID="{{ doc.proveedor.tipoDoc }}">{{ doc.proveedor.numDoc }}</cbc:ID>
+			<cbc:ID schemeID="{{ client.tipoDoc }}">{{ client.numDoc }}</cbc:ID>
 		</cac:PartyIdentification>
+		{% if client.nombreComercial %}
+		<cac:PartyName>
+			<cbc:Name><![CDATA[{{ client.nombreComercial|raw }}]]></cbc:Name>
+		</cac:PartyName>
+		{% endif %}
+		{% if client.address %}
+		{% set addr = client.address %}
+		<cac:PostalAddress>
+			{% if addr.ubigueo %}
+			<cbc:ID>{{ addr.ubigueo }}</cbc:ID>
+			{% endif %}
+			{% if addr.direccion %}
+			<cbc:StreetName><![CDATA[{{ addr.direccion|raw }}]]></cbc:StreetName>
+			{% endif %}
+			{% if addr.urbanizacion %}
+			<cbc:CitySubdivisionName>{{ addr.urbanizacion }}</cbc:CitySubdivisionName>
+			{% endif %}
+			{% if addr.provincia %}
+			<cbc:CityName>{{ addr.provincia }}</cbc:CityName>
+			{% endif %}
+			{% if addr.departamento %}
+			<cbc:CountrySubentity>{{ addr.departamento }}</cbc:CountrySubentity>
+			{% endif %}
+			{% if addr.distrito %}
+			<cbc:District>{{ addr.distrito }}</cbc:District>
+			{% endif %}
+			{% if addr.codigoPais %}
+			<cac:Country>
+				<cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
+			</cac:Country>
+			{% endif %}
+		</cac:PostalAddress>
+		{% endif %}
 		<cac:PartyLegalEntity>
-			<cbc:RegistrationName><![CDATA[{{ doc.proveedor.rznSocial|raw }}]]></cbc:RegistrationName>
+			<cbc:RegistrationName><![CDATA[{{ client.rznSocial|raw }}]]></cbc:RegistrationName>
 		</cac:PartyLegalEntity>
 	</cac:ReceiverParty>
 	<sac:SUNATPerceptionSystemCode>{{ doc.regimen }}</sac:SUNATPerceptionSystemCode>
 	<sac:SUNATPerceptionPercent>{{ doc.tasa|n_format }}</sac:SUNATPerceptionPercent>
-    {% if doc.observacion %}
+	{% if doc.observacion %}
 	<cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
 	{% endif %}
 	<cbc:TotalInvoiceAmount currencyID="PEN">{{ doc.impPercibido|n_format }}</cbc:TotalInvoiceAmount>
 	<sac:SUNATTotalCashed currencyID="PEN">{{ doc.impCobrado|n_format }}</sac:SUNATTotalCashed>
+	{% if doc.redondeo %}
+	<cbc:PayableRoundingAmount currencyID="PEN">{{ doc.redondeo|n_format }}</cbc:PayableRoundingAmount>
+	{% endif %}
 	{% for det in doc.details %}
 	<sac:SUNATPerceptionDocumentReference>
 		<cbc:ID schemeID="{{ det.tipoDoc }}">{{ det.numDoc }}</cbc:ID>

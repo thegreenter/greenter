@@ -33,6 +33,7 @@ class ClientLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             new Assert\Length(['max' => 100]),
         ]);
+        $metadata->addPropertyConstraint('nombreComercial', new Assert\Length(['max' => 1500]));
         $metadata->addPropertyConstraint('address', new Assert\Valid());
     }
 }
