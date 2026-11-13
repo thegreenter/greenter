@@ -9,6 +9,7 @@ use DOMXPath;
 use Greenter\Data\Generator\SummaryStore;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Summary\SummaryDetail;
+use Greenter\Model\Summary\SummaryGratuitas;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -72,11 +73,12 @@ class FeSummaryTemplateFormatTest extends TestCase
         $summary = $this->createSummary();
         $summary->getDetails()[0]
             ->setPorcentajeIgv(18)
-            ->setMtoOperGratuitasGravadas(100)
-            ->setMtoOperGratuitasExoneradas(20.5)
-            ->setMtoOperGratuitasInafectas(30)
-            ->setMtoOperGratuitasExportacion(40.125)
-            ->setMtoIGVGratuitas(18);
+            ->setGratuitas((new SummaryGratuitas())
+                ->setMtoGravadas(100)
+                ->setMtoExoneradas(20.5)
+                ->setMtoInafectas(30)
+                ->setMtoExportacion(40.125)
+                ->setMtoIgv(18));
 
         $xml = $this->build($summary);
         $xpath = $this->xpath($xml);
@@ -97,6 +99,24 @@ class FeSummaryTemplateFormatTest extends TestCase
         $this->assertSame('FRE', $xpath->evaluate("string($tax/cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:TaxTypeCode)"));
         // IGV (1000) se mantiene
         $this->assertSame(1, $xpath->query(self::LINE."/cac:TaxTotal[cac:TaxSubtotal/cac:TaxCategory/cac:TaxScheme/cbc:ID='1000']")->length);
+        $this->assertSchema($xml);
+    }
+
+    public function testGratuitasParcialesSinIgv()
+    {
+        $summary = $this->createSummary();
+        $summary->getDetails()[0]->setGratuitas((new SummaryGratuitas())->setMtoInafectas(15));
+
+        $xml = $this->build($summary);
+        $xpath = $this->xpath($xml);
+        $codes = [];
+        foreach ($xpath->query(self::LINE.'/sac:BillingPayment/cbc:InstructionID') as $node) {
+            $codes[] = $node->textContent;
+        }
+
+        $this->assertSame(['01', '08'], $codes);
+        $this->assertSame('15.00', $xpath->evaluate('string('.self::LINE."/sac:BillingPayment[cbc:InstructionID='08']/cbc:PaidAmount)"));
+        $this->assertSame(0, $xpath->query(self::LINE."//cac:TaxScheme[cbc:ID='9996']")->length);
         $this->assertSchema($xml);
     }
 

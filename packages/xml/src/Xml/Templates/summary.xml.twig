@@ -108,7 +108,9 @@
             <cbc:InstructionID>05</cbc:InstructionID>
         </sac:BillingPayment>
         {% endif %}
-        {% for code, mto in {'06': det.mtoOperGratuitasGravadas, '07': det.mtoOperGratuitasExoneradas, '08': det.mtoOperGratuitasInafectas, '09': det.mtoOperGratuitasExportacion} %}
+        {% set gra = det.gratuitas %}
+        {% if gra %}
+        {% for code, mto in {'06': gra.mtoGravadas, '07': gra.mtoExoneradas, '08': gra.mtoInafectas, '09': gra.mtoExportacion} %}
         {% if mto %}
         <sac:BillingPayment>
             <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ mto|n_format }}</cbc:PaidAmount>
@@ -116,6 +118,7 @@
         </sac:BillingPayment>
         {% endif %}
         {% endfor %}
+        {% endif %}
         {% if det.mtoOtrosCargos %}
         <cac:AllowanceCharge>
             <cbc:ChargeIndicator>true</cbc:ChargeIndicator>
@@ -156,8 +159,8 @@
             </cac:TaxSubtotal>
         </cac:TaxTotal>
         {% endif %}
-        {% if det.mtoIGVGratuitas %}
-        {% set igvGra = det.mtoIGVGratuitas|n_format %}
+        {% if gra and gra.mtoIgv %}
+        {% set igvGra = gra.mtoIgv|n_format %}
         <cac:TaxTotal>
             <cbc:TaxAmount currencyID="{{ doc.moneda }}">{{ igvGra }}</cbc:TaxAmount>
             <cac:TaxSubtotal>

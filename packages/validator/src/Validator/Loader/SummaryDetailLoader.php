@@ -32,6 +32,7 @@ class SummaryDetailLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraint('docReferencia', new Assert\Valid());
         $metadata->addPropertyConstraint('percepcion', new Assert\Valid());
+        $metadata->addPropertyConstraint('gratuitas', new Assert\Valid());
         $metadata->addPropertyConstraints('total', [
             new Assert\NotNull(),
         ]);

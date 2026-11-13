@@ -58,6 +58,13 @@ class SummaryDetail
     private $percepcion;
 
     /**
+     * Operaciones gratuitas desagregadas (catálogo 11: 06-09) e IGV de gratuitas (9996).
+     *
+     * @var SummaryGratuitas|null
+     */
+    private $gratuitas;
+
+    /**
      * Estado del item (catalog: 19).
      *
      * @var string
@@ -99,40 +106,11 @@ class SummaryDetail
      *
      * @deprecated El código 05 "Gratuitas" del catálogo 11 deja de ser válido a partir del
      *             2027-01-01 (hoja «Control de Cambios» de las reglas de validación SUNAT
-     *             26.08.2026). Usar mtoOperGratuitasGravadas (06), mtoOperGratuitasExoneradas (07),
-     *             mtoOperGratuitasInafectas (08) o mtoOperGratuitasExportacion (09).
+     *             26.08.2026). Usar setGratuitas() con SummaryGratuitas (códigos 06, 07, 08 y 09).
      *
      * @var float
      */
     private $mtoOperGratuitas;
-
-    /**
-     * Operaciones gratuitas gravadas (catálogo 11: 06).
-     *
-     * @var float|null
-     */
-    private $mtoOperGratuitasGravadas;
-
-    /**
-     * Operaciones gratuitas exoneradas (catálogo 11: 07).
-     *
-     * @var float|null
-     */
-    private $mtoOperGratuitasExoneradas;
-
-    /**
-     * Operaciones gratuitas inafectas (catálogo 11: 08).
-     *
-     * @var float|null
-     */
-    private $mtoOperGratuitasInafectas;
-
-    /**
-     * Operaciones gratuitas de exportación (catálogo 11: 09).
-     *
-     * @var float|null
-     */
-    private $mtoOperGratuitasExportacion;
 
     /**
      * Otros Cargos.
@@ -145,15 +123,6 @@ class SummaryDetail
      * @var float
      */
     private $mtoIGV;
-
-    /**
-     * IGV de las operaciones gratuitas (tributo 9996 - GRA).
-     *
-     * Usa porcentajeIgv como tasa del tributo (regla 2992).
-     *
-     * @var float|null
-     */
-    private $mtoIGVGratuitas;
 
     /**
      * @var float
@@ -316,6 +285,26 @@ class SummaryDetail
     }
 
     /**
+     * @return SummaryGratuitas|null
+     */
+    public function getGratuitas(): ?SummaryGratuitas
+    {
+        return $this->gratuitas;
+    }
+
+    /**
+     * @param SummaryGratuitas|null $gratuitas
+     *
+     * @return SummaryDetail
+     */
+    public function setGratuitas(?SummaryGratuitas $gratuitas): SummaryDetail
+    {
+        $this->gratuitas = $gratuitas;
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getEstado(): ?string
@@ -460,8 +449,7 @@ class SummaryDetail
      *
      * @deprecated El código 05 "Gratuitas" del catálogo 11 deja de ser válido a partir del
      *             2027-01-01 (hoja «Control de Cambios» de las reglas de validación SUNAT
-     *             26.08.2026). Usar mtoOperGratuitasGravadas (06), mtoOperGratuitasExoneradas (07),
-     *             mtoOperGratuitasInafectas (08) o mtoOperGratuitasExportacion (09).
+     *             26.08.2026). Usar setGratuitas() con SummaryGratuitas (códigos 06, 07, 08 y 09).
      *
      * @return float
      */
@@ -475,8 +463,7 @@ class SummaryDetail
      *
      * @deprecated El código 05 "Gratuitas" del catálogo 11 deja de ser válido a partir del
      *             2027-01-01 (hoja «Control de Cambios» de las reglas de validación SUNAT
-     *             26.08.2026). Usar mtoOperGratuitasGravadas (06), mtoOperGratuitasExoneradas (07),
-     *             mtoOperGratuitasInafectas (08) o mtoOperGratuitasExportacion (09).
+     *             26.08.2026). Usar setGratuitas() con SummaryGratuitas (códigos 06, 07, 08 y 09).
      *
      * @param float $mtoOperGratuitas
      *
@@ -485,86 +472,6 @@ class SummaryDetail
     public function setMtoOperGratuitas(?float $mtoOperGratuitas): SummaryDetail
     {
         $this->mtoOperGratuitas = $mtoOperGratuitas;
-
-        return $this;
-    }
-
-    /**
-     * @return float|null
-     */
-    public function getMtoOperGratuitasGravadas(): ?float
-    {
-        return $this->mtoOperGratuitasGravadas;
-    }
-
-    /**
-     * @param float|null $mtoOperGratuitasGravadas
-     *
-     * @return SummaryDetail
-     */
-    public function setMtoOperGratuitasGravadas(?float $mtoOperGratuitasGravadas): SummaryDetail
-    {
-        $this->mtoOperGratuitasGravadas = $mtoOperGratuitasGravadas;
-
-        return $this;
-    }
-
-    /**
-     * @return float|null
-     */
-    public function getMtoOperGratuitasExoneradas(): ?float
-    {
-        return $this->mtoOperGratuitasExoneradas;
-    }
-
-    /**
-     * @param float|null $mtoOperGratuitasExoneradas
-     *
-     * @return SummaryDetail
-     */
-    public function setMtoOperGratuitasExoneradas(?float $mtoOperGratuitasExoneradas): SummaryDetail
-    {
-        $this->mtoOperGratuitasExoneradas = $mtoOperGratuitasExoneradas;
-
-        return $this;
-    }
-
-    /**
-     * @return float|null
-     */
-    public function getMtoOperGratuitasInafectas(): ?float
-    {
-        return $this->mtoOperGratuitasInafectas;
-    }
-
-    /**
-     * @param float|null $mtoOperGratuitasInafectas
-     *
-     * @return SummaryDetail
-     */
-    public function setMtoOperGratuitasInafectas(?float $mtoOperGratuitasInafectas): SummaryDetail
-    {
-        $this->mtoOperGratuitasInafectas = $mtoOperGratuitasInafectas;
-
-        return $this;
-    }
-
-    /**
-     * @return float|null
-     */
-    public function getMtoOperGratuitasExportacion(): ?float
-    {
-        return $this->mtoOperGratuitasExportacion;
-    }
-
-    /**
-     * @param float|null $mtoOperGratuitasExportacion
-     *
-     * @return SummaryDetail
-     */
-    public function setMtoOperGratuitasExportacion(?float $mtoOperGratuitasExportacion): SummaryDetail
-    {
-        $this->mtoOperGratuitasExportacion = $mtoOperGratuitasExportacion;
 
         return $this;
     }
@@ -605,26 +512,6 @@ class SummaryDetail
     public function setMtoIGV(?float $mtoIGV): SummaryDetail
     {
         $this->mtoIGV = $mtoIGV;
-
-        return $this;
-    }
-
-    /**
-     * @return float|null
-     */
-    public function getMtoIGVGratuitas(): ?float
-    {
-        return $this->mtoIGVGratuitas;
-    }
-
-    /**
-     * @param float|null $mtoIGVGratuitas
-     *
-     * @return SummaryDetail
-     */
-    public function setMtoIGVGratuitas(?float $mtoIGVGratuitas): SummaryDetail
-    {
-        $this->mtoIGVGratuitas = $mtoIGVGratuitas;
 
         return $this;
     }

@@ -17,6 +17,7 @@ use Greenter\Model\DocumentInterface;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Summary\SummaryDetail;
+use Greenter\Model\Summary\SummaryGratuitas;
 use Greenter\Model\Summary\SummaryPerception;
 
 class SummaryStore implements DocumentGeneratorInterface
@@ -61,7 +62,8 @@ class SummaryStore implements DocumentGeneratorInterface
             ->setMtoOperGravadas(40)
             ->setMtoOperExoneradas(30)
             ->setMtoOperInafectas(120)
-            ->setMtoOperGratuitasGravadas(10)
+            ->setGratuitas((new SummaryGratuitas())
+                ->setMtoGravadas(10))
             ->setMtoIGV(7.2)
             ->setPorcentajeIgv(18.0)
             ->setMtoISC(2.8);
