@@ -101,6 +101,7 @@
             <cbc:InstructionID>04</cbc:InstructionID>
         </sac:BillingPayment>
         {% endif %}
+        {# 05-Gratuitas: desactivado por SUNAT desde 2027-01-01, reemplazado por 06, 07, 08 y 09 #}
         {% if det.mtoOperGratuitas %}
         <sac:BillingPayment>
             <cbc:PaidAmount currencyID="{{ doc.moneda }}">{{ det.mtoOperGratuitas|n_format }}</cbc:PaidAmount>

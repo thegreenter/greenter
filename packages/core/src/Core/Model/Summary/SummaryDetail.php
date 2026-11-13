@@ -95,6 +95,13 @@ class SummaryDetail
     private $mtoOperExportacion;
 
     /**
+     * Operaciones gratuitas consolidadas (catálogo 11: 05).
+     *
+     * @deprecated El código 05 "Gratuitas" del catálogo 11 deja de ser válido a partir del
+     *             2027-01-01 (hoja «Control de Cambios» de las reglas de validación SUNAT
+     *             26.08.2026). Usar mtoOperGratuitasGravadas (06), mtoOperGratuitasExoneradas (07),
+     *             mtoOperGratuitasInafectas (08) o mtoOperGratuitasExportacion (09).
+     *
      * @var float
      */
     private $mtoOperGratuitas;
@@ -449,6 +456,13 @@ class SummaryDetail
     }
 
     /**
+     * Operaciones gratuitas consolidadas (catálogo 11: 05).
+     *
+     * @deprecated El código 05 "Gratuitas" del catálogo 11 deja de ser válido a partir del
+     *             2027-01-01 (hoja «Control de Cambios» de las reglas de validación SUNAT
+     *             26.08.2026). Usar mtoOperGratuitasGravadas (06), mtoOperGratuitasExoneradas (07),
+     *             mtoOperGratuitasInafectas (08) o mtoOperGratuitasExportacion (09).
+     *
      * @return float
      */
     public function getMtoOperGratuitas(): ?float
@@ -457,6 +471,13 @@ class SummaryDetail
     }
 
     /**
+     * Operaciones gratuitas consolidadas (catálogo 11: 05).
+     *
+     * @deprecated El código 05 "Gratuitas" del catálogo 11 deja de ser válido a partir del
+     *             2027-01-01 (hoja «Control de Cambios» de las reglas de validación SUNAT
+     *             26.08.2026). Usar mtoOperGratuitasGravadas (06), mtoOperGratuitasExoneradas (07),
+     *             mtoOperGratuitasInafectas (08) o mtoOperGratuitasExportacion (09).
+     *
      * @param float $mtoOperGratuitas
      *
      * @return SummaryDetail

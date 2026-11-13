@@ -7,6 +7,7 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 - Factura, boleta y notas 2.1: alinear formato y campos con las reglas de validación SUNAT (26.08.2026)
 - Retención/Percepción: alinear campos con las reglas de validación SUNAT (26.08.2026): urbanización del emisor, nombre comercial (`Client::nombreComercial`) y domicilio del cliente/proveedor, monto de redondeo (`redondeo`) y sin tags vacíos en datos opcionales.
 - Resumen diario: nodo del adquiriente opcional, razón social del adquiriente (`clienteNombre`), operaciones gratuitas por tipo (catálogo 11: 06-09) e IGV de gratuitas (`mtoIGVGratuitas`, tributo 9996).
+- Resumen diario: `SummaryDetail::mtoOperGratuitas` (catálogo 11: 05) queda deprecado, SUNAT lo desactiva a partir del 2027-01-01.
 
 ## 5.4.0 - 2026-11-10
 - #284 dirección de entrega opcional, para declarar solo el país del servicio exportado.
