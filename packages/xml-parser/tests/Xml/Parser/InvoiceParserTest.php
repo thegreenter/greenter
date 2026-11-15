@@ -79,6 +79,23 @@ class InvoiceParserTest extends TestCase
         $this->assertGreaterThanOrEqual(1, count($obj->getLegends()));
     }
 
+    /**
+     * Incoterm (cac:DeliveryTerms/cbc:ID): campo 62 de Factura2_0, condicional.
+     */
+    public function testParseIncoterm()
+    {
+        $parser = new InvoiceParser();
+        $dir = __DIR__.'/../../Resources/invoice/';
+
+        /**@var $withIncoterm Invoice */
+        $withIncoterm = $parser->parse(file_get_contents($dir.'exportacion-incoterm.xml'));
+        $this->assertSame('FOB', $withIncoterm->getIncoterm());
+
+        /**@var $without Invoice */
+        $without = $parser->parse(file_get_contents($dir.'exportacion.xml'));
+        $this->assertNull($without->getIncoterm());
+    }
+
     public function providerDocs()
     {
         $files = glob(__DIR__.'/../../Resources/invoice/*.xml');

@@ -236,6 +236,11 @@ class InvoiceParser implements DocumentParserInterface
         }
 
         $inv->setGuias(iterator_to_array($this->getGuias($xpt)));
+
+        $incoterm = $this->defValue($xpt->query('/xt:Invoice/cac:DeliveryTerms/cbc:ID'));
+        if ($incoterm !== '') {
+            $inv->setIncoterm($incoterm);
+        }
     }
 
     private function getGuias(DOMXPath $xpt)

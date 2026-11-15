@@ -84,6 +84,40 @@ class FeInvoiceBuilderTest extends TestCase
     }
 
     /**
+     * Incoterm: campo 62 de Factura2_0 (61 de Boleta2_0), /Invoice/cac:DeliveryTerms/cbc:ID.
+     * Va después de cac:Delivery y antes de cac:PaymentMeans y cac:PaymentTerms, como pide UBL 2.1.
+     */
+    public function testIncoterm()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+        $invoice->setDireccionEntrega((new Address())->setCodigoPais('US'));
+        $invoice->setIncoterm('FOB');
+
+        $xml = $this->build($invoice);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $xpath->registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+
+        $this->assertSame('FOB', $xpath->evaluate('string(/*/cac:DeliveryTerms/cbc:ID)'));
+        $this->assertSame(1, $xpath->query('/*/cac:Delivery/following-sibling::cac:DeliveryTerms')->length);
+        $this->assertSame(0, $xpath->query('/*/cac:PaymentTerms/following-sibling::cac:DeliveryTerms')->length);
+        $this->assertSchema($xml);
+    }
+
+    public function testSinIncotermNoSeEscribe()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+
+        $this->assertStringNotContainsString('<cac:DeliveryTerms>', $this->build($invoice));
+    }
+
+    /**
      * @dataProvider storeProvider
      */
     public function testBuilder($invoiceClass)

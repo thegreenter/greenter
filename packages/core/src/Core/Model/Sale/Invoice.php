@@ -116,6 +116,13 @@ class Invoice extends BaseSale
     private $direccionEntrega;
 
     /**
+     * Incoterm (cac:DeliveryTerms/cbc:ID): campo 62 de Factura2_0 y 61 de Boleta2_0.
+     *
+     * @var string|null
+     */
+    private $incoterm;
+
+    /**
      * @return string
      */
     public function getTipoOperacion(): ?string
@@ -471,6 +478,28 @@ class Invoice extends BaseSale
     public function setDireccionEntrega(?Address $direccionEntrega): Invoice
     {
         $this->direccionEntrega = $direccionEntrega;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getIncoterm(): ?string
+    {
+        return $this->incoterm;
+    }
+
+    /**
+     * Incoterm de la operación (FOB, CIF, EXW...), an3.
+     *
+     * @param string|null $incoterm
+     *
+     * @return Invoice
+     */
+    public function setIncoterm(?string $incoterm): Invoice
+    {
+        $this->incoterm = $incoterm;
 
         return $this;
     }
