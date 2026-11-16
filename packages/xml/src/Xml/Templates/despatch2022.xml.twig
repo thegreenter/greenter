@@ -124,7 +124,9 @@
 				</cac:PartyIdentification>
 				<cac:PartyLegalEntity>
 					<cbc:RegistrationName><![CDATA[{{ envio.transportista.rznSocial|raw }}]]></cbc:RegistrationName>
+					{% if envio.transportista.nroMtc %}
 					<cbc:CompanyID>{{ envio.transportista.nroMtc }}</cbc:CompanyID>
+					{% endif %}
 				</cac:PartyLegalEntity>
 				{% include 'agentParty.xml.twig' with {'autorizacion': envio.transportista.autorizacion} only %}
 			</cac:CarrierParty>
@@ -155,6 +157,7 @@
 				<cac:AddressLine>
 					<cbc:Line>{{ envio.llegada.direccion }}</cbc:Line>
 				</cac:AddressLine>
+				{% include 'coordinate.xml.twig' with {'direccion': envio.llegada} only %}
 			</cac:DeliveryAddress>
 			<cac:Despatch>
 				<cac:DespatchAddress>
@@ -165,6 +168,7 @@
 					<cac:AddressLine>
 						<cbc:Line>{{ envio.partida.direccion }}</cbc:Line>
 					</cac:AddressLine>
+					{% include 'coordinate.xml.twig' with {'direccion': envio.partida} only %}
 				</cac:DespatchAddress>
 				{% if envio.autorizacion %}
 				<cac:DespatchParty>
@@ -246,6 +250,12 @@
 			<cac:SellersItemIdentification>
 				<cbc:ID>{{ det.codigo }}</cbc:ID>
 			</cac:SellersItemIdentification>
+			{% if det.codProdGS1 %}
+			{% set gtinLen = det.codProdGS1|length %}
+			<cac:StandardItemIdentification>
+				<cbc:ID{% if gtinLen in [8, 12, 13, 14] %} schemeID="GTIN-{{ gtinLen }}"{% endif %}>{{ det.codProdGS1 }}</cbc:ID>
+			</cac:StandardItemIdentification>
+			{% endif %}
 			{% if det.codProdSunat %}
 			<cac:CommodityClassification>
 				<cbc:ItemClassificationCode listID="UNSPSC" listAgencyName="GS1 US" listName="Item Classification">{{ det.codProdSunat }}</cbc:ItemClassificationCode>
