@@ -126,6 +126,7 @@
 					<cbc:RegistrationName><![CDATA[{{ envio.transportista.rznSocial|raw }}]]></cbc:RegistrationName>
 					<cbc:CompanyID>{{ envio.transportista.nroMtc }}</cbc:CompanyID>
 				</cac:PartyLegalEntity>
+				{% include 'agentParty.xml.twig' with {'autorizacion': envio.transportista.autorizacion} only %}
 			</cac:CarrierParty>
             {% endif %}
 			{% if envio.fecEntregaBienes %}
@@ -165,13 +166,25 @@
 						<cbc:Line>{{ envio.partida.direccion }}</cbc:Line>
 					</cac:AddressLine>
 				</cac:DespatchAddress>
+				{% if envio.autorizacion %}
+				<cac:DespatchParty>
+					{% include 'agentParty.xml.twig' with {'autorizacion': envio.autorizacion} only %}
+				</cac:DespatchParty>
+				{% endif %}
 			</cac:Despatch>
 		</cac:Delivery>
-		{% for precinto in envio.contenedores %}
+		{% for contenedor in envio.contenedores %}
 		<cac:TransportHandlingUnit>
 			<cac:Package>
+				{% if contenedor.numero is defined %}
+				<cbc:ID>{{ contenedor.numero }}</cbc:ID>
+				{% if contenedor.precinto %}
+				<cbc:TraceID>{{ contenedor.precinto }}</cbc:TraceID>
+				{% endif %}
+				{% else %}
 				<cbc:ID>{{ loop.index }}</cbc:ID>
-				<cbc:TraceID>{{ precinto }}</cbc:TraceID>
+				<cbc:TraceID>{{ contenedor }}</cbc:TraceID>
+				{% endif %}
 			</cac:Package>
 		</cac:TransportHandlingUnit>
 		{% endfor %}
