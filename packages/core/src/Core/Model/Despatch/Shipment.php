@@ -98,11 +98,18 @@ class Shipment
      */
     private $numContenedor;
     /**
-     * Contenedores (precinto)
+     * Contenedores: cada uno con su número y su precinto (Contenedor), o, como
+     * antes, solo el texto que se escribe como precinto.
      *
-     * @var string[]
+     * @var Contenedor[]|string[]
      */
     private $contenedores;
+    /**
+     * Autorización especial del remitente (campo 10).
+     *
+     * @var Autorizacion|null
+     */
+    private $autorizacion;
     /**
      * Codigo del Puerto. (Puerto o Aeropuerto de embarque/desembarque).
      *
@@ -401,7 +408,7 @@ class Shipment
     }
 
     /**
-     * @return string[]
+     * @return Contenedor[]|string[]
      */
     public function getContenedores(): ?array
     {
@@ -409,7 +416,7 @@ class Shipment
     }
 
     /**
-     * @param string[] $contenedores
+     * @param Contenedor[]|string[] $contenedores
      * @return Shipment
      */
     public function setContenedores(?array $contenedores): Shipment
@@ -568,6 +575,26 @@ class Shipment
     public function setPartida(?Direction $partida): Shipment
     {
         $this->partida = $partida;
+
+        return $this;
+    }
+
+    /**
+     * @return Autorizacion|null
+     */
+    public function getAutorizacion(): ?Autorizacion
+    {
+        return $this->autorizacion;
+    }
+
+    /**
+     * @param Autorizacion|null $autorizacion
+     *
+     * @return Shipment
+     */
+    public function setAutorizacion(?Autorizacion $autorizacion): Shipment
+    {
+        $this->autorizacion = $autorizacion;
 
         return $this;
     }
