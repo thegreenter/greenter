@@ -534,7 +534,7 @@
                 {% endif %}
             </cac:Despatch>
             {% endif %}
-            {% for valor in [['01', tc.valorReferencial], ['02', tc.valorReferencialCargaEfectiva], ['03', tc.valorReferencialCargaUtil]] %}
+            {% for valor in [['01', tc.valorReferencial], ['02', tc.valorCargaEfectiva], ['03', tc.valorCargaUtil]] %}
             {% if valor[1] is not null %}
             <cac:DeliveryTerms>
                 <cbc:ID>{{ valor[0] }}</cbc:ID>
@@ -551,8 +551,8 @@
                     {% if tramo.descripcion %}
                     <cbc:CarrierServiceInstructions><![CDATA[{{ tramo.descripcion|raw }}]]></cbc:CarrierServiceInstructions>
                     {% endif %}
-                    {% if tramo.valorCargaUtilNominal is not null %}
-                    <cbc:DeclaredForCarriageValueAmount currencyID="PEN">{{ tramo.valorCargaUtilNominal|n_format }}</cbc:DeclaredForCarriageValueAmount>
+                    {% if tramo.valorCargaNominal is not null %}
+                    <cbc:DeclaredForCarriageValueAmount currencyID="PEN">{{ tramo.valorCargaNominal|n_format }}</cbc:DeclaredForCarriageValueAmount>
                     {% endif %}
                     {% if tramo.ubigeoOrigen %}
                     <cac:PlannedPickupTransportEvent>

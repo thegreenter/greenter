@@ -110,11 +110,11 @@ class InvoiceParserTest extends TestCase
             $transporte->getDestino()->getUbigueo(), $transporte->getDestino()->getDireccion(), $transporte->getDetalleViaje(),
         ]);
         $this->assertSame([1200.0, 1000.0, 1100.0], [$transporte->getValorReferencial(),
-            $transporte->getValorReferencialCargaEfectiva(), $transporte->getValorReferencialCargaUtil()]);
+            $transporte->getValorCargaEfectiva(), $transporte->getValorCargaUtil()]);
         $tramo = $transporte->getTramos()[0];
         $this->assertSame(['1', '150101', '040101', 'LIMA - AREQUIPA POR LA PANAMERICANA SUR', 950.0, 1050.0], [$tramo->getId(),
             $tramo->getUbigeoOrigen(), $tramo->getUbigeoDestino(), $tramo->getDescripcion(), $tramo->getValorCargaEfectiva(),
-            $tramo->getValorCargaUtilNominal()]);
+            $tramo->getValorCargaNominal()]);
         $vehiculo = $tramo->getVehiculos()[0];
         $this->assertSame(['T3S3', 30.0, 28.5, 40.0, false], [$vehiculo->getConfiguracion(), $vehiculo->getCargaUtil(),
             $vehiculo->getCargaEfectiva(), $vehiculo->getValorReferencialTm(), $vehiculo->isRetornoVacio()]);

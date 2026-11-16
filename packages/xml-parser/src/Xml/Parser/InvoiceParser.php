@@ -342,7 +342,7 @@ class InvoiceParser implements DocumentParserInterface
                 ->setUbigeoDestino($this->nullableValue($xpt->query('cac:PlannedDeliveryTransportEvent/cac:Location/cbc:ID', $consignment)))
                 ->setDescripcion($this->nullableValue($xpt->query('cbc:CarrierServiceInstructions', $consignment)))
                 ->setValorCargaEfectiva($this->nullableFloat($xpt->query('cac:DeliveryTerms/cbc:Amount', $consignment)))
-                ->setValorCargaUtilNominal($this->nullableFloat($xpt->query('cbc:DeclaredForCarriageValueAmount', $consignment)))
+                ->setValorCargaNominal($this->nullableFloat($xpt->query('cbc:DeclaredForCarriageValueAmount', $consignment)))
                 ->setVehiculos($vehiculos);
         }
 
@@ -351,8 +351,8 @@ class InvoiceParser implements DocumentParserInterface
             ->setDestino($direccion('cac:DeliveryLocation/cac:Address'))
             ->setDetalleViaje($this->nullableValue($xpt->query('cac:Despatch/cbc:Instructions', $delivery)))
             ->setValorReferencial($this->nullableFloat($xpt->query('cac:DeliveryTerms[cbc:ID="01"]/cbc:Amount', $delivery)))
-            ->setValorReferencialCargaEfectiva($this->nullableFloat($xpt->query('cac:DeliveryTerms[cbc:ID="02"]/cbc:Amount', $delivery)))
-            ->setValorReferencialCargaUtil($this->nullableFloat($xpt->query('cac:DeliveryTerms[cbc:ID="03"]/cbc:Amount', $delivery)))
+            ->setValorCargaEfectiva($this->nullableFloat($xpt->query('cac:DeliveryTerms[cbc:ID="02"]/cbc:Amount', $delivery)))
+            ->setValorCargaUtil($this->nullableFloat($xpt->query('cac:DeliveryTerms[cbc:ID="03"]/cbc:Amount', $delivery)))
             ->setTramos($tramos));
     }
 

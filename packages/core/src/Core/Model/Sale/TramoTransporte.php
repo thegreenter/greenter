@@ -50,7 +50,7 @@ class TramoTransporte
      *
      * @var float|null
      */
-    private $valorCargaUtilNominal;
+    private $valorCargaNominal;
 
     /**
      * Los vehículos del tramo (campos 123 a 126 y 128, cac:TransportHandlingUnit).
@@ -162,19 +162,19 @@ class TramoTransporte
     /**
      * @return float|null
      */
-    public function getValorCargaUtilNominal(): ?float
+    public function getValorCargaNominal(): ?float
     {
-        return $this->valorCargaUtilNominal;
+        return $this->valorCargaNominal;
     }
 
     /**
-     * @param float|null $valorCargaUtilNominal
+     * @param float|null $valorCargaNominal
      *
      * @return TramoTransporte
      */
-    public function setValorCargaUtilNominal(?float $valorCargaUtilNominal): TramoTransporte
+    public function setValorCargaNominal(?float $valorCargaNominal): TramoTransporte
     {
-        $this->valorCargaUtilNominal = $valorCargaUtilNominal;
+        $this->valorCargaNominal = $valorCargaNominal;
 
         return $this;
     }

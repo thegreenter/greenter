@@ -47,14 +47,14 @@ class TransporteCarga
      *
      * @var float|null
      */
-    private $valorReferencialCargaEfectiva;
+    private $valorCargaEfectiva;
 
     /**
      * Valor referencial sobre la carga útil nominal (campo 118, cac:DeliveryTerms con cbc:ID 03).
      *
      * @var float|null
      */
-    private $valorReferencialCargaUtil;
+    private $valorCargaUtil;
 
     /**
      * Los tramos del viaje (campos 119 a 128, cac:Shipment/cac:Consignment).
@@ -146,19 +146,19 @@ class TransporteCarga
     /**
      * @return float|null
      */
-    public function getValorReferencialCargaEfectiva(): ?float
+    public function getValorCargaEfectiva(): ?float
     {
-        return $this->valorReferencialCargaEfectiva;
+        return $this->valorCargaEfectiva;
     }
 
     /**
-     * @param float|null $valorReferencialCargaEfectiva
+     * @param float|null $valorCargaEfectiva
      *
      * @return TransporteCarga
      */
-    public function setValorReferencialCargaEfectiva(?float $valorReferencialCargaEfectiva): TransporteCarga
+    public function setValorCargaEfectiva(?float $valorCargaEfectiva): TransporteCarga
     {
-        $this->valorReferencialCargaEfectiva = $valorReferencialCargaEfectiva;
+        $this->valorCargaEfectiva = $valorCargaEfectiva;
 
         return $this;
     }
@@ -166,19 +166,19 @@ class TransporteCarga
     /**
      * @return float|null
      */
-    public function getValorReferencialCargaUtil(): ?float
+    public function getValorCargaUtil(): ?float
     {
-        return $this->valorReferencialCargaUtil;
+        return $this->valorCargaUtil;
     }
 
     /**
-     * @param float|null $valorReferencialCargaUtil
+     * @param float|null $valorCargaUtil
      *
      * @return TransporteCarga
      */
-    public function setValorReferencialCargaUtil(?float $valorReferencialCargaUtil): TransporteCarga
+    public function setValorCargaUtil(?float $valorCargaUtil): TransporteCarga
     {
-        $this->valorReferencialCargaUtil = $valorReferencialCargaUtil;
+        $this->valorCargaUtil = $valorCargaUtil;
 
         return $this;
     }
