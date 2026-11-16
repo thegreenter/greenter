@@ -1,5 +1,5 @@
 {# Otros participantes asociados a la transacción (cac:ShareholderParty del adquirente): factura y notas 2.1. #}
-{% for participante in participantes %}
+{% for participante in participantes ?? [] %}
 <cac:ShareholderParty>
     <cac:Party>
         <cac:PartyIdentification>

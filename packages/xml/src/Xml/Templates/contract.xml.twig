@@ -1,4 +1,5 @@
 {# Contrato de colaboración empresarial (cac:ContractDocumentReference): factura y notas 2.1. #}
+{% if contrato %}
 <cac:ContractDocumentReference>
     <cbc:ID>{{ contrato.numero }}</cbc:ID>
     <cbc:DocumentTypeCode>{{ contrato.tipo }}</cbc:DocumentTypeCode>
@@ -15,3 +16,4 @@
     </cac:IssuerParty>
     {% endif %}
 </cac:ContractDocumentReference>
+{% endif %}

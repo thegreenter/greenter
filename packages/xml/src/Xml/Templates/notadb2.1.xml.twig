@@ -39,9 +39,7 @@
     </cac:DespatchDocumentReference>
     {% endfor %}
     {% endif %}
-    {% if doc.contrato %}
     {% include 'contract.xml.twig' with {'contrato': doc.contrato} only %}
-    {% endif %}
     {% if doc.relDocs %}
     {% for rel in doc.relDocs %}
     <cac:AdditionalDocumentReference>
@@ -153,9 +151,7 @@
                         </cac:Country>
                     </cac:RegistrationAddress>
                 {% endif %}
-                {% if doc.participantes %}
                 {% include 'shareholders.xml.twig' with {'participantes': doc.participantes} only %}
-                {% endif %}
             </cac:PartyLegalEntity>
             {% if client.email or client.telephone %}
                 <cac:Contact>
