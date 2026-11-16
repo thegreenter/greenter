@@ -82,6 +82,69 @@ class CeDespatchBuilderTest extends TestCase
         $this->assertSchema($xml);
     }
 
+    /**
+     * Georreferencia de los puntos de partida y llegada (cac:LocationCoordinate, al final del cac:Address),
+     * GTIN del bien (StandardItemIdentification, entre el código del bien y la clasificación SUNAT)
+     * y el número MTC del transportista, que no se escribe vacío.
+     */
+    public function testGeorreferenciaGtinYMtcVacio()
+    {
+        /** @var Despatch $despatch */
+        $despatch = $this->createDocument(Despatch2022Store::class);
+        $envio = $despatch->getEnvio();
+        $envio->getPartida()->setLatitud(-12.04637)->setLongitud(-77.04279412);
+        $envio->getLlegada()->setLatitud(-16.409047)->setLongitud(-71.537451);
+        $envio->getTransportista()->setNroMtc(null);
+        $despatch->getDetails()[0]->setCodProdGS1('7750182000014');
+        $despatch->getDetails()[1]->setCodProdGS1('1234567');
+
+        $xml = $this->build($despatch);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $xpath->registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+        $partida = '/*/cac:Shipment/cac:Delivery/cac:Despatch/cac:DespatchAddress/cac:LocationCoordinate';
+        $llegada = '/*/cac:Shipment/cac:Delivery/cac:DeliveryAddress/cac:LocationCoordinate';
+
+        $this->assertSame(['-12.04637', 'DD', '-77.04279412', 'DD'], [
+            $xpath->evaluate("string($partida/cbc:LatitudeDegreesMeasure)"),
+            $xpath->evaluate("string($partida/cbc:LatitudeDegreesMeasure/@unitCode)"),
+            $xpath->evaluate("string($partida/cbc:LongitudeDegreesMeasure)"),
+            $xpath->evaluate("string($partida/cbc:LongitudeDegreesMeasure/@unitCode)"),
+        ]);
+        $this->assertSame(['-16.409047', '-71.537451'], [
+            $xpath->evaluate("string($llegada/cbc:LatitudeDegreesMeasure)"),
+            $xpath->evaluate("string($llegada/cbc:LongitudeDegreesMeasure)"),
+        ]);
+        // La coordenada es lo último del cac:Address, después de cac:AddressLine.
+        $this->assertSame(0, $xpath->query("$partida/following-sibling::*")->length);
+        $this->assertSame(1, $xpath->query("$partida/preceding-sibling::cac:AddressLine")->length);
+
+        $item = '/*/cac:DespatchLine[%d]/cac:Item';
+        $this->assertSame(['7750182000014', 'GTIN-13'], [
+            $xpath->evaluate('string('.sprintf($item, 1).'/cac:StandardItemIdentification/cbc:ID)'),
+            $xpath->evaluate('string('.sprintf($item, 1).'/cac:StandardItemIdentification/cbc:ID/@schemeID)'),
+        ]);
+        // Un GTIN de longitud no válida se escribe sin schemeID.
+        $this->assertSame(0, $xpath->query(sprintf($item, 2).'/cac:StandardItemIdentification/cbc:ID[@schemeID]')->length);
+        $this->assertSame(1, $xpath->query(sprintf($item, 1).'/cac:SellersItemIdentification/following-sibling::cac:StandardItemIdentification/following-sibling::cac:CommodityClassification')->length);
+
+        $this->assertSame(0, $xpath->query('/*/cac:Shipment/cac:ShipmentStage/cac:CarrierParty/cac:PartyLegalEntity/cbc:CompanyID')->length);
+        $this->assertSchema($xml);
+    }
+
+    public function testSinGeorreferenciaNiGtinNoSeEscriben()
+    {
+        /** @var Despatch $despatch */
+        $despatch = $this->createDocument(Despatch2022Store::class);
+
+        $xml = $this->build($despatch);
+        $this->assertStringNotContainsString('<cac:LocationCoordinate>', $xml);
+        $this->assertStringNotContainsString('<cac:StandardItemIdentification>', $xml);
+        $this->assertStringContainsString('<cbc:CompanyID>', $xml);
+    }
+
     public function testContenedoresComoTextoSiguenComoAntes()
     {
         /** @var Despatch $despatch */
