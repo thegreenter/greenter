@@ -37,6 +37,27 @@ class NoteParserTest extends TestCase
         $this->assertGreaterThan(1, count($obj->getGuias()));
     }
 
+    public function testParseContrato()
+    {
+        $parser = new NoteParser();
+        $dir = __DIR__ . '/../../Resources/note/';
+
+        /**@var $obj Note */
+        $obj = $parser->parse(file_get_contents($dir.'notacr-fac-contrato.xml'));
+        $contrato = $obj->getContrato();
+        $this->assertNotNull($contrato);
+        $this->assertSame(['CCE-2026-014', '1', 'CONSORCIO VIAL DEL SUR', 35.5],
+            [$contrato->getNumero(), $contrato->getTipo(), $contrato->getDescripcion(), $contrato->getPorcentaje()]);
+        $participante = $obj->getParticipantes()[0];
+        $this->assertSame(['6', '20601234567', 'CONSTRUCTORA ANDINA S.A.C.'],
+            [$participante->getTipoDoc(), $participante->getNumDoc(), $participante->getRznSocial()]);
+
+        /**@var $without Note */
+        $without = $parser->parse(file_get_contents($dir.'notacr-fac.xml'));
+        $this->assertNull($without->getContrato());
+        $this->assertNull($without->getParticipantes());
+    }
+
     public function testCreditNoteSfs()
     {
         $parser = new NoteParser();

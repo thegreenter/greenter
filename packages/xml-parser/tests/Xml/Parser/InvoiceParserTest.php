@@ -96,6 +96,27 @@ class InvoiceParserTest extends TestCase
         $this->assertNull($without->getIncoterm());
     }
 
+    public function testParseContrato()
+    {
+        $parser = new InvoiceParser();
+        $dir = __DIR__.'/../../Resources/invoice/';
+
+        /**@var $obj Invoice */
+        $obj = $parser->parse(file_get_contents($dir.'gravada-contrato.xml'));
+        $contrato = $obj->getContrato();
+        $this->assertNotNull($contrato);
+        $this->assertSame(['CCE-2026-014', '1', 'CONSORCIO VIAL DEL SUR', 35.5],
+            [$contrato->getNumero(), $contrato->getTipo(), $contrato->getDescripcion(), $contrato->getPorcentaje()]);
+        $participante = $obj->getParticipantes()[0];
+        $this->assertSame(['6', '20601234567', 'CONSTRUCTORA ANDINA S.A.C.'],
+            [$participante->getTipoDoc(), $participante->getNumDoc(), $participante->getRznSocial()]);
+
+        /**@var $without Invoice */
+        $without = $parser->parse(file_get_contents($dir.'gravada.xml'));
+        $this->assertNull($without->getContrato());
+        $this->assertNull($without->getParticipantes());
+    }
+
     public function providerDocs()
     {
         $files = glob(__DIR__.'/../../Resources/invoice/*.xml');

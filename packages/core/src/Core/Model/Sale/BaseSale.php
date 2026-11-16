@@ -192,6 +192,22 @@ class BaseSale implements DocumentInterface
     protected $cuotas;
 
     /**
+     * Contrato de colaboración empresarial del que forma parte la operación
+     * (cac:ContractDocumentReference).
+     *
+     * @var Contrato|null
+     */
+    protected $contrato;
+
+    /**
+     * Otros participantes asociados a la transacción: tipo y número de
+     * documento y razón social (cac:AccountingCustomerParty/.../cac:ShareholderParty).
+     *
+     * @var Client[]|null
+     */
+    protected $participantes;
+
+    /**
      * @return string
      */
     public function getUblVersion(): ?string
@@ -862,5 +878,45 @@ class BaseSale implements DocumentInterface
         ];
 
         return join('-', $parts);
+    }
+
+    /**
+     * @return Contrato|null
+     */
+    public function getContrato(): ?Contrato
+    {
+        return $this->contrato;
+    }
+
+    /**
+     * @param Contrato|null $contrato
+     *
+     * @return self
+     */
+    public function setContrato(?Contrato $contrato): self
+    {
+        $this->contrato = $contrato;
+
+        return $this;
+    }
+
+    /**
+     * @return Client[]|null
+     */
+    public function getParticipantes(): ?array
+    {
+        return $this->participantes;
+    }
+
+    /**
+     * @param Client[]|null $participantes
+     *
+     * @return self
+     */
+    public function setParticipantes(?array $participantes): self
+    {
+        $this->participantes = $participantes;
+
+        return $this;
     }
 }

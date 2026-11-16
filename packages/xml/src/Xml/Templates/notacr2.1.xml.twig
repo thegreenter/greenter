@@ -39,6 +39,25 @@
     </cac:DespatchDocumentReference>
     {% endfor %}
     {% endif %}
+    {% if doc.contrato %}
+    {% set contrato = doc.contrato %}
+    <cac:ContractDocumentReference>
+        <cbc:ID>{{ contrato.numero }}</cbc:ID>
+        <cbc:DocumentTypeCode>{{ contrato.tipo }}</cbc:DocumentTypeCode>
+        {% if contrato.descripcion %}
+        <cbc:DocumentDescription><![CDATA[{{ contrato.descripcion|raw }}]]></cbc:DocumentDescription>
+        {% endif %}
+        {% if contrato.porcentaje is not null %}
+        <cac:IssuerParty>
+            <cac:PartyLegalEntity>
+                <cac:ShareholderParty>
+                    <cbc:PartecipationPercent>{{ contrato.porcentaje|n_format }}</cbc:PartecipationPercent>
+                </cac:ShareholderParty>
+            </cac:PartyLegalEntity>
+        </cac:IssuerParty>
+        {% endif %}
+    </cac:ContractDocumentReference>
+    {% endif %}
     {% if doc.relDocs %}
     {% for rel in doc.relDocs %}
     <cac:AdditionalDocumentReference>
@@ -150,6 +169,18 @@
                         </cac:Country>
                     </cac:RegistrationAddress>
                 {% endif %}
+                {% for participante in doc.participantes ?? [] %}
+                <cac:ShareholderParty>
+                    <cac:Party>
+                        <cac:PartyIdentification>
+                            <cbc:ID schemeID="{{ participante.tipoDoc }}">{{ participante.numDoc }}</cbc:ID>
+                        </cac:PartyIdentification>
+                        <cac:PartyLegalEntity>
+                            <cbc:RegistrationName><![CDATA[{{ participante.rznSocial|raw }}]]></cbc:RegistrationName>
+                        </cac:PartyLegalEntity>
+                    </cac:Party>
+                </cac:ShareholderParty>
+                {% endfor %}
             </cac:PartyLegalEntity>
             {% if client.email or client.telephone %}
                 <cac:Contact>
