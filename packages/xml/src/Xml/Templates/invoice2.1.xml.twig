@@ -124,6 +124,13 @@
                 {% endif %}
             </cac:Contact>
             {% endif %}
+            {% if doc.agenteVentas %}
+            <cac:AgentParty>
+                <cac:PartyIdentification>
+                    <cbc:ID schemeID="{{ doc.agenteVentas.tipoDoc }}">{{ doc.agenteVentas.numDoc }}</cbc:ID>
+                </cac:PartyIdentification>
+            </cac:AgentParty>
+            {% endif %}
         </cac:Party>
     </cac:AccountingSupplierParty>
     {% set client = doc.client %}
@@ -258,6 +265,14 @@
     <cac:DeliveryTerms>
         <cbc:ID>{{ doc.incoterm }}</cbc:ID>
     </cac:DeliveryTerms>
+    {% endif %}
+    {% if doc.medioPago %}
+    <cac:PaymentMeans>
+        <cbc:PaymentMeansCode>{{ doc.medioPago.codigo }}</cbc:PaymentMeansCode>
+        {% if doc.medioPago.autorizacion %}
+        <cbc:PaymentID>{{ doc.medioPago.autorizacion }}</cbc:PaymentID>
+        {% endif %}
+    </cac:PaymentMeans>
     {% endif %}
     {% if doc.detraccion %}
     {% set detr = doc.detraccion %}
