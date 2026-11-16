@@ -502,6 +502,110 @@
             </cac:AlternativeConditionPrice>
             {% endif %}
         </cac:PricingReference>
+        {% if detail.transporteCarga %}
+        {% set tc = detail.transporteCarga %}
+        <cac:Delivery>
+            {% if tc.destino %}
+            <cac:DeliveryLocation>
+                <cac:Address>
+                    <cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">{{ tc.destino.ubigueo }}</cbc:ID>
+                    {% if tc.destino.direccion %}
+                    <cac:AddressLine>
+                        <cbc:Line><![CDATA[{{ tc.destino.direccion|raw }}]]></cbc:Line>
+                    </cac:AddressLine>
+                    {% endif %}
+                </cac:Address>
+            </cac:DeliveryLocation>
+            {% endif %}
+            {% if tc.origen or tc.detalleViaje %}
+            <cac:Despatch>
+                {% if tc.detalleViaje %}
+                <cbc:Instructions><![CDATA[{{ tc.detalleViaje|raw }}]]></cbc:Instructions>
+                {% endif %}
+                {% if tc.origen %}
+                <cac:DespatchAddress>
+                    <cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">{{ tc.origen.ubigueo }}</cbc:ID>
+                    {% if tc.origen.direccion %}
+                    <cac:AddressLine>
+                        <cbc:Line><![CDATA[{{ tc.origen.direccion|raw }}]]></cbc:Line>
+                    </cac:AddressLine>
+                    {% endif %}
+                </cac:DespatchAddress>
+                {% endif %}
+            </cac:Despatch>
+            {% endif %}
+            {% for valor in [['01', tc.valorReferencial], ['02', tc.valorReferencialCargaEfectiva], ['03', tc.valorReferencialCargaUtil]] %}
+            {% if valor[1] is not null %}
+            <cac:DeliveryTerms>
+                <cbc:ID>{{ valor[0] }}</cbc:ID>
+                <cbc:Amount currencyID="PEN">{{ valor[1]|n_format }}</cbc:Amount>
+            </cac:DeliveryTerms>
+            {% endif %}
+            {% endfor %}
+            {% if tc.tramos %}
+            <cac:Shipment>
+                <cbc:ID>01</cbc:ID>
+                {% for tramo in tc.tramos %}
+                <cac:Consignment>
+                    <cbc:ID>{{ tramo.id }}</cbc:ID>
+                    {% if tramo.descripcion %}
+                    <cbc:CarrierServiceInstructions><![CDATA[{{ tramo.descripcion|raw }}]]></cbc:CarrierServiceInstructions>
+                    {% endif %}
+                    {% if tramo.valorCargaUtilNominal is not null %}
+                    <cbc:DeclaredForCarriageValueAmount currencyID="PEN">{{ tramo.valorCargaUtilNominal|n_format }}</cbc:DeclaredForCarriageValueAmount>
+                    {% endif %}
+                    {% if tramo.ubigeoOrigen %}
+                    <cac:PlannedPickupTransportEvent>
+                        <cac:Location>
+                            <cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">{{ tramo.ubigeoOrigen }}</cbc:ID>
+                        </cac:Location>
+                    </cac:PlannedPickupTransportEvent>
+                    {% endif %}
+                    {% if tramo.ubigeoDestino %}
+                    <cac:PlannedDeliveryTransportEvent>
+                        <cac:Location>
+                            <cbc:ID schemeAgencyName="PE:INEI" schemeName="Ubigeos">{{ tramo.ubigeoDestino }}</cbc:ID>
+                        </cac:Location>
+                    </cac:PlannedDeliveryTransportEvent>
+                    {% endif %}
+                    {% if tramo.valorCargaEfectiva is not null %}
+                    <cac:DeliveryTerms>
+                        <cbc:Amount currencyID="PEN">{{ tramo.valorCargaEfectiva|n_format }}</cbc:Amount>
+                    </cac:DeliveryTerms>
+                    {% endif %}
+                    {% for vehiculo in tramo.vehiculos ?? [] %}
+                    <cac:TransportHandlingUnit>
+                        <cac:TransportEquipment>
+                            {% if vehiculo.configuracion %}
+                            <cbc:SizeTypeCode listAgencyName="PE:MTC" listName="Configuracion Vehícular">{{ vehiculo.configuracion }}</cbc:SizeTypeCode>
+                            {% endif %}
+                            {% if vehiculo.retornoVacio is not null %}
+                            <cbc:ReturnabilityIndicator>{{ vehiculo.retornoVacio ? 'true' : 'false' }}</cbc:ReturnabilityIndicator>
+                            {% endif %}
+                            {% if vehiculo.valorReferencialTm is not null %}
+                            <cac:Delivery>
+                                <cac:DeliveryTerms>
+                                    <cbc:Amount currencyID="PEN">{{ vehiculo.valorReferencialTm|n_format }}</cbc:Amount>
+                                </cac:DeliveryTerms>
+                            </cac:Delivery>
+                            {% endif %}
+                        </cac:TransportEquipment>
+                        {% for carga in [['01', vehiculo.cargaUtil], ['02', vehiculo.cargaEfectiva]] %}
+                        {% if carga[1] is not null %}
+                        <cac:MeasurementDimension>
+                            <cbc:AttributeID>{{ carga[0] }}</cbc:AttributeID>
+                            <cbc:Measure unitCode="TNE">{{ carga[1]|n_format }}</cbc:Measure>
+                        </cac:MeasurementDimension>
+                        {% endif %}
+                        {% endfor %}
+                    </cac:TransportHandlingUnit>
+                    {% endfor %}
+                </cac:Consignment>
+                {% endfor %}
+            </cac:Shipment>
+            {% endif %}
+        </cac:Delivery>
+        {% endif %}
         {% if detail.cargos %}
         {% for cargo in detail.cargos %}
         <cac:AllowanceCharge>
