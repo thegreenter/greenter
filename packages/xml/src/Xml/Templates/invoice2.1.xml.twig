@@ -132,6 +132,12 @@
             <cac:PartyIdentification>
                 <cbc:ID schemeID="{{ client.tipoDoc }}">{{ client.numDoc }}</cbc:ID>
             </cac:PartyIdentification>
+            {% if doc.direccionDestino %}
+            {% set addr = doc.direccionDestino %}
+            <cac:PhysicalLocation>
+                {{ block('ubigeoAddress') }}
+            </cac:PhysicalLocation>
+            {% endif %}
             <cac:PartyLegalEntity>
                 <cbc:RegistrationName><![CDATA[{{ client.rznSocial|raw }}]]></cbc:RegistrationName>
                 {% if client.address %}
@@ -226,6 +232,8 @@
         {% set addr = doc.direccionEntrega %}
         <cac:Delivery>
             <cac:DeliveryLocation>
+                {# También en cac:PhysicalLocation del adquirente, con block('ubigeoAddress') #}
+                {% block ubigeoAddress %}
                 <cac:Address>
                     {% if addr.ubigueo %}
                     <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
@@ -251,6 +259,7 @@
                         <cbc:IdentificationCode listID="ISO 3166-1" listAgencyName="United Nations Economic Commission for Europe" listName="Country">{{ addr.codigoPais }}</cbc:IdentificationCode>
                     </cac:Country>
                 </cac:Address>
+                {% endblock %}
             </cac:DeliveryLocation>
         </cac:Delivery>
     {% endif %}
