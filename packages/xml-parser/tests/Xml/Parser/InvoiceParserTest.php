@@ -96,6 +96,34 @@ class InvoiceParserTest extends TestCase
         $this->assertNull($without->getIncoterm());
     }
 
+    public function testParseTransporteCarga()
+    {
+        $parser = new InvoiceParser();
+        $dir = __DIR__.'/../../Resources/invoice/';
+
+        /**@var $invoice Invoice */
+        $invoice = $parser->parse(file_get_contents($dir.'detraccion-transporte-carga.xml'));
+        $transporte = $invoice->getDetails()[0]->getTransporteCarga();
+        $this->assertNotNull($transporte);
+        $this->assertSame(['150101', 'AV. ARGENTINA 2450, LIMA', '040101', 'CALLE MERCADERES 120, AREQUIPA', 'LIMA - AREQUIPA, CARGA GENERAL'], [
+            $transporte->getOrigen()->getUbigueo(), $transporte->getOrigen()->getDireccion(),
+            $transporte->getDestino()->getUbigueo(), $transporte->getDestino()->getDireccion(), $transporte->getDetalleViaje(),
+        ]);
+        $this->assertSame([1200.0, 1000.0, 1100.0], [$transporte->getValorReferencial(),
+            $transporte->getValorCargaEfectiva(), $transporte->getValorCargaUtil()]);
+        $tramo = $transporte->getTramos()[0];
+        $this->assertSame(['1', '150101', '040101', 'LIMA - AREQUIPA POR LA PANAMERICANA SUR', 950.0, 1050.0], [$tramo->getId(),
+            $tramo->getUbigeoOrigen(), $tramo->getUbigeoDestino(), $tramo->getDescripcion(), $tramo->getValorCargaEfectiva(),
+            $tramo->getValorCargaNominal()]);
+        $vehiculo = $tramo->getVehiculos()[0];
+        $this->assertSame(['T3S3', 30.0, 28.5, 40.0, false], [$vehiculo->getConfiguracion(), $vehiculo->getCargaUtil(),
+            $vehiculo->getCargaEfectiva(), $vehiculo->getValorReferencialTm(), $vehiculo->isRetornoVacio()]);
+
+        /**@var $without Invoice */
+        $without = $parser->parse(file_get_contents($dir.'detraccion.xml'));
+        $this->assertNull($without->getDetails()[0]->getTransporteCarga());
+    }
+
     public function testParseAgenteYMedioDePago()
     {
         $parser = new InvoiceParser();

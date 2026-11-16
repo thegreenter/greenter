@@ -28,6 +28,9 @@ use Greenter\Model\Sale\MedioPago;
 use Greenter\Model\Sale\Prepayment;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
+use Greenter\Model\Sale\TramoTransporte;
+use Greenter\Model\Sale\TransporteCarga;
+use Greenter\Model\Sale\VehiculoTransporte;
 use Greenter\Parser\DocumentParserInterface;
 
 /**
@@ -313,9 +316,73 @@ class InvoiceParser implements DocumentParserInterface
             $this->loadTaxDetail($det, $xpt, $node);
             $this->loadDescuentosDetail($det, $xpt, $node);
             $this->loadPricesDetail($det, $xpt, $node);
+            $this->loadTransporteCarga($det, $xpt, $node);
 
             yield $det;
         }
+    }
+
+    /**
+     * Detracción del servicio de transporte de carga (tipo de operación 1004):
+     * campos 113 a 128 de «Factura2_0», en /Invoice/cac:InvoiceLine/cac:Delivery.
+     */
+    private function loadTransporteCarga(SaleDetail $detail, DOMXPath $xpt, DOMNode $detailNode)
+    {
+        $delivery = $xpt->query('cac:Delivery', $detailNode)->item(0);
+        if ($delivery === null) {
+            return;
+        }
+        $direccion = function (string $path) use ($xpt, $delivery) {
+            $node = $xpt->query($path, $delivery)->item(0);
+
+            return $node === null ? null : (new Address())
+                ->setUbigueo($this->defValue($xpt->query('cbc:ID', $node)))
+                ->setDireccion($this->defValue($xpt->query('cac:AddressLine/cbc:Line', $node)));
+        };
+        $tramos = [];
+        foreach ($xpt->query('cac:Shipment/cac:Consignment', $delivery) as $consignment) {
+            $vehiculos = [];
+            foreach ($xpt->query('cac:TransportHandlingUnit', $consignment) as $unit) {
+                $retorno = $this->defValue($xpt->query('cac:TransportEquipment/cbc:ReturnabilityIndicator', $unit));
+                $vehiculos[] = (new VehiculoTransporte())
+                    ->setConfiguracion($this->nullableValue($xpt->query('cac:TransportEquipment/cbc:SizeTypeCode', $unit)))
+                    ->setCargaUtil($this->nullableFloat($xpt->query('cac:MeasurementDimension[cbc:AttributeID="01"]/cbc:Measure', $unit)))
+                    ->setCargaEfectiva($this->nullableFloat($xpt->query('cac:MeasurementDimension[cbc:AttributeID="02"]/cbc:Measure', $unit)))
+                    ->setValorReferencialTm($this->nullableFloat($xpt->query('cac:TransportEquipment/cac:Delivery/cac:DeliveryTerms/cbc:Amount', $unit)))
+                    ->setRetornoVacio($retorno === '' ? null : trim($retorno) === 'true');
+            }
+            $tramos[] = (new TramoTransporte())
+                ->setId($this->nullableValue($xpt->query('cbc:ID', $consignment)))
+                ->setUbigeoOrigen($this->nullableValue($xpt->query('cac:PlannedPickupTransportEvent/cac:Location/cbc:ID', $consignment)))
+                ->setUbigeoDestino($this->nullableValue($xpt->query('cac:PlannedDeliveryTransportEvent/cac:Location/cbc:ID', $consignment)))
+                ->setDescripcion($this->nullableValue($xpt->query('cbc:CarrierServiceInstructions', $consignment)))
+                ->setValorCargaEfectiva($this->nullableFloat($xpt->query('cac:DeliveryTerms/cbc:Amount', $consignment)))
+                ->setValorCargaNominal($this->nullableFloat($xpt->query('cbc:DeclaredForCarriageValueAmount', $consignment)))
+                ->setVehiculos($vehiculos);
+        }
+
+        $detail->setTransporteCarga((new TransporteCarga())
+            ->setOrigen($direccion('cac:Despatch/cac:DespatchAddress'))
+            ->setDestino($direccion('cac:DeliveryLocation/cac:Address'))
+            ->setDetalleViaje($this->nullableValue($xpt->query('cac:Despatch/cbc:Instructions', $delivery)))
+            ->setValorReferencial($this->nullableFloat($xpt->query('cac:DeliveryTerms[cbc:ID="01"]/cbc:Amount', $delivery)))
+            ->setValorCargaEfectiva($this->nullableFloat($xpt->query('cac:DeliveryTerms[cbc:ID="02"]/cbc:Amount', $delivery)))
+            ->setValorCargaUtil($this->nullableFloat($xpt->query('cac:DeliveryTerms[cbc:ID="03"]/cbc:Amount', $delivery)))
+            ->setTramos($tramos));
+    }
+
+    private function nullableValue(DOMNodeList $nodeList): ?string
+    {
+        $value = $this->defValue($nodeList);
+
+        return $value === '' ? null : $value;
+    }
+
+    private function nullableFloat(DOMNodeList $nodeList): ?float
+    {
+        $value = $this->defValue($nodeList);
+
+        return $value === '' ? null : (float) $value;
     }
 
     private function loadTaxDetail(SaleDetail $detail, DOMXPath $xpt, DOMNode $detailNode)
