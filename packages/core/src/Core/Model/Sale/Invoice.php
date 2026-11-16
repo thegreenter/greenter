@@ -116,6 +116,14 @@ class Invoice extends BaseSale
     private $direccionEntrega;
 
     /**
+     * Dirección en el país o lugar de destino del adquirente (cac:PhysicalLocation):
+     * campo 20 de Boleta2_0, ventas a usuarios de Zofratacna.
+     *
+     * @var Address|null
+     */
+    private $direccionDestino;
+
+    /**
      * Incoterm (cac:DeliveryTerms/cbc:ID): campo 62 de Factura2_0 y 61 de Boleta2_0.
      *
      * @var string|null
@@ -493,6 +501,26 @@ class Invoice extends BaseSale
     public function setDireccionEntrega(?Address $direccionEntrega): Invoice
     {
         $this->direccionEntrega = $direccionEntrega;
+
+        return $this;
+    }
+
+    /**
+     * @return Address|null
+     */
+    public function getDireccionDestino(): ?Address
+    {
+        return $this->direccionDestino;
+    }
+
+    /**
+     * @param Address|null $direccionDestino
+     *
+     * @return Invoice
+     */
+    public function setDireccionDestino(?Address $direccionDestino): Invoice
+    {
+        $this->direccionDestino = $direccionDestino;
 
         return $this;
     }
