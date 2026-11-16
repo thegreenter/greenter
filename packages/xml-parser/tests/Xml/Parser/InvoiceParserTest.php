@@ -124,6 +124,22 @@ class InvoiceParserTest extends TestCase
         $this->assertNull($without->getDetails()[0]->getTransporteCarga());
     }
 
+    public function testParseAgenteYMedioDePago()
+    {
+        $parser = new InvoiceParser();
+        $dir = __DIR__.'/../../Resources/invoice/';
+
+        /**@var $obj Invoice */
+        $obj = $parser->parse(file_get_contents($dir.'gravada-bvme.xml'));
+        $this->assertSame(['6', '20100123456'], [$obj->getAgenteVentas()->getTipoDoc(), $obj->getAgenteVentas()->getNumDoc()]);
+        $this->assertSame(['006', 'VISA-482913'], [$obj->getMedioPago()->getCodigo(), $obj->getMedioPago()->getAutorizacion()]);
+
+        /**@var $without Invoice */
+        $without = $parser->parse(file_get_contents($dir.'gravada.xml'));
+        $this->assertNull($without->getAgenteVentas());
+        $this->assertNull($without->getMedioPago());
+    }
+
     public function providerDocs()
     {
         $files = glob(__DIR__.'/../../Resources/invoice/*.xml');

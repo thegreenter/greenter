@@ -15,8 +15,10 @@ use Greenter\Data\Generator\InvoiceFullStore;
 use Greenter\Data\Generator\InvoiceIcbperStore;
 use Greenter\Data\Generator\InvoiceIvapStore;
 use Greenter\Data\Generator\InvoicePagoCreditoStore;
+use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Sale\Invoice;
+use Greenter\Model\Sale\MedioPago;
 use Greenter\Model\Sale\TramoTransporte;
 use Greenter\Model\Sale\TransporteCarga;
 use Greenter\Model\Sale\VehiculoTransporte;
@@ -201,6 +203,53 @@ class FeInvoiceBuilderTest extends TestCase
         $xpath = new \DOMXPath($doc);
         $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
         $this->assertSame(0, $xpath->query('/*/cac:InvoiceLine/cac:Delivery')->length);
+    }
+
+    /**
+     * @dataProvider facturaYBoleta
+     */
+    public function testAgenteDeVentasYMedioDePago(string $tipoDoc)
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1')
+            ->setTipoDoc($tipoDoc)
+            ->setTipoOperacion('0302')
+            ->setAgenteVentas((new Client())->setTipoDoc('6')->setNumDoc('20100123456'))
+            ->setMedioPago((new MedioPago())->setCodigo('006')->setAutorizacion('VISA-482913'));
+
+        $xml = $this->build($invoice);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $xpath->registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+        $agente = '/*/cac:AccountingSupplierParty/cac:Party/cac:AgentParty/cac:PartyIdentification/cbc:ID';
+        $this->assertSame(['20100123456', '6'], [$xpath->evaluate('string('.$agente.')'), $xpath->evaluate('string('.$agente.'/@schemeID)')]);
+        $medio = '/*/cac:PaymentMeans[cbc:PaymentID]';
+        $this->assertSame(['006', 'VISA-482913'], [
+            $xpath->evaluate('string('.$medio.'/cbc:PaymentMeansCode)'),
+            $xpath->evaluate('string('.$medio.'/cbc:PaymentID)'),
+        ]);
+        // Antes de cualquier cac:PaymentTerms, como pide UBL 2.1.
+        $this->assertSame(0, $xpath->query('/*/cac:PaymentTerms/following-sibling::cac:PaymentMeans')->length);
+        $this->assertSchema($xml);
+    }
+
+    public function facturaYBoleta()
+    {
+        return [['01'], ['03']];
+    }
+
+    public function testSinAgenteNiMedioDePagoNoSeEscriben()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+        $xml = $this->build($invoice);
+
+        $this->assertStringNotContainsString('<cac:AgentParty>', $xml);
+        $this->assertStringNotContainsString('<cbc:PaymentID>', $xml);
     }
 
     /**

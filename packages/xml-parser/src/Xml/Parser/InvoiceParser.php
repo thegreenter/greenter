@@ -24,6 +24,7 @@ use Greenter\Model\Sale\Detraction;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
+use Greenter\Model\Sale\MedioPago;
 use Greenter\Model\Sale\Prepayment;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
@@ -243,6 +244,20 @@ class InvoiceParser implements DocumentParserInterface
         $incoterm = $this->defValue($xpt->query('/xt:Invoice/cac:DeliveryTerms/cbc:ID'));
         if ($incoterm !== '') {
             $inv->setIncoterm($incoterm);
+        }
+
+        // El agente de ventas y el medio de pago con su número de autorización (tipo de operación 0302).
+        $agente = $xpt->query('/xt:Invoice/cac:AccountingSupplierParty/cac:Party/cac:AgentParty/cac:PartyIdentification/cbc:ID');
+        if ($agente->length > 0) {
+            $inv->setAgenteVentas((new Client())
+                ->setTipoDoc($this->defNodeAttribute($agente, 'schemeID'))
+                ->setNumDoc($this->defValue($agente)));
+        }
+        $medio = $xpt->query('/xt:Invoice/cac:PaymentMeans[cbc:PaymentID]')->item(0);
+        if ($medio !== null) {
+            $inv->setMedioPago((new MedioPago())
+                ->setCodigo($this->defValue($xpt->query('cbc:PaymentMeansCode', $medio)))
+                ->setAutorizacion($this->defValue($xpt->query('cbc:PaymentID', $medio))));
         }
     }
 
