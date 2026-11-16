@@ -20,6 +20,7 @@ use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Sale\Contrato;
 use Greenter\Model\Sale\Detraction;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Invoice;
@@ -70,6 +71,7 @@ class InvoiceParser implements DocumentParserInterface
             ->setDetails(iterator_to_array($this->getDetails($xpt)))
             ->setLegends(iterator_to_array($this->getLegends($xpt, $additional)));
         $this->loadExtras($xpt, $inv);
+        $this->loadContrato($xpt, $inv);
 
         return $inv;
     }
@@ -229,6 +231,36 @@ class InvoiceParser implements DocumentParserInterface
             ->setAddress($this->getAddress($xp, $node));
 
         return $cl;
+    }
+
+    /**
+     * El contrato de colaboración empresarial (cac:ContractDocumentReference) y
+     * los otros participantes asociados a la transacción (cac:ShareholderParty
+     * del adquirente).
+     */
+    private function loadContrato(DOMXPath $xpt, Invoice $inv)
+    {
+        $node = $xpt->query('/xt:Invoice/cac:ContractDocumentReference')->item(0);
+        if ($node !== null) {
+            $descripcion = $this->defValue($xpt->query('cbc:DocumentDescription', $node));
+            $porcentaje = $this->defValue($xpt->query('cac:IssuerParty/cac:PartyLegalEntity/cac:ShareholderParty/cbc:PartecipationPercent', $node));
+            $inv->setContrato((new Contrato())
+                ->setNumero($this->defValue($xpt->query('cbc:ID', $node)))
+                ->setTipo($this->defValue($xpt->query('cbc:DocumentTypeCode', $node)))
+                ->setDescripcion($descripcion === '' ? null : $descripcion)
+                ->setPorcentaje($porcentaje === '' ? null : (float) $porcentaje));
+        }
+
+        $participantes = [];
+        foreach ($xpt->query('/xt:Invoice/cac:AccountingCustomerParty/cac:Party/cac:PartyLegalEntity/cac:ShareholderParty/cac:Party') as $party) {
+            $participantes[] = (new Client())
+                ->setTipoDoc($this->defNodeAttribute($xpt->query('cac:PartyIdentification/cbc:ID', $party), 'schemeID'))
+                ->setNumDoc($this->defValue($xpt->query('cac:PartyIdentification/cbc:ID', $party)))
+                ->setRznSocial($this->defValue($xpt->query('cac:PartyLegalEntity/cbc:RegistrationName', $party)));
+        }
+        if ($participantes !== []) {
+            $inv->setParticipantes($participantes);
+        }
     }
 
     private function loadExtras(DOMXPath $xpt, Invoice $inv)

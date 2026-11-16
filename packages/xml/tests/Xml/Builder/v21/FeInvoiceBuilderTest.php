@@ -30,6 +30,7 @@ class FeInvoiceBuilderTest extends TestCase
 {
     use FeBuilderTrait;
     use XsdValidatorTrait;
+    use ContratoTrait;
 
     public function testGenerate()
     {
@@ -252,6 +253,26 @@ class FeInvoiceBuilderTest extends TestCase
         $this->assertStringNotContainsString('<cbc:PaymentID>', $xml);
     }
 
+    public function testContratoDeColaboracion()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+
+        $this->assertContrato($this->build($this->conContrato($invoice)));
+    }
+
+    public function testSinContratoNoSeEscribe()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+        $xml = $this->build($invoice);
+
+        $this->assertStringNotContainsString('<cac:ContractDocumentReference>', $xml);
+        $this->assertStringNotContainsString('<cac:ShareholderParty>', $xml);
+    }
+ 
     /**
      * @dataProvider storeProvider
      */

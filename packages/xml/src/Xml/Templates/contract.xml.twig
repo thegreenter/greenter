@@ -1,0 +1,19 @@
+{# Contrato de colaboración empresarial (cac:ContractDocumentReference): factura y notas 2.1. #}
+{% if contrato %}
+<cac:ContractDocumentReference>
+    <cbc:ID>{{ contrato.numero }}</cbc:ID>
+    <cbc:DocumentTypeCode>{{ contrato.tipo }}</cbc:DocumentTypeCode>
+    {% if contrato.descripcion %}
+    <cbc:DocumentDescription><![CDATA[{{ contrato.descripcion|raw }}]]></cbc:DocumentDescription>
+    {% endif %}
+    {% if contrato.porcentaje is not null %}
+    <cac:IssuerParty>
+        <cac:PartyLegalEntity>
+            <cac:ShareholderParty>
+                <cbc:PartecipationPercent>{{ contrato.porcentaje|n_format }}</cbc:PartecipationPercent>
+            </cac:ShareholderParty>
+        </cac:PartyLegalEntity>
+    </cac:IssuerParty>
+    {% endif %}
+</cac:ContractDocumentReference>
+{% endif %}

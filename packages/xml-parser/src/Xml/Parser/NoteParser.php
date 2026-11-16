@@ -17,6 +17,7 @@ use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Sale\Contrato;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Legend;
 use Greenter\Model\Sale\Note;
@@ -76,6 +77,7 @@ class NoteParser implements DocumentParserInterface
             ->setDetails(iterator_to_array($this->getDetails($isNcr)))
             ->setLegends(iterator_to_array($this->getLegends($additional)))
             ->setGuias(iterator_to_array($this->getGuias($root)));
+        $this->loadContrato($note, $root);
 
         return $note;
     }
@@ -165,6 +167,39 @@ class NoteParser implements DocumentParserInterface
             ->setDesMotivo($xml->getValue('cbc:Description', $node))
             ->setNumDocfectado($xml->getValue('cbc:ReferenceID', $node))
             ->setTipDocAfectado($xml->getValue('cac:BillingReference/cac:InvoiceDocumentReference/cbc:DocumentTypeCode'));
+    }
+
+    /**
+     * El contrato de colaboración empresarial (cac:ContractDocumentReference) y
+     * los otros participantes asociados a la transacción (cac:ShareholderParty
+     * del adquirente).
+     */
+    private function loadContrato(Note $note, DOMElement $root)
+    {
+        $xml = $this->reader;
+        $node = $xml->getNode('cac:ContractDocumentReference', $root);
+        if ($node !== null) {
+            $descripcion = $xml->getValue('cbc:DocumentDescription', $node);
+            $porcentaje = $xml->getValue('cac:IssuerParty/cac:PartyLegalEntity/cac:ShareholderParty/cbc:PartecipationPercent', $node);
+            $note->setContrato((new Contrato())
+                ->setNumero($xml->getValue('cbc:ID', $node))
+                ->setTipo($xml->getValue('cbc:DocumentTypeCode', $node))
+                ->setDescripcion($descripcion === '' ? null : $descripcion)
+                ->setPorcentaje($porcentaje === '' ? null : (float) $porcentaje));
+        }
+
+        $participantes = [];
+        foreach ($xml->getNodes('cac:AccountingCustomerParty/cac:Party/cac:PartyLegalEntity/cac:ShareholderParty/cac:Party', $root) as $party) {
+            /** @var DOMElement|null $id */
+            $id = $xml->getNode('cac:PartyIdentification/cbc:ID', $party);
+            $participantes[] = (new Client())
+                ->setTipoDoc($id === null ? '' : $id->getAttribute('schemeID'))
+                ->setNumDoc($xml->getValue('cac:PartyIdentification/cbc:ID', $party))
+                ->setRznSocial($xml->getValue('cac:PartyLegalEntity/cbc:RegistrationName', $party));
+        }
+        if ($participantes !== []) {
+            $note->setParticipantes($participantes);
+        }
     }
 
     private function getClient()

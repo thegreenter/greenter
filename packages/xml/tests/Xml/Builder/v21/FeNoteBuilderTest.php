@@ -24,6 +24,7 @@ class FeNoteBuilderTest extends TestCase
 {
     use FeBuilderTrait;
     use XsdValidatorTrait;
+    use ContratoTrait;
 
     public function testCreateXmlCreditNote()
     {
@@ -56,5 +57,23 @@ class FeNoteBuilderTest extends TestCase
         $this->assertNotEmpty($xml);
         $this->assertSchema($xml);
         $this->assertZeroTaxAmountFormat($xml, 2);
+    }
+
+    /**
+     * @dataProvider tiposDeNota
+     */
+    public function testContratoDeColaboracion(string $tipo)
+    {
+        /**@var $note Note*/
+        $note = $this->createDocument(NoteStore::class);
+        $note->setTipoDoc($tipo);
+        $note->setUblVersion('2.1');
+
+        $this->assertContrato($this->build($this->conContrato($note)));
+    }
+
+    public function tiposDeNota()
+    {
+        return [['07'], ['08']];
     }
 }
