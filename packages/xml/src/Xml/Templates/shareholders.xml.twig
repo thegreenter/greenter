@@ -1,0 +1,13 @@
+{# Otros participantes asociados a la transacción (cac:ShareholderParty del adquirente): factura y notas 2.1. #}
+{% for participante in participantes %}
+<cac:ShareholderParty>
+    <cac:Party>
+        <cac:PartyIdentification>
+            <cbc:ID schemeID="{{ participante.tipoDoc }}">{{ participante.numDoc }}</cbc:ID>
+        </cac:PartyIdentification>
+        <cac:PartyLegalEntity>
+            <cbc:RegistrationName><![CDATA[{{ participante.rznSocial|raw }}]]></cbc:RegistrationName>
+        </cac:PartyLegalEntity>
+    </cac:Party>
+</cac:ShareholderParty>
+{% endfor %}
