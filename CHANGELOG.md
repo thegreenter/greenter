@@ -8,13 +8,14 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 - Retención/Percepción: alinear campos con las reglas de validación SUNAT (26.08.2026)
 - Resumen diario: nodo del adquiriente opcional, razón social del adquiriente (`clienteNombre`), operaciones gratuitas por tipo (catálogo 11: 06-09) e IGV de gratuitas (tributo 9996) en `SummaryDetail::gratuitas` (`SummaryGratuitas`).
 - Resumen diario: `SummaryDetail::mtoOperGratuitas` (catálogo 11: 05) queda deprecado (usar `SummaryGratuitas`), SUNAT lo desactiva a partir del 2027-01-01.
-- **Seguridad** XML: los textos del usuario se escapan siempre (`&`, `<`, `>`, comillas) y la secuencia `]]>` ya no puede cerrar una sección CDATA. Antes generaban un XML inválido o permitían inyectar nodos. Si escapabas los valores manualmente antes de asignarlos al modelo, deja de hacerlo para evitar doble escape.
+- XML: los textos fuera de CDATA (direcciones de la guía, nombres del conductor, correos, etc.) se escapan siempre (`&`, `<`, `>`, comillas); antes generaban un XML inválido. Los valores dentro de CDATA se mantienen sin escapar (`|raw`): el usuario es responsable de su contenido. Si escapabas manualmente valores fuera de CDATA, deja de hacerlo para evitar doble escape.
 - **Seguridad** SOAP: nuevo `SoapClient::createSecure()` / `SoapClient::secureParameters()` y `See::__construct(?SoapClient $wsClient)` para verificar el certificado TLS de SUNAT. El cliente por defecto aún no lo verifica; lo hará en v6.
 - **Seguridad** `greenter/xcodes`: corregir inyección XPath en `XmlErrorCodeProvider::getValue()`; el catálogo de códigos se carga una sola vez por proceso.
 - Requerir `twig/twig` `^3.11.3` (excluye versiones con CVEs conocidos).
 - `XmlBuilderResolver`: mapa explícito documento => builder con soporte de subclases de los modelos, `register()` para builders propios (accesible con `See::getBuilderResolver()` y `Api::getBuilderResolver()`) y reutilización de builders/Twig entre envíos.
 - `WsSenderResolver`, `CustomMetadataFactory` (validator) y `DefaultTemplateResolver` (report) soportan subclases de los modelos. La metadata de validación se reutiliza por clase y versión.
-- Plantillas XML: notas de crédito y débito comparten plantilla (`note2.0`/`note2.1`) y la firma (`cac:Signature`) es un parcial común. El XML generado no cambia (tests golden).
+- Notas de crédito y débito 2.1: los subtotales por tipo de operación (gravadas, inafectas, exoneradas, gratuitas y exportación) se informan aun cuando sean cero, igual que en la factura 2.1.
+- Plantillas XML: parciales comunes para la firma (`signature`), el adquirente de factura y notas 2.1 (`customer2.1`) y la dirección con ubigeo (`ubigeoAddress`). Salvo lo indicado arriba, el XML generado no cambia (tests golden).
 - Migrar configuración de PHP CS Fixer a v3 (`.php-cs-fixer.dist.php`).
 - Tests golden del XML generado, tests de escape XML y tests de `greenter/core`.
 

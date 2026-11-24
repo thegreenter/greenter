@@ -1,0 +1,56 @@
+{# Adquirente (cac:AccountingCustomerParty): factura y notas 2.1. #}
+{% autoescape 'html' %}
+<cac:AccountingCustomerParty>
+    <cac:Party>
+        <cac:PartyIdentification>
+            <cbc:ID schemeID="{{ client.tipoDoc }}">{{ client.numDoc }}</cbc:ID>
+        </cac:PartyIdentification>
+        {% if doc.direccionDestino ?? null %}
+            {% set addr = doc.direccionDestino %}
+            <cac:PhysicalLocation>
+                {% include 'ubigeoAddress.xml.twig' %}
+            </cac:PhysicalLocation>
+        {% endif %}
+        <cac:PartyLegalEntity>
+            <cbc:RegistrationName><![CDATA[{{ client.rznSocial|raw }}]]></cbc:RegistrationName>
+            {% if client.address %}
+                {% set addr = client.address %}
+                <cac:RegistrationAddress>
+                    {% if addr.ubigueo %}
+                        <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
+                    {% endif %}
+                    {% if addr.urbanizacion %}
+                        <cbc:CitySubdivisionName>{{ addr.urbanizacion }}</cbc:CitySubdivisionName>
+                    {% endif %}
+                    {% if addr.provincia %}
+                        <cbc:CityName>{{ addr.provincia }}</cbc:CityName>
+                    {% endif %}
+                    {% if addr.departamento %}
+                        <cbc:CountrySubentity>{{ addr.departamento }}</cbc:CountrySubentity>
+                    {% endif %}
+                    {% if addr.distrito %}
+                        <cbc:District>{{ addr.distrito }}</cbc:District>
+                    {% endif %}
+                    <cac:AddressLine>
+                        <cbc:Line><![CDATA[{{ addr.direccion|raw }}]]></cbc:Line>
+                    </cac:AddressLine>
+                    <cac:Country>
+                        <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
+                    </cac:Country>
+                </cac:RegistrationAddress>
+            {% endif %}
+            {% include 'shareholders.xml.twig' with {'participantes': doc.participantes} only %}
+        </cac:PartyLegalEntity>
+        {% if client.email or client.telephone %}
+            <cac:Contact>
+                {% if client.telephone %}
+                    <cbc:Telephone>{{ client.telephone }}</cbc:Telephone>
+                {% endif %}
+                {% if client.email %}
+                    <cbc:ElectronicMail>{{ client.email }}</cbc:ElectronicMail>
+                {% endif %}
+            </cac:Contact>
+        {% endif %}
+    </cac:Party>
+</cac:AccountingCustomerParty>
+{% endautoescape %}

@@ -14,7 +14,7 @@
 	<cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>
 	<cbc:DespatchAdviceTypeCode>{{ doc.tipoDoc }}</cbc:DespatchAdviceTypeCode>
     {% if doc.observacion %}
-	<cbc:Note><![CDATA[{{ doc.observacion|cdata }}]]></cbc:Note>
+	<cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
     {% endif %}
     {% if doc.docBaja %}
 	<cac:OrderReference>
@@ -34,7 +34,7 @@
 		<cbc:CustomerAssignedAccountID schemeID="6">{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
 		<cac:Party>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:DespatchSupplierParty>
@@ -42,7 +42,7 @@
 		<cbc:CustomerAssignedAccountID schemeID="{{ doc.destinatario.tipoDoc }}">{{ doc.destinatario.numDoc }}</cbc:CustomerAssignedAccountID>
 		<cac:Party>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ doc.destinatario.rznSocial|cdata }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ doc.destinatario.rznSocial|raw }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:DeliveryCustomerParty>
@@ -51,7 +51,7 @@
 		<cbc:CustomerAssignedAccountID schemeID="{{ doc.tercero.tipoDoc }}">{{ doc.tercero.numDoc }}</cbc:CustomerAssignedAccountID>
 		<cac:Party>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ doc.tercero.rznSocial|cdata }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ doc.tercero.rznSocial|raw }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:SellerSupplierParty>
@@ -79,7 +79,7 @@
 					<cbc:ID schemeID="{{ envio.transportista.tipoDoc }}">{{ envio.transportista.numDoc }}</cbc:ID>
 				</cac:PartyIdentification>
 				<cac:PartyName>
-					<cbc:Name><![CDATA[{{ envio.transportista.rznSocial|cdata }}]]></cbc:Name>
+					<cbc:Name><![CDATA[{{ envio.transportista.rznSocial|raw }}]]></cbc:Name>
 				</cac:PartyName>
 			</cac:CarrierParty>
 			<cac:TransportMeans>
@@ -121,7 +121,7 @@
 			<cbc:LineID>{{ loop.index }}</cbc:LineID>
 		</cac:OrderLineReference>
 		<cac:Item>
-			<cbc:Name><![CDATA[{{ det.descripcion|cdata }}]]></cbc:Name>
+			<cbc:Name><![CDATA[{{ det.descripcion|raw }}]]></cbc:Name>
 			<cac:SellersItemIdentification>
 				<cbc:ID>{{ det.codigo }}</cbc:ID>
 			</cac:SellersItemIdentification>

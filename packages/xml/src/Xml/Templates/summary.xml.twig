@@ -19,7 +19,7 @@
         <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
         <cac:Party>
             <cac:PartyLegalEntity>
-                <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:RegistrationName>
+                <cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
             </cac:PartyLegalEntity>
         </cac:Party>
     </cac:AccountingSupplierParty>
@@ -35,7 +35,7 @@
             {% if det.clienteNombre %}
             <cac:Party>
                 <cac:PartyLegalEntity>
-                    <cbc:RegistrationName><![CDATA[{{ det.clienteNombre|cdata }}]]></cbc:RegistrationName>
+                    <cbc:RegistrationName><![CDATA[{{ det.clienteNombre|raw }}]]></cbc:RegistrationName>
                 </cac:PartyLegalEntity>
             </cac:Party>
             {% endif %}

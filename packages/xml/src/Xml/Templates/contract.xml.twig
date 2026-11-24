@@ -5,7 +5,7 @@
     <cbc:ID>{{ contrato.numero }}</cbc:ID>
     <cbc:DocumentTypeCode>{{ contrato.tipo }}</cbc:DocumentTypeCode>
     {% if contrato.descripcion %}
-    <cbc:DocumentDescription><![CDATA[{{ contrato.descripcion|cdata }}]]></cbc:DocumentDescription>
+    <cbc:DocumentDescription><![CDATA[{{ contrato.descripcion|raw }}]]></cbc:DocumentDescription>
     {% endif %}
     {% if contrato.porcentaje is not null %}
     <cac:IssuerParty>

@@ -14,7 +14,7 @@
 	<cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>
 	<cbc:DespatchAdviceTypeCode listAgencyName="PE:SUNAT" listName="Tipo de Documento" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo01">{{ doc.tipoDoc }}</cbc:DespatchAdviceTypeCode>
     {% if doc.observacion %}
-	<cbc:Note><![CDATA[{{ doc.observacion|cdata }}]]></cbc:Note>
+	<cbc:Note><![CDATA[{{ doc.observacion|raw }}]]></cbc:Note>
     {% endif %}
 	{% for rel in doc.addDocs  %}
 	<cac:AdditionalDocumentReference>
@@ -38,7 +38,7 @@
 				<cbc:ID schemeID="6" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ emp.ruc }}</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ emp.razonSocial|cdata }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:DespatchSupplierParty>
@@ -48,7 +48,7 @@
 				<cbc:ID schemeID="{{ doc.destinatario.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.destinatario.numDoc }}</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ doc.destinatario.rznSocial|cdata }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ doc.destinatario.rznSocial|raw }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:DeliveryCustomerParty>
@@ -59,7 +59,7 @@
 				<cbc:ID schemeID="{{ doc.comprador.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.comprador.numDoc }}</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ doc.comprador.rznSocial|cdata }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ doc.comprador.rznSocial|raw }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:BuyerCustomerParty>
@@ -71,7 +71,7 @@
 				<cbc:ID schemeID="{{ doc.tercero.tipoDoc }}" schemeName="Documento de Identidad" schemeAgencyName="PE:SUNAT" schemeURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo06">{{ doc.tercero.numDoc }}</cbc:ID>
 			</cac:PartyIdentification>
 			<cac:PartyLegalEntity>
-				<cbc:RegistrationName><![CDATA[{{ doc.tercero.rznSocial|cdata }}]]></cbc:RegistrationName>
+				<cbc:RegistrationName><![CDATA[{{ doc.tercero.rznSocial|raw }}]]></cbc:RegistrationName>
 			</cac:PartyLegalEntity>
 		</cac:Party>
 	</cac:SellerSupplierParty>
@@ -109,7 +109,7 @@
 					<cbc:ID schemeID="{{ envio.transportista.tipoDoc }}">{{ envio.transportista.numDoc }}</cbc:ID>
 				</cac:PartyIdentification>
 				<cac:PartyLegalEntity>
-					<cbc:RegistrationName><![CDATA[{{ envio.transportista.rznSocial|cdata }}]]></cbc:RegistrationName>
+					<cbc:RegistrationName><![CDATA[{{ envio.transportista.rznSocial|raw }}]]></cbc:RegistrationName>
 					{% if envio.transportista.nroMtc %}
 					<cbc:CompanyID>{{ envio.transportista.nroMtc }}</cbc:CompanyID>
 					{% endif %}
@@ -232,7 +232,7 @@
 			<cbc:LineID>{{ loop.index }}</cbc:LineID>
 		</cac:OrderLineReference>
 		<cac:Item>
-			<cbc:Description><![CDATA[{{ det.descripcion|cdata }}]]></cbc:Description>
+			<cbc:Description><![CDATA[{{ det.descripcion|raw }}]]></cbc:Description>
 			<cac:SellersItemIdentification>
 				<cbc:ID>{{ det.codigo }}</cbc:ID>
 			</cac:SellersItemIdentification>

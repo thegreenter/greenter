@@ -7,7 +7,7 @@
             <cbc:ID schemeID="{{ participante.tipoDoc }}">{{ participante.numDoc }}</cbc:ID>
         </cac:PartyIdentification>
         <cac:PartyLegalEntity>
-            <cbc:RegistrationName><![CDATA[{{ participante.rznSocial|cdata }}]]></cbc:RegistrationName>
+            <cbc:RegistrationName><![CDATA[{{ participante.rznSocial|raw }}]]></cbc:RegistrationName>
         </cac:PartyLegalEntity>
     </cac:Party>
 </cac:ShareholderParty>

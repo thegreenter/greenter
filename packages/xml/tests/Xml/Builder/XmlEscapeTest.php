@@ -16,13 +16,14 @@ use Greenter\Xml\Builder\InvoiceBuilder;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Los textos ingresados por el usuario no deben romper ni inyectar XML.
+ * Los textos fuera de CDATA se escapan; dentro de CDATA se escriben tal cual (|raw),
+ * el usuario es responsable de no incluir la secuencia ']]>'.
  */
 class XmlEscapeTest extends TestCase
 {
     use SharedBuilderTrait;
 
-    private const CDATA_TEXT = 'ACME ]]><cbc:Injected/> & <Hijos>';
+    private const CDATA_TEXT = 'ACME & <Hijos> "S.A.C."';
     private const PLAIN_TEXT = 'Av. Lima & "Jr. Cusco" <Int. 2> O\'Higgins';
 
     /**
@@ -47,7 +48,6 @@ class XmlEscapeTest extends TestCase
             self::CDATA_TEXT,
             $xpath->evaluate('string(/inv:Invoice/cac:InvoiceLine[1]/cac:Item/cbc:Description)')
         );
-        $this->assertSame(0, $xpath->query('//cbc:Injected')->length);
     }
 
     /**
@@ -72,7 +72,6 @@ class XmlEscapeTest extends TestCase
 
         $this->assertSame(self::PLAIN_TEXT, $xpath->evaluate("string($address/cbc:CitySubdivisionName)"));
         $this->assertSame(self::CDATA_TEXT, $xpath->evaluate("string($address/cac:AddressLine/cbc:Line)"));
-        $this->assertSame(0, $xpath->query('//cbc:Injected')->length);
     }
 
     /**
