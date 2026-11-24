@@ -12,6 +12,7 @@ namespace Tests\Greenter\Validator;
 
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Summary\SummaryDetail;
+use Greenter\Model\Summary\SummaryGratuitas;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Summary\SummaryPerception;
 use PHPUnit\Framework\TestCase;
@@ -40,6 +41,35 @@ class FeSummaryValidatorTest extends TestCase
         $errors = $validator->validate($summary);
 
         $this->assertEquals(1, count($errors));
+    }
+
+    public function testValidateSummaryClienteNombre()
+    {
+        $summary = $this->getSummary();
+        $summary->getDetails()[0]->setClienteNombre('JUAN PEREZ');
+
+        $this->assertEquals(0, count($this->getValidator()->validate($summary)));
+
+        $summary->getDetails()[0]->setClienteNombre('JP');
+        $errors = $this->getValidator()->validate($summary);
+
+        $this->assertEquals(1, count($errors));
+        $this->assertStringContainsString('clienteNombre', $errors->get(0)->getPropertyPath());
+    }
+
+    public function testValidateSummaryGratuitas()
+    {
+        $summary = $this->getSummary();
+        $gratuitas = (new SummaryGratuitas())->setMtoGravadas(100)->setMtoIgv(18);
+        $summary->getDetails()[0]->setGratuitas($gratuitas);
+
+        $this->assertEquals(0, count($this->getValidator()->validate($summary)));
+
+        $gratuitas->setMtoExoneradas(-1);
+        $errors = $this->getValidator()->validate($summary);
+
+        $this->assertEquals(1, count($errors));
+        $this->assertStringContainsString('gratuitas.mtoExoneradas', $errors->get(0)->getPropertyPath());
     }
 
     private function getSummary()

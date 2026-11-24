@@ -36,11 +36,23 @@ class DetailAttribute
     /**
      * @var DateTime
      */
+    private $horaInicio;
+    /**
+     * @var DateTime
+     */
     private $fecFin;
     /**
      * @var int
      */
     private $duracion;
+    /**
+     * @var float
+     */
+    private $cantidad;
+    /**
+     * @var string
+     */
+    private $unidad;
 
     /**
      * @return string
@@ -158,6 +170,72 @@ class DetailAttribute
     public function setDuracion(?int $duracion): DetailAttribute
     {
         $this->duracion = $duracion;
+
+        return $this;
+    }
+
+    /**
+     * Hora de inicio (cbc:StartTime), p. ej. conceptos 3060 y 4047.
+     *
+     * @return DateTime
+     */
+    public function getHoraInicio(): ?DateTime
+    {
+        return $this->horaInicio;
+    }
+
+    /**
+     * @param DateTime $horaInicio
+     *
+     * @return DetailAttribute
+     */
+    public function setHoraInicio(?DateTime $horaInicio): DetailAttribute
+    {
+        $this->horaInicio = $horaInicio;
+
+        return $this;
+    }
+
+    /**
+     * Valor numérico del concepto (cbc:ValueQuantity), p. ej. conceptos 3006 y 7019.
+     *
+     * @return float
+     */
+    public function getCantidad(): ?float
+    {
+        return $this->cantidad;
+    }
+
+    /**
+     * @param float $cantidad
+     *
+     * @return DetailAttribute
+     */
+    public function setCantidad(?float $cantidad): DetailAttribute
+    {
+        $this->cantidad = $cantidad;
+
+        return $this;
+    }
+
+    /**
+     * Unidad de medida de la cantidad (cbc:ValueQuantity@unitCode), p. ej. TNE.
+     *
+     * @return string
+     */
+    public function getUnidad(): ?string
+    {
+        return $this->unidad;
+    }
+
+    /**
+     * @param string $unidad
+     *
+     * @return DetailAttribute
+     */
+    public function setUnidad(?string $unidad): DetailAttribute
+    {
+        $this->unidad = $unidad;
 
         return $this;
     }

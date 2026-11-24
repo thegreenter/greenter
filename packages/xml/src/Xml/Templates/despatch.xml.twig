@@ -29,7 +29,7 @@
 	</cac:AdditionalDocumentReference>
     {% endif %}
     {% set emp = doc.company %}
-    	{% include 'partials/signature.xml.twig' %}
+    	{% include 'signature.xml.twig' %}
 	<cac:DespatchSupplierParty>
 		<cbc:CustomerAssignedAccountID schemeID="6">{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
 		<cac:Party>

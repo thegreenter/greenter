@@ -1,0 +1,13 @@
+{% autoescape 'html' %}
+{# Punto de georreferencia de una dirección de la guía (cac:LocationCoordinate), en grados decimales. #}
+{% if direccion.latitud is not null or direccion.longitud is not null %}
+<cac:LocationCoordinate>
+	{% if direccion.latitud is not null %}
+	<cbc:LatitudeDegreesMeasure unitCode="DD">{{ direccion.latitud|n_format_limit(8) }}</cbc:LatitudeDegreesMeasure>
+	{% endif %}
+	{% if direccion.longitud is not null %}
+	<cbc:LongitudeDegreesMeasure unitCode="DD">{{ direccion.longitud|n_format_limit(8) }}</cbc:LongitudeDegreesMeasure>
+	{% endif %}
+</cac:LocationCoordinate>
+{% endif %}
+{%- endautoescape %}

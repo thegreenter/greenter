@@ -20,13 +20,18 @@ use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Sale\Contrato;
 use Greenter\Model\Sale\Detraction;
 use Greenter\Model\Sale\Document;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Legend;
+use Greenter\Model\Sale\MedioPago;
 use Greenter\Model\Sale\Prepayment;
 use Greenter\Model\Sale\SaleDetail;
 use Greenter\Model\Sale\SalePerception;
+use Greenter\Model\Sale\TramoTransporte;
+use Greenter\Model\Sale\TransporteCarga;
+use Greenter\Model\Sale\VehiculoTransporte;
 use Greenter\Parser\DocumentParserInterface;
 
 /**
@@ -66,6 +71,7 @@ class InvoiceParser implements DocumentParserInterface
             ->setDetails(iterator_to_array($this->getDetails($xpt)))
             ->setLegends(iterator_to_array($this->getLegends($xpt, $additional)));
         $this->loadExtras($xpt, $inv);
+        $this->loadContrato($xpt, $inv);
 
         return $inv;
     }
@@ -227,6 +233,36 @@ class InvoiceParser implements DocumentParserInterface
         return $cl;
     }
 
+    /**
+     * El contrato de colaboración empresarial (cac:ContractDocumentReference) y
+     * los otros participantes asociados a la transacción (cac:ShareholderParty
+     * del adquirente).
+     */
+    private function loadContrato(DOMXPath $xpt, Invoice $inv)
+    {
+        $node = $xpt->query('/xt:Invoice/cac:ContractDocumentReference')->item(0);
+        if ($node !== null) {
+            $descripcion = $this->defValue($xpt->query('cbc:DocumentDescription', $node));
+            $porcentaje = $this->defValue($xpt->query('cac:IssuerParty/cac:PartyLegalEntity/cac:ShareholderParty/cbc:PartecipationPercent', $node));
+            $inv->setContrato((new Contrato())
+                ->setNumero($this->defValue($xpt->query('cbc:ID', $node)))
+                ->setTipo($this->defValue($xpt->query('cbc:DocumentTypeCode', $node)))
+                ->setDescripcion($descripcion === '' ? null : $descripcion)
+                ->setPorcentaje($porcentaje === '' ? null : (float) $porcentaje));
+        }
+
+        $participantes = [];
+        foreach ($xpt->query('/xt:Invoice/cac:AccountingCustomerParty/cac:Party/cac:PartyLegalEntity/cac:ShareholderParty/cac:Party') as $party) {
+            $participantes[] = (new Client())
+                ->setTipoDoc($this->defNodeAttribute($xpt->query('cac:PartyIdentification/cbc:ID', $party), 'schemeID'))
+                ->setNumDoc($this->defValue($xpt->query('cac:PartyIdentification/cbc:ID', $party)))
+                ->setRznSocial($this->defValue($xpt->query('cac:PartyLegalEntity/cbc:RegistrationName', $party)));
+        }
+        if ($participantes !== []) {
+            $inv->setParticipantes($participantes);
+        }
+    }
+
     private function loadExtras(DOMXPath $xpt, Invoice $inv)
     {
         $inv->setCompra($this->defValue($xpt->query('/xt:Invoice/cac:OrderReference/cbc:ID')));
@@ -236,6 +272,25 @@ class InvoiceParser implements DocumentParserInterface
         }
 
         $inv->setGuias(iterator_to_array($this->getGuias($xpt)));
+
+        $incoterm = $this->defValue($xpt->query('/xt:Invoice/cac:DeliveryTerms/cbc:ID'));
+        if ($incoterm !== '') {
+            $inv->setIncoterm($incoterm);
+        }
+
+        // El agente de ventas y el medio de pago con su número de autorización (tipo de operación 0302).
+        $agente = $xpt->query('/xt:Invoice/cac:AccountingSupplierParty/cac:Party/cac:AgentParty/cac:PartyIdentification/cbc:ID');
+        if ($agente->length > 0) {
+            $inv->setAgenteVentas((new Client())
+                ->setTipoDoc($this->defNodeAttribute($agente, 'schemeID'))
+                ->setNumDoc($this->defValue($agente)));
+        }
+        $medio = $xpt->query('/xt:Invoice/cac:PaymentMeans[cbc:PaymentID]')->item(0);
+        if ($medio !== null) {
+            $inv->setMedioPago((new MedioPago())
+                ->setCodigo($this->defValue($xpt->query('cbc:PaymentMeansCode', $medio)))
+                ->setAutorizacion($this->defValue($xpt->query('cbc:PaymentID', $medio))));
+        }
     }
 
     private function getGuias(DOMXPath $xpt)
@@ -293,9 +348,73 @@ class InvoiceParser implements DocumentParserInterface
             $this->loadTaxDetail($det, $xpt, $node);
             $this->loadDescuentosDetail($det, $xpt, $node);
             $this->loadPricesDetail($det, $xpt, $node);
+            $this->loadTransporteCarga($det, $xpt, $node);
 
             yield $det;
         }
+    }
+
+    /**
+     * Detracción del servicio de transporte de carga (tipo de operación 1004):
+     * campos 113 a 128 de «Factura2_0», en /Invoice/cac:InvoiceLine/cac:Delivery.
+     */
+    private function loadTransporteCarga(SaleDetail $detail, DOMXPath $xpt, DOMNode $detailNode)
+    {
+        $delivery = $xpt->query('cac:Delivery', $detailNode)->item(0);
+        if ($delivery === null) {
+            return;
+        }
+        $direccion = function (string $path) use ($xpt, $delivery) {
+            $node = $xpt->query($path, $delivery)->item(0);
+
+            return $node === null ? null : (new Address())
+                ->setUbigueo($this->defValue($xpt->query('cbc:ID', $node)))
+                ->setDireccion($this->defValue($xpt->query('cac:AddressLine/cbc:Line', $node)));
+        };
+        $tramos = [];
+        foreach ($xpt->query('cac:Shipment/cac:Consignment', $delivery) as $consignment) {
+            $vehiculos = [];
+            foreach ($xpt->query('cac:TransportHandlingUnit', $consignment) as $unit) {
+                $retorno = $this->defValue($xpt->query('cac:TransportEquipment/cbc:ReturnabilityIndicator', $unit));
+                $vehiculos[] = (new VehiculoTransporte())
+                    ->setConfiguracion($this->nullableValue($xpt->query('cac:TransportEquipment/cbc:SizeTypeCode', $unit)))
+                    ->setCargaUtil($this->nullableFloat($xpt->query('cac:MeasurementDimension[cbc:AttributeID="01"]/cbc:Measure', $unit)))
+                    ->setCargaEfectiva($this->nullableFloat($xpt->query('cac:MeasurementDimension[cbc:AttributeID="02"]/cbc:Measure', $unit)))
+                    ->setValorReferencialTm($this->nullableFloat($xpt->query('cac:TransportEquipment/cac:Delivery/cac:DeliveryTerms/cbc:Amount', $unit)))
+                    ->setRetornoVacio($retorno === '' ? null : trim($retorno) === 'true');
+            }
+            $tramos[] = (new TramoTransporte())
+                ->setId($this->nullableValue($xpt->query('cbc:ID', $consignment)))
+                ->setUbigeoOrigen($this->nullableValue($xpt->query('cac:PlannedPickupTransportEvent/cac:Location/cbc:ID', $consignment)))
+                ->setUbigeoDestino($this->nullableValue($xpt->query('cac:PlannedDeliveryTransportEvent/cac:Location/cbc:ID', $consignment)))
+                ->setDescripcion($this->nullableValue($xpt->query('cbc:CarrierServiceInstructions', $consignment)))
+                ->setValorCargaEfectiva($this->nullableFloat($xpt->query('cac:DeliveryTerms/cbc:Amount', $consignment)))
+                ->setValorCargaNominal($this->nullableFloat($xpt->query('cbc:DeclaredForCarriageValueAmount', $consignment)))
+                ->setVehiculos($vehiculos);
+        }
+
+        $detail->setTransporteCarga((new TransporteCarga())
+            ->setOrigen($direccion('cac:Despatch/cac:DespatchAddress'))
+            ->setDestino($direccion('cac:DeliveryLocation/cac:Address'))
+            ->setDetalleViaje($this->nullableValue($xpt->query('cac:Despatch/cbc:Instructions', $delivery)))
+            ->setValorReferencial($this->nullableFloat($xpt->query('cac:DeliveryTerms[cbc:ID="01"]/cbc:Amount', $delivery)))
+            ->setValorCargaEfectiva($this->nullableFloat($xpt->query('cac:DeliveryTerms[cbc:ID="02"]/cbc:Amount', $delivery)))
+            ->setValorCargaUtil($this->nullableFloat($xpt->query('cac:DeliveryTerms[cbc:ID="03"]/cbc:Amount', $delivery)))
+            ->setTramos($tramos));
+    }
+
+    private function nullableValue(DOMNodeList $nodeList): ?string
+    {
+        $value = $this->defValue($nodeList);
+
+        return $value === '' ? null : $value;
+    }
+
+    private function nullableFloat(DOMNodeList $nodeList): ?float
+    {
+        $value = $this->defValue($nodeList);
+
+        return $value === '' ? null : (float) $value;
     }
 
     private function loadTaxDetail(SaleDetail $detail, DOMXPath $xpt, DOMNode $detailNode)

@@ -2,6 +2,7 @@
 {% autoescape 'html' %}
 <?xml version="1.0" encoding="utf-8"?>
 {% set isCredit = noteType == 'CreditNote' %}
+{% set quantityTag = isCredit ? 'CreditedQuantity' : 'DebitedQuantity' %}
 <{{ noteType }} xmlns="urn:oasis:names:specification:ubl:schema:xsd:{{ noteType }}-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1">
     <ext:UBLExtensions>
         <ext:UBLExtension>
@@ -74,13 +75,15 @@
             <cbc:DocumentTypeCode>{{ doc.tipDocAfectado }}</cbc:DocumentTypeCode>
         </cac:InvoiceDocumentReference>
     </cac:BillingReference>
-    {% if isCredit and doc.guias %}
+    {% if isCredit %}
+    {% if doc.guias %}
     {% for guia in doc.guias %}
     <cac:DespatchDocumentReference>
         <cbc:ID>{{ guia.nroDoc }}</cbc:ID>
         <cbc:DocumentTypeCode>{{ guia.tipoDoc }}</cbc:DocumentTypeCode>
     </cac:DespatchDocumentReference>
     {% endfor %}
+    {% endif %}
     {% endif %}
     {% if doc.relDocs %}
     {% for rel in doc.relDocs %}
@@ -91,7 +94,7 @@
     {% endfor %}
     {% endif %}
     {% set emp = doc.company %}
-    {% include 'partials/signature.xml.twig' %}
+    {% include 'signature.xml.twig' %}
     <cac:AccountingSupplierParty>
         <cbc:CustomerAssignedAccountID>{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
         <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
@@ -183,15 +186,20 @@
         </cac:TaxSubtotal>
     </cac:TaxTotal>
     {% endif %}
-    {% set monetaryTotal = isCredit ? 'LegalMonetaryTotal' : 'RequestedMonetaryTotal' %}
-    <cac:{{ monetaryTotal }}>
+    {% if isCredit %}
+    <cac:LegalMonetaryTotal>
         <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0)|n_format }}</cbc:ChargeTotalAmount>
         <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>
-    </cac:{{ monetaryTotal }}>
+    </cac:LegalMonetaryTotal>
+    {% else %}
+    <cac:RequestedMonetaryTotal>
+        <cbc:ChargeTotalAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOtrosTributos|default(0)|n_format }}</cbc:ChargeTotalAmount>
+        <cbc:PayableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoImpVenta|n_format }}</cbc:PayableAmount>
+    </cac:RequestedMonetaryTotal>
+    {% endif %}
     {% for detail in doc.details %}
     <cac:{{ noteType }}Line>
         <cbc:ID>{{ loop.index }}</cbc:ID>
-        {% set quantityTag = isCredit ? 'CreditedQuantity' : 'DebitedQuantity' %}
         <cbc:{{ quantityTag }} unitCode="{{ detail.unidad }}">{{ detail.cantidad }}</cbc:{{ quantityTag }}>
         <cbc:LineExtensionAmount currencyID="{{ doc.tipoMoneda }}">{{ detail.mtoValorVenta|n_format }}</cbc:LineExtensionAmount>
         <cac:PricingReference>

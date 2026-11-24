@@ -28,6 +28,12 @@ class Transportist
      */
     private $rznSocial;
     /**
+     * Autorización especial del transportista (campo 45).
+     *
+     * @var Autorizacion|null
+     */
+    private $autorizacion;
+    /**
      * Número de Registro MTC.
      *
      * @var string
@@ -192,6 +198,26 @@ class Transportist
     public function setChoferDoc(?string $choferDoc): Transportist
     {
         $this->choferDoc = $choferDoc;
+
+        return $this;
+    }
+
+    /**
+     * @return Autorizacion|null
+     */
+    public function getAutorizacion(): ?Autorizacion
+    {
+        return $this->autorizacion;
+    }
+
+    /**
+     * @param Autorizacion|null $autorizacion
+     *
+     * @return Transportist
+     */
+    public function setAutorizacion(?Autorizacion $autorizacion): Transportist
+    {
+        $this->autorizacion = $autorizacion;
 
         return $this;
     }

@@ -8,6 +8,7 @@ use DOMDocument;
 use DOMXPath;
 use Greenter\Data\Generator\Despatch2022Store;
 use Greenter\Data\Generator\InvoiceFullStore;
+use Greenter\Model\Company\Address;
 use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Xml\Builder\DespatchBuilder;
@@ -46,6 +47,31 @@ class XmlEscapeTest extends TestCase
             self::CDATA_TEXT,
             $xpath->evaluate('string(/inv:Invoice/cac:InvoiceLine[1]/cac:Item/cbc:Description)')
         );
+        $this->assertSame(0, $xpath->query('//cbc:Injected')->length);
+    }
+
+    /**
+     * Valores dentro de un {% block %} (cac:PhysicalLocation del adquirente).
+     *
+     * @dataProvider optionsProvider
+     */
+    public function testInvoiceBlockValues(array $options): void
+    {
+        /** @var Invoice $invoice */
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+        $invoice->setDireccionDestino((new Address())
+            ->setUbigueo('230101')
+            ->setUrbanizacion(self::PLAIN_TEXT)
+            ->setDireccion(self::CDATA_TEXT)
+            ->setCodigoPais('PE'));
+
+        $xml = (new InvoiceBuilder($options))->build($invoice);
+        $xpath = $this->loadXpath($xml);
+        $address = '/inv:Invoice/cac:AccountingCustomerParty/cac:Party/cac:PhysicalLocation/cac:Address';
+
+        $this->assertSame(self::PLAIN_TEXT, $xpath->evaluate("string($address/cbc:CitySubdivisionName)"));
+        $this->assertSame(self::CDATA_TEXT, $xpath->evaluate("string($address/cac:AddressLine/cbc:Line)"));
         $this->assertSame(0, $xpath->query('//cbc:Injected')->length);
     }
 

@@ -41,6 +41,13 @@ class DespatchDetail
     private $codProdSunat;
 
     /**
+     * Código GTIN del bien (cac:StandardItemIdentification/cbc:ID): de 8, 12, 13 o 14 caracteres.
+     *
+     * @var string|null
+     */
+    private $codProdGS1;
+
+    /**
      * @var DetailAttribute[]
      */
     private $atributos;
@@ -160,6 +167,26 @@ class DespatchDetail
     public function setAtributos(?array $atributos): DespatchDetail
     {
         $this->atributos = $atributos;
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCodProdGS1(): ?string
+    {
+        return $this->codProdGS1;
+    }
+
+    /**
+     * @param string|null $codProdGS1
+     *
+     * @return DespatchDetail
+     */
+    public function setCodProdGS1(?string $codProdGS1): DespatchDetail
+    {
+        $this->codProdGS1 = $codProdGS1;
+
         return $this;
     }
 }

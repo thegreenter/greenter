@@ -77,6 +77,15 @@ class Retention implements DocumentInterface
     private $observacion;
 
     /**
+     * Monto de redondeo del importe total pagado (cbc:PayableRoundingAmount).
+     *
+     * Valor absoluto no mayor a 1 (regla 3303).
+     *
+     * @var float|null
+     */
+    private $redondeo;
+
+    /**
      * Dato del Comprobante relacionado.
      *
      * @var RetentionDetail[]
@@ -279,6 +288,26 @@ class Retention implements DocumentInterface
     public function setObservacion(?string $observacion): Retention
     {
         $this->observacion = $observacion;
+
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getRedondeo(): ?float
+    {
+        return $this->redondeo;
+    }
+
+    /**
+     * @param float|null $redondeo
+     *
+     * @return Retention
+     */
+    public function setRedondeo(?float $redondeo): Retention
+    {
+        $this->redondeo = $redondeo;
 
         return $this;
     }

@@ -15,7 +15,13 @@ use Greenter\Data\Generator\InvoiceFullStore;
 use Greenter\Data\Generator\InvoiceIcbperStore;
 use Greenter\Data\Generator\InvoiceIvapStore;
 use Greenter\Data\Generator\InvoicePagoCreditoStore;
+use Greenter\Model\Client\Client;
+use Greenter\Model\Company\Address;
 use Greenter\Model\Sale\Invoice;
+use Greenter\Model\Sale\MedioPago;
+use Greenter\Model\Sale\TramoTransporte;
+use Greenter\Model\Sale\TransporteCarga;
+use Greenter\Model\Sale\VehiculoTransporte;
 use Tests\Greenter\Xml\Builder\FeBuilderTrait;
 use Tests\Greenter\Xml\Builder\XsdValidatorTrait;
 use PHPUnit\Framework\TestCase;
@@ -24,6 +30,7 @@ class FeInvoiceBuilderTest extends TestCase
 {
     use FeBuilderTrait;
     use XsdValidatorTrait;
+    use ContratoTrait;
 
     public function testGenerate()
     {
@@ -39,6 +46,289 @@ class FeInvoiceBuilderTest extends TestCase
         $this->assertZeroTaxAmountFormat($xml, 3);
     }
 
+    /**
+     * Exportación de servicios (0201, 0208): el campo 15, país del uso del
+     * servicio, va en cac:Delivery/.../cac:Country, y sin dirección de
+     * entrega no se escribe la línea de dirección, que es el campo 14 (venta
+     * itinerante) y pide la leyenda 2005 (observación 4266).
+     */
+    public function testDireccionEntregaSoloConPais()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+        $invoice->setDireccionEntrega((new Address())->setCodigoPais('US'));
+
+        $xml = $this->build($invoice);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $xpath->registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+        $address = '/*/cac:Delivery/cac:DeliveryLocation/cac:Address';
+
+        $this->assertSame('US', $xpath->evaluate("string($address/cac:Country/cbc:IdentificationCode)"));
+        $this->assertSame(0, $xpath->query("$address/cac:AddressLine")->length);
+        $this->assertSame(0, $xpath->query("$address/cbc:ID")->length);
+        $this->assertSame(0, $xpath->query("$address/cbc:CityName")->length);
+        $this->assertSchema($xml);
+    }
+
+    public function testDireccionEntregaCompletaSeEscribeEntera()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+        $invoice->setDireccionEntrega((new Address())
+            ->setUbigueo('150101')->setDistrito('LIMA')->setProvincia('LIMA')->setDepartamento('LIMA')
+            ->setDireccion('ALGARROBOS 1650')->setCodigoPais('PE'));
+
+        $xml = $this->build($invoice);
+
+        $this->assertStringContainsString('<cbc:ID>150101</cbc:ID>', $xml);
+        $this->assertStringContainsString('<![CDATA[ALGARROBOS 1650]]>', $xml);
+    }
+
+    /**
+     * Dirección en el país o lugar de destino (ventas a usuarios de Zofratacna): campo 20 de
+     * Boleta2_0, /Invoice/cac:AccountingCustomerParty/cac:Party/cac:PhysicalLocation/cac:Address.
+     * Va después de cac:PartyIdentification y antes de cac:PartyLegalEntity, como pide UBL 2.1.
+     */
+    public function testDireccionDestino()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+        $invoice->setTipoDoc('03');
+        $invoice->setDireccionDestino((new Address())
+            ->setUbigueo('230101')->setUrbanizacion('ZOFRATACNA')->setProvincia('TACNA')
+            ->setDepartamento('TACNA')->setDistrito('TACNA')
+            ->setDireccion('CARRETERA PANAMERICANA SUR KM 1308')->setCodigoPais('PE'));
+
+        $xml = $this->build($invoice);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $xpath->registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+        $party = '/*/cac:AccountingCustomerParty/cac:Party';
+        $address = "$party/cac:PhysicalLocation/cac:Address";
+
+        $this->assertSame('230101', $xpath->evaluate("string($address/cbc:ID)"));
+        $this->assertSame('ZOFRATACNA', $xpath->evaluate("string($address/cbc:CitySubdivisionName)"));
+        $this->assertSame('TACNA', $xpath->evaluate("string($address/cbc:CityName)"));
+        $this->assertSame('TACNA', $xpath->evaluate("string($address/cbc:CountrySubentity)"));
+        $this->assertSame('TACNA', $xpath->evaluate("string($address/cbc:District)"));
+        $this->assertSame('CARRETERA PANAMERICANA SUR KM 1308', $xpath->evaluate("string($address/cac:AddressLine/cbc:Line)"));
+        $this->assertSame('PE', $xpath->evaluate("string($address/cac:Country/cbc:IdentificationCode)"));
+        $this->assertSame(1, $xpath->query("$party/cac:PartyIdentification/following-sibling::cac:PhysicalLocation/following-sibling::cac:PartyLegalEntity")->length);
+        $this->assertSame(0, $xpath->query('/*/cac:Delivery')->length);
+        $this->assertSchema($xml);
+
+        // Con dirección de entrega, cada una sale con lo suyo.
+        $invoice->setDireccionEntrega((new Address())->setCodigoPais('US'));
+        $doc->loadXML($this->build($invoice));
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $xpath->registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+        $this->assertSame('230101', $xpath->evaluate("string($address/cbc:ID)"));
+        $this->assertSame('US', $xpath->evaluate('string(/*/cac:Delivery/cac:DeliveryLocation/cac:Address/cac:Country/cbc:IdentificationCode)'));
+        $this->assertSame(0, $xpath->query('/*/cac:Delivery/cac:DeliveryLocation/cac:Address/cbc:ID')->length);
+    }
+
+    public function testSinDireccionDestinoNoSeEscribe()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+
+        $this->assertStringNotContainsString('<cac:PhysicalLocation>', $this->build($invoice));
+    }
+
+    /**
+     * Incoterm: campo 62 de Factura2_0 (61 de Boleta2_0), /Invoice/cac:DeliveryTerms/cbc:ID.
+     * Va después de cac:Delivery y antes de cac:PaymentMeans y cac:PaymentTerms, como pide UBL 2.1.
+     */
+    public function testIncoterm()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+        $invoice->setDireccionEntrega((new Address())->setCodigoPais('US'));
+        $invoice->setIncoterm('FOB');
+
+        $xml = $this->build($invoice);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $xpath->registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+
+        $this->assertSame('FOB', $xpath->evaluate('string(/*/cac:DeliveryTerms/cbc:ID)'));
+        $this->assertSame(1, $xpath->query('/*/cac:Delivery/following-sibling::cac:DeliveryTerms')->length);
+        $this->assertSame(0, $xpath->query('/*/cac:PaymentTerms/following-sibling::cac:DeliveryTerms')->length);
+        $this->assertSchema($xml);
+    }
+
+    public function testSinIncotermNoSeEscribe()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+
+        $this->assertStringNotContainsString('<cac:DeliveryTerms>', $this->build($invoice));
+    }
+
+    public function testTransporteDeCarga()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+        $invoice->setTipoOperacion('1004');
+        $invoice->getDetails()[0]->setTransporteCarga((new TransporteCarga())
+            ->setOrigen((new Address())->setUbigueo('150101')->setDireccion('AV. ARGENTINA 2450, LIMA'))
+            ->setDestino((new Address())->setUbigueo('040101')->setDireccion('CALLE MERCADERES 120, AREQUIPA'))
+            ->setDetalleViaje('LIMA - AREQUIPA, CARGA GENERAL')
+            ->setValorReferencial(1200.0)
+            ->setValorCargaEfectiva(1000.0)
+            ->setValorCargaUtil(1100.0)
+            ->setTramos([(new TramoTransporte())
+                ->setId('1')
+                ->setUbigeoOrigen('150101')
+                ->setUbigeoDestino('040101')
+                ->setDescripcion('LIMA - AREQUIPA POR LA PANAMERICANA SUR')
+                ->setValorCargaEfectiva(950.0)
+                ->setValorCargaNominal(1050.0)
+                ->setVehiculos([(new VehiculoTransporte())
+                    ->setConfiguracion('T3S3')
+                    ->setCargaUtil(30.0)
+                    ->setCargaEfectiva(28.5)
+                    ->setValorReferencialTm(40.0)
+                    ->setRetornoVacio(false)])]));
+
+        $xml = $this->build($invoice);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $xpath->registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+        $linea = '/*/cac:InvoiceLine[1]/cac:Delivery';
+        $valor = fn (string $ruta) => $xpath->evaluate('string('.$linea.$ruta.')');
+
+        $this->assertSame('150101', $valor('/cac:Despatch/cac:DespatchAddress/cbc:ID'));
+        $this->assertSame('AV. ARGENTINA 2450, LIMA', $valor('/cac:Despatch/cac:DespatchAddress/cac:AddressLine/cbc:Line'));
+        $this->assertSame('040101', $valor('/cac:DeliveryLocation/cac:Address/cbc:ID'));
+        $this->assertSame('CALLE MERCADERES 120, AREQUIPA', $valor('/cac:DeliveryLocation/cac:Address/cac:AddressLine/cbc:Line'));
+        $this->assertSame('LIMA - AREQUIPA, CARGA GENERAL', $valor('/cac:Despatch/cbc:Instructions'));
+        $this->assertSame(['01' => '1200.00', '02' => '1000.00', '03' => '1100.00'], [
+            '01' => $valor('/cac:DeliveryTerms[cbc:ID="01"]/cbc:Amount'),
+            '02' => $valor('/cac:DeliveryTerms[cbc:ID="02"]/cbc:Amount'),
+            '03' => $valor('/cac:DeliveryTerms[cbc:ID="03"]/cbc:Amount'),
+        ]);
+        $tramo = '/cac:Shipment/cac:Consignment';
+        $this->assertSame('01', $valor('/cac:Shipment/cbc:ID'));
+        $this->assertSame(['1', '150101', '040101', 'LIMA - AREQUIPA POR LA PANAMERICANA SUR', '950.00', '1050.00'], [
+            $valor($tramo.'/cbc:ID'),
+            $valor($tramo.'/cac:PlannedPickupTransportEvent/cac:Location/cbc:ID'),
+            $valor($tramo.'/cac:PlannedDeliveryTransportEvent/cac:Location/cbc:ID'),
+            $valor($tramo.'/cbc:CarrierServiceInstructions'),
+            $valor($tramo.'/cac:DeliveryTerms/cbc:Amount'),
+            $valor($tramo.'/cbc:DeclaredForCarriageValueAmount'),
+        ]);
+        $vehiculo = $tramo.'/cac:TransportHandlingUnit';
+        $this->assertSame(['T3S3', 'false', '40.00', '30.00', '28.50', 'TNE'], [
+            $valor($vehiculo.'/cac:TransportEquipment/cbc:SizeTypeCode'),
+            $valor($vehiculo.'/cac:TransportEquipment/cbc:ReturnabilityIndicator'),
+            $valor($vehiculo.'/cac:TransportEquipment/cac:Delivery/cac:DeliveryTerms/cbc:Amount'),
+            $valor($vehiculo.'/cac:MeasurementDimension[cbc:AttributeID="01"]/cbc:Measure'),
+            $valor($vehiculo.'/cac:MeasurementDimension[cbc:AttributeID="02"]/cbc:Measure'),
+            $valor($vehiculo.'/cac:MeasurementDimension[cbc:AttributeID="02"]/cbc:Measure/@unitCode'),
+        ]);
+        // Antes de los impuestos y los cargos de la línea, como pide UBL 2.1.
+        $this->assertSame(0, $xpath->query('/*/cac:InvoiceLine[1]/cac:TaxTotal/following-sibling::cac:Delivery')->length);
+        $this->assertSchema($xml);
+    }
+
+    public function testSinTransporteDeCargaNoSeEscribe()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+
+        $doc = new \DOMDocument();
+        $doc->loadXML($this->build($invoice));
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $this->assertSame(0, $xpath->query('/*/cac:InvoiceLine/cac:Delivery')->length);
+    }
+
+    /**
+     * @dataProvider facturaYBoleta
+     */
+    public function testAgenteDeVentasYMedioDePago(string $tipoDoc)
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1')
+            ->setTipoDoc($tipoDoc)
+            ->setTipoOperacion('0302')
+            ->setAgenteVentas((new Client())->setTipoDoc('6')->setNumDoc('20100123456'))
+            ->setMedioPago((new MedioPago())->setCodigo('006')->setAutorizacion('VISA-482913'));
+
+        $xml = $this->build($invoice);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $xpath->registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+        $agente = '/*/cac:AccountingSupplierParty/cac:Party/cac:AgentParty/cac:PartyIdentification/cbc:ID';
+        $this->assertSame(['20100123456', '6'], [$xpath->evaluate('string('.$agente.')'), $xpath->evaluate('string('.$agente.'/@schemeID)')]);
+        $medio = '/*/cac:PaymentMeans[cbc:PaymentID]';
+        $this->assertSame(['006', 'VISA-482913'], [
+            $xpath->evaluate('string('.$medio.'/cbc:PaymentMeansCode)'),
+            $xpath->evaluate('string('.$medio.'/cbc:PaymentID)'),
+        ]);
+        // Antes de cualquier cac:PaymentTerms, como pide UBL 2.1.
+        $this->assertSame(0, $xpath->query('/*/cac:PaymentTerms/following-sibling::cac:PaymentMeans')->length);
+        $this->assertSchema($xml);
+    }
+
+    public function facturaYBoleta()
+    {
+        return [['01'], ['03']];
+    }
+
+    public function testSinAgenteNiMedioDePagoNoSeEscriben()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+        $xml = $this->build($invoice);
+
+        $this->assertStringNotContainsString('<cac:AgentParty>', $xml);
+        $this->assertStringNotContainsString('<cbc:PaymentID>', $xml);
+    }
+
+    public function testContratoDeColaboracion()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+
+        $this->assertContrato($this->build($this->conContrato($invoice)));
+    }
+
+    public function testSinContratoNoSeEscribe()
+    {
+        /**@var $invoice Invoice*/
+        $invoice = $this->createDocument(InvoiceFullStore::class);
+        $invoice->setUblVersion('2.1');
+        $xml = $this->build($invoice);
+
+        $this->assertStringNotContainsString('<cac:ContractDocumentReference>', $xml);
+        $this->assertStringNotContainsString('<cac:ShareholderParty>', $xml);
+    }
+ 
     /**
      * @dataProvider storeProvider
      */

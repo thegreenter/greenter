@@ -132,7 +132,7 @@ class SaleDetail
     /**
      * @var float
      */
-    private $factorIcbper = 0.30;
+    private $factorIcbper = 0.50;
     /**
      * @var float
      */
@@ -164,6 +164,13 @@ class SaleDetail
      * @var DetailAttribute[]
      */
     private $atributos;
+
+    /**
+     * Detracción del servicio de transporte de carga (tipo de operación 1004).
+     *
+     * @var TransporteCarga|null
+     */
+    private $transporteCarga;
 
     /**
      * @return string
@@ -721,6 +728,26 @@ class SaleDetail
     public function setAtributos(?array $atributos): SaleDetail
     {
         $this->atributos = $atributos;
+
+        return $this;
+    }
+
+    /**
+     * @return TransporteCarga|null
+     */
+    public function getTransporteCarga(): ?TransporteCarga
+    {
+        return $this->transporteCarga;
+    }
+
+    /**
+     * @param TransporteCarga|null $transporteCarga
+     *
+     * @return SaleDetail
+     */
+    public function setTransporteCarga(?TransporteCarga $transporteCarga): SaleDetail
+    {
+        $this->transporteCarga = $transporteCarga;
 
         return $this;
     }

@@ -40,6 +40,23 @@ class Direction
      */
     private $ruc;
     /**
+     * Latitud del punto de georreferencia, en grados decimales (cbc:LatitudeDegreesMeasure),
+     * hasta 3 enteros y 8 decimales.
+     *
+     * Ojo: la hoja de validaciones de SUNAT rotula este tag como «Longitud» y el de
+     * longitud como «Latitud»; aquí se sigue la semántica de UBL.
+     *
+     * @var float|null
+     */
+    private $latitud;
+    /**
+     * Longitud del punto de georreferencia, en grados decimales (cbc:LongitudeDegreesMeasure),
+     * hasta 3 enteros y 8 decimales.
+     *
+     * @var float|null
+     */
+    private $longitud;
+    /**
      * Direction constructor.
      *
      * @param string|null $ubigueo
@@ -124,6 +141,42 @@ class Direction
     public function setRuc(?string $ruc): Direction
     {
         $this->ruc = $ruc;
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getLatitud(): ?float
+    {
+        return $this->latitud;
+    }
+
+    /**
+     * @param float|null $latitud
+     * @return Direction
+     */
+    public function setLatitud(?float $latitud): Direction
+    {
+        $this->latitud = $latitud;
+        return $this;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getLongitud(): ?float
+    {
+        return $this->longitud;
+    }
+
+    /**
+     * @param float|null $longitud
+     * @return Direction
+     */
+    public function setLongitud(?float $longitud): Direction
+    {
+        $this->longitud = $longitud;
         return $this;
     }
 }

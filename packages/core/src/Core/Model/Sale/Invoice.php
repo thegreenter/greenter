@@ -116,6 +116,36 @@ class Invoice extends BaseSale
     private $direccionEntrega;
 
     /**
+     * Dirección en el país o lugar de destino del adquirente (cac:PhysicalLocation):
+     * campo 20 de Boleta2_0, ventas a usuarios de Zofratacna.
+     *
+     * @var Address|null
+     */
+    private $direccionDestino;
+
+    /**
+     * Incoterm (cac:DeliveryTerms/cbc:ID): campo 62 de Factura2_0 y 61 de Boleta2_0.
+     *
+     * @var string|null
+     */
+    private $incoterm;
+
+    /**
+     * Agente de ventas: su tipo y número de documento (cac:AccountingSupplierParty/
+     * cac:Party/cac:AgentParty): campos 149 y 150 de Factura2_0 y 78 y 79 de Boleta2_0.
+     *
+     * @var Client|null
+     */
+    private $agenteVentas;
+
+    /**
+     * Medio de pago (cac:PaymentMeans): campos 158 y 159 de Factura2_0 y 87 y 88 de Boleta2_0.
+     *
+     * @var MedioPago|null
+     */
+    private $medioPago;
+
+    /**
      * @return string
      */
     public function getTipoOperacion(): ?string
@@ -471,6 +501,90 @@ class Invoice extends BaseSale
     public function setDireccionEntrega(?Address $direccionEntrega): Invoice
     {
         $this->direccionEntrega = $direccionEntrega;
+
+        return $this;
+    }
+
+    /**
+     * @return Address|null
+     */
+    public function getDireccionDestino(): ?Address
+    {
+        return $this->direccionDestino;
+    }
+
+    /**
+     * @param Address|null $direccionDestino
+     *
+     * @return Invoice
+     */
+    public function setDireccionDestino(?Address $direccionDestino): Invoice
+    {
+        $this->direccionDestino = $direccionDestino;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getIncoterm(): ?string
+    {
+        return $this->incoterm;
+    }
+
+    /**
+     * Incoterm de la operación (FOB, CIF, EXW...), an3.
+     *
+     * @param string|null $incoterm
+     *
+     * @return Invoice
+     */
+    public function setIncoterm(?string $incoterm): Invoice
+    {
+        $this->incoterm = $incoterm;
+
+        return $this;
+    }
+
+    /**
+     * @return Client|null
+     */
+    public function getAgenteVentas(): ?Client
+    {
+        return $this->agenteVentas;
+    }
+
+    /**
+     * Agente de ventas, del que solo se declaran el tipo y el número de documento.
+     *
+     * @param Client|null $agenteVentas
+     *
+     * @return Invoice
+     */
+    public function setAgenteVentas(?Client $agenteVentas): Invoice
+    {
+        $this->agenteVentas = $agenteVentas;
+
+        return $this;
+    }
+
+    /**
+     * @return MedioPago|null
+     */
+    public function getMedioPago(): ?MedioPago
+    {
+        return $this->medioPago;
+    }
+
+    /**
+     * @param MedioPago|null $medioPago
+     *
+     * @return Invoice
+     */
+    public function setMedioPago(?MedioPago $medioPago): Invoice
+    {
+        $this->medioPago = $medioPago;
 
         return $this;
     }

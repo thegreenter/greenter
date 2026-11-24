@@ -45,6 +45,7 @@ class RetentionLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraint('impRetenido', new Assert\NotNull());
         $metadata->addPropertyConstraint('impPagado', new Assert\NotNull());
         $metadata->addPropertyConstraint('observacion', new Assert\Length(['max' => 250]));
+        $metadata->addPropertyConstraint('redondeo', new Assert\Range(['min' => -1, 'max' => 1]));
         $metadata->addPropertyConstraints('details', [
             new Assert\NotBlank(),
             new Assert\Valid(),

@@ -33,6 +33,15 @@ class Client
     private $rznSocial;
 
     /**
+     * Nombre comercial (cac:PartyName/cbc:Name).
+     *
+     * Usado en el cliente de percepciones y el proveedor de retenciones.
+     *
+     * @var string|null
+     */
+    private $nombreComercial;
+
+    /**
      * @var Address|null
      */
     private $address;
@@ -103,6 +112,26 @@ class Client
     public function setRznSocial(?string $rznSocial): Client
     {
         $this->rznSocial = $rznSocial;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNombreComercial(): ?string
+    {
+        return $this->nombreComercial;
+    }
+
+    /**
+     * @param string|null $nombreComercial
+     *
+     * @return Client
+     */
+    public function setNombreComercial(?string $nombreComercial): Client
+    {
+        $this->nombreComercial = $nombreComercial;
 
         return $this;
     }

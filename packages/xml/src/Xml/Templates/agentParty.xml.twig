@@ -1,0 +1,10 @@
+{% autoescape 'html' %}
+{# Autorización especial del remitente o del transportista (campos 10 y 45 de la guía): cac:AgentParty. #}
+{% if autorizacion and autorizacion.numero %}
+<cac:AgentParty>
+	<cac:PartyLegalEntity>
+		<cbc:CompanyID schemeID="{{ autorizacion.codEmisor }}" schemeName="Entidad Autorizadora" schemeAgencyName="PE:SUNAT">{{ autorizacion.numero }}</cbc:CompanyID>
+	</cac:PartyLegalEntity>
+</cac:AgentParty>
+{% endif %}
+{%- endautoescape %}

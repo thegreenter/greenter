@@ -25,6 +25,21 @@ class CePerceptionBuilderTest extends TestCase
     use CeBuilderTrait;
     use XsdValidatorTrait;
 
+    /**
+     * La hoja de SUNAT: en la dirección del emisor, cbc:CityName es la
+     * provincia y cbc:CountrySubentity el departamento.
+     */
+    public function testPerceptionProvinciaYDepartamento()
+    {
+        $perception = $this->createDocument(PerceptionStore::class);
+        $perception->getCompany()->getAddress()->setProvincia('HUAURA')->setDepartamento('LIMA');
+
+        $xml = $this->build($perception);
+
+        $this->assertStringContainsString('<cbc:CityName>HUAURA</cbc:CityName>', $xml);
+        $this->assertStringContainsString('<cbc:CountrySubentity>LIMA</cbc:CountrySubentity>', $xml);
+    }
+
     public function testCreateXmlPerception()
     {
         $perception = $this->createDocument(PerceptionStore::class);

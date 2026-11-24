@@ -39,16 +39,23 @@ class TributoFunction
         return null;
     }
 
-    public static function getByAfectacion($afectacion)
+    /**
+     * @param mixed $afectacion Código de afectación del IGV (Catálogo 07)
+     * @param bool $gratuito Operación no onerosa: 17 (IVAP) y 40 (exportación) usan 9996
+     */
+    public static function getByAfectacion($afectacion, bool $gratuito = false)
     {
-        $code = self::getCode($afectacion);
+        $code = self::getCode($afectacion, $gratuito);
 
         return self::getByTributo($code);
     }
 
-    private static function getCode($afectacion): string
+    private static function getCode($afectacion, bool $gratuito): string
     {
         $value = (int)$afectacion;
+        if ($gratuito && in_array($value, [17, 40], true)) {
+            return '9996';
+        }
 
         switch ($value) {
             case 10: return '1000';

@@ -3,20 +3,29 @@
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
 ## Unreleased
-- #274 Soportar `sac:ExceptionalIndicator` (`indExcepcional`) en comprobante de Percepción.
-- #276 CI: tests unitarios separados de los de integración (SUNAT beta ya no bloquea PRs).
-- Corregir parámetros implícitamente nullable (deprecación PHP 8.4).
-- Registrar filtros y funciones Twig del reporte con instancias (compatibilidad con Psalm 5.26).
-- #258 Retención/Percepción: agregar `Payment::numero` (número de cuota) usado en `cac:Payment/cbc:ID`, validar un solo pago/cobro por detalle de retención y percepción (XSD SUNAT) y leer número/fecha de pago por nodo en los parsers.
+- #285 Actualizar el factor ICBPER al valor vigente 0.5 (desde 2023)
+- Factura, boleta y notas 2.1: alinear formato y campos con las reglas de validación SUNAT (26.08.2026)
+- Retención/Percepción: alinear campos con las reglas de validación SUNAT (26.08.2026)
+- Resumen diario: nodo del adquiriente opcional, razón social del adquiriente (`clienteNombre`), operaciones gratuitas por tipo (catálogo 11: 06-09) e IGV de gratuitas (tributo 9996) en `SummaryDetail::gratuitas` (`SummaryGratuitas`).
+- Resumen diario: `SummaryDetail::mtoOperGratuitas` (catálogo 11: 05) queda deprecado (usar `SummaryGratuitas`), SUNAT lo desactiva a partir del 2027-01-01.
 - **Seguridad** XML: los textos del usuario se escapan siempre (`&`, `<`, `>`, comillas) y la secuencia `]]>` ya no puede cerrar una sección CDATA. Antes generaban un XML inválido o permitían inyectar nodos. Si escapabas los valores manualmente antes de asignarlos al modelo, deja de hacerlo para evitar doble escape.
 - **Seguridad** SOAP: nuevo `SoapClient::createSecure()` / `SoapClient::secureParameters()` y `See::__construct(?SoapClient $wsClient)` para verificar el certificado TLS de SUNAT. El cliente por defecto aún no lo verifica; lo hará en v6.
 - **Seguridad** `greenter/xcodes`: corregir inyección XPath en `XmlErrorCodeProvider::getValue()`; el catálogo de códigos se carga una sola vez por proceso.
 - Requerir `twig/twig` `^3.11.3` (excluye versiones con CVEs conocidos).
 - `XmlBuilderResolver`: mapa explícito documento => builder con soporte de subclases de los modelos, `register()` para builders propios (accesible con `See::getBuilderResolver()` y `Api::getBuilderResolver()`) y reutilización de builders/Twig entre envíos.
 - `WsSenderResolver`, `CustomMetadataFactory` (validator) y `DefaultTemplateResolver` (report) soportan subclases de los modelos. La metadata de validación se reutiliza por clase y versión.
-- Plantillas XML: notas de crédito y débito comparten plantilla, y se extraen los parciales de firma y cliente. El XML generado no cambia (tests golden).
+- Plantillas XML: notas de crédito y débito comparten plantilla (`note2.0`/`note2.1`) y la firma (`cac:Signature`) es un parcial común. El XML generado no cambia (tests golden).
 - Migrar configuración de PHP CS Fixer a v3 (`.php-cs-fixer.dist.php`).
 - Tests golden del XML generado, tests de escape XML y tests de `greenter/core`.
+
+## 5.4.0 - 2026-11-10
+- #284 dirección de entrega opcional, para declarar solo el país del servicio exportado.
+- #283 Retención/Percepción: `CityName` es la provincia y `CountrySubentity` el departamento.
+- #274 Soportar `sac:ExceptionalIndicator` (`indExcepcional`) en comprobante de Percepción.
+- #276 CI: tests unitarios separados de los de integración (SUNAT beta ya no bloquea PRs).
+- Corregir parámetros implícitamente nullable (deprecación PHP 8.4).
+- Registrar filtros y funciones Twig del reporte con instancias (compatibilidad con Psalm 5.26).
+- #258 Retención/Percepción: agregar `Payment::numero` (número de cuota) usado en `cac:Payment/cbc:ID`, validar un solo pago/cobro por detalle de retención y percepción (XSD SUNAT) y leer número/fecha de pago por nodo en los parsers.
 
 ## 5.0.0 - 2023-05-01
 - #206 Agregar xml para nueva Guia de Remisión. 

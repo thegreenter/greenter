@@ -106,7 +106,7 @@
     {% endfor %}
     {% endif %}
     {% set emp = doc.company %}
-    {% include 'partials/signature.xml.twig' %}
+    {% include 'signature.xml.twig' %}
     <cac:AccountingSupplierParty>
         <cbc:CustomerAssignedAccountID>{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
         <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>

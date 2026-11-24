@@ -31,7 +31,7 @@
 	</cac:AdditionalDocumentReference>
     {% endfor %}
     {% set emp = doc.company %}
-	{% include 'partials/signature.xml.twig' %}
+	{% include 'signature.xml.twig' %}
 	<cac:DespatchSupplierParty>
 		<cac:Party>
 			<cac:PartyIdentification>
@@ -110,8 +110,11 @@
 				</cac:PartyIdentification>
 				<cac:PartyLegalEntity>
 					<cbc:RegistrationName><![CDATA[{{ envio.transportista.rznSocial|cdata }}]]></cbc:RegistrationName>
+					{% if envio.transportista.nroMtc %}
 					<cbc:CompanyID>{{ envio.transportista.nroMtc }}</cbc:CompanyID>
+					{% endif %}
 				</cac:PartyLegalEntity>
+				{% include 'agentParty.xml.twig' with {'autorizacion': envio.transportista.autorizacion} only %}
 			</cac:CarrierParty>
             {% endif %}
 			{% if envio.fecEntregaBienes %}
@@ -140,6 +143,7 @@
 				<cac:AddressLine>
 					<cbc:Line>{{ envio.llegada.direccion }}</cbc:Line>
 				</cac:AddressLine>
+				{% include 'coordinate.xml.twig' with {'direccion': envio.llegada} only %}
 			</cac:DeliveryAddress>
 			<cac:Despatch>
 				<cac:DespatchAddress>
@@ -150,14 +154,27 @@
 					<cac:AddressLine>
 						<cbc:Line>{{ envio.partida.direccion }}</cbc:Line>
 					</cac:AddressLine>
+					{% include 'coordinate.xml.twig' with {'direccion': envio.partida} only %}
 				</cac:DespatchAddress>
+				{% if envio.autorizacion %}
+				<cac:DespatchParty>
+					{% include 'agentParty.xml.twig' with {'autorizacion': envio.autorizacion} only %}
+				</cac:DespatchParty>
+				{% endif %}
 			</cac:Despatch>
 		</cac:Delivery>
-		{% for precinto in envio.contenedores %}
+		{% for contenedor in envio.contenedores %}
 		<cac:TransportHandlingUnit>
 			<cac:Package>
+				{% if contenedor.numero is defined %}
+				<cbc:ID>{{ contenedor.numero }}</cbc:ID>
+				{% if contenedor.precinto %}
+				<cbc:TraceID>{{ contenedor.precinto }}</cbc:TraceID>
+				{% endif %}
+				{% else %}
 				<cbc:ID>{{ loop.index }}</cbc:ID>
-				<cbc:TraceID>{{ precinto }}</cbc:TraceID>
+				<cbc:TraceID>{{ contenedor }}</cbc:TraceID>
+				{% endif %}
 			</cac:Package>
 		</cac:TransportHandlingUnit>
 		{% endfor %}
@@ -219,6 +236,12 @@
 			<cac:SellersItemIdentification>
 				<cbc:ID>{{ det.codigo }}</cbc:ID>
 			</cac:SellersItemIdentification>
+			{% if det.codProdGS1 %}
+			{% set gtinLen = det.codProdGS1|length %}
+			<cac:StandardItemIdentification>
+				<cbc:ID{% if gtinLen in [8, 12, 13, 14] %} schemeID="GTIN-{{ gtinLen }}"{% endif %}>{{ det.codProdGS1 }}</cbc:ID>
+			</cac:StandardItemIdentification>
+			{% endif %}
 			{% if det.codProdSunat %}
 			<cac:CommodityClassification>
 				<cbc:ItemClassificationCode listID="UNSPSC" listAgencyName="GS1 US" listName="Item Classification">{{ det.codProdSunat }}</cbc:ItemClassificationCode>
