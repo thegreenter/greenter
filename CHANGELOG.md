@@ -16,6 +16,7 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 - `WsSenderResolver`, `CustomMetadataFactory` (validator) y `DefaultTemplateResolver` (report) soportan subclases de los modelos. La metadata de validación se reutiliza por clase y versión.
 - Notas de crédito y débito 2.1: los subtotales por tipo de operación (gravadas, inafectas, exoneradas, gratuitas y exportación) se informan aun cuando sean cero, igual que en la factura 2.1.
 - Plantillas XML: parciales comunes para la firma (`signature`), el adquirente de factura y notas 2.1 (`customer2.1`) y la dirección con ubigeo (`ubigeoAddress`). Salvo lo indicado arriba, el XML generado no cambia (tests golden).
+- Plantillas XML: se quita `{% apply spaceless %}` (filtro deprecado desde Twig 3.12 y eliminado en Twig 4); `TwigBuilder::render()` elimina los espacios entre etiquetas igual que `spaceless`. El XML generado no cambia.
 - Migrar configuración de PHP CS Fixer a v3 (`.php-cs-fixer.dist.php`).
 - Tests golden del XML generado, tests de escape XML y tests de `greenter/core`.
 

@@ -47,9 +47,24 @@ class TwigBuilder
      */
     public function render($template, $doc): string
     {
-        return $this->twig->render($template, [
+        $xml = $this->twig->render($template, [
             'doc' => $doc,
         ]);
+
+        return $this->removeWhitespaceBetweenTags($xml);
+    }
+
+    /**
+     * Elimina los espacios en blanco entre etiquetas, igual que el filtro spaceless de Twig
+     * (deprecado desde Twig 3.12 y eliminado en Twig 4).
+     *
+     * @param string $xml
+     *
+     * @return string
+     */
+    private function removeWhitespaceBetweenTags(string $xml): string
+    {
+        return trim(preg_replace('/>\s+</', '><', $xml));
     }
 
     private function createTwig(array $options)
