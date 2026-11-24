@@ -57,7 +57,7 @@ class See
      *
      * @var array
      */
-    private $options = ['autoescape' => false];
+    private $options = ['autoescape' => 'html'];
 
     /**
      * @var XmlBuilderResolver|null

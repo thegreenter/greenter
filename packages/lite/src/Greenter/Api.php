@@ -33,7 +33,7 @@ class Api
     /**
      * Twig Render Options.
      */
-    private array $options = ['autoescape' => false];
+    private array $options = ['autoescape' => 'html'];
 
     /**
      * @param array|null $endpoints

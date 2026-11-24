@@ -1,4 +1,3 @@
-{% autoescape 'html' %}
 {# Punto de georreferencia de una dirección de la guía (cac:LocationCoordinate), en grados decimales. #}
 {% if direccion.latitud is not null or direccion.longitud is not null %}
 <cac:LocationCoordinate>
@@ -10,4 +9,3 @@
 	{% endif %}
 </cac:LocationCoordinate>
 {% endif %}
-{%- endautoescape %}

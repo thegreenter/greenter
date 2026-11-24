@@ -212,7 +212,7 @@ class GoldenXmlTest extends TestCase
         return new $builderClass([
             'cache' => false,
             'strict_variables' => true,
-            'autoescape' => false,
+            'autoescape' => 'html', // por defecto en See y Api
         ]);
     }
 

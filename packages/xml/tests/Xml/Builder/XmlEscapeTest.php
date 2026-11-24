@@ -16,8 +16,9 @@ use Greenter\Xml\Builder\InvoiceBuilder;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Los textos fuera de CDATA se escapan; dentro de CDATA se escriben tal cual (|raw),
- * el usuario es responsable de no incluir la secuencia ']]>'.
+ * Con la opción autoescape de Twig (por defecto 'html' en See y Api) los textos fuera de CDATA
+ * se escapan; dentro de CDATA se escriben tal cual (|raw), el usuario es responsable de no
+ * incluir la secuencia ']]>'.
  */
 class XmlEscapeTest extends TestCase
 {
@@ -100,8 +101,8 @@ class XmlEscapeTest extends TestCase
     public function optionsProvider(): array
     {
         return [
-            'autoescape deshabilitado (default See)' => [['cache' => false, 'autoescape' => false]],
-            'autoescape html' => [['cache' => false, 'autoescape' => 'html']],
+            'autoescape html (default See y Api)' => [['cache' => false, 'autoescape' => 'html']],
+            'opciones por defecto de Twig' => [['cache' => false]],
         ];
     }
 

@@ -1,5 +1,4 @@
 {# Dirección con ubigeo (cac:Address) de la variable addr: entrega y ubicación del adquirente. #}
-{% autoescape 'html' %}
 <cac:Address>
     {% if addr.ubigueo %}
         <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
@@ -25,4 +24,3 @@
         <cbc:IdentificationCode listID="ISO 3166-1" listAgencyName="United Nations Economic Commission for Europe" listName="Country">{{ addr.codigoPais }}</cbc:IdentificationCode>
     </cac:Country>
 </cac:Address>
-{% endautoescape %}
