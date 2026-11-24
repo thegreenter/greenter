@@ -45,6 +45,14 @@ class SubclassValidatorTest extends TestCase
         $factory->setVersion('2.0');
         $this->assertNotSame($metadata, $factory->getMetadataFor(new Invoice()));
     }
+
+    public function testClassWithoutLoader(): void
+    {
+        $factory = new CustomMetadataFactory();
+
+        $this->assertFalse($factory->hasMetadataFor('Tests\\Greenter\\Validator\\NoExiste'));
+        $this->assertFalse($factory->hasMetadataFor(new \stdClass()));
+    }
 }
 
 class CustomInvoice extends Invoice

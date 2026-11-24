@@ -86,6 +86,21 @@ class ResolverTest extends TestCase
         (new XmlBuilderResolver())->find(CustomDocument::class);
     }
 
+    public function testBuilderNotFoundForUnknownClass(): void
+    {
+        $this->expectException(DocumentNoSupportException::class);
+
+        (new XmlBuilderResolver())->find('Tests\\Greenter\\Factory\\NoExiste');
+    }
+
+    /**
+     * Respaldo por convención: Greenter\Xml\Builder\{Documento}Builder.
+     */
+    public function testBuilderByNamingConvention(): void
+    {
+        $this->assertInstanceOf(InvoiceBuilder::class, (new XmlBuilderResolver())->find(Legacy\Invoice::class));
+    }
+
     /**
      * @dataProvider senderProvider
      */
