@@ -34,6 +34,13 @@ class AutoescapeDefaultTest extends TestCase
         $this->assertStringContainsString('<cbc:CitySubdivisionName>A &amp; &lt;B&gt;</cbc:CitySubdivisionName>', $xml);
     }
 
+    /**
+     * En un proceso aparte: Twig < 3.31.1 no incluye la opción autoescape en el nombre de la
+     * plantilla compilada, y en el mismo proceso se reutilizaría la compilada por otro test.
+     *
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
     public function testSeeAllowsDisablingAutoescape(): void
     {
         $see = new See();
