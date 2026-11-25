@@ -17,7 +17,7 @@
     "require": {
         "php": ">=7.4",
         "ext-dom": "*",
-        "greenter/xmldsig": "^5.0",
+        "greenter/xmldsig": "^5.0 || ^6.0",
         "greenter/core": "^5.0",
         "greenter/ws": "^5.0",
         "greenter/xml": "^5.0"
