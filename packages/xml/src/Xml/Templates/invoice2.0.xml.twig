@@ -61,7 +61,7 @@
                     </sac:AdditionalProperty>
                     {% endfor %}
                     {% if doc.guiaEmbebida %}
-                    {% include 'embededDespatch.xml.twig' with {'desp': doc.guiaEmbebida} only %}
+                    {% include 'partials/embededDespatch.xml.twig' with {'desp': doc.guiaEmbebida} only %}
                     {% endif %}
                     {% if doc.tipoOperacion %}
                     <sac:SUNATTransaction>
@@ -104,7 +104,7 @@
     {% endfor %}
     {% endif %}
     {% set emp = doc.company %}
-    {% include 'signature.xml.twig' %}
+    {% include 'partials/signature.xml.twig' %}
     <cac:AccountingSupplierParty>
         <cbc:CustomerAssignedAccountID>{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
         <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>

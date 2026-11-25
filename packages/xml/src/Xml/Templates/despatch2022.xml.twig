@@ -29,7 +29,7 @@
 	</cac:AdditionalDocumentReference>
     {% endfor %}
     {% set emp = doc.company %}
-	{% include 'signature.xml.twig' %}
+	{% include 'partials/signature.xml.twig' %}
 	<cac:DespatchSupplierParty>
 		<cac:Party>
 			<cac:PartyIdentification>
@@ -112,7 +112,7 @@
 					<cbc:CompanyID>{{ envio.transportista.nroMtc }}</cbc:CompanyID>
 					{% endif %}
 				</cac:PartyLegalEntity>
-				{% include 'agentParty.xml.twig' with {'autorizacion': envio.transportista.autorizacion} only %}
+				{% include 'partials/agentParty.xml.twig' with {'autorizacion': envio.transportista.autorizacion} only %}
 			</cac:CarrierParty>
             {% endif %}
 			{% if envio.fecEntregaBienes %}
@@ -141,7 +141,7 @@
 				<cac:AddressLine>
 					<cbc:Line>{{ envio.llegada.direccion }}</cbc:Line>
 				</cac:AddressLine>
-				{% include 'coordinate.xml.twig' with {'direccion': envio.llegada} only %}
+				{% include 'partials/coordinate.xml.twig' with {'direccion': envio.llegada} only %}
 			</cac:DeliveryAddress>
 			<cac:Despatch>
 				<cac:DespatchAddress>
@@ -152,11 +152,11 @@
 					<cac:AddressLine>
 						<cbc:Line>{{ envio.partida.direccion }}</cbc:Line>
 					</cac:AddressLine>
-					{% include 'coordinate.xml.twig' with {'direccion': envio.partida} only %}
+					{% include 'partials/coordinate.xml.twig' with {'direccion': envio.partida} only %}
 				</cac:DespatchAddress>
 				{% if envio.autorizacion %}
 				<cac:DespatchParty>
-					{% include 'agentParty.xml.twig' with {'autorizacion': envio.autorizacion} only %}
+					{% include 'partials/agentParty.xml.twig' with {'autorizacion': envio.autorizacion} only %}
 				</cac:DespatchParty>
 				{% endif %}
 			</cac:Despatch>

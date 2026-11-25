@@ -7,7 +7,7 @@
         {% if doc.direccionDestino ?? null %}
             {% set addr = doc.direccionDestino %}
             <cac:PhysicalLocation>
-                {% include 'ubigeoAddress.xml.twig' %}
+                {% include 'partials/ubigeoAddress.xml.twig' %}
             </cac:PhysicalLocation>
         {% endif %}
         <cac:PartyLegalEntity>
@@ -38,7 +38,7 @@
                     </cac:Country>
                 </cac:RegistrationAddress>
             {% endif %}
-            {% include 'shareholders.xml.twig' with {'participantes': doc.participantes} only %}
+            {% include 'partials/shareholders.xml.twig' with {'participantes': doc.participantes} only %}
         </cac:PartyLegalEntity>
         {% if client.email or client.telephone %}
             <cac:Contact>

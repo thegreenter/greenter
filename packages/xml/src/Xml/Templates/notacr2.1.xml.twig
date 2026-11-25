@@ -38,7 +38,7 @@
     </cac:DespatchDocumentReference>
     {% endfor %}
     {% endif %}
-    {% include 'contract.xml.twig' with {'contrato': doc.contrato} only %}
+    {% include 'partials/contract.xml.twig' with {'contrato': doc.contrato} only %}
     {% if doc.relDocs %}
     {% for rel in doc.relDocs %}
     <cac:AdditionalDocumentReference>
@@ -48,7 +48,7 @@
     {% endfor %}
     {% endif %}
     {% set emp = doc.company %}
-    {% include 'signature.xml.twig' %}
+    {% include 'partials/signature.xml.twig' %}
     <cac:AccountingSupplierParty>
         <cac:Party>
             <cac:PartyIdentification>
@@ -102,7 +102,7 @@
         </cac:Party>
     </cac:AccountingSupplierParty>
     {% set client = doc.client %}
-    {% include 'customer2.1.xml.twig' %}
+    {% include 'partials/customer2.1.xml.twig' %}
     {% if doc.formaPago %}
     <cac:PaymentTerms>
         <cbc:ID>FormaPago</cbc:ID>
