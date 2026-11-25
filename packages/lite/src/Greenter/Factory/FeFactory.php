@@ -18,6 +18,8 @@ use Greenter\XMLSecLibs\Sunat\SignedXml;
 
 /**
  * Class FeFactory.
+ *
+ * @deprecated desde 5.5, se elimina en 6.0. Usar Greenter\Processor\DocumentProcessor (sin estado entre envíos).
  */
 class FeFactory implements FactoryInterface
 {
@@ -135,6 +137,18 @@ class FeFactory implements FactoryInterface
         return $this->sender->send($name, $xml);
     }
     
+    /**
+     * Usado por See para mantener `See::getFactory()->getLastXml()`.
+     *
+     * @internal
+     */
+    public function setLastXml(?string $xml): self
+    {
+        $this->lastXml = $xml;
+
+        return $this;
+    }
+
     /**
      * Get Last XML Signed.
      *

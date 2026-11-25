@@ -20,6 +20,13 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 - Corrección de ID de firma en los comprobantes: `cac:Signature/cac:DigitalSignatureAttachment/cac:ExternalReference/cbc:URI` cambia de `#GREENTER-SIGN` a `#GreenterSign`, el `Id` de `ds:Signature` que genera `greenter/xmldsig`.
 - Migrar configuración de PHP CS Fixer a v3 (`.php-cs-fixer.dist.php`).
 - Tests golden del XML generado, tests de escape XML y tests de `greenter/core`.
+- Nuevo `Greenter\Processor\DocumentProcessor` (`greenter/lite`): construir XML => firmar => enviar, con sus dependencias en el constructor y sin estado entre envíos. `See` y `Api` lo usan internamente (`See::getProcessor()`, `Api::getProcessor()`).
+- `See::getLastXml()` y `See::__construct(?SoapClient $wsClient, ?SignedXml $signer)`.
+- **Deprecado** `FeFactory` y `See::getFactory()`: usar `DocumentProcessor`, `See::getLastXml()` y `See::getProcessor()`. Se eliminan en v6.
+- **Deprecado** `greenter/ws`: las propiedades públicas `compressor`, `decompressor` y `cdrReader` de `BaseSunat`, usar `setCompressor()`, `setDecompressor()` y `setCdrReader()`. Se eliminan en v6.
+- Contrato de errores: nueva interfaz `Greenter\Exception\GreenterException`, implementada por las excepciones de Greenter. Los errores de negocio se siguen informando en el resultado (`BaseResult::getError()`).
+- `See::sendXmlFile()` lanza `XmlReaderException` si el contenido no es XML y `DocumentNoSupportException` si no es un comprobante soportado.
+- `WsSenderResolver` reutiliza los servicios de envío entre documentos.
 
 ## 5.4.0 - 2026-11-10
 - #284 dirección de entrega opcional, para declarar solo el país del servicio exportado.

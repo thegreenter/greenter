@@ -12,6 +12,7 @@ use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Sale\Note;
 use Greenter\Model\Summary\Summary;
 use Greenter\Model\Voided\Voided;
+use Greenter\Processor\BuilderResolverInterface;
 use Greenter\Ws\Builder\DocumentNoSupportException;
 use Greenter\Xml\Builder\DespatchBuilder;
 use Greenter\Xml\Builder\InvoiceBuilder;
@@ -21,7 +22,7 @@ use Greenter\Xml\Builder\RetentionBuilder;
 use Greenter\Xml\Builder\SummaryBuilder;
 use Greenter\Xml\Builder\VoidedBuilder;
 
-class XmlBuilderResolver
+class XmlBuilderResolver implements BuilderResolverInterface
 {
     /**
      * Builders por defecto (Reversion usa VoidedBuilder por herencia).

@@ -7,10 +7,14 @@ namespace Greenter;
 use Greenter\Api\ApiFactory;
 use Greenter\Api\GreSender;
 use Greenter\Api\InMemoryStore;
+use Greenter\Factory\GreSenderResolver;
 use Greenter\Factory\XmlBuilderResolver;
+use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Response\StatusResult;
+use Greenter\Processor\DocumentProcessor;
+use Greenter\Processor\SignedXmlSigner;
 use Greenter\Sunat\GRE\Api\AuthApi;
 use Greenter\Sunat\GRE\ApiException;
 use Greenter\Sunat\GRE\Configuration;
@@ -19,10 +23,11 @@ use GuzzleHttp\Client;
 
 class Api
 {
-    private ?ApiFactory $factory = null;
-    private ?SignedXml $signer = null;
+    private ApiFactory $factory;
+    private SignedXml $signer;
     private ?string $lastXml = null;
     private ?XmlBuilderResolver $builderResolver = null;
+    private ?DocumentProcessor $processor = null;
 
     private array $credentials = [];
     private array $defaultEndpoints = [
@@ -71,6 +76,7 @@ class Api
     {
         $this->credentials['client_id'] = $clientId;
         $this->credentials['client_secret'] = $secret;
+        $this->processor = null;
 
         return $this;
     }
@@ -88,6 +94,7 @@ class Api
     {
         $this->credentials['username'] = $ruc.$user;
         $this->credentials['password'] = $password;
+        $this->processor = null;
 
         return $this;
     }
@@ -124,11 +131,10 @@ class Api
      */
     public function send(DocumentInterface $document): ?BaseResult
     {
-        $builder = $this->getBuilderResolver()->find(get_class($document));
+        $processor = $this->getProcessor();
+        $this->lastXml = $processor->getXmlSigned($document);
 
-        $xml = $builder->build($document);
-        $this->lastXml = $this->signer->signXml($xml);
-        return $this->sendXml($document->getName(), $this->lastXml);
+        return $processor->sendXml(get_class($document), $document->getName(), $this->lastXml);
     }
 
     /**
@@ -141,9 +147,7 @@ class Api
      */
     public function sendXml(string $name, string $content): ?BaseResult
     {
-        $sender = $this->createSender();
-
-        return $sender->send($name, $content);
+        return $this->getProcessor()->sendXml(Despatch::class, $name, $content);
     }
 
     /**
@@ -175,18 +179,35 @@ class Api
     }
 
     /**
+     * Procesador de documentos (construir XML => firmar => enviar) con la configuración actual.
+     *
+     * @return DocumentProcessor
+     */
+    public function getProcessor(): DocumentProcessor
+    {
+        if ($this->processor === null) {
+            $this->processor = new DocumentProcessor(
+                $this->getBuilderResolver(),
+                new SignedXmlSigner($this->signer),
+                $this->createSenderResolver()
+            );
+        }
+
+        return $this->processor;
+    }
+
+    private function createSenderResolver(): GreSenderResolver
+    {
+        return new GreSenderResolver($this->factory, $this->credentials);
+    }
+
+    /**
      * @throws ApiException
      */
     private function createSender(): GreSender
     {
-        $api = $this->factory->create(
-            $this->credentials['client_id'],
-            $this->credentials['client_secret'],
-            $this->credentials['username'],
-            $this->credentials['password']
-        );
-
-        return new GreSender($api);
+        /** @var GreSender */
+        return $this->createSenderResolver()->find(Despatch::class);
     }
 
     private function createApiFactory(array $endpoints): ApiFactory
