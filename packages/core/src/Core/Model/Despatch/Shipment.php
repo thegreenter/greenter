@@ -129,6 +129,12 @@ class Shipment
      */
     private $transportista;
     /**
+     * Empresa de transporte subcontratada por el transportista (guía de remisión transportista).
+     *
+     * @var Transportist
+     */
+    private $subContratado;
+    /**
      * Vehiculo Principal.
      *
      * @var Vehicle
@@ -499,6 +505,26 @@ class Shipment
     public function setTransportista(?Transportist $transportista): Shipment
     {
         $this->transportista = $transportista;
+
+        return $this;
+    }
+
+    /**
+     * @return Transportist
+     */
+    public function getSubContratado(): ?Transportist
+    {
+        return $this->subContratado;
+    }
+
+    /**
+     * @param Transportist|null $subContratado
+     *
+     * @return Shipment
+     */
+    public function setSubContratado(?Transportist $subContratado): Shipment
+    {
+        $this->subContratado = $subContratado;
 
         return $this;
     }
