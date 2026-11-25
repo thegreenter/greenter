@@ -77,7 +77,9 @@
     {% set envio = doc.envio %}
 	<cac:Shipment>
 		<cbc:ID>SUNAT_Envio</cbc:ID>
+		{% if envio.codTraslado %}
 		<cbc:HandlingCode listAgencyName="PE:SUNAT" listName="Motivo de traslado" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo20">{{ envio.codTraslado }}</cbc:HandlingCode>
+		{% endif %}
         {% if envio.desTraslado %}
 		<cbc:HandlingInstructions>{{ envio.desTraslado }}</cbc:HandlingInstructions>
 		{% endif %}
@@ -108,13 +110,24 @@
 		</cac:Consignment>
 		{% endif %}
 		<cac:ShipmentStage>
+			{% if envio.modTraslado %}
 			<cbc:TransportModeCode listName="Modalidad de traslado" listAgencyName="PE:SUNAT" listURI="urn:pe:gob:sunat:cpe:see:gem:catalogos:catalogo18">{{ envio.modTraslado }}</cbc:TransportModeCode>
+			{% endif %}
 			{% if envio.fecTraslado %}
 			<cac:TransitPeriod>
 				<cbc:StartDate>{{ envio.fecTraslado|date('Y-m-d') }}</cbc:StartDate>
 			</cac:TransitPeriod>
 			{% endif %}
-            {% if envio.transportista %}
+            {% if doc.tipoDoc == '31' %}
+			{% if envio.transportista and envio.transportista.nroMtc %}
+			<cac:CarrierParty>
+				<cac:PartyLegalEntity>
+					<cbc:CompanyID>{{ envio.transportista.nroMtc }}</cbc:CompanyID>
+				</cac:PartyLegalEntity>
+				{% include 'partials/agentParty.xml.twig' with {'autorizacion': envio.transportista.autorizacion} only %}
+			</cac:CarrierParty>
+			{% endif %}
+            {% elseif envio.transportista %}
 			<cac:CarrierParty>
 				<cac:PartyIdentification>
 					<cbc:ID schemeID="{{ envio.transportista.tipoDoc }}">{{ envio.transportista.numDoc }}</cbc:ID>

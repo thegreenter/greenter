@@ -192,6 +192,8 @@ class CeDespatchBuilderTest extends TestCase
         $despatch->setTipoDoc('31')
             ->setRemitente((new Client())->setTipoDoc('6')->setNumDoc('20555555551')->setRznSocial('REMITENTE SAC'));
         $despatch->getEnvio()
+            ->setCodTraslado(null)
+            ->setModTraslado(null)
             ->setAutorizacion((new Autorizacion())->setNumero('AUT-REM-2026-01')->setCodEmisor('06'))
             ->setSubContratado((new Transportist())->setTipoDoc('6')->setNumDoc('20000000003')->setRznSocial('SUBCONTRATA SAC'));
 
@@ -219,6 +221,12 @@ class CeDespatchBuilderTest extends TestCase
             $xpath->evaluate("string($subcontratado/cac:PartyLegalEntity/cbc:RegistrationName)"),
         ]);
         $this->assertSame(1, $xpath->query('/*/cac:Shipment/cac:Consignment/following-sibling::cac:ShipmentStage')->length);
+        // La guía 31 no lleva motivo ni modalidad de traslado, y el transportista solo escribe su número MTC.
+        $this->assertSame(0, $xpath->query('/*/cac:Shipment/cbc:HandlingCode')->length);
+        $this->assertSame(0, $xpath->query('/*/cac:Shipment/cac:ShipmentStage/cbc:TransportModeCode')->length);
+        $carrier = '/*/cac:Shipment/cac:ShipmentStage/cac:CarrierParty';
+        $this->assertSame('100101', $xpath->evaluate("string($carrier/cac:PartyLegalEntity/cbc:CompanyID)"));
+        $this->assertSame(0, $xpath->query("$carrier/cac:PartyIdentification")->length);
         $this->assertSchema($xml);
     }
 
