@@ -71,6 +71,8 @@ class ResolverTemplateTest extends TestCase
           [new Summary(), 'summary.html.twig'],
           [new Voided(), 'voided.html.twig'],
           'Reversion' => [new Reversion(), 'voided.html.twig'],
+          'Subclase de Invoice' => [new class extends Invoice {}, 'invoice.html.twig'],
+          'Subclase de Retention' => [new class extends Retention {}, 'retention.html.twig'],
         ];
     }
 }

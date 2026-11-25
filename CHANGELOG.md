@@ -8,6 +8,18 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 - Retención/Percepción: alinear campos con las reglas de validación SUNAT (26.08.2026)
 - Resumen diario: nodo del adquiriente opcional, razón social del adquiriente (`clienteNombre`), operaciones gratuitas por tipo (catálogo 11: 06-09) e IGV de gratuitas (tributo 9996) en `SummaryDetail::gratuitas` (`SummaryGratuitas`).
 - Resumen diario: `SummaryDetail::mtoOperGratuitas` (catálogo 11: 05) queda deprecado (usar `SummaryGratuitas`), SUNAT lo desactiva a partir del 2027-01-01.
+- XML: `See` y `Api` usan por defecto la opción de Twig `autoescape => 'html'` (antes `false`): los textos fuera de CDATA (direcciones de la guía, nombres del conductor, correos, etc.) se escapan.
+- **Seguridad** SOAP: nuevo `SoapClient::createSecure()` / `SoapClient::secureParameters()` y `See::__construct(?SoapClient $wsClient)` para verificar el certificado TLS de SUNAT. El cliente por defecto aún no lo verifica; lo hará en v6.
+- **Seguridad** `greenter/xcodes`: corregir inyección XPath en `XmlErrorCodeProvider::getValue()`; el catálogo de códigos se carga una sola vez por proceso.
+- Requerir `twig/twig` `^3.11.3` (excluye versiones con CVEs conocidos).
+- `XmlBuilderResolver`: mapa explícito documento => builder con soporte de subclases de los modelos, `register()` para builders propios (accesible con `See::getBuilderResolver()` y `Api::getBuilderResolver()`) y reutilización de builders/Twig entre envíos.
+- `WsSenderResolver`, `CustomMetadataFactory` (validator) y `DefaultTemplateResolver` (report) soportan subclases de los modelos. La metadata de validación se reutiliza por clase y versión.
+- Notas de crédito y débito 2.1: los subtotales por tipo de operación (gravadas, inafectas, exoneradas, gratuitas y exportación) se informan aun cuando sean cero, igual que en la factura 2.1.
+- Plantillas XML: las plantillas de comprobantes quedan en `Templates/` y los parciales en `Templates/partials/`. Nuevos parciales comunes para la firma (`signature`), el adquirente de factura y notas 2.1 (`customer2.1`) y la dirección con ubigeo (`ubigeoAddress`).
+- Plantillas XML: se quita `{% apply spaceless %}` (filtro deprecado desde Twig 3.12 y eliminado en Twig 4); `TwigBuilder::render()` elimina los espacios entre etiquetas igual que `spaceless`. El XML generado no cambia.
+- Corrección de ID de firma en los comprobantes: `cac:Signature/cac:DigitalSignatureAttachment/cac:ExternalReference/cbc:URI` cambia de `#GREENTER-SIGN` a `#GreenterSign`, el `Id` de `ds:Signature` que genera `greenter/xmldsig`.
+- Migrar configuración de PHP CS Fixer a v3 (`.php-cs-fixer.dist.php`).
+- Tests golden del XML generado, tests de escape XML y tests de `greenter/core`.
 
 ## 5.4.0 - 2026-11-10
 - #284 dirección de entrega opcional, para declarar solo el país del servicio exportado.

@@ -1,4 +1,3 @@
-{% apply spaceless %}
 <?xml version="1.0" encoding="utf-8"?>
 <DespatchAdvice xmlns="urn:oasis:names:specification:ubl:schema:xsd:DespatchAdvice-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
 	<ext:UBLExtensions>
@@ -28,22 +27,7 @@
 	</cac:AdditionalDocumentReference>
     {% endif %}
     {% set emp = doc.company %}
-    	<cac:Signature>
-		<cbc:ID>SIGN{{ emp.ruc }}</cbc:ID>
-		<cac:SignatoryParty>
-			<cac:PartyIdentification>
-				<cbc:ID>{{ emp.ruc }}</cbc:ID>
-			</cac:PartyIdentification>
-			<cac:PartyName>
-				<cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
-			</cac:PartyName>
-		</cac:SignatoryParty>
-		<cac:DigitalSignatureAttachment>
-			<cac:ExternalReference>
-				<cbc:URI>#GREENTER-SIGN</cbc:URI>
-			</cac:ExternalReference>
-		</cac:DigitalSignatureAttachment>
-	</cac:Signature>
+    	{% include 'partials/signature.xml.twig' %}
 	<cac:DespatchSupplierParty>
 		<cbc:CustomerAssignedAccountID schemeID="6">{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
 		<cac:Party>
@@ -148,4 +132,3 @@
 	</cac:DespatchLine>
     {% endfor %}
 </DespatchAdvice>
-{% endapply %}

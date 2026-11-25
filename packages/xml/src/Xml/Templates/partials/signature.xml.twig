@@ -1,0 +1,17 @@
+{# Firma del emisor (cac:Signature): todas las plantillas. #}
+<cac:Signature>
+    <cbc:ID>SIGN{{ emp.ruc }}</cbc:ID>
+    <cac:SignatoryParty>
+        <cac:PartyIdentification>
+            <cbc:ID>{{ emp.ruc }}</cbc:ID>
+        </cac:PartyIdentification>
+        <cac:PartyName>
+            <cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
+        </cac:PartyName>
+    </cac:SignatoryParty>
+    <cac:DigitalSignatureAttachment>
+        <cac:ExternalReference>
+            <cbc:URI>#GreenterSign</cbc:URI>
+        </cac:ExternalReference>
+    </cac:DigitalSignatureAttachment>
+</cac:Signature>

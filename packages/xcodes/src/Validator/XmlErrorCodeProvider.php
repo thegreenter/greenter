@@ -13,6 +13,11 @@ use DOMXPath;
  */
 class XmlErrorCodeProvider implements ErrorCodeProviderInterface
 {
+    /**
+     * @var array<string, array<string, string>>
+     */
+    private static $cache = [];
+
     private $xmlErrorFile;
 
     /**
@@ -30,17 +35,7 @@ class XmlErrorCodeProvider implements ErrorCodeProviderInterface
      */
     public function getAll(): ?array
     {
-        $xpath = $this->getXpath();
-        $nodes = $xpath->query('/errors/error');
-
-        $items = [];
-        foreach ($nodes as $node) {
-            /** @var DOMElement $node */
-            $key = $node->getAttribute('code');
-            $items[$key] = $node->nodeValue;
-        }
-
-        return $items;
+        return $this->getCodes();
     }
 
     /**
@@ -52,21 +47,37 @@ class XmlErrorCodeProvider implements ErrorCodeProviderInterface
      */
     public function getValue(?string $code): ?string
     {
-        $xpath = $this->getXpath();
-        $nodes = $xpath->query("/errors/error[@code='$code']");
+        $codes = $this->getCodes();
 
-        if ($nodes->length !== 1) {
-            return '';
-        }
-
-        return $nodes[0]->nodeValue;
+        return isset($code, $codes[$code]) ? $codes[$code] : '';
     }
 
-    private function getXpath(): DOMXPath
+    /**
+     * Los códigos se cargan una sola vez por archivo y se comparten entre instancias.
+     *
+     * @return array<string, string>
+     */
+    private function getCodes(): array
+    {
+        if (!isset(self::$cache[$this->xmlErrorFile])) {
+            self::$cache[$this->xmlErrorFile] = $this->loadCodes();
+        }
+
+        return self::$cache[$this->xmlErrorFile];
+    }
+
+    private function loadCodes(): array
     {
         $doc = new DOMDocument();
         $doc->load($this->xmlErrorFile);
+        $nodes = (new DOMXPath($doc))->query('/errors/error');
 
-        return new DOMXPath($doc);
+        $items = [];
+        foreach ($nodes as $node) {
+            /** @var DOMElement $node */
+            $items[$node->getAttribute('code')] = $node->nodeValue;
+        }
+
+        return $items;
     }
 }

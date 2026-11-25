@@ -46,10 +46,24 @@ class WsSenderResolver
 
     public function find(string $docClass): SenderInterface
     {
-        $sender = in_array($docClass, $this->summary) ? new SummarySender() : new BillSender();
+        $sender = $this->isSummary($docClass) ? new SummarySender() : new BillSender();
         $sender->setClient($this->client);
         $sender->setCodeProvider($this->codeProvider);
 
         return $sender;
+    }
+
+    /**
+     * Documentos de envío asíncrono (ticket), incluye sus subclases.
+     */
+    private function isSummary(string $docClass): bool
+    {
+        foreach ($this->summary as $summaryClass) {
+            if (is_a($docClass, $summaryClass, true)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

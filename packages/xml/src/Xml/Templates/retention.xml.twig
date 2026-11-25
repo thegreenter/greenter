@@ -1,4 +1,3 @@
-{% apply spaceless %}
 <?xml version="1.0" encoding="utf-8"?>
 <Retention xmlns="urn:sunat:names:specification:ubl:peru:schema:xsd:Retention-1" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1">
     <ext:UBLExtensions>
@@ -9,22 +8,7 @@
     <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
     <cbc:CustomizationID>1.0</cbc:CustomizationID>
     {% set emp = doc.company %}
-    <cac:Signature>
-        <cbc:ID>SIGN{{ emp.ruc }}</cbc:ID>
-        <cac:SignatoryParty>
-            <cac:PartyIdentification>
-                <cbc:ID>{{ emp.ruc }}</cbc:ID>
-            </cac:PartyIdentification>
-            <cac:PartyName>
-                <cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
-            </cac:PartyName>
-        </cac:SignatoryParty>
-        <cac:DigitalSignatureAttachment>
-            <cac:ExternalReference>
-                <cbc:URI>#GREENTER-SIGN</cbc:URI>
-            </cac:ExternalReference>
-        </cac:DigitalSignatureAttachment>
-    </cac:Signature>
+    {% include 'partials/signature.xml.twig' %}
     <cbc:ID>{{ doc.serie }}-{{ doc.correlativo }}</cbc:ID>
     <cbc:IssueDate>{{ doc.fechaEmision|date('Y-m-d') }}</cbc:IssueDate>
     <cbc:IssueTime>{{ doc.fechaEmision|date('H:i:s') }}</cbc:IssueTime>
@@ -153,4 +137,3 @@
     </sac:SUNATRetentionDocumentReference>
     {% endfor %}
 </Retention>
-{% endapply %}

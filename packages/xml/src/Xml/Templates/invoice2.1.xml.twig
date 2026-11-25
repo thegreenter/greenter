@@ -1,4 +1,3 @@
-{% apply spaceless %}
 <?xml version="1.0" encoding="utf-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
     <ext:UBLExtensions>
@@ -36,7 +35,7 @@
     </cac:DespatchDocumentReference>
     {% endfor %}
     {% endif %}
-    {% include 'contract.xml.twig' with {'contrato': doc.contrato} only %}
+    {% include 'partials/contract.xml.twig' with {'contrato': doc.contrato} only %}
     {% if doc.relDocs %}
     {% for rel in doc.relDocs %}
     <cac:AdditionalDocumentReference>
@@ -59,22 +58,7 @@
     </cac:AdditionalDocumentReference>
     {% endfor %}
     {% endif %}
-    <cac:Signature>
-        <cbc:ID>SIGN{{ emp.ruc }}</cbc:ID>
-        <cac:SignatoryParty>
-            <cac:PartyIdentification>
-                <cbc:ID>{{ emp.ruc }}</cbc:ID>
-            </cac:PartyIdentification>
-            <cac:PartyName>
-                <cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
-            </cac:PartyName>
-        </cac:SignatoryParty>
-        <cac:DigitalSignatureAttachment>
-            <cac:ExternalReference>
-                <cbc:URI>#GREENTER-SIGN</cbc:URI>
-            </cac:ExternalReference>
-        </cac:DigitalSignatureAttachment>
-    </cac:Signature>
+    {% include 'partials/signature.xml.twig' %}
     <cac:AccountingSupplierParty>
         <cac:Party>
             <cac:PartyIdentification>
@@ -135,59 +119,7 @@
         </cac:Party>
     </cac:AccountingSupplierParty>
     {% set client = doc.client %}
-    <cac:AccountingCustomerParty>
-        <cac:Party>
-            <cac:PartyIdentification>
-                <cbc:ID schemeID="{{ client.tipoDoc }}">{{ client.numDoc }}</cbc:ID>
-            </cac:PartyIdentification>
-            {% if doc.direccionDestino %}
-            {% set addr = doc.direccionDestino %}
-            <cac:PhysicalLocation>
-                {{ block('ubigeoAddress') }}
-            </cac:PhysicalLocation>
-            {% endif %}
-            <cac:PartyLegalEntity>
-                <cbc:RegistrationName><![CDATA[{{ client.rznSocial|raw }}]]></cbc:RegistrationName>
-                {% if client.address %}
-                {% set addr = client.address %}
-                <cac:RegistrationAddress>
-                    {% if addr.ubigueo %}
-                    <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
-                    {% endif %}
-                    {% if addr.urbanizacion %}
-                    <cbc:CitySubdivisionName>{{ addr.urbanizacion }}</cbc:CitySubdivisionName>
-                    {% endif %}
-                    {% if addr.provincia %}
-                    <cbc:CityName>{{ addr.provincia }}</cbc:CityName>
-                    {% endif %}
-                    {% if addr.departamento %}
-                    <cbc:CountrySubentity>{{ addr.departamento }}</cbc:CountrySubentity>
-                    {% endif %}
-                    {% if addr.distrito %}
-                    <cbc:District>{{ addr.distrito }}</cbc:District>
-                    {% endif %}
-                    <cac:AddressLine>
-                        <cbc:Line><![CDATA[{{ addr.direccion|raw }}]]></cbc:Line>
-                    </cac:AddressLine>
-                    <cac:Country>
-                        <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
-                    </cac:Country>
-                </cac:RegistrationAddress>
-                {% endif %}
-                {% include 'shareholders.xml.twig' with {'participantes': doc.participantes} only %}
-            </cac:PartyLegalEntity>
-            {% if client.email or client.telephone %}
-            <cac:Contact>
-                {% if client.telephone %}
-                <cbc:Telephone>{{ client.telephone }}</cbc:Telephone>
-                {% endif %}
-                {% if client.email %}
-                <cbc:ElectronicMail>{{ client.email }}</cbc:ElectronicMail>
-                {% endif %}
-            </cac:Contact>
-            {% endif %}
-        </cac:Party>
-    </cac:AccountingCustomerParty>
+    {% include 'partials/customer2.1.xml.twig' %}
     {% set seller = doc.seller %}
     {% if seller %}
     <cac:SellerSupplierParty>
@@ -241,34 +173,7 @@
         {% set addr = doc.direccionEntrega %}
         <cac:Delivery>
             <cac:DeliveryLocation>
-                {# También en cac:PhysicalLocation del adquirente, con block('ubigeoAddress') #}
-                {% block ubigeoAddress %}
-                <cac:Address>
-                    {% if addr.ubigueo %}
-                    <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
-                    {% endif %}
-                    {% if addr.urbanizacion %}
-                    <cbc:CitySubdivisionName>{{ addr.urbanizacion }}</cbc:CitySubdivisionName>
-                    {% endif %}
-                    {% if addr.provincia %}
-                    <cbc:CityName>{{ addr.provincia }}</cbc:CityName>
-                    {% endif %}
-                    {% if addr.departamento %}
-                    <cbc:CountrySubentity>{{ addr.departamento }}</cbc:CountrySubentity>
-                    {% endif %}
-                    {% if addr.distrito %}
-                    <cbc:District>{{ addr.distrito }}</cbc:District>
-                    {% endif %}
-                    {% if addr.direccion %}
-                    <cac:AddressLine>
-                        <cbc:Line><![CDATA[{{ addr.direccion|raw }}]]></cbc:Line>
-                    </cac:AddressLine>
-                    {% endif %}
-                    <cac:Country>
-                        <cbc:IdentificationCode listID="ISO 3166-1" listAgencyName="United Nations Economic Commission for Europe" listName="Country">{{ addr.codigoPais }}</cbc:IdentificationCode>
-                    </cac:Country>
-                </cac:Address>
-                {% endblock %}
+                {% include 'partials/ubigeoAddress.xml.twig' %}
             </cac:DeliveryLocation>
         </cac:Delivery>
     {% endif %}
@@ -773,4 +678,3 @@
     </cac:InvoiceLine>
     {% endfor %}
 </Invoice>
-{% endapply %}

@@ -46,7 +46,7 @@ class XmlErrorCodeProviderTest extends TestCase
 
     /**
      * @dataProvider providerInvalidCodes
-     * @param string $code
+     * @param string|null $code
      */
     public function testGetErrorMessageEmpty($code)
     {
@@ -71,6 +71,9 @@ class XmlErrorCodeProviderTest extends TestCase
     public function providerInvalidCodes()
     {
         return [
+            ["x' or @code='0100"],
+            [''],
+            [null],
             ['A110'],
             ['B200'],
             ['C404'],
@@ -79,5 +82,13 @@ class XmlErrorCodeProviderTest extends TestCase
             ['F200'],
             ['G004'],
         ];
+    }
+
+    public function testCodesAreSharedBetweenInstances()
+    {
+        $other = new XmlErrorCodeProvider();
+
+        $this->assertSame($this->provider->getAll(), $other->getAll());
+        $this->assertSame('Usuario o contraseña incorrectos', $other->getValue('0102'));
     }
 }

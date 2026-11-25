@@ -22,6 +22,20 @@ use Greenter\Model\Voided\Voided;
 class DefaultTemplateResolver implements TemplateResolverInterface
 {
     /**
+     * Plantilla por tipo de documento (incluye sus subclases).
+     */
+    private const TEMPLATES = [
+        Invoice::class => 'invoice',
+        Note::class => 'invoice',
+        Retention::class => 'retention',
+        Perception::class => 'perception',
+        Despatch::class => 'despatch',
+        Summary::class => 'summary',
+        Voided::class => 'voided',
+        Reversion::class => 'voided',
+    ];
+
+    /**
      * @param DocumentInterface $document
      *
      * @return string
@@ -31,31 +45,14 @@ class DefaultTemplateResolver implements TemplateResolverInterface
     public function getTemplate(DocumentInterface $document): ?string
     {
         $className = get_class($document);
-        switch ($className) {
-            case Invoice::class:
-            case Note::class:
-                $name = 'invoice';
-                break;
-            case Retention::class:
-                $name = 'retention';
-                break;
-            case Perception::class:
-                $name = 'perception';
-                break;
-            case Despatch::class:
-                $name = 'despatch';
-                break;
-            case Summary::class:
-                $name = 'summary';
-                break;
-            case Voided::class:
-            case Reversion::class:
-                $name = 'voided';
-                break;
-            default:
-                throw new InvalidDocumentException('Not found template for '.$className);
+        $classes = array_merge([$className], array_values(class_parents($document)));
+
+        foreach ($classes as $class) {
+            if (isset(self::TEMPLATES[$class])) {
+                return self::TEMPLATES[$class].'.html.twig';
+            }
         }
 
-        return $name.'.html.twig';
+        throw new InvalidDocumentException('Not found template for '.$className);
     }
 }

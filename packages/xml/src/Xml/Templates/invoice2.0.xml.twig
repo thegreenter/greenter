@@ -1,4 +1,3 @@
-{% apply spaceless %}
 <?xml version="1.0" encoding="utf-8"?>
 <Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2" xmlns:sac="urn:sunat:names:specification:ubl:peru:schema:xsd:SunatAggregateComponents-1">
     <ext:UBLExtensions>
@@ -62,7 +61,7 @@
                     </sac:AdditionalProperty>
                     {% endfor %}
                     {% if doc.guiaEmbebida %}
-                    {% include 'embededDespatch.xml.twig' with {'desp': doc.guiaEmbebida} only %}
+                    {% include 'partials/embededDespatch.xml.twig' with {'desp': doc.guiaEmbebida} only %}
                     {% endif %}
                     {% if doc.tipoOperacion %}
                     <sac:SUNATTransaction>
@@ -105,22 +104,7 @@
     {% endfor %}
     {% endif %}
     {% set emp = doc.company %}
-    <cac:Signature>
-        <cbc:ID>SIGN{{ emp.ruc }}</cbc:ID>
-        <cac:SignatoryParty>
-            <cac:PartyIdentification>
-                <cbc:ID>{{ emp.ruc }}</cbc:ID>
-            </cac:PartyIdentification>
-            <cac:PartyName>
-                <cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
-            </cac:PartyName>
-        </cac:SignatoryParty>
-        <cac:DigitalSignatureAttachment>
-            <cac:ExternalReference>
-                <cbc:URI>#GREENTER-SIGN</cbc:URI>
-            </cac:ExternalReference>
-        </cac:DigitalSignatureAttachment>
-    </cac:Signature>
+    {% include 'partials/signature.xml.twig' %}
     <cac:AccountingSupplierParty>
         <cbc:CustomerAssignedAccountID>{{ emp.ruc }}</cbc:CustomerAssignedAccountID>
         <cbc:AdditionalAccountID>6</cbc:AdditionalAccountID>
@@ -364,4 +348,3 @@
     </cac:InvoiceLine>
     {% endfor %}
 </Invoice>
-{% endapply %}

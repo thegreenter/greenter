@@ -1,4 +1,3 @@
-{% apply spaceless %}
 <?xml version="1.0" encoding="utf-8"?>
 <DebitNote xmlns="urn:oasis:names:specification:ubl:schema:xsd:DebitNote-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
     <ext:UBLExtensions>
@@ -39,7 +38,7 @@
     </cac:DespatchDocumentReference>
     {% endfor %}
     {% endif %}
-    {% include 'contract.xml.twig' with {'contrato': doc.contrato} only %}
+    {% include 'partials/contract.xml.twig' with {'contrato': doc.contrato} only %}
     {% if doc.relDocs %}
     {% for rel in doc.relDocs %}
     <cac:AdditionalDocumentReference>
@@ -49,22 +48,7 @@
     {% endfor %}
     {% endif %}
     {% set emp = doc.company %}
-    <cac:Signature>
-        <cbc:ID>SIGN{{ emp.ruc }}</cbc:ID>
-        <cac:SignatoryParty>
-            <cac:PartyIdentification>
-                <cbc:ID>{{ emp.ruc }}</cbc:ID>
-            </cac:PartyIdentification>
-            <cac:PartyName>
-                <cbc:Name><![CDATA[{{ emp.razonSocial|raw }}]]></cbc:Name>
-            </cac:PartyName>
-        </cac:SignatoryParty>
-        <cac:DigitalSignatureAttachment>
-            <cac:ExternalReference>
-                <cbc:URI>#GREENTER-SIGN</cbc:URI>
-            </cac:ExternalReference>
-        </cac:DigitalSignatureAttachment>
-    </cac:Signature>
+    {% include 'partials/signature.xml.twig' %}
     <cac:AccountingSupplierParty>
         <cac:Party>
             <cac:PartyIdentification>
@@ -118,53 +102,7 @@
         </cac:Party>
     </cac:AccountingSupplierParty>
     {% set client = doc.client %}
-    <cac:AccountingCustomerParty>
-        <cac:Party>
-            <cac:PartyIdentification>
-                <cbc:ID schemeID="{{ client.tipoDoc }}">{{ client.numDoc }}</cbc:ID>
-            </cac:PartyIdentification>
-            <cac:PartyLegalEntity>
-                <cbc:RegistrationName><![CDATA[{{ client.rznSocial|raw }}]]></cbc:RegistrationName>
-                {% if client.address %}
-                    {% set addr = client.address %}
-                    <cac:RegistrationAddress>
-                        {% if addr.ubigueo %}
-                            <cbc:ID>{{ addr.ubigueo }}</cbc:ID>
-                        {% endif %}
-                        {% if addr.urbanizacion %}
-                        <cbc:CitySubdivisionName>{{ addr.urbanizacion }}</cbc:CitySubdivisionName>
-                        {% endif %}
-                        {% if addr.provincia %}
-                        <cbc:CityName>{{ addr.provincia }}</cbc:CityName>
-                        {% endif %}
-                        {% if addr.departamento %}
-                        <cbc:CountrySubentity>{{ addr.departamento }}</cbc:CountrySubentity>
-                        {% endif %}
-                        {% if addr.distrito %}
-                        <cbc:District>{{ addr.distrito }}</cbc:District>
-                        {% endif %}
-                        <cac:AddressLine>
-                            <cbc:Line><![CDATA[{{ addr.direccion|raw }}]]></cbc:Line>
-                        </cac:AddressLine>
-                        <cac:Country>
-                            <cbc:IdentificationCode>{{ addr.codigoPais }}</cbc:IdentificationCode>
-                        </cac:Country>
-                    </cac:RegistrationAddress>
-                {% endif %}
-                {% include 'shareholders.xml.twig' with {'participantes': doc.participantes} only %}
-            </cac:PartyLegalEntity>
-            {% if client.email or client.telephone %}
-                <cac:Contact>
-                    {% if client.telephone %}
-                        <cbc:Telephone>{{ client.telephone }}</cbc:Telephone>
-                    {% endif %}
-                    {% if client.email %}
-                        <cbc:ElectronicMail>{{ client.email }}</cbc:ElectronicMail>
-                    {% endif %}
-                </cac:Contact>
-            {% endif %}
-        </cac:Party>
-    </cac:AccountingCustomerParty>
+    {% include 'partials/customer2.1.xml.twig' %}
     {% if doc.detraccion %}
     {% set detr = doc.detraccion %}
     <cac:PaymentMeans>
@@ -196,7 +134,7 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         {% endif %}
-        {% if doc.mtoOperGravadas %}
+        {% if doc.mtoOperGravadas is not null %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGravadas|n_format }}</cbc:TaxableAmount>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoIGV|n_format }}</cbc:TaxAmount>
@@ -209,7 +147,7 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         {% endif %}
-        {% if doc.mtoOperInafectas %}
+        {% if doc.mtoOperInafectas is not null %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperInafectas|n_format }}</cbc:TaxableAmount>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0.00</cbc:TaxAmount>
@@ -222,7 +160,7 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         {% endif %}
-        {% if doc.mtoOperExoneradas %}
+        {% if doc.mtoOperExoneradas is not null %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExoneradas|n_format }}</cbc:TaxableAmount>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0.00</cbc:TaxAmount>
@@ -235,7 +173,7 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         {% endif %}
-        {% if doc.mtoOperGratuitas %}
+        {% if doc.mtoOperGratuitas is not null %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperGratuitas|n_format }}</cbc:TaxableAmount>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoIGVGratuitas|n_format }}</cbc:TaxAmount>
@@ -248,7 +186,7 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         {% endif %}
-        {% if doc.mtoOperExportacion %}
+        {% if doc.mtoOperExportacion is not null %}
             <cac:TaxSubtotal>
                 <cbc:TaxableAmount currencyID="{{ doc.tipoMoneda }}">{{ doc.mtoOperExportacion|n_format }}</cbc:TaxableAmount>
                 <cbc:TaxAmount currencyID="{{ doc.tipoMoneda }}">0.00</cbc:TaxAmount>
@@ -442,4 +380,3 @@
     </cac:DebitNoteLine>
    {% endfor %}
 </DebitNote>
-{% endapply %}
