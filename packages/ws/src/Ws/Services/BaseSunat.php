@@ -179,6 +179,12 @@ class BaseSunat
      */
     protected function getErrorFromFault(SoapFault $fault)
     {
+        if ($this->isUnauthorizedFault($fault)) {
+            $error = $this->getErrorByCode(CustomErrorCodes::UNAUTHORIZED_CODE);
+
+            return empty($error->getMessage()) ? $error->setMessage(CustomErrorCodes::UNAUTHORIZED_MSG) : $error;
+        }
+
         $error = $this->getErrorByCode($fault->faultcode, $fault->faultstring);
 
         if (empty($error->getMessage())) {
@@ -187,6 +193,19 @@ class BaseSunat
         }
 
         return $error;
+    }
+
+    /**
+     * \SoapClient convierte un HTTP 401 sin sobre SOAP en SoapFault('HTTP', 'Unauthorized').
+     *
+     * @param SoapFault $fault
+     *
+     * @return bool
+     */
+    private function isUnauthorizedFault(SoapFault $fault): bool
+    {
+        return 'HTTP' === $fault->faultcode
+            && 0 === strcasecmp(trim($fault->faultstring), 'Unauthorized');
     }
 
     /**

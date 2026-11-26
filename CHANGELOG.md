@@ -27,6 +27,7 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 - Contrato de errores: nueva interfaz `Greenter\Exception\GreenterException`, implementada por las excepciones de Greenter. Los errores de negocio se siguen informando en el resultado (`BaseResult::getError()`).
 - `See::sendXmlFile()` lanza `XmlReaderException` si el contenido no es XML y `DocumentNoSupportException` si no es un comprobante soportado.
 - `WsSenderResolver` reutiliza los servicios de envío entre documentos.
+- SOAP: SUNAT responde las credenciales inválidas con un HTTP 401 sin sobre SOAP; el error se reporta con el código `0102` (Usuario o contraseña incorrectos) en lugar de `HTTP`.
 
 ## 5.4.0 - 2026-11-10
 - #284 dirección de entrega opcional, para declarar solo el país del servicio exportado.
