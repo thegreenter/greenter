@@ -118,7 +118,7 @@ class BaseSunat
     private function isUnauthorizedFault(SoapFault $fault): bool
     {
         return 'HTTP' === $fault->faultcode
-            && 0 === strcasecmp(trim((string) $fault->faultstring), 'Unauthorized');
+            && 0 === strcasecmp(trim($fault->faultstring), 'Unauthorized');
     }
 
     /**
