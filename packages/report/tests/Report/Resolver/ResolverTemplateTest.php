@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Tests\Greenter\Report\Resolver;
 
-use Exception;
+use Greenter\Exception\GreenterException;
 use Greenter\Model\Despatch\Despatch;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Perception\Perception;
@@ -56,7 +56,7 @@ class ResolverTemplateTest extends TestCase
         $stub->method('getName')
              ->willReturn('TestDocument');
 
-        $this->expectException(Exception::class);
+        $this->expectException(GreenterException::class);
         $this->resolver->getTemplate($stub);
     }
 

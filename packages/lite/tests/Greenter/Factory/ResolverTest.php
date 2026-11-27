@@ -111,6 +111,15 @@ class ResolverTest extends TestCase
         $this->assertInstanceOf($senderClass, $resolver->find($docClass));
     }
 
+    public function testReuseSenderInstance(): void
+    {
+        $resolver = new WsSenderResolver($this->createMock(WsClientInterface::class));
+
+        $this->assertSame($resolver->find(Invoice::class), $resolver->find(CustomInvoice::class));
+        $this->assertSame($resolver->find(Summary::class), $resolver->find(Voided::class));
+        $this->assertNotSame($resolver->find(Invoice::class), $resolver->find(Summary::class));
+    }
+
     public function senderProvider(): array
     {
         return [

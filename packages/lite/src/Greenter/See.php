@@ -16,10 +16,15 @@ use Greenter\Factory\FeFactory;
 use Greenter\Factory\WsSenderResolver;
 use Greenter\Factory\XmlBuilderResolver;
 use Greenter\Model\DocumentInterface;
+use Greenter\Model\Response\BaseResult;
 use Greenter\Model\Response\StatusResult;
+use Greenter\Processor\DocumentProcessor;
+use Greenter\Processor\SignedXmlSigner;
 use Greenter\Validator\ErrorCodeProviderInterface;
+use Greenter\Ws\Builder\DocumentNoSupportException;
 use Greenter\Ws\Reader\XmlFilenameExtractor;
 use Greenter\Ws\Reader\XmlReader;
+use Greenter\Ws\Reader\XmlReaderException;
 use Greenter\Ws\Resolver\XmlTypeResolver;
 use Greenter\Ws\Services\ExtService;
 use Greenter\Ws\Services\SoapClient;
@@ -27,6 +32,8 @@ use Greenter\XMLSecLibs\Sunat\SignedXml;
 
 /**
  * Sistema de Emision del Contribuyente.
+ *
+ * Fachada sobre DocumentProcessor (construir XML => firmar => enviar) para los servicios SOAP de SUNAT.
  *
  * Class See
  */
@@ -65,15 +72,33 @@ class See
     private $builderResolver;
 
     /**
+     * @var WsSenderResolver|null
+     */
+    private $senderResolver;
+
+    /**
+     * @var DocumentProcessor|null
+     */
+    private $processor;
+
+    /**
+     * Ultimo xml firmado.
+     *
+     * @var string|null
+     */
+    private $lastXml;
+
+    /**
      * See constructor.
      *
      * @param SoapClient|null $wsClient Cliente SOAP, ejm: `SoapClient::createSecure()` para verificar el certificado TLS de SUNAT.
+     * @param SignedXml|null  $signer   Firmador XML
      */
-    public function __construct(?SoapClient $wsClient = null)
+    public function __construct(?SoapClient $wsClient = null, ?SignedXml $signer = null)
     {
         $this->factory = new FeFactory();
         $this->wsClient = $wsClient ?? new SoapClient();
-        $this->signer = new SignedXml();
+        $this->signer = $signer ?? new SignedXml();
         $this->factory->setSigner($this->signer);
     }
 
@@ -142,6 +167,8 @@ class See
     public function setCodeProvider(?ErrorCodeProviderInterface $codeProvider)
     {
         $this->codeProvider = $codeProvider;
+        $this->senderResolver = null;
+        $this->processor = null;
     }
 
     /**
@@ -153,9 +180,14 @@ class See
      */
     public function getXmlSigned(DocumentInterface $document): ?string
     {
-        return $this->factory
-            ->setBuilder($this->getBuilderResolver()->find(get_class($document)))
-            ->getXmlSigned($document);
+        $docClass = get_class($document);
+        $this->lastXml = $this->getProcessor()->getXmlSigned($document);
+
+        $this->factory
+            ->setBuilder($this->getBuilderResolver()->find($docClass))
+            ->setLastXml($this->lastXml);
+
+        return $this->lastXml;
     }
 
     /**
@@ -163,13 +195,13 @@ class See
      *
      * @param DocumentInterface $document
      *
-     * @return Model\Response\BaseResult|null
+     * @return BaseResult|null
      */
-    public function send(DocumentInterface $document): ?Model\Response\BaseResult
+    public function send(DocumentInterface $document): ?BaseResult
     {
-        $this->configureFactory(get_class($document));
+        $xml = (string)$this->getXmlSigned($document);
 
-        return $this->factory->send($document);
+        return $this->sendXml(get_class($document), $document->getName(), $xml);
     }
 
     /**
@@ -179,13 +211,16 @@ class See
      * @param string $name Xml Name
      * @param string $xml  Xml Content
      *
-     * @return Model\Response\BaseResult|null
+     * @return BaseResult|null
      */
-    public function sendXml(string $type, string $name, string $xml): ?Model\Response\BaseResult
+    public function sendXml(string $type, string $name, string $xml): ?BaseResult
     {
-        $this->configureFactory($type);
+        // Valida el tipo de documento (DocumentNoSupportException si no está soportado)
+        $this->factory
+            ->setBuilder($this->getBuilderResolver()->find($type))
+            ->setSender($this->getSenderResolver()->find($type));
 
-        return $this->factory->sendXml($name, $xml);
+        return $this->getProcessor()->sendXml($type, $name, $xml);
     }
 
     /**
@@ -193,18 +228,25 @@ class See
      *
      * @param string $xmlContent
      *
-     * @return Model\Response\BaseResult|null
+     * @return BaseResult|null
      *
+     * @throws XmlReaderException          Si el contenido no es un XML válido
+     * @throws DocumentNoSupportException  Si el XML no es un comprobante soportado
      * @throws Exception
      */
-    public function sendXmlFile(string $xmlContent): ?Model\Response\BaseResult
+    public function sendXmlFile(string $xmlContent): ?BaseResult
     {
         $doc = new DOMDocument();
-        $doc->loadXML($xmlContent);
+        if (trim($xmlContent) === '' || !@$doc->loadXML($xmlContent)) {
+            throw new XmlReaderException('El contenido no es un XML válido.');
+        }
 
         $reader = new XmlReader();
         $resolver = new XmlTypeResolver($reader);
         $type = $resolver->getType($doc);
+        if (empty($type)) {
+            throw new DocumentNoSupportException('Tipo de comprobante no soportado: '.$doc->documentElement->localName);
+        }
 
         $extractor = new XmlFilenameExtractor($reader);
         $name = $extractor->getFilename($doc);
@@ -227,11 +269,44 @@ class See
     }
 
     /**
+     * Ultimo XML firmado (getXmlSigned o send).
+     *
+     * @return string|null
+     */
+    public function getLastXml(): ?string
+    {
+        return $this->lastXml;
+    }
+
+    /**
      * @return FeFactory
+     *
+     * @deprecated desde 5.5, se elimina en 6.0. Usar `See::getLastXml()` para el último XML firmado
+     *             y `See::getProcessor()` (DocumentProcessor) para construir, firmar y enviar.
      */
     public function getFactory(): FeFactory
     {
+        @trigger_error(sprintf('"%s()" está deprecado desde greenter/lite 5.5 y se elimina en 6.0, usar "%s::getLastXml()" o "%s::getProcessor()".', __METHOD__, self::class, self::class), E_USER_DEPRECATED);
+
         return $this->factory;
+    }
+
+    /**
+     * Procesador de documentos (construir XML => firmar => enviar) con la configuración actual.
+     *
+     * @return DocumentProcessor
+     */
+    public function getProcessor(): DocumentProcessor
+    {
+        if ($this->processor === null) {
+            $this->processor = new DocumentProcessor(
+                $this->getBuilderResolver(),
+                new SignedXmlSigner($this->signer),
+                $this->getSenderResolver()
+            );
+        }
+
+        return $this->processor;
     }
 
     /**
@@ -250,12 +325,12 @@ class See
         return $this->builderResolver;
     }
 
-    private function configureFactory(string $docClass): void
+    private function getSenderResolver(): WsSenderResolver
     {
-        $senderResolver = new WsSenderResolver($this->wsClient, $this->codeProvider);
+        if ($this->senderResolver === null) {
+            $this->senderResolver = new WsSenderResolver($this->wsClient, $this->codeProvider);
+        }
 
-        $this->factory
-            ->setBuilder($this->getBuilderResolver()->find($docClass))
-            ->setSender($senderResolver->find($docClass));
+        return $this->senderResolver;
     }
 }

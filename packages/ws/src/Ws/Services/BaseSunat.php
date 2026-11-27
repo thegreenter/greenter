@@ -43,17 +43,104 @@ class BaseSunat
     /**
      * @var CompressInterface|null
      */
-    public $compressor;
+    private $compressor;
 
     /**
      * @var DecompressInterface|null
      */
-    public $decompressor;
+    private $decompressor;
 
     /**
      * @var CdrReaderInterface|null
      */
-    public $cdrReader;
+    private $cdrReader;
+
+    /**
+     * Propiedades públicas anteriores (compressor, decompressor, cdrReader).
+     */
+    private const DEPRECATED_PROPERTIES = [
+        'compressor' => 'setCompressor',
+        'decompressor' => 'setDecompressor',
+        'cdrReader' => 'setCdrReader',
+    ];
+
+    /**
+     * Compresión del XML a enviar (por defecto ZipFly).
+     *
+     * @return $this
+     */
+    public function setCompressor(?CompressInterface $compressor)
+    {
+        $this->compressor = $compressor;
+
+        return $this;
+    }
+
+    /**
+     * Descompresión del CDR recibido (por defecto ZipFly).
+     *
+     * @return $this
+     */
+    public function setDecompressor(?DecompressInterface $decompressor)
+    {
+        $this->decompressor = $decompressor;
+
+        return $this;
+    }
+
+    /**
+     * Lectura del CDR (por defecto DomCdrReader).
+     *
+     * @return $this
+     */
+    public function setCdrReader(?CdrReaderInterface $cdrReader)
+    {
+        $this->cdrReader = $cdrReader;
+
+        return $this;
+    }
+
+    /**
+     * @deprecated desde 5.5, se elimina en 6.0: acceso a las propiedades públicas compressor, decompressor
+     *             y cdrReader, usar setCompressor(), setDecompressor() y setCdrReader().
+     *
+     * @return mixed
+     */
+    public function __get(string $name)
+    {
+        if (!$this->isDeprecatedProperty($name)) {
+            trigger_error(sprintf('Undefined property: %s::$%s', static::class, $name), E_USER_WARNING);
+
+            return null;
+        }
+
+        return $this->{$name};
+    }
+
+    /**
+     * @deprecated desde 5.5, se elimina en 6.0: usar setCompressor(), setDecompressor() y setCdrReader().
+     *
+     * @param mixed $value
+     */
+    public function __set(string $name, $value): void
+    {
+        if (!$this->isDeprecatedProperty($name)) {
+            // Propiedad dinámica, igual que sin __set
+            $this->{$name} = $value;
+
+            return;
+        }
+
+        $this->{self::DEPRECATED_PROPERTIES[$name]}($value);
+    }
+
+    /**
+     * @deprecated desde 5.5, se elimina en 6.0.
+     */
+    public function __isset(string $name): bool
+    {
+        return isset(self::DEPRECATED_PROPERTIES[$name]) && isset($this->{$name});
+    }
 
     /**
      * @param ErrorCodeProviderInterface|null $codeProvider
@@ -210,6 +297,17 @@ class BaseSunat
         $result
             ->setSuccess(false)
             ->setError($error);
+    }
+
+    private function isDeprecatedProperty(string $name): bool
+    {
+        if (!isset(self::DEPRECATED_PROPERTIES[$name])) {
+            return false;
+        }
+
+        @trigger_error(sprintf('La propiedad pública "%s::$%s" está deprecada desde greenter/ws 5.5 y se elimina en 6.0, usar "%s()".', self::class, $name, self::DEPRECATED_PROPERTIES[$name]), E_USER_DEPRECATED);
+
+        return true;
     }
 
     private function getXmlResponse(?string $content)
