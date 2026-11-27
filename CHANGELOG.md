@@ -3,6 +3,8 @@
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
 ## Unreleased
+
+## 5.5.0 - 2026-11-27
 - #285 Actualizar el factor ICBPER al valor vigente 0.5 (desde 2023)
 - Factura, boleta y notas 2.1: alinear formato y campos con las reglas de validación SUNAT (26.08.2026)
 - Retención/Percepción: alinear campos con las reglas de validación SUNAT (26.08.2026)
@@ -29,7 +31,7 @@ Los cambios notables de cada lanzamiento serán documentados en este archivo.
 - `WsSenderResolver` reutiliza los servicios de envío entre documentos.
 - SOAP: SUNAT responde las credenciales inválidas con un HTTP 401 sin sobre SOAP; el error se reporta con el código `0102` (Usuario o contraseña incorrectos) en lugar de `HTTP`.
 
-## 5.4.0 - 2026-11-10
+
 - #284 dirección de entrega opcional, para declarar solo el país del servicio exportado.
 - #283 Retención/Percepción: `CityName` es la provincia y `CountrySubentity` el departamento.
 - #274 Soportar `sac:ExceptionalIndicator` (`indExcepcional`) en comprobante de Percepción.
