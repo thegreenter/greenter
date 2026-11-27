@@ -20,18 +20,18 @@ class NoteLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('tipoDoc', [
             new Assert\NotBlank(),
-            new Assert\Length([
-                'min' => 2,
-                'max' => 2,
-            ]),
+            new Assert\Length(
+                min: 2,
+                max: 2,
+            ),
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 4]),
+            new Assert\Length(max: 4),
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 8]),
+            new Assert\Length(max: 8),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
             new Assert\NotNull(),
@@ -66,25 +66,25 @@ class NoteLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraint('perception', new Assert\Valid());
         $metadata->addPropertyConstraints('codMotivo', [
             new Assert\NotBlank(),
-            new Assert\Length([
-                'min' => 2,
-                'max' => 2,
-            ]),
+            new Assert\Length(
+                min: 2,
+                max: 2,
+            ),
         ]);
         $metadata->addPropertyConstraints('desMotivo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 250]),
+            new Assert\Length(max: 250),
         ]);
         $metadata->addPropertyConstraints('tipDocAfectado', [
             new Assert\NotBlank(),
-            new Assert\Length([
-                'min' => 2,
-                'max' => 2,
-            ]),
+            new Assert\Length(
+                min: 2,
+                max: 2,
+            ),
         ]);
         $metadata->addPropertyConstraints('numDocfectado', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 13]),
+            new Assert\Length(max: 13),
         ]);
     }
 }

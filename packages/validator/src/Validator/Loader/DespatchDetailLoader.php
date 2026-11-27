@@ -19,11 +19,11 @@ class DespatchDetailLoader implements LoaderMetadataInterface
     public function load(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraints('codigo', [
-            new Assert\Length(['max' => 16]),
+            new Assert\Length(max: 16),
         ]);
         $metadata->addPropertyConstraints('descripcion', [
             new Assert\Required(),
-            new Assert\Length(['max' => 250]),
+            new Assert\Length(max: 250),
         ]);
         $metadata->addPropertyConstraints('unidad', [
             new Assert\Required(),
@@ -31,6 +31,6 @@ class DespatchDetailLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraints('cantidad', [
             new Assert\NotNull(),
         ]);
-        $metadata->addPropertyConstraint('codProdSunat', new Assert\Length(['max' => 20]));
+        $metadata->addPropertyConstraint('codProdSunat', new Assert\Length(max: 20));
     }
 }

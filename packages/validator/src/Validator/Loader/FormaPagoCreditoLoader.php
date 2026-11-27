@@ -16,7 +16,7 @@ class FormaPagoCreditoLoader implements LoaderMetadataInterface
     public function load(ClassMetadata $metadata)
     {
         $metadata->addPropertyConstraint('tipo', new Assert\NotBlank());
-        $metadata->addPropertyConstraint('moneda', new Assert\Length(['min' => 3, 'max' => 3]));
+        $metadata->addPropertyConstraint('moneda', new Assert\Length(min: 3, max: 3));
         $metadata->addPropertyConstraint('monto', new Assert\NotNull());
     }
 }

@@ -21,29 +21,28 @@ class SoapClient extends \SoapClient implements WsClientInterface
     /**
      * SoapClient constructor.
      *
-     * Si no se especifican `$parameters`, la conexión NO verifica el certificado TLS del servidor.
-     * Use {@see SoapClient::createSecure()} o {@see SoapClient::secureParameters()} para verificarlo;
-     * en Greenter 6 la verificación TLS será el comportamiento por defecto.
+     * La conexión verifica el certificado TLS del servidor. Para otras opciones TLS (ejm: `cafile`)
+     * use {@see SoapClient::createSecure()}, o envíe su propio `stream_context` en `$parameters`.
      *
-     * @param string $wsdl       Url of WSDL
+     * @param string $wsdl       Url of WSDL, por defecto el WSDL local de billService
      * @param array  $parameters Soap's parameters
      *
      * @throws SoapFault
      */
-    public function __construct($wsdl = '', $parameters = [])
+    public function __construct(?string $wsdl = '', array $parameters = [])
     {
         if (empty($wsdl)) {
             $wsdl = WsdlProvider::getBillPath();
         }
-        if (empty($parameters)) {
-            $parameters = self::insecureParameters();
+        if (!isset($parameters['stream_context'])) {
+            $parameters += self::secureParameters();
         }
 
         parent::__construct($wsdl, $parameters);
     }
 
     /**
-     * Crea un cliente que verifica el certificado TLS del servidor (recomendado).
+     * Crea un cliente que verifica el certificado TLS del servidor con opciones ssl adicionales.
      *
      * @param string $wsdl       Url of WSDL, por defecto el WSDL local de billService
      * @param array  $sslOptions Opciones ssl adicionales del stream context, ejm: ['cafile' => '/path/cacert.pem']
@@ -72,19 +71,6 @@ class SoapClient extends \SoapClient implements WsClientInterface
                     'verify_peer_name' => true,
                     'allow_self_signed' => false,
                 ], $sslOptions),
-            ]),
-        ];
-    }
-
-    private static function insecureParameters(): array
-    {
-        return [
-            'stream_context' => stream_context_create([
-                'ssl' => [
-                    'verify_peer' => false,
-                    'verify_peer_name' => false,
-                    'allow_self_signed' => true,
-                ],
             ]),
         ];
     }

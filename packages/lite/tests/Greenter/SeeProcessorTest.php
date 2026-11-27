@@ -8,7 +8,6 @@ use Greenter\Api;
 use Greenter\Api\ApiFactory;
 use Greenter\Data\Generator\InvoiceFullStore;
 use Greenter\Data\GeneratorFactory;
-use Greenter\Factory\FeFactory;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\Model\Sale\Invoice;
 use Greenter\Model\Summary\Summary;
@@ -20,7 +19,6 @@ use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Builder\DocumentNoSupportException;
 use Greenter\Ws\Reader\XmlReaderException;
 use Greenter\Ws\Services\SoapClient;
-use Greenter\Ws\Services\SummarySender;
 use Greenter\XMLSecLibs\Sunat\SignedXml;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -39,35 +37,6 @@ class SeeProcessorTest extends TestCase
 
         $this->assertStringContainsString('<ds:Signature Id="GreenterSign"', (string)$xml);
         $this->assertSame($xml, $see->getLastXml());
-    }
-
-    public function testSeeFactoryIsDeprecatedButSynchronized(): void
-    {
-        $response = new stdClass();
-        $response->ticket = '123';
-        $client = $this->createMock(SoapClient::class);
-        $client->method('call')->willReturn($response);
-        $see = $this->createSee($client);
-
-        $deprecations = [];
-        set_error_handler(function (int $type, string $message) use (&$deprecations): bool {
-            $deprecations[] = $message;
-
-            return true;
-        }, E_USER_DEPRECATED);
-        try {
-            $xml = $see->getXmlSigned($this->createInvoice());
-            $see->sendXml(Summary::class, '20123456789-RC-20261125-1', '<SummaryDocuments/>');
-            $factory = $see->getFactory();
-        } finally {
-            restore_error_handler();
-        }
-
-        $this->assertInstanceOf(FeFactory::class, $factory);
-        $this->assertSame($xml, $factory->getLastXml());
-        $this->assertInstanceOf(SummarySender::class, $factory->getSender());
-        $this->assertCount(1, $deprecations);
-        $this->assertStringContainsString('See::getLastXml()', $deprecations[0]);
     }
 
     public function testSeeProcessorIsReused(): void

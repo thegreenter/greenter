@@ -31,11 +31,11 @@ class BuilderResolverUsageTest extends TestCase
         $invoice = $this->createInvoice();
 
         $xml = $see->getXmlSigned($invoice);
-        $builder = $see->getFactory()->getBuilder();
+        $builder = $see->getBuilderResolver()->find(Invoice::class);
         $see->getXmlSigned($invoice);
 
         $this->assertStringContainsString('<ds:Signature Id="GreenterSign"', (string)$xml);
-        $this->assertSame($builder, $see->getFactory()->getBuilder());
+        $this->assertSame($builder, $see->getBuilderResolver()->find(Invoice::class));
     }
 
     public function testSeeOptionsResetBuilders(): void

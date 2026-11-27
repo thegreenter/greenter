@@ -20,7 +20,7 @@ class VoidedLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 5]),
+            new Assert\Length(max: 5),
         ]);
         $metadata->addPropertyConstraints('fecGeneracion', [
             new Assert\NotNull(),

@@ -21,11 +21,11 @@ class SaleDetailLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraint('unidad', new Assert\NotBlank());
         $metadata->addPropertyConstraints('descripcion', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 250]),
+            new Assert\Length(max: 250),
         ]);
         $metadata->addPropertyConstraint('cantidad', new Assert\NotNull());
-        $metadata->addPropertyConstraint('codProducto', new Assert\Length(['max' => 30]));
-        $metadata->addPropertyConstraint('codProdSunat', new Assert\Length(['max' => 20]));
+        $metadata->addPropertyConstraint('codProducto', new Assert\Length(max: 30));
+        $metadata->addPropertyConstraint('codProdSunat', new Assert\Length(max: 20));
         $metadata->addPropertyConstraint('mtoValorUnitario', new Assert\NotNull());
         $metadata->addPropertyConstraint('igv', new Assert\NotNull());
         $metadata->addPropertyConstraint('tipAfeIgv', new Assert\NotNull());

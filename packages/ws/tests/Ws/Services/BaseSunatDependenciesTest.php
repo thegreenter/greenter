@@ -15,30 +15,10 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 
 /**
- * Dependencias de BaseSunat por setters; las propiedades públicas anteriores siguen funcionando (deprecadas).
+ * Dependencias de BaseSunat por setters.
  */
 class BaseSunatDependenciesTest extends TestCase
 {
-    /**
-     * @var string[]
-     */
-    private $deprecations = [];
-
-    protected function setUp(): void
-    {
-        $this->deprecations = [];
-        set_error_handler(function (int $type, string $message): bool {
-            $this->deprecations[] = $message;
-
-            return true;
-        }, E_USER_DEPRECATED);
-    }
-
-    protected function tearDown(): void
-    {
-        restore_error_handler();
-    }
-
     public function testSetters(): void
     {
         $sender = new BillSender();
@@ -50,54 +30,6 @@ class BaseSunatDependenciesTest extends TestCase
             ->send('20123456789-01-F001-1', '<Invoice/>');
 
         $this->assertSendResult($result);
-        $this->assertSame([], $this->deprecations);
-    }
-
-    public function testDeprecatedPublicProperties(): void
-    {
-        $sender = new BillSender();
-        $compressor = $this->createCompressor();
-
-        $this->assertFalse(isset($sender->compressor));
-        $sender->compressor = $compressor;
-        $sender->decompressor = $this->createDecompressor();
-        $sender->cdrReader = $this->createCdrReader();
-        $sender->setClient($this->createClient());
-
-        $this->assertTrue(isset($sender->compressor));
-        $this->assertSame($compressor, $sender->compressor);
-        $this->assertSendResult($sender->send('20123456789-01-F001-1', '<Invoice/>'));
-        $this->assertCount(4, $this->deprecations);
-        $this->assertStringContainsString('setCompressor()', $this->deprecations[0]);
-    }
-
-    public function testDynamicProperties(): void
-    {
-        $sender = new BillSender();
-        $sender->custom = 'valor';
-
-        $this->assertSame('valor', $sender->custom);
-        $this->assertFalse(isset($sender->other));
-        $this->assertSame([], $this->deprecations);
-    }
-
-    public function testUndefinedProperty(): void
-    {
-        $warnings = [];
-        set_error_handler(function (int $type, string $message) use (&$warnings): bool {
-            $warnings[] = $message;
-
-            return true;
-        }, E_USER_WARNING);
-
-        try {
-            $value = (new BillSender())->other;
-        } finally {
-            restore_error_handler();
-        }
-
-        $this->assertNull($value);
-        $this->assertSame(['Undefined property: '.BillSender::class.'::$other'], $warnings);
     }
 
     private function assertSendResult($result): void

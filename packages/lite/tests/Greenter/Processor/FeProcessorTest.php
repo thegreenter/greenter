@@ -8,16 +8,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Greenter\Factory;
+namespace Tests\Greenter\Processor;
 
-use Greenter\Ws\Services\SummarySender;
-use Greenter\Xml\Builder\SummaryBuilder;
-use Greenter\XMLSecLibs\Sunat\SignedXml;
+use Greenter\Services\SenderInterface;
+
 /**
- * Class FeFactoryTest
  * @group integration
  */
-class FeFactoryTest extends FeFactoryBase
+class FeProcessorTest extends FeProcessorBase
 {
     public function testInvoice()
     {
@@ -37,13 +35,9 @@ class FeFactoryTest extends FeFactoryBase
     public function testGetXmlSigned()
     {
         $invoice = $this->getInvoice();
-        $builder = $this->getBuilder($invoice);
-        $this->factory->setBuilder($builder);
+        $signXml = $this->createProcessor($this->createMock(SenderInterface::class))->getXmlSigned($invoice);
 
-        $signXml = $this->factory->getXmlSigned($invoice);
-
-        $this->assertInstanceOf(SignedXml::class, $this->factory->getSigner());
-        $this->assertNotEmpty($signXml);
+        $this->assertStringContainsString('<ds:Signature Id="GreenterSign"', $signXml);
     }
 
     public function testInvalidInvoice()
@@ -112,8 +106,6 @@ class FeFactoryTest extends FeFactoryBase
     {
         $resumen = $this->getSummary();
         $result = $this->getFactoryResult($resumen);
-        $this->assertInstanceOf(SummarySender::class, $this->factory->getSender());
-        $this->assertInstanceOf(SummaryBuilder::class, $this->factory->getBuilder());
 
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());

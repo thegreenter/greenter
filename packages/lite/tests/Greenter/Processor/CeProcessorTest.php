@@ -8,16 +8,16 @@
 
 declare(strict_types=1);
 
-namespace Tests\Greenter\Factory;
+namespace Tests\Greenter\Processor;
 
 use Greenter\Model\Response\CdrResponse;
 use Greenter\Model\Response\StatusResult;
 
 /**
- * Class CeFactoryTest.
+ * Envíos de retención, percepción y reversión a SUNAT beta.
  * @group integration
  */
-class CeFactoryTest extends CeFactoryBase
+class CeProcessorTest extends CeProcessorBase
 {
     public function testRetention()
     {
@@ -76,7 +76,7 @@ class CeFactoryTest extends CeFactoryBase
         if (!$result->isSuccess()) {
             return '';
         }
-        $this->assertNotEmpty($this->factory->getLastXml());
+        $this->assertNotEmpty($this->lastXml);
         $this->assertTrue($result->isSuccess());
         $this->assertNotEmpty($result->getTicket());
         $this->assertEquals(13, strlen($result->getTicket()));

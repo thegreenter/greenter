@@ -23,14 +23,14 @@ class AddressLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('ubigueo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 6]),
+            new Assert\Length(max: 6),
         ]);
-        $metadata->addPropertyConstraint('codigoPais', new Assert\Length(['max' => 2]));
-        $metadata->addPropertyConstraint('departamento', new Assert\Length(['max' => 30]));
-        $metadata->addPropertyConstraint('provincia', new Assert\Length(['max' => 30]));
-        $metadata->addPropertyConstraint('distrito', new Assert\Length(['max' => 100]));
-        $metadata->addPropertyConstraint('urbanizacion', new Assert\Length(['max' => 25]));
-        $metadata->addPropertyConstraint('direccion', new Assert\Length(['max' => 100]));
+        $metadata->addPropertyConstraint('codigoPais', new Assert\Length(max: 2));
+        $metadata->addPropertyConstraint('departamento', new Assert\Length(max: 30));
+        $metadata->addPropertyConstraint('provincia', new Assert\Length(max: 30));
+        $metadata->addPropertyConstraint('distrito', new Assert\Length(max: 100));
+        $metadata->addPropertyConstraint('urbanizacion', new Assert\Length(max: 25));
+        $metadata->addPropertyConstraint('direccion', new Assert\Length(max: 100));
         $metadata->addPropertyConstraint('codLocal', new Assert\NotBlank());
     }
 }

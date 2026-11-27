@@ -23,15 +23,15 @@ class SalePerceptionLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('mtoBase', [
             new Assert\NotNull(),
-            new Assert\Type(['type' => 'float']),
+            new Assert\Type(type: 'float'),
         ]);
         $metadata->addPropertyConstraints('mto', [
             new Assert\NotNull(),
-            new Assert\Type(['type' => 'float']),
+            new Assert\Type(type: 'float'),
         ]);
         $metadata->addPropertyConstraints('mtoTotal', [
             new Assert\NotNull(),
-            new Assert\Type(['type' => 'float']),
+            new Assert\Type(type: 'float'),
         ]);
     }
 }

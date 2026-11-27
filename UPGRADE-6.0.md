@@ -1,11 +1,17 @@
 # Greenter 6.0
 
-Cambios incompatibles previstos para v6 y cómo prepararse desde 5.x. Las APIs deprecadas en 5.x
-siguen funcionando hasta v6; al usarlas se emite un aviso `E_USER_DEPRECATED` (silenciado, visible con
+Cambios incompatibles de v6 y cómo prepararse desde 5.x. Las APIs eliminadas en v6 están deprecadas
+desde 5.5: al usarlas en 5.x se emite un aviso `E_USER_DEPRECATED` (silenciado, visible con
 herramientas como `symfony/phpunit-bridge` o un `set_error_handler`).
 
-- La versión mínima de **PHP** será `8.1`.
-- `twig/twig` `^3.27` o superior.
+- La versión mínima de **PHP** es `8.1`.
+- `twig/twig` `^3.31.1` y `symfony/validator` `^6.4 || ^7.4.23`.
+
+```json
+{
+   "greenter/lite": "^6.0"
+}
+```
 
 ## `FeFactory` y `See::getFactory()`
 
@@ -92,4 +98,18 @@ if (!$result->isSuccess()) {
 
 ## Verificación TLS
 
-El cliente SOAP verificará el certificado TLS de SUNAT por defecto (en 5.x: `SoapClient::createSecure()`).
+`SoapClient` verifica el certificado TLS del servidor por defecto (en 5.x solo con `SoapClient::createSecure()`).
+Para usar otro certificado de autoridad (CA):
+
+```php
+$client = SoapClient::createSecure('', ['cafile' => '/path/cacert.pem']);
+$see = new See($client);
+```
+
+Si se envía un `stream_context` propio en los parámetros del cliente, se usa tal cual:
+
+```php
+$client = new SoapClient('', [
+    'stream_context' => stream_context_create(['ssl' => [/* opciones */]]),
+]);
+```

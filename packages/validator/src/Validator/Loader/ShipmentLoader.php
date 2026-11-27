@@ -18,24 +18,24 @@ class ShipmentLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('codTraslado', [
             new Assert\NotBlank(),
-            new Assert\Length(['min' => 2, 'max' => 2]),
+            new Assert\Length(min: 2, max: 2),
         ]);
-        $metadata->addPropertyConstraint('desTraslado', new Assert\Length(['max' => 100]));
-        $metadata->addPropertyConstraint('indTransbordo', new Assert\Type(['type' => 'bool']));
+        $metadata->addPropertyConstraint('desTraslado', new Assert\Length(max: 100));
+        $metadata->addPropertyConstraint('indTransbordo', new Assert\Type(type: 'bool'));
         $metadata->addPropertyConstraint('pesoTotal', new Assert\NotBlank());
         $metadata->addPropertyConstraints('undPesoTotal', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 4]),
+            new Assert\Length(max: 4),
         ]);
         $metadata->addPropertyConstraints('modTraslado', [
             new Assert\NotBlank(),
-            new Assert\Length(['min' => 2, 'max' => 2]),
+            new Assert\Length(min: 2, max: 2),
         ]);
         $metadata->addPropertyConstraints('fecTraslado', [
             new Assert\NotBlank(),
         ]);
-        $metadata->addPropertyConstraint('numContenedor', new Assert\Length(['max' => 17]));
-        $metadata->addPropertyConstraint('codPuerto', new Assert\Length(['max' => 3]));
+        $metadata->addPropertyConstraint('numContenedor', new Assert\Length(max: 17));
+        $metadata->addPropertyConstraint('codPuerto', new Assert\Length(max: 3));
         $metadata->addPropertyConstraint('transportista', new Assert\Valid());
         $metadata->addPropertyConstraint('llegada', new Assert\Valid());
         $metadata->addPropertyConstraint('partida', new Assert\Valid());

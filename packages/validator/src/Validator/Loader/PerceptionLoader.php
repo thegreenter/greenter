@@ -20,11 +20,11 @@ class PerceptionLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 4]),
+            new Assert\Length(max: 4),
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 8]),
+            new Assert\Length(max: 8),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
             new Assert\NotNull(),
@@ -39,14 +39,14 @@ class PerceptionLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('regimen', [
             new Assert\NotBlank(),
-            new Assert\Length(['min' => 2, 'max' => 2]),
+            new Assert\Length(min: 2, max: 2),
         ]);
         $metadata->addPropertyConstraint('tasa', new Assert\NotNull());
         $metadata->addPropertyConstraint('impPercibido', new Assert\NotNull());
         $metadata->addPropertyConstraint('impCobrado', new Assert\NotNull());
-        $metadata->addPropertyConstraint('observacion', new Assert\Length(['max' => 250]));
-        $metadata->addPropertyConstraint('redondeo', new Assert\Range(['min' => -1, 'max' => 1]));
-        $metadata->addPropertyConstraint('indExcepcional', new Assert\Length(['min' => 2, 'max' => 2]));
+        $metadata->addPropertyConstraint('observacion', new Assert\Length(max: 250));
+        $metadata->addPropertyConstraint('redondeo', new Assert\Range(min: -1, max: 1));
+        $metadata->addPropertyConstraint('indExcepcional', new Assert\Length(min: 2, max: 2));
         $metadata->addPropertyConstraints('details', [
             new Assert\NotBlank(),
             new Assert\Valid(),

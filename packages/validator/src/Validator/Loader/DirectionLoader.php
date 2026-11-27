@@ -20,11 +20,11 @@ class DirectionLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('ubigueo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 8]),
+            new Assert\Length(max: 8),
         ]);
         $metadata->addPropertyConstraints('direccion', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 100]),
+            new Assert\Length(max: 100),
         ]);
     }
 }

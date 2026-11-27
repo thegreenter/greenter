@@ -18,11 +18,11 @@ class PerceptionDetailLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('tipoDoc', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 2]),
+            new Assert\Length(max: 2),
         ]);
         $metadata->addPropertyConstraints('numDoc', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 13]),
+            new Assert\Length(max: 13),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
             new Assert\NotNull(),
@@ -35,7 +35,7 @@ class PerceptionDetailLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             // XSD SUNAT: cac:Payment maxOccurs=1 por SUNATPerceptionDocumentReference,
             // para varios cobros de una factura agregar un detalle por cada cobro.
-            new Assert\Count(['max' => 1]),
+            new Assert\Count(max: 1),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraint('impCobrar', new Assert\NotNull());

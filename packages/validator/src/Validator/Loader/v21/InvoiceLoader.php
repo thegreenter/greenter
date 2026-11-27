@@ -20,11 +20,11 @@ class InvoiceLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 4]),
+            new Assert\Length(max: 4),
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 8]),
+            new Assert\Length(max: 8),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
             new Assert\NotNull(),

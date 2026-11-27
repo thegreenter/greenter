@@ -21,7 +21,7 @@ class DocumentLoader implements LoaderMetadataInterface
      */
     public function load(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('tipoDoc', new Assert\Length(['min' => 2, 'max' => 2]));
-        $metadata->addPropertyConstraint('nroDoc', new Assert\Length(['max' => 30]));
+        $metadata->addPropertyConstraint('tipoDoc', new Assert\Length(min: 2, max: 2));
+        $metadata->addPropertyConstraint('nroDoc', new Assert\Length(max: 30));
     }
 }

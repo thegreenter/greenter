@@ -8,24 +8,23 @@
 
 declare(strict_types=1);
 
-namespace Tests\Greenter\Factory;
+namespace Tests\Greenter\Processor;
 
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
 use Greenter\Services\SenderInterface;
 
 /**
- * Class FeFactoryXmlTest
- * @package Tests\Greenter
+ * XML generado y firmado por DocumentProcessor.
  */
-class FeFactoryXmlTest extends FeFactoryBase
+class FeProcessorXmlTest extends FeProcessorBase
 {
     public function testInvoiceXml()
     {
         $invoice = $this->getInvoice();
         $this->getFactoryForXml($invoice);
 
-        $xml = $this->factory->getLastXml();
+        $xml = $this->lastXml;
         $xpt = $this->getXpath($xml);
 
         $nodes = $xpt->query('//ds:Signature');
@@ -41,7 +40,7 @@ class FeFactoryXmlTest extends FeFactoryBase
         $creditNote = $this->getCreditNote();
         $this->getFactoryForXml($creditNote);
 
-        $xml = $this->factory->getLastXml();
+        $xml = $this->lastXml;
 
 
         $xpt = $this->getXpath($xml);
@@ -59,7 +58,7 @@ class FeFactoryXmlTest extends FeFactoryBase
         $debitNote = $this->getDebitNote();
         $this->getFactoryForXml($debitNote);
 
-        $xml = $this->factory->getLastXml();
+        $xml = $this->lastXml;
 
 
         $xpt = $this->getXpath($xml);
@@ -77,7 +76,7 @@ class FeFactoryXmlTest extends FeFactoryBase
         $resumen = $this->getSummary();
         $this->getFactoryForXml($resumen);
 
-        $xml = $this->factory->getLastXml();
+        $xml = $this->lastXml;
 
 
         $xpt = $this->getXpath($xml);
@@ -94,7 +93,7 @@ class FeFactoryXmlTest extends FeFactoryBase
         $baja = $this->getVoided();
         $this->getFactoryForXml($baja);
 
-        $xml = $this->factory->getLastXml();
+        $xml = $this->lastXml;
 
 
         $xpt = $this->getXpath($xml);
@@ -127,14 +126,6 @@ class FeFactoryXmlTest extends FeFactoryBase
                     ->setSuccess(true)));
 
         /**@var $sender SenderInterface */
-        $builder = new $this->builders[get_class($document)]([
-            'cache' => false,
-            'strict_variables' => true,
-        ]);
-        $factory = $this->factory
-            ->setBuilder($builder)
-            ->setSender($sender);
-
-        return $factory->send($document);
+        return $this->process($document, $sender);
     }
 }

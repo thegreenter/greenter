@@ -23,17 +23,17 @@ class DespatchLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('tipoDoc', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 2]),
+            new Assert\Length(max: 2),
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 4]),
+            new Assert\Length(max: 4),
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 8]),
+            new Assert\Length(max: 8),
         ]);
-        $metadata->addPropertyConstraint('observacion', new Assert\Length(['max' => 250]));
+        $metadata->addPropertyConstraint('observacion', new Assert\Length(max: 250));
         $metadata->addPropertyConstraints('fechaEmision', [
             new Assert\NotNull(),
         ]);

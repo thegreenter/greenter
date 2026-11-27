@@ -16,13 +16,13 @@ use Greenter\Model\Sale\Invoice;
 use Greenter\See;
 use Greenter\Validator\ErrorCodeProviderInterface;
 use Greenter\Ws\Services\SunatEndpoints;
-use Tests\Greenter\Factory\FeFactoryBase;
+use Tests\Greenter\Processor\FeProcessorBase;
 
 /**
  * Class SeeFeTest
  * @group integration
  */
-class SeeFeTest extends FeFactoryBase
+class SeeFeTest extends FeProcessorBase
 {
     /**
      * @dataProvider providerInvoiceDocsv21
@@ -32,7 +32,6 @@ class SeeFeTest extends FeFactoryBase
     {
         /**@var $result BillResult*/
         $see = $this->getSee();
-        $this->assertNotNull($see->getFactory());
 
         $result = $see->send($doc);
 

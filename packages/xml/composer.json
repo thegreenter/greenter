@@ -15,12 +15,12 @@
     },
     "type": "library",
     "require": {
-        "php": ">=7.4",
-        "greenter/core": "^5.0",
-        "twig/twig": "^3.11.3"
+        "php": ">=8.1",
+        "greenter/core": "^6.0",
+        "twig/twig": "^3.31.1"
     },
     "require-dev": {
-        "greenter/data": "^5.0",
+        "greenter/data": "^6.0",
         "greenter/ubl-validator": "^2.3",
         "phpunit/phpunit": "^9"
     },
@@ -36,7 +36,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "5.0-dev"
+            "dev-master": "6.0-dev"
         }
     }
 }

@@ -8,9 +8,8 @@
 
 declare(strict_types=1);
 
-namespace Tests\Greenter\Factory;
+namespace Tests\Greenter\Processor;
 
-use Greenter\Factory\FeFactory;
 use Greenter\Model\Client\Client;
 use Greenter\Model\Company\Address;
 use Greenter\Model\Company\Company;
@@ -32,43 +31,14 @@ use Greenter\Services\SenderInterface;
 use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SummarySender;
 use Greenter\Ws\Services\SunatEndpoints;
-use Greenter\Xml\Builder\DespatchBuilder;
-use Greenter\Xml\Builder\PerceptionBuilder;
-use Greenter\Xml\Builder\RetentionBuilder;
-use Greenter\Xml\Builder\VoidedBuilder;
-use Greenter\XMLSecLibs\Sunat\SignedXml;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class CeFactoryBase
- * @package Tests\Greenter\Factory
+ * Documentos de retención, percepción, reversión y guía.
  */
-class CeFactoryBase extends TestCase
+class CeProcessorBase extends TestCase
 {
-    /**
-     * @var FeFactory
-     */
-    protected $factory;
-
-    /**
-     * @var array
-     */
-    protected $builders;
-
-    protected function setUp(): void
-    {
-        $signer = new SignedXml();
-        $signer->setCertificateFromFile(__DIR__.'/../../Resources/SFSCert.pem');
-
-        $this->factory = new FeFactory();
-        $this->factory->setSigner($signer);
-        $this->builders = [
-            Despatch::class => DespatchBuilder::class,
-            Perception::class => PerceptionBuilder::class,
-            Retention::class => RetentionBuilder::class,
-            Reversion::class => VoidedBuilder::class,
-        ];
-    }
+    use ProcessorTestTrait;
 
     /**
      * @param DocumentInterface $document
@@ -79,12 +49,8 @@ class CeFactoryBase extends TestCase
         $url = SunatEndpoints::RETENCION_BETA;
 
         $sender = $this->getSender(get_class($document), $url);
-        $builder = new $this->builders[get_class($document)]();
 
-        $this->factory->setSender($sender);
-        $this->factory->setBuilder($builder);
-
-        return $this->factory->send($document);
+        return $this->process($document, $sender, ['cache' => false]);
     }
 
     /**
@@ -124,13 +90,7 @@ class CeFactoryBase extends TestCase
      */
     protected function getXmlSigned(DocumentInterface $document)
     {
-        $builder = new $this->builders[get_class($document)]([
-            'cache' => false,
-            'strict_variables' => true,
-        ]);
-        $this->factory->setBuilder($builder);
-
-        return $this->factory->getXmlSigned($document);
+        return $this->createProcessor($this->createMock(SenderInterface::class))->getXmlSigned($document);
     }
 
     /**

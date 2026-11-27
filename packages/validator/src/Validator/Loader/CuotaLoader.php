@@ -15,7 +15,7 @@ class CuotaLoader implements LoaderMetadataInterface
      */
     public function load(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('moneda', new Assert\Length(['min' => 3, 'max' => 3]));
+        $metadata->addPropertyConstraint('moneda', new Assert\Length(min: 3, max: 3));
         $metadata->addPropertyConstraint('monto', new Assert\NotNull());
         $metadata->addPropertyConstraint('fechaPago', new Assert\NotNull());
     }

@@ -23,9 +23,9 @@ class SummaryPerceptionLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('codReg', [
             new Assert\NotBlank(),
-            new Assert\Choice([
-                'choices' => ['01', '02', '03'],
-            ]),
+            new Assert\Choice(
+                choices: ['01', '02', '03'],
+            ),
         ]);
         $metadata->addPropertyConstraint('tasa', new Assert\NotNull());
         $metadata->addPropertyConstraint('mtoBase', new Assert\NotNull());

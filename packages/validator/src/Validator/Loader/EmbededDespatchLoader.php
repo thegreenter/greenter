@@ -21,12 +21,12 @@ class EmbededDespatchLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraint('llegada', new Assert\Valid());
         $metadata->addPropertyConstraint('partida', new Assert\Valid());
         $metadata->addPropertyConstraint('transportista', new Assert\Valid());
-        $metadata->addPropertyConstraint('nroLicencia', new Assert\Length(['max' => 30]));
-        $metadata->addPropertyConstraint('transpPlaca', new Assert\Length(['max' => 10]));
-        $metadata->addPropertyConstraint('transpCodeAuth', new Assert\Length(['max' => 50]));
-        $metadata->addPropertyConstraint('transpMarca', new Assert\Length(['max' => 50]));
-        $metadata->addPropertyConstraint('modTraslado', new Assert\Length(['min' => 2, 'max' => 2]));
+        $metadata->addPropertyConstraint('nroLicencia', new Assert\Length(max: 30));
+        $metadata->addPropertyConstraint('transpPlaca', new Assert\Length(max: 10));
+        $metadata->addPropertyConstraint('transpCodeAuth', new Assert\Length(max: 50));
+        $metadata->addPropertyConstraint('transpMarca', new Assert\Length(max: 50));
+        $metadata->addPropertyConstraint('modTraslado', new Assert\Length(min: 2, max: 2));
         $metadata->addPropertyConstraint('pesoBruto', new Assert\Type('numeric'));
-        $metadata->addPropertyConstraint('undPesoBruto', new Assert\Length(['max' => 4]));
+        $metadata->addPropertyConstraint('undPesoBruto', new Assert\Length(max: 4));
     }
 }

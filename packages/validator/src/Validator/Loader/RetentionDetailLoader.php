@@ -20,11 +20,11 @@ class RetentionDetailLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('tipoDoc', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 2]),
+            new Assert\Length(max: 2),
         ]);
         $metadata->addPropertyConstraints('numDoc', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 13]),
+            new Assert\Length(max: 13),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
             new Assert\NotNull(),
@@ -37,7 +37,7 @@ class RetentionDetailLoader implements LoaderMetadataInterface
             new Assert\NotBlank(),
             // XSD SUNAT: cac:Payment maxOccurs=1 por SUNATRetentionDocumentReference,
             // para varios pagos de una factura agregar un detalle por cada pago.
-            new Assert\Count(['max' => 1]),
+            new Assert\Count(max: 1),
             new Assert\Valid(),
         ]);
         $metadata->addPropertyConstraint('impPagar', new Assert\NotNull());

@@ -20,14 +20,14 @@ class PrepaymentLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('tipoDocRel', [
             new Assert\NotBlank(),
-            new Assert\Length([
-                'min' => 2,
-                'max' => 2,
-            ]),
+            new Assert\Length(
+                min: 2,
+                max: 2,
+            ),
         ]);
         $metadata->addPropertyConstraints('nroDocRel', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 30]),
+            new Assert\Length(max: 30),
         ]);
         $metadata->addPropertyConstraints('total', [
             new Assert\NotNull(),

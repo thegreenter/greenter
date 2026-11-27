@@ -17,7 +17,7 @@ Puede ver una demostración en [@greenter/demo](https://github.com/thegreenter/d
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=thegreenter_greenter)](https://sonarcloud.io/dashboard?id=thegreenter_greenter)
 
 ## Requerimientos
-- PHP `7.4` o superior
+- PHP `8.1` o superior
 - Extensiones PHP: `soap`, `zlib`, `openssl`, `curl`.
 
 ## Documentación

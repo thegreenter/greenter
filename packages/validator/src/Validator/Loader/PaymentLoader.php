@@ -21,7 +21,7 @@ class PaymentLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraint('numero', new Assert\GreaterThan(0));
         $metadata->addPropertyConstraints('moneda', [
             new Assert\NotBlank(),
-            new Assert\Length(['min' => 3, 'max' => 3]),
+            new Assert\Length(min: 3, max: 3),
         ]);
         $metadata->addPropertyConstraint('importe', new Assert\NotBlank());
         $metadata->addPropertyConstraints('fecha', [

@@ -2,7 +2,14 @@
 
 Los cambios notables de cada lanzamiento serán documentados en este archivo.
 
-## Unreleased
+## Unreleased (6.0)
+- **BC** La versión mínima de PHP es `8.1`.
+- **BC** Requerir `twig/twig` `^3.31.1` (sin versiones con CVEs conocidos) y `symfony/validator` `^6.4 || ^7.4.23`.
+- **BC** Se elimina `FeFactory`, `FactoryInterface` y `See::getFactory()`: usar `DocumentProcessor`, `See::getLastXml()` y `See::getProcessor()`.
+- **BC** `greenter/ws`: se eliminan las propiedades públicas `compressor`, `decompressor` y `cdrReader` de `BaseSunat`, usar `setCompressor()`, `setDecompressor()` y `setCdrReader()`.
+- **BC** **Seguridad** `SoapClient` verifica el certificado TLS del servidor por defecto.
+- `greenter/validator`: constraints con argumentos con nombre (sin deprecaciones en symfony/validator 7.4).
+- CI: PHP 8.1, 8.3 y 8.4.
 
 ## 5.5.0 - 2026-11-27
 - #285 Actualizar el factor ICBPER al valor vigente 0.5 (desde 2023)

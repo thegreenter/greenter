@@ -20,27 +20,27 @@ class TransportistLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('tipoDoc', [
             new Assert\NotBlank(),
-            new Assert\Length(['min' => 1, 'max' => 1]),
+            new Assert\Length(min: 1, max: 1),
         ]);
         $metadata->addPropertyConstraints('numDoc', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 15]),
+            new Assert\Length(max: 15),
         ]);
         $metadata->addPropertyConstraints('rznSocial', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 100]),
+            new Assert\Length(max: 100),
         ]);
         $metadata->addPropertyConstraints('placa', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 8]),
+            new Assert\Length(max: 8),
         ]);
         $metadata->addPropertyConstraints('choferTipoDoc', [
             new Assert\NotBlank(),
-            new Assert\Length(['min' => 1, 'max' => 1]),
+            new Assert\Length(min: 1, max: 1),
         ]);
         $metadata->addPropertyConstraints('choferDoc', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 11]),
+            new Assert\Length(max: 11),
         ]);
     }
 }

@@ -21,12 +21,12 @@ class SummaryDetailLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraint('serieNro', new Assert\NotBlank());
         $metadata->addPropertyConstraints('clienteTipo', [
-            new Assert\Length(['max' => 1]),
+            new Assert\Length(max: 1),
         ]);
         $metadata->addPropertyConstraints('clienteNro', [
-            new Assert\Length(['max' => 20]),
+            new Assert\Length(max: 20),
         ]);
-        $metadata->addPropertyConstraint('clienteNombre', new Assert\Length(['min' => 3, 'max' => 250]));
+        $metadata->addPropertyConstraint('clienteNombre', new Assert\Length(min: 3, max: 250));
         $metadata->addPropertyConstraints('estado', [
             new Assert\NotBlank(),
         ]);

@@ -18,10 +18,10 @@ class LegendLoader implements LoaderMetadataInterface
 {
     public function load(ClassMetadata $metadata)
     {
-        $metadata->addPropertyConstraint('code', new Assert\Length([
-            'min' => 4,
-            'max' => 4,
-        ]));
-        $metadata->addPropertyConstraint('value', new Assert\Length(['max' => 100]));
+        $metadata->addPropertyConstraint('code', new Assert\Length(
+            min: 4,
+            max: 4,
+        ));
+        $metadata->addPropertyConstraint('value', new Assert\Length(max: 100));
     }
 }

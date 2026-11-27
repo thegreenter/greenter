@@ -20,16 +20,16 @@ class InvoiceLoader implements LoaderMetadataInterface
     {
         $metadata->addPropertyConstraints('tipoDoc', [
             new Assert\NotBlank(),
-            new Assert\Choice([
-                'choices' => ['01', '03'], 'message' => '1003'
-            ]),
+            new Assert\Choice(
+                choices: ['01', '03'], message: '1003'
+            ),
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
-            new Assert\Regex(['pattern' => '/^[0-9]{1,8}$/', 'message' => 'G001']),
+            new Assert\Regex(pattern: '/^[0-9]{1,8}$/', message: 'G001'),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
             new Assert\NotNull(),

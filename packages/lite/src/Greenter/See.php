@@ -12,7 +12,6 @@ namespace Greenter;
 
 use DOMDocument;
 use Exception;
-use Greenter\Factory\FeFactory;
 use Greenter\Factory\WsSenderResolver;
 use Greenter\Factory\XmlBuilderResolver;
 use Greenter\Model\DocumentInterface;
@@ -39,11 +38,6 @@ use Greenter\XMLSecLibs\Sunat\SignedXml;
  */
 class See
 {
-    /**
-     * @var FeFactory
-     */
-    private $factory;
-
     /**
      * @var SoapClient
      */
@@ -96,10 +90,8 @@ class See
      */
     public function __construct(?SoapClient $wsClient = null, ?SignedXml $signer = null)
     {
-        $this->factory = new FeFactory();
         $this->wsClient = $wsClient ?? new SoapClient();
         $this->signer = $signer ?? new SignedXml();
-        $this->factory->setSigner($this->signer);
     }
 
     /**
@@ -180,12 +172,7 @@ class See
      */
     public function getXmlSigned(DocumentInterface $document): ?string
     {
-        $docClass = get_class($document);
         $this->lastXml = $this->getProcessor()->getXmlSigned($document);
-
-        $this->factory
-            ->setBuilder($this->getBuilderResolver()->find($docClass))
-            ->setLastXml($this->lastXml);
 
         return $this->lastXml;
     }
@@ -216,9 +203,7 @@ class See
     public function sendXml(string $type, string $name, string $xml): ?BaseResult
     {
         // Valida el tipo de documento (DocumentNoSupportException si no está soportado)
-        $this->factory
-            ->setBuilder($this->getBuilderResolver()->find($type))
-            ->setSender($this->getSenderResolver()->find($type));
+        $this->getBuilderResolver()->find($type);
 
         return $this->getProcessor()->sendXml($type, $name, $xml);
     }
@@ -276,19 +261,6 @@ class See
     public function getLastXml(): ?string
     {
         return $this->lastXml;
-    }
-
-    /**
-     * @return FeFactory
-     *
-     * @deprecated desde 5.5, se elimina en 6.0. Usar `See::getLastXml()` para el último XML firmado
-     *             y `See::getProcessor()` (DocumentProcessor) para construir, firmar y enviar.
-     */
-    public function getFactory(): FeFactory
-    {
-        @trigger_error(sprintf('"%s()" está deprecado desde greenter/lite 5.5 y se elimina en 6.0, usar "%s::getLastXml()" o "%s::getProcessor()".', __METHOD__, self::class, self::class), E_USER_DEPRECATED);
-
-        return $this->factory;
     }
 
     /**

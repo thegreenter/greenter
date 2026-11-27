@@ -26,11 +26,11 @@ class VoidedDetailLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
-            new Assert\Regex(['pattern' => '/^[0-9]{1,8}$/']),
+            new Assert\Regex(pattern: '/^[0-9]{1,8}$/'),
         ]);
         $metadata->addPropertyConstraints('desMotivoBaja', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 100]),
+            new Assert\Length(max: 100),
         ]);
     }
 }

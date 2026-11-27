@@ -15,13 +15,13 @@ use Greenter\Model\Response\BillResult;
 use Greenter\Model\Response\SummaryResult;
 use Greenter\See;
 use Greenter\Ws\Services\SunatEndpoints;
-use Tests\Greenter\Factory\CeFactoryBase;
+use Tests\Greenter\Processor\CeProcessorBase;
 
 /**
  * Class SeeCeTest
  * @group integration
  */
-class SeeCeTest extends CeFactoryBase
+class SeeCeTest extends CeProcessorBase
 {
     /**
      * @dataProvider providerBillDocs

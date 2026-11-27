@@ -23,11 +23,11 @@ class NoteLoader implements LoaderMetadataInterface
         ]);
         $metadata->addPropertyConstraints('serie', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 4]),
+            new Assert\Length(max: 4),
         ]);
         $metadata->addPropertyConstraints('correlativo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 8]),
+            new Assert\Length(max: 8),
         ]);
         $metadata->addPropertyConstraints('fechaEmision', [
             new Assert\NotNull(),
@@ -40,7 +40,7 @@ class NoteLoader implements LoaderMetadataInterface
         $metadata->addPropertyConstraint('numDocfectado', new Assert\NotBlank());
         $metadata->addPropertyConstraints('desMotivo', [
             new Assert\NotBlank(),
-            new Assert\Length(['max' => 500]),
+            new Assert\Length(max: 500),
         ]);
         $metadata->addPropertyConstraints('totalImpuestos', [
             new Assert\NotNull(),

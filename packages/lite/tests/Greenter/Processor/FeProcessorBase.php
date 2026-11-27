@@ -8,13 +8,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Greenter\Factory;
+namespace Tests\Greenter\Processor;
 
 use DateInterval;
 use DateTime;
 use Exception;
-use Greenter\Builder\BuilderInterface;
-use Greenter\Factory\FeFactory;
 use Greenter\Model\Client\Client;
 use Greenter\Model\DocumentInterface;
 use Greenter\Model\Response\BaseResult;
@@ -39,45 +37,14 @@ use Greenter\Services\SenderInterface;
 use Greenter\Ws\Services\SoapClient;
 use Greenter\Ws\Services\SummarySender;
 use Greenter\Ws\Services\SunatEndpoints;
-use Greenter\Xml\Builder\InvoiceBuilder;
-use Greenter\Xml\Builder\NoteBuilder;
-use Greenter\Xml\Builder\SummaryBuilder;
-use Greenter\Xml\Builder\VoidedBuilder;
-use Greenter\XMLSecLibs\Sunat\SignedXml;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Trait FeFactoryTrait
- * @package Tests\Greenter
+ * Documentos de factura, notas, resumen y baja.
  */
-class FeFactoryBase extends TestCase
+class FeProcessorBase extends TestCase
 {
-    /**
-     * @var FeFactory
-     */
-    protected $factory;
-
-    /**
-     * @var array
-     */
-    protected $builders;
-
-    protected function setUp(): void
-    {
-        $this->builders = [
-            Invoice::class => InvoiceBuilder::class,
-            Note::class => NoteBuilder::class,
-            Summary::class => SummaryBuilder::class,
-            Voided::class => VoidedBuilder::class,
-        ];
-
-        $signer = new SignedXml();
-        $signer->setCertificateFromFile(__DIR__.'/../../Resources/SFSCert.pem');
-
-        $factory = new FeFactory();
-        $factory->setSigner($signer);
-        $this->factory = $factory;
-    }
+    use ProcessorTestTrait;
 
     /**
      * @param string $className
@@ -103,24 +70,8 @@ class FeFactoryBase extends TestCase
     protected function getFactoryResult(DocumentInterface $document)
     {
         $sender = $this->getSender(get_class($document), SunatEndpoints::FE_BETA);
-        $builder = $this->getBuilder($document);
-        $factory = $this->factory
-            ->setBuilder($builder)
-            ->setSender($sender);
 
-        return $factory->send($document);
-    }
-
-    /**
-     * @param DocumentInterface $document
-     * @return BuilderInterface
-     */
-    protected function getBuilder(DocumentInterface $document)
-    {
-        return new $this->builders[get_class($document)]([
-            'cache' => false,
-            'strict_variables' => true,
-        ]);
+        return $this->process($document, $sender);
     }
 
     /**
