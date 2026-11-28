@@ -69,6 +69,12 @@ class Despatch implements DocumentInterface
      */
     private $comprador;
     /**
+     * Datos del Remitente. Obligatorio en la guía de remisión transportista (31).
+     *
+     * @var Client
+     */
+    private $remitente;
+    /**
      * @var Shipment
      */
     private $envio;
@@ -283,6 +289,26 @@ class Despatch implements DocumentInterface
     public function setComprador(?Client $comprador): Despatch
     {
         $this->comprador = $comprador;
+
+        return $this;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getRemitente(): ?Client
+    {
+        return $this->remitente;
+    }
+
+    /**
+     * @param Client|null $remitente
+     *
+     * @return Despatch
+     */
+    public function setRemitente(?Client $remitente): Despatch
+    {
+        $this->remitente = $remitente;
 
         return $this;
     }

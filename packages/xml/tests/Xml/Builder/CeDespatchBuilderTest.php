@@ -14,7 +14,9 @@ use Greenter\Data\Generator\Despatch2022Store;
 use Greenter\Data\Generator\DespatchStore;
 use Greenter\Model\Despatch\Autorizacion;
 use Greenter\Model\Despatch\Contenedor;
+use Greenter\Model\Client\Client;
 use Greenter\Model\Despatch\Despatch;
+use Greenter\Model\Despatch\Transportist;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -176,5 +178,68 @@ class CeDespatchBuilderTest extends TestCase
         ];
 
         return join('-', $parts);
+    }
+
+    /**
+     * Guía de remisión transportista (31): el remitente va en cac:Despatch/cac:DespatchParty (antes de
+     * cac:AgentParty cuando hay autorización especial) y el subcontratado en cac:Consignment, antes de
+     * cac:ShipmentStage.
+     */
+    public function testGuiaTransportistaConRemitenteYSubcontratado()
+    {
+        /** @var Despatch $despatch */
+        $despatch = $this->createDocument(Despatch2022Store::class);
+        $despatch->setTipoDoc('31')
+            ->setRemitente((new Client())->setTipoDoc('6')->setNumDoc('20555555551')->setRznSocial('REMITENTE SAC'));
+        $despatch->getEnvio()
+            ->setCodTraslado(null)
+            ->setModTraslado(null)
+            ->setAutorizacion((new Autorizacion())->setNumero('AUT-REM-2026-01')->setCodEmisor('06'))
+            ->setSubContratado((new Transportist())->setTipoDoc('6')->setNumDoc('20000000003')->setRznSocial('SUBCONTRATA SAC'));
+
+        $xml = $this->build($despatch);
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+        $xpath->registerNamespace('cbc', 'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2');
+        $remitente = '/*/cac:Shipment/cac:Delivery/cac:Despatch/cac:DespatchParty';
+        $subcontratado = '/*/cac:Shipment/cac:Consignment/cac:LogisticsOperatorParty';
+
+        $this->assertSame('31', $xpath->evaluate('string(/*/cbc:DespatchAdviceTypeCode)'));
+        $this->assertSame(['6', '20555555551', 'REMITENTE SAC'], [
+            $xpath->evaluate("string($remitente/cac:PartyIdentification/cbc:ID/@schemeID)"),
+            $xpath->evaluate("string($remitente/cac:PartyIdentification/cbc:ID)"),
+            $xpath->evaluate("string($remitente/cac:PartyLegalEntity/cbc:RegistrationName)"),
+        ]);
+        $this->assertSame('AUT-REM-2026-01', $xpath->evaluate("string($remitente/cac:AgentParty/cac:PartyLegalEntity/cbc:CompanyID)"));
+        $this->assertSame(1, $xpath->query("$remitente/cac:PartyLegalEntity/following-sibling::cac:AgentParty")->length);
+        $this->assertSame(['SUNAT_Envio', '6', '20000000003', 'SUBCONTRATA SAC'], [
+            $xpath->evaluate('string(/*/cac:Shipment/cac:Consignment/cbc:ID)'),
+            $xpath->evaluate("string($subcontratado/cac:PartyIdentification/cbc:ID/@schemeID)"),
+            $xpath->evaluate("string($subcontratado/cac:PartyIdentification/cbc:ID)"),
+            $xpath->evaluate("string($subcontratado/cac:PartyLegalEntity/cbc:RegistrationName)"),
+        ]);
+        $this->assertSame(1, $xpath->query('/*/cac:Shipment/cac:Consignment/following-sibling::cac:ShipmentStage')->length);
+        // La guía 31 no lleva motivo ni modalidad de traslado, y el transportista solo escribe su número MTC.
+        $this->assertSame(0, $xpath->query('/*/cac:Shipment/cbc:HandlingCode')->length);
+        $this->assertSame(0, $xpath->query('/*/cac:Shipment/cac:ShipmentStage/cbc:TransportModeCode')->length);
+        $carrier = '/*/cac:Shipment/cac:ShipmentStage/cac:CarrierParty';
+        $this->assertSame('100101', $xpath->evaluate("string($carrier/cac:PartyLegalEntity/cbc:CompanyID)"));
+        $this->assertSame(0, $xpath->query("$carrier/cac:PartyIdentification")->length);
+        $this->assertSchema($xml);
+    }
+
+    public function testSinRemitenteNiSubcontratadoNoSeEscriben()
+    {
+        $xml = $this->build($this->createDocument(Despatch2022Store::class));
+        $doc = new \DOMDocument();
+        $doc->loadXML($xml);
+        $xpath = new \DOMXPath($doc);
+        $xpath->registerNamespace('cac', 'urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2');
+
+        $this->assertSame(0, $xpath->query('/*/cac:Shipment/cac:Consignment')->length);
+        $this->assertSame(0, $xpath->query('/*/cac:Shipment/cac:Delivery/cac:Despatch/cac:DespatchParty/cac:PartyIdentification')->length);
+        $this->assertSchema($xml);
     }
 }
